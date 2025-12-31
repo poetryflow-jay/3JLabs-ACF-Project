@@ -71,6 +71,8 @@ final class JJ_Admin_Center {
         add_action( 'wp_ajax_jj_check_updates_now', array( $this, 'ajax_check_updates_now' ) );
         // [v8.x] Updates 탭: 플러그인별 자동 업데이트 토글 (WP 코어 옵션과 직접 동기화)
         add_action( 'wp_ajax_jj_toggle_auto_update_plugin', array( $this, 'ajax_toggle_auto_update_plugin' ) );
+        // [v8.x] Updates 탭: Suite 전체 업데이트 체크(트랜지언트 갱신)
+        add_action( 'wp_ajax_jj_suite_refresh_updates', array( $this, 'ajax_suite_refresh_updates' ) );
         // [Phase 6] 자가 진단 AJAX 핸들러
         add_action( 'wp_ajax_jj_run_self_test', array( $this, 'ajax_run_self_test' ) );
 
@@ -1358,6 +1360,50 @@ final class JJ_Admin_Center {
             array(
                 'plugin'  => $plugin,
                 'enabled' => (bool) $target,
+            )
+        );
+    }
+
+    /**
+     * [v8.x] AJAX: Suite 전체 업데이트 상태 갱신 (WP 코어 update_plugins transient)
+     *
+     * - delete_site_transient('update_plugins') 후 wp_update_plugins()를 호출하여
+     *   Updates 탭의 "업데이트 가능" 표시를 최신으로 만듭니다.
+     */
+    public function ajax_suite_refresh_updates() {
+        check_ajax_referer( 'jj_admin_center_save_action', 'security' );
+
+        if ( ! current_user_can( 'update_plugins' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        }
+
+        // 캐시 삭제
+        delete_site_transient( 'update_plugins' );
+
+        // 업데이트 체크 강제 실행
+        if ( ! function_exists( 'wp_update_plugins' ) && defined( 'ABSPATH' ) ) {
+            $update_php = ABSPATH . 'wp-admin/includes/update.php';
+            if ( file_exists( $update_php ) ) {
+                require_once $update_php;
+            }
+        }
+        if ( function_exists( 'wp_update_plugins' ) ) {
+            wp_update_plugins();
+        }
+
+        $updates_obj = get_site_transient( 'update_plugins' );
+        $last_checked = ( is_object( $updates_obj ) && isset( $updates_obj->last_checked ) ) ? (int) $updates_obj->last_checked : 0;
+        $resp = ( is_object( $updates_obj ) && isset( $updates_obj->response ) && is_array( $updates_obj->response ) ) ? $updates_obj->response : array();
+        $checked = ( is_object( $updates_obj ) && isset( $updates_obj->checked ) && is_array( $updates_obj->checked ) ) ? $updates_obj->checked : array();
+        $next_check = function_exists( 'wp_next_scheduled' ) ? (int) wp_next_scheduled( 'wp_update_plugins' ) : 0;
+
+        wp_send_json_success(
+            array(
+                'message' => __( '업데이트 정보를 갱신했습니다.', 'jj-style-guide' ),
+                'last_checked' => $last_checked,
+                'next_check' => $next_check,
+                'updates_count' => is_array( $resp ) ? count( $resp ) : 0,
+                'checked_count' => is_array( $checked ) ? count( $checked ) : 0,
             )
         );
     }

@@ -803,6 +803,137 @@
         $wrap.on('change', '#jj-updates-suite-hide-uninstalled, #jj-updates-suite-only-updates', filterUpdatesSuiteRows);
         filterUpdatesSuiteRows();
 
+        // Updates Overview: Suite 액션(전체 체크/보이는 항목 auto-update 일괄)
+        function setSuiteActionsStatus(html, type) {
+            const $box = $('#jj-suite-actions-status');
+            if (!$box.length) return;
+            if (!html) {
+                $box.empty();
+                return;
+            }
+            let cls = 'notice notice-info inline';
+            if (type === 'success') cls = 'notice notice-success inline';
+            if (type === 'error') cls = 'notice notice-error inline';
+            if (type === 'warning') cls = 'notice notice-warning inline';
+            $box.html('<div class="' + cls + '"><p>' + html + '</p></div>');
+        }
+
+        function getVisibleInstalledSuiteRows() {
+            const rows = [];
+            $('.jj-suite-row:visible').each(function() {
+                const $row = $(this);
+                if ($row.attr('data-installed') === '1') rows.push($row);
+            });
+            return rows;
+        }
+
+        $wrap.on('click', '#jj-suite-refresh-updates', function(e) {
+            e.preventDefault();
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.nonce) return;
+
+            const $btn = $(this);
+            $btn.prop('disabled', true);
+            setSuiteActionsStatus('<span class="spinner is-active" style="float:none; margin:0 6px 0 0;"></span> 전체 업데이트를 다시 체크하는 중…', 'info');
+
+            $.post(jjAdminCenter.ajax_url, { action: 'jj_suite_refresh_updates', security: jjAdminCenter.nonce })
+                .done(function(resp) {
+                    if (resp && resp.success) {
+                        const d = resp.data || {};
+                        const msg = (d.message ? d.message : '업데이트 정보를 갱신했습니다.')
+                            + ' (updates=' + (d.updates_count || 0) + ', checked=' + (d.checked_count || 0) + ')';
+                        setSuiteActionsStatus('<strong>완료:</strong> ' + msg + ' — 잠시 후 화면을 새로고칩니다.', 'success');
+                        setTimeout(function() { window.location.reload(); }, 900);
+                    } else {
+                        const msg = resp && resp.data && resp.data.message ? resp.data.message : '업데이트 체크에 실패했습니다.';
+                        setSuiteActionsStatus('<strong>오류:</strong> ' + msg, 'error');
+                    }
+                })
+                .fail(function() {
+                    setSuiteActionsStatus('<strong>오류:</strong> 서버 통신 오류가 발생했습니다.', 'error');
+                })
+                .always(function() {
+                    $btn.prop('disabled', false);
+                });
+        });
+
+        function bulkSetAutoUpdateForVisibleRows(targetEnabled) {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.nonce) return;
+            const rows = getVisibleInstalledSuiteRows();
+            if (!rows.length) {
+                alert('현재 화면에 설치된 플러그인이 없습니다.');
+                return;
+            }
+
+            const verb = targetEnabled ? 'ON' : 'OFF';
+            if (!confirm('현재 보이는 설치된 플러그인 ' + rows.length + '개에 대해 Auto-Update를 ' + verb + '으로 설정할까요?')) {
+                return;
+            }
+
+            const $btnOn = $('#jj-suite-auto-update-on');
+            const $btnOff = $('#jj-suite-auto-update-off');
+            $btnOn.prop('disabled', true);
+            $btnOff.prop('disabled', true);
+
+            let i = 0;
+            let ok = 0;
+            let fail = 0;
+
+            function step() {
+                if (i >= rows.length) {
+                    setSuiteActionsStatus('<strong>완료:</strong> Auto-Update ' + verb + ' 적용 ' + ok + '개, 실패 ' + fail + '개', (fail ? 'warning' : 'success'));
+                    $btnOn.prop('disabled', false);
+                    $btnOff.prop('disabled', false);
+                    return;
+                }
+
+                const $row = rows[i];
+                const plugin = $row.attr('data-plugin') || '';
+                i++;
+
+                if (!plugin) {
+                    fail++;
+                    setSuiteActionsStatus('진행 중… ' + i + '/' + rows.length + ' (plugin key missing)', 'info');
+                    return step();
+                }
+
+                setSuiteActionsStatus('진행 중… ' + i + '/' + rows.length + ' — ' + plugin, 'info');
+                $.post(jjAdminCenter.ajax_url, {
+                    action: 'jj_toggle_auto_update_plugin',
+                    security: jjAdminCenter.nonce,
+                    plugin: plugin,
+                    enabled: targetEnabled ? '1' : '0'
+                }).done(function(resp) {
+                    if (resp && resp.success) {
+                        ok++;
+                        const enabled = !!(resp.data && resp.data.enabled);
+                        setSuiteRowAutoUpdate($row, enabled);
+                        if (plugin.indexOf('acf-css-really-simple-style-guide.php') !== -1) {
+                            $('#jj_auto_update_enabled').prop('checked', enabled);
+                            syncAutoUpdateToggleUi();
+                        }
+                    } else {
+                        fail++;
+                    }
+                }).fail(function() {
+                    fail++;
+                }).always(function() {
+                    // slight delay to avoid hammering admin-ajax on slower servers
+                    setTimeout(step, 120);
+                });
+            }
+
+            step();
+        }
+
+        $wrap.on('click', '#jj-suite-auto-update-on', function(e) {
+            e.preventDefault();
+            bulkSetAutoUpdateForVisibleRows(true);
+        });
+        $wrap.on('click', '#jj-suite-auto-update-off', function(e) {
+            e.preventDefault();
+            bulkSetAutoUpdateForVisibleRows(false);
+        });
+
         // 토글 버튼: 체크박스 상태만 즉시 변경 (저장은 별도)
         $wrap.on('click', '#jj-toggle-auto-update', function(e) {
             e.preventDefault();
@@ -923,6 +1054,8 @@
             }
 
             const $btn = $(this);
+            const $copyBtn = $('#jj-copy-self-test');
+            const $dlBtn = $('#jj-download-self-test');
             const $box = $('#jj-self-test-results');
             const $spinner = $box.find('.spinner');
             const $statusText = $box.find('.jj-test-status-text');
@@ -933,6 +1066,9 @@
             $spinner.addClass('is-active').show();
             $statusText.text('진단 중...');
             $btn.prop('disabled', true);
+            $copyBtn.prop('disabled', true);
+            $dlBtn.prop('disabled', true);
+            window.jjLastSelfTestResults = null;
 
             $.ajax({
                 url: jjAdminCenter.ajax_url,
@@ -957,6 +1093,11 @@
                     $list.append('<li style="padding:8px 10px; border:1px solid #c3c4c7; border-radius:6px; background:#f6f7f7;">결과가 없습니다.</li>');
                     return;
                 }
+
+                // store last results for copy/download
+                window.jjLastSelfTestResults = results;
+                $copyBtn.prop('disabled', false);
+                $dlBtn.prop('disabled', false);
 
                 let counts = { pass: 0, warn: 0, fail: 0, skip: 0 };
                 results.forEach(function(r) {
@@ -996,6 +1137,65 @@
             }).always(function() {
                 $btn.prop('disabled', false);
             });
+        });
+
+        // Self-test: copy / download helpers
+        function buildSelfTestReportText(results) {
+            const lines = [];
+            lines.push('[JJ Self-Test]');
+            lines.push('timestamp=' + new Date().toISOString());
+            (results || []).forEach(function(r) {
+                const t = (r && r.test) ? String(r.test) : '(unknown)';
+                const s = (r && r.status) ? String(r.status).toUpperCase() : 'WARN';
+                const m = (r && r.message) ? String(r.message) : '';
+                lines.push('[' + s + '] ' + t + (m ? (' — ' + m) : ''));
+            });
+            return lines.join('\n');
+        }
+
+        $wrap.on('click', '#jj-copy-self-test', function(e) {
+            e.preventDefault();
+            const results = window.jjLastSelfTestResults;
+            if (!results || !results.length) {
+                alert('복사할 결과가 없습니다. 먼저 자가 진단을 실행하세요.');
+                return;
+            }
+            const text = buildSelfTestReportText(results);
+            if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    alert('자가 진단 결과를 클립보드에 복사했습니다.');
+                }).catch(function() {
+                    window.prompt('복사(CTRL+C) 후 닫기:', text);
+                });
+            } else {
+                window.prompt('복사(CTRL+C) 후 닫기:', text);
+            }
+        });
+
+        $wrap.on('click', '#jj-download-self-test', function(e) {
+            e.preventDefault();
+            const results = window.jjLastSelfTestResults;
+            if (!results || !results.length) {
+                alert('다운로드할 결과가 없습니다. 먼저 자가 진단을 실행하세요.');
+                return;
+            }
+            try {
+                const payload = {
+                    exported_at: new Date().toISOString(),
+                    results: results
+                };
+                const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'jj-self-test-' + (new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')) + '.json';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+            } catch (err) {
+                alert('다운로드에 실패했습니다.');
+            }
         });
 
         initializeSortable();

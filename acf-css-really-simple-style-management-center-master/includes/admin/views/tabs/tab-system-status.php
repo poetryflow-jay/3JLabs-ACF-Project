@@ -19,9 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <?php esc_html_e( '플러그인의 핵심 기능이 정상 작동하는지 검사합니다.', 'jj-style-guide' ); ?>
                     </p>
                 </div>
-                <button type="button" class="button button-primary" id="jj-run-self-test">
-                    <?php esc_html_e( '자가 진단 실행', 'jj-style-guide' ); ?>
-                </button>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <button type="button" class="button" id="jj-copy-self-test" disabled>
+                        <?php esc_html_e( '결과 복사', 'jj-style-guide' ); ?>
+                    </button>
+                    <button type="button" class="button" id="jj-download-self-test" disabled>
+                        <?php esc_html_e( 'JSON 다운로드', 'jj-style-guide' ); ?>
+                    </button>
+                    <button type="button" class="button button-primary" id="jj-run-self-test">
+                        <?php esc_html_e( '자가 진단 실행', 'jj-style-guide' ); ?>
+                    </button>
+                </div>
             </div>
             <div id="jj-self-test-results" style="margin-top: 15px; display: none;">
                 <hr style="margin: 15px 0;">

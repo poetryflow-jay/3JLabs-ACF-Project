@@ -182,6 +182,8 @@
     var PRESETS = [];
     var bulkMode = false;
     var bulkSelected = {};
+    var lastUndoSnapshot = null;
+    var lastUndoLabel = '';
 
     function isAiPreset(p) {
       if (!p || typeof p !== 'object') return false;
@@ -397,8 +399,9 @@
 
       var $actions = $('<div class="jj-preset-actions"></div>');
       var $apply = $('<button type="button" class="button button-primary jj-preset-apply" disabled>선택한 프리셋 적용</button>');
+      var $undo = $('<button type="button" class="button jj-preset-undo" disabled>되돌리기</button>');
       var $hint = $('<span class="jj-preset-hint">클릭 → 미리보기 → 적용 (언제든 수정 가능)</span>');
-      $actions.append($apply).append($hint);
+      $actions.append($apply).append($undo).append($hint);
 
       $mount.append($grid).append($actions);
 
@@ -926,6 +929,24 @@
         });
       });
 
+      function captureColorSnapshot() {
+        var snap = {};
+        $('#jj-style-guide-form').find('.jj-color-field[data-setting-key]').each(function(){
+          var k = $(this).attr('data-setting-key');
+          if (!k) return;
+          snap[k] = $(this).val();
+        });
+        return snap;
+      }
+
+      function restoreColorSnapshot(snap) {
+        if (!snap) return;
+        Object.keys(snap).forEach(function(k){
+          setField(k, snap[k]);
+        });
+        updateInlinePreview();
+      }
+
       $apply.prop('disabled', !selectedId);
       $apply.on('click', function(){
         var preset = PRESETS.find(function(x){ return x.id === selectedId; });
@@ -933,6 +954,11 @@
 
         var includeSystem = $includeSystem.find('input').is(':checked');
         var includeComponents = $includeComponents.find('input').is(':checked');
+
+        // Undo snapshot (apply 전 상태 저장)
+        lastUndoSnapshot = captureColorSnapshot();
+        lastUndoLabel = preset.name || '프리셋';
+        $undo.prop('disabled', false);
 
         // brand
         setField('palettes[brand][primary_color]', preset.brand.primary);
@@ -958,6 +984,20 @@
             $btn.trigger('click');
           }
         }
+
+        showToast('프리셋이 적용되었습니다. (되돌리기 가능)', 'success');
+      });
+
+      $undo.prop('disabled', !lastUndoSnapshot);
+      $undo.on('click', function(){
+        if (!lastUndoSnapshot) return;
+        var label = lastUndoLabel ? ('"' + lastUndoLabel + '"') : '이전 상태';
+        if (!confirm(label + ' 적용 전 상태로 되돌릴까요?')) return;
+        restoreColorSnapshot(lastUndoSnapshot);
+        lastUndoSnapshot = null;
+        lastUndoLabel = '';
+        $undo.prop('disabled', true);
+        showToast('되돌렸습니다.', 'info');
       });
     }
 

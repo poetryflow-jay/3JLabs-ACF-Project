@@ -229,6 +229,59 @@ class JJ_Self_Tester {
             $results[] = array( 'test' => "Options Integrity", 'status' => 'fail', 'message' => 'Corrupted or Missing' );
         }
 
+        // 4. Update / Cron health
+        if ( function_exists( 'wp_next_scheduled' ) ) {
+            $next = (int) wp_next_scheduled( 'wp_update_plugins' );
+            $results[] = array(
+                'test'    => 'Cron: wp_update_plugins',
+                'status'  => $next ? 'pass' : 'warn',
+                'message' => $next ? ( 'Next: ' . ( function_exists( 'date_i18n' ) ? date_i18n( 'Y-m-d H:i:s', $next ) : (string) $next ) ) : 'Not scheduled (may be disabled)',
+            );
+        } else {
+            $results[] = array( 'test' => 'Cron: wp_update_plugins', 'status' => 'warn', 'message' => 'wp_next_scheduled() not available' );
+        }
+
+        // 5. Update transient basic sanity
+        if ( function_exists( 'get_site_transient' ) ) {
+            $u = get_site_transient( 'update_plugins' );
+            $last_checked = ( is_object( $u ) && isset( $u->last_checked ) ) ? (int) $u->last_checked : 0;
+            $resp = ( is_object( $u ) && isset( $u->response ) && is_array( $u->response ) ) ? $u->response : array();
+            $results[] = array(
+                'test'    => 'Update transient: update_plugins',
+                'status'  => $u ? 'pass' : 'warn',
+                'message' => $u ? ( 'last_checked=' . ( $last_checked ? ( function_exists( 'date_i18n' ) ? date_i18n( 'Y-m-d H:i:s', $last_checked ) : (string) $last_checked ) : '0' ) . ', updates=' . count( $resp ) ) : 'Missing (will be generated on update check)',
+            );
+        } else {
+            $results[] = array( 'test' => 'Update transient: update_plugins', 'status' => 'warn', 'message' => 'get_site_transient() not available' );
+        }
+
+        // 6. Auto-update site option sanity
+        if ( function_exists( 'get_site_option' ) ) {
+            $auto = get_site_option( 'auto_update_plugins', array() );
+            $results[] = array(
+                'test'    => 'Site option: auto_update_plugins',
+                'status'  => is_array( $auto ) ? 'pass' : 'fail',
+                'message' => is_array( $auto ) ? ( 'Count: ' . count( $auto ) ) : 'Invalid type (should be array)',
+            );
+        }
+
+        // 7. Required plugins (WooCommerce) status (if plugin.php available)
+        if ( defined( 'ABSPATH' ) ) {
+            $plugin_php = ABSPATH . 'wp-admin/includes/plugin.php';
+            if ( file_exists( $plugin_php ) ) {
+                require_once $plugin_php;
+            }
+        }
+        if ( function_exists( 'is_plugin_active' ) ) {
+            $woo_pf = 'woocommerce/woocommerce.php';
+            $woo_active = is_plugin_active( $woo_pf );
+            $results[] = array(
+                'test'    => 'Required: WooCommerce',
+                'status'  => $woo_active ? 'pass' : 'warn',
+                'message' => $woo_active ? 'Active' : 'Inactive or not installed (Woo License add-on requires it)',
+            );
+        }
+
         return $results;
     }
 }

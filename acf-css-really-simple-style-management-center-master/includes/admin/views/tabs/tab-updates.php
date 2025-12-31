@@ -112,6 +112,33 @@ if ( ! defined( 'ABSPATH' ) ) {
             // 설치되지 않았으면 첫 후보를 반환(표시/토글용 키)
             return isset( $candidates[0] ) ? (string) $candidates[0] : '';
         };
+
+        // Suite summary
+        $suite_total = count( $suite );
+        $suite_installed = 0;
+        $suite_active = 0;
+        $suite_updates = 0;
+        $suite_auto = 0;
+        foreach ( $suite as $it_sum ) {
+            $pf_sum = $find_plugin_file( $it_sum['candidates'] ?? array() );
+            if ( '' === $pf_sum ) continue;
+            $installed_sum = isset( $all_plugins[ $pf_sum ] );
+            if ( $installed_sum ) {
+                $suite_installed++;
+                if ( function_exists( 'is_plugin_active' ) && is_plugin_active( $pf_sum ) ) {
+                    $suite_active++;
+                }
+                if ( isset( $updates_resp[ $pf_sum ] ) ) {
+                    $u = $updates_resp[ $pf_sum ];
+                    if ( is_object( $u ) && ! empty( $u->new_version ) ) {
+                        $suite_updates++;
+                    }
+                }
+                if ( in_array( $pf_sum, $auto_updates, true ) ) {
+                    $suite_auto++;
+                }
+            }
+        }
         ?>
 
         <h2 style="margin-top: 0;"><?php esc_html_e( '업데이트 개요 (코어 + 애드온)', 'jj-style-guide' ); ?></h2>
@@ -131,7 +158,31 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <input type="checkbox" id="jj-updates-suite-only-updates" />
                 <?php esc_html_e( '업데이트만 보기', 'jj-style-guide' ); ?>
             </label>
+
+            <button type="button" class="button" id="jj-suite-refresh-updates">
+                <?php esc_html_e( '전체 업데이트 다시 체크', 'jj-style-guide' ); ?>
+            </button>
+            <button type="button" class="button button-secondary" id="jj-suite-auto-update-on">
+                <?php esc_html_e( '보이는 항목 Auto-Update ON', 'jj-style-guide' ); ?>
+            </button>
+            <button type="button" class="button button-secondary" id="jj-suite-auto-update-off">
+                <?php esc_html_e( '보이는 항목 Auto-Update OFF', 'jj-style-guide' ); ?>
+            </button>
+
             <span class="description" style="margin-left:auto;">
+                <?php
+                printf(
+                    /* translators: 1: installed 2: total 3: active 4: updates 5: auto updates */
+                    esc_html__( '설치 %1$d/%2$d · 활성 %3$d · 업데이트 %4$d · Auto-Update %5$d', 'jj-style-guide' ),
+                    (int) $suite_installed,
+                    (int) $suite_total,
+                    (int) $suite_active,
+                    (int) $suite_updates,
+                    (int) $suite_auto
+                );
+                ?>
+            </span>
+            <span class="description" style="margin-left: 10px;">
                 <?php
                 printf(
                     /* translators: 1: last checked 2: next check */
@@ -143,6 +194,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 · <a href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>"><?php esc_html_e( '워드프레스 업데이트', 'jj-style-guide' ); ?></a>
             </span>
         </div>
+
+        <div id="jj-suite-actions-status" style="margin-top: 10px;"></div>
 
         <table class="widefat striped" style="margin-top: 12px;">
             <thead>
@@ -221,7 +274,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     ?>
                     <tr class="jj-suite-row"
                         data-plugin="<?php echo esc_attr( $pf ); ?>"
-                        data-name="<?php echo esc_attr( strtolower( $name ) ); ?>"
+                        data-name="<?php echo esc_attr( strtolower( $name . ' ' . $pf ) ); ?>"
                         data-installed="<?php echo $installed ? '1' : '0'; ?>"
                         data-has-update="<?php echo $has_update ? '1' : '0'; ?>">
                         <td>
