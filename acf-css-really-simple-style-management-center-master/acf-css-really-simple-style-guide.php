@@ -29,7 +29,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] 전면 재검토 및 오류 방지: 안전한 파일 로더 추가, 모든 버전의 require_once 안전 처리, 결제 유도 문구 추가, 플러그인 목록 페이지 바로가기 링크 추가
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
-define( 'JJ_STYLE_GUIDE_VERSION', '8.0.0' ); // [v7.0.0] Operation Deep Dive - Stability & Reliability Overhaul
+if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
+    define( 'JJ_STYLE_GUIDE_VERSION', '8.0.0' ); // [v7.0.0] Operation Deep Dive - Stability & Reliability Overhaul
+}
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
 if ( ! defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
@@ -49,16 +51,17 @@ if ( ! defined( 'JJ_STYLE_GUIDE_URL' ) ) {
         define( 'JJ_STYLE_GUIDE_URL', '' );
     }
 }
-define( 'JJ_STYLE_GUIDE_OPTIONS_KEY', 'jj_style_guide_options' );
-define( 'JJ_STYLE_GUIDE_TEMP_OPTIONS_KEY', 'jj_style_guide_temp_options' );
-define( 'JJ_STYLE_GUIDE_ADMIN_TEXT_KEY', 'jj_style_guide_admin_texts' );
-define( 'JJ_STYLE_GUIDE_PAGE_SLUG', 'acf-css-really-simple-style-guide' );
-define( 'JJ_STYLE_GUIDE_COCKPIT_PAGE_ID_KEY', 'jj_style_guide_cockpit_page_id' );
-define( 'JJ_STYLE_GUIDE_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG );
+if ( ! defined( 'JJ_STYLE_GUIDE_OPTIONS_KEY' ) ) define( 'JJ_STYLE_GUIDE_OPTIONS_KEY', 'jj_style_guide_options' );
+if ( ! defined( 'JJ_STYLE_GUIDE_TEMP_OPTIONS_KEY' ) ) define( 'JJ_STYLE_GUIDE_TEMP_OPTIONS_KEY', 'jj_style_guide_temp_options' );
+if ( ! defined( 'JJ_STYLE_GUIDE_ADMIN_TEXT_KEY' ) ) define( 'JJ_STYLE_GUIDE_ADMIN_TEXT_KEY', 'jj_style_guide_admin_texts' );
+if ( ! defined( 'JJ_STYLE_GUIDE_PAGE_SLUG' ) ) define( 'JJ_STYLE_GUIDE_PAGE_SLUG', 'acf-css-really-simple-style-guide' );
+if ( ! defined( 'JJ_STYLE_GUIDE_COCKPIT_PAGE_ID_KEY' ) ) define( 'JJ_STYLE_GUIDE_COCKPIT_PAGE_ID_KEY', 'jj_style_guide_cockpit_page_id' );
+if ( ! defined( 'JJ_STYLE_GUIDE_DEBUG' ) ) define( 'JJ_STYLE_GUIDE_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG );
 // Pro 버전 활성화 코드 확인 (plugins_loaded 훅에서 처리)
 // WordPress가 로드되기 전에는 기본값 사용
-define( 'JJ_STYLE_GUIDE_LICENSE_TYPE', 'MASTER' ); // 기본값, plugins_loaded에서 업데이트됨
-define( 'JJ_STYLE_GUIDE_EDITION', 'master' ); // 기본 에디션은 free
+// 기본값(빌드 스크립트에서 주입/대체될 수 있음). 이미 정의돼 있으면 건드리지 않습니다.
+if ( ! defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) define( 'JJ_STYLE_GUIDE_LICENSE_TYPE', 'MASTER' );
+if ( ! defined( 'JJ_STYLE_GUIDE_EDITION' ) ) define( 'JJ_STYLE_GUIDE_EDITION', 'master' );
 
 // [v3.8.0] 환경 구분
 if ( ! defined( 'JJ_STYLE_GUIDE_ENV' ) ) {
@@ -266,6 +269,8 @@ final class JJ_Simple_Style_Guide_Master {
             $plugin_basename = function_exists( 'plugin_basename' ) ? plugin_basename( __FILE__ ) : basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ );
             add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_plugin_settings_link' ) );
             add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+            // [v8.x] 부팅 진단: Safe Loader에서 누락/로드 오류 감지 시 관리자에게 안내
+            add_action( 'admin_notices', array( $this, 'maybe_show_boot_diagnostics_notice' ) );
             add_action( 'wp_ajax_jj_save_style_guide', array( $this, 'save_settings_ajax' ) );
             add_action( 'wp_ajax_jj_apply_temp_palette', array( $this, 'apply_temp_palette_ajax' ) );
             add_action( 'wp_ajax_jj_save_temp_palette', array( $this, 'save_temp_palette_ajax' ) );
@@ -1799,6 +1804,62 @@ final class JJ_Simple_Style_Guide_Master {
             'themes' => $active_theme_adapters,
             'spokes' => $active_spoke_adapters,
         );
+    }
+
+    /**
+     * [v8.x] 부팅 진단: Safe Loader 누락/로드 오류를 관리자에게 안내
+     * - 치명적 오류를 막기 위한 조기 경고(원인 파악 UX)
+     */
+    public function maybe_show_boot_diagnostics_notice() {
+        if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        // 플러그인 관련 화면에서만 표시(노이즈 최소화)
+        $page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+        $allowed_pages = array( 'jj-admin-center', JJ_STYLE_GUIDE_PAGE_SLUG );
+        if ( '' !== $page && ! in_array( $page, $allowed_pages, true ) ) {
+            return;
+        }
+
+        if ( ! class_exists( 'JJ_Safe_Loader' ) || ! method_exists( 'JJ_Safe_Loader', 'get_missing_files' ) ) {
+            return;
+        }
+
+        $missing = (array) JJ_Safe_Loader::get_missing_files();
+        $errors  = method_exists( 'JJ_Safe_Loader', 'get_load_errors' ) ? (array) JJ_Safe_Loader::get_load_errors() : array();
+
+        $missing_required = array();
+        foreach ( $missing as $m ) {
+            if ( is_array( $m ) && ! empty( $m['required'] ) ) {
+                $missing_required[] = $m;
+            }
+        }
+
+        if ( empty( $missing_required ) && empty( $errors ) ) {
+            return;
+        }
+
+        $admin_center_url = function_exists( 'admin_url' ) ? admin_url( 'options-general.php?page=jj-admin-center' ) : '';
+
+        echo '<div class="notice notice-error jj-notice" style="border-left-color:#d63638;">';
+        echo '<p><strong>ACF CSS:</strong> ' . esc_html__( '부팅 진단 경고가 감지되었습니다. (파일 누락/로드 오류)', 'acf-css-really-simple-style-management-center' ) . '</p>';
+        echo '<ul style="margin: 6px 0 0 18px; list-style: disc;">';
+        if ( ! empty( $missing_required ) ) {
+            echo '<li>' . esc_html( sprintf( '필수 파일 누락: %d개', count( $missing_required ) ) ) . '</li>';
+        }
+        if ( ! empty( $errors ) ) {
+            echo '<li>' . esc_html( sprintf( '로드 오류: %d개', count( $errors ) ) ) . '</li>';
+        }
+        echo '</ul>';
+        if ( $admin_center_url ) {
+            echo '<p style="margin: 8px 0 0 0;">' . sprintf(
+                /* translators: %s admin center link */
+                esc_html__( '원인 확인: %s → System Status 탭에서 “자가 진단”을 실행하세요.', 'acf-css-really-simple-style-management-center' ),
+                '<a href="' . esc_url( $admin_center_url ) . '">' . esc_html__( 'Admin Center', 'acf-css-really-simple-style-management-center' ) . '</a>'
+            ) . '</p>';
+        }
+        echo '</div>';
     }
 
     public function render_debug_info() {

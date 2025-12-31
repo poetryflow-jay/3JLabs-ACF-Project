@@ -726,6 +726,58 @@
             updateAutoUpdateBadge(enabled);
         }
 
+        // 코어 + 애드온(Updates Overview 테이블) 자동 업데이트 토글
+        function setSuiteRowAutoUpdate($row, enabled) {
+            const $badge = $row.find('.jj-suite-auto-badge').first();
+            const $btn = $row.find('.jj-suite-toggle-auto-update').first();
+            if ($badge.length) {
+                $badge.toggleClass('active', !!enabled);
+                $badge.toggleClass('inactive', !enabled);
+                $badge.text(enabled ? 'AUTO UPDATE: ON' : 'AUTO UPDATE: OFF');
+            }
+            if ($btn.length) {
+                $btn.attr('data-enabled', enabled ? '1' : '0');
+                $btn.text(enabled ? '비활성화' : '활성화');
+            }
+        }
+
+        $wrap.on('click', '.jj-suite-toggle-auto-update', function(e) {
+            e.preventDefault();
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.nonce) return;
+
+            const $btn = $(this);
+            const $row = $btn.closest('.jj-suite-row');
+            const plugin = $btn.attr('data-plugin') || '';
+            const enabledNow = ($btn.attr('data-enabled') === '1');
+            const target = !enabledNow;
+
+            if (!plugin) return;
+
+            $btn.prop('disabled', true);
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_toggle_auto_update_plugin',
+                security: jjAdminCenter.nonce,
+                plugin: plugin,
+                enabled: target ? '1' : '0'
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    setSuiteRowAutoUpdate($row, !!(resp.data && resp.data.enabled));
+                    // 코어 토글이면 기존 UI도 함께 동기화
+                    if (plugin.indexOf('acf-css-really-simple-style-guide.php') !== -1) {
+                        $('#jj_auto_update_enabled').prop('checked', !!(resp.data && resp.data.enabled));
+                        syncAutoUpdateToggleUi();
+                    }
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '자동 업데이트 토글에 실패했습니다.';
+                    alert(msg);
+                }
+            }).fail(function() {
+                alert('서버 통신 오류가 발생했습니다.');
+            }).always(function() {
+                $btn.prop('disabled', false);
+            });
+        });
+
         // 토글 버튼: 체크박스 상태만 즉시 변경 (저장은 별도)
         $wrap.on('click', '#jj-toggle-auto-update', function(e) {
             e.preventDefault();
@@ -836,6 +888,90 @@
                 $wrap.find('input[name="jj_admin_menu_layout[' + itemId + '][order]"]').val(order);
             });
         }
+
+        // [Phase 6+] 시스템 상태: 자가 진단 실행 (AJAX)
+        $wrap.on('click', '#jj-run-self-test', function(e) {
+            e.preventDefault();
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.nonce) {
+                alert('AJAX 설정이 초기화되지 않았습니다.');
+                return;
+            }
+
+            const $btn = $(this);
+            const $box = $('#jj-self-test-results');
+            const $spinner = $box.find('.spinner');
+            const $statusText = $box.find('.jj-test-status-text');
+            const $list = $box.find('.jj-test-results-list');
+
+            $box.show();
+            $list.empty();
+            $spinner.addClass('is-active').show();
+            $statusText.text('진단 중...');
+            $btn.prop('disabled', true);
+
+            $.ajax({
+                url: jjAdminCenter.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'jj_run_self_test',
+                    security: jjAdminCenter.nonce
+                }
+            }).done(function(resp) {
+                $spinner.removeClass('is-active').hide();
+
+                if (!resp || !resp.success) {
+                    const msg = (resp && resp.data && resp.data.message) ? resp.data.message : '자가 진단에 실패했습니다.';
+                    $statusText.text('오류');
+                    $list.append('<li style="padding:8px 10px; border:1px solid #d63638; border-radius:6px; background:#fcf0f1; color:#8a2424;">' + msg + '</li>');
+                    return;
+                }
+
+                const results = (resp.data && Array.isArray(resp.data.results)) ? resp.data.results : [];
+                if (!results.length) {
+                    $statusText.text('완료');
+                    $list.append('<li style="padding:8px 10px; border:1px solid #c3c4c7; border-radius:6px; background:#f6f7f7;">결과가 없습니다.</li>');
+                    return;
+                }
+
+                let counts = { pass: 0, warn: 0, fail: 0, skip: 0 };
+                results.forEach(function(r) {
+                    const t = (r && r.test) ? String(r.test) : '(unknown)';
+                    const s = (r && r.status) ? String(r.status) : 'warn';
+                    const m = (r && r.message) ? String(r.message) : '';
+
+                    if (counts[s] !== undefined) counts[s]++; else counts.warn++;
+
+                    let color = '#2271b1';
+                    let bg = '#f0f6fc';
+                    let border = '#b6d1ea';
+                    let label = 'INFO';
+
+                    if (s === 'pass') { color = '#1d6b2f'; bg = '#edfaef'; border = '#b7e1c2'; label = 'PASS'; }
+                    if (s === 'warn') { color = '#8a5a00'; bg = '#fff7e5'; border = '#f3d19e'; label = 'WARN'; }
+                    if (s === 'fail') { color = '#8a2424'; bg = '#fcf0f1'; border = '#f0b6b6'; label = 'FAIL'; }
+                    if (s === 'skip') { color = '#475569'; bg = '#f1f5f9'; border = '#cbd5e1'; label = 'SKIP'; }
+
+                    const badge = '<span style="display:inline-block; min-width:46px; text-align:center; padding:2px 6px; margin-right:8px; border-radius:999px; font-weight:700; font-size:11px; border:1px solid ' + border + '; background:' + bg + '; color:' + color + ';">' + label + '</span>';
+                    const item = '<li style="display:flex; gap:10px; align-items:flex-start; padding:8px 10px; border:1px solid #e5e7eb; border-radius:8px; background:#fff; margin-bottom:6px;">'
+                        + '<div style="flex:0 0 auto;">' + badge + '</div>'
+                        + '<div style="flex:1 1 auto;">'
+                        + '<div style="font-weight:700; color:#0f172a;">' + t + '</div>'
+                        + (m ? ('<div style="font-size:12px; color:#64748b; margin-top:2px;">' + m + '</div>') : '')
+                        + '</div>'
+                        + '</li>';
+
+                    $list.append(item);
+                });
+
+                $statusText.text('완료 (PASS ' + counts.pass + ' / WARN ' + counts.warn + ' / FAIL ' + counts.fail + ' / SKIP ' + counts.skip + ')');
+            }).fail(function() {
+                $spinner.removeClass('is-active').hide();
+                $statusText.text('오류');
+                $list.append('<li style="padding:8px 10px; border:1px solid #d63638; border-radius:6px; background:#fcf0f1; color:#8a2424;">서버 통신 오류가 발생했습니다.</li>');
+            }).always(function() {
+                $btn.prop('disabled', false);
+            });
+        });
 
         initializeSortable();
         $wrap.on('click', '.jj-admin-center-sidebar-nav a', function(e) {

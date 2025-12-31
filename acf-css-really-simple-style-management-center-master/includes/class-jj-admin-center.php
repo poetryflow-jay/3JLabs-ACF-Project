@@ -69,6 +69,8 @@ final class JJ_Admin_Center {
         // [v5.1.7 신규] 업데이트 설정 AJAX 핸들러
         add_action( 'wp_ajax_jj_save_update_settings', array( $this, 'ajax_save_update_settings' ) );
         add_action( 'wp_ajax_jj_check_updates_now', array( $this, 'ajax_check_updates_now' ) );
+        // [v8.x] Updates 탭: 플러그인별 자동 업데이트 토글 (WP 코어 옵션과 직접 동기화)
+        add_action( 'wp_ajax_jj_toggle_auto_update_plugin', array( $this, 'ajax_toggle_auto_update_plugin' ) );
         // [Phase 6] 자가 진단 AJAX 핸들러
         add_action( 'wp_ajax_jj_run_self_test', array( $this, 'ajax_run_self_test' ) );
 
@@ -1279,6 +1281,70 @@ final class JJ_Admin_Center {
             'message' => __( '업데이트 설정이 저장되었습니다.', 'jj-style-guide' ),
             'settings' => $clean_update_settings,
         ) );
+    }
+
+    /**
+     * [v8.x] AJAX: 플러그인별 자동 업데이트 토글
+     *
+     * - WP 코어의 auto_update_plugins(site option)를 직접 업데이트합니다.
+     * - 플러그인 목록 화면의 토글과 동일한 효과를 가집니다.
+     */
+    public function ajax_toggle_auto_update_plugin() {
+        check_ajax_referer( 'jj_admin_center_save_action', 'security' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        }
+
+        $plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) : '';
+        $enabled_raw = isset( $_POST['enabled'] ) ? wp_unslash( $_POST['enabled'] ) : null;
+
+        if ( '' === $plugin ) {
+            wp_send_json_error( array( 'message' => __( '플러그인 정보가 없습니다.', 'jj-style-guide' ) ) );
+        }
+
+        $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
+        $is_enabled = in_array( $plugin, $auto_updates, true );
+
+        // enabled 파라미터가 오면 그 값으로, 없으면 토글
+        $target = null;
+        if ( null !== $enabled_raw ) {
+            $target = ( '1' === (string) $enabled_raw || 'true' === (string) $enabled_raw );
+        } else {
+            $target = ! $is_enabled;
+        }
+
+        if ( $target ) {
+            if ( ! $is_enabled ) {
+                $auto_updates[] = $plugin;
+                $auto_updates = array_values( array_unique( $auto_updates ) );
+                update_site_option( 'auto_update_plugins', $auto_updates );
+            }
+        } else {
+            if ( ( $key = array_search( $plugin, $auto_updates, true ) ) !== false ) {
+                unset( $auto_updates[ $key ] );
+                $auto_updates = array_values( $auto_updates );
+                update_site_option( 'auto_update_plugins', $auto_updates );
+            }
+        }
+
+        // 코어 플러그인인 경우 내부 옵션도 동기화 (UX 일관성)
+        $core_plugin_file = plugin_basename( JJ_STYLE_GUIDE_PATH . 'acf-css-really-simple-style-guide.php' );
+        if ( $plugin === $core_plugin_file ) {
+            $update_settings = get_option( 'jj_style_guide_update_settings', array() );
+            if ( ! is_array( $update_settings ) ) {
+                $update_settings = array();
+            }
+            $update_settings['auto_update_enabled'] = $target;
+            update_option( 'jj_style_guide_update_settings', $update_settings );
+        }
+
+        wp_send_json_success(
+            array(
+                'plugin'  => $plugin,
+                'enabled' => (bool) $target,
+            )
+        );
     }
 
     /**

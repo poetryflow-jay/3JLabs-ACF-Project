@@ -41,6 +41,205 @@ if ( ! defined( 'ABSPATH' ) ) {
     }
     ?>
     <div style="max-width: 800px;">
+        <?php
+        // ============================================================
+        // Updates Overview (Core + Add-ons in one table)
+        // ============================================================
+        if ( ! function_exists( 'get_plugins' ) && defined( 'ABSPATH' ) ) {
+            $plugin_php = ABSPATH . 'wp-admin/includes/plugin.php';
+            if ( file_exists( $plugin_php ) ) {
+                require_once $plugin_php;
+            }
+        }
+        $all_plugins = function_exists( 'get_plugins' ) ? (array) get_plugins() : array();
+        $updates_obj = function_exists( 'get_site_transient' ) ? get_site_transient( 'update_plugins' ) : null;
+        $updates_resp = ( is_object( $updates_obj ) && isset( $updates_obj->response ) && is_array( $updates_obj->response ) ) ? $updates_obj->response : array();
+        $installed_channel = defined( 'JJ_STYLE_GUIDE_UPDATE_CHANNEL' ) ? JJ_STYLE_GUIDE_UPDATE_CHANNEL : '';
+
+        $suite = array(
+            array(
+                'id' => 'core',
+                'label' => 'ACF CSS (Core)',
+                'candidates' => array( $plugin_file ),
+                'channel' => $installed_channel,
+            ),
+            array(
+                'id' => 'ai',
+                'label' => 'ACF CSS AI Extension',
+                'candidates' => array( 'acf-css-ai-extension/acf-css-ai-extension.php' ),
+                'channel' => '',
+            ),
+            array(
+                'id' => 'neural',
+                'label' => 'ACF CSS Neural Link',
+                'candidates' => array( 'acf-css-neural-link/acf-css-neural-link.php' ),
+                'channel' => '',
+            ),
+            array(
+                'id' => 'woo',
+                'label' => 'ACF CSS Woo License',
+                'candidates' => array( 'acf-css-woo-license/acf-css-woo-license.php' ),
+                'channel' => '',
+                'requires' => array( 'WooCommerce' ),
+            ),
+            array(
+                'id' => 'bulk',
+                'label' => 'WP Bulk Manager',
+                'candidates' => array( 'wp-bulk-installer/wp-bulk-installer.php', 'wp-bulk-manager/wp-bulk-installer.php' ),
+                'channel' => '',
+            ),
+            array(
+                'id' => 'menu',
+                'label' => 'Admin Menu Editor Lite',
+                'candidates' => array( 'admin-menu-editor-lite/admin-menu-editor-lite.php' ),
+                'channel' => '',
+            ),
+        );
+
+        $find_plugin_file = function( $candidates ) use ( $all_plugins ) {
+            foreach ( (array) $candidates as $cand ) {
+                $cand = (string) $cand;
+                if ( '' !== $cand && isset( $all_plugins[ $cand ] ) ) {
+                    return $cand;
+                }
+            }
+            // 설치되지 않았으면 첫 후보를 반환(표시/토글용 키)
+            return isset( $candidates[0] ) ? (string) $candidates[0] : '';
+        };
+        ?>
+
+        <h2 style="margin-top: 0;"><?php esc_html_e( '업데이트 개요 (코어 + 애드온)', 'jj-style-guide' ); ?></h2>
+        <p class="description"><?php esc_html_e( 'WordPress 플러그인 목록 UX처럼, 설치/활성/업데이트/자동 업데이트 상태를 한 번에 확인합니다.', 'jj-style-guide' ); ?></p>
+
+        <table class="widefat striped" style="margin-top: 12px;">
+            <thead>
+                <tr>
+                    <th><?php esc_html_e( '플러그인', 'jj-style-guide' ); ?></th>
+                    <th><?php esc_html_e( '상태', 'jj-style-guide' ); ?></th>
+                    <th><?php esc_html_e( '버전', 'jj-style-guide' ); ?></th>
+                    <th><?php esc_html_e( '업데이트', 'jj-style-guide' ); ?></th>
+                    <th><?php esc_html_e( '자동 업데이트', 'jj-style-guide' ); ?></th>
+                    <th><?php esc_html_e( '채널', 'jj-style-guide' ); ?></th>
+                    <th><?php esc_html_e( '바로가기', 'jj-style-guide' ); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ( $suite as $it ) : ?>
+                    <?php
+                    $pf = $find_plugin_file( $it['candidates'] ?? array() );
+                    $installed = ( '' !== $pf && isset( $all_plugins[ $pf ] ) );
+                    $name = $installed ? (string) $all_plugins[ $pf ]['Name'] : (string) ( $it['label'] ?? $pf );
+                    $ver  = $installed ? (string) $all_plugins[ $pf ]['Version'] : '—';
+                    $active = ( $installed && function_exists( 'is_plugin_active' ) ) ? is_plugin_active( $pf ) : false;
+
+                    $auto_enabled = ( '' !== $pf ) ? in_array( $pf, $auto_updates, true ) : false;
+                    $upd = ( '' !== $pf && isset( $updates_resp[ $pf ] ) ) ? $updates_resp[ $pf ] : null;
+                    $has_update = is_object( $upd ) && ! empty( $upd->new_version );
+                    $new_ver = $has_update ? (string) $upd->new_version : '';
+
+                    $channel = isset( $it['channel'] ) ? (string) $it['channel'] : '';
+                    if ( '' === $channel && $ver ) {
+                        if ( false !== strpos( $ver, 'staging' ) ) $channel = 'staging';
+                        elseif ( false !== strpos( $ver, 'beta' ) ) $channel = 'beta';
+                    }
+
+                    $update_now_url = '';
+                    if ( $has_update && function_exists( 'self_admin_url' ) && function_exists( 'wp_nonce_url' ) ) {
+                        $update_now_url = wp_nonce_url(
+                            self_admin_url( 'update.php?action=upgrade-plugin&plugin=' . urlencode( $pf ) ),
+                            'upgrade-plugin_' . $pf
+                        );
+                    }
+                    ?>
+                    <tr class="jj-suite-row" data-plugin="<?php echo esc_attr( $pf ); ?>">
+                        <td>
+                            <strong><?php echo esc_html( $name ); ?></strong>
+                            <?php if ( ! $installed ) : ?>
+                                <div class="description" style="margin-top: 2px;"><?php esc_html_e( '미설치', 'jj-style-guide' ); ?></div>
+                            <?php endif; ?>
+                            <?php if ( ! empty( $it['requires'] ) ) : ?>
+                                <div class="description" style="margin-top: 2px;">
+                                    <?php echo esc_html( 'Requires: ' . implode( ', ', (array) $it['requires'] ) ); ?>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <span class="jj-status-badge <?php echo $active ? 'active' : 'inactive'; ?>">
+                                <?php echo $active ? esc_html__( 'ACTIVE', 'jj-style-guide' ) : esc_html__( 'INACTIVE', 'jj-style-guide' ); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <code><?php echo esc_html( $ver ); ?></code>
+                        </td>
+                        <td>
+                            <?php if ( $has_update ) : ?>
+                                <span class="jj-license-type-badge jj-license-type-basic" style="background:#dba617;">
+                                    <?php esc_html_e( 'UPDATE AVAILABLE', 'jj-style-guide' ); ?>
+                                </span>
+                                <div class="description" style="margin-top: 4px;">
+                                    <?php
+                                    printf(
+                                        /* translators: %s: new version */
+                                        esc_html__( '새 버전: %s', 'jj-style-guide' ),
+                                        esc_html( $new_ver )
+                                    );
+                                    ?>
+                                </div>
+                                <?php if ( $update_now_url ) : ?>
+                                    <div style="margin-top: 8px;">
+                                        <a href="<?php echo esc_url( $update_now_url ); ?>" class="button button-small button-primary">
+                                            <?php esc_html_e( '지금 업데이트', 'jj-style-guide' ); ?>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            <?php else : ?>
+                                <span class="jj-license-type-badge jj-license-type-basic" style="background:#1d6b2f;">
+                                    <?php esc_html_e( '최신', 'jj-style-guide' ); ?>
+                                </span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <span class="jj-status-badge jj-suite-auto-badge <?php echo $auto_enabled ? 'active' : 'inactive'; ?>">
+                                <?php echo $auto_enabled ? esc_html__( 'AUTO UPDATE: ON', 'jj-style-guide' ) : esc_html__( 'AUTO UPDATE: OFF', 'jj-style-guide' ); ?>
+                            </span>
+                            <?php if ( $installed && $pf ) : ?>
+                                <div style="margin-top: 8px;">
+                                    <button type="button"
+                                        class="button button-small jj-suite-toggle-auto-update"
+                                        data-plugin="<?php echo esc_attr( $pf ); ?>"
+                                        data-enabled="<?php echo $auto_enabled ? '1' : '0'; ?>">
+                                        <?php echo $auto_enabled ? esc_html__( '비활성화', 'jj-style-guide' ) : esc_html__( '활성화', 'jj-style-guide' ); ?>
+                                    </button>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <?php if ( $channel ) : ?>
+                                <span class="jj-license-type-badge jj-license-type-basic" style="background:#2271b1;">
+                                    <?php echo esc_html( strtoupper( $channel ) ); ?>
+                                </span>
+                            <?php else : ?>
+                                <span class="description">—</span>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button button-small button-secondary">
+                                <?php esc_html_e( '플러그인 목록', 'jj-style-guide' ); ?>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div style="margin-top: 14px; padding: 12px; border: 1px solid #c3c4c7; border-radius: 6px; background: #fff;">
+            <p class="description" style="margin:0;">
+                <?php esc_html_e( '자동 업데이트 토글은 WordPress 코어의 설정(플러그인 목록 화면)과 동일하게 동작합니다.', 'jj-style-guide' ); ?>
+            </p>
+        </div>
+
+        <hr style="margin: 26px 0;">
+
         <h2 style="margin-top: 0;"><?php esc_html_e( '플러그인 업데이트 설정', 'jj-style-guide' ); ?></h2>
         <p class="description"><?php esc_html_e( '플러그인 업데이트 및 로그 전송 설정을 관리합니다. (WordPress 플러그인 목록의 “자동 업데이트 활성/비활성”과 동기화됩니다.)', 'jj-style-guide' ); ?></p>
 
