@@ -56,6 +56,11 @@ if ( ! defined( 'ABSPATH' ) ) {
         $updates_resp = ( is_object( $updates_obj ) && isset( $updates_obj->response ) && is_array( $updates_obj->response ) ) ? $updates_obj->response : array();
         $installed_channel = defined( 'JJ_STYLE_GUIDE_UPDATE_CHANNEL' ) ? JJ_STYLE_GUIDE_UPDATE_CHANNEL : '';
 
+        $last_checked_ts = ( is_object( $updates_obj ) && isset( $updates_obj->last_checked ) ) ? (int) $updates_obj->last_checked : 0;
+        $last_checked_human = ( $last_checked_ts && function_exists( 'date_i18n' ) ) ? date_i18n( 'Y-m-d H:i:s', $last_checked_ts ) : ( $last_checked_ts ? (string) $last_checked_ts : '—' );
+        $next_check_ts = function_exists( 'wp_next_scheduled' ) ? (int) wp_next_scheduled( 'wp_update_plugins' ) : 0;
+        $next_check_human = ( $next_check_ts && function_exists( 'date_i18n' ) ) ? date_i18n( 'Y-m-d H:i:s', $next_check_ts ) : ( $next_check_ts ? (string) $next_check_ts : '—' );
+
         $suite = array(
             array(
                 'id' => 'core',
@@ -81,6 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 'candidates' => array( 'acf-css-woo-license/acf-css-woo-license.php' ),
                 'channel' => '',
                 'requires' => array( 'WooCommerce' ),
+                'requires_plugins' => array( 'woocommerce/woocommerce.php' ),
             ),
             array(
                 'id' => 'bulk',
@@ -110,6 +116,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <h2 style="margin-top: 0;"><?php esc_html_e( '업데이트 개요 (코어 + 애드온)', 'jj-style-guide' ); ?></h2>
         <p class="description"><?php esc_html_e( 'WordPress 플러그인 목록 UX처럼, 설치/활성/업데이트/자동 업데이트 상태를 한 번에 확인합니다.', 'jj-style-guide' ); ?></p>
+
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top: 10px;">
+            <input type="search"
+                   id="jj-updates-suite-search"
+                   class="regular-text"
+                   style="min-width: 260px;"
+                   placeholder="<?php echo esc_attr__( '플러그인 검색…', 'jj-style-guide' ); ?>" />
+            <label style="display:inline-flex; gap:6px; align-items:center;">
+                <input type="checkbox" id="jj-updates-suite-hide-uninstalled" />
+                <?php esc_html_e( '미설치 숨기기', 'jj-style-guide' ); ?>
+            </label>
+            <label style="display:inline-flex; gap:6px; align-items:center;">
+                <input type="checkbox" id="jj-updates-suite-only-updates" />
+                <?php esc_html_e( '업데이트만 보기', 'jj-style-guide' ); ?>
+            </label>
+            <span class="description" style="margin-left:auto;">
+                <?php
+                printf(
+                    /* translators: 1: last checked 2: next check */
+                    esc_html__( '마지막 체크: %1$s · 다음 체크: %2$s', 'jj-style-guide' ),
+                    esc_html( $last_checked_human ),
+                    esc_html( $next_check_human )
+                );
+                ?>
+                · <a href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>"><?php esc_html_e( '워드프레스 업데이트', 'jj-style-guide' ); ?></a>
+            </span>
+        </div>
 
         <table class="widefat striped" style="margin-top: 12px;">
             <thead>
@@ -150,8 +183,47 @@ if ( ! defined( 'ABSPATH' ) ) {
                             'upgrade-plugin_' . $pf
                         );
                     }
+
+                    // Activate / Deactivate links (WP core actions)
+                    $activate_url = '';
+                    $deactivate_url = '';
+                    if ( $installed && $pf && function_exists( 'current_user_can' ) && current_user_can( 'activate_plugins' ) && function_exists( 'wp_nonce_url' ) ) {
+                        if ( ! $active ) {
+                            $activate_url = wp_nonce_url(
+                                admin_url( 'plugins.php?action=activate&plugin=' . urlencode( $pf ) ),
+                                'activate-plugin_' . $pf
+                            );
+                        } else {
+                            $deactivate_url = wp_nonce_url(
+                                admin_url( 'plugins.php?action=deactivate&plugin=' . urlencode( $pf ) ),
+                                'deactivate-plugin_' . $pf
+                            );
+                        }
+                    }
+
+                    // Required plugins status badges
+                    $requires_plugins = isset( $it['requires_plugins'] ) ? (array) $it['requires_plugins'] : array();
+                    $requires_badges = array();
+                    if ( ! empty( $requires_plugins ) ) {
+                        foreach ( $requires_plugins as $req_pf ) {
+                            $req_pf = (string) $req_pf;
+                            $req_installed = ( '' !== $req_pf && isset( $all_plugins[ $req_pf ] ) );
+                            $req_active = ( $req_installed && function_exists( 'is_plugin_active' ) ) ? is_plugin_active( $req_pf ) : false;
+                            $req_name = $req_installed ? (string) $all_plugins[ $req_pf ]['Name'] : $req_pf;
+                            $requires_badges[] = array(
+                                'name' => $req_name,
+                                'installed' => $req_installed,
+                                'active' => $req_active,
+                            );
+                        }
+                    }
+
                     ?>
-                    <tr class="jj-suite-row" data-plugin="<?php echo esc_attr( $pf ); ?>">
+                    <tr class="jj-suite-row"
+                        data-plugin="<?php echo esc_attr( $pf ); ?>"
+                        data-name="<?php echo esc_attr( strtolower( $name ) ); ?>"
+                        data-installed="<?php echo $installed ? '1' : '0'; ?>"
+                        data-has-update="<?php echo $has_update ? '1' : '0'; ?>">
                         <td>
                             <strong><?php echo esc_html( $name ); ?></strong>
                             <?php if ( ! $installed ) : ?>
@@ -162,11 +234,39 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     <?php echo esc_html( 'Requires: ' . implode( ', ', (array) $it['requires'] ) ); ?>
                                 </div>
                             <?php endif; ?>
+                            <?php if ( ! empty( $requires_badges ) ) : ?>
+                                <div style="margin-top: 6px; display:flex; gap:6px; flex-wrap:wrap;">
+                                    <?php foreach ( $requires_badges as $rb ) : ?>
+                                        <?php
+                                        $ok = ! empty( $rb['active'] );
+                                        $installed_req = ! empty( $rb['installed'] );
+                                        $label = $installed_req ? ( $ok ? 'ACTIVE' : 'INACTIVE' ) : 'MISSING';
+                                        $cls = $ok ? 'active' : 'inactive';
+                                        ?>
+                                        <span class="jj-status-badge <?php echo esc_attr( $cls ); ?>" style="font-size:11px; padding:4px 8px;">
+                                            <?php echo esc_html( $rb['name'] . ': ' . $label ); ?>
+                                        </span>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                         </td>
                         <td>
                             <span class="jj-status-badge <?php echo $active ? 'active' : 'inactive'; ?>">
                                 <?php echo $active ? esc_html__( 'ACTIVE', 'jj-style-guide' ) : esc_html__( 'INACTIVE', 'jj-style-guide' ); ?>
                             </span>
+                            <?php if ( $activate_url ) : ?>
+                                <div style="margin-top: 8px;">
+                                    <a class="button button-small button-primary" href="<?php echo esc_url( $activate_url ); ?>">
+                                        <?php esc_html_e( '활성화', 'jj-style-guide' ); ?>
+                                    </a>
+                                </div>
+                            <?php elseif ( $deactivate_url ) : ?>
+                                <div style="margin-top: 8px;">
+                                    <a class="button button-small" href="<?php echo esc_url( $deactivate_url ); ?>">
+                                        <?php esc_html_e( '비활성화', 'jj-style-guide' ); ?>
+                                    </a>
+                                </div>
+                            <?php endif; ?>
                         </td>
                         <td>
                             <code><?php echo esc_html( $ver ); ?></code>

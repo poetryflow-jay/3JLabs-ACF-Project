@@ -101,6 +101,35 @@ class JJ_Self_Tester {
                     ? 'No missing optional files'
                     : ( 'Missing optional files: ' . count( $opt ) ),
             );
+
+            // required 누락은 "원인 파일"을 바로 볼 수 있도록 개별 항목으로 출력(최대 30개)
+            if ( ! empty( $req ) ) {
+                $max = 30;
+                $n = 0;
+                foreach ( $req as $r ) {
+                    if ( $n >= $max ) {
+                        $results[] = array(
+                            'test'    => 'Safe Loader: Required files (more)',
+                            'status'  => 'fail',
+                            'message' => 'Too many missing required files. (truncated)',
+                        );
+                        break;
+                    }
+                    $path = isset( $r['path'] ) ? (string) $r['path'] : '';
+                    $short = $path;
+                    if ( defined( 'JJ_STYLE_GUIDE_PATH' ) && '' !== $path ) {
+                        $short = str_replace( JJ_STYLE_GUIDE_PATH, '', $path );
+                        $short = ltrim( $short, "/\\" );
+                    }
+                    $count = isset( $r['count'] ) ? (int) $r['count'] : 1;
+                    $results[] = array(
+                        'test'    => 'Missing required file: ' . $short,
+                        'status'  => 'fail',
+                        'message' => 'Not found (count=' . $count . ')',
+                    );
+                    $n++;
+                }
+            }
         } else {
             $results[] = array(
                 'test'    => 'Safe Loader: Diagnostics',
@@ -116,6 +145,40 @@ class JJ_Self_Tester {
                 'status'  => empty( $errs ) ? 'pass' : 'fail',
                 'message' => empty( $errs ) ? 'No load errors' : ( 'Load errors detected: ' . count( $errs ) ),
             );
+
+            if ( ! empty( $errs ) ) {
+                $max = 30;
+                $n = 0;
+                foreach ( $errs as $e ) {
+                    if ( ! is_array( $e ) ) continue;
+                    if ( $n >= $max ) {
+                        $results[] = array(
+                            'test'    => 'Safe Loader: Load errors (more)',
+                            'status'  => 'fail',
+                            'message' => 'Too many load errors. (truncated)',
+                        );
+                        break;
+                    }
+                    $path = isset( $e['path'] ) ? (string) $e['path'] : '';
+                    $short = $path;
+                    if ( defined( 'JJ_STYLE_GUIDE_PATH' ) && '' !== $path ) {
+                        $short = str_replace( JJ_STYLE_GUIDE_PATH, '', $path );
+                        $short = ltrim( $short, "/\\" );
+                    }
+                    $msg = isset( $e['error'] ) ? (string) $e['error'] : 'Unknown error';
+                    if ( function_exists( 'mb_substr' ) ) {
+                        $msg = mb_substr( $msg, 0, 220 );
+                    } else {
+                        $msg = substr( $msg, 0, 220 );
+                    }
+                    $results[] = array(
+                        'test'    => 'Load error: ' . $short,
+                        'status'  => 'fail',
+                        'message' => $msg,
+                    );
+                    $n++;
+                }
+            }
         }
 
         // 1.6 File Manifest (critical templates/views)

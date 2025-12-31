@@ -778,6 +778,31 @@
             });
         });
 
+        // Updates Overview: 검색/필터(미설치 숨김, 업데이트만)
+        function filterUpdatesSuiteRows() {
+            const q = ($('#jj-updates-suite-search').val() || '').toLowerCase().trim();
+            const hideUninstalled = $('#jj-updates-suite-hide-uninstalled').is(':checked');
+            const onlyUpdates = $('#jj-updates-suite-only-updates').is(':checked');
+
+            $('.jj-suite-row').each(function() {
+                const $row = $(this);
+                const name = ($row.attr('data-name') || '').toLowerCase();
+                const installed = ($row.attr('data-installed') === '1');
+                const hasUpdate = ($row.attr('data-has-update') === '1');
+
+                let visible = true;
+                if (q && name.indexOf(q) === -1) visible = false;
+                if (hideUninstalled && !installed) visible = false;
+                if (onlyUpdates && !hasUpdate) visible = false;
+
+                $row.toggle(visible);
+            });
+        }
+
+        $wrap.on('input', '#jj-updates-suite-search', filterUpdatesSuiteRows);
+        $wrap.on('change', '#jj-updates-suite-hide-uninstalled, #jj-updates-suite-only-updates', filterUpdatesSuiteRows);
+        filterUpdatesSuiteRows();
+
         // 토글 버튼: 체크박스 상태만 즉시 변경 (저장은 별도)
         $wrap.on('click', '#jj-toggle-auto-update', function(e) {
             e.preventDefault();

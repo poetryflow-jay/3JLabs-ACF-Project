@@ -139,11 +139,26 @@ final class JJ_Admin_Center {
         $css_url = JJ_STYLE_GUIDE_URL . 'assets/css/jj-admin-center.css';
         $js_url  = JJ_STYLE_GUIDE_URL . 'assets/js/jj-admin-center.js';
 
+        // 캐시 이슈 방지: 파일 변경 시 자동으로 버전이 바뀌도록 filemtime 사용 (가능할 때만)
+        $fallback_ver = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0';
+        $css_ver = $fallback_ver;
+        $js_ver  = $fallback_ver;
+        if ( defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
+            $css_path = JJ_STYLE_GUIDE_PATH . 'assets/css/jj-admin-center.css';
+            $js_path  = JJ_STYLE_GUIDE_PATH . 'assets/js/jj-admin-center.js';
+            if ( file_exists( $css_path ) ) {
+                $css_ver = filemtime( $css_path );
+            }
+            if ( file_exists( $js_path ) ) {
+                $js_ver = filemtime( $js_path );
+            }
+        }
+
         wp_enqueue_style(
             'jj-admin-center',
             $css_url,
             array(),
-            defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0'
+            $css_ver
         );
 
         // [UI Polish] 타 플러그인 알림 숨김 (몰입형 환경)
@@ -165,7 +180,7 @@ final class JJ_Admin_Center {
             'jj-admin-center',
             $js_url,
             array( 'jquery', 'wp-color-picker', 'jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-sortable' ),
-            defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0',
+            $js_ver,
             true
         );
         
