@@ -41,8 +41,10 @@ EDITIONS = {
     'basic':     {'suffix': '-Pro-Basic',   'license': 'BASIC',     'channels': ['stable', 'beta', 'staging']},
     'premium':   {'suffix': '-Pro-Premium', 'license': 'PREMIUM',   'channels': ['stable', 'beta', 'staging']},
     'unlimited': {'suffix': '-Pro-Unlimited','license': 'UNLIMITED','channels': ['stable', 'beta', 'staging']},
-    'partner':   {'suffix': '-Partner',     'license': 'PARTNER',   'channels': ['stable', 'staging']},
-    'master':    {'suffix': '-Master',      'license': 'MASTER',    'channels': ['stable', 'staging']}
+    # 내부/파트너도 운영 중에는 beta 업데이트 수신을 막을 수 있지만,
+    # 테스트/검증을 위해 beta ZIP 생성은 항상 가능하도록 유지합니다.
+    'partner':   {'suffix': '-Partner',     'license': 'PARTNER',   'channels': ['stable', 'beta', 'staging']},
+    'master':    {'suffix': '-Master',      'license': 'MASTER',    'channels': ['stable', 'beta', 'staging']}
 }
 
 # Add-on Editions (Channels)
