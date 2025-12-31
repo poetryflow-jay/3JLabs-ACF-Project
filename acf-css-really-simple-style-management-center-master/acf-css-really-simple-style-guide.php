@@ -87,64 +87,93 @@ try {
     if ( function_exists( 'error_log' ) ) error_log( 'Safe Loader Load Fatal Error: ' . $e->getMessage() );
 }
 
-// 라이센스 매니저 로드
-if ( $safe_loader ) {
-    $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php', false );
-    $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-version-features.php', true );
-    $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-code-integrity-monitor.php', true );
-}
+/**
+ * [B: 안정성 방어막] Safe Loader 폴백
+ * - class-jj-safe-loader.php 자체가 누락/손상돼도, 플러그인이 "부팅"은 되도록 합니다.
+ * - (원인 파악/자가진단/업데이트 탭 접근) 경로를 확보하는 것이 목표입니다.
+ */
+$jj_safe_require = function( $path, $required = true ) {
+    $path = (string) $path;
+    $required = (bool) $required;
+
+    // 우선: Safe Loader가 있으면 그 진단/기록 기능을 그대로 사용
+    if ( class_exists( 'JJ_Safe_Loader' ) && method_exists( 'JJ_Safe_Loader', 'safe_require' ) ) {
+        return JJ_Safe_Loader::safe_require( $path, $required );
+    }
+
+    // 폴백: 최소한의 safe require
+    if ( ! file_exists( $path ) ) {
+        if ( $required && function_exists( 'error_log' ) ) {
+            error_log( 'JJ Fallback Loader: File not found - ' . $path );
+        }
+        return false;
+    }
+    try {
+        require_once $path;
+        return true;
+    } catch ( Exception $e ) {
+        if ( function_exists( 'error_log' ) ) {
+            error_log( 'JJ Fallback Loader: Exception loading ' . $path . ' - ' . $e->getMessage() );
+        }
+        return false;
+    } catch ( Error $e ) {
+        if ( function_exists( 'error_log' ) ) {
+            error_log( 'JJ Fallback Loader: Error loading ' . $path . ' - ' . $e->getMessage() );
+        }
+        return false;
+    }
+};
+
+// 라이센스 매니저/에디션/무결성 관련: 가능한 한 일찍 로드
+$jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php', false );
+$jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-version-features.php', true );
+$jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-code-integrity-monitor.php', true );
 
 // 핵심 로직 파일 로드 (Master 전용 파일은 아직 비활성화)
 try {
-    if ( $safe_loader && method_exists( $safe_loader, 'safe_require' ) ) {
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'config/adapters-config.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-error-handler.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-error-logger.php', false );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-admin-center.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-backup-manager.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/visual-command-center/class-jj-visual-command-center.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/ai-style-intelligence/class-jj-smart-palette.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/cloud-manager/class-jj-cloud-manager.php', true );
-        // [Phase 3] 템플릿 마켓
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/cloud-manager/class-jj-template-market.php', true );
-        // [Phase 5] Partner Hub
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/partner-hub/class-jj-partner-hub.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-labs-center.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-selector-registry.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-cache.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-injector.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-options-cache.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-edition-controller.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-theme-metadata.php', false );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-0-customizer.php', false );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-1-css-vars.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-2-php-filters.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-3-dequeue.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-customizer-manager.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-customizer-sync.php', false );
-        // [Phase 5.2] REST API (설정 조회/업데이트)
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/api/class-jj-style-guide-rest-api.php', true );
-        // [Phase 5.3] 확장 플러그인 시스템 (Extension API)
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/extensions/interface-jj-style-guide-extension.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/extensions/class-jj-extension-manager.php', true );
-        // [Phase 5.2] Webhooks (자동화)
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/integrations/class-jj-webhook-manager.php', true );
-        // [Phase 5 B] Multisite Network Control
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/multisite/class-jj-multisite-controller.php', true );
-        
-        // Master 전용 파일들 (일단 주석 처리)
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-activation-manager.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-sync-manager.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-migration-manager.php', false );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-memory-manager.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-safe-mode.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-optimizer.php', true );
-        $safe_loader::safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-issuer.php', false );
-    } else {
-        // Fallback for Safe Loader missing
-        require_once JJ_STYLE_GUIDE_PATH . 'config/adapters-config.php';
-        // ... (Fallback은 일단 생략, Safe Loader가 있다고 가정)
-    }
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'config/adapters-config.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-error-handler.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-error-logger.php', false );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-admin-center.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-backup-manager.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/visual-command-center/class-jj-visual-command-center.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/ai-style-intelligence/class-jj-smart-palette.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/cloud-manager/class-jj-cloud-manager.php', true );
+    // [Phase 3] 템플릿 마켓
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/cloud-manager/class-jj-template-market.php', true );
+    // [Phase 5] Partner Hub
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/modules/partner-hub/class-jj-partner-hub.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-labs-center.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-selector-registry.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-cache.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-injector.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-options-cache.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-edition-controller.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-theme-metadata.php', false );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-0-customizer.php', false );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-1-css-vars.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-2-php-filters.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-3-dequeue.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-customizer-manager.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-customizer-sync.php', false );
+    // [Phase 5.2] REST API (설정 조회/업데이트)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/api/class-jj-style-guide-rest-api.php', true );
+    // [Phase 5.3] 확장 플러그인 시스템 (Extension API)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/extensions/interface-jj-style-guide-extension.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/extensions/class-jj-extension-manager.php', true );
+    // [Phase 5.2] Webhooks (자동화)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/integrations/class-jj-webhook-manager.php', true );
+    // [Phase 5 B] Multisite Network Control
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/multisite/class-jj-multisite-controller.php', true );
+    
+    // Master 전용 파일들
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-activation-manager.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-sync-manager.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-migration-manager.php', false );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-memory-manager.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-safe-mode.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-optimizer.php', true );
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-issuer.php', false );
 } catch ( Exception $e ) {
     if ( function_exists( 'error_log' ) ) error_log( 'Master Load Error: ' . $e->getMessage() );
 }
