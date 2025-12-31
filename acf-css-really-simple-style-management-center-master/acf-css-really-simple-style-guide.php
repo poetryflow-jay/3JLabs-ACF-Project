@@ -92,6 +92,14 @@ try {
  * - class-jj-safe-loader.php 자체가 누락/손상돼도, 플러그인이 "부팅"은 되도록 합니다.
  * - (원인 파악/자가진단/업데이트 탭 접근) 경로를 확보하는 것이 목표입니다.
  */
+$GLOBALS['jj_style_guide_boot_diag'] = isset( $GLOBALS['jj_style_guide_boot_diag'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag'] )
+    ? $GLOBALS['jj_style_guide_boot_diag']
+    : array(
+        'missing_required' => array(),
+        'missing_optional' => array(),
+        'load_errors'      => array(),
+    );
+
 $jj_safe_require = function( $path, $required = true ) {
     $path = (string) $path;
     $required = (bool) $required;
@@ -103,6 +111,19 @@ $jj_safe_require = function( $path, $required = true ) {
 
     // 폴백: 최소한의 safe require
     if ( ! file_exists( $path ) ) {
+        $key = md5( $path . '|' . ( $required ? '1' : '0' ) );
+        $bucket = $required ? 'missing_required' : 'missing_optional';
+        if ( ! isset( $GLOBALS['jj_style_guide_boot_diag'][ $bucket ][ $key ] ) ) {
+            $GLOBALS['jj_style_guide_boot_diag'][ $bucket ][ $key ] = array(
+                'path'     => $path,
+                'required' => $required,
+                'count'    => 1,
+                'reason'   => 'file_not_found',
+            );
+        } else {
+            $GLOBALS['jj_style_guide_boot_diag'][ $bucket ][ $key ]['count']++;
+        }
+
         if ( $required && function_exists( 'error_log' ) ) {
             error_log( 'JJ Fallback Loader: File not found - ' . $path );
         }
@@ -112,11 +133,21 @@ $jj_safe_require = function( $path, $required = true ) {
         require_once $path;
         return true;
     } catch ( Exception $e ) {
+        $GLOBALS['jj_style_guide_boot_diag']['load_errors'][] = array(
+            'path'     => $path,
+            'required' => $required,
+            'error'    => $e->getMessage(),
+        );
         if ( function_exists( 'error_log' ) ) {
             error_log( 'JJ Fallback Loader: Exception loading ' . $path . ' - ' . $e->getMessage() );
         }
         return false;
     } catch ( Error $e ) {
+        $GLOBALS['jj_style_guide_boot_diag']['load_errors'][] = array(
+            'path'     => $path,
+            'required' => $required,
+            'error'    => $e->getMessage(),
+        );
         if ( function_exists( 'error_log' ) ) {
             error_log( 'JJ Fallback Loader: Error loading ' . $path . ' - ' . $e->getMessage() );
         }
@@ -1851,17 +1882,29 @@ final class JJ_Simple_Style_Guide_Master {
             return;
         }
 
-        if ( ! class_exists( 'JJ_Safe_Loader' ) || ! method_exists( 'JJ_Safe_Loader', 'get_missing_files' ) ) {
-            return;
-        }
-
-        $missing = (array) JJ_Safe_Loader::get_missing_files();
-        $errors  = method_exists( 'JJ_Safe_Loader', 'get_load_errors' ) ? (array) JJ_Safe_Loader::get_load_errors() : array();
-
+        // 1) Safe Loader 진단 우선
         $missing_required = array();
-        foreach ( $missing as $m ) {
-            if ( is_array( $m ) && ! empty( $m['required'] ) ) {
-                $missing_required[] = $m;
+        $errors  = array();
+        if ( class_exists( 'JJ_Safe_Loader' ) && method_exists( 'JJ_Safe_Loader', 'get_missing_files' ) ) {
+            $missing = (array) JJ_Safe_Loader::get_missing_files();
+            $errors  = method_exists( 'JJ_Safe_Loader', 'get_load_errors' ) ? (array) JJ_Safe_Loader::get_load_errors() : array();
+
+            foreach ( $missing as $m ) {
+                if ( is_array( $m ) && ! empty( $m['required'] ) ) {
+                    $missing_required[] = $m;
+                }
+            }
+        } else {
+            // 2) 폴백 로더 진단 (Safe Loader 자체 누락/손상 대비)
+            if ( isset( $GLOBALS['jj_style_guide_boot_diag'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag'] ) ) {
+                $mr = isset( $GLOBALS['jj_style_guide_boot_diag']['missing_required'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag']['missing_required'] )
+                    ? $GLOBALS['jj_style_guide_boot_diag']['missing_required']
+                    : array();
+                $missing_required = array_values( $mr );
+
+                $errors = isset( $GLOBALS['jj_style_guide_boot_diag']['load_errors'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag']['load_errors'] )
+                    ? $GLOBALS['jj_style_guide_boot_diag']['load_errors']
+                    : array();
             }
         }
 

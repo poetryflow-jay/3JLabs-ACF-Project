@@ -783,24 +783,27 @@
             const q = ($('#jj-updates-suite-search').val() || '').toLowerCase().trim();
             const hideUninstalled = $('#jj-updates-suite-hide-uninstalled').is(':checked');
             const onlyUpdates = $('#jj-updates-suite-only-updates').is(':checked');
+            const onlyMismatch = $('#jj-updates-suite-only-mismatch').is(':checked');
 
             $('.jj-suite-row').each(function() {
                 const $row = $(this);
                 const name = ($row.attr('data-name') || '').toLowerCase();
                 const installed = ($row.attr('data-installed') === '1');
                 const hasUpdate = ($row.attr('data-has-update') === '1');
+                const mismatch = ($row.attr('data-mismatch') === '1');
 
                 let visible = true;
                 if (q && name.indexOf(q) === -1) visible = false;
                 if (hideUninstalled && !installed) visible = false;
                 if (onlyUpdates && !hasUpdate) visible = false;
+                if (onlyMismatch && !mismatch) visible = false;
 
                 $row.toggle(visible);
             });
         }
 
         $wrap.on('input', '#jj-updates-suite-search', filterUpdatesSuiteRows);
-        $wrap.on('change', '#jj-updates-suite-hide-uninstalled, #jj-updates-suite-only-updates', filterUpdatesSuiteRows);
+        $wrap.on('change', '#jj-updates-suite-hide-uninstalled, #jj-updates-suite-only-updates, #jj-updates-suite-only-mismatch', filterUpdatesSuiteRows);
         filterUpdatesSuiteRows();
 
         // Updates Overview: Suite 액션(전체 체크/보이는 항목 auto-update 일괄)
@@ -932,6 +935,81 @@
         $wrap.on('click', '#jj-suite-auto-update-off', function(e) {
             e.preventDefault();
             bulkSetAutoUpdateForVisibleRows(false);
+        });
+
+        // Suite report copy / download
+        function getSuiteReportPayload() {
+            const rows = [];
+            $('.jj-suite-row').each(function() {
+                const $r = $(this);
+                rows.push({
+                    plugin: $r.attr('data-plugin') || '',
+                    name: ($r.find('td').first().text() || '').trim(),
+                    installed: $r.attr('data-installed') === '1',
+                    active: $r.attr('data-active') === '1',
+                    auto_update: $r.attr('data-auto-update') === '1',
+                    has_update: $r.attr('data-has-update') === '1',
+                    version: $r.attr('data-version') || '',
+                    new_version: $r.attr('data-new-version') || '',
+                    channel: $r.attr('data-channel') || '',
+                    core_channel: $r.attr('data-core-channel') || '',
+                    mismatch: $r.attr('data-mismatch') === '1',
+                    update_now_url: $r.attr('data-update-now-url') || '',
+                    activate_url: $r.attr('data-activate-url') || '',
+                    deactivate_url: $r.attr('data-deactivate-url') || '',
+                });
+            });
+            return {
+                exported_at: new Date().toISOString(),
+                rows: rows
+            };
+        }
+
+        function suiteReportText(payload) {
+            const lines = [];
+            lines.push('[JJ Suite Updates Report]');
+            lines.push('exported_at=' + payload.exported_at);
+            (payload.rows || []).forEach(function(r) {
+                const status = (r.installed ? (r.active ? 'ACTIVE' : 'INACTIVE') : 'NOT_INSTALLED');
+                const upd = r.has_update ? ('UPDATE->' + (r.new_version || '?')) : 'OK';
+                const au = r.auto_update ? 'AUTO_ON' : 'AUTO_OFF';
+                const mm = r.mismatch ? ('MISMATCH(core=' + r.core_channel + ',this=' + r.channel + ')') : '';
+                lines.push('- ' + (r.plugin || r.name) + ' | ' + status + ' | ' + (r.version || '') + ' | ' + upd + ' | ' + au + (mm ? (' | ' + mm) : ''));
+            });
+            return lines.join('\n');
+        }
+
+        $wrap.on('click', '#jj-suite-copy-report', function(e) {
+            e.preventDefault();
+            const payload = getSuiteReportPayload();
+            const text = suiteReportText(payload);
+            if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    alert('스위트 리포트를 클립보드에 복사했습니다.');
+                }).catch(function() {
+                    window.prompt('복사(CTRL+C) 후 닫기:', text);
+                });
+            } else {
+                window.prompt('복사(CTRL+C) 후 닫기:', text);
+            }
+        });
+
+        $wrap.on('click', '#jj-suite-download-report', function(e) {
+            e.preventDefault();
+            try {
+                const payload = getSuiteReportPayload();
+                const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'jj-suite-updates-' + (new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')) + '.json';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+            } catch (err) {
+                alert('리포트 다운로드에 실패했습니다.');
+            }
         });
 
         // 토글 버튼: 체크박스 상태만 즉시 변경 (저장은 별도)

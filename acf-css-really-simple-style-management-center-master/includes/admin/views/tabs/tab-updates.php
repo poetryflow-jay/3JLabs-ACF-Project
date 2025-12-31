@@ -169,6 +169,17 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php esc_html_e( '보이는 항목 Auto-Update OFF', 'jj-style-guide' ); ?>
             </button>
 
+            <button type="button" class="button" id="jj-suite-copy-report">
+                <?php esc_html_e( '스위트 리포트 복사', 'jj-style-guide' ); ?>
+            </button>
+            <button type="button" class="button" id="jj-suite-download-report">
+                <?php esc_html_e( '스위트 리포트 JSON', 'jj-style-guide' ); ?>
+            </button>
+            <label style="display:inline-flex; gap:6px; align-items:center;">
+                <input type="checkbox" id="jj-updates-suite-only-mismatch" />
+                <?php esc_html_e( '불일치만 보기', 'jj-style-guide' ); ?>
+            </label>
+
             <span class="description" style="margin-left:auto;">
                 <?php
                 printf(
@@ -229,6 +240,10 @@ if ( ! defined( 'ABSPATH' ) ) {
                         elseif ( false !== strpos( $ver, 'beta' ) ) $channel = 'beta';
                     }
 
+                    $core_channel = $installed_channel ? strtolower( (string) $installed_channel ) : 'stable';
+                    $this_channel = $channel ? strtolower( (string) $channel ) : 'stable';
+                    $is_mismatch = ( $installed && $pf && $this_channel !== $core_channel && ( $it['id'] ?? '' ) !== 'core' );
+
                     $update_now_url = '';
                     if ( $has_update && function_exists( 'self_admin_url' ) && function_exists( 'wp_nonce_url' ) ) {
                         $update_now_url = wp_nonce_url(
@@ -276,7 +291,18 @@ if ( ! defined( 'ABSPATH' ) ) {
                         data-plugin="<?php echo esc_attr( $pf ); ?>"
                         data-name="<?php echo esc_attr( strtolower( $name . ' ' . $pf ) ); ?>"
                         data-installed="<?php echo $installed ? '1' : '0'; ?>"
-                        data-has-update="<?php echo $has_update ? '1' : '0'; ?>">
+                        data-has-update="<?php echo $has_update ? '1' : '0'; ?>"
+                        data-mismatch="<?php echo $is_mismatch ? '1' : '0'; ?>"
+                        data-channel="<?php echo esc_attr( $this_channel ); ?>"
+                        data-core-channel="<?php echo esc_attr( $core_channel ); ?>"
+                        data-version="<?php echo esc_attr( $ver ); ?>"
+                        data-new-version="<?php echo esc_attr( $new_ver ); ?>"
+                        data-active="<?php echo $active ? '1' : '0'; ?>"
+                        data-auto-update="<?php echo $auto_enabled ? '1' : '0'; ?>"
+                        data-update-now-url="<?php echo esc_attr( $update_now_url ); ?>"
+                        data-activate-url="<?php echo esc_attr( $activate_url ); ?>"
+                        data-deactivate-url="<?php echo esc_attr( $deactivate_url ); ?>"
+                        >
                         <td>
                             <strong><?php echo esc_html( $name ); ?></strong>
                             <?php if ( ! $installed ) : ?>
@@ -371,6 +397,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <span class="jj-license-type-badge jj-license-type-basic" style="background:#2271b1;">
                                     <?php echo esc_html( strtoupper( $channel ) ); ?>
                                 </span>
+                                <?php if ( $is_mismatch ) : ?>
+                                    <span class="jj-license-type-badge jj-license-type-basic" style="background:#d63638; margin-left:6px;">
+                                        <?php esc_html_e( 'MISMATCH', 'jj-style-guide' ); ?>
+                                    </span>
+                                <?php endif; ?>
                             <?php else : ?>
                                 <span class="description">—</span>
                             <?php endif; ?>

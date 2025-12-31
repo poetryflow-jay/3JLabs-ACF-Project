@@ -131,11 +131,40 @@ class JJ_Self_Tester {
                 }
             }
         } else {
-            $results[] = array(
-                'test'    => 'Safe Loader: Diagnostics',
-                'status'  => 'warn',
-                'message' => 'Safe loader diagnostics not available',
-            );
+            // 폴백 로더 진단( Safe Loader 자체 누락/손상 대비 )
+            if ( isset( $GLOBALS['jj_style_guide_boot_diag'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag'] ) ) {
+                $mr = isset( $GLOBALS['jj_style_guide_boot_diag']['missing_required'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag']['missing_required'] )
+                    ? array_values( $GLOBALS['jj_style_guide_boot_diag']['missing_required'] )
+                    : array();
+                $mo = isset( $GLOBALS['jj_style_guide_boot_diag']['missing_optional'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag']['missing_optional'] )
+                    ? array_values( $GLOBALS['jj_style_guide_boot_diag']['missing_optional'] )
+                    : array();
+                $errs = isset( $GLOBALS['jj_style_guide_boot_diag']['load_errors'] ) && is_array( $GLOBALS['jj_style_guide_boot_diag']['load_errors'] )
+                    ? $GLOBALS['jj_style_guide_boot_diag']['load_errors']
+                    : array();
+
+                $results[] = array(
+                    'test'    => 'Fallback Loader: Required files',
+                    'status'  => empty( $mr ) ? 'pass' : 'fail',
+                    'message' => empty( $mr ) ? 'No missing required files' : ( 'Missing required files: ' . count( $mr ) ),
+                );
+                $results[] = array(
+                    'test'    => 'Fallback Loader: Optional files',
+                    'status'  => empty( $mo ) ? 'pass' : 'warn',
+                    'message' => empty( $mo ) ? 'No missing optional files' : ( 'Missing optional files: ' . count( $mo ) ),
+                );
+                $results[] = array(
+                    'test'    => 'Fallback Loader: Load errors',
+                    'status'  => empty( $errs ) ? 'pass' : 'fail',
+                    'message' => empty( $errs ) ? 'No load errors' : ( 'Load errors detected: ' . count( $errs ) ),
+                );
+            } else {
+                $results[] = array(
+                    'test'    => 'Safe Loader: Diagnostics',
+                    'status'  => 'warn',
+                    'message' => 'Safe/Fallback loader diagnostics not available',
+                );
+            }
         }
 
         if ( class_exists( 'JJ_Safe_Loader' ) && method_exists( 'JJ_Safe_Loader', 'get_load_errors' ) ) {
