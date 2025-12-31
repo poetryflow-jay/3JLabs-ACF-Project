@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Startup - ACF CSS Demo</title>
+    
+    <!-- ACF CSS Variables (시뮬레이션) -->
+    <style>
+        :root {
+            /* 팔레트 - Tech Startup Dark */
+            --jj-brand-primary: #6366f1;
+            --jj-brand-secondary: #8b5cf6;
+            --jj-brand-accent: #06b6d4;
+            --jj-text-primary: #e2e8f0;
+            --jj-text-secondary: #94a3b8;
+            --jj-bg-primary: #0f172a;
+            --jj-bg-secondary: #1e293b;
+            
+            /* 타이포그래피 */
+            --jj-heading-font: 'Inter', sans-serif;
+            --jj-body-font: 'Inter', sans-serif;
+            
+            /* 버튼 */
+            --jj-btn-radius: 8px;
+            --jj-btn-padding: 12px 24px;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--jj-body-font);
+            background: var(--jj-bg-primary);
+            color: var(--jj-text-primary);
+            line-height: 1.6;
+        }
+        
+        a { color: var(--jj-brand-accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        /* Header */
+        .header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo {
+            font-family: var(--jj-heading-font);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--jj-text-primary);
+        }
+        
+        .logo span { color: var(--jj-brand-primary); }
+        
+        .nav { display: flex; gap: 30px; }
+        .nav a { color: var(--jj-text-secondary); font-size: 15px; }
+        .nav a:hover { color: var(--jj-text-primary); text-decoration: none; }
+        
+        .btn {
+            display: inline-block;
+            padding: var(--jj-btn-padding);
+            border-radius: var(--jj-btn-radius);
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--jj-brand-primary);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            background: var(--jj-brand-secondary);
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--jj-text-primary);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.05);
+            text-decoration: none;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 100px 40px;
+            text-align: center;
+            background: 
+                radial-gradient(ellipse at 30% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                var(--jj-bg-primary);
+        }
+        
+        .hero h1 {
+            font-family: var(--jj-heading-font);
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--jj-brand-primary), var(--jj-brand-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--jj-text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; }
+        
+        /* Features */
+        .features {
+            padding: 80px 40px;
+            background: var(--jj-bg-secondary);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 50px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: var(--jj-bg-primary);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--jj-brand-primary), var(--jj-brand-accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            color: var(--jj-text-secondary);
+            font-size: 15px;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 80px 40px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--jj-bg-secondary);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .pricing-card.featured {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+            border-color: var(--jj-brand-primary);
+            transform: scale(1.05);
+        }
+        
+        .pricing-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+        
+        .pricing-card .price span {
+            font-size: 16px;
+            color: var(--jj-text-secondary);
+        }
+        
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+        
+        .pricing-features li {
+            padding: 8px 0;
+            color: var(--jj-text-secondary);
+            font-size: 14px;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--jj-brand-accent);
+            margin-right: 10px;
+        }
+        
+        /* CTA */
+        .cta {
+            padding: 80px 40px;
+            text-align: center;
+            background: 
+                radial-gradient(ellipse at 50% 50%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+                var(--jj-bg-secondary);
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            color: var(--jj-text-secondary);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--jj-text-secondary);
+            font-size: 14px;
+        }
+        
+        /* Demo Banner */
+        .demo-banner {
+            background: linear-gradient(135deg, var(--jj-brand-primary), var(--jj-brand-secondary));
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .demo-banner a { color: #fff; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        🎨 이 사이트는 <strong>ACF CSS Manager</strong>로 스타일링되었습니다. 
+        <a href="#">지금 무료로 시작하기 →</a>
+    </div>
+    
+    <header class="header">
+        <div class="logo">Tech<span>Flow</span></div>
+        <nav class="nav">
+            <a href="#">제품</a>
+            <a href="#">기능</a>
+            <a href="#">가격</a>
+            <a href="#">문서</a>
+            <a href="#">블로그</a>
+        </nav>
+        <a href="#" class="btn btn-primary">시작하기</a>
+    </header>
+    
+    <section class="hero">
+        <h1>
+            코드 없이 만드는<br>
+            <span>차세대 웹 애플리케이션</span>
+        </h1>
+        <p>
+            TechFlow는 복잡한 비즈니스 로직을 시각적으로 구축할 수 있는 
+            노코드 플랫폼입니다. 개발 시간을 90% 단축하세요.
+        </p>
+        <div class="hero-buttons">
+            <a href="#" class="btn btn-primary">무료 체험하기</a>
+            <a href="#" class="btn btn-secondary">데모 보기</a>
+        </div>
+    </section>
+    
+    <section class="features">
+        <h2 class="section-title">강력한 기능들</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>빠른 배포</h3>
+                <p>클릭 몇 번으로 프로덕션 환경에 배포하세요. 복잡한 DevOps 설정이 필요 없습니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>엔터프라이즈 보안</h3>
+                <p>SOC 2 Type II 인증. 데이터는 암호화되어 안전하게 보호됩니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>실시간 분석</h3>
+                <p>사용자 행동과 성능을 실시간으로 모니터링하고 인사이트를 얻으세요.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>API 연동</h3>
+                <p>REST, GraphQL, Webhook - 어떤 서비스와도 쉽게 연동할 수 있습니다.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>커스텀 디자인</h3>
+                <p>드래그 앤 드롭으로 브랜드에 맞는 맞춤형 UI를 구축하세요.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3>글로벌 스케일</h3>
+                <p>전 세계 엣지 서버에서 밀리초 단위의 빠른 응답을 제공합니다.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing">
+        <h2 class="section-title">심플한 가격</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Starter</h3>
+                <div class="price">무료</div>
+                <ul class="pricing-features">
+                    <li>3개 프로젝트</li>
+                    <li>1GB 스토리지</li>
+                    <li>커뮤니티 지원</li>
+                    <li>기본 분석</li>
+                </ul>
+                <a href="#" class="btn btn-secondary" style="width: 100%;">시작하기</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Pro</h3>
+                <div class="price">$29<span>/월</span></div>
+                <ul class="pricing-features">
+                    <li>무제한 프로젝트</li>
+                    <li>50GB 스토리지</li>
+                    <li>우선 지원</li>
+                    <li>고급 분석</li>
+                    <li>커스텀 도메인</li>
+                </ul>
+                <a href="#" class="btn btn-primary" style="width: 100%;">Pro 시작</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <div class="price">문의</div>
+                <ul class="pricing-features">
+                    <li>모든 Pro 기능</li>
+                    <li>SLA 보장</li>
+                    <li>전담 매니저</li>
+                    <li>온프레미스 옵션</li>
+                    <li>맞춤 계약</li>
+                </ul>
+                <a href="#" class="btn btn-secondary" style="width: 100%;">문의하기</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <h2>지금 시작하세요</h2>
+        <p>무료로 시작하고, 필요할 때 업그레이드하세요.</p>
+        <a href="#" class="btn btn-primary">무료 계정 만들기</a>
+    </section>
+    
+    <footer class="footer">
+        <p>© 2025 TechFlow. Styled with ACF CSS Manager.</p>
+    </footer>
+</body>
+</html>
+

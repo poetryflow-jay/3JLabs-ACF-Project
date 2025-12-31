@@ -1,0 +1,30 @@
+# PHP / Composer
+/vendor/
+composer.lock
+.phpunit.result.cache
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Prevent accidental local env dumps (was accidentally committed once)
+/%USERPROFILE%/
+
+# Large / binary artifacts (do not commit)
+/models/
+/레퍼런스/
+*.safetensors
+*.exe
+*.zip
+
+# Build outputs / local state
+build_state.json
+*.log
+
+

@@ -1,0 +1,286 @@
+{
+  "demo_site_settings": {
+    "name": "ACF CSS Demo Site",
+    "description": "ACF CSS Manager 데모 사이트용 더미 콘텐츠",
+    "version": "6.2.0"
+  },
+  
+  "style_presets": {
+    "law_firm": {
+      "name": "Elegant Law Firm",
+      "description": "고급스러운 블랙&골드 법률사무소 테마",
+      "ai_prompt": "고급스러운 블랙&골드, 법률사무소 느낌. 버튼은 선명하게.",
+      "options": {
+        "palettes": {
+          "brand_primary": "#1a1a1a",
+          "brand_secondary": "#d4af37",
+          "brand_accent": "#8b7355",
+          "text_primary": "#ffffff",
+          "text_secondary": "#b8b8b8",
+          "background_primary": "#0d0d0d",
+          "background_secondary": "#1f1f1f"
+        },
+        "typography": {
+          "heading_font": "Playfair Display",
+          "body_font": "Noto Sans KR",
+          "button_font": "Montserrat",
+          "heading_weight": "700",
+          "body_weight": "400"
+        },
+        "buttons": {
+          "primary_bg": "#d4af37",
+          "primary_text": "#1a1a1a",
+          "border_radius": "4px",
+          "padding": "12px 24px"
+        }
+      }
+    },
+    
+    "cozy_cafe": {
+      "name": "Cozy Cafe Vibes",
+      "description": "따뜻한 파스텔 카페 테마",
+      "ai_prompt": "따뜻한 파스텔, 카페 웹사이트에 어울리는 부드러운 분위기",
+      "options": {
+        "palettes": {
+          "brand_primary": "#8b5a2b",
+          "brand_secondary": "#d4a574",
+          "brand_accent": "#2d5a3d",
+          "text_primary": "#3d2914",
+          "text_secondary": "#6b4423",
+          "background_primary": "#faf6f0",
+          "background_secondary": "#f5ebe0"
+        },
+        "typography": {
+          "heading_font": "Cormorant Garamond",
+          "body_font": "Lato",
+          "button_font": "Lato",
+          "heading_weight": "600",
+          "body_weight": "400"
+        },
+        "buttons": {
+          "primary_bg": "#8b5a2b",
+          "primary_text": "#ffffff",
+          "border_radius": "24px",
+          "padding": "10px 20px"
+        }
+      }
+    },
+    
+    "tech_startup": {
+      "name": "Tech Startup Dark",
+      "description": "미니멀 다크 테크 스타트업 테마",
+      "ai_prompt": "미니멀하고 모던한 다크 테마, 테크 스타트업 느낌",
+      "options": {
+        "palettes": {
+          "brand_primary": "#6366f1",
+          "brand_secondary": "#8b5cf6",
+          "brand_accent": "#06b6d4",
+          "text_primary": "#e2e8f0",
+          "text_secondary": "#94a3b8",
+          "background_primary": "#0f172a",
+          "background_secondary": "#1e293b"
+        },
+        "typography": {
+          "heading_font": "Inter",
+          "body_font": "Inter",
+          "button_font": "Inter",
+          "heading_weight": "700",
+          "body_weight": "400"
+        },
+        "buttons": {
+          "primary_bg": "#6366f1",
+          "primary_text": "#ffffff",
+          "border_radius": "8px",
+          "padding": "12px 24px"
+        }
+      }
+    },
+    
+    "medical_clinic": {
+      "name": "Medical Clinic Trust",
+      "description": "깨끗하고 신뢰감 있는 의료 테마",
+      "ai_prompt": "깨끗하고 신뢰감 있는 블루&화이트, 병원/클리닉 느낌",
+      "options": {
+        "palettes": {
+          "brand_primary": "#0284c7",
+          "brand_secondary": "#38bdf8",
+          "brand_accent": "#22c55e",
+          "text_primary": "#1e293b",
+          "text_secondary": "#64748b",
+          "background_primary": "#ffffff",
+          "background_secondary": "#f8fafc"
+        },
+        "typography": {
+          "heading_font": "Poppins",
+          "body_font": "Open Sans",
+          "button_font": "Poppins",
+          "heading_weight": "600",
+          "body_weight": "400"
+        },
+        "buttons": {
+          "primary_bg": "#0284c7",
+          "primary_text": "#ffffff",
+          "border_radius": "6px",
+          "padding": "14px 28px"
+        }
+      }
+    }
+  },
+  
+  "demo_pages": {
+    "home": {
+      "title": "홈페이지",
+      "sections": [
+        {
+          "type": "hero",
+          "heading": "환영합니다",
+          "subheading": "ACF CSS Manager로 만든 아름다운 웹사이트",
+          "cta_text": "자세히 보기"
+        },
+        {
+          "type": "features",
+          "items": [
+            {
+              "icon": "🎨",
+              "title": "색상 관리",
+              "description": "브랜드 컬러를 일관되게 유지하세요"
+            },
+            {
+              "icon": "🔤",
+              "title": "타이포그래피",
+              "description": "체계적인 폰트 시스템을 구축하세요"
+            },
+            {
+              "icon": "🔘",
+              "title": "버튼 스타일",
+              "description": "모든 버튼을 통일된 스타일로 관리하세요"
+            }
+          ]
+        },
+        {
+          "type": "cta",
+          "heading": "지금 시작하세요",
+          "description": "무료 버전으로 바로 시작할 수 있습니다",
+          "button_text": "무료 다운로드"
+        }
+      ]
+    },
+    
+    "about": {
+      "title": "회사 소개",
+      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
+    },
+    
+    "services": {
+      "title": "서비스",
+      "items": [
+        {
+          "title": "웹 디자인",
+          "description": "아름답고 사용성 높은 웹사이트를 디자인합니다",
+          "price": "₩500,000~"
+        },
+        {
+          "title": "브랜딩",
+          "description": "일관된 브랜드 아이덴티티를 구축합니다",
+          "price": "₩1,000,000~"
+        },
+        {
+          "title": "컨설팅",
+          "description": "디지털 전략 수립을 도와드립니다",
+          "price": "₩200,000/시간"
+        }
+      ]
+    },
+    
+    "contact": {
+      "title": "문의하기",
+      "form_fields": [
+        { "name": "name", "label": "이름", "type": "text", "required": true },
+        { "name": "email", "label": "이메일", "type": "email", "required": true },
+        { "name": "phone", "label": "전화번호", "type": "tel", "required": false },
+        { "name": "message", "label": "메시지", "type": "textarea", "required": true }
+      ],
+      "submit_text": "문의 보내기"
+    }
+  },
+  
+  "partner_hub_demo": {
+    "connected_sites": [
+      {
+        "url": "https://client-a.com",
+        "name": "클라이언트 A 쇼핑몰",
+        "status": "active",
+        "last_sync": "2025-12-18T10:30:00Z",
+        "plugin_version": "6.2.0"
+      },
+      {
+        "url": "https://client-b.kr",
+        "name": "클라이언트 B 기업 사이트",
+        "status": "active",
+        "last_sync": "2025-12-18T09:15:00Z",
+        "plugin_version": "6.2.0"
+      },
+      {
+        "url": "https://client-c.io",
+        "name": "클라이언트 C 포트폴리오",
+        "status": "error",
+        "last_sync": "2025-12-15T14:00:00Z",
+        "plugin_version": "6.1.1",
+        "error_message": "연결 시간 초과"
+      },
+      {
+        "url": "https://client-d.net",
+        "name": "클라이언트 D 블로그",
+        "status": "active",
+        "last_sync": "2025-12-18T08:00:00Z",
+        "plugin_version": "6.2.0"
+      }
+    ]
+  },
+  
+  "template_market_demo": {
+    "templates": [
+      {
+        "id": "tpl-001",
+        "name": "Elegant Law Firm",
+        "author": "J&J Labs",
+        "category": "business",
+        "price": 0,
+        "downloads": 1250,
+        "rating": 4.8,
+        "preview_image": "law-firm-preview.jpg"
+      },
+      {
+        "id": "tpl-002",
+        "name": "Cozy Cafe Vibes",
+        "author": "DesignStudio",
+        "category": "cafe",
+        "price": 9,
+        "downloads": 890,
+        "rating": 4.6,
+        "preview_image": "cafe-preview.jpg"
+      },
+      {
+        "id": "tpl-003",
+        "name": "Tech Startup Dark",
+        "author": "J&J Labs",
+        "category": "tech",
+        "price": 0,
+        "downloads": 2100,
+        "rating": 4.9,
+        "preview_image": "tech-preview.jpg"
+      },
+      {
+        "id": "tpl-004",
+        "name": "Fashion Boutique",
+        "author": "StyleMaster",
+        "category": "ecommerce",
+        "price": 15,
+        "downloads": 560,
+        "rating": 4.5,
+        "preview_image": "fashion-preview.jpg"
+      }
+    ]
+  }
+}
+

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Image Template</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* 
+         * 기본 OG 이미지 크기: 1200 x 630 (Facebook, LinkedIn)
+         * Twitter 카드: 1200 x 600
+         * 정사각형: 1200 x 1200 (Instagram)
+         */
+        
+        .og-card {
+            width: 1200px;
+            height: 630px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* ========================================
+         * 템플릿 1: 메인 제품 소개
+         * ======================================== */
+        .template-main {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0f172a 100%);
+        }
+        
+        .template-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.3) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.2) 0%, transparent 40%);
+        }
+        
+        .template-main .content {
+            position: relative;
+            z-index: 1;
+            padding: 80px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .template-main .logo {
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        
+        .template-main .logo span {
+            color: #2563eb;
+        }
+        
+        .template-main h1 {
+            font-size: 72px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        
+        .template-main h1 .highlight {
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .template-main p {
+            font-size: 28px;
+            color: #94a3b8;
+            max-width: 700px;
+        }
+        
+        .template-main .badge {
+            position: absolute;
+            top: 60px;
+            right: 80px;
+            background: rgba(37, 99, 235, 0.9);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* ========================================
+         * 템플릿 2: 기능 하이라이트
+         * ======================================== */
+        .template-feature {
+            background: #0f172a;
+        }
+        
+        .template-feature .split {
+            display: flex;
+            height: 100%;
+        }
+        
+        .template-feature .left {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .template-feature .right {
+            flex: 1;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .template-feature .right::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .template-feature .feature-icon {
+            font-size: 200px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .template-feature .label {
+            color: #2563eb;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .template-feature h1 {
+            font-size: 56px;
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .template-feature p {
+            font-size: 22px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+        
+        /* ========================================
+         * 템플릿 3: 가격 프로모션
+         * ======================================== */
+        .template-promo {
+            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+        }
+        
+        .template-promo .content {
+            padding: 60px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .template-promo .discount-badge {
+            background: #fbbf24;
+            color: #0f172a;
+            font-size: 36px;
+            font-weight: 900;
+            padding: 15px 40px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            transform: rotate(-3deg);
+        }
+        
+        .template-promo h1 {
+            font-size: 64px;
+            color: #fff;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .template-promo .price {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .template-promo .original-price {
+            font-size: 36px;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: line-through;
+        }
+        
+        .template-promo .sale-price {
+            font-size: 72px;
+            color: #fff;
+            font-weight: 900;
+        }
+        
+        .template-promo p {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* ========================================
+         * 템플릿 4: AI 기능 소개
+         * ======================================== */
+        .template-ai {
+            background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
+        }
+        
+        .template-ai::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.3) 0%, transparent 50%);
+        }
+        
+        .template-ai .content {
+            position: relative;
+            z-index: 1;
+            padding: 60px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .template-ai .ai-icon {
+            font-size: 100px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .template-ai h1 {
+            font-size: 60px;
+            color: #fff;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .template-ai h1 .gradient {
+            background: linear-gradient(90deg, #818cf8, #a78bfa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .template-ai p {
+            font-size: 26px;
+            color: #a5b4fc;
+            max-width: 800px;
+        }
+        
+        /* ========================================
+         * 템플릿 5: 블로그 포스트 썸네일
+         * ======================================== */
+        .template-blog {
+            background: #fff;
+        }
+        
+        .template-blog .content {
+            height: 100%;
+            display: flex;
+        }
+        
+        .template-blog .text-area {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
+        }
+        
+        .template-blog .image-area {
+            width: 400px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .template-blog .image-area .icon {
+            font-size: 150px;
+            filter: grayscale(100%) brightness(200%);
+            opacity: 0.2;
+        }
+        
+        .template-blog .category {
+            background: #2563eb;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .template-blog h1 {
+            font-size: 48px;
+            color: #0f172a;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .template-blog .meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #64748b;
+            font-size: 18px;
+        }
+        
+        .template-blog .meta img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+        
+        /* ========================================
+         * 템플릿 6: Twitter/X 카드
+         * ======================================== */
+        .template-twitter {
+            width: 1200px;
+            height: 600px;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            padding: 60px;
+        }
+        
+        .template-twitter .left {
+            flex: 1;
+        }
+        
+        .template-twitter .logo {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 25px;
+        }
+        
+        .template-twitter .logo span {
+            color: #2563eb;
+        }
+        
+        .template-twitter h1 {
+            font-size: 52px;
+            color: #fff;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .template-twitter p {
+            font-size: 22px;
+            color: #94a3b8;
+        }
+        
+        .template-twitter .right {
+            width: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .template-twitter .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background: #fff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 템플릿 1: 메인 제품 소개 -->
+<div class="og-card template-main">
+    <div class="content">
+        <div class="logo">ACF <span>CSS</span></div>
+        <h1>
+            코딩 없이<br>
+            <span class="highlight">전문가 수준의</span><br>
+            웹사이트 디자인
+        </h1>
+        <p>AI가 당신의 아이디어를 CSS 스타일로 변환합니다.</p>
+    </div>
+    <div class="badge">v6.2.0 출시 🚀</div>
+</div>
+
+<hr style="margin: 50px 0; border: none; border-top: 2px dashed #ccc;">
+
+<!-- 템플릿 2: 기능 하이라이트 (AI 스타일 생성) -->
+<div class="og-card template-feature">
+    <div class="split">
+        <div class="left">
+            <div class="label">New Feature</div>
+            <h1>AI 스타일<br>생성 기능</h1>
+            <p>간단한 프롬프트 입력만으로 웹사이트 스타일을 자동 생성합니다. 색상, 폰트, 버튼까지 한 번에!</p>
+        </div>
+        <div class="right">
+            <span class="feature-icon">🤖</span>
+        </div>
+    </div>
+</div>
+
+<hr style="margin: 50px 0; border: none; border-top: 2px dashed #ccc;">
+
+<!-- 템플릿 3: 가격 프로모션 -->
+<div class="og-card template-promo">
+    <div class="content">
+        <div class="discount-badge">🎉 런칭 기념 50% 할인!</div>
+        <h1>ACF CSS Manager PRO</h1>
+        <div class="price">
+            <span class="original-price">₩98,000</span>
+            <span class="sale-price">₩49,000</span>
+        </div>
+        <p>베타 테스터에게만 제공되는 특별 가격 • 한정 수량</p>
+    </div>
+</div>
+
+<hr style="margin: 50px 0; border: none; border-top: 2px dashed #ccc;">
+
+<!-- 템플릿 4: AI 기능 소개 -->
+<div class="og-card template-ai">
+    <div class="content">
+        <div class="ai-icon">✨</div>
+        <h1>
+            <span class="gradient">AI가 디자인하고</span><br>
+            당신이 선택합니다
+        </h1>
+        <p>프롬프트 한 줄로 완벽한 웹사이트 스타일을 생성하세요.<br>Before/After 미리보기로 변경 사항을 확인하고 적용합니다.</p>
+    </div>
+</div>
+
+<hr style="margin: 50px 0; border: none; border-top: 2px dashed #ccc;">
+
+<!-- 템플릿 5: 블로그 포스트 썸네일 -->
+<div class="og-card template-blog">
+    <div class="content">
+        <div class="text-area">
+            <span class="category">튜토리얼</span>
+            <h1>WordPress 사이트의 CSS를 체계적으로 관리하는 5가지 방법</h1>
+            <div class="meta">
+                <div>J&J Labs • 5분 읽기</div>
+            </div>
+        </div>
+        <div class="image-area">
+            <span class="icon">📝</span>
+        </div>
+    </div>
+</div>
+
+<hr style="margin: 50px 0; border: none; border-top: 2px dashed #ccc;">
+
+<!-- 템플릿 6: Twitter 카드 -->
+<div class="og-card template-twitter">
+    <div class="left">
+        <div class="logo">ACF <span>CSS</span> Manager</div>
+        <h1>WordPress CSS 관리,<br>이제 AI에게 맡기세요</h1>
+        <p>코딩 없이 전문가 수준의 디자인을 구현합니다.</p>
+    </div>
+    <div class="right">
+        <div class="qr-placeholder">
+            QR Code<br>for Download
+        </div>
+    </div>
+</div>
+
+<script>
+    // 스크린샷 촬영 가이드
+    console.log('=== OG Image 생성 가이드 ===');
+    console.log('1. 브라우저 개발자 도구(F12)를 엽니다.');
+    console.log('2. Device Toolbar (Ctrl+Shift+M)를 활성화합니다.');
+    console.log('3. 해상도를 1200 x 630으로 설정합니다.');
+    console.log('4. 각 템플릿 영역만 캡처하여 이미지로 저장합니다.');
+    console.log('');
+    console.log('또는 html2canvas, Puppeteer 등의 도구로 자동 생성할 수 있습니다.');
+</script>
+
+</body>
+</html>
+

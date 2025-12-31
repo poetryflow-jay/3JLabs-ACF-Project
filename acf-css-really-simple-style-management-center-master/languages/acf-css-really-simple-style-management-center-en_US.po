@@ -1,0 +1,389 @@
+# English (US) translation for ACF CSS Manager
+# Copyright (C) 2025 J&J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 6.2.0\n"
+"Report-Msgid-Bugs-To: https://j-j-labs.com/support\n"
+"POT-Creation-Date: 2025-12-18 00:00:00+0000\n"
+"PO-Revision-Date: 2025-12-18 00:00:00+0000\n"
+"Last-Translator: J&J Labs <support@j-j-labs.com>\n"
+"Language-Team: English (US)\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Cursor AI\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+#: acf-css-really-simple-style-guide.php:5
+msgid "WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다."
+msgstr "A unified style management plugin that centrally manages all style elements (color palettes, typography, buttons, forms) of WordPress websites."
+
+#: includes/class-jj-admin-center.php
+msgid "J&J 관리자 센터"
+msgstr "Admin Center"
+
+#: includes/class-jj-admin-center.php
+msgid "일반 설정"
+msgstr "General Settings"
+
+#: includes/class-jj-admin-center.php
+msgid "어드민 메뉴"
+msgstr "Admin Menu"
+
+#: includes/class-jj-admin-center.php
+msgid "섹션 레이아웃"
+msgstr "Section Layout"
+
+#: includes/class-jj-admin-center.php
+msgid "텍스트"
+msgstr "Texts"
+
+#: includes/class-jj-admin-center.php
+msgid "색상"
+msgstr "Colors"
+
+#: includes/class-jj-admin-center.php
+msgid "비주얼"
+msgstr "Visual"
+
+#: includes/class-jj-admin-center.php
+msgid "클라우드"
+msgstr "Cloud"
+
+#: includes/class-jj-admin-center.php
+msgid "백업 관리"
+msgstr "Backup"
+
+#: includes/class-jj-admin-center.php
+msgid "업데이트"
+msgstr "Updates"
+
+#: includes/class-jj-admin-center.php
+msgid "라이센스"
+msgstr "License"
+
+#: includes/class-jj-admin-center.php
+msgid "시스템 상태"
+msgstr "System Status"
+
+#: includes/class-jj-admin-center.php
+msgid "저장"
+msgstr "Save"
+
+#: includes/class-jj-admin-center.php
+msgid "설정이 저장되었습니다."
+msgstr "Settings saved successfully."
+
+#: includes/class-jj-admin-center.php
+msgid "권한이 없습니다."
+msgstr "You do not have permission."
+
+#. Style Center
+#: includes/class-jj-style-guide-admin.php
+msgid "스타일 센터"
+msgstr "Style Center"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "브랜드 팔레트"
+msgstr "Brand Palette"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "시스템 팔레트"
+msgstr "System Palette"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "타이포그래피"
+msgstr "Typography"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "버튼 스타일"
+msgstr "Button Styles"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "폼 스타일"
+msgstr "Form Styles"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "기본 색상"
+msgstr "Base Colors"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "Primary"
+msgstr "Primary"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "Secondary"
+msgstr "Secondary"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "Accent"
+msgstr "Accent"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "배경색"
+msgstr "Background Color"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "텍스트 색상"
+msgstr "Text Color"
+
+#. Typography
+#: includes/class-jj-style-guide-admin.php
+msgid "제목 폰트"
+msgstr "Heading Font"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "본문 폰트"
+msgstr "Body Font"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "버튼 폰트"
+msgstr "Button Font"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "폰트 크기"
+msgstr "Font Size"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "폰트 두께"
+msgstr "Font Weight"
+
+#. Buttons
+#: includes/class-jj-style-guide-admin.php
+msgid "기본 버튼"
+msgstr "Default Button"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "테두리 반경"
+msgstr "Border Radius"
+
+#: includes/class-jj-style-guide-admin.php
+msgid "패딩"
+msgstr "Padding"
+
+#. Cloud
+#: includes/modules/cloud-manager/class-jj-cloud-manager.php
+msgid "클라우드로 내보내기"
+msgstr "Export to Cloud"
+
+#: includes/modules/cloud-manager/class-jj-cloud-manager.php
+msgid "클라우드에서 가져오기"
+msgstr "Import from Cloud"
+
+#: includes/modules/cloud-manager/class-jj-cloud-manager.php
+msgid "공유 코드 입력"
+msgstr "Enter Share Code"
+
+#: includes/modules/cloud-manager/class-jj-cloud-manager.php
+msgid "서버 통신 오류"
+msgstr "Server communication error"
+
+#. Template Market
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "템플릿 마켓"
+msgstr "Template Market"
+
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "검색"
+msgstr "Search"
+
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "전체"
+msgstr "All"
+
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "비즈니스"
+msgstr "Business"
+
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "카페/레스토랑"
+msgstr "Cafe/Restaurant"
+
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "기술/개발"
+msgstr "Tech/Development"
+
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "적용하기"
+msgstr "Apply"
+
+#: includes/modules/cloud-manager/class-jj-template-market.php
+msgid "내 스타일 판매하기"
+msgstr "Sell My Style"
+
+#. Partner Hub
+#: includes/modules/partner-hub/class-jj-partner-hub.php
+msgid "Partner Hub"
+msgstr "Partner Hub"
+
+#: includes/modules/partner-hub/class-jj-partner-hub.php
+msgid "연결된 사이트"
+msgstr "Connected Sites"
+
+#: includes/modules/partner-hub/class-jj-partner-hub.php
+msgid "사이트 추가"
+msgstr "Add Site"
+
+#: includes/modules/partner-hub/class-jj-partner-hub.php
+msgid "전체 동기화"
+msgstr "Sync All"
+
+#: includes/modules/partner-hub/class-jj-partner-hub.php
+msgid "활성"
+msgstr "Active"
+
+#: includes/modules/partner-hub/class-jj-partner-hub.php
+msgid "오류"
+msgstr "Error"
+
+#. Multisite
+#: includes/multisite/class-jj-multisite-controller.php
+msgid "네트워크 설정"
+msgstr "Network Settings"
+
+#: includes/multisite/class-jj-multisite-controller.php
+msgid "사이트 오버라이드 허용"
+msgstr "Allow Site Override"
+
+#: includes/multisite/class-jj-multisite-controller.php
+msgid "전체 사이트 적용"
+msgstr "Apply to All Sites"
+
+#: includes/multisite/class-jj-multisite-controller.php
+msgid "이 사이트는 네트워크에서 스타일을 관리 중입니다."
+msgstr "This site's styles are managed by the network."
+
+#. Webhook
+#: includes/integrations/class-jj-webhook-manager.php
+msgid "Webhook 자동화"
+msgstr "Webhook Automation"
+
+#: includes/integrations/class-jj-webhook-manager.php
+msgid "Webhook 활성화"
+msgstr "Enable Webhook"
+
+#: includes/integrations/class-jj-webhook-manager.php
+msgid "엔드포인트 URL"
+msgstr "Endpoint URL"
+
+#: includes/integrations/class-jj-webhook-manager.php
+msgid "시크릿 키"
+msgstr "Secret Key"
+
+#: includes/integrations/class-jj-webhook-manager.php
+msgid "테스트 Webhook"
+msgstr "Test Webhook"
+
+#. License
+#: includes/class-jj-license-manager.php
+msgid "라이센스 키"
+msgstr "License Key"
+
+#: includes/class-jj-license-manager.php
+msgid "라이센스 활성화"
+msgstr "Activate License"
+
+#: includes/class-jj-license-manager.php
+msgid "라이센스가 활성화되었습니다."
+msgstr "License activated successfully."
+
+#: includes/class-jj-license-manager.php
+msgid "유효하지 않은 라이센스 키입니다."
+msgstr "Invalid license key."
+
+#. Quick Links
+#: acf-css-really-simple-style-guide.php
+msgid "Settings"
+msgstr "Settings"
+
+#: acf-css-really-simple-style-guide.php
+msgid "Styles"
+msgstr "Styles"
+
+#: acf-css-really-simple-style-guide.php
+msgid "Menu"
+msgstr "Menu"
+
+#: acf-css-really-simple-style-guide.php
+msgid "Visual"
+msgstr "Visual"
+
+#. AI Extension
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "ACF CSS AI"
+msgstr "ACF CSS AI"
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "프롬프트"
+msgstr "Prompt"
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "AI 제안 생성"
+msgstr "Generate AI Suggestion"
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "적용(저장)"
+msgstr "Apply (Save)"
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "제안 결과"
+msgstr "Suggestion Result"
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "프롬프트를 입력하세요."
+msgstr "Please enter a prompt."
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "AI 제안이 적용되었습니다."
+msgstr "AI suggestion applied successfully."
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "Cloud 저장"
+msgstr "Save to Cloud"
+
+#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
+msgid "코어 플러그인이 감지되지 않았습니다."
+msgstr "Core plugin not detected."
+
+#. Common
+msgid "예"
+msgstr "Yes"
+
+msgid "아니오"
+msgstr "No"
+
+msgid "확인"
+msgstr "OK"
+
+msgid "취소"
+msgstr "Cancel"
+
+msgid "삭제"
+msgstr "Delete"
+
+msgid "수정"
+msgstr "Edit"
+
+msgid "추가"
+msgstr "Add"
+
+msgid "닫기"
+msgstr "Close"
+
+msgid "로딩 중..."
+msgstr "Loading..."
+
+msgid "성공"
+msgstr "Success"
+
+msgid "실패"
+msgstr "Failed"
+
+msgid "경고"
+msgstr "Warning"
+
+msgid "오류가 발생했습니다."
+msgstr "An error occurred."
+

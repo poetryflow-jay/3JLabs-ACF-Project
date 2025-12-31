@@ -1,0 +1,115 @@
+.jj-ai-ext-wrap .jj-ai-ext-card {
+  max-width: 900px;
+  background: #fff;
+  border: 1px solid #c3c4c7;
+  border-radius: 6px;
+  padding: 18px 18px;
+  margin-top: 16px;
+}
+
+.jj-ai-label {
+  font-weight: 700;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.jj-ai-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.jj-ai-result {
+  margin-top: 18px;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 14px;
+}
+
+.jj-ai-explanation {
+  margin-bottom: 10px;
+  color: #1d2327;
+}
+
+.jj-ai-patch {
+  background: #0b1020;
+  color: #e6edf3;
+  padding: 12px;
+  border-radius: 6px;
+  overflow: auto;
+  max-height: 340px;
+}
+
+.jj-ai-ext-wrap #jj-webgpu-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid #dcdcde;
+  border-radius: 6px;
+  background: #f6f7f7;
+}
+
+.jj-ai-ext-wrap #jj-webgpu-progress {
+  max-width: 520px;
+}
+
+.jj-ai-ext-wrap #jj-webgpu-progress .jj-progress-text {
+  display: inline-block;
+  margin-top: 6px;
+  color: #646970;
+  font-size: 12px;
+}
+
+.jj-ai-stream {
+  background: #0b1020;
+  color: #e6edf3;
+  padding: 12px;
+  border-radius: 6px;
+  overflow: auto;
+  max-height: 220px;
+  border: 1px solid #1f2a44;
+}
+
+.jj-ai-stream-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 8px 0 8px;
+}
+
+.jj-ai-stage {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 12px;
+  border: 1px solid #dcdcde;
+  background: #f6f7f7;
+  color: #1d2327;
+}
+.jj-ai-stage[data-kind="running"] { background: #f0f6fc; border-color: #b6d1ea; color: #135e96; }
+.jj-ai-stage[data-kind="parsing"] { background: #fcf9e8; border-color: #f0e6a6; color: #8a6d00; }
+.jj-ai-stage[data-kind="done"] { background: #edfaef; border-color: #b7e1c2; color: #1d6b2f; }
+.jj-ai-stage[data-kind="error"] { background: #fbeaea; border-color: #f2bcbc; color: #b32d2e; }
+.jj-ai-stage[data-kind="cancelled"] { background: #f6f7f7; border-color: #dcdcde; color: #646970; }
+
+.jj-ai-metric {
+  font-size: 12px;
+  color: #3c434a;
+}
+.jj-ai-metric strong {
+  font-weight: 800;
+  margin-right: 4px;
+}
+
+.jj-ai-autoscroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #3c434a;
+}

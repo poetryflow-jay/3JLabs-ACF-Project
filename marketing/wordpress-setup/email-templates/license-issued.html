@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS Manager 라이센스 발급 완료</title>
+    <!--[if mso]>
+    <noscript>
+        <xml>
+            <o:OfficeDocumentSettings>
+                <o:PixelsPerInch>96</o:PixelsPerInch>
+            </o:OfficeDocumentSettings>
+        </xml>
+    </noscript>
+    <![endif]-->
+    <style>
+        /* Reset */
+        body, table, td, p, a, li, blockquote {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+        }
+        table, td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            height: auto;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+        }
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        
+        /* Main Styles */
+        .email-wrapper {
+            background-color: #0f172a;
+            padding: 40px 20px;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #1e293b;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+        .header .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .message {
+            color: #94a3b8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        .license-box {
+            background-color: #0f172a;
+            border: 2px solid #2563eb;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .license-box h3 {
+            color: #2563eb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .license-key {
+            background-color: #1e293b;
+            border-radius: 8px;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        .license-key code {
+            color: #f59e0b;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .license-details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+        }
+        .license-details table {
+            width: 100%;
+        }
+        .license-details td {
+            color: #94a3b8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            padding: 8px 0;
+        }
+        .license-details td:last-child {
+            color: #ffffff;
+            text-align: right;
+        }
+        .steps {
+            background-color: #0f172a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .steps h3 {
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 20px 0;
+        }
+        .step {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .step-number {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 50%;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-text {
+            color: #94a3b8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            padding-top: 3px;
+        }
+        .step-text strong {
+            color: #ffffff;
+        }
+        .cta-button {
+            display: block;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 12px;
+            color: #ffffff !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            padding: 16px 30px;
+            margin-bottom: 30px;
+        }
+        .support-box {
+            background-color: #0f172a;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .support-box p {
+            color: #94a3b8;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 14px;
+            margin: 0 0 10px 0;
+        }
+        .support-box a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .footer {
+            background-color: #0f172a;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #1e293b;
+        }
+        .footer p {
+            color: #64748b;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 12px;
+            margin: 0 0 10px 0;
+        }
+        .footer a {
+            color: #64748b;
+            text-decoration: underline;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-wrapper">
+        <div class="email-container">
+            <!-- Header -->
+            <div class="header">
+                <h1>🎉 라이센스 발급 완료</h1>
+                <p class="subtitle">ACF CSS Manager를 구매해 주셔서 감사합니다!</p>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <p class="greeting">안녕하세요 {{customer_name}}님,</p>
+                
+                <p class="message">
+                    ACF CSS Manager {{edition_name}} 에디션 구매가 완료되었습니다. 
+                    아래 라이센스 키를 사용하여 플러그인을 활성화하세요.
+                </p>
+                
+                <!-- License Box -->
+                <div class="license-box">
+                    <h3>🔑 라이센스 키</h3>
+                    <div class="license-key">
+                        <code>{{license_key}}</code>
+                    </div>
+                    
+                    <div class="license-details">
+                        <table>
+                            <tr>
+                                <td>에디션</td>
+                                <td>{{edition_name}}</td>
+                            </tr>
+                            <tr>
+                                <td>주문 번호</td>
+                                <td>#{{order_id}}</td>
+                            </tr>
+                            <tr>
+                                <td>만료일</td>
+                                <td>{{expires_at}}</td>
+                            </tr>
+                            <tr>
+                                <td>사이트 수</td>
+                                <td>{{site_limit}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Activation Steps -->
+                <div class="steps">
+                    <h3>📖 활성화 방법</h3>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">
+                            WordPress 관리자 대시보드에서 <strong>설정 &gt; ACF CSS Manager</strong>로 이동합니다.
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">
+                            <strong>라이센스</strong> 탭을 클릭합니다.
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">
+                            위의 라이센스 키를 입력하고 <strong>활성화</strong> 버튼을 클릭합니다.
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">
+                            활성화 완료! 이제 모든 프리미엄 기능을 사용할 수 있습니다. 🎉
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Button -->
+                <a href="{{admin_url}}" class="cta-button">
+                    🚀 지금 활성화하기
+                </a>
+                
+                <!-- Support Box -->
+                <div class="support-box">
+                    <p>도움이 필요하신가요?</p>
+                    <p>
+                        <a href="https://j-j-labs.com/docs/">사용자 문서</a> · 
+                        <a href="https://j-j-labs.com/support/">고객 지원</a> · 
+                        <a href="mailto:support@j-j-labs.com">support@j-j-labs.com</a>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                <p>© 2025 J&J Labs. All rights reserved.</p>
+                <p>
+                    <a href="https://j-j-labs.com/privacy-policy/">개인정보처리방침</a> · 
+                    <a href="https://j-j-labs.com/terms/">이용약관</a> · 
+                    <a href="{{unsubscribe_url}}">수신 거부</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

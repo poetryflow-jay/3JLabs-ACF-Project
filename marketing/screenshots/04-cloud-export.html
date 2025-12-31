@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS - Cloud Export Success (Screenshot)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f0f1; }
+        
+        .wp-admin { display: flex; min-height: 100vh; }
+        .wp-sidebar { width: 160px; background: #1d2327; padding-top: 10px; }
+        .wp-sidebar-item { padding: 8px 12px; color: #a7aaad; font-size: 13px; }
+        .wp-sidebar-item.active { background: #2c3338; color: #fff; border-left: 4px solid #2271b1; padding-left: 8px; }
+        
+        .wp-content { flex: 1; padding: 20px; }
+        .wp-title { font-size: 23px; font-weight: 400; color: #1d2327; margin-bottom: 20px; }
+        
+        .nav-tabs { display: flex; border-bottom: 1px solid #c3c4c7; margin-bottom: 20px; }
+        .nav-tab { padding: 10px 15px; background: #dcdcde; border: 1px solid #c3c4c7; border-bottom: none; margin-right: -1px; font-size: 13px; color: #50575e; }
+        .nav-tab.active { background: #fff; border-bottom: 1px solid #fff; margin-bottom: -1px; color: #1d2327; font-weight: 600; }
+        
+        .card { background: #fff; border: 1px solid #c3c4c7; padding: 20px; border-radius: 4px; margin-bottom: 20px; }
+        .card-title { font-size: 14px; font-weight: 600; color: #1d2327; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        
+        .cloud-actions { display: flex; gap: 15px; margin-bottom: 20px; }
+        .cloud-btn { padding: 12px 24px; border-radius: 4px; font-size: 13px; font-weight: 500; cursor: pointer; border: none; display: flex; align-items: center; gap: 8px; }
+        .cloud-btn.export { background: #2271b1; color: #fff; }
+        .cloud-btn.import { background: #fff; color: #2271b1; border: 1px solid #2271b1; }
+        
+        .import-form { display: flex; gap: 10px; margin-top: 15px; }
+        .import-input { flex: 1; padding: 10px 12px; border: 1px solid #c3c4c7; border-radius: 4px; font-family: monospace; }
+        .import-submit { background: #2271b1; color: #fff; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; }
+        
+        /* Success Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal { background: #fff; border-radius: 8px; width: 420px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; animation: modalIn 0.3s ease-out; }
+        @keyframes modalIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .modal-header { background: linear-gradient(135deg, #00a32a, #047857); padding: 25px; text-align: center; }
+        .modal-icon { width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 30px; }
+        .modal-title { color: #fff; font-size: 18px; font-weight: 600; }
+        
+        .modal-body { padding: 25px; text-align: center; }
+        .modal-message { font-size: 14px; color: #1d2327; margin-bottom: 20px; }
+        
+        .share-code-box { background: #f6f7f7; border: 2px dashed #c3c4c7; border-radius: 8px; padding: 15px; margin-bottom: 20px; }
+        .share-code-label { font-size: 12px; color: #646970; margin-bottom: 8px; }
+        .share-code { font-family: 'SF Mono', Monaco, monospace; font-size: 20px; font-weight: 600; color: #1d2327; letter-spacing: 2px; user-select: all; }
+        
+        .copy-btn { background: #2271b1; color: #fff; border: none; padding: 10px 24px; border-radius: 4px; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .copy-btn:hover { background: #135e96; }
+        
+        .modal-footer { padding: 15px 25px 25px; text-align: center; }
+        .modal-close { color: #646970; font-size: 13px; text-decoration: none; }
+        
+        .tip-box { background: #f0f6fc; border-left: 4px solid #72aee6; padding: 12px 15px; font-size: 12px; color: #1e3a5f; text-align: left; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="wp-admin">
+        <div class="wp-sidebar">
+            <div class="wp-sidebar-item">대시보드</div>
+            <div class="wp-sidebar-item">글</div>
+            <div class="wp-sidebar-item">미디어</div>
+            <div class="wp-sidebar-item">페이지</div>
+            <div class="wp-sidebar-item">외모</div>
+            <div class="wp-sidebar-item">플러그인</div>
+            <div class="wp-sidebar-item active">ACF CSS</div>
+            <div class="wp-sidebar-item">설정</div>
+        </div>
+        
+        <div class="wp-content">
+            <h1 class="wp-title">ACF CSS Manager</h1>
+            
+            <div class="nav-tabs">
+                <a class="nav-tab">일반</a>
+                <a class="nav-tab">어드민 메뉴</a>
+                <a class="nav-tab">섹션</a>
+                <a class="nav-tab">텍스트</a>
+                <a class="nav-tab">색상</a>
+                <a class="nav-tab">비주얼</a>
+                <a class="nav-tab active">클라우드</a>
+                <a class="nav-tab">백업</a>
+                <a class="nav-tab">업데이트</a>
+            </div>
+            
+            <div class="card">
+                <h2 class="card-title">☁️ 클라우드 동기화</h2>
+                <p style="color: #646970; font-size: 13px; margin-bottom: 15px;">현재 설정을 J&J Cloud에 저장하고, 다른 사이트에서 공유 코드로 불러올 수 있습니다.</p>
+                
+                <div class="cloud-actions">
+                    <button class="cloud-btn export">📤 클라우드로 내보내기</button>
+                    <button class="cloud-btn import">📥 클라우드에서 가져오기</button>
+                </div>
+                
+                <div class="import-form">
+                    <input type="text" class="import-input" placeholder="공유 코드 입력 (예: ABCD-1234-EFGH)">
+                    <button class="import-submit">가져오기</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Success Modal -->
+        <div class="modal-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <div class="modal-icon">✓</div>
+                    <h3 class="modal-title">클라우드 저장 완료!</h3>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-message">현재 스타일 설정이 성공적으로 J&J Cloud에 저장되었습니다.</p>
+                    
+                    <div class="share-code-box">
+                        <div class="share-code-label">공유 코드</div>
+                        <div class="share-code">JJCSS-A7B2-K9M4</div>
+                    </div>
+                    
+                    <button class="copy-btn">
+                        📋 코드 복사하기
+                    </button>
+                    
+                    <div class="tip-box">
+                        💡 <strong>팁:</strong> 이 코드를 다른 WordPress 사이트의 ACF CSS Manager에서 입력하면 동일한 스타일 설정을 즉시 적용할 수 있습니다.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="modal-close">닫기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

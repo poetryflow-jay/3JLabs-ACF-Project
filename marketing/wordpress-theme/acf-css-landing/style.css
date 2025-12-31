@@ -1,0 +1,461 @@
+/*
+Theme Name: ACF CSS Landing
+Theme URI: https://j-j-labs.com/acf-css-manager
+Description: ACF CSS Manager 랜딩 페이지용 자식 테마 (Kadence 기반)
+Author:            3J Labs
+ * Created by:        Jay & Jason & Jenny
+Author URI: https://j-j-labs.com
+Template: flavor
+Version:           2.0.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: acf-css-landing
+*/
+
+/* ==========================================================================
+   ACF CSS Manager 랜딩 페이지 커스텀 스타일
+   ========================================================================== */
+
+:root {
+    --acf-primary: #2563eb;
+    --acf-primary-dark: #1d4ed8;
+    --acf-secondary: #f59e0b;
+    --acf-accent: #06b6d4;
+    --acf-dark: #0f172a;
+    --acf-gray: #64748b;
+    --acf-light: #f8fafc;
+    --acf-white: #ffffff;
+}
+
+/* Dark Theme Override */
+body.acf-landing {
+    background: var(--acf-dark);
+    color: var(--acf-white);
+}
+
+/* Hero Section */
+.acf-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+        var(--acf-dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.acf-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+
+.acf-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.acf-hero-badge {
+    display: inline-block;
+    background: rgba(37, 99, 235, 0.2);
+    border: 1px solid rgba(37, 99, 235, 0.4);
+    color: var(--acf-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    animation: acfFadeInUp 0.6s ease-out;
+}
+
+.acf-hero-badge span {
+    color: var(--acf-secondary);
+}
+
+.acf-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    animation: acfFadeInUp 0.6s ease-out 0.1s both;
+}
+
+.acf-hero h1 .highlight {
+    background: linear-gradient(135deg, var(--acf-primary), var(--acf-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.acf-hero p {
+    font-size: 1.25rem;
+    color: var(--acf-gray);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    animation: acfFadeInUp 0.6s ease-out 0.2s both;
+}
+
+.acf-hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: acfFadeInUp 0.6s ease-out 0.3s both;
+}
+
+/* Buttons */
+.acf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+.acf-btn-primary {
+    background: linear-gradient(135deg, var(--acf-primary), var(--acf-primary-dark));
+    color: var(--acf-white);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+}
+
+.acf-btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.5);
+    color: var(--acf-white);
+}
+
+.acf-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--acf-white);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.acf-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+    color: var(--acf-white);
+}
+
+/* Features Section */
+.acf-features {
+    padding: 6rem 2rem;
+    background: var(--acf-dark);
+}
+
+.acf-section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.acf-section-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--acf-white);
+}
+
+.acf-section-header p {
+    color: var(--acf-gray);
+    font-size: 1.125rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.acf-features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.acf-feature-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+}
+
+.acf-feature-card:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(37, 99, 235, 0.3);
+    transform: translateY(-5px);
+}
+
+.acf-feature-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--acf-primary), var(--acf-accent));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.acf-feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--acf-white);
+}
+
+.acf-feature-card p {
+    color: var(--acf-gray);
+    font-size: 0.95rem;
+}
+
+/* AI Section */
+.acf-ai-section {
+    padding: 6rem 2rem;
+    background: 
+        radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+        var(--acf-dark);
+}
+
+.acf-ai-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.acf-ai-text h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--acf-white);
+}
+
+.acf-ai-text h2 span {
+    color: var(--acf-secondary);
+}
+
+.acf-ai-text p {
+    color: var(--acf-gray);
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+.acf-ai-demo {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.acf-ai-demo-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.acf-ai-demo-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.acf-ai-demo-dot.red { background: #ef4444; }
+.acf-ai-demo-dot.yellow { background: #eab308; }
+.acf-ai-demo-dot.green { background: #22c55e; }
+
+.acf-ai-demo-content {
+    padding: 1.5rem;
+}
+
+.acf-ai-prompt {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--acf-accent);
+}
+
+.acf-ai-result {
+    border-left: 3px solid var(--acf-secondary);
+    padding-left: 1rem;
+}
+
+.acf-ai-result-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--acf-white);
+}
+
+.acf-color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* Pricing Section */
+.acf-pricing {
+    padding: 6rem 2rem;
+    background: var(--acf-dark);
+}
+
+.acf-pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.acf-pricing-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+}
+
+.acf-pricing-card.featured {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: var(--acf-primary);
+    transform: scale(1.05);
+}
+
+.acf-pricing-card:hover {
+    transform: translateY(-5px);
+}
+
+.acf-pricing-card.featured:hover {
+    transform: scale(1.05) translateY(-5px);
+}
+
+.acf-pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--acf-secondary);
+    color: var(--acf-dark);
+    padding: 0.25rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.acf-pricing-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--acf-white);
+}
+
+.acf-pricing-card .price {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    color: var(--acf-white);
+}
+
+.acf-pricing-card .price span {
+    font-size: 1rem;
+    color: var(--acf-gray);
+}
+
+.acf-pricing-features {
+    list-style: none;
+    margin: 2rem 0;
+    text-align: left;
+    padding: 0;
+}
+
+.acf-pricing-features li {
+    padding: 0.5rem 0;
+    color: var(--acf-gray);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.acf-pricing-features li::before {
+    content: '✓';
+    color: var(--acf-accent);
+    font-weight: bold;
+}
+
+/* CTA Section */
+.acf-cta {
+    padding: 6rem 2rem;
+    text-align: center;
+    background: 
+        radial-gradient(ellipse at 50% 100%, rgba(37, 99, 235, 0.2) 0%, transparent 50%),
+        var(--acf-dark);
+}
+
+.acf-cta h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--acf-white);
+}
+
+.acf-cta p {
+    color: var(--acf-gray);
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+}
+
+/* Animations */
+@keyframes acfFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .acf-ai-content {
+        grid-template-columns: 1fr;
+    }
+
+    .acf-pricing-card.featured {
+        transform: scale(1);
+    }
+
+    .acf-pricing-card.featured:hover {
+        transform: translateY(-5px);
+    }
+}
+

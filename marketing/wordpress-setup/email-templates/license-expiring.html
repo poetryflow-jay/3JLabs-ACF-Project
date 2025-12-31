@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS Manager 라이센스 만료 안내</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #0f172a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #1e293b; }
+        .header { background: linear-gradient(135deg, #f59e0b, #d97706); padding: 40px 30px; text-align: center; }
+        .header h1 { color: #fff; font-size: 24px; margin: 0; }
+        .content { padding: 40px 30px; }
+        .alert-box { background: rgba(245, 158, 11, 0.1); border: 1px solid #f59e0b; border-radius: 12px; padding: 20px; margin-bottom: 30px; text-align: center; }
+        .alert-box .days { font-size: 48px; font-weight: 700; color: #f59e0b; }
+        .alert-box p { color: #94a3b8; margin: 10px 0 0 0; }
+        .message { color: #e2e8f0; font-size: 16px; line-height: 1.7; margin-bottom: 30px; }
+        .license-info { background: #0f172a; border-radius: 12px; padding: 20px; margin-bottom: 30px; }
+        .license-info table { width: 100%; }
+        .license-info td { color: #94a3b8; font-size: 14px; padding: 8px 0; }
+        .license-info td:last-child { color: #fff; text-align: right; }
+        .benefits { background: #0f172a; border-radius: 12px; padding: 25px; margin-bottom: 30px; }
+        .benefits h3 { color: #fff; font-size: 16px; margin: 0 0 15px 0; }
+        .benefit { color: #94a3b8; font-size: 14px; padding: 8px 0; border-bottom: 1px solid #1e293b; }
+        .benefit:last-child { border-bottom: none; }
+        .cta-button { display: block; background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 12px; color: #fff !important; text-decoration: none; text-align: center; padding: 16px 30px; font-size: 16px; font-weight: 600; margin-bottom: 20px; }
+        .secondary-link { display: block; text-align: center; color: #64748b; font-size: 14px; text-decoration: underline; }
+        .footer { background: #0f172a; padding: 30px; text-align: center; border-top: 1px solid #1e293b; }
+        .footer p { color: #64748b; font-size: 12px; margin: 5px 0; }
+        .footer a { color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ 라이센스 만료 예정 안내</h1>
+        </div>
+        
+        <div class="content">
+            <div class="alert-box">
+                <div class="days">{{days_remaining}}</div>
+                <p>일 후 라이센스가 만료됩니다</p>
+            </div>
+            
+            <p class="message">
+                안녕하세요 {{customer_name}}님,<br><br>
+                ACF CSS Manager {{edition_name}} 라이센스가 곧 만료될 예정입니다. 
+                서비스 중단 없이 계속 사용하시려면 지금 갱신해 주세요.
+            </p>
+            
+            <div class="license-info">
+                <table>
+                    <tr>
+                        <td>라이센스 키</td>
+                        <td>{{license_key_masked}}</td>
+                    </tr>
+                    <tr>
+                        <td>에디션</td>
+                        <td>{{edition_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>만료일</td>
+                        <td style="color: #f59e0b !important;">{{expires_at}}</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="benefits">
+                <h3>🎁 갱신 시 계속 이용 가능한 기능</h3>
+                <div class="benefit">✅ AI 스타일 생성</div>
+                <div class="benefit">✅ 클라우드 동기화</div>
+                <div class="benefit">✅ CSS Tree Shaking</div>
+                <div class="benefit">✅ 최신 업데이트 수신</div>
+                <div class="benefit">✅ 우선 기술 지원</div>
+            </div>
+            
+            <a href="{{renewal_url}}" class="cta-button">
+                🔄 지금 갱신하기
+            </a>
+            
+            <a href="{{account_url}}" class="secondary-link">
+                내 계정에서 라이센스 관리하기
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>갱신 관련 문의: support@j-j-labs.com</p>
+            <p>© 2025 J&J Labs. All rights reserved.</p>
+            <p><a href="{{unsubscribe_url}}">수신 거부</a></p>
+        </div>
+    </div>
+</body>
+</html>
+

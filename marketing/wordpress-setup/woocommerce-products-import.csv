@@ -1,0 +1,78 @@
+Type,SKU,Name,Published,Is featured?,Visibility in catalog,Short description,Description,Tax status,Tax class,In stock?,Stock,Backorders allowed?,Sold individually?,Weight (kg),Length (cm),Width (cm),Height (cm),Allow customer reviews?,Sale price,Regular price,Categories,Tags,Images,Download limit,Download expiry days,Parent,Position,Virtual,Downloadable,Download 1 name,Download 1 URL
+simple,acf-css-free,"ACF CSS Manager - Free",1,0,visible,"무료로 시작하는 WordPress 스타일 관리의 새로운 기준","<h3>ACF CSS Manager Free Edition</h3>
+<p>코딩 없이 전문가 수준의 웹사이트 디자인을 시작하세요.</p>
+
+<h4>포함된 기능:</h4>
+<ul>
+<li>🎨 색상 팔레트 관리</li>
+<li>🔤 타이포그래피 시스템</li>
+<li>⚙️ 3개 테마/플러그인 어댑터 (Kadence, GeneratePress, Flavor)</li>
+<li>📧 기본 이메일 지원</li>
+<li>📖 온라인 문서 접근</li>
+</ul>
+
+<h4>요구사항:</h4>
+<ul>
+<li>WordPress 5.8 이상</li>
+<li>PHP 7.4 이상</li>
+</ul>",taxable,,1,,,0,,,,,,0,0,0,"WordPress 플러그인, ACF CSS, 스타일 관리","https://j-j-labs.com/wp-content/uploads/acf-css-free-thumbnail.jpg",-1,365,,,1,1,"ACF CSS Manager Free v6.2.1","https://j-j-labs.com/downloads/acf-css-free-v6.2.1.zip"
+simple,acf-css-pro,"ACF CSS Manager PRO",1,1,visible,"AI 스타일 생성 + 클라우드 동기화 + 무제한 어댑터","<h3>ACF CSS Manager PRO Edition</h3>
+<p>AI가 당신의 아이디어를 완벽한 CSS 스타일로 변환합니다.</p>
+
+<h4>Free 모든 기능 포함 +</h4>
+<ul>
+<li>🤖 <strong>AI 스타일 생성</strong> - 자연어로 색상 팔레트와 타이포그래피 자동 생성</li>
+<li>☁️ <strong>클라우드 동기화</strong> - 설정을 클라우드에 저장하고 다른 사이트에 복제</li>
+<li>⚡ <strong>CSS Tree Shaking</strong> - 불필요한 CSS 제거로 PageSpeed 점수 향상</li>
+<li>🔌 <strong>무제한 어댑터</strong> - 모든 테마와 플러그인 지원</li>
+<li>📊 <strong>Before/After 시각적 비교</strong> - AI 결과를 적용 전 미리보기</li>
+<li>⭐ <strong>우선 이메일 지원</strong></li>
+</ul>
+
+<h4>지원 테마/플러그인:</h4>
+<p>Kadence, GeneratePress, Flavor, Flavor, flavor, flavor, flavor, flavor, Hello Flavor...</p>
+
+<h4>요구사항:</h4>
+<ul>
+<li>WordPress 5.8 이상</li>
+<li>PHP 7.4 이상</li>
+</ul>",taxable,,1,,,0,,,,,,0,49000,59000,"WordPress 플러그인, ACF CSS, 스타일 관리, PRO","https://j-j-labs.com/wp-content/uploads/acf-css-pro-thumbnail.jpg",-1,365,,,1,1,"ACF CSS Manager PRO v6.2.1","https://j-j-labs.com/downloads/acf-css-premium-v6.2.1.zip"
+simple,acf-css-partner,"ACF CSS Manager Partner",1,0,visible,"에이전시/리셀러를 위한 중앙 관제 솔루션","<h3>ACF CSS Manager Partner Edition</h3>
+<p>수십 개의 고객 사이트를 한 곳에서 관리하세요.</p>
+
+<h4>PRO 모든 기능 포함 +</h4>
+<ul>
+<li>🏢 <strong>Partner Hub</strong> - 중앙에서 모든 클라이언트 사이트 스타일 관리</li>
+<li>🌐 <strong>멀티사이트 네트워크</strong> - WordPress 멀티사이트 완벽 지원</li>
+<li>🔗 <strong>Webhook 자동화</strong> - 스타일 변경 시 외부 서비스 연동</li>
+<li>🛠️ <strong>REST API</strong> - 외부 시스템과 통합 개발 가능</li>
+<li>📞 <strong>전용 기술 지원</strong> - 우선 응대 + Slack/Teams 연동</li>
+<li>💼 <strong>화이트 라벨링</strong> - 자체 브랜드로 고객에게 제공</li>
+</ul>
+
+<h4>권장 대상:</h4>
+<ul>
+<li>웹 에이전시</li>
+<li>프리랜서 개발자/디자이너</li>
+<li>리셀러 파트너</li>
+</ul>
+
+<h4>요구사항:</h4>
+<ul>
+<li>WordPress 5.8 이상</li>
+<li>PHP 7.4 이상</li>
+</ul>",taxable,,1,,,0,,,,,,0,199000,249000,"WordPress 플러그인, ACF CSS, 스타일 관리, Partner, 에이전시","https://j-j-labs.com/wp-content/uploads/acf-css-partner-thumbnail.jpg",-1,365,,,1,1,"ACF CSS Manager Partner v6.2.1","https://j-j-labs.com/downloads/acf-css-partner-v6.2.1.zip"
+simple,acf-css-ai-extension,"ACF CSS AI Extension",1,0,visible,"OpenAI 기반 스타일 자동 생성 확장 플러그인","<h3>ACF CSS AI Extension</h3>
+<p>AI가 당신의 말을 CSS로 변환합니다.</p>
+
+<h4>기능:</h4>
+<ul>
+<li>🤖 OpenAI GPT-4 기반 스타일 생성</li>
+<li>📝 자연어 프롬프트 지원 (예: 고급스러운 블랙&골드)</li>
+<li>👀 Before/After 시각적 비교 (jsondiffpatch)</li>
+<li>☁️ 생성된 스타일 Cloud 저장</li>
+<li>↩️ 원클릭 되돌리기</li>
+</ul>
+
+<p><strong>참고:</strong> ACF CSS Manager PRO 이상 버전 필요</p>",taxable,,1,,,0,,,,,,0,0,0,"WordPress 플러그인, ACF CSS, AI, 확장","https://j-j-labs.com/wp-content/uploads/acf-css-ai-thumbnail.jpg",-1,365,,,1,1,"ACF CSS AI Extension v1.0.0","https://j-j-labs.com/downloads/acf-css-ai-extension-v1.0.0.zip"
+

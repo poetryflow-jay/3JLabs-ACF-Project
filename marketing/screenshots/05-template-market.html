@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS - Template Market (Screenshot)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f0f1; }
+        
+        .wp-admin { display: flex; min-height: 100vh; }
+        .wp-sidebar { width: 160px; background: #1d2327; padding-top: 10px; }
+        .wp-sidebar-item { padding: 8px 12px; color: #a7aaad; font-size: 13px; }
+        .wp-sidebar-item.active { background: #2c3338; color: #fff; border-left: 4px solid #2271b1; padding-left: 8px; }
+        
+        .wp-content { flex: 1; padding: 20px; }
+        .wp-title { font-size: 23px; font-weight: 400; color: #1d2327; margin-bottom: 20px; }
+        
+        .nav-tabs { display: flex; border-bottom: 1px solid #c3c4c7; margin-bottom: 20px; }
+        .nav-tab { padding: 10px 15px; background: #dcdcde; border: 1px solid #c3c4c7; border-bottom: none; margin-right: -1px; font-size: 13px; color: #50575e; }
+        .nav-tab.active { background: #fff; border-bottom: 1px solid #fff; margin-bottom: -1px; color: #1d2327; font-weight: 600; }
+        
+        .card { background: #fff; border: 1px solid #c3c4c7; padding: 20px; border-radius: 4px; }
+        
+        .market-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .market-title { font-size: 16px; font-weight: 600; color: #1d2327; display: flex; align-items: center; gap: 8px; }
+        .market-title span { font-size: 20px; }
+        
+        .market-filters { display: flex; gap: 10px; }
+        .market-search { padding: 8px 12px; border: 1px solid #c3c4c7; border-radius: 4px; width: 200px; }
+        .market-category { padding: 8px 12px; border: 1px solid #c3c4c7; border-radius: 4px; background: #fff; }
+        .btn-sell { background: #00a32a; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; font-size: 13px; cursor: pointer; }
+        
+        .templates-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+        
+        .template-card { border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; transition: all 0.2s; }
+        .template-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-2px); }
+        
+        .template-preview { height: 140px; position: relative; }
+        .template-preview.law { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); }
+        .template-preview.cafe { background: linear-gradient(135deg, #f5ebe0 0%, #d4a574 100%); }
+        .template-preview.tech { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .template-preview.fashion { background: linear-gradient(135deg, #fce7f3 0%, #f9a8d4 100%); }
+        
+        .template-preview-content { position: absolute; inset: 15px; display: flex; flex-direction: column; justify-content: space-between; }
+        .template-preview-header { height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; }
+        .template-preview-hero { flex: 1; margin: 10px 0; display: flex; align-items: center; justify-content: center; }
+        .template-preview-btn { padding: 6px 12px; border-radius: 4px; font-size: 10px; display: inline-block; }
+        .law .template-preview-btn { background: #d4af37; color: #1a1a1a; }
+        .cafe .template-preview-btn { background: #8b5a2b; color: #fff; }
+        .tech .template-preview-btn { background: #6366f1; color: #fff; }
+        .fashion .template-preview-btn { background: #ec4899; color: #fff; }
+        
+        .template-info { padding: 12px; }
+        .template-name { font-size: 14px; font-weight: 600; color: #1d2327; margin-bottom: 4px; }
+        .template-author { font-size: 12px; color: #646970; margin-bottom: 8px; }
+        .template-meta { display: flex; justify-content: space-between; align-items: center; }
+        .template-price { font-size: 14px; font-weight: 600; color: #00a32a; }
+        .template-price.free { color: #2271b1; }
+        .template-stats { font-size: 11px; color: #646970; }
+        .template-rating { color: #f59e0b; }
+        
+        .btn-apply { width: 100%; padding: 8px; background: #2271b1; color: #fff; border: none; border-radius: 4px; font-size: 12px; margin-top: 8px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="wp-admin">
+        <div class="wp-sidebar">
+            <div class="wp-sidebar-item">대시보드</div>
+            <div class="wp-sidebar-item">글</div>
+            <div class="wp-sidebar-item">미디어</div>
+            <div class="wp-sidebar-item">페이지</div>
+            <div class="wp-sidebar-item">외모</div>
+            <div class="wp-sidebar-item">플러그인</div>
+            <div class="wp-sidebar-item active">ACF CSS</div>
+            <div class="wp-sidebar-item">설정</div>
+        </div>
+        
+        <div class="wp-content">
+            <h1 class="wp-title">ACF CSS Manager</h1>
+            
+            <div class="nav-tabs">
+                <a class="nav-tab">일반</a>
+                <a class="nav-tab">어드민 메뉴</a>
+                <a class="nav-tab">섹션</a>
+                <a class="nav-tab">텍스트</a>
+                <a class="nav-tab">색상</a>
+                <a class="nav-tab">비주얼</a>
+                <a class="nav-tab active">클라우드</a>
+                <a class="nav-tab">백업</a>
+                <a class="nav-tab">업데이트</a>
+            </div>
+            
+            <div class="card">
+                <div class="market-header">
+                    <h2 class="market-title"><span>🛍️</span> 템플릿 마켓</h2>
+                    <div class="market-filters">
+                        <input type="text" class="market-search" placeholder="템플릿 검색...">
+                        <select class="market-category">
+                            <option>전체</option>
+                            <option>비즈니스</option>
+                            <option>카페/레스토랑</option>
+                            <option>기술/개발</option>
+                            <option>패션/쇼핑</option>
+                        </select>
+                        <button class="btn-sell">💰 내 스타일 판매하기</button>
+                    </div>
+                </div>
+                
+                <div class="templates-grid">
+                    <div class="template-card">
+                        <div class="template-preview law">
+                            <div class="template-preview-content">
+                                <div class="template-preview-header"></div>
+                                <div class="template-preview-hero">
+                                    <span class="template-preview-btn">Contact Us</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <div class="template-name">Elegant Law Firm</div>
+                            <div class="template-author">by J&J Labs</div>
+                            <div class="template-meta">
+                                <span class="template-price free">무료</span>
+                                <span class="template-stats">
+                                    <span class="template-rating">★★★★★</span> 1,250
+                                </span>
+                            </div>
+                            <button class="btn-apply">적용하기</button>
+                        </div>
+                    </div>
+                    
+                    <div class="template-card">
+                        <div class="template-preview cafe">
+                            <div class="template-preview-content">
+                                <div class="template-preview-header"></div>
+                                <div class="template-preview-hero">
+                                    <span class="template-preview-btn">Menu</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <div class="template-name">Cozy Cafe Vibes</div>
+                            <div class="template-author">by DesignStudio</div>
+                            <div class="template-meta">
+                                <span class="template-price">$9</span>
+                                <span class="template-stats">
+                                    <span class="template-rating">★★★★☆</span> 890
+                                </span>
+                            </div>
+                            <button class="btn-apply">구매 & 적용</button>
+                        </div>
+                    </div>
+                    
+                    <div class="template-card">
+                        <div class="template-preview tech">
+                            <div class="template-preview-content">
+                                <div class="template-preview-header"></div>
+                                <div class="template-preview-hero">
+                                    <span class="template-preview-btn">Get Started</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="template-info">
+                            <div class="template-name">Tech Startup Dark</div>
+                            <div class="template-author">by J&J Labs</div>
+                            <div class="template-meta">
+                                <span class="template-price free">무료</span>
+                                <span class="template-stats">
+                                    <span class="template-rating">★★★★★</span> 2,100
+                                </span>
+                            </div>
+                            <button class="btn-apply">적용하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

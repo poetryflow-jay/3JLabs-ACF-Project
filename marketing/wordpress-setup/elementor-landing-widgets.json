@@ -1,0 +1,365 @@
+{
+  "page_title": "ACF CSS Manager Landing Page",
+  "page_template": "elementor_header_footer",
+  "sections": [
+    {
+      "id": "hero",
+      "name": "Hero Section",
+      "layout": "full_width",
+      "height": "min-height: 100vh",
+      "background": {
+        "type": "gradient",
+        "color1": "#0f172a",
+        "color2": "#1e293b",
+        "angle": 180
+      },
+      "widgets": [
+        {
+          "type": "heading",
+          "content": "코딩 없이<br>전문가 수준의<br>웹사이트 디자인",
+          "settings": {
+            "size": "xxl",
+            "tag": "h1",
+            "align": "center",
+            "color": "#ffffff",
+            "typography": {
+              "font_family": "Space Grotesk",
+              "font_weight": "700",
+              "font_size": {"size": 56, "unit": "px"},
+              "line_height": {"size": 1.2, "unit": "em"}
+            },
+            "animation": "fadeInUp"
+          }
+        },
+        {
+          "type": "text-editor",
+          "content": "AI가 당신의 아이디어를 CSS 스타일로 변환합니다.<br>색상, 폰트, 버튼 — 모든 것을 한 곳에서 관리하세요.",
+          "settings": {
+            "align": "center",
+            "color": "#94a3b8",
+            "typography": {
+              "font_size": {"size": 20, "unit": "px"},
+              "line_height": {"size": 1.6, "unit": "em"}
+            },
+            "animation": "fadeInUp",
+            "animation_delay": 200
+          }
+        },
+        {
+          "type": "button-group",
+          "widgets": [
+            {
+              "type": "button",
+              "text": "🚀 무료로 시작하기",
+              "link": "/shop/acf-css-free/",
+              "settings": {
+                "type": "primary",
+                "size": "lg",
+                "background_color": "#2563eb",
+                "background_color_hover": "#1d4ed8",
+                "border_radius": {"size": 12, "unit": "px"},
+                "padding": {"top": 16, "right": 32, "bottom": 16, "left": 32, "unit": "px"}
+              }
+            },
+            {
+              "type": "button",
+              "text": "자세히 알아보기 →",
+              "link": "#features",
+              "settings": {
+                "type": "secondary",
+                "size": "lg",
+                "background_color": "transparent",
+                "text_color": "#ffffff",
+                "border_color": "rgba(255,255,255,0.2)",
+                "border_radius": {"size": 12, "unit": "px"}
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "features",
+      "name": "Features Section",
+      "layout": "boxed",
+      "padding": {"top": 100, "bottom": 100, "unit": "px"},
+      "background": {"type": "color", "color": "#0f172a"},
+      "widgets": [
+        {
+          "type": "heading",
+          "content": "모든 스타일을 한 곳에서",
+          "settings": {
+            "size": "xl",
+            "tag": "h2",
+            "align": "center",
+            "color": "#ffffff"
+          }
+        },
+        {
+          "type": "text-editor",
+          "content": "WordPress 사이트의 모든 디자인 요소를 중앙에서 관리하세요.",
+          "settings": {"align": "center", "color": "#94a3b8"}
+        },
+        {
+          "type": "icon-box-grid",
+          "columns": 3,
+          "gap": 30,
+          "items": [
+            {
+              "icon": "🎨",
+              "title": "색상 팔레트 관리",
+              "description": "브랜드 컬러를 중앙에서 관리하고 전체 사이트에 일관되게 적용"
+            },
+            {
+              "icon": "🔤",
+              "title": "타이포그래피 시스템",
+              "description": "Heading부터 Body까지, 폰트 스타일을 체계적으로 관리"
+            },
+            {
+              "icon": "🤖",
+              "title": "AI 스타일 생성",
+              "description": "\"고급스러운 블랙&골드\"라고 말하면 AI가 팔레트를 생성"
+            },
+            {
+              "icon": "☁️",
+              "title": "클라우드 동기화",
+              "description": "설정을 클라우드에 저장하고 다른 사이트에 원클릭 복제"
+            },
+            {
+              "icon": "⚡",
+              "title": "성능 최적화",
+              "description": "CSS Tree Shaking으로 불필요한 코드 제거, PageSpeed 점수 향상"
+            },
+            {
+              "icon": "🏢",
+              "title": "에이전시 모드",
+              "description": "수십 개의 클라이언트 사이트를 Partner Hub에서 중앙 관리"
+            }
+          ],
+          "item_style": {
+            "background": "rgba(255,255,255,0.03)",
+            "border": "1px solid rgba(255,255,255,0.08)",
+            "border_radius": "16px",
+            "padding": "30px",
+            "hover": {
+              "background": "rgba(255,255,255,0.06)",
+              "border_color": "rgba(37,99,235,0.3)",
+              "transform": "translateY(-5px)"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ai-section",
+      "name": "AI Section",
+      "layout": "boxed",
+      "padding": {"top": 100, "bottom": 100, "unit": "px"},
+      "background": {
+        "type": "gradient",
+        "color1": "#1e293b",
+        "color2": "#0f172a",
+        "angle": 135,
+        "overlay": "radial-gradient(circle at 30% 50%, rgba(245,158,11,0.1), transparent 50%)"
+      },
+      "columns": [
+        {
+          "width": 50,
+          "widgets": [
+            {
+              "type": "heading",
+              "content": "AI가 스타일을 생성합니다",
+              "settings": {"size": "xl", "color": "#ffffff"}
+            },
+            {
+              "type": "text-editor",
+              "content": "자연어로 원하는 분위기를 설명하면, AI가 최적의 색상 팔레트와 타이포그래피를 자동으로 생성합니다.",
+              "settings": {"color": "#94a3b8"}
+            },
+            {
+              "type": "icon-list",
+              "items": [
+                {"icon": "✓", "text": "자연어 프롬프트 지원"},
+                {"icon": "✓", "text": "Before/After 시각적 비교"},
+                {"icon": "✓", "text": "원클릭 적용 또는 수정"},
+                {"icon": "✓", "text": "클라우드에 저장 및 공유"}
+              ],
+              "settings": {
+                "icon_color": "#10b981",
+                "text_color": "#e2e8f0"
+              }
+            }
+          ]
+        },
+        {
+          "width": 50,
+          "widgets": [
+            {
+              "type": "html",
+              "content": "<div class='ai-demo-terminal'>...</div>",
+              "note": "AI 데모 터미널 애니메이션 - 커스텀 CSS/JS 필요"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pricing",
+      "name": "Pricing Section",
+      "layout": "boxed",
+      "padding": {"top": 100, "bottom": 100, "unit": "px"},
+      "background": {"type": "color", "color": "#0f172a"},
+      "widgets": [
+        {
+          "type": "heading",
+          "content": "심플한 가격 정책",
+          "settings": {"size": "xl", "align": "center", "color": "#ffffff"}
+        },
+        {
+          "type": "pricing-table",
+          "columns": 3,
+          "plans": [
+            {
+              "name": "Free",
+              "price": "₩0",
+              "period": "영구",
+              "features": [
+                "색상 팔레트 관리",
+                "타이포그래피 시스템",
+                "3개 테마 어댑터",
+                "기본 이메일 지원"
+              ],
+              "button": {
+                "text": "무료 다운로드",
+                "link": "/shop/acf-css-free/",
+                "style": "secondary"
+              },
+              "style": {
+                "background": "rgba(255,255,255,0.03)",
+                "border": "1px solid rgba(255,255,255,0.1)"
+              }
+            },
+            {
+              "name": "PRO",
+              "price": "₩49,000",
+              "period": "/년",
+              "badge": "인기",
+              "features": [
+                "Free 모든 기능 포함",
+                "🤖 AI 스타일 생성",
+                "☁️ 클라우드 동기화",
+                "⚡ CSS Tree Shaking",
+                "🔌 무제한 어댑터",
+                "우선 이메일 지원"
+              ],
+              "button": {
+                "text": "PRO 구매하기",
+                "link": "/shop/acf-css-pro/",
+                "style": "primary"
+              },
+              "style": {
+                "background": "rgba(37,99,235,0.1)",
+                "border": "2px solid #2563eb",
+                "transform": "scale(1.05)"
+              }
+            },
+            {
+              "name": "Partner",
+              "price": "₩199,000",
+              "period": "/년",
+              "features": [
+                "PRO 모든 기능 포함",
+                "🏢 Partner Hub",
+                "🌐 멀티사이트 지원",
+                "🔗 Webhook 자동화",
+                "🛠️ REST API",
+                "💼 화이트 라벨링",
+                "전용 기술 지원"
+              ],
+              "button": {
+                "text": "문의하기",
+                "link": "/contact/",
+                "style": "secondary"
+              },
+              "style": {
+                "background": "rgba(255,255,255,0.03)",
+                "border": "1px solid rgba(255,255,255,0.1)"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "name": "CTA Section",
+      "layout": "boxed",
+      "padding": {"top": 100, "bottom": 100, "unit": "px"},
+      "background": {
+        "type": "gradient",
+        "color1": "#1e293b",
+        "color2": "#0f172a",
+        "angle": 180,
+        "overlay": "radial-gradient(circle at 50% 50%, rgba(37,99,235,0.2), transparent 60%)"
+      },
+      "widgets": [
+        {
+          "type": "heading",
+          "content": "지금 베타 테스터로 참여하세요",
+          "settings": {"size": "xl", "align": "center", "color": "#ffffff"}
+        },
+        {
+          "type": "text-editor",
+          "content": "베타 테스터에게는 정식 출시 시 50% 할인 쿠폰을 드립니다.",
+          "settings": {"align": "center", "color": "#94a3b8"}
+        },
+        {
+          "type": "button",
+          "text": "✨ 베타 테스터 신청",
+          "link": "/beta/",
+          "settings": {
+            "type": "primary",
+            "size": "xl",
+            "background_color": "#2563eb",
+            "border_radius": {"size": 12, "unit": "px"},
+            "align": "center"
+          }
+        }
+      ]
+    }
+  ],
+  "global_styles": {
+    "colors": {
+      "primary": "#2563eb",
+      "secondary": "#f59e0b",
+      "accent": "#06b6d4",
+      "dark_bg": "#0f172a",
+      "card_bg": "#1e293b",
+      "text": "#ffffff",
+      "text_muted": "#94a3b8"
+    },
+    "typography": {
+      "heading": {
+        "family": "Space Grotesk",
+        "weight": "700"
+      },
+      "body": {
+        "family": "Noto Sans KR",
+        "weight": "400"
+      }
+    },
+    "custom_css": ".ai-demo-terminal { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; } .ai-demo-terminal .terminal-header { display: flex; gap: 8px; margin-bottom: 15px; } .ai-demo-terminal .dot { width: 12px; height: 12px; border-radius: 50%; } .ai-demo-terminal .dot.red { background: #ef4444; } .ai-demo-terminal .dot.yellow { background: #eab308; } .ai-demo-terminal .dot.green { background: #22c55e; } .ai-demo-terminal .prompt { color: #10b981; font-family: monospace; margin-bottom: 15px; } .ai-demo-terminal .result-item { color: #e2e8f0; font-size: 14px; padding: 8px 0; display: flex; align-items: center; gap: 10px; } .ai-demo-terminal .swatch { width: 20px; height: 20px; border-radius: 4px; }"
+  },
+  "responsive": {
+    "tablet": {
+      "hero h1": {"font_size": "40px"},
+      "features .icon-box-grid": {"columns": 2}
+    },
+    "mobile": {
+      "hero h1": {"font_size": "32px"},
+      "features .icon-box-grid": {"columns": 1},
+      "pricing .pricing-table": {"columns": 1}
+    }
+  }
+}
+

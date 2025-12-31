@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS - Partner Hub (Screenshot)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f0f1; }
+        
+        .wp-admin { display: flex; min-height: 100vh; }
+        .wp-sidebar { width: 160px; background: #1d2327; padding-top: 10px; }
+        .wp-sidebar-item { padding: 8px 12px; color: #a7aaad; font-size: 13px; }
+        .wp-sidebar-item.active { background: #2c3338; color: #fff; border-left: 4px solid #00a32a; padding-left: 8px; }
+        
+        .wp-content { flex: 1; padding: 20px; }
+        .wp-title { font-size: 23px; font-weight: 400; color: #1d2327; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+        .wp-desc { color: #646970; font-size: 13px; margin-bottom: 20px; }
+        .partner-badge { background: linear-gradient(135deg, #00a32a, #047857); color: #fff; padding: 3px 10px; border-radius: 4px; font-size: 11px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; }
+        .stat-card { background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; padding: 15px; text-align: center; }
+        .stat-value { font-size: 28px; font-weight: 700; color: #1d2327; }
+        .stat-label { font-size: 12px; color: #646970; margin-top: 5px; }
+        .stat-card.success .stat-value { color: #00a32a; }
+        .stat-card.warning .stat-value { color: #dba617; }
+        .stat-card.error .stat-value { color: #d63638; }
+        
+        .card { background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #c3c4c7; }
+        .card-title { font-size: 14px; font-weight: 600; color: #1d2327; }
+        .card-actions { display: flex; gap: 10px; }
+        .btn { padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; border: none; }
+        .btn-primary { background: #2271b1; color: #fff; }
+        .btn-success { background: #00a32a; color: #fff; }
+        .btn-outline { background: #fff; color: #2271b1; border: 1px solid #2271b1; }
+        
+        .sites-table { width: 100%; border-collapse: collapse; }
+        .sites-table th { background: #f6f7f7; padding: 10px 15px; text-align: left; font-size: 12px; font-weight: 600; color: #1d2327; border-bottom: 1px solid #c3c4c7; }
+        .sites-table td { padding: 12px 15px; border-bottom: 1px solid #f0f0f1; font-size: 13px; }
+        .sites-table tr:hover { background: #f9f9f9; }
+        
+        .site-url { color: #2271b1; text-decoration: none; font-weight: 500; }
+        .site-name { font-size: 12px; color: #646970; }
+        
+        .status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+        .status-badge.active { background: #d1fae5; color: #047857; }
+        .status-badge.error { background: #fee2e2; color: #dc2626; }
+        .status-badge.pending { background: #fef3c7; color: #d97706; }
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; }
+        .status-badge.active .status-dot { background: #047857; }
+        .status-badge.error .status-dot { background: #dc2626; }
+        .status-badge.pending .status-dot { background: #d97706; }
+        
+        .version-tag { background: #e5e7eb; color: #374151; padding: 2px 6px; border-radius: 3px; font-size: 11px; font-family: monospace; }
+        .version-tag.outdated { background: #fef3c7; color: #92400e; }
+        
+        .sync-time { color: #646970; font-size: 12px; }
+        
+        .action-icons { display: flex; gap: 8px; }
+        .action-icon { width: 28px; height: 28px; border: 1px solid #c3c4c7; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .action-icon:hover { background: #f6f7f7; }
+    </style>
+</head>
+<body>
+    <div class="wp-admin">
+        <div class="wp-sidebar">
+            <div class="wp-sidebar-item">대시보드</div>
+            <div class="wp-sidebar-item">글</div>
+            <div class="wp-sidebar-item">미디어</div>
+            <div class="wp-sidebar-item">페이지</div>
+            <div class="wp-sidebar-item">외모</div>
+            <div class="wp-sidebar-item">플러그인</div>
+            <div class="wp-sidebar-item">ACF CSS</div>
+            <div class="wp-sidebar-item active">Partner Hub</div>
+            <div class="wp-sidebar-item">설정</div>
+        </div>
+        
+        <div class="wp-content">
+            <h1 class="wp-title">
+                Partner Hub
+                <span class="partner-badge">Partner Edition</span>
+            </h1>
+            <p class="wp-desc">연결된 모든 클라이언트 사이트의 스타일 설정을 중앙에서 모니터링하고 관리합니다.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card success">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">연결된 사이트</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">10</div>
+                    <div class="stat-label">정상 동작</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">업데이트 필요</div>
+                </div>
+                <div class="stat-card error">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">연결 오류</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🔗 연결된 사이트</h2>
+                    <div class="card-actions">
+                        <button class="btn btn-outline">새로고침</button>
+                        <button class="btn btn-success">🔄 전체 동기화</button>
+                        <button class="btn btn-primary">+ 사이트 추가</button>
+                    </div>
+                </div>
+                
+                <table class="sites-table">
+                    <thead>
+                        <tr>
+                            <th>사이트</th>
+                            <th>상태</th>
+                            <th>버전</th>
+                            <th>마지막 동기화</th>
+                            <th>작업</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="#" class="site-url">https://client-a.com</a>
+                                <div class="site-name">클라이언트 A 쇼핑몰</div>
+                            </td>
+                            <td>
+                                <span class="status-badge active">
+                                    <span class="status-dot"></span>
+                                    활성
+                                </span>
+                            </td>
+                            <td><span class="version-tag">6.2.0</span></td>
+                            <td><span class="sync-time">5분 전</span></td>
+                            <td>
+                                <div class="action-icons">
+                                    <div class="action-icon" title="동기화">🔄</div>
+                                    <div class="action-icon" title="설정">⚙️</div>
+                                    <div class="action-icon" title="연결 해제">🔗</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#" class="site-url">https://client-b.kr</a>
+                                <div class="site-name">클라이언트 B 기업 사이트</div>
+                            </td>
+                            <td>
+                                <span class="status-badge active">
+                                    <span class="status-dot"></span>
+                                    활성
+                                </span>
+                            </td>
+                            <td><span class="version-tag">6.2.0</span></td>
+                            <td><span class="sync-time">1시간 전</span></td>
+                            <td>
+                                <div class="action-icons">
+                                    <div class="action-icon" title="동기화">🔄</div>
+                                    <div class="action-icon" title="설정">⚙️</div>
+                                    <div class="action-icon" title="연결 해제">🔗</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#" class="site-url">https://client-c.io</a>
+                                <div class="site-name">클라이언트 C 포트폴리오</div>
+                            </td>
+                            <td>
+                                <span class="status-badge error">
+                                    <span class="status-dot"></span>
+                                    오류
+                                </span>
+                            </td>
+                            <td><span class="version-tag outdated">6.1.1</span></td>
+                            <td><span class="sync-time">3일 전</span></td>
+                            <td>
+                                <div class="action-icons">
+                                    <div class="action-icon" title="재연결">🔄</div>
+                                    <div class="action-icon" title="설정">⚙️</div>
+                                    <div class="action-icon" title="연결 해제">🔗</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#" class="site-url">https://client-d.net</a>
+                                <div class="site-name">클라이언트 D 블로그</div>
+                            </td>
+                            <td>
+                                <span class="status-badge active">
+                                    <span class="status-dot"></span>
+                                    활성
+                                </span>
+                            </td>
+                            <td><span class="version-tag">6.2.0</span></td>
+                            <td><span class="sync-time">10분 전</span></td>
+                            <td>
+                                <div class="action-icons">
+                                    <div class="action-icon" title="동기화">🔄</div>
+                                    <div class="action-icon" title="설정">⚙️</div>
+                                    <div class="action-icon" title="연결 해제">🔗</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,332 @@
+<!-- 
+    ACF CSS Manager - Google Analytics & GTM 설정
+    WordPress 테마 header.php 또는 플러그인에 추가
+-->
+
+<!-- ================================================== -->
+<!-- Google Tag Manager (HEAD) -->
+<!-- ================================================== -->
+<!-- 이 코드를 <head> 태그 안에 가능한 높은 위치에 추가하세요 -->
+<script>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX'); <!-- GTM ID로 교체 -->
+</script>
+
+
+<!-- ================================================== -->
+<!-- Google Tag Manager (BODY) -->
+<!-- ================================================== -->
+<!-- 이 코드를 <body> 태그 바로 다음에 추가하세요 -->
+<noscript>
+<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+
+<!-- ================================================== -->
+<!-- Google Analytics 4 (GTM 없이 직접 사용 시) -->
+<!-- ================================================== -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', {
+    'anonymize_ip': true,
+    'cookie_flags': 'SameSite=None;Secure'
+  });
+</script>
+-->
+
+
+<!-- ================================================== -->
+<!-- 전자상거래 이벤트 (WooCommerce 연동) -->
+<!-- ================================================== -->
+<script>
+/**
+ * ACF CSS Manager - 전자상거래 이벤트 추적
+ * WooCommerce 페이지에서 자동 실행됩니다.
+ */
+
+// 제품 조회 이벤트
+function trackProductView(product) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'view_item', {
+            currency: 'KRW',
+            value: product.price,
+            items: [{
+                item_id: product.sku,
+                item_name: product.name,
+                item_category: 'WordPress Plugin',
+                item_category2: product.edition,
+                price: product.price,
+                quantity: 1
+            }]
+        });
+    }
+    
+    // GTM dataLayer
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'view_item',
+        ecommerce: {
+            items: [{
+                item_id: product.sku,
+                item_name: product.name,
+                item_category: 'WordPress Plugin',
+                price: product.price
+            }]
+        }
+    });
+}
+
+// 장바구니 추가 이벤트
+function trackAddToCart(product) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'add_to_cart', {
+            currency: 'KRW',
+            value: product.price,
+            items: [{
+                item_id: product.sku,
+                item_name: product.name,
+                item_category: 'WordPress Plugin',
+                item_category2: product.edition,
+                price: product.price,
+                quantity: 1
+            }]
+        });
+    }
+    
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'add_to_cart',
+        ecommerce: {
+            items: [{
+                item_id: product.sku,
+                item_name: product.name,
+                price: product.price
+            }]
+        }
+    });
+}
+
+// 결제 시작 이벤트
+function trackBeginCheckout(cart) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'begin_checkout', {
+            currency: 'KRW',
+            value: cart.total,
+            items: cart.items
+        });
+    }
+    
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'begin_checkout',
+        ecommerce: {
+            items: cart.items
+        }
+    });
+}
+
+// 구매 완료 이벤트
+function trackPurchase(order) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'purchase', {
+            transaction_id: order.id,
+            currency: 'KRW',
+            value: order.total,
+            tax: order.tax,
+            shipping: 0,
+            items: order.items
+        });
+    }
+    
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'purchase',
+        ecommerce: {
+            transaction_id: order.id,
+            value: order.total,
+            currency: 'KRW',
+            items: order.items
+        }
+    });
+}
+
+// 베타 신청 이벤트
+function trackBetaSignup(email, edition) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'generate_lead', {
+            currency: 'KRW',
+            value: 25000, // 예상 전환 가치
+            lead_source: 'beta_signup',
+            interested_edition: edition
+        });
+    }
+    
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'beta_signup',
+        lead_source: 'beta_signup',
+        interested_edition: edition
+    });
+}
+
+// 뉴스레터 구독 이벤트
+function trackNewsletterSignup() {
+    if (typeof gtag === 'function') {
+        gtag('event', 'sign_up', {
+            method: 'newsletter'
+        });
+    }
+    
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'newsletter_signup'
+    });
+}
+
+// 문서 조회 이벤트
+function trackDocView(docTitle, docCategory) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'page_view', {
+            page_title: docTitle,
+            content_group: 'Documentation',
+            content_category: docCategory
+        });
+    }
+}
+
+// 다운로드 이벤트
+function trackDownload(fileName, edition) {
+    if (typeof gtag === 'function') {
+        gtag('event', 'file_download', {
+            file_name: fileName,
+            file_extension: 'zip',
+            link_classes: 'download-button',
+            edition: edition
+        });
+    }
+    
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        event: 'download',
+        file_name: fileName,
+        edition: edition
+    });
+}
+</script>
+
+
+<!-- ================================================== -->
+<!-- WooCommerce 페이지별 자동 추적 -->
+<!-- ================================================== -->
+<?php
+/**
+ * WordPress functions.php에 추가
+ * WooCommerce 이벤트 자동 추적
+ */
+
+// 제품 페이지 조회
+add_action( 'woocommerce_after_single_product', function() {
+    global $product;
+    if ( ! $product ) return;
+    
+    $edition = get_post_meta( $product->get_id(), '_acf_css_license_edition', true );
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        trackProductView({
+            sku: '<?php echo esc_js( $product->get_sku() ); ?>',
+            name: '<?php echo esc_js( $product->get_name() ); ?>',
+            price: <?php echo floatval( $product->get_price() ); ?>,
+            edition: '<?php echo esc_js( $edition ); ?>'
+        });
+    });
+    </script>
+    <?php
+} );
+
+// 장바구니 추가 (AJAX)
+add_action( 'woocommerce_ajax_added_to_cart', function( $product_id ) {
+    $product = wc_get_product( $product_id );
+    if ( ! $product ) return;
+    
+    $edition = get_post_meta( $product_id, '_acf_css_license_edition', true );
+    ?>
+    <script>
+    trackAddToCart({
+        sku: '<?php echo esc_js( $product->get_sku() ); ?>',
+        name: '<?php echo esc_js( $product->get_name() ); ?>',
+        price: <?php echo floatval( $product->get_price() ); ?>,
+        edition: '<?php echo esc_js( $edition ); ?>'
+    });
+    </script>
+    <?php
+} );
+
+// 주문 완료 페이지
+add_action( 'woocommerce_thankyou', function( $order_id ) {
+    $order = wc_get_order( $order_id );
+    if ( ! $order || get_post_meta( $order_id, '_ga_tracked', true ) ) return;
+    
+    $items = array();
+    foreach ( $order->get_items() as $item ) {
+        $product = $item->get_product();
+        $edition = get_post_meta( $product->get_id(), '_acf_css_license_edition', true );
+        $items[] = array(
+            'item_id'       => $product->get_sku(),
+            'item_name'     => $product->get_name(),
+            'item_category' => 'WordPress Plugin',
+            'item_category2' => $edition,
+            'price'         => floatval( $product->get_price() ),
+            'quantity'      => $item->get_quantity(),
+        );
+    }
+    
+    update_post_meta( $order_id, '_ga_tracked', true );
+    ?>
+    <script>
+    trackPurchase({
+        id: '<?php echo esc_js( $order->get_order_number() ); ?>',
+        total: <?php echo floatval( $order->get_total() ); ?>,
+        tax: <?php echo floatval( $order->get_total_tax() ); ?>,
+        items: <?php echo wp_json_encode( $items ); ?>
+    });
+    </script>
+    <?php
+} );
+?>
+
+
+<!-- ================================================== -->
+<!-- GTM 변수 설정 안내 -->
+<!-- ================================================== -->
+<!--
+GTM에서 다음 변수를 설정하세요:
+
+1. Data Layer 변수
+   - ecommerce.items
+   - ecommerce.transaction_id
+   - ecommerce.value
+
+2. 트리거
+   - view_item (Event equals view_item)
+   - add_to_cart (Event equals add_to_cart)
+   - begin_checkout (Event equals begin_checkout)
+   - purchase (Event equals purchase)
+   - beta_signup (Event equals beta_signup)
+   - newsletter_signup (Event equals newsletter_signup)
+
+3. 태그
+   - GA4 - view_item
+   - GA4 - add_to_cart
+   - GA4 - purchase
+   - Custom Conversions
+-->
+

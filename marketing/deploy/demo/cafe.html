@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카페 테마 - ACF CSS Demo</title>
+    
+    <style>
+        :root {
+            /* 팔레트 - Cozy Cafe Vibes */
+            --jj-brand-primary: #8b5a2b;
+            --jj-brand-secondary: #d4a574;
+            --jj-brand-accent: #2d5a3d;
+            --jj-text-primary: #3d2914;
+            --jj-text-secondary: #6b4423;
+            --jj-bg-primary: #faf6f0;
+            --jj-bg-secondary: #f5ebe0;
+            
+            /* 타이포그래피 */
+            --jj-heading-font: 'Cormorant Garamond', serif;
+            --jj-body-font: 'Lato', sans-serif;
+            
+            /* 버튼 */
+            --jj-btn-radius: 24px;
+            --jj-btn-padding: 12px 28px;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--jj-body-font);
+            background: var(--jj-bg-primary);
+            color: var(--jj-text-primary);
+            line-height: 1.7;
+        }
+        
+        a { color: var(--jj-brand-primary); text-decoration: none; }
+        
+        .header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--jj-bg-primary);
+        }
+        
+        .logo {
+            font-family: var(--jj-heading-font);
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--jj-brand-primary);
+        }
+        
+        .nav { display: flex; gap: 30px; }
+        .nav a { color: var(--jj-text-secondary); font-size: 15px; }
+        .nav a:hover { color: var(--jj-brand-primary); }
+        
+        .btn {
+            display: inline-block;
+            padding: var(--jj-btn-padding);
+            border-radius: var(--jj-btn-radius);
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--jj-brand-primary);
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            background: #704a23;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--jj-brand-primary);
+            border: 2px solid var(--jj-brand-primary);
+        }
+        
+        .hero {
+            padding: 80px 40px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero-content { flex: 1; }
+        
+        .hero-tag {
+            display: inline-block;
+            background: var(--jj-bg-secondary);
+            color: var(--jj-brand-primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 {
+            font-family: var(--jj-heading-font);
+            font-size: 56px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: var(--jj-text-primary);
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--jj-text-secondary);
+            margin-bottom: 30px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            height: 400px;
+            background: linear-gradient(135deg, var(--jj-brand-secondary), var(--jj-brand-primary));
+            border-radius: 20px;
+        }
+        
+        .menu {
+            padding: 80px 40px;
+            background: var(--jj-bg-secondary);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-family: var(--jj-heading-font);
+            font-size: 44px;
+            font-weight: 600;
+            color: var(--jj-text-primary);
+        }
+        
+        .section-header p {
+            color: var(--jj-text-secondary);
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .menu-card {
+            background: var(--jj-bg-primary);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(139, 90, 43, 0.1);
+        }
+        
+        .menu-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-card h3 {
+            font-family: var(--jj-heading-font);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .menu-card p {
+            color: var(--jj-text-secondary);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-price {
+            font-family: var(--jj-heading-font);
+            font-size: 22px;
+            color: var(--jj-brand-primary);
+            font-weight: 600;
+        }
+        
+        .story {
+            padding: 80px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .story h2 {
+            font-family: var(--jj-heading-font);
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .story p {
+            color: var(--jj-text-secondary);
+            font-size: 17px;
+            line-height: 1.8;
+        }
+        
+        .cta {
+            padding: 80px 40px;
+            text-align: center;
+            background: var(--jj-brand-primary);
+            color: #fff;
+        }
+        
+        .cta h2 {
+            font-family: var(--jj-heading-font);
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .cta .btn-primary {
+            background: #fff;
+            color: var(--jj-brand-primary);
+        }
+        
+        .footer {
+            padding: 30px 40px;
+            text-align: center;
+            color: var(--jj-text-secondary);
+            font-size: 14px;
+        }
+        
+        .demo-banner {
+            background: var(--jj-brand-accent);
+            color: #fff;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .demo-banner a { color: #fff; text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        🎨 이 사이트는 <strong>ACF CSS Manager</strong>의 "Cozy Cafe" 테마로 스타일링되었습니다. 
+        <a href="#">지금 무료로 시작하기 →</a>
+    </div>
+    
+    <header class="header">
+        <div class="logo">Café Bonheur</div>
+        <nav class="nav">
+            <a href="#">홈</a>
+            <a href="#">메뉴</a>
+            <a href="#">스토리</a>
+            <a href="#">갤러리</a>
+            <a href="#">오시는 길</a>
+        </nav>
+        <a href="#" class="btn btn-primary">예약하기</a>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">☕ Since 2015</span>
+            <h1>행복을 담은<br>한 잔의 커피</h1>
+            <p>
+                바쁜 일상 속 작은 쉼표가 되어드립니다. 
+                정성껏 내린 커피와 수제 디저트로 
+                특별한 순간을 선물하세요.
+            </p>
+            <a href="#" class="btn btn-primary">메뉴 보기</a>
+        </div>
+        <div class="hero-image"></div>
+    </section>
+    
+    <section class="menu">
+        <div class="section-header">
+            <h2>Signature Menu</h2>
+            <p>정성을 담아 준비한 대표 메뉴</p>
+        </div>
+        
+        <div class="menu-grid">
+            <div class="menu-card">
+                <div class="menu-icon">☕</div>
+                <h3>핸드드립 커피</h3>
+                <p>오늘의 싱글오리진을<br>정성껏 내려드립니다</p>
+                <div class="menu-price">₩6,000</div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-icon">🥐</div>
+                <h3>버터 크루아상</h3>
+                <p>프랑스산 버터로 만든<br>겹겹이 바삭한 크루아상</p>
+                <div class="menu-price">₩4,500</div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-icon">🍰</div>
+                <h3>당근 케이크</h3>
+                <p>시그니처 크림치즈<br>프로스팅의 촉촉한 케이크</p>
+                <div class="menu-price">₩7,000</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="story">
+        <h2>Our Story</h2>
+        <p>
+            Café Bonheur는 '행복'이라는 뜻의 프랑스어입니다. 
+            2015년 작은 골목에서 시작한 우리 카페는, 
+            한 잔의 커피가 주는 작은 행복을 전하고자 합니다.
+            <br><br>
+            직접 로스팅한 원두, 매일 아침 굽는 빵, 
+            그리고 편안한 공간에서 여러분의 하루를 응원합니다.
+        </p>
+    </section>
+    
+    <section class="cta">
+        <h2>방문을 환영합니다</h2>
+        <p>매일 오전 8시 - 오후 10시 운영</p>
+        <a href="#" class="btn btn-primary">오시는 길 보기</a>
+    </section>
+    
+    <footer class="footer">
+        <p>© 2025 Café Bonheur. Styled with ACF CSS Manager.</p>
+    </footer>
+</body>
+</html>
+

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>법률사무소 테마 - ACF CSS Demo</title>
+    
+    <style>
+        :root {
+            /* 팔레트 - Elegant Law Firm */
+            --jj-brand-primary: #1a1a1a;
+            --jj-brand-secondary: #d4af37;
+            --jj-brand-accent: #8b7355;
+            --jj-text-primary: #ffffff;
+            --jj-text-secondary: #b8b8b8;
+            --jj-bg-primary: #0d0d0d;
+            --jj-bg-secondary: #1f1f1f;
+            
+            /* 타이포그래피 */
+            --jj-heading-font: 'Playfair Display', serif;
+            --jj-body-font: 'Noto Sans KR', sans-serif;
+            
+            /* 버튼 */
+            --jj-btn-radius: 4px;
+            --jj-btn-padding: 14px 28px;
+        }
+    </style>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--jj-body-font);
+            background: var(--jj-bg-primary);
+            color: var(--jj-text-primary);
+            line-height: 1.7;
+        }
+        
+        a { color: var(--jj-brand-secondary); text-decoration: none; }
+        
+        .header {
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .logo {
+            font-family: var(--jj-heading-font);
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--jj-brand-secondary);
+            letter-spacing: 2px;
+        }
+        
+        .nav { display: flex; gap: 40px; }
+        .nav a { 
+            color: var(--jj-text-secondary); 
+            font-size: 14px; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav a:hover { color: var(--jj-brand-secondary); }
+        
+        .btn {
+            display: inline-block;
+            padding: var(--jj-btn-padding);
+            border-radius: var(--jj-btn-radius);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--jj-brand-secondary);
+            color: var(--jj-brand-primary);
+        }
+        
+        .btn-primary:hover {
+            background: #c9a22f;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--jj-brand-secondary);
+            border: 1px solid var(--jj-brand-secondary);
+        }
+        
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            background: 
+                linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%231f1f1f" width="100" height="100"/></svg>');
+        }
+        
+        .hero-content { max-width: 600px; }
+        
+        .hero h1 {
+            font-family: var(--jj-heading-font);
+            font-size: 52px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 span { color: var(--jj-brand-secondary); }
+        
+        .hero p {
+            font-size: 18px;
+            color: var(--jj-text-secondary);
+            margin-bottom: 40px;
+        }
+        
+        .hero-buttons { display: flex; gap: 20px; }
+        
+        .services {
+            padding: 100px 60px;
+            background: var(--jj-bg-secondary);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-family: var(--jj-heading-font);
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .section-header p {
+            color: var(--jj-text-secondary);
+            font-size: 16px;
+        }
+        
+        .gold-line {
+            width: 60px;
+            height: 2px;
+            background: var(--jj-brand-secondary);
+            margin: 20px auto;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            text-align: center;
+            padding: 40px 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .service-card:hover {
+            border-color: var(--jj-brand-secondary);
+        }
+        
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-family: var(--jj-heading-font);
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .service-card p {
+            color: var(--jj-text-secondary);
+            font-size: 15px;
+        }
+        
+        .about {
+            padding: 100px 60px;
+            display: flex;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        .about-content { flex: 1; }
+        
+        .about h2 {
+            font-family: var(--jj-heading-font);
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .about p {
+            color: var(--jj-text-secondary);
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .about-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-family: var(--jj-heading-font);
+            font-size: 48px;
+            color: var(--jj-brand-secondary);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--jj-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .about-image {
+            flex: 1;
+            height: 400px;
+            background: linear-gradient(135deg, var(--jj-bg-secondary), var(--jj-brand-primary));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .cta {
+            padding: 100px 60px;
+            text-align: center;
+            background: var(--jj-bg-secondary);
+        }
+        
+        .cta h2 {
+            font-family: var(--jj-heading-font);
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            color: var(--jj-text-secondary);
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+        
+        .footer {
+            padding: 40px 60px;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--jj-text-secondary);
+            font-size: 14px;
+        }
+        
+        .demo-banner {
+            background: var(--jj-brand-secondary);
+            color: var(--jj-brand-primary);
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .demo-banner a { color: var(--jj-brand-primary); text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        🎨 이 사이트는 <strong>ACF CSS Manager</strong>의 "Elegant Law Firm" 테마로 스타일링되었습니다. 
+        <a href="#">지금 무료로 시작하기 →</a>
+    </div>
+    
+    <header class="header">
+        <div class="logo">KIM & LEE</div>
+        <nav class="nav">
+            <a href="#">소개</a>
+            <a href="#">업무분야</a>
+            <a href="#">구성원</a>
+            <a href="#">뉴스</a>
+            <a href="#">연락처</a>
+        </nav>
+        <a href="#" class="btn btn-primary">상담 예약</a>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>
+                정의를 향한<br>
+                <span>변함없는 헌신</span>
+            </h1>
+            <p>
+                30년 전통의 KIM & LEE 법률사무소는 기업, 개인을 위한 
+                최고 수준의 법률 서비스를 제공합니다.
+            </p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">무료 상담 신청</a>
+                <a href="#" class="btn btn-secondary">업무 분야 보기</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="services">
+        <div class="section-header">
+            <h2>업무 분야</h2>
+            <div class="gold-line"></div>
+            <p>전문성과 경험을 바탕으로 최상의 결과를 이끌어냅니다</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3>기업 법무</h3>
+                <p>M&A, 계약 검토, 기업 구조조정 등 기업 활동 전반에 대한 법률 자문</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏛️</div>
+                <h3>소송/중재</h3>
+                <p>민사, 형사, 행정 소송 및 국제 중재 분쟁 해결</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📋</div>
+                <h3>부동산/건설</h3>
+                <p>부동산 거래, 개발, 건설 프로젝트 관련 법률 서비스</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about">
+        <div class="about-content">
+            <h2>신뢰와 전문성의 역사</h2>
+            <p>
+                KIM & LEE 법률사무소는 1995년 설립 이래 대한민국 법조계를 
+                선도해온 종합 법률사무소입니다.
+            </p>
+            <p>
+                우리는 클라이언트의 성공이 곧 우리의 성공이라는 믿음 아래, 
+                각 분야 최고의 전문가들이 최선의 결과를 위해 협력합니다.
+            </p>
+            <div class="about-stats">
+                <div class="stat">
+                    <div class="stat-value">30+</div>
+                    <div class="stat-label">Years</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">200+</div>
+                    <div class="stat-label">Attorneys</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">5,000+</div>
+                    <div class="stat-label">Cases</div>
+                </div>
+            </div>
+        </div>
+        <div class="about-image"></div>
+    </section>
+    
+    <section class="cta">
+        <h2>법률 문제로 고민하고 계신가요?</h2>
+        <p>경험 많은 전문가와 무료 상담을 받아보세요.</p>
+        <a href="#" class="btn btn-primary">무료 상담 예약</a>
+    </section>
+    
+    <footer class="footer">
+        <p>© 2025 KIM & LEE 법률사무소. Styled with ACF CSS Manager.</p>
+    </footer>
+</body>
+</html>
+

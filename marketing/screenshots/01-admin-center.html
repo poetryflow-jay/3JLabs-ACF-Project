@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS Manager - Admin Center (Screenshot)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f0f1; }
+        
+        /* WP Admin Style */
+        .wp-admin { display: flex; min-height: 100vh; }
+        .wp-sidebar { width: 160px; background: #1d2327; padding-top: 10px; }
+        .wp-sidebar-item { padding: 8px 12px; color: #a7aaad; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .wp-sidebar-item:hover, .wp-sidebar-item.active { background: #2c3338; color: #fff; }
+        .wp-sidebar-item.active { border-left: 4px solid #2271b1; padding-left: 8px; }
+        .wp-sidebar-icon { width: 18px; height: 18px; background: currentColor; mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='2' y='2' width='16' height='16' rx='2'/%3E%3C/svg%3E") center/contain no-repeat; }
+        
+        .wp-content { flex: 1; padding: 20px; }
+        .wp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .wp-title { font-size: 23px; font-weight: 400; color: #1d2327; }
+        .wp-badge { background: #2271b1; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 11px; margin-left: 10px; }
+        
+        /* Tab Navigation */
+        .nav-tabs { display: flex; gap: 0; border-bottom: 1px solid #c3c4c7; margin-bottom: 20px; }
+        .nav-tab { padding: 10px 15px; background: #dcdcde; border: 1px solid #c3c4c7; border-bottom: none; margin-right: -1px; cursor: pointer; font-size: 13px; color: #50575e; text-decoration: none; }
+        .nav-tab:hover { background: #f6f7f7; }
+        .nav-tab.active { background: #fff; border-bottom: 1px solid #fff; margin-bottom: -1px; color: #1d2327; font-weight: 600; }
+        
+        /* Content Card */
+        .card { background: #fff; border: 1px solid #c3c4c7; box-shadow: 0 1px 1px rgba(0,0,0,.04); padding: 20px; margin-bottom: 20px; }
+        .card-title { font-size: 14px; font-weight: 600; color: #1d2327; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f1; }
+        
+        /* Color Picker Grid */
+        .color-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .color-item { display: flex; align-items: center; gap: 10px; }
+        .color-swatch { width: 36px; height: 36px; border-radius: 4px; border: 1px solid #c3c4c7; cursor: pointer; }
+        .color-label { font-size: 13px; color: #50575e; }
+        .color-value { font-size: 11px; color: #787c82; font-family: monospace; }
+        
+        /* Color Picker Popup */
+        .color-picker-popup { position: absolute; top: 60px; left: 20px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; padding: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.15); z-index: 100; }
+        .color-picker-popup .picker-area { width: 200px; height: 150px; background: linear-gradient(to right, #fff, #2563eb); border-radius: 4px; margin-bottom: 10px; position: relative; }
+        .color-picker-popup .picker-cursor { position: absolute; width: 12px; height: 12px; border: 2px solid #fff; border-radius: 50%; top: 30%; right: 20%; box-shadow: 0 0 3px rgba(0,0,0,0.5); }
+        .color-picker-popup .hue-bar { width: 100%; height: 12px; background: linear-gradient(to right, red, yellow, lime, aqua, blue, fuchsia, red); border-radius: 4px; margin-bottom: 10px; }
+        .color-picker-popup .picker-input { width: 100%; padding: 8px; border: 1px solid #c3c4c7; border-radius: 4px; font-family: monospace; }
+        
+        /* Save Button */
+        .wp-button { background: #2271b1; color: #fff; border: none; padding: 8px 16px; border-radius: 3px; font-size: 13px; cursor: pointer; }
+        .wp-button:hover { background: #135e96; }
+        
+        /* Edition Badge */
+        .edition-badge { position: absolute; top: 20px; right: 20px; background: linear-gradient(135deg, #d4af37, #b8860b); color: #fff; padding: 5px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="wp-admin">
+        <!-- Sidebar -->
+        <div class="wp-sidebar">
+            <div class="wp-sidebar-item">
+                <span class="wp-sidebar-icon"></span>
+                대시보드
+            </div>
+            <div class="wp-sidebar-item">
+                <span class="wp-sidebar-icon"></span>
+                글
+            </div>
+            <div class="wp-sidebar-item">
+                <span class="wp-sidebar-icon"></span>
+                미디어
+            </div>
+            <div class="wp-sidebar-item">
+                <span class="wp-sidebar-icon"></span>
+                페이지
+            </div>
+            <div class="wp-sidebar-item">
+                <span class="wp-sidebar-icon"></span>
+                외모
+            </div>
+            <div class="wp-sidebar-item">
+                <span class="wp-sidebar-icon"></span>
+                플러그인
+            </div>
+            <div class="wp-sidebar-item active">
+                <span class="wp-sidebar-icon"></span>
+                ACF CSS
+            </div>
+            <div class="wp-sidebar-item">
+                <span class="wp-sidebar-icon"></span>
+                설정
+            </div>
+        </div>
+        
+        <!-- Content -->
+        <div class="wp-content" style="position: relative;">
+            <div class="edition-badge">Master ver.</div>
+            
+            <div class="wp-header">
+                <h1 class="wp-title">
+                    ACF CSS Manager
+                    <span class="wp-badge">v6.2.0</span>
+                </h1>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="nav-tabs">
+                <a class="nav-tab" href="#">일반</a>
+                <a class="nav-tab" href="#">어드민 메뉴</a>
+                <a class="nav-tab" href="#">섹션</a>
+                <a class="nav-tab" href="#">텍스트</a>
+                <a class="nav-tab active" href="#">색상</a>
+                <a class="nav-tab" href="#">비주얼</a>
+                <a class="nav-tab" href="#">클라우드</a>
+                <a class="nav-tab" href="#">백업</a>
+                <a class="nav-tab" href="#">업데이트</a>
+                <a class="nav-tab" href="#">라이센스</a>
+            </div>
+            
+            <!-- Color Settings Card -->
+            <div class="card" style="position: relative;">
+                <h2 class="card-title">🎨 브랜드 팔레트</h2>
+                
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #2563eb;"></div>
+                        <div>
+                            <div class="color-label">Primary</div>
+                            <div class="color-value">#2563eb</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #f59e0b;"></div>
+                        <div>
+                            <div class="color-label">Secondary</div>
+                            <div class="color-value">#f59e0b</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #06b6d4;"></div>
+                        <div>
+                            <div class="color-label">Accent</div>
+                            <div class="color-value">#06b6d4</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #1e293b;"></div>
+                        <div>
+                            <div class="color-label">Text Primary</div>
+                            <div class="color-value">#1e293b</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #64748b;"></div>
+                        <div>
+                            <div class="color-label">Text Secondary</div>
+                            <div class="color-value">#64748b</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #ffffff; border-color: #c3c4c7;"></div>
+                        <div>
+                            <div class="color-label">Background</div>
+                            <div class="color-value">#ffffff</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Color Picker (open state) -->
+                <div class="color-picker-popup">
+                    <div class="picker-area">
+                        <div class="picker-cursor"></div>
+                    </div>
+                    <div class="hue-bar"></div>
+                    <input type="text" class="picker-input" value="#2563eb">
+                </div>
+            </div>
+            
+            <!-- System Palette Card -->
+            <div class="card">
+                <h2 class="card-title">🔧 시스템 팔레트</h2>
+                <div class="color-grid">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #22c55e;"></div>
+                        <div>
+                            <div class="color-label">Success</div>
+                            <div class="color-value">#22c55e</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #ef4444;"></div>
+                        <div>
+                            <div class="color-label">Error</div>
+                            <div class="color-value">#ef4444</div>
+                        </div>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background: #eab308;"></div>
+                        <div>
+                            <div class="color-label">Warning</div>
+                            <div class="color-value">#eab308</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="wp-button">변경 사항 저장</button>
+        </div>
+    </div>
+</body>
+</html>
+

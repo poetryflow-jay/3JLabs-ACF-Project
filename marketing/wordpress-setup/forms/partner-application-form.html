@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS Manager - 파트너 신청</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .form-container {
+            background: #1e293b;
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .form-header .logo {
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .form-header .logo span {
+            color: #2563eb;
+        }
+        
+        .form-header h1 {
+            font-size: 32px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .benefits {
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .benefits h3 {
+            color: #2563eb;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+        
+        .benefits ul {
+            list-style: none;
+        }
+        
+        .benefits li {
+            color: #e2e8f0;
+            padding: 8px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .benefits li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #e2e8f0;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .form-group label .required {
+            color: #ef4444;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #64748b;
+        }
+        
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 40px;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: #2563eb;
+        }
+        
+        .checkbox-group label {
+            color: #94a3b8;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .checkbox-group label a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #64748b;
+            font-size: 13px;
+        }
+        
+        .form-footer a {
+            color: #64748b;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        .success-message .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .success-message h2 {
+            color: #10b981;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .success-message p {
+            color: #94a3b8;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- 폼 -->
+        <div id="form-section">
+            <div class="form-header">
+                <div class="logo">ACF <span>CSS</span></div>
+                <h1>파트너 신청</h1>
+                <p>웹 에이전시, 프리랜서를 위한 특별한 파트너 프로그램에 참여하세요.</p>
+            </div>
+            
+            <div class="benefits">
+                <h3>파트너 혜택</h3>
+                <ul>
+                    <li>무제한 사이트 라이센스</li>
+                    <li>Partner Hub (클라이언트 중앙 관리)</li>
+                    <li>화이트 라벨링</li>
+                    <li>우선 기술 지원</li>
+                    <li>파트너 전용 리소스</li>
+                    <li>추천 수수료 프로그램</li>
+                </ul>
+            </div>
+            
+            <!-- Formspree 또는 자체 API로 교체 -->
+            <form id="partner-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <input type="hidden" name="_subject" value="[ACF CSS] 새 파트너 신청">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>이름 <span class="required">*</span></label>
+                        <input type="text" name="name" placeholder="홍길동" required>
+                    </div>
+                    <div class="form-group">
+                        <label>이메일 <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="email@company.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>회사명 <span class="required">*</span></label>
+                        <input type="text" name="company" placeholder="회사명 또는 팀명" required>
+                    </div>
+                    <div class="form-group">
+                        <label>전화번호</label>
+                        <input type="tel" name="phone" placeholder="010-1234-5678">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>웹사이트</label>
+                    <input type="url" name="website" placeholder="https://your-company.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>업종 <span class="required">*</span></label>
+                    <select name="business_type" required>
+                        <option value="">선택해주세요</option>
+                        <option value="agency">웹 에이전시</option>
+                        <option value="freelancer">프리랜서</option>
+                        <option value="studio">디자인 스튜디오</option>
+                        <option value="developer">개발사</option>
+                        <option value="hosting">호스팅/서버 사업자</option>
+                        <option value="other">기타</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>관리 중인 WordPress 사이트 수 <span class="required">*</span></label>
+                    <select name="site_count" required>
+                        <option value="">선택해주세요</option>
+                        <option value="1-5">1-5개</option>
+                        <option value="6-10">6-10개</option>
+                        <option value="11-20">11-20개</option>
+                        <option value="21-50">21-50개</option>
+                        <option value="50+">50개 이상</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>주로 사용하는 테마/빌더</label>
+                    <input type="text" name="tools" placeholder="예: Flavor, Elementor, Kadence...">
+                </div>
+                
+                <div class="form-group">
+                    <label>파트너 프로그램에 관심을 갖게 된 이유</label>
+                    <textarea name="reason" placeholder="어떤 점이 끌리셨나요? 어떻게 활용하실 계획인가요?"></textarea>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="agree-terms" name="agree_terms" required>
+                    <label for="agree-terms">
+                        <a href="/terms/" target="_blank">이용약관</a> 및 
+                        <a href="/privacy/" target="_blank">개인정보처리방침</a>에 동의합니다.
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="agree-marketing" name="agree_marketing">
+                    <label for="agree-marketing">
+                        파트너 전용 뉴스레터 및 업데이트 소식을 받겠습니다. (선택)
+                    </label>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    🤝 파트너 신청하기
+                </button>
+                
+                <div class="form-footer">
+                    <p>신청 후 1-2 영업일 내에 담당자가 연락드립니다.</p>
+                    <p>문의: <a href="mailto:partners@j-j-labs.com">partners@j-j-labs.com</a></p>
+                </div>
+            </form>
+        </div>
+        
+        <!-- 성공 메시지 -->
+        <div class="success-message" id="success-section">
+            <div class="icon">🎉</div>
+            <h2>신청이 완료되었습니다!</h2>
+            <p>
+                파트너 신청해 주셔서 감사합니다.<br>
+                담당자가 검토 후 1-2 영업일 내에 연락드리겠습니다.<br><br>
+                문의사항이 있으시면 언제든지<br>
+                <a href="mailto:partners@j-j-labs.com" style="color: #2563eb;">partners@j-j-labs.com</a>으로 연락주세요.
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // 폼 제출 처리
+        document.getElementById('partner-form').addEventListener('submit', function(e) {
+            var btn = this.querySelector('.submit-btn');
+            btn.disabled = true;
+            btn.textContent = '제출 중...';
+            
+            // Formspree 사용 시 자동으로 리다이렉트됨
+            // 커스텀 처리가 필요하면 e.preventDefault() 후 AJAX 사용
+        });
+        
+        // URL 파라미터로 성공 여부 확인 (Formspree _next 사용 시)
+        if (window.location.search.includes('success=true')) {
+            document.getElementById('form-section').style.display = 'none';
+            document.getElementById('success-section').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+

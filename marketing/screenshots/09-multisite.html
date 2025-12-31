@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS - Multisite Network Settings (Screenshot)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f0f1; }
+        
+        .wp-admin { display: flex; min-height: 100vh; }
+        .wp-sidebar { width: 160px; background: #1d2327; padding-top: 10px; }
+        .wp-sidebar-item { padding: 8px 12px; color: #a7aaad; font-size: 13px; }
+        .wp-sidebar-item.active { background: #2c3338; color: #fff; border-left: 4px solid #2271b1; padding-left: 8px; }
+        .wp-sidebar-divider { height: 1px; background: #3c4349; margin: 8px 12px; }
+        .wp-sidebar-label { padding: 8px 12px; color: #72777c; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .wp-content { flex: 1; padding: 20px; }
+        .wp-title { font-size: 23px; font-weight: 400; color: #1d2327; margin-bottom: 5px; display: flex; align-items: center; gap: 10px; }
+        .wp-desc { color: #646970; font-size: 13px; margin-bottom: 20px; }
+        .network-badge { background: #9333ea; color: #fff; padding: 3px 10px; border-radius: 4px; font-size: 11px; }
+        
+        .card { background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; margin-bottom: 20px; }
+        .card-header { padding: 15px 20px; border-bottom: 1px solid #c3c4c7; display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 14px; font-weight: 600; color: #1d2327; display: flex; align-items: center; gap: 8px; }
+        .card-body { padding: 20px; }
+        
+        .setting-row { display: flex; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid #f0f0f1; }
+        .setting-row:last-child { border-bottom: none; }
+        .setting-label { width: 200px; font-size: 13px; font-weight: 500; color: #1d2327; }
+        .setting-control { flex: 1; }
+        .setting-desc { font-size: 12px; color: #646970; margin-top: 5px; }
+        
+        .toggle { position: relative; width: 44px; height: 24px; background: #dcdcde; border-radius: 12px; cursor: pointer; transition: background 0.3s; }
+        .toggle.active { background: #00a32a; }
+        .toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: #fff; border-radius: 50%; transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .toggle.active::after { transform: translateX(20px); }
+        
+        .sites-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px; }
+        .site-card { border: 1px solid #c3c4c7; border-radius: 4px; padding: 15px; }
+        .site-card.synced { border-color: #00a32a; background: #f0fdf4; }
+        .site-card.locked { border-color: #9333ea; background: #faf5ff; }
+        .site-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .site-name { font-size: 13px; font-weight: 600; color: #1d2327; }
+        .site-status { font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+        .site-status.synced { background: #dcfce7; color: #166534; }
+        .site-status.locked { background: #f3e8ff; color: #7e22ce; }
+        .site-url { font-size: 12px; color: #646970; }
+        
+        .btn { padding: 8px 16px; border-radius: 4px; font-size: 13px; cursor: pointer; border: none; }
+        .btn-primary { background: #2271b1; color: #fff; }
+        .btn-success { background: #00a32a; color: #fff; }
+        .btn-outline { background: #fff; border: 1px solid #c3c4c7; color: #2271b1; }
+        
+        .notice { background: #f0f6fc; border-left: 4px solid #72aee6; padding: 12px 15px; font-size: 13px; color: #1e3a5f; margin-bottom: 20px; border-radius: 0 4px 4px 0; }
+        .notice.warning { background: #fcf9e8; border-color: #dba617; color: #6e4b00; }
+    </style>
+</head>
+<body>
+    <div class="wp-admin">
+        <div class="wp-sidebar">
+            <div class="wp-sidebar-label">네트워크 관리자</div>
+            <div class="wp-sidebar-item">대시보드</div>
+            <div class="wp-sidebar-item">사이트</div>
+            <div class="wp-sidebar-item">사용자</div>
+            <div class="wp-sidebar-item">테마</div>
+            <div class="wp-sidebar-item">플러그인</div>
+            <div class="wp-sidebar-divider"></div>
+            <div class="wp-sidebar-item active">ACF CSS 네트워크</div>
+            <div class="wp-sidebar-item">설정</div>
+        </div>
+        
+        <div class="wp-content">
+            <h1 class="wp-title">
+                ACF CSS 네트워크 설정
+                <span class="network-badge">Multisite</span>
+            </h1>
+            <p class="wp-desc">네트워크의 모든 사이트에 일관된 스타일을 적용하고 중앙에서 관리합니다.</p>
+            
+            <div class="notice">
+                💡 <strong>팁:</strong> 네트워크 모드를 활성화하면 모든 하위 사이트에 동일한 스타일이 적용됩니다. 개별 사이트에서 스타일 변경을 허용하려면 "사이트 오버라이드 허용"을 활성화하세요.
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">⚙️ 네트워크 설정</h2>
+                </div>
+                <div class="card-body">
+                    <div class="setting-row">
+                        <div class="setting-label">네트워크 모드 활성화</div>
+                        <div class="setting-control">
+                            <div class="toggle active"></div>
+                            <div class="setting-desc">활성화하면 이 설정이 네트워크의 모든 사이트에 적용됩니다.</div>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label">사이트 오버라이드 허용</div>
+                        <div class="setting-control">
+                            <div class="toggle"></div>
+                            <div class="setting-desc">개별 사이트 관리자가 네트워크 기본 스타일을 변경할 수 있도록 허용합니다.</div>
+                        </div>
+                    </div>
+                    <div class="setting-row">
+                        <div class="setting-label">자동 동기화</div>
+                        <div class="setting-control">
+                            <div class="toggle active"></div>
+                            <div class="setting-desc">네트워크 스타일 변경 시 모든 사이트에 자동으로 적용합니다.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🌐 연결된 사이트 (4)</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn btn-outline">새로고침</button>
+                        <button class="btn btn-success">🔄 전체 사이트 적용</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="sites-grid">
+                        <div class="site-card synced">
+                            <div class="site-header">
+                                <span class="site-name">Main Site</span>
+                                <span class="site-status synced">동기화됨</span>
+                            </div>
+                            <div class="site-url">https://example.com</div>
+                        </div>
+                        <div class="site-card locked">
+                            <div class="site-header">
+                                <span class="site-name">Blog</span>
+                                <span class="site-status locked">잠금됨</span>
+                            </div>
+                            <div class="site-url">https://example.com/blog</div>
+                        </div>
+                        <div class="site-card synced">
+                            <div class="site-header">
+                                <span class="site-name">Shop</span>
+                                <span class="site-status synced">동기화됨</span>
+                            </div>
+                            <div class="site-url">https://shop.example.com</div>
+                        </div>
+                        <div class="site-card synced">
+                            <div class="site-header">
+                                <span class="site-name">Support</span>
+                                <span class="site-status synced">동기화됨</span>
+                            </div>
+                            <div class="site-url">https://support.example.com</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,3 @@
+# Netlify redirects
+/beta    /beta.html    200
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACF CSS Manager에 오신 것을 환영합니다!</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #0f172a; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .container { max-width: 600px; margin: 0 auto; background-color: #1e293b; }
+        .header { background: linear-gradient(135deg, #2563eb, #06b6d4); padding: 50px 30px; text-align: center; }
+        .header h1 { color: #fff; font-size: 32px; margin: 0 0 10px 0; }
+        .header p { color: rgba(255,255,255,0.9); font-size: 18px; margin: 0; }
+        .content { padding: 40px 30px; }
+        .welcome-text { color: #e2e8f0; font-size: 16px; line-height: 1.7; margin-bottom: 30px; }
+        .feature-grid { margin: 30px 0; }
+        .feature { background: #0f172a; border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+        .feature-icon { font-size: 24px; margin-bottom: 10px; }
+        .feature h3 { color: #fff; font-size: 16px; margin: 0 0 8px 0; }
+        .feature p { color: #94a3b8; font-size: 14px; margin: 0; line-height: 1.5; }
+        .cta-section { text-align: center; margin: 40px 0; }
+        .cta-button { display: inline-block; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff !important; text-decoration: none; padding: 16px 40px; border-radius: 12px; font-size: 16px; font-weight: 600; }
+        .resources { background: #0f172a; border-radius: 12px; padding: 25px; margin: 30px 0; }
+        .resources h3 { color: #fff; font-size: 18px; margin: 0 0 20px 0; }
+        .resource-link { display: block; color: #2563eb; text-decoration: none; padding: 10px 0; border-bottom: 1px solid #1e293b; }
+        .resource-link:last-child { border-bottom: none; }
+        .footer { background: #0f172a; padding: 30px; text-align: center; border-top: 1px solid #1e293b; }
+        .footer p { color: #64748b; font-size: 12px; margin: 5px 0; }
+        .footer a { color: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👋 환영합니다!</h1>
+            <p>ACF CSS Manager와 함께하는 새로운 디자인 여정</p>
+        </div>
+        
+        <div class="content">
+            <p class="welcome-text">
+                안녕하세요 {{customer_name}}님,<br><br>
+                ACF CSS Manager 가족이 되어주셔서 감사합니다! 
+                코딩 없이 전문가 수준의 웹사이트 디자인을 시작할 준비가 되셨습니다.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>색상 팔레트 관리</h3>
+                    <p>브랜드 컬러를 중앙에서 관리하고 전체 사이트에 일관되게 적용하세요.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI 스타일 생성</h3>
+                    <p>"고급스러운 블랙&골드"라고 말하면, AI가 완벽한 팔레트를 만들어줍니다.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>성능 최적화</h3>
+                    <p>CSS Tree Shaking으로 불필요한 코드를 제거하고 PageSpeed 점수를 높이세요.</p>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <a href="https://j-j-labs.com/docs/getting-started/" class="cta-button">
+                    📖 시작 가이드 보기
+                </a>
+            </div>
+            
+            <div class="resources">
+                <h3>📚 유용한 리소스</h3>
+                <a href="https://j-j-labs.com/docs/" class="resource-link">📖 사용자 문서</a>
+                <a href="https://j-j-labs.com/docs/video-tutorials/" class="resource-link">🎬 비디오 튜토리얼</a>
+                <a href="https://j-j-labs.com/blog/" class="resource-link">📝 블로그 & 팁</a>
+                <a href="https://j-j-labs.com/support/" class="resource-link">💬 고객 지원</a>
+            </div>
+            
+            <p class="welcome-text" style="text-align: center;">
+                궁금한 점이 있으시면 언제든 <a href="mailto:support@j-j-labs.com" style="color: #2563eb;">support@j-j-labs.com</a>으로 연락주세요.<br>
+                함께 멋진 웹사이트를 만들어가요! 🚀
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 J&J Labs. All rights reserved.</p>
+            <p>
+                <a href="https://j-j-labs.com/privacy-policy/">개인정보처리방침</a> · 
+                <a href="{{unsubscribe_url}}">수신 거부</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

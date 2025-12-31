@@ -1,0 +1,168 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://j-j-labs.com/#organization",
+      "name": "J&J Labs",
+      "url": "https://j-j-labs.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://j-j-labs.com/wp-content/uploads/logo.png",
+        "width": 200,
+        "height": 60
+      },
+      "sameAs": [
+        "https://twitter.com/jjlabs",
+        "https://github.com/jj-labs"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "",
+        "contactType": "customer service",
+        "email": "support@j-j-labs.com",
+        "availableLanguage": ["Korean", "English"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://j-j-labs.com/#website",
+      "url": "https://j-j-labs.com",
+      "name": "J&J Labs",
+      "description": "ACF CSS Manager - WordPress 스타일 관리 플러그인",
+      "publisher": {
+        "@id": "https://j-j-labs.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://j-j-labs.com/?s={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://j-j-labs.com/acf-css-manager/#software",
+      "name": "ACF CSS Manager",
+      "description": "코딩 없이 WordPress 웹사이트의 색상, 폰트, 버튼 스타일을 중앙에서 관리하고 AI로 스타일을 생성하는 플러그인",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "WordPress",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Free",
+          "price": "0",
+          "priceCurrency": "KRW",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "name": "PRO",
+          "price": "49000",
+          "priceCurrency": "KRW",
+          "availability": "https://schema.org/InStock",
+          "priceValidUntil": "2025-12-31"
+        },
+        {
+          "@type": "Offer",
+          "name": "Partner",
+          "price": "199000",
+          "priceCurrency": "KRW",
+          "availability": "https://schema.org/InStock"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "50",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "screenshot": "https://j-j-labs.com/wp-content/uploads/acf-css-screenshot.png",
+      "softwareVersion": "6.2.1",
+      "datePublished": "2024-01-01",
+      "dateModified": "2025-12-19",
+      "author": {
+        "@id": "https://j-j-labs.com/#organization"
+      },
+      "publisher": {
+        "@id": "https://j-j-labs.com/#organization"
+      },
+      "featureList": [
+        "색상 팔레트 관리",
+        "타이포그래피 시스템",
+        "AI 스타일 생성",
+        "클라우드 동기화",
+        "CSS Tree Shaking",
+        "멀티사이트 지원",
+        "Partner Hub"
+      ],
+      "requirements": "WordPress 5.8+, PHP 7.4+"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://j-j-labs.com/faq/#faqpage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "ACF CSS Manager는 무료인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네, ACF CSS Manager Free 버전은 영구 무료입니다. 더 많은 기능이 필요하시면 PRO 버전을 구매하실 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "어떤 테마와 호환되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ACF CSS Manager는 대부분의 WordPress 테마와 호환됩니다. 특히 Kadence, GeneratePress, Flavor, Flavor, Hello Flavor 등에 대해 전용 어댑터를 제공합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "AI 스타일 생성 기능은 어떻게 작동하나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "자연어로 원하는 스타일을 설명하면 (예: '고급스러운 블랙&골드 테마') AI가 자동으로 색상 팔레트, 폰트, 버튼 스타일을 생성합니다. OpenAI API를 사용하며, PRO 버전 이상에서 사용 가능합니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "환불이 가능한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네, 구매 후 30일 이내에 사유와 관계없이 전액 환불이 가능합니다."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://j-j-labs.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "홈",
+          "item": "https://j-j-labs.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "제품",
+          "item": "https://j-j-labs.com/shop/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "ACF CSS Manager",
+          "item": "https://j-j-labs.com/shop/acf-css-manager/"
+        }
+      ]
+    }
+  ]
+}
+

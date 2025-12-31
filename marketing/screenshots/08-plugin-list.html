@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Plugins - Quick Links (Screenshot)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f0f1; }
+        
+        .wp-admin { display: flex; min-height: 100vh; }
+        .wp-sidebar { width: 160px; background: #1d2327; padding-top: 10px; }
+        .wp-sidebar-item { padding: 8px 12px; color: #a7aaad; font-size: 13px; }
+        .wp-sidebar-item.active { background: #2c3338; color: #fff; border-left: 4px solid #2271b1; padding-left: 8px; }
+        
+        .wp-content { flex: 1; padding: 20px; }
+        .wp-title { font-size: 23px; font-weight: 400; color: #1d2327; margin-bottom: 20px; }
+        
+        .plugins-table { width: 100%; background: #fff; border: 1px solid #c3c4c7; border-collapse: collapse; }
+        .plugins-table th { background: #f6f7f7; padding: 10px 12px; text-align: left; font-size: 12px; font-weight: 600; color: #1d2327; border-bottom: 1px solid #c3c4c7; }
+        .plugins-table td { padding: 12px; border-bottom: 1px solid #f0f0f1; vertical-align: top; }
+        .plugins-table tr.active-plugin { background: #f0f6fc; }
+        
+        .plugin-name { font-size: 14px; font-weight: 600; color: #2271b1; }
+        .plugin-desc { font-size: 13px; color: #646970; margin: 5px 0; }
+        .plugin-meta { font-size: 12px; color: #787c82; }
+        .plugin-meta a { color: #2271b1; text-decoration: none; }
+        
+        .row-actions { margin-top: 8px; font-size: 12px; }
+        .row-actions a { color: #2271b1; text-decoration: none; margin-right: 5px; }
+        .row-actions span { color: #787c82; }
+        .row-actions .settings { font-weight: 600; color: #135e96; }
+        
+        .plugin-active-indicator { display: inline-block; width: 4px; height: 100%; position: absolute; left: 0; top: 0; background: #72aee6; }
+        
+        .update-message { background: #f0f6fc; border-left: 4px solid #72aee6; padding: 10px 15px; font-size: 13px; color: #1d2327; margin-top: 10px; }
+        
+        /* Highlight the ACF CSS plugin row */
+        .highlight-row { position: relative; background: #e7f5e7 !important; }
+        .highlight-row::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #00a32a; }
+        
+        .quick-links { display: flex; gap: 8px; flex-wrap: wrap; }
+        .quick-links a { color: #2271b1; text-decoration: none; padding: 2px 0; }
+        .quick-links .separator { color: #787c82; }
+    </style>
+</head>
+<body>
+    <div class="wp-admin">
+        <div class="wp-sidebar">
+            <div class="wp-sidebar-item">대시보드</div>
+            <div class="wp-sidebar-item">글</div>
+            <div class="wp-sidebar-item">미디어</div>
+            <div class="wp-sidebar-item">페이지</div>
+            <div class="wp-sidebar-item">외모</div>
+            <div class="wp-sidebar-item active">플러그인</div>
+            <div class="wp-sidebar-item">ACF CSS</div>
+            <div class="wp-sidebar-item">설정</div>
+        </div>
+        
+        <div class="wp-content">
+            <h1 class="wp-title">플러그인</h1>
+            
+            <table class="plugins-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30px;"><input type="checkbox"></th>
+                        <th>플러그인</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight-row">
+                        <td><input type="checkbox"></td>
+                        <td style="width: 200px;">
+                            <strong class="plugin-name">ACF CSS Manager PRO</strong>
+                            <div class="row-actions">
+                                <span class="quick-links">
+                                    <a href="#" class="settings">Settings</a>
+                                    <span class="separator">|</span>
+                                    <a href="#">Styles</a>
+                                    <span class="separator">|</span>
+                                    <a href="#">Menu</a>
+                                    <span class="separator">|</span>
+                                    <a href="#">Visual</a>
+                                    <span class="separator">|</span>
+                                    <a href="#" style="color: #b32d2e;">비활성화</a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="plugin-desc">WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다.</div>
+                            <div class="plugin-meta">Version 6.2.0 | By <a href="#">J&J Labs</a> | <a href="#">플러그인 홈페이지 방문</a></div>
+                        </td>
+                    </tr>
+                    <tr class="active-plugin">
+                        <td><input type="checkbox"></td>
+                        <td>
+                            <strong class="plugin-name">ACF CSS AI</strong>
+                            <div class="row-actions">
+                                <span class="quick-links">
+                                    <a href="#" class="settings">Settings</a>
+                                    <span class="separator">|</span>
+                                    <a href="#" style="color: #b32d2e;">비활성화</a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="plugin-desc">ACF CSS Manager를 위한 AI 스타일 생성 확장 플러그인입니다. 자연어 프롬프트로 색상 팔레트와 타이포그래피를 자동 생성합니다.</div>
+                            <div class="plugin-meta">Version 1.0.0 | By <a href="#">J&J Labs</a></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>
+                            <strong class="plugin-name" style="color: #1d2327;">Akismet Anti-spam</strong>
+                            <div class="row-actions">
+                                <span class="quick-links">
+                                    <a href="#">활성화</a>
+                                    <span class="separator">|</span>
+                                    <a href="#">삭제</a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="plugin-desc">스팸으로부터 댓글과 트랙백을 보호합니다.</div>
+                            <div class="plugin-meta">Version 5.3 | By <a href="#">Automattic</a></div>
+                        </td>
+                    </tr>
+                    <tr class="active-plugin">
+                        <td><input type="checkbox"></td>
+                        <td>
+                            <strong class="plugin-name">Elementor</strong>
+                            <div class="row-actions">
+                                <span class="quick-links">
+                                    <a href="#" class="settings">Settings</a>
+                                    <span class="separator">|</span>
+                                    <a href="#" style="color: #b32d2e;">비활성화</a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="plugin-desc">Elementor 웹사이트 빌더로 아름다운 워드프레스 웹사이트를 만들어 보세요.</div>
+                            <div class="plugin-meta">Version 3.18.0 | By <a href="#">Elementor.com</a></div>
+                        </td>
+                    </tr>
+                    <tr class="active-plugin">
+                        <td><input type="checkbox"></td>
+                        <td>
+                            <strong class="plugin-name">WooCommerce</strong>
+                            <div class="row-actions">
+                                <span class="quick-links">
+                                    <a href="#" class="settings">Settings</a>
+                                    <span class="separator">|</span>
+                                    <a href="#" style="color: #b32d2e;">비활성화</a>
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="plugin-desc">유연하고 오픈 소스 전자 상거래 솔루션입니다.</div>
+                            <div class="plugin-meta">Version 8.4.0 | By <a href="#">Automattic</a></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+
