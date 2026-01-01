@@ -75,6 +75,8 @@ final class JJ_Admin_Center {
         add_action( 'wp_ajax_jj_suite_refresh_updates', array( $this, 'ajax_suite_refresh_updates' ) );
         // [Phase 6] 자가 진단 AJAX 핸들러
         add_action( 'wp_ajax_jj_run_self_test', array( $this, 'ajax_run_self_test' ) );
+        // [Phase 8.5.2] 진단 알림 해제 AJAX 핸들러
+        add_action( 'wp_ajax_jj_dismiss_diagnostic_notice', array( $this, 'ajax_dismiss_diagnostic_notice' ) );
 
         // [v8.0.0] Bulk Installer AJAX 핸들러 (Tools 탭용)
         add_action( 'wp_ajax_jj_bulk_install_upload', array( $this, 'ajax_handle_bulk_upload' ) );
@@ -203,6 +205,15 @@ final class JJ_Admin_Center {
         
         // [v5.0.3] 툴팁 시스템 로드
         wp_enqueue_script( 'jj-tooltips', JJ_STYLE_GUIDE_URL . 'assets/js/jj-tooltips.js', array( 'jquery', 'jj-common-utils' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
+
+        // [Phase 8.3.2] 폼 UX 개선 (자동 저장, 유효성 검사)
+        wp_enqueue_script(
+            'jj-form-enhancer',
+            JJ_STYLE_GUIDE_URL . 'assets/js/jj-form-enhancer.js',
+            array( 'jquery', 'jj-common-utils' ),
+            defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0',
+            true
+        );
 
         // AJAX 파라미터 로컬라이즈
         wp_localize_script(
@@ -536,7 +547,7 @@ final class JJ_Admin_Center {
                     }
                     if ( ! $is_master_version ) {
                         $license_manager = null;
-                        $purchase_url = 'https://j-j-labs.com'; // 기본값
+                        $purchase_url = 'https://3j-labs.com'; // 기본값
                         if ( file_exists( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php' ) ) {
                             require_once JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php';
                             if ( class_exists( 'JJ_License_Manager' ) ) {
@@ -1764,6 +1775,18 @@ final class JJ_Admin_Center {
         } else {
             wp_send_json_error( array( 'message' => __( '테스터 클래스를 로드할 수 없습니다.', 'jj-style-guide' ) ) );
         }
+    }
+
+    /**
+     * [Phase 8.5.2] AJAX: 진단 알림 해제
+     */
+    public function ajax_dismiss_diagnostic_notice() {
+        if ( ! $this->verify_ajax_security( 'jj_dismiss_diagnostic_notice', 'jj_diagnostic_notice' ) ) {
+            return;
+        }
+        
+        update_user_meta( get_current_user_id(), 'jj_diagnostic_notice_dismissed', time() );
+        wp_send_json_success();
     }
 
     /**

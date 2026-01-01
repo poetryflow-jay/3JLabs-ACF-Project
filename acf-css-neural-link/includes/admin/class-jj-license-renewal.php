@@ -89,6 +89,7 @@ class JJ_License_Renewal {
                     'old_expires' => $license['expires_at'],
                     'new_expires' => $new_expires,
                 ) ),
+            ),
             array( '%d', '%s', '%s', '%d', '%s', '%s' )
         );
         

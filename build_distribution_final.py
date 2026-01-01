@@ -7,7 +7,7 @@ from datetime import datetime
 # ============================================================
 # 설정 (Configuration)
 # ============================================================
-VERSION_CORE = '8.0.0'
+VERSION_CORE = '8.5.0'
 VERSION_NEURAL = '3.9.9'
 VERSION_AI = '2.0.5'
 VERSION_WOO = '2.0.0'

@@ -31,6 +31,7 @@ class JJ_AI_Extension_Promoter {
         // AJAX: 플러그인 활성화
         add_action( 'wp_ajax_jj_activate_ai_extension', array( $this, 'ajax_activate_extension' ) );
         add_action( 'wp_ajax_jj_install_ai_extension', array( $this, 'ajax_install_extension' ) );
+        add_action( 'wp_ajax_jj_dismiss_ai_promo', array( $this, 'ajax_dismiss_ai_promo' ) );
     }
     
     /**
@@ -260,15 +261,22 @@ class JJ_AI_Extension_Promoter {
     /**
      * AJAX: 프로모션 알림 해제
      */
-    public function ajax_dismiss_promo() {
-        check_ajax_referer( 'jj_ai_extension_action', 'nonce' );
+    public function ajax_dismiss_ai_promo() {
+        // 보안 검증
+        if ( class_exists( 'JJ_Security_Hardener' ) ) {
+            if ( ! JJ_Security_Hardener::verify_ajax_request( 'jj_dismiss_ai_promo', 'jj_ai_extension_action' ) ) {
+                return;
+            }
+        } else {
+            check_ajax_referer( 'jj_ai_extension_action', 'nonce' );
+        }
+        
         update_user_meta( get_current_user_id(), 'jj_ai_extension_promo_dismissed', time() );
         wp_send_json_success();
     }
 }
 
 // 초기화
-add_action( 'plugins_loaded', array( 'JJ_AI_Extension_Promoter', 'instance' ), 20 );
-
-// AJAX: 프로모션 해제
-add_action( 'wp_ajax_jj_dismiss_ai_promo', array( 'JJ_AI_Extension_Promoter', 'instance' ) );
+add_action( 'plugins_loaded', function() {
+    JJ_AI_Extension_Promoter::instance();
+}, 20 );

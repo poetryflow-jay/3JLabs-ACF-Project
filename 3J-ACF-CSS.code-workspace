@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../OneDrive/Desktop/클라우드 백업/OneDrive/문서/jj-css-premium"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"powershell.cwd": "jj-css-premium"
+	}
+}

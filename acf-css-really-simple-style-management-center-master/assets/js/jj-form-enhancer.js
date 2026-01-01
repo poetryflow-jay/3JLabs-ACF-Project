@@ -12,6 +12,7 @@
 
     const FormEnhancer = {
         storageKey: 'jj_admin_center_auto_save',
+        
         init: function() {
             this.initAutoSave();
             this.initValidation();
@@ -19,14 +20,14 @@
         },
 
         /**
-         * 자동 저장 기능
+         * 자동 저장 기능 초기화
          */
         initAutoSave: function() {
             const $wrap = $('.jj-admin-center-wrap');
             if (!$wrap.length) return;
 
-            // 저장된 데이터 복원
-            this.restoreAutoSavedData();
+            // 저장된 데이터 확인 및 복원 알림
+            this.checkAutoSavedData();
 
             // 입력 필드 변경 감지 (debounce)
             let saveTimeout;
@@ -83,7 +84,69 @@
         },
 
         /**
-         * 저장된 데이터 복원
+         * 저장된 데이터 확인
+         */
+        checkAutoSavedData: function() {
+            const savedData = this.getAutoSavedData();
+            if (!savedData || Object.keys(savedData).length === 0) return;
+
+            // 데이터가 얼마나 오래되었는지 확인 (예: 24시간 이상 되면 무시할 수도 있음)
+            // 여기서는 단순히 존재 여부만 확인
+
+            this.showRestorePrompt(Object.keys(savedData).length);
+        },
+
+        /**
+         * 복원 프롬프트 표시 (Notice)
+         */
+        showRestorePrompt: function(count) {
+            const $wrap = $('.jj-admin-center-wrap');
+            
+            // 이미 존재하면 제거
+            $('#jj-autosave-restore-notice').remove();
+
+            const html = `
+                <div id="jj-autosave-restore-notice" class="notice notice-info is-dismissible jj-notice" style="margin: 15px 0; border-left-color: #2271b1;">
+                    <p>
+                        <strong><span class="dashicons dashicons-backup" style="color: #2271b1; vertical-align: middle;"></span> 작성 중이던 내용이 발견되었습니다.</strong> 
+                        (${count}개 필드)
+                    </p>
+                    <p>
+                        <button type="button" class="button button-primary jj-restore-btn">
+                            <span class="dashicons dashicons-undo" style="margin-top:4px;"></span> 지금 복원하기
+                        </button>
+                        <button type="button" class="button button-secondary jj-discard-btn" style="margin-left: 5px;">
+                            삭제하기
+                        </button>
+                    </p>
+                </div>
+            `;
+            
+            $wrap.prepend(html);
+
+            // 이벤트 바인딩
+            const $notice = $('#jj-autosave-restore-notice');
+            
+            $notice.find('.jj-restore-btn').on('click', function() {
+                FormEnhancer.restoreAutoSavedData();
+                $notice.slideUp(200, function() { $(this).remove(); });
+            });
+
+            $notice.find('.jj-discard-btn').on('click', function() {
+                if (confirm('저장된 내용을 정말 삭제하시겠습니까?')) {
+                    FormEnhancer.clearAutoSavedData();
+                    $notice.slideUp(200, function() { $(this).remove(); });
+                }
+            });
+
+            // 워드프레스 기본 알림 닫기 버튼 처리
+            $notice.on('click', '.notice-dismiss', function() {
+                // 닫기만 하고 데이터는 유지? 아니면 삭제? -> 유지하는 것이 안전함. 다음 로드 시 다시 물어봄.
+            });
+        },
+
+        /**
+         * 저장된 데이터 복원 실행
          */
         restoreAutoSavedData: function() {
             try {
@@ -100,22 +163,33 @@
                     if ($field.length && $field.attr('type') !== 'password') {
                         // 값 설정
                         if ($field.is('input[type="checkbox"]') || $field.is('input[type="radio"]')) {
-                            $field.prop('checked', data.value === 'on' || data.value === $field.val());
+                            // 체크박스/라디오 처리
+                            if ($field.val() === data.value) {
+                                $field.prop('checked', true).trigger('change');
+                            } else if (data.value === 'on') {
+                                // 단일 체크박스(value='on'이거나 생략된 경우)
+                                $field.prop('checked', true).trigger('change');
+                            }
                         } else {
-                            $field.val(data.value);
+                            $field.val(data.value).trigger('change'); // trigger change for other listeners
                         }
 
-                        // 저장된 데이터 표시
-                        $field.addClass('jj-autosaved');
+                        // 복원 효과 표시
+                        $field.addClass('jj-restored-highlight');
+                        setTimeout(function() {
+                            $field.removeClass('jj-restored-highlight');
+                        }, 2000);
+
                         restoredCount++;
                     }
                 });
 
                 if (restoredCount > 0) {
-                    this.showRestoreNotice(restoredCount);
+                    this.showToast(restoredCount + '개 항목이 복원되었습니다.');
                 }
             } catch (e) {
                 console.warn('Auto-restore failed:', e);
+                this.showToast('복원 중 오류가 발생했습니다.', 'error');
             }
         },
 
@@ -137,47 +211,48 @@
         clearAutoSavedData: function() {
             try {
                 localStorage.removeItem(this.storageKey);
-                $('.jj-autosaved').removeClass('jj-autosaved');
+                $('#jj-autosave-restore-notice').remove();
             } catch (e) {
                 // ignore
             }
         },
 
         /**
-         * 자동 저장 표시기
+         * 자동 저장 표시기 (우측 하단)
          */
         showAutoSaveIndicator: function() {
             let $indicator = $('#jj-autosave-indicator');
             if (!$indicator.length) {
-                $indicator = $('<div id="jj-autosave-indicator" style="position:fixed; bottom:20px; right:20px; padding:8px 15px; background:#2271b1; color:#fff; border-radius:4px; font-size:12px; z-index:100000; display:none;"><span class="dashicons dashicons-yes" style="vertical-align:middle; margin-right:5px;"></span>자동 저장됨</div>');
+                $indicator = $('<div id="jj-autosave-indicator" style="position:fixed; bottom:20px; right:20px; padding:8px 15px; background:#2271b1; color:#fff; border-radius:4px; font-size:12px; z-index:100000; display:none; box-shadow: 0 2px 5px rgba(0,0,0,0.2);"><span class="dashicons dashicons-cloud-saved" style="vertical-align:middle; margin-right:5px; font-size:16px; width:16px; height:16px;"></span>자동 저장됨</div>');
                 $('body').append($indicator);
             }
 
-            $indicator.fadeIn(200);
-            setTimeout(function() {
-                $indicator.fadeOut(300);
+            $indicator.stop(true, true).fadeIn(200);
+            
+            // 기존 타이머 제거
+            if (this.indicatorTimeout) clearTimeout(this.indicatorTimeout);
+            
+            this.indicatorTimeout = setTimeout(function() {
+                $indicator.fadeOut(500);
             }, 2000);
         },
 
         /**
-         * 복원 알림 표시
+         * 토스트 메시지 표시
          */
-        showRestoreNotice: function(count) {
-            const $notice = $('<div class="notice notice-info" style="margin:15px 0;"><p><strong>자동 저장된 내용이 복원되었습니다.</strong> (' + count + '개 필드) <button type="button" class="button button-small jj-clear-autosave" style="margin-left:10px;">초기화</button></p></div>');
-            $('.jj-admin-center-wrap').prepend($notice);
+        showToast: function(message, type = 'success') {
+            // jj-common-utils.js의 토스트 기능이 있다면 사용, 없으면 폴백
+            if (window.JJ_Common_Utils && window.JJ_Common_Utils.toast) {
+                window.JJ_Common_Utils.toast(message, type);
+                return;
+            }
 
-            $notice.find('.jj-clear-autosave').on('click', function() {
-                FormEnhancer.clearAutoSavedData();
-                $notice.fadeOut(300, function() {
-                    $(this).remove();
-                });
-            });
-
+            // 폴백 토스트
+            const $toast = $('<div class="jj-toast" style="position:fixed; top:50px; left:50%; transform:translateX(-50%); background:#333; color:#fff; padding:10px 20px; border-radius:4px; z-index:99999; font-size:14px;">' + message + '</div>');
+            $('body').append($toast);
             setTimeout(function() {
-                $notice.fadeOut(300, function() {
-                    $(this).remove();
-                });
-            }, 5000);
+                $toast.fadeOut(500, function() { $(this).remove(); });
+            }, 3000);
         },
 
         /**
@@ -188,10 +263,15 @@
             if (!$wrap.length) return;
 
             // 색상 입력 필드 검증
-            $wrap.on('blur', '.jj-color-picker, input[type="text"][placeholder*="#"]', function() {
+            $wrap.on('blur input', '.jj-color-picker, input[type="text"][placeholder*="#"]', function() {
                 const $field = $(this);
+                // 빈 값은 허용 (필수가 아닐 경우)
+                if ($field.val() === '') {
+                    FormEnhancer.clearFieldError($field);
+                    return;
+                }
+                
                 const value = $field.val().trim();
-
                 if (value && !FormEnhancer.isValidHexColor(value)) {
                     FormEnhancer.showFieldError($field, '올바른 HEX 색상 형식이 아닙니다. (예: #2271b1)');
                 } else {
@@ -202,8 +282,12 @@
             // URL 입력 필드 검증
             $wrap.on('blur', 'input[type="url"], input[placeholder*="http"]', function() {
                 const $field = $(this);
-                const value = $field.val().trim();
+                if ($field.val() === '') {
+                    FormEnhancer.clearFieldError($field);
+                    return;
+                }
 
+                const value = $field.val().trim();
                 if (value && !FormEnhancer.isValidUrl(value)) {
                     FormEnhancer.showFieldError($field, '올바른 URL 형식이 아닙니다.');
                 } else {
@@ -214,8 +298,12 @@
             // 이메일 입력 필드 검증
             $wrap.on('blur', 'input[type="email"]', function() {
                 const $field = $(this);
-                const value = $field.val().trim();
+                if ($field.val() === '') {
+                    FormEnhancer.clearFieldError($field);
+                    return;
+                }
 
+                const value = $field.val().trim();
                 if (value && !FormEnhancer.isValidEmail(value)) {
                     FormEnhancer.showFieldError($field, '올바른 이메일 형식이 아닙니다.');
                 } else {
@@ -228,12 +316,18 @@
          * 필드 오류 표시
          */
         showFieldError: function($field, message) {
-            $field.addClass('jj-field-error');
+            $field.addClass('jj-field-error').css('border-color', '#d63638');
             let $error = $field.siblings('.jj-field-error-message');
             
             if (!$error.length) {
-                $error = $('<span class="jj-field-error-message" style="display:block; color:#d63638; font-size:12px; margin-top:4px;">' + message + '</span>');
-                $field.after($error);
+                // wp-color-picker의 경우 구조가 다를 수 있음
+                if ($field.closest('.wp-picker-container').length) {
+                    $error = $('<span class="jj-field-error-message" style="display:block; color:#d63638; font-size:12px; margin-top:4px;">' + message + '</span>');
+                    $field.closest('.wp-picker-container').after($error);
+                } else {
+                    $error = $('<span class="jj-field-error-message" style="display:block; color:#d63638; font-size:12px; margin-top:4px;">' + message + '</span>');
+                    $field.after($error);
+                }
             } else {
                 $error.text(message).show();
             }
@@ -243,8 +337,13 @@
          * 필드 오류 제거
          */
         clearFieldError: function($field) {
-            $field.removeClass('jj-field-error');
-            $field.siblings('.jj-field-error-message').hide();
+            $field.removeClass('jj-field-error').css('border-color', '');
+            
+            if ($field.closest('.wp-picker-container').length) {
+                $field.closest('.wp-picker-container').siblings('.jj-field-error-message').hide();
+            } else {
+                $field.siblings('.jj-field-error-message').hide();
+            }
         },
 
         /**
@@ -259,6 +358,10 @@
          */
         isValidUrl: function(value) {
             try {
+                // 프로토콜이 없는 경우 http:// 추가하여 검사 (관대하게)
+                if (!/^https?:\/\//i.test(value)) {
+                    value = 'https://' + value;
+                }
                 new URL(value);
                 return true;
             } catch (e) {
@@ -280,43 +383,69 @@
             const $wrap = $('.jj-admin-center-wrap');
             if (!$wrap.length) return;
 
-            // [data-tooltip] 속성이 있는 요소에 툴팁 추가
-            $wrap.find('[data-tooltip]').each(function() {
-                const $elem = $(this);
-                const tooltip = $elem.data('tooltip');
+            // 1. [data-tooltip] 속성이 있는 요소
+            // 2. .help-tip 클래스가 있는 요소
+            
+            // CSS 스타일 주입 (동적 생성)
+            if (!$('#jj-tooltip-styles').length) {
+                const styles = `
+                    <style id="jj-tooltip-styles">
+                        .jj-tooltip { position:absolute; padding:8px 12px; background:#1d2327; color:#fff; border-radius:4px; font-size:12px; z-index:100001; max-width:300px; pointer-events:none; box-shadow: 0 2px 5px rgba(0,0,0,0.2); opacity: 0; transition: opacity 0.2s; }
+                        .jj-tooltip.visible { opacity: 1; }
+                        .jj-tooltip::after { content:''; position:absolute; bottom:-5px; left:50%; margin-left:-5px; border-width:5px 5px 0; border-style:solid; border-color:#1d2327 transparent transparent transparent; }
+                        .jj-restored-highlight { animation: jj-flash-highlight 2s ease-out; }
+                        @keyframes jj-flash-highlight {
+                            0% { background-color: #f0f6fc; box-shadow: 0 0 0 2px #2271b1; }
+                            100% { background-color: transparent; box-shadow: none; }
+                        }
+                    </style>
+                `;
+                $('head').append(styles);
+            }
 
-                $elem.on('mouseenter', function() {
-                    const $tooltip = $('<div class="jj-tooltip" style="position:absolute; padding:8px 12px; background:#1d2327; color:#fff; border-radius:4px; font-size:12px; z-index:100001; max-width:300px; pointer-events:none;">' + tooltip + '</div>');
-                    $('body').append($tooltip);
-
-                    const offset = $elem.offset();
-                    const tooltipTop = offset.top - $tooltip.outerHeight() - 8;
-                    const tooltipLeft = offset.left + ($elem.outerWidth() / 2) - ($tooltip.outerWidth() / 2);
-
-                    $tooltip.css({
-                        top: tooltipTop,
-                        left: tooltipLeft
-                    });
-
-                    $elem.data('jj-tooltip-element', $tooltip);
-                }).on('mouseleave', function() {
-                    const $tooltip = $elem.data('jj-tooltip-element');
-                    if ($tooltip) {
-                        $tooltip.remove();
-                        $elem.removeData('jj-tooltip-element');
-                    }
-                });
-            });
-
-            // 도움말 아이콘 자동 생성
+            // 도움말 아이콘 자동 생성 (기존 description 클래스 활용)
             $wrap.find('.description, p.description').each(function() {
                 const $desc = $(this);
+                // 이미 아이콘이 있거나, 텍스트가 너무 길면 패스 (선택적)
                 const text = $desc.text().trim();
                 
-                if (text && !$desc.prev('.jj-help-icon').length) {
-                    const $icon = $('<span class="dashicons dashicons-editor-help jj-help-icon" style="color:#2271b1; cursor:help; vertical-align:middle; margin-right:5px;" data-tooltip="' + text.replace(/"/g, '&quot;') + '"></span>');
-                    $desc.before($icon);
-                    $desc.hide();
+                // 짧은 설명만 툴팁으로 변환 (예: 50자 이내)
+                // 긴 설명은 그대로 둠
+                if (text && text.length < 100 && !$desc.prev('.jj-help-icon').length && !$desc.closest('.form-table').length) { 
+                    // form-table 내부는 레이아웃 문제로 제외하거나 별도 처리
+                    // 여기서는 간단하게 처리
+                }
+            });
+
+            // 툴팁 이벤트 위임
+            $(document).on('mouseenter', '[data-tooltip]', function() {
+                const $elem = $(this);
+                const text = $elem.data('tooltip');
+                if (!text) return;
+
+                const $tooltip = $('<div class="jj-tooltip">' + text + '</div>');
+                $('body').append($tooltip);
+
+                const offset = $elem.offset();
+                const tooltipTop = offset.top - $tooltip.outerHeight() - 10;
+                const tooltipLeft = offset.left + ($elem.outerWidth() / 2) - ($tooltip.outerWidth() / 2);
+
+                $tooltip.css({
+                    top: tooltipTop,
+                    left: tooltipLeft
+                });
+
+                // 애니메이션
+                requestAnimationFrame(() => $tooltip.addClass('visible'));
+
+                $elem.data('jj-active-tooltip', $tooltip);
+            }).on('mouseleave', '[data-tooltip]', function() {
+                const $elem = $(this);
+                const $tooltip = $elem.data('jj-active-tooltip');
+                if ($tooltip) {
+                    $tooltip.removeClass('visible');
+                    setTimeout(() => $tooltip.remove(), 200);
+                    $elem.removeData('jj-active-tooltip');
                 }
             });
         }

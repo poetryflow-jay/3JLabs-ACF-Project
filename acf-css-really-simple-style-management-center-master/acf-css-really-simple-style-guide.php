@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:       ACF CSS - Advanced Custom Fonts&Colors&Styles Setting Manager (Master)
- * Plugin URI:        https://j-j-labs.com
+ * Plugin URI:        https://3j-labs.com
  * Description:       WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다.
- * Version:           8.4.0
+ * Version:           8.5.0
  * Author:            3J Labs
  * Created by:        Jay & Jason & Jenny
- * Author URI:        https://poetryflow.blog
+ * Author URI:        https://3j-labs.com
  * Text Domain:       acf-css-really-simple-style-management-center
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * ⚠️ 중요: Git 경로와 로컬 경로는 완전히 별개입니다
  * 
- * - 로컬 작업 경로: C:\Users\computer\OneDrive\Desktop\클라우드 백업\OneDrive\문서\jj-css-premium
+ * - 로컬 작업 경로: C:\Users\computer\Desktop\3J-Labs-Projects\3J-ACF-CSS
  * - Git worktree 경로: C:\Users\computer\.cursor\worktrees\jj-css-premium\tci
  * - 두 경로는 서로 독립적이며, Git에서 작업한 내용은 반드시 로컬 경로에 동기화해야 함
  * - 자세한 내용은 DEVELOPMENT_PRINCIPLES.md의 "Git 및 로컬 경로 관리 원칙" 섹션 참조
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '8.4.0' ); // [v8.4.0] Phase 8.1-8.5 완료: 빌드 시스템, 보안 강화, UX 개선, Undo 시스템, 접근성
+    define( 'JJ_STYLE_GUIDE_VERSION', '8.5.0' ); // [v8.5.0] Phase 8.1-8.5 완료: 빌드 시스템, 보안 강화, UX 개선, 피드백 시스템, AI Extension 프로모션, 자동 진단
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
@@ -185,8 +185,14 @@ try {
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-asset-optimizer.php', true );
     // [Phase 8.2] Security Hardener (보안 강화)
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-security-hardener.php', true );
+    // [Phase 8.4] Feedback Collector (사용자 피드백 수집 시스템)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-feedback-collector.php', true );
+    // [Phase 8.6] Plugin List Enhancer (플러그인 목록 페이지 향상)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-plugin-list-enhancer.php', true );
     // [Phase 8.5.1] AI Extension Promoter (AI Extension 감지 및 활성화 유도)
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-ai-extension-promoter.php', true );
+    // [Phase 8.5.2] Self Tester (자가 진단 및 자동 진단)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'tests/class-jj-self-tester.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-edition-controller.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-theme-metadata.php', false );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-0-customizer.php', false );
@@ -376,8 +382,9 @@ final class JJ_Simple_Style_Guide_Master {
         if ( function_exists( 'add_action' ) && function_exists( 'add_filter' ) && function_exists( 'plugin_basename' ) ) {
             add_action( 'admin_menu', array( $this, 'add_admin_menu_page' ) );
             add_action( 'admin_menu', array( $this, 'add_admin_menu_links' ) );
-            $plugin_basename = function_exists( 'plugin_basename' ) ? plugin_basename( __FILE__ ) : basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ );
-            add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_plugin_settings_link' ) );
+            // [Phase 8.6] plugin_action_links는 class-jj-plugin-list-enhancer.php에서 처리
+            // $plugin_basename = function_exists( 'plugin_basename' ) ? plugin_basename( __FILE__ ) : basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ );
+            // add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_plugin_settings_link' ) );
             add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
             // [v8.x] 부팅 진단: Safe Loader에서 누락/로드 오류 감지 시 관리자에게 안내
             add_action( 'admin_notices', array( $this, 'maybe_show_boot_diagnostics_notice' ) );
@@ -476,7 +483,7 @@ final class JJ_Simple_Style_Guide_Master {
         }
 
         $license_manager = null;
-        $upgrade_url = 'https://j-j-labs.com'; // 기본값
+        $upgrade_url = 'https://3j-labs.com'; // 기본값
         
         if ( file_exists( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php' ) ) {
             require_once JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php';
@@ -735,7 +742,7 @@ final class JJ_Simple_Style_Guide_Master {
                         </h1>
                         <?php
                         $license_manager = null;
-                        $purchase_url = 'https://j-j-labs.com'; // 기본값
+                        $purchase_url = 'https://3j-labs.com'; // 기본값
                         
                         if ( file_exists( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php' ) ) {
                             require_once JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php';
@@ -2036,6 +2043,24 @@ function jj_simple_style_guide_master_run() {
             if ( function_exists( 'error_log' ) ) {
                 error_log( 'JJ Admin Center: 초기화 치명적 오류 - ' . $e->getMessage() );
             }
+        }
+    }
+
+    // [Phase 8.4] 사용자 피드백 시스템 초기화
+    if ( class_exists( 'JJ_Feedback_Collector' ) ) {
+        try {
+            JJ_Feedback_Collector::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+
+    // [Phase 8.5.2] Self Tester 자동 진단 시스템 초기화
+    if ( class_exists( 'JJ_Self_Tester' ) ) {
+        try {
+            JJ_Self_Tester::instance();
+        } catch ( Exception $e ) {
+            // ignore
         }
     }
 

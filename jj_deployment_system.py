@@ -34,7 +34,7 @@ import time
 # ============================================================
 # JJ Deployment System (JDS) Configuration
 # ============================================================
-BASE_VERSION = '8.0.0'
+BASE_VERSION = '8.4.0'
 VERSIONS = {
     'core': BASE_VERSION,
     'neural': '3.9.9',

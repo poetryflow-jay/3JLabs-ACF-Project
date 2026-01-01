@@ -129,4 +129,28 @@
 
 ---
 
-**마지막 업데이트**: Phase 8.2 완료, Phase 8.3.1 완료, Phase 8.3.2 진행 중
+### ✅ Phase 8.1.6: 빌드 시스템 구축 완료
+
+#### Webpack 기반 빌드 시스템 ✅
+- ✅ Webpack 설정 개선
+  - admin-center-bundle 구성 (공통 유틸리티 + 메인 + 키보드 + 폼 + Undo)
+  - 코드 스플리팅 및 최적화
+  - 개발/프로덕션 모드 분리
+- ✅ Asset Optimizer 통합
+  - 번들 파일 자동 감지 및 로딩
+  - 개발 모드에서는 개별 파일 로딩
+- ✅ BUILD_SYSTEM.md 문서화
+
+### ✅ Phase 8.5: 접근성 개선 완료
+
+#### 접근성 강화 ✅
+- ✅ `jj-accessibility.js` 생성
+  - ARIA 레이블 자동 추가 (버튼, 링크, 입력 필드, 탭, 모달)
+  - 키보드 네비게이션 강화 (화살표 키, Home/End)
+  - 스크린 리더 지원 (aria-live 영역)
+  - 포커스 관리 (모달 포커스 트랩)
+  - screen-reader-text 스타일 추가
+
+---
+
+**마지막 업데이트**: Phase 8.1-8.5 완료, Version 8.4.0

@@ -9,8 +9,159 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 플러그인 자가 진단 및 테스트 실행기
  * 
  * @since v6.2.0
+ * @version 8.5.2 - 자동 진단 기능 추가
  */
 class JJ_Self_Tester {
+
+    private static $instance = null;
+
+    public static function instance() {
+        if ( is_null( self::$instance ) ) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function __construct() {
+        // 자동 진단 스케줄러 등록
+        add_action( 'init', array( $this, 'schedule_auto_diagnostics' ) );
+        add_action( 'jj_auto_diagnostics', array( $this, 'run_auto_diagnostics' ) );
+        
+        // 관리자 알림 표시
+        add_action( 'admin_notices', array( $this, 'maybe_show_diagnostic_notices' ) );
+    }
+
+    /**
+     * [Phase 8.5.2] 자동 진단 스케줄러 등록
+     */
+    public function schedule_auto_diagnostics() {
+        if ( ! wp_next_scheduled( 'jj_auto_diagnostics' ) ) {
+            // 매일 자정에 자동 진단 실행
+            wp_schedule_event( time(), 'daily', 'jj_auto_diagnostics' );
+        }
+    }
+
+    /**
+     * [Phase 8.5.2] 자동 진단 실행
+     */
+    public function run_auto_diagnostics() {
+        $results = self::run_tests();
+        
+        // 실패한 항목만 필터링
+        $failures = array_filter( $results, function( $result ) {
+            return isset( $result['status'] ) && $result['status'] === 'fail';
+        });
+        
+        // 경고 항목 필터링
+        $warnings = array_filter( $results, function( $result ) {
+            return isset( $result['status'] ) && $result['status'] === 'warn';
+        });
+        
+        // 결과를 옵션에 저장 (최근 10회)
+        $diagnostic_history = get_option( 'jj_self_test_history', array() );
+        array_unshift( $diagnostic_history, array(
+            'timestamp' => current_time( 'mysql' ),
+            'total' => count( $results ),
+            'pass' => count( $results ) - count( $failures ) - count( $warnings ),
+            'fail' => count( $failures ),
+            'warn' => count( $warnings ),
+            'failures' => array_slice( $failures, 0, 10 ), // 최대 10개만 저장
+        ));
+        
+        if ( count( $diagnostic_history ) > 10 ) {
+            $diagnostic_history = array_slice( $diagnostic_history, 0, 10 );
+        }
+        
+        update_option( 'jj_self_test_history', $diagnostic_history );
+        update_option( 'jj_self_test_last_run', current_time( 'mysql' ) );
+        
+        // 실패가 있으면 알림 플래그 설정
+        if ( ! empty( $failures ) ) {
+            update_option( 'jj_self_test_has_failures', true );
+        } else {
+            delete_option( 'jj_self_test_has_failures' );
+        }
+    }
+
+    /**
+     * [Phase 8.5.2] 관리자 알림 표시
+     */
+    public function maybe_show_diagnostic_notices() {
+        // Admin Center 페이지에서만 표시
+        $screen = get_current_screen();
+        if ( ! $screen || strpos( $screen->id, 'jj-admin-center' ) === false ) {
+            return;
+        }
+        
+        // 실패가 있는지 확인
+        $has_failures = get_option( 'jj_self_test_has_failures', false );
+        if ( ! $has_failures ) {
+            return;
+        }
+        
+        // 최근 실행 시간 확인
+        $last_run = get_option( 'jj_self_test_last_run' );
+        if ( ! $last_run ) {
+            return;
+        }
+        
+        // 사용자가 이미 알림을 닫았는지 확인
+        $dismissed = get_user_meta( get_current_user_id(), 'jj_diagnostic_notice_dismissed', true );
+        if ( $dismissed && ( time() - intval( $dismissed ) ) < DAY_IN_SECONDS ) {
+            return;
+        }
+        
+        ?>
+        <div class="notice notice-error jj-diagnostic-notice is-dismissible" style="border-left-color: #d63638;">
+            <p>
+                <strong>
+                    <span class="dashicons dashicons-warning" style="color: #d63638; vertical-align: middle;"></span>
+                    <?php esc_html_e( '시스템 자가 진단에서 문제가 발견되었습니다.', 'jj-style-guide' ); ?>
+                </strong>
+            </p>
+            <p>
+                <?php esc_html_e( '최근 자동 진단에서 일부 항목이 실패했습니다. System Status 탭에서 자세한 내용을 확인하세요.', 'jj-style-guide' ); ?>
+            </p>
+            <p>
+                <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-admin-center#system-status' ) ); ?>" class="button button-primary">
+                    <?php esc_html_e( 'System Status 확인하기', 'jj-style-guide' ); ?>
+                </a>
+                <button type="button" class="button jj-dismiss-diagnostic-notice" style="margin-left: 5px;">
+                    <?php esc_html_e( '24시간 동안 숨기기', 'jj-style-guide' ); ?>
+                </button>
+            </p>
+        </div>
+        <script>
+        jQuery(document).ready(function($) {
+            $('.jj-dismiss-diagnostic-notice').on('click', function() {
+                $.post(ajaxurl, {
+                    action: 'jj_dismiss_diagnostic_notice',
+                    nonce: '<?php echo esc_js( wp_create_nonce( 'jj_diagnostic_notice' ) ); ?>'
+                });
+                $('.jj-diagnostic-notice').fadeOut();
+            });
+        });
+        </script>
+        <?php
+    }
+
+    /**
+     * [Phase 8.5.2] 진단 이력 가져오기
+     */
+    public static function get_diagnostic_history() {
+        return get_option( 'jj_self_test_history', array() );
+    }
+
+    /**
+     * [Phase 8.5.2] 최근 진단 결과 요약
+     */
+    public static function get_last_diagnostic_summary() {
+        $history = self::get_diagnostic_history();
+        if ( empty( $history ) ) {
+            return null;
+        }
+        return $history[0];
+    }
 
     public static function run_tests() {
         $results = array();
