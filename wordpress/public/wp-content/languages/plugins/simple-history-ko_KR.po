@@ -1,0 +1,5954 @@
+# Translation of Plugins - Simple History – Track, Log, and Audit WordPress Changes - Stable (latest release) in Korean
+# This file is distributed under the same license as the Plugins - Simple History – Track, Log, and Audit WordPress Changes - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-12-29 00:34:23+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.3\n"
+"Language: ko_KR\n"
+"Project-Id-Version: Plugins - Simple History – Track, Log, and Audit WordPress Changes - Stable (latest release)\n"
+
+#: templates/settings-tab-debug.php:143
+msgctxt "debug dropin"
+msgid "Error:"
+msgstr "오류:"
+
+#: templates/settings-tab-debug.php:111
+msgctxt "debug dropin"
+msgid "N/A"
+msgstr "해당 없음"
+
+#: loggers/class-simple-history-logger.php:39
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Updated Log Forwarding settings"
+msgstr "로그 전달 설정 업데이트"
+
+#: loggers/class-simple-history-logger.php:38
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Log forwarding channel \"{channel_name}\" was auto-disabled after {failure_count} consecutive failures"
+msgstr "{failure_count} 연속 실패 후 로그 전달 채널 \"{channel_name}\"이 자동 비활성화되었습니다."
+
+#. translators: 1: center event ID, 2: events before count, 3: events after
+#. count, 4: total events
+#: inc/services/wp-cli-commands/class-wp-cli-list-command.php:401
+msgid "Showing events surrounding event #%1$d (%2$d before, %3$d after, %4$d total)"
+msgstr "이벤트 #%1$d 주변 이벤트 표시 (%2$d 이전, %3$d 이후, %4$d 총계)"
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:203
+msgid "Options deleted."
+msgstr "옵션 삭제됨."
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:198
+msgid "This will delete all Simple History options. Continue?"
+msgstr "모든 Simple History 옵션을 삭제합니다. 계속하시겠습니까?"
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:171
+msgid "This will delete all Simple History database tables. Continue?"
+msgstr "이 작업은 모든 Simple History 데이터베이스 테이블을 삭제합니다. 계속하시겠습니까?"
+
+#: inc/services/class-simple-history-updates.php:157
+#: inc/services/class-simple-history-updates.php:178
+msgid "Auto-recovery – Database tables now self-heal if missing"
+msgstr "자동 복구 – 누락된 데이터베이스 테이블이 이제 자체 복구됩니다"
+
+#: inc/services/class-simple-history-updates.php:156
+#: inc/services/class-simple-history-updates.php:177
+msgid "Log Forwarding (Beta) – Send events to log files, Syslog servers, or external databases for backup and compliance"
+msgstr "로그 전달(베타) – 백업 및 규정 준수를 위해 이벤트를 로그 파일, 시스로그 서버 또는 외부 데이터베이스로 전송"
+
+#: inc/services/class-simple-history-updates.php:155
+#: inc/services/class-simple-history-updates.php:176
+msgid "Surrounding Events – See exactly what happened before and after any event. Perfect for debugging!"
+msgstr "주변 이벤트 – 특정 이벤트 전후에 정확히 무슨 일이 발생했는지 확인하세요. 디버깅에 완벽합니다!"
+
+#: inc/services/class-simple-history-updates.php:152
+#: inc/services/class-simple-history-updates.php:173
+msgid "Debug smarter, log everywhere"
+msgstr "더 스마트한 디버깅, 어디서나 로깅"
+
+#. translators: %s: email address link
+#: inc/services/class-channels-settings-page.php:483
+msgid "Let us know what's working and what could be better at %s."
+msgstr "%s에서 잘 작동하는 부분과 개선이 필요한 부분을 알려주세요."
+
+#: inc/services/class-channels-settings-page.php:479
+msgid "Beta feature – your feedback matters!"
+msgstr "베타 기능 – 여러분의 피드백이 중요합니다!"
+
+#: inc/services/class-channels-settings-page.php:429
+msgid "Store events outside the WordPress database for backup, monitoring, or compliance."
+msgstr "백업, 모니터링 또는 규정 준수를 위해 이벤트를 워드프레스 데이터베이스 외부 저장"
+
+#: inc/services/class-channels-settings-page.php:382
+msgid "Unlock External Database with Premium"
+msgstr "프리미엄으로 외부 데이터베이스 잠금 해제"
+
+#: inc/services/class-channels-settings-page.php:378
+msgid "Automatic table creation with optimized indexes"
+msgstr "최적화된 인덱스로 자동 테이블 생성"
+
+#: inc/services/class-channels-settings-page.php:377
+msgid "Encrypted password storage for security"
+msgstr "보안을 위한 암호화된 비밀번호 저장"
+
+#: inc/services/class-channels-settings-page.php:376
+msgid "Off-site backup for compliance (SOC 2, GDPR, HIPAA)"
+msgstr "규정 준수용 오프사이트 백업 (SOC 2, GDPR, HIPAA)"
+
+#: inc/services/class-channels-settings-page.php:375
+msgid "Store audit logs in a separate MySQL/MariaDB database"
+msgstr "감사 로그를 별도의 MySQL/MariaDB 데이터베이스에 저장"
+
+#: inc/services/class-channels-settings-page.php:373
+msgid "Unlock External Database Integration"
+msgstr "외부 데이터베이스 통합 잠금 해제"
+
+#: inc/services/class-channels-settings-page.php:362
+msgid "Table will be created automatically if it does not exist."
+msgstr "테이블이 존재하지 않으면 자동으로 생성됩니다."
+
+#: inc/services/class-channels-settings-page.php:357
+msgid "Table"
+msgstr "표"
+
+#: inc/services/class-channels-settings-page.php:353
+msgid "Name"
+msgstr "이름"
+
+#: inc/services/class-channels-settings-page.php:348
+msgid "Database"
+msgstr "데이터베이스"
+
+#: inc/services/class-channels-settings-page.php:340
+msgid "Requires INSERT and CREATE TABLE privileges."
+msgstr "INSERT 및 CREATE TABLE 권한 필요."
+
+#: inc/services/class-channels-settings-page.php:331
+msgid "Username"
+msgstr "사용자 이름"
+
+#: inc/services/class-channels-settings-page.php:326
+msgid "Auth"
+msgstr "인증"
+
+#: inc/services/class-channels-settings-page.php:318
+msgid "Host, port, and connection timeout for the external server."
+msgstr "외부 서버의 호스트, 포트 및 연결 시간 제한."
+
+#: inc/services/class-channels-settings-page.php:289
+msgid "Enable External Database forwarding"
+msgstr "외부 데이터베이스 전달 활성화"
+
+#: inc/services/class-channels-settings-page.php:275
+msgid "Store events in a separate MySQL/MariaDB database for tamper-proof auditing and compliance."
+msgstr "변조 방지 감사 및 규정 준수를 위해 이벤트를 별도의 MySQL/MariaDB 데이터베이스에 저장."
+
+#: inc/services/class-channels-settings-page.php:261
+msgid "Unlock Syslog with Premium"
+msgstr "프리미엄으로 Syslog 잠금 해제"
+
+#: inc/services/class-channels-settings-page.php:258
+#: inc/services/class-channels-settings-page.php:379
+msgid "Test connection button to verify setup"
+msgstr "설정 확인을 위한 연결 테스트 버튼"
+
+#: inc/services/class-channels-settings-page.php:257
+msgid "RFC 5424 format for SIEM integration"
+msgstr "SIEM 통합을 위한 RFC 5424 형식"
+
+#: inc/services/class-channels-settings-page.php:256
+msgid "Remote rsyslog via UDP or TCP"
+msgstr "UDP 또는 TCP를 통한 원격 rsyslog"
+
+#: inc/services/class-channels-settings-page.php:255
+msgid "Local syslog via PHP syslog() function"
+msgstr "PHP syslog() 함수를 통한 로컬 syslog"
+
+#: inc/services/class-channels-settings-page.php:253
+msgid "Unlock Syslog Integration"
+msgstr "Syslog 통합 잠금 해제"
+
+#: inc/services/class-channels-settings-page.php:240
+msgid "Identity"
+msgstr "신원"
+
+#: inc/services/class-channels-settings-page.php:234
+msgid "Facility"
+msgstr "시설"
+
+#: inc/services/class-channels-settings-page.php:229
+msgid "Advanced"
+msgstr "고급"
+
+#: inc/services/class-channels-settings-page.php:221
+msgid "Required for TCP and UDP transport modes."
+msgstr "TCP 및 UDP 전송 모드에 필수."
+
+#: inc/services/class-channels-settings-page.php:216
+#: inc/services/class-channels-settings-page.php:313
+msgid "sec"
+msgstr "초"
+
+#: inc/services/class-channels-settings-page.php:213
+#: inc/services/class-channels-settings-page.php:310
+msgid "Timeout"
+msgstr "시간 초과"
+
+#: inc/services/class-channels-settings-page.php:209
+#: inc/services/class-channels-settings-page.php:306
+msgid "Port"
+msgstr "포트"
+
+#: inc/services/class-channels-settings-page.php:200
+#: inc/services/class-channels-settings-page.php:297
+msgid "Server"
+msgstr "서버"
+
+#: inc/services/class-channels-settings-page.php:190
+msgid "Send to a central log server – reliable, confirms delivery"
+msgstr "중앙 로그 서버로 전송 – 안정적, 전송 확인 있음"
+
+#: inc/services/class-channels-settings-page.php:188
+msgid "Remote syslog (TCP)"
+msgstr "원격 syslog (TCP)"
+
+#: inc/services/class-channels-settings-page.php:183
+msgid "Send to a central log server – fastest, no delivery confirmation"
+msgstr "중앙 로그 서버로 전송 – 가장 빠름, 전송 확인 없음"
+
+#: inc/services/class-channels-settings-page.php:181
+msgid "Remote syslog (UDP)"
+msgstr "원격 syslog (UDP)"
+
+#: inc/services/class-channels-settings-page.php:176
+msgid "Writes to this server's system log"
+msgstr "이 서버의 시스템 로그에 기록합니다"
+
+#: inc/services/class-channels-settings-page.php:174
+msgid "Local syslog"
+msgstr "로컬 syslog"
+
+#: inc/services/class-channels-settings-page.php:168
+msgid "Mode"
+msgstr "모드"
+
+#: inc/services/class-channels-settings-page.php:160
+msgid "Enable Syslog forwarding"
+msgstr "Syslog 전달 활성화"
+
+#: inc/services/class-channels-settings-page.php:146
+msgid "Stream events to syslog for centralized monitoring and SIEM integration."
+msgstr "중앙 집중식 모니터링 및 SIEM 통합을 위해 이벤트를 syslog로 스트리밍"
+
+#: inc/services/class-channels-settings-page.php:131
+msgid "Remote Database"
+msgstr "원격 데이터베이스"
+
+#: inc/services/class-channels-settings-page.php:122
+msgid "Syslog"
+msgstr "Syslog"
+
+#: inc/services/class-channels-settings-page.php:70
+msgid "Beta"
+msgstr "베타"
+
+#: inc/services/class-channels-settings-page.php:69
+#: inc/services/class-channels-settings-page.php:73
+#: inc/services/class-channels-settings-page.php:90
+msgid "Log Forwarding"
+msgstr "로그 전달"
+
+#: inc/class-wp-rest-events-controller.php:689
+msgid "You do not have permission to view surrounding events. This feature requires administrator privileges."
+msgstr "주변 이벤트를 볼 권한이 없습니다. 이 기능은 관리자 권한이 필요합니다."
+
+#: inc/class-wp-rest-events-controller.php:481
+msgid "Number of events to show before AND after the surrounding_event_id. Default 5, max 50."
+msgstr "Surrounding_event_id 전후로 표시할 이벤트 수. 기본값 5, 최대 50."
+
+#: inc/class-wp-rest-events-controller.php:476
+msgid "Show events surrounding this event ID. Returns events chronologically before and after the specified event, regardless of other filters. Requires administrator privileges."
+msgstr "이 이벤트 ID 주변 이벤트 표시. 다른 필터와 무관하게 지정된 이벤트 전후의 이벤트를 시간순으로 반환합니다. 관리자 권한 필요."
+
+#: inc/class-log-query.php:879
+msgid "The specified event was not found."
+msgstr "지정된 이벤트를 찾을 수 없습니다."
+
+#: inc/class-log-query.php:850
+msgid "Invalid surrounding_event_id parameter."
+msgstr "잘못된 surrounding_event_id 매개변수입니다."
+
+#: inc/class-log-query.php:292 inc/class-log-query.php:547
+msgid "Database query failed."
+msgstr "데이터베이스 쿼리 실패."
+
+#: inc/channels/formatters/class-human-readable-formatter.php:62
+msgid "Easy-to-read format with ISO 8601 timestamps. Best for manual log inspection."
+msgstr "ISO 8601 타임스탬프를 사용한 가독성 높은 형식. 수동 로그 검사에 최적화."
+
+#: inc/channels/formatters/class-human-readable-formatter.php:53
+msgid "Human-readable"
+msgstr "사람이 읽을 수 있는 형식"
+
+#. translators: %s: Class name
+#: inc/channels/class-channel.php:54
+msgid "Channel class %s must define a $slug property."
+msgstr "채널 클래스 %s는 $slug 속성을 정의해야 합니다."
+
+#: inc/channels/class-alert-field-registry.php:350
+msgid "Anonymous Web User"
+msgstr "익명 웹 사용자"
+
+#: inc/channels/class-alert-field-registry.php:338
+msgid "WordPress User"
+msgstr "워드프레스 사용자"
+
+#: inc/channels/class-alert-field-registry.php:275
+msgid "less than or equal to"
+msgstr "이하"
+
+#: inc/channels/class-alert-field-registry.php:271
+msgid "less than"
+msgstr "미만"
+
+#: inc/channels/class-alert-field-registry.php:267
+msgid "greater than or equal to"
+msgstr "보다 크거나 같음"
+
+#: inc/channels/class-alert-field-registry.php:263
+msgid "greater than"
+msgstr "보다 큼"
+
+#: inc/channels/class-alert-field-registry.php:225
+#: inc/channels/class-alert-field-registry.php:259
+msgid "does not equal"
+msgstr "같지 않음"
+
+#: inc/channels/class-alert-field-registry.php:221
+#: inc/channels/class-alert-field-registry.php:255
+msgid "equals"
+msgstr "같음"
+
+#: inc/channels/class-alert-field-registry.php:207
+msgid "is not one of"
+msgstr "다음 중 하나가 아닙니다"
+
+#: inc/channels/class-alert-field-registry.php:203
+msgid "is one of"
+msgstr "다음 중 하나입니다"
+
+#: inc/channels/class-alert-field-registry.php:190
+msgid "Enter keyword..."
+msgstr "키워드 입력..."
+
+#: inc/channels/class-alert-field-registry.php:187
+#: inc/channels/class-alert-field-registry.php:241
+msgid "ends with"
+msgstr "끝남"
+
+#: inc/channels/class-alert-field-registry.php:183
+#: inc/channels/class-alert-field-registry.php:237
+msgid "begins with"
+msgstr "시작"
+
+#: inc/channels/class-alert-field-registry.php:179
+#: inc/channels/class-alert-field-registry.php:233
+msgid "does not contain"
+msgstr "포함하지 않음"
+
+#: inc/channels/class-alert-field-registry.php:175
+#: inc/channels/class-alert-field-registry.php:229
+msgid "contains"
+msgstr "포함"
+
+#: inc/channels/class-alert-field-registry.php:169
+msgid "Message Contains"
+msgstr "메시지 포함 항목"
+
+#: inc/channels/class-alert-field-registry.php:157
+msgid "Select roles..."
+msgstr "역할 선택..."
+
+#: inc/channels/class-alert-field-registry.php:152
+msgid "User Role"
+msgstr "사용자 역할"
+
+#: inc/channels/class-alert-field-registry.php:140
+msgid "Enter user ID..."
+msgstr "사용자 ID 입력..."
+
+#: inc/channels/class-alert-field-registry.php:124
+msgid "Select initiators..."
+msgstr "초기화자 선택..."
+
+#: inc/channels/class-alert-field-registry.php:119
+msgid "Initiator"
+msgstr "발생자"
+
+#: inc/channels/class-alert-field-registry.php:107
+msgid "e.g., user_logged_in"
+msgstr "예: user_loged_in"
+
+#: inc/channels/class-alert-field-registry.php:103
+msgid "Event Type"
+msgstr "이벤트 유형"
+
+#: inc/channels/class-alert-field-registry.php:91
+msgid "Select levels..."
+msgstr "레벨 선택..."
+
+#: inc/channels/class-alert-field-registry.php:86
+msgid "Severity Level"
+msgstr "중요도 수준"
+
+#: inc/channels/class-alert-field-registry.php:74
+msgid "Select loggers..."
+msgstr "로거 선택..."
+
+#: inc/channels/class-alert-evaluator.php:220
+msgid "Custom filter"
+msgstr "사용자 정의 필터"
+
+#. translators: %d: Number of conditions
+#: inc/channels/class-alert-evaluator.php:215
+msgid "%d condition (any must match)"
+msgid_plural "%d conditions (any must match)"
+msgstr[0] "%d 조건(어떤 것이건 일치해야 함)"
+
+#. translators: %d: Number of conditions
+#: inc/channels/class-alert-evaluator.php:206
+msgid "%d condition (all must match)"
+msgid_plural "%d conditions (all must match)"
+msgstr[0] "%d 조건(모두 일치해야 함)"
+
+#: inc/channels/class-alert-evaluator.php:195
+msgid "All events (no filter)"
+msgstr "모든 이벤트 (필터 없음)"
+
+#. translators: %s: Error message
+#: inc/channels/class-alert-evaluator.php:175
+msgid "Invalid JsonLogic rule: %s"
+msgstr "잘못된 JsonLogic 규칙: %s"
+
+#: inc/channels/class-alert-evaluator.php:156
+msgid "Rule must be a JsonLogic object."
+msgstr "규칙은 JsonLogic 객체여야 함."
+
+#: inc/channels/class-file-channel.php:492
+msgid "Folder is outside the public web directory."
+msgstr "폴더가 공개 웹 디렉터리 밖에 있습니다."
+
+#: inc/channels/class-file-channel.php:489
+msgid "Verify access is blocked"
+msgstr "접근 차단 확인"
+
+#: inc/channels/class-file-channel.php:487
+msgid "Folder is public."
+msgstr "폴더는 공개 상태입니다."
+
+#. translators: 1: number of files, 2: total size
+#: inc/channels/class-file-channel.php:459
+msgid "%1$s file"
+msgid_plural "%1$s files"
+msgstr[0] "%1$s 파일"
+
+#: inc/channels/class-file-channel.php:451
+msgid "Writable"
+msgstr "쓰기 가능"
+
+#: inc/channels/class-file-channel.php:446
+msgid "Folder exists but is not writable. Check folder permissions."
+msgstr "폴더는 존재하지만 쓰기 권한이 없습니다. 폴더 권한을 확인하세요."
+
+#: inc/channels/class-file-channel.php:441
+msgid "Folder could not be created. Check that the parent directory is writable."
+msgstr "폴더를 생성할 수 없습니다. 상위 디렉터리가 쓰기 가능한지 확인하세요."
+
+#: inc/channels/class-file-channel.php:374
+msgid "Standard syslog format with structured data. Best for syslog servers and SIEM tools."
+msgstr "구조화된 데이터가 포함된 표준 syslog 형식. syslog 서버 및 SIEM 도구에 최적화됨."
+
+#: inc/channels/class-file-channel.php:373
+msgid "RFC 5424 Syslog"
+msgstr "RFC 5424 Syslog"
+
+#: inc/channels/class-file-channel.php:370
+msgid "Key=value pairs. Best for Grafana Loki, Prometheus, and cloud-native log systems."
+msgstr "키=값 쌍. Grafana Loki, Prometheus 및 클라우드 네이티브 로그 시스템에 최적입니다."
+
+#: inc/channels/class-file-channel.php:369
+msgid "Logfmt"
+msgstr "Logfmt"
+
+#: inc/channels/class-file-channel.php:366
+msgid "One JSON object per line. Best for Graylog, ELK, Splunk, and log aggregation tools."
+msgstr "한 줄당 하나의 JSON 객체. Graylog, ELK, Splunk 및 로그 집계 도구에 최적화됨."
+
+#: inc/channels/class-file-channel.php:365
+msgid "JSON Lines (GELF)"
+msgstr "JSON Lines (GELF)"
+
+#: inc/channels/class-file-channel.php:348
+msgid "Unlock All Formats"
+msgstr "모든 형식 잠금 해제"
+
+#: inc/channels/class-file-channel.php:345
+msgid "Machine-readable for easy parsing and analysis"
+msgstr "기계가 읽을 수 있어 쉬운 파싱 및 분석 가능"
+
+#: inc/channels/class-file-channel.php:344
+msgid "Compatible with Graylog, Splunk, Grafana Loki, and more"
+msgstr "Graylog, Splunk, Grafana Loki 등과 호환"
+
+#: inc/channels/class-file-channel.php:343
+msgid "JSON Lines, Logfmt, and Syslog formats"
+msgstr "JSON Lines, Logfmt 및 Syslog 형식"
+
+#: inc/channels/class-file-channel.php:341
+msgid "Unlock All Log Formats"
+msgstr "모든 로그 형식 잠금 해제"
+
+#: inc/channels/class-file-channel.php:294
+msgid "files"
+msgstr "파일"
+
+#: inc/channels/class-file-channel.php:283
+msgid "and keep the last"
+msgstr "그리고 마지막을 유지"
+
+#: inc/channels/class-file-channel.php:273
+msgid "Create a new file"
+msgstr "새 파일 생성"
+
+#: inc/channels/class-file-channel.php:269
+msgid "monthly"
+msgstr "매월"
+
+#: inc/channels/class-file-channel.php:268
+msgid "weekly"
+msgstr "매주"
+
+#: inc/channels/class-file-channel.php:267
+msgid "daily"
+msgstr "매일"
+
+#: inc/channels/class-file-channel.php:252
+msgid "Enable file logging"
+msgstr "파일 로깅 활성화"
+
+#: inc/channels/class-file-channel.php:229
+msgid "Log folder"
+msgstr "로그 폴더"
+
+#: inc/channels/class-file-channel.php:220
+msgid "File management"
+msgstr "파일 관리"
+
+#: inc/channels/class-file-channel.php:211
+msgid "Output format"
+msgstr "출력 형식"
+
+#: inc/channels/class-file-channel.php:147
+msgid "Log files are stored independently from the database, unaffected by \"Clear log\" or database retention settings."
+msgstr "로그 파일은 데이터베이스와 독립적으로 저장되며, “로그 지우기” 또는 데이터베이스 보존 설정의 영향을 받지 않습니다."
+
+#: inc/channels/class-file-channel.php:138
+msgid "Write events to log files on this server for backup or import into analysis tools."
+msgstr "백업 또는 분석 도구로 가져오기 위해 이 서버의 로그 파일에 이벤트 기록"
+
+#: inc/channels/class-file-channel.php:129
+msgid "Local Files"
+msgstr "로컬 파일"
+
+#: dropins/class-sidebar-add-ons-dropin.php:60
+msgid "Premium Features at 30% Off"
+msgstr "프리미엄 기능 30% 할인"
+
+#: dropins/class-sidebar-add-ons-dropin.php:58
+msgid "Black Week Sale:"
+msgstr "블랙 위크 세일:"
+
+#: dropins/class-rss-dropin.php:192
+msgid "Enable JSON Feed"
+msgstr "JSON 피드 활성화"
+
+#: dropins/class-rss-dropin.php:189
+msgid "Real-time monitoring and alerting"
+msgstr "실시간 모니터링 및 알림"
+
+#: dropins/class-rss-dropin.php:188
+msgid "Connect to Zapier, Make, n8n, or custom scripts"
+msgstr "Zapier, Make, n8n 또는 사용자 정의 스크립트 연결"
+
+#: dropins/class-rss-dropin.php:187
+msgid "Structured data format for easy parsing"
+msgstr "쉬운 파싱을 위한 구조화된 데이터 형식"
+
+#: dropins/class-rss-dropin.php:185
+msgid "JSON Feed for Automation"
+msgstr "자동화를 위한 JSON 피드"
+
+#: dropins/class-import-dropin.php:315
+msgid "Import Full History"
+msgstr "전체 기록 가져오기"
+
+#: dropins/class-import-dropin.php:312
+msgid "No item limits – recover your complete history"
+msgstr "항목 제한 없음 – 전체 기록 복구 가능"
+
+#: dropins/class-import-dropin.php:311
+msgid "Choose content types: posts, pages, users, attachments"
+msgstr "콘텐츠 유형 선택: 게시물, 페이지, 사용자, 첨부 파일"
+
+#. translators: %s: Number of items
+#: dropins/class-import-dropin.php:306
+msgid "Import %s Missing Events"
+msgstr "%s 누락된 이벤트 가져오기"
+
+#. translators: 1: Link to Simple History website, 2: Link to Oderland.
+#: templates/settings-tab-help.php:174
+msgid "The <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">Simple History website</a> is proudly hosted by <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">Oderland</a>, a Swedish web hosting provider."
+msgstr "<a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">심플 히스토리 웹사이트</a>는 스웨덴 웹 호스팅 업체인 <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">오더랜드</a>에서 자랑스럽게 호스팅하고 있습니다."
+
+#: loggers/class-theme-logger.php:58
+msgid "Failed to update theme \"{theme_name}\""
+msgstr "테마 “{theme_name}” 업데이트 실패"
+
+#: loggers/class-simple-history-logger.php:37
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Manual backfill created {post_events} post events and {user_events} user events"
+msgstr "수동 백필로 {post_events} 개의 게시물 이벤트와 {user_events} 개의 사용자 이벤트가 생성되었습니다."
+
+#: loggers/class-simple-history-logger.php:36
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Populated (backfilled) your history with {posts_imported} posts and {users_imported} users from the last {days_back} days"
+msgstr "지난 {days_back}일 동안 {posts_imported}개의 게시물과 {users_imported}명의 사용자를 가져와 기록을 채웠습니다."
+
+#: loggers/class-notes-logger.php:99
+msgctxt "Notes logger - detailed output"
+msgid "Content"
+msgstr "콘텐츠"
+
+#: loggers/class-notes-logger.php:63
+msgctxt "Notes logger: search"
+msgid "Reopened notes"
+msgstr "다시 열린 메모"
+
+#: loggers/class-notes-logger.php:60
+msgctxt "Notes logger: search"
+msgid "Resolved notes"
+msgstr "해결된 메모"
+
+#: loggers/class-notes-logger.php:57
+msgctxt "Notes logger: search"
+msgid "Deleted notes"
+msgstr "메모 삭제됨"
+
+#: loggers/class-notes-logger.php:54
+msgctxt "Notes logger: search"
+msgid "Edited notes"
+msgstr "메모 편집됨"
+
+#: loggers/class-notes-logger.php:51
+msgctxt "Notes logger: search"
+msgid "Replied to notes"
+msgstr "메모에 답장함"
+
+#: loggers/class-notes-logger.php:48
+msgctxt "Notes logger: search"
+msgid "Added notes"
+msgstr "메모 추가됨"
+
+#: loggers/class-notes-logger.php:46
+msgctxt "Notes logger: search"
+msgid "Notes"
+msgstr "메모"
+
+#: loggers/class-notes-logger.php:42
+msgctxt "Logger: Notes"
+msgid "Reopened a resolved note in {post_type} \"{post_title}\""
+msgstr "{post_type} 유형의 \"{post_title}\" 노트가 해결된 상태에서 재개되었습니다."
+
+#: loggers/class-notes-logger.php:41
+msgctxt "Logger: Notes"
+msgid "Marked a note as resolved in {post_type} \"{post_title}\""
+msgstr "{post_type} \"{post_title}\"에서 메모를 해결됨으로 표시했습니다."
+
+#: loggers/class-notes-logger.php:40
+msgctxt "Logger: Notes"
+msgid "Deleted a note from {post_type} \"{post_title}\""
+msgstr "{post_type} \"{post_title}\"에서 메모를 삭제했습니다."
+
+#: loggers/class-notes-logger.php:39
+msgctxt "Logger: Notes"
+msgid "Edited a note in {post_type} \"{post_title}\""
+msgstr "{post_type} 유형의 \"{post_title}\" 게시물 메모를 수정했습니다."
+
+#: loggers/class-notes-logger.php:38
+msgctxt "Logger: Notes"
+msgid "Replied to a note in {post_type} \"{post_title}\""
+msgstr "{post_type} \"{post_title}\"에 대한 메모에 답글을 남겼습니다."
+
+#: loggers/class-notes-logger.php:37
+msgctxt "Logger: Notes"
+msgid "Added a note to {post_type} \"{post_title}\""
+msgstr "{post_type} \"{post_title}\"에 메모를 추가했습니다."
+
+#: loggers/class-notes-logger.php:34
+msgctxt "Logger: Notes"
+msgid "Logs WordPress block notes (collaborative comments)"
+msgstr "로그 워드프레스 블록 노트 (협업 댓글)"
+
+#: loggers/class-notes-logger.php:33
+msgctxt "Logger: Notes"
+msgid "Notes Logger"
+msgstr "메모 로거"
+
+#: loggers/class-core-updates-logger.php:25
+msgid "Failed to update WordPress"
+msgstr "WordPress 업데이트 실패"
+
+#. translators: 1: previous version, 2: current version
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:352
+msgid "Added plugin update message: Simple History %1$s → %2$s"
+msgstr "플러그인 업데이트 메시지 추가됨: 심플 히스토리 %1$s → %2$s"
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:324
+msgid "Could not find Plugin Logger."
+msgstr "플러그인 로거를 찾을 수 없습니다."
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:148
+msgid "Plugin deactivated."
+msgstr "플러그인 비활성화됨."
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:139
+msgid "Scheduled cron events cleared."
+msgstr "예약된 크론 이벤트가 삭제되었습니다."
+
+#. translators: %d: number of options deleted
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:119
+msgid "%d options deleted."
+msgstr "%d개 옵션 삭제됨."
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:88
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:176
+msgid "Database tables dropped."
+msgstr "데이터베이스 테이블 삭제됨."
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:65
+msgid "Simple History has been reset. Reactivate the plugin to trigger fresh install behavior."
+msgstr "심플 히스토리가 재설정되었습니다. 플러그인을 재활성화하여 새로 설치된 상태로 동작하도록 합니다."
+
+#: inc/services/wp-cli-commands/class-wp-cli-dev-command.php:44
+msgid "This will delete all Simple History events, tables, options, and deactivate the plugin. Continue?"
+msgstr "이 작업은 모든 심플 히스토리 이벤트, 테이블, 옵션을 삭제하고 플러그인을 비활성화합니다. 계속하시겠습니까?"
+
+#: inc/services/class-simple-history-updates.php:137
+msgid "Premium: Unlimited backfill – import your complete site history, even years back"
+msgstr "프리미엄: 무제한 백필 – 수년 전까지도 사이트 전체 기록을 가져올 수 있음"
+
+#: inc/services/class-simple-history-updates.php:136
+msgid "\"Yesterday\" date filter – quick access to recent activity"
+msgstr "“어제” 날짜 필터 – 최근 활동에 빠르게 접근하세요"
+
+#: inc/services/class-simple-history-updates.php:135
+msgid "\"Hide my own events\" checkbox – focus on what others are doing"
+msgstr "“내 이벤트 숨기기” 체크박스 – 다른 사람의 활동에 집중하세요"
+
+#: inc/services/class-simple-history-updates.php:134
+msgid "WordPress 6.9 Notes logging – track when notes are added, edited, or removed"
+msgstr "워드프레스 6.9 노트 기록 – 노트 추가, 수정 또는 삭제 시점 추적"
+
+#. translators: 1: number of days, 2: link to Premium page
+#: inc/services/class-setup-database.php:501
+msgid "By default, events are automatically cleared after %1$s days to keep your database size in check. Need to keep your history longer? <a href=\"%2$s\" target=\"_blank\">Simple History Premium</a> lets you extend the retention period."
+msgstr "기본적으로 이벤트는 데이터베이스 크기를 관리하기 위해 %1$s일 후에 자동으로 삭제됩니다. 기록을 더 오래 보관해야 하나요? <a href=\"%2$s\" target=\"_blank\">심플 히스토리 프리미엄</a>을 사용하면 보존 기간을 연장할 수 있습니다."
+
+#. translators: %s is a link to the add-ons page
+#: inc/services/class-setup-database.php:491
+msgid "Simple History will automatically backfill your history with events from existing content. Posts, pages, and user registrations will be added to your log, giving you a head start. Want to import even older WordPress posts? <a href=\"%s\" target=\"_blank\">Simple History Premium</a> lets you manually run backfill with custom options."
+msgstr "심플 히스토리는 기존 콘텐츠의 이벤트로 기록을 자동으로 채워줍니다. 게시글, 페이지, 사용자 등록 정보가 로그에 추가되어 빠르게 시작할 수 있습니다. 더 오래된 워드프레스 게시글을 가져오고 싶으신가요? <a href=\"%s\" target=\"_blank\">심플 히스토리 프리미엄</a>을 사용하면 사용자 지정 옵션으로 수동으로 기록 채우기를 실행할 수 있습니다."
+
+#: inc/services/class-import-handler.php:264
+msgid "Re-running auto backfill requires dev mode to be enabled."
+msgstr "자동 백필 재실행에는 개발자 모드 활성화가 필요합니다."
+
+#: inc/services/class-import-handler.php:210
+msgid "Delete backfilled data requires dev mode to be enabled."
+msgstr "백필 데이터 삭제에는 개발자 모드 활성화가 필요합니다."
+
+#: inc/services/class-import-handler.php:84
+msgid "Manual backfill requires Simple History Premium."
+msgstr "수동 백필은 심플 히스토리 프리미엄이 필요합니다."
+
+#. translators: %d is the number of minutes between cache refreshes
+#: inc/services/class-history-insights-sidebar-service.php:508
+msgid "Insights are based on events you can view. Updates every %d minutes."
+msgstr "인사이트는 볼 수 있는 이벤트를 기반으로 합니다. %d분마다 업데이트됩니다."
+
+#. translators: %d is the number of minutes between cache refreshes
+#: inc/services/class-history-insights-sidebar-service.php:502
+msgid "Insights are calculated from all events. Updates every %d minutes."
+msgstr "인사이트는 모든 이벤트로부터 계산됩니다. %d분마다 업데이트됩니다."
+
+#: inc/services/class-history-insights-sidebar-service.php:481
+msgid "Database count shows browsable events. Total shows all events ever logged, including those auto-removed. Only administrators can see these event counts."
+msgstr "데이터베이스 카운트는 열람 가능한 이벤트를 표시합니다. 총계는 자동 제거된 이벤트를 포함해 기록된 모든 이벤트를 표시합니다. 관리자만 이 이벤트 카운트를 볼 수 있습니다."
+
+#. translators: 1 is current events in database, 2 is total events logged, 3 is
+#. retention period as a link (e.g., "60 days").
+#: inc/services/class-history-insights-sidebar-service.php:474
+msgid "<b>%1$s events</b> in database (%2$s logged in total). Events auto-removed after %3$s."
+msgstr "<b>%1$s개 이벤트</b> 데이터베이스에 저장됨 (%2$s개 총 기록됨). 이벤트는 %3$s 이후 자동 삭제됩니다."
+
+#: inc/services/class-history-insights-sidebar-service.php:461
+msgid "forever"
+msgstr "영구적"
+
+#. translators: %d is the number of days.
+#: inc/services/class-history-insights-sidebar-service.php:458
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] "%d일"
+
+#: inc/services/class-email-report-service.php:581
+msgid "Add team members to keep everyone informed."
+msgstr "모든 팀원이 정보를 공유할 수 있도록 팀원을 추가하세요."
+
+#: inc/services/class-email-report-service.php:568
+msgid "WordPress core update count"
+msgstr "워드프레스 핵심 업데이트 횟수"
+
+#: inc/services/class-email-report-service.php:567
+msgid "Plugin activation and deactivation counts"
+msgstr "플러그인 활성화 및 비활성화 횟수"
+
+#: inc/services/class-email-report-service.php:566
+msgid "Login statistics (successful and failed)"
+msgstr "로그인 통계 (성공 및 실패)"
+
+#: inc/services/class-email-report-service.php:565
+msgid "Number of posts and pages created or updated"
+msgstr "생성 또는 업데이트된 게시물 및 페이지 수"
+
+#: inc/services/class-email-report-service.php:564
+msgid "Total event count and daily breakdown"
+msgstr "총 이벤트 수 및 일별 내역"
+
+#: inc/services/class-email-report-service.php:560
+msgid "Every Monday, get a summary of:"
+msgstr "매주 월요일, 다음 요약 받기:"
+
+#: inc/services/class-email-report-service.php:556
+msgid "Enable weekly digest"
+msgstr "주간 요약 활성화"
+
+#: inc/services/class-email-report-service.php:427
+msgid "Stay on top of your site without logging in."
+msgstr "로그인 없이 사이트 상태를 실시간으로 확인하세요."
+
+#: inc/services/class-email-report-service.php:385
+#: inc/services/class-email-report-service.php:486
+msgid "Pro tip: The digest helps you catch unauthorized changes even when you're away from your site."
+msgstr "프로 팁: 다이제스트는 사이트를 떠나 있을 때도 무단 변경 사항을 포착하는 데 도움이 됩니다."
+
+#: inc/services/class-email-report-service.php:352
+msgid "Email Reports (Weekly Activity Digest)"
+msgstr "이메일 보고서 (주간 활동 요약)"
+
+#: inc/services/class-admin-pages.php:186
+msgid "Click to activate premium add-on"
+msgstr "클릭하여 프리미엄 애드온 활성화"
+
+#: inc/services/class-admin-pages.php:186
+msgid "Click to deactivate premium add-on"
+msgstr "클릭하여 프리미엄 애드온 비활성화"
+
+#: inc/services/class-admin-pages.php:185
+msgid "Premium: Inactive"
+msgstr "프리미엄: 비활성화됨"
+
+#: inc/services/class-admin-pages.php:185
+msgid "Premium: Active"
+msgstr "프리미엄: 활성화됨"
+
+#: inc/services/class-admin-pages.php:180
+msgid "Dev"
+msgstr "개발자"
+
+#: inc/services/class-admin-pages.php:180
+msgid "Developer mode is enabled via SIMPLE_HISTORY_DEV constant"
+msgstr "개발자 모드는 SIMPLE_HISTORY_DEV 상수를 통해 활성화됩니다."
+
+#: inc/class-wp-rest-events-controller.php:533
+msgid "Exclude events from specific initiator(s)."
+msgstr "특정 작성자의 이벤트 제외."
+
+#: inc/class-wp-rest-events-controller.php:528
+msgid "Exclude events from this user ID."
+msgstr "이 사용자 ID의 이벤트를 제외합니다."
+
+#: inc/class-wp-rest-events-controller.php:520
+msgid "Exclude events from these user IDs."
+msgstr "다음 사용자 ID의 이벤트를 제외합니다."
+
+#: inc/class-wp-rest-events-controller.php:512
+msgid "Exclude events with these messages. Format: LoggerSlug:message."
+msgstr "다음 메시지의 이벤트를 제외합니다. 형식: LoggerSlug:message."
+
+#: inc/class-wp-rest-events-controller.php:504
+msgid "Exclude events from these loggers."
+msgstr "다음 로거의 이벤트를 제외합니다."
+
+#: inc/class-wp-rest-events-controller.php:496
+msgid "Exclude events with these log levels."
+msgstr "다음 로그 레벨의 이벤트를 제외합니다."
+
+#: inc/class-wp-rest-events-controller.php:491
+msgid "Exclude events containing these words. Events matching this search will be hidden."
+msgstr "이 단어가 포함된 이벤트 제외. 이 검색과 일치하는 이벤트는 숨겨집니다."
+
+#: inc/class-wp-rest-devtools-controller.php:147
+msgid "Sorry, you are not allowed to check plugin status."
+msgstr "죄송합니다. 플러그인 상태를 확인할 수 없습니다."
+
+#: inc/class-wp-rest-devtools-controller.php:139
+msgid "Dev mode must be enabled to check plugin status."
+msgstr "플러그인 상태 확인을 위해 개발자 모드가 활성화되어야 합니다."
+
+#: inc/class-wp-rest-devtools-controller.php:121
+msgid "Sorry, you are not allowed to toggle plugins."
+msgstr "죄송합니다. 플러그인 토글을 사용할 수 없습니다."
+
+#: inc/class-wp-rest-devtools-controller.php:113
+msgid "Dev mode must be enabled to toggle plugins."
+msgstr "플러그인 토글을 위해 개발자 모드가 활성화되어야 합니다."
+
+#: inc/class-wp-rest-devtools-controller.php:95
+msgid "Invalid plugin path."
+msgstr "잘못된 플러그인 경로."
+
+#: inc/class-wp-rest-devtools-controller.php:49
+#: inc/class-wp-rest-devtools-controller.php:70
+msgid "Plugin file path"
+msgstr "플러그인 파일 경로"
+
+#: dropins/class-tools-menu-dropin.php:161
+msgid "Generate history entries from existing WordPress data like posts, pages, and users."
+msgstr "게시물, 페이지, 사용자 등 기존 WordPress 데이터로부터 이력 항목을 생성합니다."
+
+#: dropins/class-tools-menu-dropin.php:161
+msgid "Backfill"
+msgstr "역대 기록"
+
+#: dropins/class-tools-menu-dropin.php:160
+msgid "Export your history data to CSV, JSON, or HTML format."
+msgstr "이력 데이터를 CSV, JSON 또는 HTML 형식으로 내보냅니다."
+
+#: dropins/class-tools-menu-dropin.php:158
+msgid "Available Tools"
+msgstr "사용 가능한 도구"
+
+#: dropins/class-tools-menu-dropin.php:156
+msgctxt "tools intro"
+msgid "Here you can access various tools to manage and work with your history data."
+msgstr "여기에서 기록 데이터를 관리하고 작업하기 위한 다양한 도구에 접근할 수 있습니다."
+
+#: dropins/class-tools-menu-dropin.php:145
+msgid "Tools Overview"
+msgstr "도구 개요"
+
+#: dropins/class-tools-menu-dropin.php:115
+#: dropins/class-tools-menu-dropin.php:125
+msgctxt "tools overview subtab title"
+msgid "Tools Overview"
+msgstr "도구 개요"
+
+#: dropins/class-tools-menu-dropin.php:114
+#: dropins/class-tools-menu-dropin.php:124
+msgctxt "tools overview subtab name"
+msgid "Overview"
+msgstr "개요"
+
+#: dropins/class-tools-menu-dropin.php:57
+#: dropins/class-tools-menu-dropin.php:63
+msgctxt "tools menu name"
+msgid "Export & Tools"
+msgstr "내보내기 및 도구"
+
+#: dropins/class-tools-menu-dropin.php:47
+msgctxt "tools page title"
+msgid "Simple History Export & Tools"
+msgstr "심플 히스토리 내보내기 및 도구"
+
+#: dropins/class-sidebar-email-promo-dropin.php:176
+msgid "Failed to dismiss promo"
+msgstr "프로모션 해제 실패"
+
+#: dropins/class-sidebar-email-promo-dropin.php:174
+msgid "Promo dismissed successfully"
+msgstr "프로모션 성공적으로 닫힘"
+
+#: dropins/class-sidebar-email-promo-dropin.php:166
+msgid "Invalid nonce"
+msgstr "잘못된 nonce"
+
+#: dropins/class-sidebar-email-promo-dropin.php:148
+msgid "Get Weekly Digest"
+msgstr "주간 요약 받기"
+
+#: dropins/class-sidebar-email-promo-dropin.php:143
+msgid "Get a weekly digest with login stats, content changes, and plugin activity."
+msgstr "로그인 통계, 콘텐츠 변경 사항, 플러그인 활동이 포함된 주간 요약 받기."
+
+#: dropins/class-sidebar-email-promo-dropin.php:139
+msgid "Know what's happening — without logging in."
+msgstr "로그인 없이도 무슨 일이 일어나고 있는지 파악하세요."
+
+#: dropins/class-rss-dropin.php:587
+msgid "Make sure you only share the feeds with people you trust, since they can contain sensitive or confidential information."
+msgstr "피드에는 민감하거나 기밀 정보가 포함될 수 있으므로 신뢰할 수 있는 사람과만 공유하세요."
+
+#: dropins/class-rss-dropin.php:584
+msgid "Get updates on logins, content changes, plugin activity and more—delivered to your feed reader or monitoring tools. Perfect for staying informed without constantly checking your dashboard."
+msgstr "로그인, 콘텐츠 변경, 플러그인 활동 등에 대한 업데이트를 피드 리더나 모니터링 도구로 받아보세요. 대시보드를 계속 확인할 필요 없이 최신 정보를 파악하기에 완벽합니다."
+
+#: dropins/class-rss-dropin.php:581
+msgid "Monitor your site activity in real-time with feeds."
+msgstr "피드를 통해 사이트 활동을 실시간으로 모니터링하세요."
+
+#: dropins/class-rss-dropin.php:514
+msgid "RSS feed"
+msgstr "RSS 피드"
+
+#: dropins/class-rss-dropin.php:174
+msgid "Enable feed"
+msgstr "피드 활성화"
+
+#: dropins/class-rss-dropin.php:74
+msgctxt "feeds settings headline"
+msgid "RSS and JSON feeds"
+msgstr "RSS 및 JSON 피드"
+
+#: dropins/class-react-dropin.php:69 dropins/class-react-dropin.php:87
+msgid "Loading history…"
+msgstr "기록 불러오기 중…"
+
+#: dropins/class-import-dropin.php:512
+msgid "Re-run Auto Backfill"
+msgstr "자동 백필 재실행"
+
+#: dropins/class-import-dropin.php:500
+msgid "Total"
+msgstr "총계"
+
+#: dropins/class-import-dropin.php:470
+msgid "Events to create"
+msgstr "생성할 이벤트"
+
+#: dropins/class-import-dropin.php:469
+msgid "Already logged"
+msgstr "이미 기록됨"
+
+#: dropins/class-import-dropin.php:468
+msgid "Available"
+msgstr "사용 가능"
+
+#: dropins/class-import-dropin.php:467
+msgid "Type"
+msgstr "유형"
+
+#. translators: 1: Number of days, 2: Limit per type
+#: dropins/class-import-dropin.php:458
+msgid "Date range: last %1$d days. Limit: %2$d per type."
+msgstr "날짜 범위: 지난 %1$d일. 제한: 유형별 %2$d개."
+
+#. translators: %d: Number of events that would be created
+#: dropins/class-import-dropin.php:449
+msgid "Preview: %d events would be created"
+msgstr "미리 보기: %d개의 이벤트가 생성될 예정입니다"
+
+#: dropins/class-import-dropin.php:414
+msgid "Reset the auto-backfill status and schedule it to run again. This is useful for testing or after deleting backfilled data."
+msgstr "자동 백필 상태를 초기화하고 재실행 예약합니다. 테스트나 백필 데이터 삭제 후 유용합니다."
+
+#: dropins/class-import-dropin.php:409
+msgid "Re-run automatic backfill"
+msgstr "자동 백필 재실행"
+
+#: dropins/class-import-dropin.php:402
+msgid "Delete Backfilled Data"
+msgstr "백필 데이터 삭제"
+
+#. translators: %s: context key name
+#: dropins/class-import-dropin.php:384
+msgid "Backfilled events are identified by the %s context key that is added when events are created during backfill."
+msgstr "백필 중 생성된 이벤트에는 %s 컨텍스트 키가 추가되어 백필 이벤트로 식별됩니다."
+
+#. translators: %s: number of backfilled events
+#: dropins/class-import-dropin.php:374
+msgid "Currently there are %s backfilled events in the log."
+msgstr "현재 로그에는 %s개의 백필 이벤트가 있습니다."
+
+#: dropins/class-import-dropin.php:363
+msgid "Remove all backfilled entries from the history log. This is useful for testing or if you want to re-run the backfill with different settings."
+msgstr "이력 로그에서 모든 백필 항목을 제거합니다. 테스트 시나 다른 설정으로 백필을 재실행하려는 경우 유용합니다."
+
+#: dropins/class-import-dropin.php:358
+msgid "Delete backfilled data"
+msgstr "백필 데이터 삭제"
+
+#: dropins/class-import-dropin.php:354
+msgid "These tools are only visible when dev mode is enabled. Use them to test and debug the backfill functionality."
+msgstr "이 도구들은 개발자 모드가 활성화되었을 때만 표시됩니다. 백필 기능 테스트 및 디버깅에 사용하세요."
+
+#: dropins/class-import-dropin.php:351
+msgid "Developer Tools"
+msgstr "개발자 도구"
+
+#: dropins/class-import-dropin.php:310
+msgid "Import anytime, not just on first install"
+msgstr "최초 설치 시뿐만 아니라 언제든지 가져오기"
+
+#: dropins/class-import-dropin.php:269
+msgid "Unlike the automatic backfill, there are no limits on date range or number of items."
+msgstr "자동 백필과 달리 날짜 범위나 항목 수에 제한이 없습니다."
+
+#: dropins/class-import-dropin.php:260
+msgid "Manual backfill lets you generate history entries from all public post types (posts, pages, and custom post types), attachments, and users."
+msgstr "수동 백필을 사용하면 모든 공개 게시물 유형(게시물, 페이지, 사용자 정의 게시물 유형), 첨부 파일 및 사용자에 대한 기록 항목을 생성할 수 있습니다."
+
+#: dropins/class-import-dropin.php:256
+msgid "Manual Backfill"
+msgstr "수동 백필"
+
+#: dropins/class-import-dropin.php:246
+msgid "Auto-backfill did not run because Simple History was installed before this feature was added. Use Manual Backfill below to import existing content."
+msgstr "이 기능 추가 전에 심플 히스토리가 설치되어 자동 백필이 실행되지 않았습니다. 기존 콘텐츠를 가져오려면 아래 수동 백필을 사용하세요."
+
+#: dropins/class-import-dropin.php:238
+msgid "Auto-backfill is scheduled and will run shortly."
+msgstr "자동 백필이 예약되어 곧 실행됩니다."
+
+#: dropins/class-import-dropin.php:230
+msgid "Need older content? Use Manual Backfill to import beyond these limits."
+msgstr "더 오래된 콘텐츠가 필요하신가요? 수동 백필을 사용하여 이러한 제한을 넘어 가져오기하세요."
+
+#. translators: %d: Number of events
+#: dropins/class-import-dropin.php:222
+msgid "User events created: %d"
+msgstr "생성된 사용자 이벤트: %d"
+
+#. translators: %d: Number of events
+#: dropins/class-import-dropin.php:213
+msgid "Post events created: %d"
+msgstr "생성된 게시물 이벤트: %d"
+
+#. translators: %s: Date and time
+#: dropins/class-import-dropin.php:202
+msgid "Auto-backfill completed on %s"
+msgstr "%s 에 자동 백필 완료됨"
+
+#. translators: %d: Number of items limit
+#: dropins/class-import-dropin.php:177
+msgid "On fresh installations, Simple History automatically backfills history from existing content, limited to %d items per content type."
+msgstr "새 설치 시 심플 히스토리는 기존 콘텐츠에서 히스토리를 자동 백필하며, 콘텐츠 유형당 %d개 항목으로 제한됩니다."
+
+#: dropins/class-import-dropin.php:171
+msgid "Automatic Backfill"
+msgstr "자동 백필"
+
+#. translators: %s: Number of backfilled events
+#: dropins/class-import-dropin.php:163
+msgid "Currently %s backfilled events in the history log."
+msgstr "현재 역대 기록 로그에 %s개의 백필된 이벤트가 있습니다."
+
+#: dropins/class-import-dropin.php:151
+msgid "Note: Backfilled entries contain basic information and are less detailed than events logged in real-time, which capture the full context of each action."
+msgstr "참고: 백필된 항목은 기본 정보만 포함하며, 각 작업의 전체 컨텍스트를 포착하는 실시간 기록 이벤트보다 세부 정보가 적습니다."
+
+#: dropins/class-import-dropin.php:142
+msgid "Backfill generates history entries from existing WordPress data. This scans your posts, pages, and users to create log entries based on their creation and modification dates."
+msgstr "백필은 기존 WordPress 데이터로부터 기록 항목을 생성합니다. 게시물, 페이지, 사용자를 스캔하여 생성 및 수정 날짜를 기반으로 로그 항목을 생성합니다."
+
+#: dropins/class-import-dropin.php:133
+msgid "The automatic backfill has been scheduled and will run shortly."
+msgstr "자동 백필이 예약되어 곧 실행됩니다."
+
+#: dropins/class-import-dropin.php:132
+msgid "Auto-backfill scheduled!"
+msgstr "자동 백필 예약 완료!"
+
+#. translators: %d: Number of events deleted
+#: dropins/class-import-dropin.php:119
+msgid "Deleted %d backfilled events."
+msgstr "백필 이벤트 %d개 삭제됨."
+
+#: dropins/class-import-dropin.php:99
+msgid "Backfill history"
+msgstr "백필 기록"
+
+#: dropins/class-import-dropin.php:51
+msgctxt "backfill subtab name"
+msgid "Backfill"
+msgstr "백필"
+
+#: dropins/class-import-dropin.php:55
+msgctxt "backfill subtab title"
+msgid "Backfill History"
+msgstr "백필 이력"
+
+#: dropins/class-export-dropin.php:52
+msgctxt "export subtab name"
+msgid "Export"
+msgstr "내보내기"
+
+#: dropins/class-export-dropin.php:51
+msgctxt "export subtab title"
+msgid "Export History"
+msgstr "내보내기 이력"
+
+#. translators: %s is a link to the premium version.
+#: dropins/class-donate-dropin.php:134
+msgid "Love Simple History? ✨ <a href=\"%s\" target=\"_blank\" class=\"sh-ExternalLink\"><strong>Upgrade to Premium</strong></a> and unlock Sticky Events, Custom Manual Entries, Detailed Stats & Summaries, Stealth Mode, Export to CSV/JSON, and more!"
+msgstr "심플 히스토리를 좋아하시나요? ✨ <a href=\"%s\" target=\"_blank\" class=\"sh-ExternalLink\"><strong>프리미엄으로 업그레이드</strong></a>하시면 고정 이벤트, 맞춤 수동 입력, 상세 통계 및 요약, 스텔스 모드, CSV/JSON 내보내기 등 다양한 기능을 이용하실 수 있습니다!"
+
+#: dropins/class-donate-dropin.php:104
+msgctxt "premium settings headline"
+msgid "Unlock more features"
+msgstr "더 많은 기능을 해제하세요"
+
+#: templates/email-summary-report.php:132
+msgid "No activity last week"
+msgstr "지난주 활동 없음"
+
+#: loggers/class-user-logger.php:743
+msgid "Created user <a href=\"{edit_profile_link}\">{created_user_login}</a>"
+msgstr "생성된 사용자 <a href=\"{edit_profile_link}\">{created_user_login}</a>"
+
+#: inc/services/class-simple-history-updates.php:111
+#: inc/services/class-simple-history-updates.php:131
+msgid "Highlights in this version"
+msgstr "이번 버전의 주요 변경 사항"
+
+#: dropins/class-import-dropin.php:398
+msgid "Are you sure you want to delete all backfilled entries? This action cannot be undone."
+msgstr "모든 백필된 항목을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+
+#: dropins/class-import-dropin.php:395
+msgid "This action cannot be undone. Only backfilled entries will be deleted. Naturally logged events will not be affected."
+msgstr "이 작업은 되돌릴 수 없습니다. 백필된 항목만 삭제됩니다. 자연스럽게 기록된 이벤트는 영향을 받지 않습니다."
+
+#: dropins/class-import-dropin.php:394
+msgid "Warning:"
+msgstr "경고:"
+
+#: dropins/class-import-dropin.php:115
+msgid "Delete completed!"
+msgstr "삭제 완료!"
+
+#: inc/services/class-import-handler.php:69
+#: inc/services/class-import-handler.php:205
+#: inc/services/class-import-handler.php:259
+msgid "You do not have permission to perform this action"
+msgstr "이 작업을 수행할 권한이 없습니다."
+
+#: inc/services/class-import-handler.php:64
+#: inc/services/class-import-handler.php:200
+#: inc/services/class-import-handler.php:254
+msgid "Security check failed"
+msgstr "보안 검사 실패"
+
+#: inc/services/class-experimental-features-page.php:85
+msgid "Experimental features should be used with caution on production sites. Always test on a staging environment first."
+msgstr "실제 운영 사이트에서는 실험적 기능을 신중하게 사용해야 합니다. 항상 스테이징 환경에서 먼저 테스트하세요."
+
+#: inc/services/class-experimental-features-page.php:77
+msgid "This page provides access to features that are still under development or testing. These features may change or be removed in future versions."
+msgstr "이 페이지에서는 아직 개발 중이거나 테스트 중인 기능에 액세스할 수 있습니다. 이러한 기능은 향후 버전에서 변경되거나 제거될 수 있습니다."
+
+#: inc/services/class-experimental-features-page.php:73
+msgid "About Experimental Features"
+msgstr "실험적 기능 정보"
+
+#: inc/services/class-experimental-features-page.php:70
+msgid "Experimental Features"
+msgstr "실험적 기능"
+
+#: inc/services/class-experimental-features-page.php:50
+msgid "Experimental"
+msgstr "실험적"
+
+#: inc/services/class-experimental-features-page.php:41
+msgid "Experimental Features - Simple History"
+msgstr "실험적 기능 - 심플 히스토리"
+
+#: inc/class-wp-rest-events-controller.php:1127
+msgid "Invalid date format. Please use Y-m-d H:i:s format (e.g., 2024-01-15 14:30:00)."
+msgstr "날짜 형식이 잘못되었습니다. Y-m-d H:i:s 형식(예: 2024-01-15 14:30:00)을 사용하십시오."
+
+#: inc/class-wp-rest-events-controller.php:657
+msgid "Whether the event was backfilled from existing WordPress data."
+msgstr "해당 이벤트가 기존 워드프레스 데이터로 백필되었는지 여부."
+
+#: inc/class-wp-rest-events-controller.php:329
+msgid "Limit result set to events with date > since_date OR (date = since_date AND id > since_id). Use together with since_id for accurate new event detection."
+msgstr "결과 집합을 날짜 > since_date 또는 (날짜 = since_date AND 아이디 > since_id)가 있는 이벤트로 제한합니다. 정확한 새 이벤트 감지를 위해 since_id와 함께 사용하세요."
+
+#: dropins/class-sidebar-add-ons-dropin.php:76
+msgid "Get Premium Now"
+msgstr "지금 프리미엄 이용하기"
+
+#. translators: 1: URL to settings page, 2: link style attribute including
+#. style=""
+#: templates/email-summary-report.php:507
+msgid "To stop receiving these emails, go to <a href=\"%1$s\" %2$s>Settings → Simple History → Email Reports</a> in your WordPress admin and remove your email address."
+msgstr "이러한 이메일 수신을 중지하려면 워드프레스 관리자에서 <a href=\"%1$s\" %2$s>설정 → 심플 히스토리 → 이메일 보고서</a>로 이동하여 이메일 주소를 삭제하세요."
+
+#. translators: %s: Site name
+#: templates/email-summary-report.php:489
+msgid "You're receiving this email because you're listed as a recipient in the Simple History email report settings for %s."
+msgstr "이 이메일을 수신하신 이유는 %s의 심플 히스토리 이메일 보고서 설정에서 수신자로 등록되어 있기 때문입니다."
+
+#. translators: Full date format for tooltip: "Thursday 2 October 2025"
+#: templates/email-summary-report.php:280
+msgid "l j F Y"
+msgstr "l j F Y"
+
+#: templates/email-summary-report.php:249
+msgid "Event count by day"
+msgstr "일별 이벤트 수"
+
+#: templates/email-summary-report.php:229
+msgid "Period"
+msgstr "기간"
+
+#: templates/email-summary-report.php:180
+msgid "Here's a summary of activity on your website."
+msgstr "웹사이트 활동 요약입니다."
+
+#: templates/email-summary-report.php:169
+msgid "Website activity summary"
+msgstr "웹사이트 활동 요약"
+
+#. translators: %s is the site's date format setting without year
+#: inc/services/class-email-report-service.php:147
+#: inc/services/class-email-report-service.php:156
+msgid "D %s"
+msgstr "D %s"
+
+#. translators: %d is the number of days.
+#: inc/services/class-history-insights-sidebar-service.php:342
+#: inc/services/class-history-insights-sidebar-service.php:350
+msgid "%d days"
+msgstr "%d일"
+
+#: dropins/class-react-dropin.php:37
+msgid "Simple History failed to load the asset file for the main GUI. Please try reinstalling the plugin or make sure the JavaScript is built."
+msgstr "심플 히스토리가 메인 GUI용 자산 파일 로드에 실패했습니다. 플러그인을 재설치하거나 JavaScript가 빌드되었는지 확인해 주세요."
+
+#. translators: 1: URL to history page, 2: link style attribute including
+#. style=""
+#: templates/email-summary-report.php:196
+msgid "<a href=\"%1$s\" %2$s>View the Simple History event log</a> on your website for a detailed history of changes and activities."
+msgstr "<a href=\"%1$s\" %2$s>웹사이트에서 심플 히스토리 이벤트 로그 보기</a>에서 변경 사항 및 활동에 대한 자세한 기록을 확인할 수 있습니다."
+
+#: loggers/class-core-files-logger.php:41
+msgctxt "Core Files Logger: search"
+msgid "Core Files Modifications"
+msgstr "핵심 파일 수정"
+
+#: loggers/class-core-files-logger.php:37
+msgid "Could not check WordPress core files integrity: {error_message}"
+msgstr "워드프레스 핵심 파일 무결성 확인 실패: {error_message}"
+
+#: loggers/class-core-files-logger.php:36
+msgid "Verified integrity restored for {file_count} WordPress core files"
+msgstr "{file_count}개의 워드프레스 핵심 파일 무결성 복원 확인됨"
+
+#: loggers/class-core-files-logger.php:35
+msgid "Detected modifications to {file_count} WordPress core files"
+msgstr "{file_count}개의 워드프레스 핵심 파일 수정 감지됨"
+
+#: loggers/class-core-files-logger.php:31
+msgid "Core Files Logger"
+msgstr "핵심 파일 로거"
+
+#: inc/services/class-simple-history-updates.php:92
+msgid "New features in this version"
+msgstr "이번 버전의 새로운 기능"
+
+#: dropins/class-sidebar-add-ons-dropin.php:217
+msgid "Pin important log entries to the top of the log for easy access."
+msgstr "중요한 로그 항목을 로그 상단에 고정하여 쉽게 접근할 수 있도록 합니다."
+
+#: dropins/class-sidebar-add-ons-dropin.php:212
+msgid "Sticky events"
+msgstr "고정 이벤트"
+
+#: inc/class-helpers.php:1834 build/index.js:1
+msgid "Get Premium"
+msgstr "프리미엄 이용하기"
+
+#. translators: %d: number of additional files not shown
+#: loggers/class-core-files-logger.php:326
+msgid "%d more file affected"
+msgid_plural "%d more files affected"
+msgstr[0] "영향을 받는 파일이 %d개 더 있습니다."
+
+#: loggers/class-core-files-logger.php:322
+msgid "Additional files"
+msgstr "추가 파일"
+
+#: loggers/class-core-files-logger.php:301
+msgid "File missing"
+msgstr "파일 누락"
+
+#: loggers/class-core-files-logger.php:299
+msgid "File unreadable"
+msgstr "파일 읽을 수 없음"
+
+#: loggers/class-core-files-logger.php:297
+msgid "Hash mismatch"
+msgstr "해시 불일치"
+
+#. translators: %s: issue type
+#: loggers/class-core-files-logger.php:292
+msgid "%s fixed"
+msgstr "%s 고정"
+
+#: loggers/class-core-files-logger.php:289
+msgid "Missing file restored"
+msgstr "누락된 파일 복원됨"
+
+#: loggers/class-core-files-logger.php:287
+msgid "File readability restored"
+msgstr "파일 가독성 복원됨"
+
+#: loggers/class-core-files-logger.php:285
+msgid "Hash mismatch fixed"
+msgstr "해시 불일치 수정됨"
+
+#: loggers/class-core-files-logger.php:265
+msgid "Modified Core Files"
+msgstr "수정된 핵심 파일"
+
+#: loggers/class-core-files-logger.php:263
+msgid "Restored Core Files"
+msgstr "복원된 핵심 파일"
+
+#: loggers/class-core-files-logger.php:43
+msgctxt "Core Files Logger: search"
+msgid "Core file modifications"
+msgstr "핵심 파일 수정"
+
+#: loggers/class-core-files-logger.php:32
+msgid "Detects modifications to WordPress core files by checking file integrity against official checksums"
+msgstr "공식 체크섬 대비 파일 무결성 검사를 통해 워드프레스 핵심 파일 수정 감지"
+
+#. translators: %1$s: parameter name, %2$s: invalid values, %3$s: valid values.
+#: inc/services/wp-cli-commands/class-wp-cli-list-command.php:53
+msgid "Error: Invalid %1$s values: %2$s. Valid values are: %3$s"
+msgstr "오류: 잘못된 %1$s 값: %2$s. 유효한 값은 다음과 같습니다: %3$s"
+
+#: inc/services/class-simple-history-updates.php:59
+msgid "Read full release notes"
+msgstr "전체 릴리스 노트 읽기"
+
+#: inc/services/class-simple-history-updates.php:45
+#: inc/services/class-simple-history-updates.php:74
+msgid "What's new in this version"
+msgstr "이번 버전의 새로운 기능"
+
+#. translators: %s: parameter name
+#: inc/class-wp-rest-events-controller.php:1294
+msgid "%s must be a string or array of strings"
+msgstr "%s는 문자열 또는 문자열 배열이어야 합니다"
+
+#. translators: %1$s: parameter name, %2$s: list of valid values
+#: inc/class-wp-rest-events-controller.php:1274
+#: inc/class-wp-rest-events-controller.php:1285
+msgid "%1$s is not one of %2$s"
+msgstr "%1$s는 %2$s 중 하나가 아닙니다."
+
+#: inc/class-wp-rest-events-controller.php:469
+msgid "Return ungrouped events without occasions grouping."
+msgstr "그룹화되지 않은 이벤트를 반환합니다(기회 그룹화 제외)."
+
+#: inc/class-wp-rest-events-controller.php:461
+msgid "Context filters as key-value pairs to filter events by context data."
+msgstr "컨텍스트 데이터를 기준으로 이벤트를 필터링하는 컨텍스트 필터(키-값 쌍)."
+
+#: inc/class-wp-rest-events-controller.php:451
+msgid "Limit result set to events from specific initiator(s)."
+msgstr "결과 집합을 특정 발생자의 이벤트로 제한합니다."
+
+#: inc/class-log-initiators.php:76 inc/class-log-initiators.php:101
+msgid "WordPress user"
+msgstr "워드프레스 사용자"
+
+#: templates/email-summary-report.php:444
+msgid "View Activity Log"
+msgstr "활동 로그 보기"
+
+#: templates/email-summary-report.php:426
+msgid "Updates completed"
+msgstr "업데이트 완료됨"
+
+#: templates/email-summary-report.php:353
+msgid "Updates"
+msgstr "업데이트"
+
+#: templates/email-summary-report.php:345
+msgid "Posts created"
+msgstr "생성된 게시물"
+
+#: templates/email-summary-report.php:338
+msgid "Posts and Pages"
+msgstr "게시물 및 페이지"
+
+#: templates/email-summary-report.php:212
+msgid "Website"
+msgstr "웹사이트"
+
+#: templates/email-summary-report.php:40
+msgid "Website Activity Summary"
+msgstr "웹사이트 활동 요약"
+
+#: inc/services/class-licences-settings-page.php:199
+msgid "How to install an add-on"
+msgstr "애드온 설치 방법"
+
+#: inc/services/class-licences-settings-page.php:193
+msgid "If you have bought an add-on then install and activate the add-on and then return here to enter the license key."
+msgstr "애드온을 구매한 경우, 애드온을 설치 및 활성화한 후 여기로 돌아와 라이선스 키를 입력하세요."
+
+#: inc/services/class-licences-settings-page.php:190
+msgid "No add-ons activated."
+msgstr "활성화된 애드온 없음."
+
+#: inc/services/class-email-report-service.php:414
+msgid "Preview"
+msgstr "미리 보기"
+
+#. translators: %s: Site name.
+#: inc/services/class-email-report-service.php:259
+msgid "Weekly Activity Summary for %s"
+msgstr "%s의 주간 활동 요약"
+
+#: inc/class-wp-rest-events-controller.php:1248
+msgid "Failed to unstick event."
+msgstr "이벤트 고정 해제 실패."
+
+#: inc/class-wp-rest-events-controller.php:1219
+msgid "Failed to stick event."
+msgstr "이벤트 고정 실패."
+
+#: inc/class-wp-rest-events-controller.php:1211
+#: inc/class-wp-rest-events-controller.php:1240 build/index.js:14
+msgid "Event not found."
+msgstr "이벤트를 찾을 수 없습니다."
+
+#: templates/email-summary-report.php:464
+msgid "Learn More About Premium"
+msgstr "프리미엄에 대해 자세히 알아보기"
+
+#: templates/email-summary-report.php:459
+msgid "Simple History Premium includes detailed activity breakdowns, user insights, security monitoring, and weekly trends."
+msgstr "심플 히스토리 프리미엄에는 자세한 활동 분석, 사용자 인사이트, 보안 모니터링 및 주간 트렌드가 포함되어 있습니다."
+
+#: templates/email-summary-report.php:456
+msgid "Want More Insights?"
+msgstr "더 많은 인사이트를 원하시나요?"
+
+#. translators: 1: number of events, 2: day of the week
+#: templates/email-summary-report.php:137
+msgid "%1$d events last week • %2$s was the busiest day"
+msgstr "지난 주 %1$d 이벤트 - %2$s가 가장 바쁜 날이었습니다."
+
+#: inc/services/class-email-report-service.php:190
+#: inc/services/class-email-report-service.php:213
+#: templates/email-summary-report.php:43 templates/email-summary-report.php:128
+msgid "No activity"
+msgstr "활동 없음"
+
+#: inc/services/class-email-report-service.php:595
+msgid "Enter one email address per line."
+msgstr "한 줄에 이메일 주소를 하나씩 입력합니다."
+
+#. translators: %s: Current user's email address.
+#: inc/services/class-email-report-service.php:454
+msgid "Send test email to %s"
+msgstr "%s로 테스트 이메일 보내기"
+
+#: inc/services/class-email-report-service.php:447
+msgid "Show email preview"
+msgstr "이메일 미리 보기 표시"
+
+#: inc/services/class-email-report-service.php:406
+msgid "Recipients"
+msgstr "수신자"
+
+#: inc/services/class-email-report-service.php:315
+#: inc/services/class-email-report-service.php:471
+msgid "Failed to send test email."
+msgstr "테스트 이메일을 보내지 못했습니다."
+
+#. translators: %s: Email address
+#: inc/services/class-email-report-service.php:307
+msgid "Test email sent successfully to %s."
+msgstr "테스트 이메일을 %s에게 성공적으로 보냈습니다."
+
+#. translators: 1: start date, 2: end date
+#: inc/channels/class-file-channel.php:472
+msgid "%1$s – %2$s"
+msgstr "%1$s – %2$s"
+
+#: inc/class-wp-rest-stats-controller.php:597
+msgid "Detailed stats."
+msgstr "자세한 통계."
+
+#: inc/class-wp-rest-stats-controller.php:593
+msgid "Summary of stats."
+msgstr "통계 요약."
+
+#: inc/class-wp-rest-stats-controller.php:587
+msgid "End date as Unix timestamp."
+msgstr "종료 날짜를 유닉스 타임스탬프로 설정합니다."
+
+#: inc/class-wp-rest-stats-controller.php:583
+msgid "Start date as Unix timestamp."
+msgstr "시작 날짜를 유닉스 타임스탬프로 설정합니다."
+
+#: inc/class-wp-rest-stats-controller.php:579
+msgid "Date range for the stats."
+msgstr "통계의 날짜 범위입니다."
+
+#: inc/class-wp-rest-stats-controller.php:219
+msgid "Whether to include detailed stats."
+msgstr "세부 통계를 포함할지 여부입니다."
+
+#: inc/class-wp-rest-stats-controller.php:205
+msgid "End date as Unix timestamp. If not provided, defaults to end of today."
+msgstr "종료 날짜를 유닉스 타임스탬프로 입력합니다. 제공하지 않으면 기본값은 오늘 종료입니다."
+
+#. translators: %d is the number of days.
+#: inc/class-wp-rest-stats-controller.php:199
+msgid "Start date as Unix timestamp. If not provided, defaults to %d days ago."
+msgstr "시작 날짜를 Unix 타임스탬프로 입력합니다. 제공하지 않으면 기본값은 %d일 전입니다."
+
+#: inc/class-wp-rest-stats-controller.php:181
+msgid "Sorry, you are not allowed to view stats."
+msgstr "죄송합니다. 통계는 볼 수 없습니다."
+
+#: inc/services/class-stats-service.php:50
+msgctxt "dashboard menu name"
+msgid "History Insights"
+msgstr "기록 인사이트"
+
+#: inc/services/class-stats-service.php:49
+msgctxt "dashboard title name"
+msgid "History Insights - Simple History"
+msgstr "기록 인사이트 - 심플 히스토리"
+
+#: inc/services/class-history-insights-sidebar-service.php:426
+msgid "Only administrators can see user names and avatars."
+msgstr "관리자만 사용자 이름과 아바타를 볼 수 있습니다."
+
+#. translators: 1 is number of days.
+#: inc/services/class-history-insights-sidebar-service.php:422
+msgid "Most active users in last %d days"
+msgstr "지난 %d일 동안 가장 많은 활성 사용자"
+
+#: inc/services/class-history-insights-sidebar-service.php:336
+#: inc/services/class-history-insights-sidebar-service.php:344
+#: inc/services/class-history-insights-sidebar-service.php:352
+msgid "event"
+msgid_plural "events"
+msgstr[0] "이벤트"
+
+#: inc/services/class-history-insights-sidebar-service.php:334
+#: build/index-admin-bar.js:1 build/index.js:1 build/index.js:10
+msgid "Today"
+msgstr "오늘"
+
+#. translators: 1 is number of days.
+#: inc/services/class-history-insights-sidebar-service.php:211
+msgid "Daily activity over last %d days"
+msgstr "지난 %d일 동안의 일일 활동"
+
+#. translators: %s date of oldest event.
+#: templates/settings-tab-debug.php:187
+msgctxt "debug dropin"
+msgid "Oldest event is from %1$s and has id %2$s."
+msgstr "가장 오래된 이벤트는 %1$s에서 발생했으며 ID는 %2$s입니다."
+
+#: inc/class-wp-rest-events-controller.php:1182
+msgid "Sorry, you are not allowed to update events."
+msgstr "물론, 그만한 가치가 있습니다"
+
+#: inc/class-wp-rest-events-controller.php:653
+msgid "Whether the event is sticky and appended to the result set."
+msgstr "이벤트가 고정되어 결과 집합에 추가되었는지 여부."
+
+#: inc/class-wp-rest-events-controller.php:649
+msgid "Whether the event is sticky."
+msgstr "이벤트가 고정되어 있는지 여부입니다."
+
+#: inc/class-wp-rest-events-controller.php:445
+msgid "Only return sticky events."
+msgstr "고정 이벤트만 반환합니다."
+
+#: inc/class-wp-rest-events-controller.php:439
+msgid "Include sticky events in the result set."
+msgstr "결과 집합에 스티커 이벤트 포함."
+
+#: inc/class-stats-view.php:31
+#: inc/services/class-history-insights-sidebar-service.php:88
+msgid "History Insights"
+msgstr "기록 인사이트"
+
+#: inc/services/class-history-insights-sidebar-service.php:541
+msgid "See all History Insights"
+msgstr "모든 히스토리 인사이트 보기"
+
+#: inc/class-export.php:218
+msgctxt "CSV export header"
+msgid "Occasions"
+msgstr "행사"
+
+#: inc/class-export.php:217
+msgctxt "CSV export header"
+msgid "Details"
+msgstr "세부 정보"
+
+#: inc/class-export.php:216
+msgctxt "CSV export header"
+msgid "Header Message"
+msgstr "헤더 메시지"
+
+#: inc/class-export.php:215
+msgctxt "CSV export header"
+msgid "User Roles"
+msgstr "사용자 역할"
+
+#: inc/class-export.php:214
+msgctxt "CSV export header"
+msgid "User Login"
+msgstr "사용자 로그인"
+
+#: inc/class-export.php:213
+msgctxt "CSV export header"
+msgid "User Email"
+msgstr "사용자 이메일"
+
+#: inc/class-export.php:212
+msgctxt "CSV export header"
+msgid "Message Key"
+msgstr "메시지 키"
+
+#: inc/class-export.php:211
+msgctxt "CSV export header"
+msgid "Initiator"
+msgstr "개시자"
+
+#: inc/class-export.php:210
+msgctxt "CSV export header"
+msgid "Level"
+msgstr "등급"
+
+#: inc/class-export.php:209
+msgctxt "CSV export header"
+msgid "Logger"
+msgstr "로그 도구"
+
+#: inc/class-export.php:208
+msgctxt "CSV export header"
+msgid "Date (local)"
+msgstr "날짜(현지)"
+
+#: inc/class-export.php:207
+msgctxt "CSV export header"
+msgid "Date (UTC)"
+msgstr "날짜(UTC)"
+
+#: dropins/class-export-dropin.php:147
+msgctxt "Export dropin: include headers"
+msgid "Include headers"
+msgstr "헤더 포함"
+
+#: inc/class-events-stats.php:519
+#: inc/services/class-email-report-service.php:211
+#: inc/services/class-stats-service.php:292
+msgid "Saturday"
+msgstr "토요일"
+
+#: inc/class-events-stats.php:518
+#: inc/services/class-email-report-service.php:210
+#: inc/services/class-stats-service.php:291
+msgid "Friday"
+msgstr "금요일"
+
+#: inc/class-events-stats.php:517
+#: inc/services/class-email-report-service.php:209
+#: inc/services/class-stats-service.php:290
+msgid "Thursday"
+msgstr "목요일"
+
+#: inc/class-events-stats.php:516
+#: inc/services/class-email-report-service.php:208
+#: inc/services/class-stats-service.php:289
+msgid "Wednesday"
+msgstr "수요일"
+
+#: inc/class-events-stats.php:515
+#: inc/services/class-email-report-service.php:207
+#: inc/services/class-stats-service.php:288
+msgid "Tuesday"
+msgstr "화요일"
+
+#: inc/class-events-stats.php:514
+#: inc/services/class-email-report-service.php:206
+#: inc/services/class-stats-service.php:287
+msgid "Monday"
+msgstr "월요일"
+
+#: inc/class-events-stats.php:513
+#: inc/services/class-email-report-service.php:205
+#: inc/services/class-stats-service.php:286
+msgid "Sunday"
+msgstr "일요일"
+
+#: inc/services/class-stats-service.php:294
+msgid "Events"
+msgstr "이벤트"
+
+#: inc/class-stats-view.php:857
+msgctxt "stats section title"
+msgid "Activity calendar"
+msgstr "활동 캘린더"
+
+#: inc/class-stats-view.php:833
+msgctxt "stats section title"
+msgid "Peak activity days"
+msgstr "활동량이 가장 많은 날"
+
+#: inc/class-stats-view.php:828
+msgctxt "stats section title"
+msgid "Peak activity times"
+msgstr "활동 피크 시간대"
+
+#: inc/class-stats-view.php:800
+msgctxt "stats section title"
+msgid "Media"
+msgstr "미디어"
+
+#: inc/class-stats-view.php:790
+msgid "Edits"
+msgstr "수정"
+
+#: inc/class-stats-view.php:786
+msgid "Uploads"
+msgstr "업로드"
+
+#: inc/class-stats-view.php:773
+msgctxt "stats section title"
+msgid "Posts & pages activity"
+msgstr "글 및 페이지 활동"
+
+#: inc/class-stats-view.php:763
+msgid "Trashed"
+msgstr "휴지통"
+
+#: inc/class-stats-view.php:759
+msgid "Updated"
+msgstr "업데이트됨"
+
+#: inc/class-stats-view.php:755
+msgid "Created"
+msgstr "생성됨"
+
+#: inc/class-stats-view.php:742
+msgctxt "stats section title"
+msgid "User profile activity"
+msgstr "사용자 프로필 활동"
+
+#: inc/class-stats-view.php:736
+msgid "Removed users"
+msgstr "사용자 제거"
+
+#: inc/class-stats-view.php:732
+msgid "Added users"
+msgstr "사용자 추가됨"
+
+#: inc/class-stats-view.php:728
+msgid "Profile updates"
+msgstr "프로필 업데이트"
+
+#: inc/class-stats-view.php:724 templates/email-summary-report.php:380
+msgid "Failed logins"
+msgstr "실패한 로그인"
+
+#: inc/class-stats-view.php:720 templates/email-summary-report.php:372
+msgid "Successful logins"
+msgstr "로그인 성공"
+
+#: inc/class-stats-view.php:701 inc/class-stats-view.php:794
+msgid "Deletions"
+msgstr "삭제"
+
+#: inc/class-stats-view.php:697 templates/email-summary-report.php:410
+msgid "Deactivations"
+msgstr "비활성화"
+
+#: inc/class-stats-view.php:693
+msgid "Updates done"
+msgstr "업데이트 완료"
+
+#: inc/class-stats-view.php:689
+msgid "Updates found"
+msgstr "업데이트됨"
+
+#: inc/class-stats-view.php:685 templates/email-summary-report.php:402
+msgid "Activations"
+msgstr "활성화"
+
+#: inc/class-stats-view.php:681
+msgid "Installations"
+msgstr "설치"
+
+#: inc/class-stats-view.php:602
+msgid "Outside selected date range"
+msgstr "선택한 날짜 범위 밖"
+
+#. translators: %d: number of events
+#: inc/class-stats-view.php:601
+msgid "%d event"
+msgid_plural "%d events"
+msgstr[0] "%d 이벤트"
+
+#: inc/class-stats-view.php:568
+msgid "Sat"
+msgstr "토"
+
+#: inc/class-stats-view.php:567
+msgid "Fri"
+msgstr "금"
+
+#: inc/class-stats-view.php:566
+msgid "Thu"
+msgstr "목"
+
+#: inc/class-stats-view.php:565
+msgid "Wed"
+msgstr "수"
+
+#: inc/class-stats-view.php:564
+msgid "Tue"
+msgstr "화"
+
+#: inc/class-stats-view.php:563
+msgid "Mon"
+msgstr "월"
+
+#: inc/class-stats-view.php:562
+msgid "Sun"
+msgstr "일"
+
+#: inc/class-stats-view.php:513 inc/class-stats-view.php:655
+msgid "View more details"
+msgstr "자세한 내용 보기"
+
+#: inc/class-stats-view.php:463
+msgctxt "stats table header"
+msgid "Events"
+msgstr "이벤트"
+
+#: inc/class-stats-view.php:462
+msgctxt "stats table header"
+msgid "User"
+msgstr "사용자"
+
+#: inc/class-stats-view.php:343
+msgctxt "stats table header"
+msgid "Number of events"
+msgstr "이벤트 수"
+
+#: inc/class-stats-view.php:342
+msgctxt "stats table header"
+msgid "Post"
+msgstr "게시물"
+
+#: inc/class-stats-view.php:315
+msgctxt "stats section title"
+msgid "Most edited posts and pages"
+msgstr "대부분의 편집된 글 및 페이지"
+
+#: inc/class-stats-view.php:294
+msgid "No users are currently logged in."
+msgstr "현재 로그인한 사용자가 없습니다."
+
+#. translators: %s: IP address
+#: inc/class-stats-view.php:275
+msgid "IP: %s"
+msgstr "로그인: %s"
+
+#. translators: %s: session expiration date and time
+#: inc/class-stats-view.php:264
+msgid "Expires: %s"
+msgstr "IP: %s"
+
+#. translators: %s: login date and time
+#: inc/class-stats-view.php:253
+msgid "Login: %s"
+msgstr "%s에 대한 요약"
+
+#. translators: %d: number of active sessions
+#: inc/class-stats-view.php:238
+msgid "%d active session"
+msgid_plural "%d active sessions"
+msgstr[0] "%d 활성 세션"
+
+#: inc/class-stats-view.php:213
+msgctxt "stats section title"
+msgid "Currently Logged In Users"
+msgstr "현재 로그인한 사용자"
+
+#: inc/class-stats-view.php:178
+msgid "Activity by date"
+msgstr "날짜별 활동"
+
+#: inc/class-stats-view.php:160
+msgid "Media actions"
+msgstr "미디어 활동"
+
+#: inc/class-stats-view.php:156
+msgid "Plugin actions"
+msgstr "플러그인 작업"
+
+#: inc/class-stats-view.php:152
+msgid "Content actions"
+msgstr "콘텐츠 작업"
+
+#: inc/class-stats-view.php:148
+msgid "User profile actions"
+msgstr "사용자 프로필 작업"
+
+#: inc/class-stats-view.php:136
+msgid "Users with most events"
+msgstr "대부분의 이벤트를 가진 사용자"
+
+#: inc/class-stats-view.php:131
+msgid "Total users"
+msgstr "총 사용자"
+
+#: inc/class-stats-view.php:126 templates/email-summary-report.php:239
+msgid "Total events"
+msgstr "총 이벤트"
+
+#. translators: %s: site name
+#: inc/class-stats-view.php:117
+msgid "Summary for %s"
+msgstr "이벤트 \"%s\"를 고정 해제하시겠습니까?"
+
+#. translators: 1: Start date, 2: End date
+#: inc/class-stats-view.php:61
+msgid "%1$s - %2$s"
+msgstr "%1$s - %2$s"
+
+#. translators: 1: service class name.
+#: inc/class-simple-history.php:253
+msgid "A service must extend the Service base class. Classname was \"%1$s\"."
+msgstr "서비스를 찾을 수 없습니다. 클래스 이름은 \"%1$s\"입니다."
+
+#. translators: 1: service class name.
+#: inc/class-simple-history.php:237
+msgid "A service was not found. Classname was \"%1$s\"."
+msgstr "서비스를 찾을 수 없습니다. 클래스 이름은 \"%1$s\"입니다."
+
+#: templates/settings-tab-help.php:120
+msgctxt "help page section title"
+msgid "Frequently Asked Questions"
+msgstr "자주 묻는 질문"
+
+#. translators: 1: Link to documentation website.
+#: templates/settings-tab-help.php:110
+msgid "Visit the <a href=\"%1$s\" target=\"_blank\">Simple History documentation website</a> for detailed information about features, settings, and how to get the most out of Simple History."
+msgstr "기능, 설정 및 심플 히스토리를 최대한 활용하는 방법에 대한 자세한 내용은 <a href=\"%1$s\" target=\"_blank\">심플 히스토리 문서 웹사이트</a>를 참조하세요."
+
+#: templates/settings-tab-help.php:105
+msgctxt "help page section title"
+msgid "Documentation"
+msgstr "설명서"
+
+#. translators: 1: Link to premium support.
+#: templates/settings-tab-help.php:95
+msgid "If you're using Simple History Premium or any add-ons, you can access <a href=\"%1$s\" target=\"_blank\">premium support</a>."
+msgstr "심플 히스토리 프리미엄 또는 추가 기능을 사용 중인 경우 <a href=\"%1$s\" target=\"_blank\">프리미엄 지원</a>에 액세스할 수 있습니다."
+
+#. translators: 1: Link to support forum.
+#: templates/settings-tab-help.php:86
+msgid "For support with the free version, please visit the <a href=\"%1$s\" target=\"_blank\">WordPress.org support forum</a>."
+msgstr "무료 버전에 대한 지원을 받으려면 <a href=\"%1$s\" target=\"_blank\">WordPress.org 지원 포럼</a>을 방문하세요."
+
+#: templates/settings-tab-help.php:81
+msgctxt "help page section title"
+msgid "Support"
+msgstr "지원"
+
+#: templates/settings-tab-help.php:69
+msgid "Get help and support"
+msgstr "도움말 및 지원 받기"
+
+#: inc/services/class-review-reminder-service.php:110
+msgid "I already did!"
+msgstr "이미 했어요!"
+
+#: inc/services/class-review-reminder-service.php:109
+msgid "Maybe Later"
+msgstr "어쩌면 나중에"
+
+#: inc/services/class-review-reminder-service.php:108
+msgid "Sure, you're worth it"
+msgstr "이 기능을 사용하면 간단한 GUI를 사용하여 사용자 지정 이벤트를 활동 로그에 수동으로 추가할 수 있습니다."
+
+#. translators: %s: number of logged events
+#: inc/services/class-review-reminder-service.php:99
+msgid "Thank you for using Simple History! You've logged over %s events - that's awesome! If you find this plugin useful, would you mind taking a moment to rate it on WordPress.org? It really helps to keep the plugin growing and improving."
+msgstr "심플 히스토리를 이용해 주셔서 감사합니다! 이벤트를 %s개 이상 기록하셨습니다 - 대단한 일입니다! 이 플러그인이 유용하다고 생각하신다면 잠시 시간을 내어 워드프레스닷컴에서 평가해 주시겠어요? 플러그인이 계속 성장하고 개선되는 데 큰 도움이 됩니다."
+
+#: inc/services/class-admin-page-premium-promo.php:77
+msgid "Simple History add-ons give you more features to your WordPress site."
+msgstr "심플 히스토리 부가기능으로 워드프레스 사이트에 더 많은 기능을 추가할 수 있습니다."
+
+#: inc/services/class-admin-page-premium-promo.php:65
+msgid "Get more features with Simple History Premium"
+msgstr "심플 히스토리 프리미엄으로 더 많은 기능 사용하기"
+
+#: inc/services/class-admin-page-premium-promo.php:46
+msgctxt "settings menu name"
+msgid "Upgrade to Premium for more features"
+msgstr "더 많은 기능을 사용하려면 프리미엄으로 업그레이드하세요."
+
+#: inc/services/class-admin-page-premium-promo.php:40
+msgctxt "settings menu name"
+msgid "Get Premium"
+msgstr "프리미엄 받기"
+
+#: inc/services/class-admin-page-premium-promo.php:31
+msgctxt "promo upsell page title"
+msgid "Get more features with Simple History add-ons"
+msgstr "심플 히스토리 애드온으로 더 많은 기능 사용하기"
+
+#: dropins/class-settings-debug-tab-dropin.php:106
+#: dropins/class-settings-debug-tab-dropin.php:129
+msgctxt "dashboard title name"
+msgid "Debug"
+msgstr "디버그"
+
+#: dropins/class-settings-debug-tab-dropin.php:97
+msgctxt "dashboard title name"
+msgid "Help & Support"
+msgstr "도움말 및 지원"
+
+#: dropins/class-settings-debug-tab-dropin.php:84
+#: dropins/class-settings-debug-tab-dropin.php:117
+msgctxt "dashboard title name"
+msgid "Support"
+msgstr "지원"
+
+#: dropins/class-settings-debug-tab-dropin.php:83
+#: dropins/class-settings-debug-tab-dropin.php:116
+msgctxt "settings menu name"
+msgid "Support"
+msgstr "지원"
+
+#: dropins/class-settings-debug-tab-dropin.php:43
+#: dropins/class-settings-debug-tab-dropin.php:96
+msgctxt "settings menu name"
+msgid "Help & Support"
+msgstr "도움말 및 지원"
+
+#: dropins/class-settings-debug-tab-dropin.php:41
+msgctxt "dashboard title name"
+msgid "Simple History Help & Support"
+msgstr "심플 히스토리 도움말 및 지원"
+
+#: dropins/class-sidebar-email-promo-dropin.php:152 build/index.js:1
+msgid "Maybe later"
+msgstr "어쩌면 나중에"
+
+#: dropins/class-donate-dropin.php:85
+msgid "✨ Upgrade to Premium"
+msgstr "✨ 프리미엄으로 업그레이드"
+
+#: loggers/class-user-logger.php:138
+msgctxt "User logger: search"
+msgid "Admin page access denied"
+msgstr "관리자 페이지 액세스 거부됨"
+
+#: loggers/class-user-logger.php:98
+msgctxt "User was denied access to an admin page"
+msgid "Was denied access to admin page \"{admin_page}\""
+msgstr "관리자 페이지 \"{admin_page}\"에 대한 액세스가 거부되었습니다."
+
+#: loggers/class-custom-entry-logger.php:74
+msgid "Entry notes"
+msgstr "항목 메모"
+
+#: loggers/class-custom-entry-logger.php:39
+msgctxt "Custom entry logger: search"
+msgid "Custom entry added"
+msgstr "사용자 지정 항목 추가"
+
+#: loggers/class-custom-entry-logger.php:37
+msgctxt "Custom entry logger: search"
+msgid "Custom entries"
+msgstr "사용자 지정 항목"
+
+#: loggers/class-custom-entry-logger.php:33
+msgctxt "Logger: Custom Entry"
+msgid "Added a custom entry: {message}"
+msgstr "사용자 지정 항목을 추가했습니다: {message}"
+
+#: loggers/class-custom-entry-logger.php:30
+msgctxt "Logger: Custom Entry"
+msgid "Logs custom entries added through WP-CLI or REST API"
+msgstr "WP-CLI 또는 REST API를 통해 추가된 사용자 정의 항목을 기록합니다."
+
+#: loggers/class-custom-entry-logger.php:29
+msgctxt "Logger: Custom Entry"
+msgid "Custom Entry Logger"
+msgstr "사용자 지정 항목 로거"
+
+#: inc/class-wp-rest-events-controller.php:1137
+msgid "Custom entry logger could not be initialized."
+msgstr "사용자 지정 항목 로거를 초기화하지 못했습니다."
+
+#: inc/class-wp-rest-events-controller.php:1115
+msgid "Invalid log level specified."
+msgstr "잘못된 로그 수준을 지정했습니다."
+
+#: dropins/class-sidebar-add-ons-dropin.php:226
+msgid "Document important changes by creating custom log entries for team actions, content updates, or system changes that aren't automatically tracked."
+msgstr "자동으로 추적되지 않는 팀 작업, 콘텐츠 업데이트 또는 시스템 변경에 대한 사용자 정의 로그 항목을 만들어 중요한 변경 사항을 문서화하세요."
+
+#: dropins/class-sidebar-add-ons-dropin.php:223
+msgid "Add custom events manually"
+msgstr "사용자 지정 이벤트를 수동으로 추가"
+
+#: inc/services/class-setup-settings-page.php:338
+msgid "Inside tools menu item"
+msgstr "도구 메뉴 항목 내부"
+
+#: inc/services/class-setup-settings-page.php:334
+msgid "Inside dashboard menu item"
+msgstr "대시보드 메뉴 항목 내부"
+
+#: inc/services/class-setup-settings-page.php:330
+msgid "Bottom of main menu"
+msgstr "메인 메뉴 하단"
+
+#: inc/services/class-setup-settings-page.php:326
+msgid "Top of main menu"
+msgstr "메인 메뉴 상단"
+
+#: inc/services/class-setup-settings-page.php:272
+msgid "History menu position"
+msgstr "기록 메뉴 위치"
+
+#: inc/services/class-setup-settings-page.php:190
+msgid "General settings"
+msgstr "일반 설정"
+
+#: inc/services/class-setup-settings-page.php:154
+msgctxt "settings menu name"
+msgid "Simple History"
+msgstr "심플 히스토리"
+
+#: dropins/class-sidebar-add-ons-dropin.php:234
+msgid "Allow only specified users to see Simple History in the WordPress admin."
+msgstr "지정된 사용자만 워드프레스 관리자에서 심플 히스토리를 볼 수 있도록 허용합니다."
+
+#: dropins/class-sidebar-add-ons-dropin.php:214
+#: dropins/class-sidebar-email-promo-dropin.php:131
+msgid "New!"
+msgstr "신규 기능!"
+
+#: dropins/class-sidebar-add-ons-dropin.php:231
+msgid "Stealth Mode"
+msgstr "스텔스 모드"
+
+#: dropins/class-settings-debug-tab-dropin.php:105
+#: dropins/class-settings-debug-tab-dropin.php:128
+msgctxt "settings menu name"
+msgid "Debug"
+msgstr "디버그"
+
+#: templates/settings-tab-debug.php:224
+msgctxt "debug dropin"
+msgid "Allowed email addresses:"
+msgstr "허용된 이메일 주소:"
+
+#: templates/settings-tab-debug.php:221
+msgctxt "debug dropin"
+msgid "Partial Stealth Mode is enabled."
+msgstr "부분 스텔스 모드가 활성화됩니다."
+
+#: templates/settings-tab-debug.php:218
+msgctxt "debug dropin"
+msgid "Stealth Mode"
+msgstr "스텔스 모드"
+
+#. translators: %d number of emails.
+#: templates/settings-tab-debug.php:213
+msgctxt "debug dropin"
+msgid "And %d more."
+msgstr "그리고 %d 더."
+
+#: inc/services/wp-cli-commands/class-wp-cli-stealth-mode-command.php:38
+msgid "Partial Stealth Mode"
+msgstr "부분 스텔스 모드"
+
+#: inc/services/wp-cli-commands/class-wp-cli-stealth-mode-command.php:35
+#: inc/services/wp-cli-commands/class-wp-cli-stealth-mode-command.php:39
+msgid "Disabled"
+msgstr "비활성화"
+
+#: inc/channels/class-channel.php:145
+#: inc/services/wp-cli-commands/class-wp-cli-stealth-mode-command.php:35
+#: inc/services/wp-cli-commands/class-wp-cli-stealth-mode-command.php:39
+msgid "Enabled"
+msgstr "활성화"
+
+#: inc/services/wp-cli-commands/class-wp-cli-stealth-mode-command.php:34
+msgid "Full Stealth Mode"
+msgstr "전체 숨김 모드"
+
+#: dropins/class-sidebar-dropin.php:62
+msgctxt "Sidebar box"
+msgid "Need help?"
+msgstr "도움이 필요하세요?"
+
+#. translators: 1 is a link to webpage with info about how to modify number of
+#. days to keep the log
+#: loggers/class-simple-history-logger.php:272
+msgid "<a href=\"%1$s\">Set number of days the log is kept.</a>"
+msgstr "<a href=\"%1$s\">로그가 보관되는 일수를 설정합니다.</a>"
+
+#: inc/services/class-setup-settings-page.php:148
+msgctxt "settings menu name"
+msgid "Settings"
+msgstr "설정"
+
+#: inc/services/class-setup-settings-page.php:137
+msgctxt "settings title name"
+msgid "Simple History Settings"
+msgstr "심플 히스토리 설정"
+
+#: inc/services/class-admin-pages.php:52
+msgctxt "dashboard menu name"
+msgid "Event Log"
+msgstr "이벤트 로그"
+
+#: inc/services/class-admin-pages.php:51
+msgctxt "dashboard title name"
+msgid "Event Log - Simple History"
+msgstr "이벤트 로그 - 심플 히스토리"
+
+#: inc/services/class-admin-pages.php:37
+msgctxt "dashboard title name"
+msgid "History"
+msgstr "히스토리"
+
+#: dropins/class-sidebar-add-ons-dropin.php:181
+msgid "Only $29 for 5 sites!"
+msgstr "5개 사이트에 단 $29!"
+
+#: dropins/class-sidebar-add-ons-dropin.php:176
+msgid "Buy Debug & Monitor"
+msgstr "디버그 및 모니터 구매"
+
+#: dropins/class-sidebar-add-ons-dropin.php:290
+msgid "Buy WooCommerce Logger"
+msgstr "WooCommerce 로거 구매"
+
+#: dropins/class-sidebar-add-ons-dropin.php:285
+msgid "Email templates updates"
+msgstr "이메일 템플릿 업데이트"
+
+#: dropins/class-sidebar-add-ons-dropin.php:284
+msgid "WooCommerce settings adjustments"
+msgstr "WooCommerce 설정 조정"
+
+#: dropins/class-sidebar-add-ons-dropin.php:283
+msgid "Coupon changes"
+msgstr "쿠폰 변경"
+
+#: dropins/class-sidebar-add-ons-dropin.php:282
+msgid "Product modifications"
+msgstr "제품 수정"
+
+#: dropins/class-sidebar-add-ons-dropin.php:281
+msgid "Order edits"
+msgstr "주문 편집"
+
+#: dropins/class-sidebar-add-ons-dropin.php:278
+msgid "Log detailed information about many things that happen in your WooCommerce shop:"
+msgstr "WooCommerce 스토어에서 일어나는 많은 일에 대한 자세한 정보를 기록하세요:"
+
+#: dropins/class-sidebar-add-ons-dropin.php:275
+msgid "WooCommerce Logger"
+msgstr "WooCommerce 로거"
+
+#: loggers/class-user-logger.php:1167
+msgctxt "User logger"
+msgid "Checked"
+msgstr "확인됨"
+
+#: loggers/class-user-logger.php:1158
+msgctxt "User logger"
+msgid "Send notification"
+msgstr "알림 보내기"
+
+#. translators: 1 is a link to webpage with info about how to modify number of
+#. days to keep the log
+#: loggers/class-simple-history-logger.php:278
+msgid "<a href=\"%1$s\" target=\"_blank\" class=\"sh-ExternalLink\">Get Premium to set number of days the log is kept.</a>"
+msgstr "<a href=\"%1$s\" target=\"_blank\" class=\"sh-ExternalLink\">로그 보관 일수를 연장하려면 프리미엄으로 업그레이드 하십시오.</a>"
+
+#. translators: %d is the event ID
+#: inc/services/wp-cli-commands/class-wp-cli-get-command.php:69
+msgid "No event found with ID %1$d."
+msgstr "ID %1$d로 이벤트를 찾을 수 없습니다."
+
+#. translators: %d: number of rows deleted
+#: inc/services/wp-cli-commands/class-wp-cli-db-command.php:44
+msgid "Removed %1$d rows."
+msgstr "1$d 행을 제거했습니다."
+
+#: inc/services/wp-cli-commands/class-wp-cli-db-command.php:35
+msgid "Are you sure you want to clear all logged items?"
+msgstr "기록된 모든 항목을 지우시겠습니까?"
+
+#: inc/services/class-setup-settings-page.php:519
+msgid "Upgrade to Simple History Premium to set this to any number of days."
+msgstr "심플 히스토리 프리미엄으로 업그레이드하면 원하는 일수로 설정할 수 있습니다."
+
+#: dropins/class-sidebar-add-ons-dropin.php:172
+msgid "Great for developers who need to debug issues and for site owners who want to understand what's happening behind the scenes."
+msgstr "문제를 디버깅해야 하는 개발자와 백그라운드에서 무슨 일이 일어나고 있는지 이해하려는 사이트 소유자에게 유용합니다."
+
+#: dropins/class-sidebar-add-ons-dropin.php:169
+msgid "WP cron jobs"
+msgstr "WP 크론 작업"
+
+#: dropins/class-sidebar-add-ons-dropin.php:168
+msgid "REST API activity"
+msgstr "REST API 활동"
+
+#: dropins/class-sidebar-add-ons-dropin.php:167
+msgid "HTTP API requests"
+msgstr "HTTP API 요청"
+
+#: dropins/class-sidebar-add-ons-dropin.php:166
+msgid "Email sending"
+msgstr "이메일 전송"
+
+#: dropins/class-sidebar-add-ons-dropin.php:163
+msgid "Keep track of WordPress activities with the Debug & Monitor add-on:"
+msgstr "디버그 및 모니터 애드온으로 워드프레스 활동을 추적하세요:"
+
+#: dropins/class-sidebar-add-ons-dropin.php:157
+#: dropins/class-sidebar-add-ons-dropin.php:272
+msgid "Add-on"
+msgstr "애드온"
+
+#: dropins/class-sidebar-add-ons-dropin.php:160
+msgid "Debug & Monitor"
+msgstr "디버그 및 모니터링"
+
+#: dropins/class-sidebar-add-ons-dropin.php:249
+msgid "Upgrade to Premium"
+msgstr "프리미엄으로 업그레이드"
+
+#: dropins/class-sidebar-add-ons-dropin.php:244
+msgid "Remove banners like this one"
+msgstr "다음과 같은 배너를 제거합니다."
+
+#: dropins/class-sidebar-add-ons-dropin.php:243
+msgid "Control what messages that are logged to match your needs"
+msgstr "필요에 맞게 기록되는 메시지를 제어하세요."
+
+#: dropins/class-sidebar-add-ons-dropin.php:242
+msgid "View a map of where failed login attempts happened"
+msgstr "로그인 시도 실패가 발생한 위치 지도 보기"
+
+#: dropins/class-sidebar-add-ons-dropin.php:241
+msgid "Control how to store IP Addresses – anonymized or not"
+msgstr "IP 주소 저장 방법 제어 - 익명화 여부 제어"
+
+#: dropins/class-sidebar-add-ons-dropin.php:240
+msgid "Limit number of failed login attempts that are logged"
+msgstr "기록되는 로그인 실패 시도 횟수 제한하기"
+
+#: dropins/class-sidebar-add-ons-dropin.php:239
+msgid "Customize log retention by setting the number of days to keep logs"
+msgstr "로그 보관 일수를 설정하여 로그 보존을 사용자 지정하세요."
+
+#: dropins/class-sidebar-add-ons-dropin.php:238
+msgid "Export search results as CSV and JSON"
+msgstr "검색 결과를 CSV 및 JSON으로 내보내기"
+
+#: dropins/class-sidebar-add-ons-dropin.php:206
+msgid "Unlock more features with Simple History Premium!"
+msgstr "심플 히스토리 프리미엄으로 더 많은 기능을 잠금 해제하세요!"
+
+#: dropins/class-export-dropin.php:161
+msgctxt "Export dropin: export format"
+msgid "HTML"
+msgstr "HTML"
+
+#. translators: %d number of logged events.
+#: templates/settings-tab-debug.php:173
+msgctxt "debug dropin"
+msgid "%1$s logged events since %2$s."
+msgstr "%1$s가 %2$s 이후 이벤트를 기록했습니다."
+
+#: templates/settings-tab-debug.php:165
+msgctxt "debug dropin"
+msgid "Could not find the date when the plugin was installed."
+msgstr "플러그인을 설치한 날짜를 찾을 수 없습니다."
+
+#: templates/settings-tab-debug.php:161
+msgctxt "debug dropin"
+msgid "Total number of logged events"
+msgstr "로깅된 총 이벤트 수"
+
+#: inc/services/class-setup-settings-page.php:377
+msgid "in the admin bar"
+msgstr "관리자 표시줄에서"
+
+#: inc/channels/class-alert-field-registry.php:354 build/index-admin-bar.js:6
+#: build/index.js:8
+msgid "Other"
+msgstr "기타"
+
+#: inc/channels/class-alert-field-registry.php:342
+#: templates/email-summary-report.php:423 build/index-admin-bar.js:6
+#: build/index.js:8
+msgid "WordPress"
+msgstr "워드프레스"
+
+#: inc/channels/class-alert-field-registry.php:346 build/index-admin-bar.js:6
+#: build/index.js:8
+msgid "WP-CLI"
+msgstr "WP-CLI"
+
+#: dropins/class-tools-menu-dropin.php:160
+msgid "Export"
+msgstr "내보내기"
+
+#: dropins/class-sidebar-add-ons-dropin.php:203 inc/class-helpers.php:1843
+#: inc/services/class-channels-settings-page.php:116 build/index.js:1
+msgid "Premium"
+msgstr "프리미엄"
+
+#: inc/class-wp-rest-searchoptions-controller.php:137
+#: inc/class-wp-rest-searchoptions-controller.php:146
+msgid "Sorry, you are not allowed to search users."
+msgstr "사용자를 검색할 수 없습니다."
+
+#: inc/class-wp-rest-searchoptions-controller.php:99
+msgid "Sorry, you are not allowed to search options."
+msgstr "죄송합니다. 옵션은 검색할 수 없습니다."
+
+#: inc/class-wp-rest-searchoptions-controller.php:78
+msgid "Please provide a search query."
+msgstr "검색 쿼리를 입력하세요."
+
+#: inc/class-wp-rest-events-controller.php:645
+msgid "The permalink of the event."
+msgstr "이벤트의 영구 링크입니다."
+
+#: inc/class-wp-rest-events-controller.php:641
+msgid "The context of the event."
+msgstr "이벤트의 컨텍스트."
+
+#: inc/class-wp-rest-events-controller.php:637
+msgid "The subsequent occasions count of the event."
+msgstr "이벤트의 후속 행사 횟수입니다."
+
+#: inc/class-wp-rest-events-controller.php:633
+msgid "The occasions ID of the event."
+msgstr "이벤트의 경우 ID입니다."
+
+#: inc/class-wp-rest-events-controller.php:629
+msgid "The IP addresses of the event."
+msgstr "이벤트의 IP 주소입니다."
+
+#: inc/class-wp-rest-events-controller.php:625
+msgid "Details of the initiator."
+msgstr "시작자의 세부 정보입니다."
+
+#: inc/class-wp-rest-events-controller.php:621
+msgid "The initiator of the event."
+msgstr "이벤트의 시작자입니다."
+
+#: inc/class-wp-rest-events-controller.php:617
+msgid "The log level of the event."
+msgstr "이벤트의 로그 수준입니다."
+
+#: inc/class-wp-rest-events-controller.php:613
+msgid "The message key of the event."
+msgstr "이벤트의 메시지 키입니다."
+
+#: inc/class-wp-rest-events-controller.php:609
+msgid "The via of the event."
+msgstr "이벤트의 비아."
+
+#: inc/class-wp-rest-events-controller.php:605
+msgid "The logger of the event."
+msgstr "이벤트의 로거입니다."
+
+#: inc/class-wp-rest-events-controller.php:601
+msgid "The uninterpolated message of the event."
+msgstr "이벤트의 보간되지 않은 메시지입니다."
+
+#: inc/class-wp-rest-events-controller.php:597
+msgid "The details of the event."
+msgstr "이벤트의 세부 정보입니다."
+
+#: inc/class-wp-rest-events-controller.php:593
+msgid "The details of the event, with possible markup applied."
+msgstr "가능한 마크업이 적용된 이벤트의 세부 정보입니다."
+
+#: inc/class-wp-rest-events-controller.php:589
+msgid "The interpolated message of the event, with possible markup applied."
+msgstr "이벤트의 보간된 메시지(적용 가능한 마크업 포함)입니다."
+
+#: inc/class-wp-rest-events-controller.php:585
+msgid "The interpolated message of the event."
+msgstr "이벤트의 보간된 메시지입니다."
+
+#: inc/class-wp-rest-events-controller.php:580
+msgid "URL to the event."
+msgstr "이벤트의 URL입니다."
+
+#: inc/class-wp-rest-events-controller.php:575
+msgid "The date the event was added, as GMT."
+msgstr "이벤트가 추가된 날짜(GMT 기준)입니다."
+
+#: inc/class-wp-rest-events-controller.php:570
+msgid "The date the event was added, in the site's timezone."
+msgstr "이벤트가 추가된 날짜(사이트 표준 시간대)입니다."
+
+#: inc/class-wp-rest-events-controller.php:434
+msgid "Offset the result set by a specific number of items."
+msgstr "특정 개수의 항목으로 결과 집합을 오프셋합니다."
+
+#: inc/class-wp-rest-events-controller.php:429
+msgid "Limit result set to rows with user id."
+msgstr "결과 집합을 사용자 ID가 있는 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:421
+msgid "Limit result set to rows with user ids."
+msgstr "결과 집합을 사용자 ID가 있는 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:412
+msgid "Limit result set to rows with messages. Format: LoggerSlug:message."
+msgstr "결과 집합을 메시지가 있는 행으로 제한합니다. 형식: LoggerSlug:메시지."
+
+#: inc/class-wp-rest-events-controller.php:404
+msgid "Limit result set to rows with loggers."
+msgstr "결과 집합을 로거가 있는 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:395
+msgid "Limit result set to rows with log levels."
+msgstr "결과 집합을 로그 수준이 있는 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:386
+msgid "Limit result set to rows with date within this range. Format: Y-m."
+msgstr "결과 집합을 이 범위 내의 날짜가 있는 행으로 제한합니다. 형식: Y-m."
+
+#: inc/class-wp-rest-events-controller.php:370
+#: inc/class-wp-rest-events-controller.php:379
+msgid "Limit result set to rows with date within this range."
+msgstr "결과 집합을 이 범위 내의 날짜가 있는 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:343
+msgid "Limit result set to rows with date less than or equal to this unix timestamp."
+msgstr "결과 집합의 날짜가 이 유닉스 타임스탬프보다 작거나 같은 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:336
+msgid "Limit result set to rows with date greater than or equal to this unix timestamp."
+msgstr "이 유닉스 타임스탬프보다 크거나 같은 날짜가 있는 행으로 결과 집합을 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:323
+msgid "Limit result set to rows with id greater than this, i.e. more recent than since_id."
+msgstr "결과 집합의 ID가 이보다 큰 행, 즉 since_id보다 최근 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:316
+msgid "Limit result set to rows with id equal or lower than this."
+msgstr "결과 집합의 ID가 이보다 낮거나 같은 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:305
+msgid "Limit result set to specific IDs."
+msgstr "결과 집합을 특정 ID로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:298
+msgid "Current page of the collection."
+msgstr "컬렉션의 현재 페이지입니다."
+
+#: inc/class-wp-rest-events-controller.php:290
+#: inc/class-wp-rest-stats-controller.php:211
+msgid "Maximum number of items to be returned in result set."
+msgstr "결과 집합에서 반환할 최대 항목 수입니다."
+
+#: inc/class-wp-rest-events-controller.php:285
+msgid "The max number of occasions to return."
+msgstr "반환할 최대 횟수입니다."
+
+#: inc/class-wp-rest-events-controller.php:280
+msgid "The number of occasions to get."
+msgstr "가져올 경우의 수입니다."
+
+#: inc/class-wp-rest-events-controller.php:275
+msgid "Limit result set to rows with occasionsID equal to this."
+msgstr "결과 집합을 occasionsID가 이 값과 같은 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:270
+msgid "Limit result set to rows with id lower than this."
+msgstr "결과 집합을 이보다 낮은 ID를 가진 행으로 제한합니다."
+
+#: inc/class-wp-rest-events-controller.php:263
+#: inc/class-wp-rest-events-controller.php:565
+msgid "Type of result to return."
+msgstr "반환할 결과 유형입니다."
+
+#: inc/class-wp-rest-events-controller.php:210
+msgid "Sorry, you are not allowed to view this event."
+msgstr "이 이벤트는 볼 수 없습니다."
+
+#: inc/class-wp-rest-events-controller.php:200
+#: inc/class-wp-rest-events-controller.php:1191
+msgid "Invalid event ID."
+msgstr "잘못된 이벤트 ID입니다."
+
+#: inc/class-wp-rest-events-controller.php:191
+#: inc/class-wp-rest-events-controller.php:679
+#: inc/class-wp-rest-searchoptions-controller.php:118
+msgid "Sorry, you are not allowed to view events."
+msgstr "이벤트를 볼 수 없습니다."
+
+#: inc/class-wp-rest-events-controller.php:113
+#: inc/class-wp-rest-events-controller.php:132
+#: inc/class-wp-rest-events-controller.php:151
+#: inc/class-wp-rest-events-controller.php:561
+msgid "Unique identifier for the event."
+msgstr "이벤트의 고유 식별자입니다."
+
+#: dropins/class-experimental-features-dropin.php:72
+msgid "Please note that these features may not work as expected and could change or be removed in future updates."
+msgstr "이러한 기능은 예상대로 작동하지 않을 수 있으며 향후 업데이트에서 변경되거나 제거될 수 있다는 점에 유의하세요."
+
+#: dropins/class-experimental-features-dropin.php:66
+msgid "Try out upcoming features that are still in testing."
+msgstr "아직 테스트 중인 예정된 기능을 사용해 보세요."
+
+#: dropins/class-experimental-features-dropin.php:61
+msgid "Enable experimental features"
+msgstr "실험적 기능 사용"
+
+#: dropins/class-experimental-features-dropin.php:45
+#: inc/services/class-experimental-features-page.php:57
+msgid "Experimental features"
+msgstr "실험적 기능"
+
+#: templates/settings-tab-debug.php:548
+msgctxt "debug dropin"
+msgid "Drop-in filename"
+msgstr "드롭인 파일 이름"
+
+#: templates/settings-tab-debug.php:547
+msgctxt "debug dropin"
+msgid "Drop-in name"
+msgstr "드롭인 이름"
+
+#: templates/settings-tab-debug.php:536
+msgctxt "debug dropin"
+msgid "No drop-ins found."
+msgstr "드롭인을 찾을 수 없습니다."
+
+#: templates/settings-tab-debug.php:533
+msgctxt "debug dropin"
+msgid "As returned from get_dropins()."
+msgstr "Get_dropins()에서 반환된 대로."
+
+#: templates/settings-tab-debug.php:531
+msgctxt "debug dropin"
+msgid "WordPress drop-ins"
+msgstr "워드프레스 드롭인"
+
+#. translators: %1$s database engine name, %2$s database engine version.
+#: templates/settings-tab-debug.php:74
+msgid "Database engine used to perform queries: <code>%1$s</code>."
+msgstr "쿼리를 수행하는 데 사용되는 데이터베이스 엔진입니다: <code>%1$s</code>."
+
+#: templates/settings-tab-debug.php:69
+msgctxt "debug dropin"
+msgid "Database engine"
+msgstr "데이터베이스 엔진"
+
+#: templates/settings-tab-debug.php:67
+msgctxt "debug dropin"
+msgid "Database"
+msgstr "데이터베이스"
+
+#: loggers/class-plugin-logger.php:123
+msgctxt "Plugin failed to update in bulk"
+msgid "Failed to update plugin \"{plugin_name}\""
+msgstr "플러그인 \\\"{plugin_name}\\\"을 업데이트하지 못했습니다."
+
+#: loggers/class-options-logger.php:839 loggers/class-options-logger.php:843
+msgid "Off"
+msgstr "끔"
+
+#: loggers/class-options-logger.php:838 loggers/class-options-logger.php:844
+msgid "On"
+msgstr "켬"
+
+#: loggers/class-options-logger.php:732 loggers/class-options-logger.php:734
+#: loggers/class-post-logger.php:1502
+msgid "Excerpt"
+msgstr "발췌"
+
+#: loggers/class-options-logger.php:731 loggers/class-options-logger.php:735
+msgid "Full text"
+msgstr "전체 텍스트"
+
+#: loggers/class-options-logger.php:321
+msgid "Updated setting \"{option_translated}\" on the <a href=\"{option_page_link}\">{option_page_translated}</a>"
+msgstr "<a href=\"{option_page_link}\">{option_page_translated}</a>에서 \"{option_translated}\" 설정을 업데이트했습니다."
+
+#: loggers/class-options-logger.php:204
+msgid "Tag base"
+msgstr "태그 기반"
+
+#: loggers/class-options-logger.php:203
+msgid "Category base"
+msgstr "카테고리 기준"
+
+#: loggers/class-options-logger.php:202
+msgid "Custom Structure"
+msgstr "사용자 정의 구조"
+
+#: loggers/class-options-logger.php:200
+msgid "Permalink Settings Page"
+msgstr "퍼머링크 설정 페이지"
+
+#: loggers/class-options-logger.php:199
+msgid "Permalinks"
+msgstr "퍼머링크"
+
+#: loggers/class-options-logger.php:193
+msgid "Organize my uploads into month- and year-based folders"
+msgstr "내 업로드를 월별, 연도별 폴더로 정리하기"
+
+#: loggers/class-options-logger.php:191
+msgid "Large size height"
+msgstr "큰 크기 높이"
+
+#: loggers/class-options-logger.php:190
+msgid "Large size width"
+msgstr "큰 사이즈 너비"
+
+#: loggers/class-options-logger.php:189
+msgid "Medium size height"
+msgstr "중간 크기 높이"
+
+#: loggers/class-options-logger.php:188
+msgid "Medium size width"
+msgstr "중간 크기 너비"
+
+#: loggers/class-options-logger.php:187
+msgid "Crop thumbnail to exact dimensions"
+msgstr "썸네일을 정확한 크기로 자르기"
+
+#: loggers/class-options-logger.php:186
+msgid "Thumbnail size height"
+msgstr "썸네일 크기 높이"
+
+#: loggers/class-options-logger.php:185
+msgid "Thumbnail size width"
+msgstr "썸네일 크기 너비"
+
+#: loggers/class-options-logger.php:183
+msgid "Media Settings Page"
+msgstr "미디어 설정 페이지"
+
+#: loggers/class-options-logger.php:182
+msgid "Media"
+msgstr "미디어"
+
+#: loggers/class-options-logger.php:178
+msgid "Default Avatar"
+msgstr "기본 아바타"
+
+#: loggers/class-options-logger.php:177
+msgid "Maximum Rating"
+msgstr "최대 평점"
+
+#: loggers/class-options-logger.php:174
+msgid "Show Avatars"
+msgstr "아바타 표시"
+
+#: loggers/class-options-logger.php:170
+msgid "Email me whenever a comment is held for moderation"
+msgstr "댓글이 검토를 위해 보류될 때마다 이메일 받기"
+
+#: loggers/class-options-logger.php:165 loggers/class-options-logger.php:168
+msgid "Email me whenever anyone posts a comment"
+msgstr "누군가 댓글을 게시할 때마다 내게 이메일 보내기"
+
+#: loggers/class-options-logger.php:162
+msgid "Comment must be manually approved"
+msgstr "댓글은 수동으로 승인해야 합니다."
+
+#: loggers/class-options-logger.php:160 loggers/class-options-logger.php:161
+msgid "Disallowed Comment Keys"
+msgstr "허용되지 않는 댓글 키"
+
+#: loggers/class-options-logger.php:159
+msgid "Comment Moderation"
+msgstr "댓글 관리"
+
+#: loggers/class-options-logger.php:158
+msgid "Hold a comment in the queue if it contains"
+msgstr "다음이 포함된 경우 댓글을 대기열에 보관합니다."
+
+#: loggers/class-options-logger.php:157 loggers/class-options-logger.php:163
+msgid "Comment author must have a previously approved comment"
+msgstr "댓글 작성자는 이전에 승인된 댓글이 있어야 합니다."
+
+#: loggers/class-options-logger.php:156
+msgid "Comments order"
+msgstr "댓글 순서"
+
+#: loggers/class-options-logger.php:155
+msgid "Comments should be displayed with the"
+msgstr "댓글은 다음과 같이 표시되어야 합니다."
+
+#: loggers/class-options-logger.php:154
+msgid "Top level comments per page"
+msgstr "페이지당 최상위 댓글"
+
+#: loggers/class-options-logger.php:151
+msgid "Break comments into pages"
+msgstr "댓글을 페이지로 나누기"
+
+#: loggers/class-options-logger.php:149
+msgid "Max depth for threaded comments"
+msgstr "스레드 댓글의 최대 깊이"
+
+#: loggers/class-options-logger.php:146
+msgid "Enable threaded (nested) comments"
+msgstr "스레드(중첩) 댓글 사용"
+
+#: loggers/class-options-logger.php:142
+msgid "Show comments cookies opt-in checkbox"
+msgstr "댓글 쿠키 표시 옵트인 체크박스"
+
+#: loggers/class-options-logger.php:140
+msgid "Days before comments are closed"
+msgstr "댓글이 닫히기 며칠 전"
+
+#: loggers/class-options-logger.php:137
+msgid "Automatically close comments on posts older than"
+msgstr "다음보다 오래된 글의 댓글을 자동으로 닫습니다."
+
+#: loggers/class-options-logger.php:133
+msgid "Users must be registered and logged in to comment"
+msgstr "댓글을 달려면 사용자가 등록하고 로그인해야 합니다."
+
+#: loggers/class-options-logger.php:129
+msgid "Comment author must fill out name and email"
+msgstr "댓글 작성자는 이름과 이메일을 입력해야 합니다."
+
+#: loggers/class-options-logger.php:126
+msgid "Default article visibility"
+msgstr "기본 글 가시성"
+
+#: loggers/class-options-logger.php:124
+msgid "Discussion Settings Page"
+msgstr "토론 설정 페이지"
+
+#: loggers/class-options-logger.php:123
+msgid "Discussion"
+msgstr "토론"
+
+#: loggers/class-options-logger.php:117
+msgid "Discourage search engines from indexing this site"
+msgstr "검색 엔진이 이 사이트를 색인화하지 못하도록 하기"
+
+#: loggers/class-options-logger.php:115
+msgid "Posts page"
+msgstr "글 페이지"
+
+#: loggers/class-options-logger.php:114
+msgid "Front page"
+msgstr "첫 페이지"
+
+#: loggers/class-options-logger.php:113
+msgid "Front page displays"
+msgstr "첫 페이지 표시"
+
+#: loggers/class-options-logger.php:112
+msgid "For each article in a feed, show"
+msgstr "피드의 각 기사에 대해 다음을 표시합니다."
+
+#: loggers/class-options-logger.php:111
+msgid "Syndication feeds show the most recent"
+msgstr "신디케이션 피드는 가장 최근의"
+
+#: loggers/class-options-logger.php:110
+msgid "Blog pages show at most"
+msgstr "블로그 페이지만 표시"
+
+#: loggers/class-options-logger.php:108
+msgid "Reading Settings Page"
+msgstr "읽기 설정 페이지"
+
+#: loggers/class-options-logger.php:107
+msgid "Reading"
+msgstr "읽기"
+
+#: loggers/class-options-logger.php:103
+msgid "Update Services"
+msgstr "서비스 업데이트"
+
+#: loggers/class-options-logger.php:102 loggers/class-options-logger.php:127
+msgid "Allow people to submit comments on new posts"
+msgstr "사람들이 새 글에 댓글을 달 수 있도록 허용"
+
+#: loggers/class-options-logger.php:101
+msgid "Allow link notifications from other blogs (pingbacks and trackbacks)"
+msgstr "다른 블로그의 링크 알림 허용(핑백 및 트랙백)"
+
+#: loggers/class-options-logger.php:98
+msgid "Attempt to notify any blogs linked to from the article"
+msgstr "글에서 링크된 모든 블로그에 알림 시도"
+
+#: loggers/class-options-logger.php:96
+msgid "Default Mail Server Port"
+msgstr "기본 메일 서버 포트"
+
+#: inc/services/class-channels-settings-page.php:335
+#: loggers/class-options-logger.php:95
+msgid "Password"
+msgstr "비밀번호"
+
+#: loggers/class-options-logger.php:94
+msgid "Login Name"
+msgstr "로그인 이름"
+
+#: loggers/class-options-logger.php:93
+msgid "Mail Server"
+msgstr "메일 서버"
+
+#: loggers/class-options-logger.php:92
+msgid "Post via Email settings (legacy)"
+msgstr "이메일 설정을 통한 글 게시(레거시)"
+
+#: loggers/class-options-logger.php:91
+msgid "Default Post Format"
+msgstr "기본 글 형식"
+
+#: loggers/class-options-logger.php:90
+msgid "Default Post Category"
+msgstr "기본 글 카테고리"
+
+#: loggers/class-options-logger.php:88
+msgid "Writing Settings Page"
+msgstr "글쓰기 설정 페이지"
+
+#: loggers/class-options-logger.php:87
+msgid "Writing"
+msgstr "글쓰기"
+
+#: loggers/class-options-logger.php:83
+msgid "Site Language"
+msgstr "사이트 언어"
+
+#: loggers/class-options-logger.php:82
+msgid "Week Starts On"
+msgstr "주 시작일"
+
+#: loggers/class-options-logger.php:81
+msgid "Time Format"
+msgstr "시간 형식"
+
+#: loggers/class-options-logger.php:80
+msgid "Date Format"
+msgstr "날짜 형식"
+
+#: loggers/class-options-logger.php:79
+msgid "Timezone"
+msgstr "시간대"
+
+#: loggers/class-options-logger.php:78
+msgid "New User Default Role"
+msgstr "새 사용자 기본 역할"
+
+#: loggers/class-options-logger.php:75
+msgid "Anyone can register"
+msgstr "누구나 등록 가능"
+
+#: loggers/class-options-logger.php:73
+msgid "New Email Address"
+msgstr "새 이메일 주소"
+
+#: loggers/class-options-logger.php:72
+msgid "Administration Email Address"
+msgstr "관리 이메일 주소"
+
+#: loggers/class-options-logger.php:71
+msgid "Site Icon"
+msgstr "사이트 아이콘"
+
+#: loggers/class-options-logger.php:70
+msgid "Tagline"
+msgstr "태그 라인"
+
+#: loggers/class-options-logger.php:69
+msgid "Site Title"
+msgstr "사이트 제목"
+
+#: loggers/class-options-logger.php:68
+msgid "Site Address (URL)"
+msgstr "사이트 주소(URL)"
+
+#: loggers/class-options-logger.php:67
+msgid "WordPress Address (URL)"
+msgstr "워드프레스 주소(URL)"
+
+#: loggers/class-options-logger.php:65
+msgid "General Settings Page"
+msgstr "일반 설정 페이지"
+
+#: loggers/class-options-logger.php:25
+msgid "Updated setting \"{option}\" on the \"{option_page}\" settings page"
+msgstr "{option_page} 설정 페이지의 \"{option}\" 설정 업데이트"
+
+#: loggers/class-media-logger.php:309
+msgid "Slug"
+msgstr "슬러그"
+
+#: loggers/class-media-logger.php:301
+msgid "Caption"
+msgstr "캡션"
+
+#: loggers/class-media-logger.php:297
+msgid "Alternative text"
+msgstr "대체 텍스트"
+
+#: loggers/class-media-logger.php:288
+msgid "Changed values"
+msgstr "변경된 값"
+
+#: loggers/class-media-logger.php:34
+msgid "Edited attachment \"{attachment_title}\""
+msgstr "수정된 첨부 파일 \"{attachment_title}\""
+
+#: loggers/class-core-updates-logger.php:28
+msgid "Switched to automatic updates for maintenance and security releases of WordPress only"
+msgstr "워드프레스 유지관리 및 보안 릴리스에 대해서만 자동 업데이트로 전환됨"
+
+#: loggers/class-core-updates-logger.php:27
+msgid "Enabled automatic updates for all new versions of WordPress"
+msgstr "모든 새 버전의 워드프레스에 대해 자동 업데이트 활성화"
+
+#: inc/class-simple-history.php:1014
+msgid "Limit logged login attempts"
+msgstr "로그인 시도 횟수 제한"
+
+#: inc/class-simple-history.php:996 inc/class-simple-history.php:1005
+#: build/index.js:8
+msgid "Configure failed login attempts"
+msgstr "실패한 로그인 시도 구성"
+
+#: dropins/class-action-links-dropin.php:51
+msgid "Go to Simple History"
+msgstr "심플 히스토리로 이동"
+
+#: loggers/class-simple-history-logger.php:320
+msgid "Detective Mode enabled"
+msgstr "탐정 모드 활성"
+
+#: dropins/class-detective-mode-dropin.php:89
+msgid "Read more about detective mode"
+msgstr "탐정 모드에 대해 자세히 알아보기"
+
+#: dropins/class-detective-mode-dropin.php:84
+msgid "While particularly useful for developers and administrators seeking to understand complex interactions or resolve issues, please note that enabling this feature may increase the volume of logged data."
+msgstr "복잡한 상호작용을 이해하거나 문제를 해결하려는 개발자와 관리자에게 특히 유용하지만, 이 기능을 활성화하면 기록되는 데이터의 양이 늘어날 수 있다는 점에 유의하세요."
+
+#: dropins/class-detective-mode-dropin.php:75
+msgid "When enabled, Detective Mode captures in-depth data for each event, including the current <code>$_GET</code>, <code>$_POST</code> values, the current filter name, and much more."
+msgstr "탐정 모드를 활성화하면 현재 <code>$_GET</code>, <code>$_POST</code> 값, 현재 필터 이름 등 각 이벤트에 대한 심층적인 데이터를 캡처합니다."
+
+#: dropins/class-detective-mode-dropin.php:69
+msgid "Enable detective mode"
+msgstr "탐정 모드 활성화"
+
+#: dropins/class-detective-mode-dropin.php:53
+msgid "Detective mode"
+msgstr "탐정 모드"
+
+#: loggers/class-user-logger.php:78
+msgctxt "A role is removed from a user"
+msgid "Removed role(s) \"{roles}\" from user \"{edited_user_login}\""
+msgstr "사용자 \"{edited_user_login}\"으로부터 \"{roles}\" 역할이 제거됨"
+
+#: loggers/class-user-logger.php:73
+msgctxt "A role is added to a user"
+msgid "Added role(s) \"{roles}\" to user \"{edited_user_login}\""
+msgstr "사용자 \"{edited_user_login}\"에게 \"{roles}\" 역할이 추가됨"
+
+#: loggers/class-user-logger.php:1228
+msgid "Role removed"
+msgstr "역할 제거"
+
+#: loggers/class-user-logger.php:1215
+msgid "Role added"
+msgstr "역할 추가됨"
+
+#. translators: %s is the slug of the sub tab
+#: inc/services/class-setup-settings-page.php:680
+msgid "Function not found for sub tab \"%1$s\"."
+msgstr "하위 탭 \"%1$s\"에 대한 기능을 찾을 수 없습니다."
+
+#: loggers/class-post-logger.php:1656
+msgid "Removed term"
+msgid_plural "Removed terms"
+msgstr[0] "제거된 용어"
+
+#: loggers/class-post-logger.php:1649
+msgid "Added term"
+msgid_plural "Added terms"
+msgstr[0] "추가된 용어"
+
+#: inc/services/class-setup-database.php:483
+msgid "If you have multiple users working on this website, you'll find Simple History especially useful . It logs events from all users, providing a centralized view of what's happening. This makes it easy for you to see and understand the activities of other users on the same website."
+msgstr "이 웹사이트에서 여러 사용자가 작업하는 경우 심플 히스토리가 특히 유용할 것입니다. 모든 사용자의 이벤트를 기록하여 무슨 일이 일어나고 있는지 중앙에서 한 눈에 볼 수 있습니다. 따라서 같은 웹사이트에 있는 다른 사용자의 활동을 쉽게 보고 이해할 수 있습니다."
+
+#: inc/services/class-setup-database.php:477
+msgid "As your users work on this site, this feed will update to contain information about their actions. Page edits, attachment uploads, plugin updates, user logins, site settings changes, and much more will show up in this log."
+msgstr "사용자들이 이 사이트에서 작업할 때, 이 피드는 그들의 작업에 대한 정보를 포함하도록 업데이트됩니다. 페이지 편집, 첨부 파일 업로드, 플러그인 업데이트, 사용자 로그인, 사이트 설정 변경 등 다양한 작업이 이 로그에 표시됩니다."
+
+#: inc/services/class-setup-database.php:471
+msgid "Simple History has been successfully installed on your WordPress site and is active and ready to log important changes on your website"
+msgstr "심플 히스토리가 워드프레스 사이트에 성공적으로 설치되었으며 활성화되어 웹사이트의 중요한 변경 사항을 기록할 준비가 되었습니다."
+
+#: inc/services/class-plugin-list-info.php:44
+msgid "Add licence key to enable updates"
+msgstr "라이선스 키를 추가하여 업데이트 활성화"
+
+#: inc/services/class-licences-settings-page.php:295
+msgid "Enter license key..."
+msgstr "라이선스 키 입력..."
+
+#: inc/services/class-licences-settings-page.php:228
+msgid "On multisite installations you enter the licence keys on the main site."
+msgstr "다중 사이트 설치의 경우 기본 사이트에 라이선스 키를 입력합니다."
+
+#. translators: 1: link start tag, 2: link end tag
+#: inc/services/class-licences-settings-page.php:406
+msgid "Manage subscriptions and billing for your add-ons at the %1$sCustomer portal%2$s."
+msgstr "%1$s고객 포털%2$s에서 추가 기능에 대한 구독 및 청구를 관리하세요."
+
+#. translators: 1: link start tag, 2: link end tag
+#: inc/services/class-licences-settings-page.php:395
+msgid "Manage licences and download your add-ons at the %1$sMy orders%2$s page."
+msgstr "%1$s내 주문%2$s 페이지에서 라이선스를 관리하고 추가 기능을 다운로드하세요."
+
+#. translators: 1: link to plus plugins page, 2: link text
+#: inc/services/class-licences-settings-page.php:154
+msgid "Don't have any add-ons yet? Visit <a href=\"%1$s\" class=\"sh-ExternalLink\" target=\"_blank\">%2$s</a> to see available add-ons."
+msgstr "아직 애드온이 없으신가요? <a href=\"%1$s\" class=\"sh-ExternalLink\" target=\"_blank\">%2$s</a>를 방문하여 사용 가능한 추가 기능을 확인하세요."
+
+#: inc/services/class-licences-settings-page.php:131
+msgid "Sites and Billing"
+msgstr "사이트 및 청구"
+
+#: inc/services/class-licences-settings-page.php:114
+msgid "License information for add-ons"
+msgstr "애드온 라이선스 정보"
+
+#: inc/services/class-dashboard-widget.php:43
+msgid "Settings & Tools"
+msgstr "설정 및 도구"
+
+#: dropins/class-import-dropin.php:52
+msgid "New"
+msgstr "신규"
+
+#: inc/class-helpers.php:922
+msgid "Add-ons"
+msgstr "애드온"
+
+#: templates/settings-tab-debug.php:447
+msgctxt "debug dropin"
+msgid "Disabled"
+msgstr "비활성"
+
+#: templates/settings-tab-debug.php:447
+msgctxt "debug dropin"
+msgid "Enabled"
+msgstr "활성"
+
+#: templates/settings-tab-debug.php:395
+msgctxt "debug dropin"
+msgid "Status"
+msgstr "상태"
+
+#: inc/services/class-setup-settings-page.php:281
+msgid "Items per page"
+msgstr "페이지당 항목"
+
+#: inc/services/class-licences-settings-page.php:306
+msgid "License key is <strong>active</strong>. "
+msgstr "라이선스 키는 <strong>활성</strong>입니다. "
+
+#: inc/services/class-licences-settings-page.php:331
+msgid "No license found."
+msgstr "라이선스를 찾을 수 없습니다."
+
+#: inc/services/class-licences-settings-page.php:144
+msgid "Enter your license key(s) to activate and retrieve updates for your add-on plugins."
+msgstr "라이선스 키를 입력하여 애드온 플러그인의 업데이트를 활성화하고 검색하세요."
+
+#: inc/services/class-licences-settings-page.php:122
+msgid "License Keys"
+msgstr "라이선스 키"
+
+#: inc/services/class-licences-settings-page.php:89
+#: inc/services/class-licences-settings-page.php:90
+msgid "Licences"
+msgstr "라이선스"
+
+#: inc/class-addon-plugin.php:151 inc/class-addon-plugin.php:160
+#: build/index.js:20
+msgid "Unknown error"
+msgstr "알 수 없는 오류"
+
+#: dropins/class-export-dropin.php:118
+msgid "Export history"
+msgstr "내보내기 내역"
+
+#: templates/settings-tab-debug.php:493
+msgctxt "debug dropin"
+msgid "As returned from get_plugins()."
+msgstr "Get_plugins()에서 반환된 값입니다."
+
+#. translators: %d number of dropins loaded.
+#: templates/settings-tab-debug.php:283
+msgctxt "debug dropin"
+msgid "%1$d dropins loaded."
+msgstr "%1$d 드롭인이 로드되었습니다."
+
+#: templates/settings-tab-debug.php:278
+msgctxt "debug dropin"
+msgid "Dropins"
+msgstr "드롭인"
+
+#: templates/settings-tab-debug.php:255 templates/settings-tab-debug.php:299
+msgctxt "debug dropin"
+msgid "Namespaced name"
+msgstr "네임스페이스 이름"
+
+#: templates/settings-tab-debug.php:254 templates/settings-tab-debug.php:298
+msgctxt "debug dropin"
+msgid "Short name"
+msgstr "짧은 이름"
+
+#. translators: %d number of dropins loaded.
+#: templates/settings-tab-debug.php:239
+msgctxt "debug dropin"
+msgid "%1$d services loaded."
+msgstr "%1$d 서비스가 로드되었습니다."
+
+#: templates/settings-tab-debug.php:234
+msgctxt "debug dropin"
+msgid "Services"
+msgstr "서비스"
+
+#: templates/settings-tab-debug.php:105
+msgctxt "debug dropin"
+msgid "No tables found."
+msgstr "테이블을 찾을 수 없습니다."
+
+#. translators: %s table name.
+#: templates/settings-tab-debug.php:47
+msgctxt "debug dropin"
+msgid "Required table \"%s\" does not exist."
+msgstr "필수 테이블 \"%s\"이(가) 없습니다."
+
+#: loggers/class-simple-history-logger.php:35
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Removed {num_rows} events that were older than {days} days"
+msgstr "{days}일보다 오래된 {num_rows} 이벤트를 제거했습니다."
+
+#. translators: 1 is a link to the WordPress.org plugin review page for Simple
+#. History.
+#: dropins/class-donate-dropin.php:62
+msgid "Consider giving Simple History <a href=\"%1$s\" target=\"_blank\">a nice review at WordPress.org</a> if you find it useful."
+msgstr "심플 히스토리가 유용하다고 생각되면 워드프레스닷컴에서 <a href=\"%1$s\" target=\"_blank\">심플 히스토리</a>에 좋은 리뷰를 남겨 주세요."
+
+#: loggers/class-simple-history-logger.php:324
+msgid "Changed items"
+msgstr "변경된 항목"
+
+#: loggers/class-simple-history-logger.php:34
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Cleared the log for Simple History ({num_rows_deleted} rows were removed)"
+msgstr "심플 히스토리에 대한 로그를 지웠습니다({num_rows_deleted} 행이 제거됨)."
+
+#: loggers/class-simple-history-logger.php:33
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Regenerated RSS feed secret"
+msgstr "재생성된 RSS 피드 비밀"
+
+#: loggers/class-simple-history-logger.php:32
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Modified settings"
+msgstr "수정된 설정"
+
+#: loggers/class-simple-history-logger.php:29
+msgid "Logs changes made on the Simple History settings page."
+msgstr "심플 히스토리 설정 페이지에서 변경한 내용을 기록합니다."
+
+#: loggers/class-simple-history-logger.php:28
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Using plugin Simple History"
+msgstr "플러그인 심플 히스토리 사용"
+
+#: loggers/class-simple-history-logger.php:27
+msgctxt "Logger: SimpleHistoryLogger"
+msgid "Simple History Logger"
+msgstr "심플 히스토리 로거"
+
+#: inc/services/class-setup-settings-page.php:189
+#: inc/services/class-setup-settings-page.php:211
+#: loggers/class-options-logger.php:64
+msgid "General"
+msgstr "일반"
+
+#. translators: %s is a link to the documentation
+#: dropins/class-rss-dropin.php:492
+msgid "Query parameters can be used to control what to include in the feed. <a href=\"%1$s\" class=\"sh-ExternalLink\" target=\"_blank\">View documentation</a>."
+msgstr "쿼리 매개변수를 사용하여 피드에 포함할 내용을 제어할 수 있습니다. <a href=\"%1$s\" class=\"sh-ExternalLink\" target=\"_blank\">문서 보기</a>."
+
+#: loggers/class-simple-history-logger.php:316
+msgid "RSS feed enabled"
+msgstr "RSS 피드 활성화"
+
+#: loggers/class-simple-history-logger.php:312
+msgid "Items on dashboard"
+msgstr "대시보드의 항목"
+
+#: loggers/class-simple-history-logger.php:308
+msgid "Items on page"
+msgstr "패이지당 항목"
+
+#: loggers/class-simple-history-logger.php:304
+msgid "Show as a page"
+msgstr "페이지로 표시"
+
+#: loggers/class-simple-history-logger.php:300
+msgid "Show on dashboard"
+msgstr "대시보드에 표시"
+
+#. translators: %s post title with link.
+#: loggers/class-options-logger.php:501 loggers/class-options-logger.php:526
+msgid "Page %s"
+msgstr "%s 페이지"
+
+#: loggers/class-privacy-logger.php:48
+msgctxt "Logger: Privacy"
+msgid "Marked personal data erasure request as complete for \"{user_email}\""
+msgstr "\"{user_email}\"에 대한 개인 데이터 삭제 요청이 완료된 것으로 표시됨"
+
+#: loggers/class-privacy-logger.php:44
+msgctxt "Logger: Privacy"
+msgid "Marked personal data export request as complete for \"{request_email}\""
+msgstr "\"{request_email}\"에 대한 개인 데이터 내보내기 요청이 완료된 것으로 표시됨"
+
+#: loggers/class-plugin-redirection-logger.php:40
+msgctxt "Logger: Redirection"
+msgid "Edited redirection group \"{prev_group_name}\""
+msgstr "리디렉션 그룹 \"{prev_group_name}\" 편집됨"
+
+#. translators: 1: dropin class name.
+#: inc/services/class-dropins-loader.php:59
+msgid "A dropin was not found. Classname was \"%1$s\"."
+msgstr "드롭인을 찾을 수 없습니다. 클래스 이름이 \"%1$s\"입니다."
+
+#. translators: 1: logger slug.
+#: inc/services/class-loggers-loader.php:119
+msgid "Logger %1$s is missing a name."
+msgstr "로거 %1$s에 이름이 없습니다."
+
+#: inc/services/class-loggers-loader.php:108
+msgid "A logger is missing a slug."
+msgstr "로거에 슬러그가 누락되었습니다."
+
+#. translators: 1: logger slug, 2: logger name.
+#: inc/services/class-loggers-loader.php:96
+msgid "A logger slug can be max 30 chars long. Slug %1$s of logger %2$s is to long."
+msgstr "로거 슬러그의 길이는 최대 30자까지 가능합니다. 로거 %2$s의 슬러그 %1$s가 너무 깁니다."
+
+#: loggers/class-plugin-wp-crontrol-logger.php:35
+msgctxt "PluginWPCrontrolLogger"
+msgid "Resumed the \"{event_hook}\" cron event hook"
+msgstr "\"{event_hook}\" cron 이벤트 후크를 다시 시작했습니다"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:34
+msgctxt "PluginWPCrontrolLogger"
+msgid "Paused the \"{event_hook}\" cron event hook"
+msgstr "\"{event_hook}\" cron 이벤트 후크 일시 중지"
+
+#: inc/class-stats-view.php:767
+msgid "Deleted"
+msgstr "삭제"
+
+#: inc/channels/class-alert-field-registry.php:136
+msgid "User ID"
+msgstr "사용자 ID"
+
+#: loggers/class-media-logger.php:305 build/index-admin-bar.js:4
+#: build/index.js:6
+msgid "Description"
+msgstr "설명"
+
+#: loggers/class-theme-logger.php:51
+msgid "Logs theme edits"
+msgstr "로그 테마 편집"
+
+#: loggers/class-theme-logger.php:50
+msgid "Theme Logger"
+msgstr "테마 로거"
+
+#: loggers/class-post-logger.php:36
+msgid "Logs the creation and modification of posts and pages"
+msgstr "게시물 및 페이지의 생성 및 수정을 기록합니다."
+
+#: loggers/class-post-logger.php:35
+msgid "Post Logger"
+msgstr "게시물 로거"
+
+#: loggers/class-plugin-logger.php:70
+msgid "Logs plugin installs, uninstalls and updates"
+msgstr "로그 플러그인 설치, 제거 및 업데이트"
+
+#: loggers/class-plugin-logger.php:69
+msgid "Plugin Logger"
+msgstr "플러그인 로거"
+
+#: loggers/class-options-logger.php:22
+msgid "Logs updates to WordPress settings"
+msgstr "워드프레스 설정 업데이트를 기록합니다."
+
+#: loggers/class-options-logger.php:21
+msgid "Options Logger"
+msgstr "옵션 로거"
+
+#: loggers/class-menu-logger.php:23
+msgid "Logs menu edits"
+msgstr "로그 메뉴 편집"
+
+#: loggers/class-menu-logger.php:22
+msgid "Menu Logger"
+msgstr "메뉴 로거"
+
+#: loggers/class-simple-logger.php:27
+msgid "The built in logger for Simple History"
+msgstr "심플 히스토리용 내장 로거"
+
+#: loggers/class-core-updates-logger.php:20
+msgid "Logs the update of WordPress (manual and automatic updates)"
+msgstr "워드프레스 업데이트 기록(수동 및 자동 업데이트)"
+
+#: loggers/class-core-updates-logger.php:19
+msgid "Core Updates Logger"
+msgstr "핵심 업데이트 로거"
+
+#: loggers/class-comments-logger.php:24
+msgid "Logs comments, and modifications to them"
+msgstr "주석 및 수정 사항을 기록합니다."
+
+#: loggers/class-comments-logger.php:23
+msgid "Comments Logger"
+msgstr "댓글 로거"
+
+#: loggers/class-categories-logger.php:22
+msgid "Logs changes to categories, tags, and taxonomies"
+msgstr "범주, 태그 및 분류에 대한 변경 사항을 기록합니다."
+
+#: loggers/class-plugin-redirection-logger.php:28
+msgctxt "Logger: Redirection"
+msgid "Logs edits in the Redirection plugin"
+msgstr "리디렉션 플러그인에서 편집 내용을 기록합니다."
+
+#: loggers/class-plugin-redirection-logger.php:27
+msgctxt "Logger: Redirection"
+msgid "Plugin: Redirection Logger"
+msgstr "플러그인: Redirection 로거"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:22
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Plugin: Limit Login Attempts Logger"
+msgstr "플러그인: Limit Login Attempts 로거"
+
+#: loggers/class-plugin-duplicate-post-logger.php:25
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Plugin: Duplicate Posts Logger"
+msgstr "플러그인: Duplicate Posts 로거"
+
+#: loggers/class-plugin-beaver-builder-logger.php:19
+msgctxt "Logger: Plugin Beaver Builder"
+msgid "Plugin: Beaver Builder Logger"
+msgstr "플러그인: Beaver Builder 로거"
+
+#: loggers/class-plugin-acf-logger.php:53
+msgctxt "Logger: Plugin ACF"
+msgid "Plugin: Advanced Custom Fields Logger"
+msgstr "플러그인: Advanced Custom Fields 로거"
+
+#: loggers/class-file-edits-logger.php:21
+msgid "Logs edits to theme and plugin files"
+msgstr "테마 및 플러그인 파일에 대한 편집 기록"
+
+#: loggers/class-file-edits-logger.php:20
+msgctxt "Logger: FileEditsLogger"
+msgid "File edits Logger"
+msgstr "파일 편집 로거"
+
+#: loggers/class-translations-logger.php:24
+msgctxt "Logger: Translations"
+msgid "Translation Logger"
+msgstr "번역 로거"
+
+#: loggers/class-privacy-logger.php:34
+msgctxt "Logger: privacy"
+msgid "Privacy Logger"
+msgstr "프라이버시 로거"
+
+#: loggers/class-plugin-jetpack-logger.php:24
+msgctxt "Logger: Jetpack"
+msgid "Plugin: Jetpack Logger"
+msgstr "플러그인: Jetpack 로거"
+
+#: loggers/class-available-updates-logger.php:25
+msgid "Logs found updates to WordPress, plugins, and themes"
+msgstr "워드프레스, 플러그인 및 테마에 대한 업데이트를 찾은 로그"
+
+#: loggers/class-available-updates-logger.php:23
+msgctxt "AvailableUpdatesLogger"
+msgid "Available Updates Logger"
+msgstr "사용 가능한 업데이트 로거"
+
+#: loggers/class-user-logger.php:1098 loggers/class-user-logger.php:1105
+msgid "Site Default"
+msgstr "사이트 기본값"
+
+#: loggers/class-user-logger.php:1043
+msgctxt "User logger"
+msgid "Language"
+msgstr "언어"
+
+#: loggers/class-user-logger.php:1040
+msgctxt "User logger"
+msgid "Don't show"
+msgstr "보이지 않기"
+
+#: loggers/class-user-logger.php:1039
+msgctxt "User logger"
+msgid "Show"
+msgstr "보기"
+
+#: loggers/class-user-logger.php:1037
+msgctxt "User logger"
+msgid "Toolbar"
+msgstr "도구 모음"
+
+#: loggers/class-user-logger.php:1025 loggers/class-user-logger.php:1034
+msgctxt "User logger"
+msgid "Disable"
+msgstr "비활성"
+
+#: loggers/class-user-logger.php:1024 loggers/class-user-logger.php:1033
+msgctxt "User logger"
+msgid "Enable"
+msgstr "활성"
+
+#: loggers/class-user-logger.php:135
+msgctxt "User logger: search"
+msgid "User application password deletion"
+msgstr "사용자 애플리케이션 비밀번호 삭제"
+
+#: loggers/class-user-logger.php:132
+msgctxt "User logger: search"
+msgid "User application password created"
+msgstr "사용자 애플리케이션 비밀번호 생성됨"
+
+#: loggers/class-user-logger.php:126
+msgctxt "User logger: search"
+msgid "User role changes"
+msgstr "사용자 역할 변경"
+
+#: loggers/class-user-logger.php:93
+msgctxt "User revoke application password"
+msgid "Revoked application password \"{application_password_name}\" for user \"{edited_user_login}\""
+msgstr "사용자 \"{edited_user_login}\"의 애플리케이션 비밀번호 \"{application_password_name}\"이 해지되었습니다."
+
+#: loggers/class-user-logger.php:88
+msgctxt "User add new application password"
+msgid "Added application password \"{application_password_name}\" for user \"{edited_user_login}\""
+msgstr "사용자 \"{edited_user_login}\"에 대한 애플리케이션 암호 \"{application_password_name}\"을(를) 추가했습니다."
+
+#: loggers/class-user-logger.php:68
+msgctxt "User updates the role for a user"
+msgid "Changed role for user \"{edited_user_login}\" to \"{new_role}\" from \"{old_role}\""
+msgstr "\"{edited_user_login}\" 사용자의 역할이 \"{old_role}\"에서 \"{new_role}\"(으)로 변경됨"
+
+#: loggers/class-user-logger.php:83
+msgctxt "User clicks confirm admin email on admin email confirm screen"
+msgid "Verified that administration email for website is correct"
+msgstr "웹사이트의 관리 이메일이 올바른지 확인했습니다."
+
+#: loggers/class-theme-logger.php:56
+msgid "Deleted theme \"{theme_name}\""
+msgstr "삭제된 테마 \"{theme_name}\""
+
+#: loggers/class-theme-logger.php:55
+msgid "Installed theme \"{theme_name}\" by {theme_author}"
+msgstr "{theme_author}님이 설치한 \"{theme_name}\" 테마"
+
+#: loggers/class-media-logger.php:161
+msgid "Uploaded {post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a> to {attachment_parent_post_type} \"{attachment_parent_title}\""
+msgstr "{post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a>을(를) {attachment_parent_post_type} \"{attachment_parent_title}\"에 업로드했습니다."
+
+#: loggers/class-media-logger.php:158
+msgid "Uploaded {post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a> to {attachment_parent_post_type} <a href=\"{attachment_parent_edit_link}\">\"{attachment_parent_title}\"</a>"
+msgstr "{post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a>을 {attachment_parent_post_type} <a href=\"{attachment_parent_edit_link}\">\"{attachment_parent_title}\"</a>에 업로드했습니다."
+
+#: loggers/class-media-logger.php:30
+msgid "Logs media uploads and edits"
+msgstr "미디어 업로드 및 편집 기록"
+
+#: loggers/class-media-logger.php:29
+msgid "Media/Attachments Logger"
+msgstr "미디어/첨부 파일 로거"
+
+#. translators: %s list of links to ipinfo.io with IP:s as link labels.
+#: loggers/class-logger.php:615
+msgid "IP Addresses %1$s"
+msgstr "IP 주소 %1$s"
+
+#. translators: %s link to ipinfo.io with first IP as link label.
+#: loggers/class-logger.php:587
+msgid "IP Address %1$s"
+msgstr "IP 주소 %1$s"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:461
+msgctxt "PluginWPCrontrolLogger"
+msgid "Display Name"
+msgstr "이름 표시"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:453
+msgctxt "PluginWPCrontrolLogger"
+msgid "Interval"
+msgstr "간격"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:445
+msgctxt "PluginWPCrontrolLogger"
+msgid "Name"
+msgstr "이름"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:409
+#: loggers/class-plugin-wp-crontrol-logger.php:416
+msgctxt "PluginWPCrontrolLogger"
+msgid "Recurrence"
+msgstr "회귀"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:389
+#: loggers/class-plugin-wp-crontrol-logger.php:396
+msgctxt "PluginWPCrontrolLogger"
+msgid "Next Run"
+msgstr "다음 실행"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:364
+#: loggers/class-plugin-wp-crontrol-logger.php:376
+msgctxt "PluginWPCrontrolLogger"
+msgid "Arguments"
+msgstr "인수"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:350
+msgctxt "PluginWPCrontrolLogger"
+msgid "Hook"
+msgstr "훅"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:89
+#: loggers/class-plugin-wp-crontrol-logger.php:150
+#: loggers/class-plugin-wp-crontrol-logger.php:248
+#: loggers/class-plugin-wp-crontrol-logger.php:258
+#: loggers/class-plugin-wp-crontrol-logger.php:372
+msgctxt "PluginWPCrontrolLogger"
+msgid "None"
+msgstr "없음"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:38
+msgctxt "PluginWPCrontrolLogger"
+msgid "Deleted cron schedule \"{schedule_name}\""
+msgstr "삭제된 Cron 일정 \"{schedule_name}\""
+
+#: loggers/class-plugin-wp-crontrol-logger.php:37
+msgctxt "PluginWPCrontrolLogger"
+msgid "Added cron schedule \"{schedule_name}\""
+msgstr "Cron 일정 \"{schedule_name}\" 추가됨"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:36
+msgctxt "PluginWPCrontrolLogger"
+msgid "Edited cron event \"{event_hook}\""
+msgstr "수정된 Cron 이벤트 \"{event_hook}\""
+
+#: loggers/class-plugin-wp-crontrol-logger.php:33
+msgctxt "PluginWPCrontrolLogger"
+msgid "Deleted all \"{event_hook}\" cron events"
+msgstr "모든 \"{event_hook}\" Cron 이벤트 삭제"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:32
+msgctxt "PluginWPCrontrolLogger"
+msgid "Deleted cron event \"{event_hook}\""
+msgstr "삭제된 Cron 이벤트 \"{event_hook}\""
+
+#: loggers/class-plugin-wp-crontrol-logger.php:31
+msgctxt "PluginWPCrontrolLogger"
+msgid "Manually ran cron event \"{event_hook}\""
+msgstr "Cron 이벤트 \"{event_hook}\" 수동 실행"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:30
+msgctxt "PluginWPCrontrolLogger"
+msgid "Added cron event \"{event_hook}\""
+msgstr "Cron 이벤트 \"{event_hook}\" 추가"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:27
+msgctxt "PluginWPCrontrolLogger"
+msgid "Using plugin WP Crontrol"
+msgstr "플러그인 WP Cronrol 사용"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:26
+msgctxt "PluginWPCrontrolLogger"
+msgid "Logs management of cron events"
+msgstr "Cron 이벤트 로그 관리"
+
+#: loggers/class-plugin-wp-crontrol-logger.php:25
+msgctxt "PluginWPCrontrolLogger"
+msgid "Plugin: WP Crontrol Logger"
+msgstr "플러그인: WP Cronrol 로거"
+
+#: loggers/class-plugin-logger.php:141
+msgctxt "Plugin was enabled for auto-updates"
+msgid "Disabled auto-updates for plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인 자동 업데이트를 활성 해제하기"
+
+#: loggers/class-plugin-logger.php:136
+msgctxt "Plugin was enabled for auto-updates"
+msgid "Enabled auto-updates for plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인 자동 업데이트를 활성화하기"
+
+#: loggers/class-plugin-beaver-builder-logger.php:44
+msgid "Beaver Builder settings saved"
+msgstr "Beaver Builder 설정을 저장했어요"
+
+#: loggers/class-plugin-beaver-builder-logger.php:40
+msgid "Draft \"{layout_name}\" updated"
+msgstr "“{layout_name}” 초안을 업데이트했어요"
+
+#: loggers/class-plugin-beaver-builder-logger.php:36
+msgid "Template \"{layout_name}\" updated"
+msgstr "“{layout_name}” 템플릿을 업데이트했어요"
+
+#: loggers/class-plugin-beaver-builder-logger.php:32
+msgid "Layout \"{layout_name}\" updated"
+msgstr "“{layout_name}” 래이아웃을 업데이트했어요"
+
+#: loggers/class-plugin-beaver-builder-logger.php:25
+msgctxt "Logger: Plugin Beaver Builder"
+msgid "Using plugin Beaver Builder"
+msgstr "Beaver Builder 플러그인 사용"
+
+#: loggers/class-plugin-beaver-builder-logger.php:20
+msgctxt "Logger: Plugin Beaver Builder"
+msgid "Logs various things in Beaver Builder"
+msgstr "Beaver Builder의 다양한 것을 기록해요"
+
+#: inc/services/class-setup-database.php:426
+msgid "Welcome to Simple History! This is the event history feed. It will contain events that this plugin has logged."
+msgstr "심플 히스토리에 오신 것을 환영합니다! 이벤트 기록 피드입니다. 여기에는 이 플러그인이 로깅한 이벤트가 포함됩니다."
+
+#: loggers/class-categories-logger.php:39
+msgctxt "Category logger: search"
+msgid "Term edited"
+msgstr "조건을 수정했어요"
+
+#: loggers/class-categories-logger.php:36
+msgctxt "Category logger: search"
+msgid "Term deleted"
+msgstr "조건을 지웠어요"
+
+#: loggers/class-categories-logger.php:33
+msgctxt "Category logger: search"
+msgid "Term created"
+msgstr "조건을 만들었어요"
+
+#: loggers/class-categories-logger.php:31
+msgctxt "Category logger: search"
+msgid "All category activity"
+msgstr "모든 카테고리 활동"
+
+#: loggers/class-categories-logger.php:30
+msgctxt "Categories logger: search"
+msgid "Categories"
+msgstr "카테고리"
+
+#: templates/settings-tab-debug.php:523
+msgctxt "debug dropin"
+msgid "No"
+msgstr "아니오"
+
+#: templates/settings-tab-debug.php:523
+msgctxt "debug dropin"
+msgid "Yes"
+msgstr "네"
+
+#: templates/settings-tab-debug.php:491
+msgctxt "debug dropin"
+msgid "Plugins"
+msgstr "플러그인"
+
+#: templates/settings-tab-debug.php:444
+msgctxt "debug dropin"
+msgid "No message strings"
+msgstr "안내문 문자열을 없어요"
+
+#: templates/settings-tab-debug.php:86
+msgctxt "debug dropin"
+msgid "Database size"
+msgstr "데이터베이스 크기"
+
+#: loggers/class-translations-logger.php:28
+msgctxt "Logger: Translations"
+msgid "Updated translations for \"{name}\" ({language})"
+msgstr "“{name}” ({language})에 대한 번역을 업데이트했어요"
+
+#: loggers/class-translations-logger.php:25
+msgctxt "Logger: Translations"
+msgid "Log WordPress translation related things"
+msgstr "워드프레스 번역 관련사항 기록"
+
+#: loggers/class-plugin-jetpack-logger.php:30
+msgctxt "Logger: Jetpack"
+msgid "Deactivated Jetpack module \"{module_name}\""
+msgstr "“{module_name}” Jetpack 모듈을 활성 해제했어요"
+
+#: loggers/class-plugin-jetpack-logger.php:29
+msgctxt "Logger: Jetpack"
+msgid "Activated Jetpack module \"{module_name}\""
+msgstr "“{module_name}” Jetpack 모듈을 활성화했어요"
+
+#: loggers/class-plugin-jetpack-logger.php:27
+msgctxt "Logger: Jetpack"
+msgid "Using plugin Jetpack"
+msgstr "Jetpack 플러그인 이용"
+
+#: loggers/class-plugin-jetpack-logger.php:25
+msgctxt "Logger: Jetpack"
+msgid "Log Jetpack settings changes"
+msgstr "Jetpack 설정 변경 사항 기록하기"
+
+#: loggers/class-privacy-logger.php:49
+msgctxt "Logger: Privacy"
+msgid "Removed personal data removal request for \"{user_email}\""
+msgstr "“{user_email}”에 대한 개인적인 자료 제거 요청을 제거했어요"
+
+#: loggers/class-privacy-logger.php:50
+msgctxt "Logger: Privacy"
+msgid "Erased personal data for \"{user_email}\""
+msgstr "“{user_email}”에 대한 개인적인 자료를 지웠어요"
+
+#: loggers/class-privacy-logger.php:47
+msgctxt "Logger: Privacy"
+msgid "Confirmed personal data erasure request for \"{user_email}\""
+msgstr "\"{user_email}\"에 대한 개인 데이터 삭제 요청이 확인되었습니다."
+
+#: loggers/class-privacy-logger.php:46
+msgctxt "Logger: Privacy"
+msgid "Added personal data erasure request for \"{user_email}\""
+msgstr "\"{user_email}\"에 대한 개인 데이터 삭제 요청 추가"
+
+#: loggers/class-privacy-logger.php:45
+msgctxt "Logger: Privacy"
+msgid "Removed data export request for \"{user_email}\""
+msgstr "“{user_email}”에 대한 자료 내보내기 요청을 제거했어요"
+
+#: loggers/class-privacy-logger.php:43
+msgctxt "Logger: Privacy"
+msgid "Confirmed personal data export request for \"{user_email}\""
+msgstr "\"{user_email}\"에 대한 개인 데이터 내보내기 요청을 확인했습니다."
+
+#: loggers/class-privacy-logger.php:42
+msgctxt "Logger: Privacy"
+msgid "Sent email with personal data export download info for user \"{user_email}\""
+msgstr "“{user_email}” 사용자에 대한 개인적인 자료 내보내기 내려받기를 이메일로 보냈어요"
+
+#: loggers/class-privacy-logger.php:41
+msgctxt "Logger: Privacy"
+msgid "Downloaded personal data export file for user \"{user_email}\""
+msgstr "“{user_email}” 사용자에 대한 개인적인 자료 내보내기 파일을 요청했어요"
+
+#: loggers/class-privacy-logger.php:40
+msgctxt "Logger: Privacy"
+msgid "Requested a personal privacy data export for user \"{user_email}\""
+msgstr "사용자 \"{user_email}\"에 대한 개인 정보 데이터 내보내기를 요청했습니다."
+
+#: loggers/class-privacy-logger.php:39
+msgctxt "Logger: Privacy"
+msgid "Set privacy page to page \"{new_post_title}\""
+msgstr "비공개 페이지를 “{new_post_title}” 페이지로 설정했어요"
+
+#: loggers/class-privacy-logger.php:38
+msgctxt "Logger: Privacy"
+msgid "Created a new privacy page \"{new_post_title}\""
+msgstr "새로운 “{new_post_title}” 비공개 페이지를 만들었어요"
+
+#: loggers/class-privacy-logger.php:35
+msgctxt "Logger: Privacy"
+msgid "Log WordPress privacy related things"
+msgstr "워드프레스 비공개 관련사항 기록"
+
+#: loggers/class-plugin-redirection-logger.php:392
+msgctxt "Logger: Redirection"
+msgid "Target"
+msgstr "대상"
+
+#: loggers/class-plugin-redirection-logger.php:375
+msgctxt "Logger: Redirection"
+msgid "Source URL"
+msgstr "원본 URL"
+
+#: loggers/class-plugin-redirection-logger.php:43
+msgctxt "Logger: Redirection"
+msgid "Deleted {items_count} redirection group(s)"
+msgstr "{items_count}개의 전환 그룹을 지웠어요"
+
+#: loggers/class-plugin-redirection-logger.php:42
+msgctxt "Logger: Redirection"
+msgid "Disabled {items_count} redirection group(s)"
+msgstr "{items_count}개의 전환 그룹을 활성 해제했어요"
+
+#: loggers/class-plugin-redirection-logger.php:41
+msgctxt "Logger: Redirection"
+msgid "Enabled {items_count} redirection group(s)"
+msgstr "{items_count}개의 전환 그룹을 활성화했어요"
+
+#: loggers/class-plugin-redirection-logger.php:39
+msgctxt "Logger: Redirection"
+msgid "Added redirection group \"{group_name}\""
+msgstr "“{group_name}” 전환 그룹을 추가했어요"
+
+#: loggers/class-plugin-redirection-logger.php:37
+msgctxt "Logger: Redirection"
+msgid "Updated redirection options"
+msgstr "전환 옵션을 업데이트했어요"
+
+#: loggers/class-categories-logger.php:266
+msgctxt "Categories logger: detailed plain text output for edited term"
+msgid "Edited term <a href=\"{term_edit_link}\">\"{to_term_name}\"</a> in taxonomy <a href=\"{tax_edit_link}\">\"{toTermTaxonomySlugOrName}\"</a>"
+msgstr "<a href=\"{term_edit_link}\">“{to_term_name}”</a> 조건을 <a href=\"{tax_edit_link}\">“{toTermTaxonomySlugOrName}”</a> 분류체계에서 편집했어요"
+
+#: loggers/class-categories-logger.php:260
+msgctxt "Categories logger: detailed plain text output for deleted term"
+msgid "Deleted term \"{term_name}\" from taxonomy <a href=\"{tax_edit_link}\">\"{termTaxonomySlugOrName}\"</a>"
+msgstr "“{term_name}” 조건을 <a href=\"{tax_edit_link}\">“{termTaxonomySlugOrName}”</a> 분류체계에서 지웠어요"
+
+#: loggers/class-categories-logger.php:254
+msgctxt "Categories logger: detailed plain text output for created term"
+msgid "Added term <a href=\"{term_edit_link}\">\"{term_name}\"</a> in taxonomy <a href=\"{tax_edit_link}\">\"{termTaxonomySlugOrName}\"</a>"
+msgstr "<a href=\"{term_edit_link}\">“{term_name}”</a>조건을 <a href=\"{tax_edit_link}\">“{termTaxonomySlugOrName}”</a> 분류체계에서 추가했어요"
+
+#: loggers/class-plugin-acf-logger.php:752
+msgctxt "Logger: Plugin ACF"
+msgid "Modified field"
+msgstr "필드를 수정했습니다"
+
+#. translators: %1$s is the label name.
+#: loggers/class-plugin-acf-logger.php:720
+msgctxt "Logger: Plugin ACF"
+msgid "Label: %1$s"
+msgstr "레이블: %1$s"
+
+#: loggers/class-plugin-acf-logger.php:707
+msgctxt "Logger: Plugin ACF"
+msgid "Type: "
+msgstr "유형:  "
+
+#: loggers/class-plugin-acf-logger.php:704
+msgctxt "Logger: Plugin ACF"
+msgid "Label: "
+msgstr "레이블: "
+
+#: loggers/class-plugin-acf-logger.php:701
+msgctxt "Logger: Plugin ACF"
+msgid "Key: "
+msgstr "키:  "
+
+#: loggers/class-plugin-acf-logger.php:698
+msgctxt "Logger: Plugin ACF"
+msgid "Parent: "
+msgstr "상위:  "
+
+#: loggers/class-plugin-acf-logger.php:695
+msgctxt "Logger: Plugin ACF"
+msgid "Name: "
+msgstr "이름:  "
+
+#: loggers/class-plugin-acf-logger.php:683
+msgctxt "Logger: Plugin ACF"
+msgid "Added field"
+msgid_plural "Added fields"
+msgstr[0] "필드를 추가했습니다"
+
+#: loggers/class-plugin-acf-logger.php:654
+msgctxt "Logger: Plugin ACF"
+msgid "Deleted field"
+msgid_plural "Deleted fields"
+msgstr[0] "필드를 지웠습니다"
+
+#: loggers/class-plugin-acf-logger.php:624
+msgctxt "Logger: Plugin ACF"
+msgid "Hide on screen"
+msgstr "화면에서 숨기기"
+
+#: loggers/class-plugin-acf-logger.php:611
+msgctxt "Logger: Plugin ACF"
+msgid "Unchecked"
+msgstr "체크하지 않았습니다"
+
+#: loggers/class-plugin-acf-logger.php:603
+msgctxt "Logger: Plugin ACF"
+msgid "Checked"
+msgstr "체크했습니다"
+
+#: loggers/class-plugin-acf-logger.php:571
+msgctxt "Logger: Plugin ACF"
+msgid "Style"
+msgstr "서식"
+
+#: loggers/class-plugin-acf-logger.php:568
+msgctxt "Logger: Plugin ACF"
+msgid "Active"
+msgstr "활성화"
+
+#: loggers/class-plugin-acf-logger.php:565
+msgctxt "Logger: Plugin ACF"
+msgid "Position"
+msgstr "위치"
+
+#: loggers/class-plugin-acf-logger.php:562
+msgctxt "Logger: Plugin ACF"
+msgid "Menu order"
+msgstr "메뉴 순서"
+
+#: loggers/class-plugin-acf-logger.php:559
+msgctxt "Logger: Plugin ACF"
+msgid "Description"
+msgstr "설명"
+
+#: loggers/class-plugin-acf-logger.php:556
+msgctxt "Logger: Plugin ACF"
+msgid "Label placement"
+msgstr "레이블 배치"
+
+#: loggers/class-plugin-acf-logger.php:553
+msgctxt "Logger: Plugin ACF"
+msgid "Instruction placement"
+msgstr "지시 배치"
+
+#: loggers/class-plugin-acf-logger.php:55
+msgctxt "Logger: Plugin ACF"
+msgid "Using plugin ACF"
+msgstr "ACF 플러그인을 사용하기"
+
+#: loggers/class-plugin-acf-logger.php:54
+msgctxt "Logger: Plugin ACF"
+msgid "Logs ACF stuff"
+msgstr "ACF 항목을 기록하기"
+
+#: loggers/class-post-logger.php:1771
+msgid "Featured image"
+msgstr "특성 이미지"
+
+#. translators: 1: WordPress version
+#: inc/oldversions.php:31
+msgid "Simple History requires WordPress version 6.3 or higher (you have version %s)."
+msgstr "단순 기록에는 워드프레스 버전 6.3 이상이 필요합니다(현재 사용 중인 버전은 %s입니다)."
+
+#: loggers/class-plugin-logger.php:130
+msgctxt "Plugin was disabled because of an error"
+msgid "Deactivated plugin \"{plugin_slug}\" because of an error (\"{deactivation_reason}\")."
+msgstr "“{plugin_slug}” 플러그인을 활성 해제한 이유는 다음의 오류 때문이에요 (“{deactivation_reason}”)."
+
+#: loggers/class-file-edits-logger.php:209
+msgid "File contents"
+msgstr "파일 내용"
+
+#: loggers/class-file-edits-logger.php:32
+msgctxt "Plugin logger: file edits"
+msgid "Edited theme files"
+msgstr "테마 파일을 편집했어요"
+
+#: loggers/class-file-edits-logger.php:30
+msgctxt "Plugin logger: file edits"
+msgid "All file edits"
+msgstr "모든 파일을 편집하기"
+
+#: loggers/class-file-edits-logger.php:29
+msgctxt "Plugin logger: file edits"
+msgid "Edited theme and plugin files"
+msgstr "테마와 플러그인 파일을 수정했어요"
+
+#: loggers/class-file-edits-logger.php:25
+msgid "Edited file \"{file_name}\" in plugin \"{plugin_name}\""
+msgstr "플러그인 \"{plugin_name}\"에서 \"{file_name}\" 파일을 편집했어요"
+
+#: loggers/class-file-edits-logger.php:24
+msgid "Edited file \"{file_name}\" in theme \"{theme_name}\""
+msgstr "테마 “{theme_name}”에서 “{file_name}” 파일을 편집했어요"
+
+#: inc/services/wp-cli-commands/class-wp-cli-list-command.php:247
+msgid "Error: parameter \"count\" must be a number"
+msgstr "오류: 매개 변수 “count”는 숫자여야만 해요"
+
+#: templates/settings-tab-debug.php:507
+msgctxt "debug dropin"
+msgid "Active"
+msgstr "활성화"
+
+#: templates/settings-tab-debug.php:506
+msgctxt "debug dropin"
+msgid "Plugin file path"
+msgstr "플러그인 파일 경로"
+
+#: templates/settings-tab-debug.php:505
+msgctxt "debug dropin"
+msgid "Plugin name"
+msgstr "플러그인 이름"
+
+#: loggers/class-plugin-duplicate-post-logger.php:118
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Cloned {duplicated_post_post_type_singular_name} <a href=\"{duplicated_post_edit_link}\">\"{duplicated_post_title}\"</a> to <a href=\"{new_post_edit_link}\">a new {duplicated_post_post_type_singular_name}</a>"
+msgstr "{duplicated_post_post_type_singular_name} <a href=\"{duplicated_post_edit_link}\">“{duplicated_post_title}”</a>을(를) <a href=\"{new_post_edit_link}\">새로운 {duplicated_post_post_type_singular_name}</a>에 복제했어요"
+
+#: loggers/class-plugin-duplicate-post-logger.php:34
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Cloned \"{duplicated_post_title}\" to a new post"
+msgstr "“{duplicated_post_title}”을(를) 새 글에 복제했어요"
+
+#: loggers/class-plugin-duplicate-post-logger.php:31
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Using plugin Yoast Duplicate Post"
+msgstr "요스트 게시물 복제 플러그인 사용하기"
+
+#: loggers/class-plugin-duplicate-post-logger.php:26
+msgctxt "Logger: Plugin Duplicate Post"
+msgid "Logs posts and pages cloned using plugin Duplicate Post"
+msgstr "중복 글 플러그인을 이용하여 복제한 글과 페이지를 기록해요"
+
+#: inc/services/class-setup-settings-page.php:445
+msgid "Number of items per page on the dashboard"
+msgstr "알림판에 페이지 당 항목의 수"
+
+#: inc/services/class-setup-settings-page.php:399
+msgid "Number of items per page on the log page"
+msgstr "기록 페이지에 페이지 당 항목의 수"
+
+#: loggers/class-plugin-redirection-logger.php:38
+msgctxt "Logger: Redirection"
+msgid "Removed all redirection options and deactivated plugin"
+msgstr "모든 전환 옵션과 활성 해제한 플러그인을 제거했어요"
+
+#: loggers/class-plugin-redirection-logger.php:36
+msgctxt "Logger: Redirection"
+msgid "Deleted redirection for {items_count} URL(s)"
+msgstr "{items_count}개의 URL에 대한 전환을 지웠어요"
+
+#: loggers/class-plugin-redirection-logger.php:35
+msgctxt "Logger: Redirection"
+msgid "Disabled redirection for {items_count} URL(s)"
+msgstr "{items_count}개의 URL에 대한 전환을 활성 해제했어요"
+
+#: loggers/class-plugin-redirection-logger.php:34
+msgctxt "Logger: Redirection"
+msgid "Enabled redirection for {items_count} URL(s)"
+msgstr "{items_count}개의 URL에 대한 전환을 활성화했어요"
+
+#: loggers/class-plugin-redirection-logger.php:33
+msgctxt "Logger: Redirection"
+msgid "Edited redirection for URL \"{prev_source_url}\""
+msgstr "“{prev_source_url}” URL에 대한 전환을 편집했어요"
+
+#: loggers/class-plugin-redirection-logger.php:32
+msgctxt "Logger: Redirection"
+msgid "Added a redirection for URL \"{source_url}\""
+msgstr "“{source_url}” URL에 대한 전환을 추가했어요"
+
+#: loggers/class-plugin-redirection-logger.php:29
+msgctxt "Logger: Redirection"
+msgid "In plugin Redirection"
+msgstr "플러그인 전환"
+
+#: loggers/class-available-updates-logger.php:290
+msgid "View all updates"
+msgstr "모든 업데이트 보기"
+
+#: loggers/class-available-updates-logger.php:280
+msgid "Installed version"
+msgstr "설치된 버전:"
+
+#: loggers/class-available-updates-logger.php:276
+msgid "Available version"
+msgstr "가능한 버전:"
+
+#: loggers/class-available-updates-logger.php:43
+msgctxt "Plugin logger: updates found"
+msgid "Theme updates found"
+msgstr "테마 업데이트를 발견했어요"
+
+#: loggers/class-available-updates-logger.php:40
+msgctxt "Plugin logger: updates found"
+msgid "Plugin updates found"
+msgstr "플러그인 업데이트를 발견했어요"
+
+#: loggers/class-available-updates-logger.php:37
+msgctxt "Plugin logger: updates found"
+msgid "WordPress updates found"
+msgstr "워드프레스 업데이트를 발견했어요"
+
+#: loggers/class-available-updates-logger.php:35
+msgctxt "Plugin logger: updates found"
+msgid "All found updates"
+msgstr "모든 업데이트를 발견했어요"
+
+#: loggers/class-available-updates-logger.php:34
+msgctxt "Plugin logger: updates found"
+msgid "WordPress and plugins updates found"
+msgstr "워드프레스와 플러그인의 업데이트를 발견했어요"
+
+#: loggers/class-available-updates-logger.php:30
+msgid "Found an update to theme \"{theme_name}\""
+msgstr "테마 “{theme_name}” 업데이트를 발견했어요"
+
+#: loggers/class-available-updates-logger.php:29
+msgid "Found an update to plugin \"{plugin_name}\""
+msgstr "플러그인 \"{plugin_name}\" 업데이트를 발견했어요"
+
+#: loggers/class-available-updates-logger.php:28
+msgid "Found an update to WordPress"
+msgstr "워드프레스 업데이트를 찾았습니다."
+
+#. translators: 1: start date with day name, 2: end date with day name, 3: year
+#: inc/services/class-email-report-service.php:143
+msgid "%1$s – %2$s, %3$s"
+msgstr "%1$s - %2$s, %3$s"
+
+#: loggers/class-theme-logger.php:77
+msgctxt "Theme logger: search"
+msgid "Installed themes"
+msgstr "테마를 설치했어요"
+
+#: loggers/class-theme-logger.php:74
+msgctxt "Theme logger: search"
+msgid "Deleted themes"
+msgstr "테마를 지웠어요"
+
+#: loggers/class-theme-logger.php:71
+msgctxt "Theme logger: search"
+msgid "Updated themes"
+msgstr "테마를 업데이트했어요"
+
+#: loggers/class-theme-logger.php:57
+msgid "Updated theme \"{theme_name}\""
+msgstr "“{theme_name}” 테마를 업데이트했어요"
+
+#: loggers/class-plugin-logger.php:104
+msgctxt "Plugin update failed"
+msgid "Failed to update plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인을 업데이트에 실패했어요"
+
+#. translators: %s time the IP was blocked, e.g. 2 hours.
+#: loggers/class-plugin-limit-login-attempts-logger.php:214
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "IP was blocked for %s"
+msgstr "IP가 %s을 차단했습니다."
+
+#. translators: %d number of minutes.
+#: loggers/class-plugin-limit-login-attempts-logger.php:207
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] "%d 분"
+
+#. translators: %d number of hours.
+#: loggers/class-plugin-limit-login-attempts-logger.php:201
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] "%d 시간"
+
+#. translators: 1: number of login attempts, 2: number of lockouts, 3: IP that
+#. caused lockout.
+#: loggers/class-plugin-limit-login-attempts-logger.php:190
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "%1$d failed login attempts (%2$d lockout(s)) from IP: %3$s"
+msgstr "%1$d 로그인 시도를 실패했어요 (%2$d 다음 IP에서 잠김: %3$s)"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:32
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Updated options"
+msgstr "옵션을 업데이트했어요"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:31
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Cleared current lockouts"
+msgstr "지금 잠금을 해제했습니다"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:30
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Reset lockout count"
+msgstr "잠금 횟수 재설정"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:29
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Cleared IP log"
+msgstr "IP 기록을 지웠어요"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:28
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Was locked out because too many failed login attempts"
+msgstr "로그인 시도를 너무 많아서 잠겼어요"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:27
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Failed login attempt from whitelisted IP"
+msgstr "허용된 IP에서 로그인 시도를 실패했어요"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:24
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Using plugin Limit Login Attempts"
+msgstr "로그인 시도 제한 플러그인 사용"
+
+#: loggers/class-plugin-limit-login-attempts-logger.php:23
+msgctxt "Logger: Plugin Limit Login Attempts"
+msgid "Logs failed login attempts, lockouts, and configuration changes made in the plugin Limit Login Attempts"
+msgstr "로그인 시도 제한 플러그인에서 로그인 시도 실패, 잠금, 그리고 구성 변경의 변경사항을 기록해요"
+
+#. translators: %d number of message strings.
+#: templates/settings-tab-debug.php:427
+msgctxt "debug dropin"
+msgid "%1$s message strings"
+msgstr "%1$s 안내문 문자열"
+
+#: templates/settings-tab-debug.php:394
+msgctxt "debug dropin"
+msgid "Rows count"
+msgstr "행 수"
+
+#: templates/settings-tab-debug.php:393
+msgctxt "debug dropin"
+msgid "Capability"
+msgstr "능력"
+
+#: templates/settings-tab-debug.php:392
+msgctxt "debug dropin"
+msgid "Messages"
+msgstr "안내문"
+
+#: templates/settings-tab-debug.php:391
+msgctxt "debug dropin"
+msgid "Description"
+msgstr "설명"
+
+#: templates/settings-tab-debug.php:390
+msgctxt "debug dropin"
+msgid "Slug"
+msgstr "슬러그"
+
+#: templates/settings-tab-debug.php:389
+msgctxt "debug dropin"
+msgid "Logger name"
+msgstr "기록 도구 이름"
+
+#. translators: %d number of loggers.
+#: templates/settings-tab-debug.php:369
+msgctxt "debug dropin"
+msgid "Listing %1$d loggers, ordered by rows count in database."
+msgstr "데이터베이스에서 행별로 정렬한 기록을 %1$d 나열하기."
+
+#: templates/settings-tab-debug.php:363
+msgctxt "debug dropin"
+msgid "Loggers"
+msgstr "기록 도구"
+
+#. translators: %d number of rows.
+#: templates/settings-tab-debug.php:153
+msgctxt "debug dropin"
+msgid "Total %s rows, when grouped by occasion id."
+msgstr "행사 id별로 묶였을 때, 모두 %s 행이에요."
+
+#. translators: %s number of rows.
+#: templates/settings-tab-debug.php:118
+msgctxt "debug dropin"
+msgid "%s rows"
+msgstr "%s 행"
+
+#. translators: %s size in mb.
+#: templates/settings-tab-debug.php:114
+msgctxt "debug dropin"
+msgid "%s MB"
+msgstr "%s MB"
+
+#: templates/settings-tab-debug.php:100
+msgctxt "debug dropin"
+msgid "Rows"
+msgstr "행"
+
+#: templates/settings-tab-debug.php:99
+msgctxt "debug dropin"
+msgid "Size"
+msgstr "크기"
+
+#: templates/settings-tab-debug.php:98
+msgctxt "debug dropin"
+msgid "Table name"
+msgstr "테이블 이름"
+
+#: loggers/class-options-logger.php:404
+msgid "&hellip;"
+msgstr "&hellip;"
+
+#: templates/settings-tab-debug.php:56
+msgid "Debug"
+msgstr "디버그"
+
+#: loggers/class-options-logger.php:510 loggers/class-options-logger.php:536
+msgid "Your latest posts"
+msgstr "최근 글"
+
+#: inc/services/class-network-menu-items.php:127
+msgctxt "Admin bar name"
+msgid "View History"
+msgstr "기록 보기"
+
+#: inc/services/class-network-menu-items.php:72
+msgctxt "Admin bar network name"
+msgid "View History"
+msgstr "기록 보기"
+
+#: loggers/class-user-logger.php:1139
+msgctxt "User logger"
+msgid "Changed"
+msgstr "변경했어요"
+
+#: loggers/class-user-logger.php:1138
+msgctxt "User logger"
+msgid "Password"
+msgstr "비밀번호"
+
+#: loggers/class-user-logger.php:1146
+msgctxt "User logger"
+msgid "Role"
+msgstr "역할"
+
+#: loggers/class-user-logger.php:1061 loggers/class-user-logger.php:1155
+msgctxt "User logger"
+msgid "Website"
+msgstr "웹사이트"
+
+#: loggers/class-user-logger.php:1055
+msgctxt "User logger"
+msgid "Display name"
+msgstr "보이는 이름"
+
+#: loggers/class-user-logger.php:1058
+msgctxt "User logger"
+msgid "Email"
+msgstr "이메일"
+
+#: loggers/class-user-logger.php:1073
+msgctxt "User logger"
+msgid "Jabber / Google Talk "
+msgstr "재버 / 구글 톡 "
+
+#: loggers/class-user-logger.php:1070
+msgctxt "User logger"
+msgid "Yahoo IM"
+msgstr "야후 IM"
+
+#: loggers/class-user-logger.php:1067
+msgctxt "User logger"
+msgid "AIM"
+msgstr "AIM"
+
+#: loggers/class-user-logger.php:1028
+msgctxt "User logger"
+msgid "Colour scheme"
+msgstr "색상"
+
+#: loggers/class-user-logger.php:1031
+msgctxt "User logger"
+msgid "Keyboard shortcuts"
+msgstr "키보드 단축키"
+
+#: loggers/class-user-logger.php:1022
+msgctxt "User logger"
+msgid "Visual editor"
+msgstr "비주얼 편집기"
+
+#: loggers/class-user-logger.php:1064
+msgctxt "User logger"
+msgid "Description"
+msgstr "설명"
+
+#: loggers/class-user-logger.php:1052
+msgctxt "User logger"
+msgid "Nickname"
+msgstr "닉네임"
+
+#: loggers/class-user-logger.php:1049 loggers/class-user-logger.php:1152
+msgctxt "User logger"
+msgid "Last name"
+msgstr "성"
+
+#: loggers/class-user-logger.php:1046 loggers/class-user-logger.php:1149
+msgctxt "User logger"
+msgid "First name"
+msgstr "이름"
+
+#: loggers/class-user-logger.php:748
+msgid "Created user <a href=\"{edit_profile_link}\">{created_user_login} ({created_user_email})</a> with role {created_user_role}"
+msgstr "<a href=\"{edit_profile_link}\">{created_user_login} ({created_user_email})</a> 사용자를 {created_user_role} 역할로 생성했어요"
+
+#: loggers/class-plugin-user-switching-logger.php:26
+msgctxt "PluginUserSwitchingLogger"
+msgid "Using plugin User Switching"
+msgstr "플러그인을 사용하여 사용자 전환"
+
+#: loggers/class-plugin-enable-media-replace-logger.php:25
+msgctxt "PluginUserSwitchingLogger"
+msgid "Using plugin Enable Media Replace"
+msgstr "플러그인을 사용하여 매체 대체 활성화하기"
+
+#. translators: 1 is a link to the support forum.
+#: dropins/class-sidebar-dropin.php:65
+msgctxt "Sidebar box"
+msgid "<a href=\"%1$s\">Visit the support forum</a> if you need help or have questions."
+msgstr "도움이 필요하거나 질문을 있다면 <a href=\"%1$s\">지원 포럼에 방문</a>하세요."
+
+#: loggers/class-user-logger.php:37
+msgid "Failed to login with username \"{failed_username}\" (username does not exist)"
+msgstr "“{failed_username}” 사용자 이름으로 로그인을 실패했어요 (사용자 이름이 존재하지 않아요)"
+
+#: loggers/class-user-logger.php:33
+msgid "Failed to login with username \"{login}\" (incorrect password entered)"
+msgstr "“{login}” 사용자가 로그인에 실패했어요 (바르지 않은 비밀번호를 입력했어요)"
+
+#: loggers/class-user-logger.php:30
+msgid "Logs user logins, logouts, and failed logins"
+msgstr "사용자가 로그인, 로그아웃, 그리고 로그인을 실패한 기록"
+
+#: loggers/class-user-logger.php:29
+msgid "User Logger"
+msgstr "사용자 기록 도구"
+
+#: loggers/class-categories-logger.php:26
+msgid "Edited term \"{to_term_name}\" in taxonomy \"{to_term_taxonomy}\""
+msgstr "“{to_term_name}”조건을 “{to_term_taxonomy}” 분류체계에서 편집했어요"
+
+#: loggers/class-categories-logger.php:25
+msgid "Deleted term \"{term_name}\" from taxonomy \"{term_taxonomy}\""
+msgstr "“{term_name}”조건을 “{term_taxonomy}” 분류체계로부터 삭제했어요"
+
+#: loggers/class-categories-logger.php:24
+msgid "Added term \"{term_name}\" in taxonomy \"{term_taxonomy}\""
+msgstr "“{term_name}”조건을 “{term_taxonomy}” 분류체계에서 추가했어요"
+
+#: loggers/class-categories-logger.php:21
+msgid "Categories Logger"
+msgstr "카테고리 기록 도구"
+
+#: loggers/class-user-logger.php:54
+msgid "Requested a password reset link for user with login '{user_login}' and email '{user_email}'"
+msgstr "‘{user_login}’ 로그인 이름과 ‘{user_email}’ 이메일을 사용하는 사용자의 비밀번호 재설정 링크를 요청했습니다."
+
+#: loggers/class-user-logger.php:53
+msgid "Reset their password"
+msgstr "사용자의 비밀번호를 재설정했어요"
+
+#. translators: 1: local time string, 2: GMT time string.
+#: loggers/class-logger.php:457
+msgid "%1$s local time %3$s (%2$s GMT time)"
+msgstr "%1$s 현지 시간 %3$s (%2$s GMT 시간)"
+
+#: dropins/class-rss-dropin.php:87
+#: inc/services/class-email-report-service.php:398
+msgid "Enable"
+msgstr "사용"
+
+#: loggers/class-core-updates-logger.php:26
+msgid "WordPress database version updated to {new_version} from {prev_version}"
+msgstr "워드프레스 데이터베이스를 {prev_version}에서 {new_version}로 업데이트했어요"
+
+#. Author URI of the plugin
+#: index.php
+msgid "https://simple-history.com/"
+msgstr "https://simple-history.com/"
+
+#. Author of the plugin
+#: index.php
+msgid "Pär Thernström"
+msgstr "패르 테른스트룀"
+
+#. Description of the plugin
+#: index.php
+msgid "Plugin that logs various things that occur in WordPress and then presents those events in a very nice GUI."
+msgstr "워드프레스에서 발생한 여러 가지를 기록하고 아주 좋은 GUI에서 이 내용을 보여지는 플러그인이에요."
+
+#. Plugin URI of the plugin
+#: index.php
+msgid "https://simple-history.com"
+msgstr "https://simple-history.com"
+
+#: dropins/class-import-dropin.php:489 templates/email-summary-report.php:365
+#: build/index.js:14
+msgid "Users"
+msgstr "사용자"
+
+#: inc/services/class-history-insights-sidebar-service.php:262
+msgctxt "stats: date in rows per day chart"
+msgid "M j"
+msgstr "M d"
+
+#: inc/channels/class-alert-field-registry.php:69
+msgid "Logger"
+msgstr "로거"
+
+#: loggers/class-user-logger.php:730
+msgid "Edited the profile for user <a href=\"{edit_profile_link}\">{edited_user_login} ({edited_user_email})</a>"
+msgstr "<a href=\"{edit_profile_link}\">{edited_user_login} ({edited_user_email})</a> 사용자의 프로필을 수정했어요"
+
+#: loggers/class-user-logger.php:724
+msgid "Edited your profile"
+msgstr "프로필을 수정했어요"
+
+#: loggers/class-user-logger.php:718
+msgid "Edited <a href=\"{edit_profile_link}\">their profile</a>"
+msgstr "<a href=\"{edit_profile_link}\">사용자의 프로필</a>을 수정했어요"
+
+#: loggers/class-user-logger.php:716
+msgid "Edited <a href=\"{edit_profile_link}\">your profile</a>"
+msgstr "<a href=\"{edit_profile_link}\">당신의 프로필</a>을 수정했어요"
+
+#: loggers/class-user-logger.php:129
+msgctxt "User logger: search"
+msgid "User deletions"
+msgstr "사용자를 지웠어요"
+
+#: loggers/class-user-logger.php:123
+msgctxt "User logger: search"
+msgid "User profile updates"
+msgstr "사용자 프로필을 업데이트했어요"
+
+#: loggers/class-user-logger.php:120
+msgctxt "User logger: search"
+msgid "Created users"
+msgstr "사용자를 만들었어요"
+
+#: loggers/class-user-logger.php:117
+msgctxt "User logger: search"
+msgid "User logouts"
+msgstr "사용자가 로그아웃했어요"
+
+#: loggers/class-user-logger.php:113
+msgctxt "User logger: search"
+msgid "Failed user logins"
+msgstr "사용자 로그인을 실패했어요"
+
+#: loggers/class-user-logger.php:109
+msgctxt "User logger: search"
+msgid "Successful user logins"
+msgstr "성공적인 사용자 로그인"
+
+#: loggers/class-user-logger.php:107
+msgctxt "User logger: search"
+msgid "All user activity"
+msgstr "모든 사용자 활동"
+
+#: loggers/class-user-logger.php:106
+msgctxt "User logger: search"
+msgid "Users"
+msgstr "사용자"
+
+#: loggers/class-user-logger.php:63
+msgctxt "User destroys all login sessions for a user"
+msgid "Logged out \"{user_display_name}\" from all sessions"
+msgstr "모든 세션에서 “{user_display_name}”을(를) 로그아웃했어요"
+
+#: loggers/class-user-logger.php:58
+msgctxt "User destroys other login sessions for themself"
+msgid "Logged out from all other sessions"
+msgstr "모든 다른 세션에서 로그 아웃 했어요"
+
+#: loggers/class-user-logger.php:52
+msgid "Deleted user {deleted_user_login} ({deleted_user_email})"
+msgstr "{deleted_user_login} ({deleted_user_email}) 사용자를 지웠어요"
+
+#: loggers/class-user-logger.php:48
+msgid "Created user {created_user_login} ({created_user_email}) with role {created_user_role}"
+msgstr "{created_user_role} 역할의 {created_user_login} ({created_user_email}) 사용자를 만들었어요"
+
+#: loggers/class-user-logger.php:44
+msgid "Edited the profile for user \"{edited_user_login}\" ({edited_user_email})"
+msgstr "사용자 \"{edited_user_login}\"({edited_user_email})의 프로필을 수정했습니다."
+
+#: loggers/class-user-logger.php:43
+msgid "Logged out"
+msgstr "로그 아웃했어요"
+
+#: loggers/class-user-logger.php:42
+msgid "Unknown user logged in"
+msgstr "알 수 없는 사용자ㄱ 로그인했어요"
+
+#: loggers/class-user-logger.php:41
+msgid "Logged in"
+msgstr "로그인했습니다"
+
+#: loggers/class-theme-logger.php:550
+msgid "Section"
+msgstr "구역"
+
+#: loggers/class-theme-logger.php:98
+msgctxt "Theme logger: search"
+msgid "Background of themes changed"
+msgstr "테마의 배경을 변경했어요"
+
+#: loggers/class-theme-logger.php:95
+msgctxt "Theme logger: search"
+msgid "Edited widgets"
+msgstr "위젯을 수정했어요"
+
+#: loggers/class-theme-logger.php:92
+msgctxt "Theme logger: search"
+msgid "Changed widgets order"
+msgstr "위젯 순서를 변경했어요"
+
+#: loggers/class-theme-logger.php:89
+msgctxt "Theme logger: search"
+msgid "Removed widgets"
+msgstr "위젯을 제거했어요"
+
+#: loggers/class-theme-logger.php:86
+msgctxt "Theme logger: search"
+msgid "Added widgets"
+msgstr "위젯을 추가했어요"
+
+#: loggers/class-theme-logger.php:83
+msgctxt "Theme logger: search"
+msgid "Changed appearance of themes"
+msgstr "테마의 외관을 변경했어요"
+
+#: loggers/class-theme-logger.php:80
+msgctxt "Theme logger: search"
+msgid "Switched themes"
+msgstr "테마를 변경했어요"
+
+#: loggers/class-theme-logger.php:69
+msgctxt "Theme logger: search"
+msgid "All theme activity"
+msgstr "모든 테마 활동"
+
+#: loggers/class-theme-logger.php:68
+msgctxt "Theme logger: search"
+msgid "Themes & Widgets"
+msgstr "테마 & 위젯"
+
+#: loggers/class-theme-logger.php:64
+msgid "Changed settings for the theme custom background"
+msgstr "테마 사용자 정의 배경에 대한 설정을 변경했어요"
+
+#: loggers/class-theme-logger.php:63
+msgid "Changed widget \"{widget_id_base}\" in sidebar \"{sidebar_id}\""
+msgstr "“{widget_id_base}” 위젯을 “{sidebar_id}” 사이드바에서 변경했어요"
+
+#: loggers/class-theme-logger.php:62
+msgid "Changed widget order \"{widget_id_base}\" in sidebar \"{sidebar_id}\""
+msgstr "“{widget_id_base}” 위젯의 순서를 “{sidebar_id}” 사이드바에서 변경했어요"
+
+#: loggers/class-theme-logger.php:61
+msgid "Added widget \"{widget_id_base}\" to sidebar \"{sidebar_id}\""
+msgstr "“{widget_id_base}” 위젯을 “{sidebar_id}” 사이드바에 추가했어요"
+
+#: loggers/class-theme-logger.php:60
+msgid "Removed widget \"{widget_id_base}\" from sidebar \"{sidebar_id}\""
+msgstr "“{widget_id_base}” 위젯을 “{sidebar_id}” 사이드바에서 제거했어요"
+
+#: loggers/class-theme-logger.php:59
+msgid "Customized theme appearance \"{setting_id}\""
+msgstr "“{setting_id}” 테마 외관을 사용자 정의했어요"
+
+#: loggers/class-theme-logger.php:54
+msgid "Switched theme to \"{theme_name}\" from \"{prev_theme_name}\""
+msgstr "“{prev_theme_name}”에서 “{theme_name}”로 테마를 변경했어요"
+
+#: loggers/class-post-logger.php:1455
+msgid "Custom fields"
+msgstr "사용자 정의 필드"
+
+#: loggers/class-post-logger.php:1390
+msgid "Template"
+msgstr "템플릿"
+
+#: loggers/class-post-logger.php:1384
+msgid "Changed from \"{prev_page_template_name}\" to \"{new_page_template_name}\""
+msgstr "“{prev_page_template_name}”에서 “{new_page_template_name}”로 변경했어요"
+
+#: loggers/class-post-logger.php:1379
+msgid "Changed from {prev_page_template} to {new_page_template}"
+msgstr "{prev_page_template}에서 {new_page_template}(으)로 변경했어요"
+
+#: loggers/class-post-logger.php:1349
+msgid "Changed from {prev_user_display_name} ({prev_user_email}) to {new_user_display_name} ({new_user_email})"
+msgstr "{prev_user_display_name} ({prev_user_email})에서 {new_user_display_name} ({new_user_email})로 변경했어요"
+
+#: loggers/class-post-logger.php:1341
+msgid "Author"
+msgstr "저자"
+
+#: loggers/class-post-logger.php:1316
+msgid "Comment status"
+msgstr "댓글 상태"
+
+#: loggers/class-post-logger.php:1304
+msgid "Permalink"
+msgstr "고유주소"
+
+#: loggers/class-post-logger.php:1291
+msgid "Publish date"
+msgstr "게시 일자"
+
+#: inc/channels/class-channel.php:124
+#: inc/services/class-channels-settings-page.php:155
+#: inc/services/class-channels-settings-page.php:284
+#: loggers/class-post-logger.php:1279 loggers/class-post-logger.php:1506
+msgid "Status"
+msgstr "상태"
+
+#: loggers/class-post-logger.php:1267 loggers/class-post-logger.php:1498
+msgid "Content"
+msgstr "콘텐츠"
+
+#: loggers/class-media-logger.php:293 loggers/class-post-logger.php:1255
+msgid "Title"
+msgstr "제목"
+
+#: loggers/class-post-logger.php:1199
+msgid "Moved {post_type} <a href=\"{edit_link}\">\"{post_title}\"</a> to the trash"
+msgstr "{post_type} <a href=\"{edit_link}\">“{post_title}”</a>을(를) 휴지통으로 이동했어요"
+
+#: loggers/class-post-logger.php:1196
+msgid "Created {post_type} <a href=\"{edit_link}\">\"{post_title}\"</a>"
+msgstr "{post_type} <a href=\"{edit_link}\">“{post_title}”</a>을(를) 작성했어요"
+
+#: loggers/class-post-logger.php:1192
+msgid "Updated {post_type} <a href=\"{edit_link}\">\"{post_title}\"</a>"
+msgstr "{post_type} <a href=\"{edit_link}\">“{post_title}”</a>을(를) 업데이트했어요"
+
+#: loggers/class-post-logger.php:54
+msgctxt "Post logger: search"
+msgid "Posts restored"
+msgstr "복원한 글"
+
+#: loggers/class-post-logger.php:53
+msgctxt "Post logger: search"
+msgid "Posts deleted"
+msgstr "삭제한 글"
+
+#: loggers/class-post-logger.php:52
+msgctxt "Post logger: search"
+msgid "Posts trashed"
+msgstr "휴지통으로 간 글"
+
+#: loggers/class-post-logger.php:51
+msgctxt "Post logger: search"
+msgid "Posts updated"
+msgstr "업데이트한 글"
+
+#: loggers/class-post-logger.php:50
+msgctxt "Post logger: search"
+msgid "Posts created"
+msgstr "작성한 글"
+
+#: loggers/class-post-logger.php:48
+msgctxt "Post logger: search"
+msgid "All posts & pages activity"
+msgstr "모든 글 & 페이지 활동"
+
+#: loggers/class-post-logger.php:47
+msgctxt "Post logger: search"
+msgid "Posts & Pages"
+msgstr "글 & 페이지"
+
+#: loggers/class-post-logger.php:43
+msgid "Moved {post_type} \"{post_title}\" to the trash"
+msgstr "{post_type} “{post_title}”을(를) 휴지통으로 이동했어요"
+
+#: loggers/class-post-logger.php:42 loggers/class-post-logger.php:1194
+msgid "Deleted {post_type} \"{post_title}\""
+msgstr "{post_type} “{post_title}”을(를) 지웠어요"
+
+#: loggers/class-post-logger.php:41
+msgid "Restored {post_type} \"{post_title}\" from trash"
+msgstr "{post_type} “{post_title}”을(를) 휴지통에서 복원했어요"
+
+#: loggers/class-post-logger.php:40
+msgid "Updated {post_type} \"{post_title}\""
+msgstr "{post_type} “{post_title}”을(를) 업데이트했어요"
+
+#: loggers/class-post-logger.php:39
+msgid "Created {post_type} \"{post_title}\""
+msgstr "{post_type} “{post_title}”을(를) 만들었어요"
+
+#: loggers/class-plugin-logger.php:1375
+msgctxt "plugin logger: plugin info thickbox title"
+msgid "View changelog"
+msgstr "변경사항 기록 보기"
+
+#: loggers/class-plugin-logger.php:1371
+msgctxt "plugin logger: plugin info thickbox title"
+msgid "View plugin info"
+msgstr "플러그인 정보 보기"
+
+#: loggers/class-plugin-logger.php:1340 loggers/class-plugin-logger.php:1351
+#: loggers/class-plugin-logger.php:1428
+msgctxt "plugin logger: plugin info thickbox title view all info"
+msgid "View plugin info"
+msgstr "플러그인 정보 보기"
+
+#: loggers/class-plugin-logger.php:1298
+msgid "Uploaded ZIP archive"
+msgstr "ZIP 압축 파일을 업로드했어요"
+
+#: loggers/class-plugin-logger.php:1296
+msgid "WordPress Plugin Repository"
+msgstr "워드프레스 플러그인 저장소"
+
+#: loggers/class-plugin-logger.php:1232
+msgctxt "plugin logger - detailed output url"
+msgid "URL"
+msgstr "URL"
+
+#: loggers/class-plugin-logger.php:1231
+msgctxt "plugin logger - detailed output author"
+msgid "Author"
+msgstr "제작자"
+
+#: loggers/class-plugin-logger.php:1230
+msgctxt "plugin logger - detailed output version"
+msgid "Version"
+msgstr "버전"
+
+#: loggers/class-plugin-logger.php:1229
+msgctxt "plugin logger - detailed output install source"
+msgid "Source file name"
+msgstr "원본 파일 이름"
+
+#: loggers/class-plugin-logger.php:1228
+msgctxt "plugin logger - detailed output install source"
+msgid "Source"
+msgstr "원본"
+
+#: loggers/class-plugin-logger.php:1227
+msgctxt "plugin logger - detailed output"
+msgid "Description"
+msgstr "설명"
+
+#. translators: %1$s is a link to the repo, %2$s is the repo name.
+#: loggers/class-plugin-logger.php:719
+msgid "Viewing <code>readme</code> from repository <code><a target=\"_blank\" href=\"%1$s\">%2$s</a></code>."
+msgstr "<code>readme</code>를 <code><a target=\"_blank\" href=\"%1$s\">%2$s</a></code> 저장소에서 보는 중이에요."
+
+#: loggers/class-plugin-logger.php:685 loggers/class-plugin-logger.php:690
+msgid "Could not find GitHub repository."
+msgstr "깃허브 저장소를 찾을 수를 없어요."
+
+#: loggers/class-plugin-logger.php:678
+msgid "You don't have access to this page."
+msgstr "이 페이지에 접근하지 않았어요."
+
+#: loggers/class-plugin-logger.php:174
+msgctxt "Plugin logger: search"
+msgid "Deleted plugins"
+msgstr "플러그인을 지웠어요"
+
+#: loggers/class-file-edits-logger.php:35
+msgctxt "Plugin logger: file edits"
+msgid "Edited plugin files"
+msgstr "플러그인 파일을 편집했어요"
+
+#: loggers/class-plugin-logger.php:170
+msgctxt "Plugin logger: search"
+msgid "Failed plugin updates"
+msgstr "플러그인 업데이트를 실패했어요"
+
+#: loggers/class-plugin-logger.php:166
+msgctxt "Plugin logger: search"
+msgid "Updated plugins"
+msgstr "플러그인을 업데이트했어요"
+
+#: loggers/class-plugin-logger.php:163
+msgctxt "Plugin logger: search"
+msgid "Failed plugin installs"
+msgstr "플러그인 설치에 실패했어요"
+
+#: loggers/class-plugin-logger.php:160
+msgctxt "Plugin logger: search"
+msgid "Installed plugins"
+msgstr "플러그인을 설치했어요"
+
+#: loggers/class-plugin-logger.php:156
+msgctxt "Plugin logger: search"
+msgid "Deactivated plugins"
+msgstr "플러그인을 활성 해제했어요"
+
+#: loggers/class-plugin-logger.php:153
+msgctxt "Plugin logger: search"
+msgid "Activated plugins"
+msgstr "플러그인을 활성화했어요"
+
+#: loggers/class-plugin-logger.php:151
+msgctxt "Plugin logger: search"
+msgid "All plugin activity"
+msgstr "모든 플러그인 활동"
+
+#: loggers/class-plugin-logger.php:150
+msgctxt "Plugin logger: search"
+msgid "Plugins"
+msgstr "플러그인"
+
+#: loggers/class-plugin-logger.php:117
+msgctxt "Plugin was updated in bulk"
+msgid "Updated plugin \"{plugin_name}\" to {plugin_version} from {plugin_prev_version}"
+msgstr "“{plugin_name}” 플러그인을 {plugin_prev_version}에서 {plugin_version}로 업데이트했어요"
+
+#: loggers/class-plugin-logger.php:110
+msgctxt "Plugin files was deleted"
+msgid "Deleted plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인을 지웠어요"
+
+#: loggers/class-plugin-logger.php:98
+msgctxt "Plugin was updated"
+msgid "Updated plugin \"{plugin_name}\" to version {plugin_version} from {plugin_prev_version}"
+msgstr "“{plugin_name}” 플러그인을 {plugin_prev_version}에서 {plugin_version}로 업데이트했어요"
+
+#: loggers/class-plugin-logger.php:92
+msgctxt "Plugin failed to install"
+msgid "Failed to install plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인의 설치에 실패했어요"
+
+#: loggers/class-plugin-logger.php:86
+msgctxt "Plugin was installed"
+msgid "Installed plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인을 설치했어요"
+
+#: loggers/class-plugin-logger.php:80
+msgctxt "Plugin was non-silently deactivated by a user"
+msgid "Deactivated plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인을 활성 해제했어요"
+
+#: loggers/class-plugin-logger.php:74
+msgctxt "Plugin was non-silently activated by a user"
+msgid "Activated plugin \"{plugin_name}\""
+msgstr "“{plugin_name}” 플러그인을 활성화했어요"
+
+#: loggers/class-options-logger.php:383 loggers/class-options-logger.php:523
+#: loggers/class-options-logger.php:535 loggers/class-options-logger.php:646
+#: loggers/class-options-logger.php:708 loggers/class-options-logger.php:746
+#: loggers/class-options-logger.php:858 loggers/class-theme-logger.php:596
+msgid "Old value"
+msgstr "오래한 값"
+
+#: loggers/class-options-logger.php:377 loggers/class-options-logger.php:498
+#: loggers/class-options-logger.php:509 loggers/class-options-logger.php:654
+#: loggers/class-options-logger.php:702 loggers/class-options-logger.php:740
+#: loggers/class-options-logger.php:852 loggers/class-theme-logger.php:584
+msgid "New value"
+msgstr "새로운 값"
+
+#: loggers/class-options-logger.php:31
+msgctxt "Options logger: search"
+msgid "Changed options"
+msgstr "옵션을 변경했어요"
+
+#: loggers/class-options-logger.php:29
+msgctxt "Options logger: search"
+msgid "Options"
+msgstr "옵션"
+
+#. translators: Number of menu items removed.
+#: loggers/class-menu-logger.php:256
+msgctxt "menu logger"
+msgid "%1$s menu item removed"
+msgid_plural "%1$s menu items removed"
+msgstr[0] "%1$s 메뉴 항목을 제거했어요"
+
+#. translators: Number of menu items added.
+#: loggers/class-menu-logger.php:249
+msgctxt "menu logger"
+msgid "%1$s menu item added"
+msgid_plural "%1$s menu items added"
+msgstr[0] "%1$s 메뉴 항목을 추가했어요"
+
+#: loggers/class-menu-logger.php:45
+msgctxt "Menu updates logger: search"
+msgid "Deleted menus"
+msgstr "메뉴를 지웠어요"
+
+#: loggers/class-menu-logger.php:40
+msgctxt "Menu updates logger: search"
+msgid "Edited menus"
+msgstr "메뉴를 편집했어요"
+
+#: loggers/class-menu-logger.php:37
+msgctxt "Menu updates logger: search"
+msgid "Created menus"
+msgstr "메뉴를 만들었어요"
+
+#: loggers/class-menu-logger.php:35
+msgctxt "Menu updates logger: search"
+msgid "All menu activity"
+msgstr "모든 메뉴 활동"
+
+#: loggers/class-menu-logger.php:34
+msgctxt "Menu logger: search"
+msgid "Menus"
+msgstr "메뉴"
+
+#: loggers/class-menu-logger.php:30
+msgid "Updated menu locations"
+msgstr "메뉴 위치를 업데이트했어요"
+
+#: loggers/class-menu-logger.php:29
+msgid "Edited a menu item"
+msgstr "메뉴 아이템을 수정했어요"
+
+#: loggers/class-menu-logger.php:28
+msgid "Deleted menu \"{menu_name}\""
+msgstr "“{menu_name}” 메뉴를 지웠어요"
+
+#: loggers/class-menu-logger.php:27
+msgid "Edited menu \"{menu_name}\""
+msgstr "“{menu_name}” 메뉴를 편집했어요"
+
+#: loggers/class-menu-logger.php:26
+msgid "Created menu \"{menu_name}\""
+msgstr "“{menu_name}” 메뉴를 만들었어요"
+
+#: loggers/class-media-logger.php:273
+msgid "{full_image_width} × {full_image_height}"
+msgstr "{full_image_width} × {full_image_height}"
+
+#: loggers/class-media-logger.php:270
+msgid "{attachment_filetype_extension}"
+msgstr "{attachment_filetype_extension}"
+
+#: loggers/class-media-logger.php:267
+msgid "{attachment_size_format}"
+msgstr "{attachment_size_format}"
+
+#: loggers/class-media-logger.php:256
+msgid "{attachment_thumb}"
+msgstr "{attachment_thumb}"
+
+#: loggers/class-media-logger.php:164
+msgid "Uploaded {post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a>"
+msgstr "{post_type} <a href=\"{edit_link}\">\"{attachment_title}\"</a> 업로드했습니다."
+
+#: loggers/class-media-logger.php:144
+msgid "Edited attachment <a href=\"{edit_link}\">\"{attachment_title}\"</a>"
+msgstr "수정된 첨부 파일 <a href=\"{edit_link}\">\"{attachment_title}\"</a>"
+
+#: loggers/class-media-logger.php:48
+msgctxt "Media logger: search"
+msgid "Deleted media"
+msgstr "미디어를 지웠어요"
+
+#: loggers/class-media-logger.php:45
+msgctxt "Media logger: search"
+msgid "Updated media"
+msgstr "미디어를 업데이트했어요"
+
+#: loggers/class-media-logger.php:42
+msgctxt "Media logger: search"
+msgid "Added media"
+msgstr "미디어를 추가했어요"
+
+#: loggers/class-media-logger.php:40
+msgctxt "Media logger: search"
+msgid "All media activity"
+msgstr "모든 미디어 활동"
+
+#: loggers/class-media-logger.php:39
+msgctxt "Media logger: search"
+msgid "Media"
+msgstr "미디어"
+
+#: loggers/class-media-logger.php:35
+msgid "Deleted {post_type} \"{attachment_title}\" (\"{attachment_filename}\")"
+msgstr "{post_type} \"{attachment_title}\"을(를) 지웠어요 (\"{attachment_filename}\")"
+
+#: loggers/class-media-logger.php:33
+msgid "Created {post_type} \"{attachment_title}\""
+msgstr "{post_type} \"{attachment_title}\"을(를) 만들었어요"
+
+#. translators: %s last modified date and time in human time diff-format
+#: inc/class-events-stats.php:713 loggers/class-logger.php:443
+msgid "%1$s ago"
+msgstr "%1$s 전"
+
+#. translators: Date format for log row header, see http://php.net/date
+#: loggers/class-logger.php:429
+msgid "M j, Y \\a\\t G:i"
+msgstr "M j, Y \\a\\t G:i"
+
+#: inc/class-log-initiators.php:83 inc/class-log-initiators.php:105
+#: loggers/class-logger.php:320
+msgctxt "Event header output, when initiator is unknown"
+msgid "Other"
+msgstr "기타"
+
+#: inc/class-log-initiators.php:80 inc/class-log-initiators.php:102
+#: loggers/class-logger.php:312 build/index-admin-bar.js:6 build/index.js:8
+msgid "Anonymous web user"
+msgstr "익명의 웹 사용자"
+
+#. translators: 1: user id, 2: user email address, 3: user account name.
+#: inc/class-log-initiators.php:69 loggers/class-logger.php:288
+msgid "Deleted user (had id %1$s, email %2$s, login %3$s)"
+msgstr "사용자를 삭제했습니다 (id %1$s, email %2$s, login %3$s)"
+
+#: loggers/class-logger.php:275
+msgctxt "header output when initiator is the currently logged in user"
+msgid "You"
+msgstr "당신"
+
+#: loggers/class-export-logger.php:31
+msgctxt "Export logger: search"
+msgid "Created exports"
+msgstr "내보내기를 만들었어요"
+
+#: loggers/class-export-logger.php:29
+msgctxt "Export logger: search"
+msgid "Export"
+msgstr "내보내기"
+
+#: loggers/class-export-logger.php:25
+msgid "Created XML export"
+msgstr "XML 내보내기를 만들었어요"
+
+#: loggers/class-export-logger.php:22
+msgid "Logs updates to WordPress export"
+msgstr "워드프레스 내보내기에 로그 업데이트"
+
+#: loggers/class-export-logger.php:21
+msgid "Export Logger"
+msgstr "내보내기 기록 도구"
+
+#: loggers/class-core-updates-logger.php:34
+msgctxt "User logger: search"
+msgid "WordPress core updates"
+msgstr "워드프레스 핵심 업데이트"
+
+#: loggers/class-core-updates-logger.php:32
+msgctxt "User logger: search"
+msgid "WordPress Core"
+msgstr "워드프레스 핵심"
+
+#: loggers/class-core-updates-logger.php:24
+msgid "WordPress auto-updated to {new_version} from {prev_version}"
+msgstr "워드프레스를 {prev_version}에서 {new_version}로 자동 업데이트했어요"
+
+#: loggers/class-core-updates-logger.php:23
+msgid "Updated WordPress to {new_version} from {prev_version}"
+msgstr "워드프레스를 {prev_version}에서 {new_version}로 업데이트했어요"
+
+#: loggers/class-comments-logger.php:735
+msgctxt "comments logger - edit comment"
+msgid "View/Edit"
+msgstr "보기/편집"
+
+#: loggers/class-comments-logger.php:681
+msgid "Comment"
+msgstr "댓글"
+
+#: loggers/class-comments-logger.php:679
+msgid "Pingback"
+msgstr "핑백"
+
+#: loggers/class-comments-logger.php:677
+msgid "Trackback"
+msgstr "트랙백"
+
+#: loggers/class-comments-logger.php:666
+msgid "Pending"
+msgstr "대기중"
+
+#: loggers/class-comments-logger.php:664
+msgid "Approved"
+msgstr "승인"
+
+#: loggers/class-comments-logger.php:662
+msgid "Spam"
+msgstr "스팸"
+
+#: loggers/class-comments-logger.php:622
+msgctxt "comments logger - detailed output content"
+msgid "Comment"
+msgstr "댓글"
+
+#: loggers/class-comments-logger.php:602 loggers/class-comments-logger.php:611
+msgctxt "comments logger - detailed output content"
+msgid "Content"
+msgstr "내용"
+
+#: loggers/class-comments-logger.php:601 loggers/class-comments-logger.php:610
+#: loggers/class-comments-logger.php:621
+msgctxt "comments logger - detailed output email"
+msgid "Email"
+msgstr "이메일"
+
+#: loggers/class-comments-logger.php:600 loggers/class-comments-logger.php:609
+#: loggers/class-comments-logger.php:620
+msgctxt "comments logger - detailed output author"
+msgid "Name"
+msgstr "이름"
+
+#: loggers/class-comments-logger.php:599 loggers/class-comments-logger.php:608
+#: loggers/class-comments-logger.php:619
+msgctxt "comments logger - detailed output comment status"
+msgid "Status"
+msgstr "상태"
+
+#: loggers/class-comments-logger.php:238
+msgctxt "Comments logger: search"
+msgid "Deleted comments"
+msgstr "댓글을 지웠어요"
+
+#: loggers/class-comments-logger.php:233
+msgctxt "Comments logger: search"
+msgid "Untrashed comments"
+msgstr "댓글을 휴지통에서 복원했어요"
+
+#: loggers/class-comments-logger.php:228
+msgctxt "Comments logger: search"
+msgid "Trashed comments"
+msgstr "댓글을 휴지통으로 옮겼어요"
+
+#: loggers/class-comments-logger.php:223
+msgctxt "Comments logger: search"
+msgid "Comments status changed to spam"
+msgstr "댓글 상태를 스팸으로 변경했어요"
+
+#: loggers/class-comments-logger.php:218
+msgctxt "Comments logger: search"
+msgid "Held comments"
+msgstr "댓글을 고정했어요"
+
+#: loggers/class-comments-logger.php:213
+msgctxt "Comments logger: search"
+msgid "Approved comments"
+msgstr "댓글을 승인했어요"
+
+#: loggers/class-comments-logger.php:208
+msgctxt "Comments logger: search"
+msgid "Edited comments"
+msgstr "댓글을 수정했어요"
+
+#: loggers/class-comments-logger.php:200
+msgctxt "Comments logger: search"
+msgid "Added comments"
+msgstr "댓글을 추가했어요"
+
+#: loggers/class-comments-logger.php:198
+msgctxt "Comments logger: search"
+msgid "All comments activity"
+msgstr "모든 댓글 활동"
+
+#: loggers/class-comments-logger.php:197
+msgctxt "Comments logger: search"
+msgid "Comments"
+msgstr "댓글"
+
+#: loggers/class-comments-logger.php:186
+msgctxt "A pingback was edited"
+msgid "Edited a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 핑백을 {comment_author} ({comment_author_email})이(가) 편집했어요"
+
+#: loggers/class-comments-logger.php:180
+msgctxt "A pingback was deleted"
+msgid "Deleted a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 핑백을 {comment_author} ({comment_author_email})이(가) 삭제했어요"
+
+#: loggers/class-comments-logger.php:174
+msgctxt "A pingback was restored from the trash"
+msgid "Restored a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email}) from the trash"
+msgstr "“{comment_post_title}”에 달린 핑백을 {comment_author} ({comment_author_email})이(가) 휴지통에서 복원했어요"
+
+#: loggers/class-comments-logger.php:168
+msgctxt "A pingback was marked moved to the trash"
+msgid "Trashed a pingback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 핑백을 {comment_author} ({comment_author_email})이(가) 휴지통에 버렸어요"
+
+#: loggers/class-comments-logger.php:162
+msgctxt "A pingback was marked as spam"
+msgid "Marked a pingback to post \"{comment_post_title}\" as spam"
+msgstr "“{comment_post_title}” 글에 달린 핑백을 스팸으로 보여요"
+
+#: loggers/class-comments-logger.php:156
+msgctxt "A pingback was was unapproved"
+msgid "Unapproved a pingback to \"{comment_post_title}\" by \"{comment_author}\" ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 핑백을 {comment_author} ({comment_author_email})이(가) 승인했어요"
+
+#: loggers/class-comments-logger.php:150
+msgctxt "A pingback was approved"
+msgid "Approved a pingback to \"{comment_post_title}\" by \"{comment_author}\"\" ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 핑백을 {comment_author} ({comment_author_email})이(가) 승인했어요"
+
+#: loggers/class-comments-logger.php:144
+msgctxt "A pingback was added to the database by a logged in user"
+msgid "Added a pingback to {comment_post_type} \"{comment_post_title}\""
+msgstr "{comment_post_type} “{comment_post_title}”에 달린 핑백을 추가했어요"
+
+#: loggers/class-comments-logger.php:138
+msgctxt "A trackback was added to the database by a non-logged in internet user"
+msgid "Added a pingback to {comment_post_type} \"{comment_post_title}\""
+msgstr "{comment_post_type} “{comment_post_title}”에 달린 핑백을 추가했어요"
+
+#: loggers/class-comments-logger.php:131
+msgctxt "A trackback was edited"
+msgid "Edited a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 트랙백을 {comment_author} ({comment_author_email})이(가) 삭제했어요"
+
+#: loggers/class-comments-logger.php:125
+msgctxt "A trackback was deleted"
+msgid "Deleted a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 트랙백을 {comment_author} ({comment_author_email})이(가) 삭제했어요"
+
+#: loggers/class-comments-logger.php:119
+msgctxt "A trackback was restored from the trash"
+msgid "Restored a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email}) from the trash"
+msgstr "“{comment_post_title}”에 달린 트랙백을 {comment_author} ({comment_author_email})이(가) 휴지통에서 복원했어요"
+
+#: loggers/class-comments-logger.php:113
+msgctxt "A trackback was marked moved to the trash"
+msgid "Trashed a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 트랙백을 {comment_author} ({comment_author_email})이(가) 승인하지 않았어요"
+
+#: loggers/class-comments-logger.php:107
+msgctxt "A trackback was marked as spam"
+msgid "Marked a trackback to post \"{comment_post_title}\" as spam"
+msgstr "“{comment_post_title}”글에 달린 트랙백을 스팸으로 보여요"
+
+#: loggers/class-comments-logger.php:101
+msgctxt "A trackback was was unapproved"
+msgid "Unapproved a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 트랙백을 {comment_author} ({comment_author_email})이(가) 승인하지 않았어요"
+
+#: loggers/class-comments-logger.php:95
+msgctxt "A trackback was approved"
+msgid "Approved a trackback to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 트랙백을 {comment_author} ({comment_author_email})이(가) 승인했어요"
+
+#: loggers/class-comments-logger.php:89
+msgctxt "A trackback was added to the database by a logged in user"
+msgid "Added a trackback to {comment_post_type} \"{comment_post_title}\""
+msgstr "{comment_post_type} “{comment_post_title}”에 달린 트랙백을 추가했어요"
+
+#: loggers/class-comments-logger.php:83
+msgctxt "A trackback was added to the database by a non-logged in internet user"
+msgid "Added a trackback to {comment_post_type} \"{comment_post_title}\""
+msgstr "{comment_post_type} “{comment_post_title}”에 달린 트랙백을 추가했어요"
+
+#: loggers/class-comments-logger.php:76
+msgctxt "A comment was edited"
+msgid "Edited a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 댓글을 {comment_author} ({comment_author_email})이(가) 휴지통에 버렸어요"
+
+#: loggers/class-comments-logger.php:70
+msgctxt "A comment was deleted"
+msgid "Deleted a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 댓글을 {comment_author} ({comment_author_email})이(가) 휴지통에 버렸어요"
+
+#: loggers/class-comments-logger.php:64
+msgctxt "A comment was restored from the trash"
+msgid "Restored a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email}) from the trash"
+msgstr "“{comment_post_title}”에 달린 댓글을 {comment_author} ({comment_author_email})이(가) 휴지통에서 복원했어요"
+
+#: loggers/class-comments-logger.php:58
+msgctxt "A comment was marked moved to the trash"
+msgid "Trashed a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 댓글을 {comment_author} ({comment_author_email})이(가) 휴지통에 버렸어요"
+
+#: loggers/class-comments-logger.php:52
+msgctxt "A comment was marked as spam"
+msgid "Marked a comment to post \"{comment_post_title}\" as spam"
+msgstr "“{comment_post_title}” 글에 달린 댓글을 스팸으로 보여요"
+
+#: loggers/class-comments-logger.php:46
+msgctxt "A comment was was unapproved"
+msgid "Unapproved a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 댓글을 {comment_author} ({comment_author_email})이(가) 승인하지 않았어요"
+
+#: loggers/class-comments-logger.php:40
+msgctxt "A comment was approved"
+msgid "Approved a comment to \"{comment_post_title}\" by {comment_author} ({comment_author_email})"
+msgstr "“{comment_post_title}”에 달린 댓글을 {comment_author} ({comment_author_email})이(가) 승인했어요"
+
+#: loggers/class-comments-logger.php:34
+msgctxt "A comment was added to the database by a logged in user"
+msgid "Added a comment to {comment_post_type} \"{comment_post_title}\""
+msgstr "{comment_post_type}에 달린 댓글을 “{comment_post_title}”에 추가했어요"
+
+#: loggers/class-comments-logger.php:28
+msgctxt "A comment was added to the database by a non-logged in internet user"
+msgid "Added a comment to {comment_post_type} \"{comment_post_title}\""
+msgstr "{comment_post_type}에 달린 댓글을 “{comment_post_title}”에 추가했어요"
+
+#: loggers/class-plugin-user-switching-logger.php:32
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched off user \"{user_login}\""
+msgstr "\"{user_login}\" 사용자를 종료했어요"
+
+#: loggers/class-plugin-user-switching-logger.php:31
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched back to user \"{user_login_to}\""
+msgstr "\"{user_login_to}\" 사용자로 다시 전환했어요"
+
+#: loggers/class-plugin-user-switching-logger.php:30
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched back to user \"{user_login_to}\" from user \"{user_login_from}\""
+msgstr "\"{user_login_from}\" 사용자를 \"{user_login_to}\" 사용자로 전환했어요"
+
+#: loggers/class-plugin-user-switching-logger.php:29
+msgctxt "PluginUserSwitchingLogger"
+msgid "Switched to user \"{user_login_to}\" from user \"{user_login_from}\""
+msgstr "\"{user_login_from}\" 사용자를 \"{user_login_to}\" 사용자로 전환했어요"
+
+#: loggers/class-plugin-user-switching-logger.php:25
+msgctxt "PluginUserSwitchingLogger"
+msgid "Logs user switches"
+msgstr "사용자 전환 기록하기"
+
+#: loggers/class-plugin-user-switching-logger.php:24
+msgctxt "PluginUserSwitchingLogger"
+msgid "Plugin: User Switching Logger"
+msgstr "플러그인: User Switching 로거"
+
+#: loggers/class-plugin-enable-media-replace-logger.php:28
+msgctxt "PluginEnableMediaReplaceLogger"
+msgid "Replaced attachment \"{prev_attachment_title}\" with new attachment \"{new_attachment_title}\""
+msgstr "새로 첨부한 \"{new_attachment_title}\"(으)로 \"{prev_attachment_title}\"을(를) 대체하기"
+
+#: loggers/class-plugin-enable-media-replace-logger.php:24
+msgctxt "PluginEnableMediaReplaceLogger"
+msgid "Logs media updates made with the Enable Media Replace Plugin"
+msgstr "매체 대체 기록자를 활성화하여 매체 업데이트를 기록해요"
+
+#: loggers/class-plugin-enable-media-replace-logger.php:23
+msgctxt "PluginEnableMediaReplaceLogger"
+msgid "Plugin: Enable Media Replace Logger"
+msgstr "플러그인: Enable Media Replace 로거"
+
+#. translators: 1: PHP version
+#: inc/oldversions.php:16
+msgid "Simple History is a great plugin, but to use it your server must have at least PHP 7.4 installed (you have version %s)."
+msgstr "심플 히스토리는 훌륭한 플러그인이지만 이 플러그인을 사용하려면 서버에 PHP 7.4 이상이 설치되어 있어야 합니다(현재 버전은 %s입니다)."
+
+#: inc/class-log-levels.php:92 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Debug"
+msgstr "디버그"
+
+#: inc/class-log-levels.php:88 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Info"
+msgstr "정보"
+
+#: inc/class-log-levels.php:84 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Notice"
+msgstr "경고"
+
+#: inc/class-log-levels.php:80 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Warning"
+msgstr "경고"
+
+#: inc/class-log-levels.php:76 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Error"
+msgstr "오류"
+
+#: inc/class-log-levels.php:72 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Critical"
+msgstr "매우 위험"
+
+#: inc/class-log-levels.php:68 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Alert"
+msgstr "경고"
+
+#: inc/class-log-levels.php:64 build/index-admin-bar.js:1 build/index.js:1
+msgctxt "Log level in gui"
+msgid "Emergency"
+msgstr "긴급"
+
+#: inc/class-log-levels.php:59
+msgctxt "Log level in gui"
+msgid "debug"
+msgstr "디버그"
+
+#: inc/class-log-levels.php:55
+msgctxt "Log level in gui"
+msgid "info"
+msgstr "정보"
+
+#: inc/class-log-levels.php:51
+msgctxt "Log level in gui"
+msgid "notice"
+msgstr "주의"
+
+#: inc/class-log-levels.php:47
+msgctxt "Log level in gui"
+msgid "warning"
+msgstr "경고"
+
+#: inc/class-log-levels.php:43
+msgctxt "Log level in gui"
+msgid "error"
+msgstr "오류"
+
+#: inc/class-log-levels.php:39
+msgctxt "Log level in gui"
+msgid "critical"
+msgstr "위기"
+
+#: inc/class-log-levels.php:35
+msgctxt "Log level in gui"
+msgid "alert"
+msgstr "경보"
+
+#: inc/class-log-levels.php:31
+msgctxt "Log level in gui"
+msgid "emergency"
+msgstr "응급"
+
+#: inc/class-simple-history.php:1068
+msgid "This is potentially useful meta data that a logger has saved."
+msgstr "이것은 기록자를 저장한 잠재적으로 유용한 메타 자료에요."
+
+#: inc/class-simple-history.php:1065
+msgid "Context data"
+msgstr "문맥 자료"
+
+#. translators: %1$s is number of similar events.
+#. translators: %s: number of similar events
+#: inc/class-simple-history.php:975 build/index.js:10
+msgid "Showing %1$s more"
+msgstr "%1$s 개 더 보이기"
+
+#: inc/class-simple-history.php:969 build/index-admin-bar.js:1 build/index.js:1
+#: build/index.js:9
+msgid "Loading…"
+msgstr "불러오는 중…"
+
+#. translators: %1$s is number of similar events.
+#. translators: %s: number of similar events
+#: inc/class-simple-history.php:963 build/index.js:9
+msgid "+%1$s similar event"
+msgid_plural "+%1$s similar events"
+msgstr[0] "+%1$s 개의 유사 기록"
+
+#: inc/services/class-setup-settings-page.php:527
+msgid "Clear log now"
+msgstr "기록 지금 지우기"
+
+#: inc/services/class-setup-settings-page.php:509
+msgid "Items in the database are kept forever."
+msgstr "데이터베이스의 항목을 영원히 보관해요."
+
+#. translators: %1$s is number of days.
+#: inc/services/class-setup-settings-page.php:504
+msgid "Items in the database are automatically removed after %1$s days."
+msgstr "데이터베이스의 항목을 %1$s 일 후에 자동으로 제거해요."
+
+#: inc/services/class-setup-settings-page.php:370
+msgid "on the dashboard"
+msgstr "알림판에서"
+
+#: inc/services/class-setup-settings-page.php:297
+msgid "Clear log"
+msgstr "기록 지우기"
+
+#: inc/services/class-setup-settings-page.php:264
+msgid "Show history"
+msgstr "기록 보이기"
+
+#: inc/services/class-setup-settings-page.php:744
+msgid "Cleared database"
+msgstr "데이터베이스를 정리했어요"
+
+#: inc/services/class-admin-pages.php:38
+msgctxt "dashboard menu name"
+msgid "Simple History"
+msgstr "심플 히스토리"
+
+#: inc/services/class-scripts-and-templates.php:81
+msgid "Remove all log items?"
+msgstr "모든 기록 항목을 제거하시겠어요?"
+
+#. Plugin Name of the plugin
+#: index.php inc/services/class-dashboard-widget.php:50
+#: templates/email-summary-report.php:153
+msgid "Simple History"
+msgstr "심플 히스토리"
+
+#: inc/services/class-plugin-list-link.php:42
+#: inc/services/class-setup-settings-page.php:176
+#: inc/services/class-setup-settings-page.php:177 build/index-admin-bar.js:6
+msgid "Settings"
+msgstr "설정"
+
+#: loggers/class-logger.php:424
+msgid "Just now"
+msgstr "바로 지금"
+
+#: dropins/class-sidebar-dropin.php:40
+msgctxt "Sidebar box"
+msgid "A good review will help new users find this plugin. And it will make the plugin author very happy :)"
+msgstr "좋은 리뷰는 새로운 사용자가 이 플러그인을 찾는 데 도움이 됩니다. 그리고 플러그인 작성자를 매우 기쁘게 할 것입니다 :)"
+
+#. translators: 1 is a link to the review page.
+#: dropins/class-sidebar-dropin.php:36
+msgctxt "Sidebar box"
+msgid "If you like Simple History then please <a href=\"%1$s\">give it a nice review over at wordpress.org</a>."
+msgstr "심플 히스토리가 마음에 드신다면 <a href=\"%1$s\">wordpress.org에 좋은 리뷰</a>를 남겨 주세요."
+
+#: dropins/class-sidebar-dropin.php:32
+msgctxt "Sidebar box"
+msgid "Review this plugin if you like it"
+msgstr "원하시면 이 플러그인을 평가해 주세요"
+
+#: inc/class-stats-view.php:707 templates/email-summary-report.php:395
+msgid "Plugins"
+msgstr "플러그인"
+
+#: dropins/class-rss-dropin.php:549
+msgid "Generate new address"
+msgstr "새로운 주소를 만들기"
+
+#: dropins/class-rss-dropin.php:542
+msgid "You can generate a new secret for the feeds. This is useful if you think that the address has fallen into the wrong hands."
+msgstr "피드에 대한 새 비밀번호를 생성할 수 있습니다. 해당 주소가 유출되었다고 생각될 때 유용합니다."
+
+#: dropins/class-rss-dropin.php:457
+msgid "Your RSS secret for Simple History RSS feed is wrong. Please see WordPress settings for current link to the RSS feed."
+msgstr "심플 히스토리 RSS 피드에 대한 RSS 보안을 잘못이 있어요. 현재 링크를 RSS 피드에 연결하기 위해 워드프레스 설정을 보시기 바래요."
+
+#: dropins/class-rss-dropin.php:456
+msgid "Wrong RSS secret"
+msgstr "잘못한 RSS 보안"
+
+#. translators: %1$s is the number of times this log has been repeated.
+#: dropins/class-rss-dropin.php:422
+msgid "+%1$s occasion"
+msgid_plural "+%1$s occasions"
+msgstr[0] "%1$s 회 이상"
+
+#. translators: %s is the severity level of the log.
+#: dropins/class-rss-dropin.php:361
+msgid "Severity level: %1$s"
+msgstr "심각도 수준: %1$s"
+
+#. translators: %s blog name
+#: dropins/class-rss-dropin.php:259
+msgid "WordPress History for %s"
+msgstr "다음에 대한 워드프레스 기록: %s"
+
+#. translators: %s blog name
+#: dropins/class-rss-dropin.php:253
+msgid "History for %s"
+msgstr "다음에 대한 기록: %s"
+
+#: dropins/class-rss-dropin.php:123
+msgid "Created new secret RSS address"
+msgstr "새 보안 RSS 주소를 만들었어요"
+
+#: dropins/class-rss-dropin.php:107
+msgid "Regenerate"
+msgstr "재생성"
+
+#: dropins/class-rss-dropin.php:98
+#: inc/services/class-channels-settings-page.php:205
+#: inc/services/class-channels-settings-page.php:302
+msgid "Address"
+msgstr "주소"
+
+#: dropins/class-export-dropin.php:167
+msgctxt "Export dropin: submit button"
+msgid "Download Export File"
+msgstr "내보내기 파일 내려받기"
+
+#: dropins/class-export-dropin.php:140
+msgctxt "Export dropin: export format"
+msgid "CSV"
+msgstr "CSV"
+
+#: dropins/class-export-dropin.php:154
+msgctxt "Export dropin: export format"
+msgid "JSON"
+msgstr "JSON"
+
+#: dropins/class-export-dropin.php:134
+msgctxt "Export dropin: format"
+msgid "Choose format to export to"
+msgstr "내보낼 형식을 고르세요"
+
+#: dropins/class-export-dropin.php:129
+msgctxt "Export dropin: introtext"
+msgid "The export function will export the full history."
+msgstr "내보내기 기능은 전체 기록을 내보냅니다."

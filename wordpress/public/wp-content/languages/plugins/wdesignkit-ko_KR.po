@@ -1,0 +1,621 @@
+# Translation of Plugins - WDesignKit &#8211; Elementor &amp; Gutenberg Starter Templates, Patterns, Cloud Workspace &amp; Widget Builder - Stable (latest release) in Korean
+# This file is distributed under the same license as the Plugins - WDesignKit &#8211; Elementor &amp; Gutenberg Starter Templates, Patterns, Cloud Workspace &amp; Widget Builder - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-06-02 00:53:35+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.3\n"
+"Language: ko_KR\n"
+"Project-Id-Version: Plugins - WDesignKit &#8211; Elementor &amp; Gutenberg Starter Templates, Patterns, Cloud Workspace &amp; Widget Builder - Stable (latest release)\n"
+
+#: includes/admin/notices/wdkit-string.php:18 build/index.js:32031
+#: build/index.js:25339
+msgid "Manage Profile"
+msgstr "프로필 관리"
+
+#: includes/admin/notices/wdkit-string.php:17 build/index.js:32004
+#: build/index.js:25329
+msgid "Dashboard"
+msgstr "계기반"
+
+#: includes/admin/notices/wdkit-string.php:13 build/index.js:18586
+#: build/index.js:15242
+msgid "Clear All"
+msgstr "모두 지우기"
+
+#: includes/admin/notices/wdkit-string.php:12
+#: includes/admin/notices/wdkit-string.php:20 build/index.js:17206
+#: build/index.js:17913 build/index.js:19337 build/index.js:14231
+#: build/index.js:14734 build/index.js:15815
+msgid "Page Kits"
+msgstr "페이지 키트"
+
+#: includes/admin/notices/wdkit-string.php:10 build/index.js:17208
+#: build/index.js:17843 build/index.js:19269 build/index.js:14233
+#: build/index.js:14709 build/index.js:15791
+msgid "Full Pages"
+msgstr "풀 페이지"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:522
+msgid "Widget Already Exist in plugin"
+msgstr "위젯이 이미 플러그인에 존재합니다."
+
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:222
+msgid "Sorry , Cannot Download"
+msgstr "죄송합니다, 다운로드할 수 없습니다"
+
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:208
+msgid "Sorry , Invalid ID"
+msgstr "죄송합니다, 유효하지 않은 ID"
+
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:137
+msgid "Preset List Not Found"
+msgstr "프리셋 목록을 찾을 수 없습니다"
+
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:114
+msgid "Preset ID Not Found"
+msgstr "Preset ID를 찾을 수 없습니다"
+
+#: includes/admin/class-api.php:3515
+msgid "Rollback Successful, Plugin Re-activated"
+msgstr "롤백 성공, 플러그인 다시 활성화됨"
+
+#: includes/admin/class-api.php:3506
+msgid "Rollback to Previous Version"
+msgstr "이전 버전으로 롤백"
+
+#: includes/admin/class-api.php:887 includes/admin/class-api.php:1532
+msgid "Elementor kit not found"
+msgstr "Elementor 킷을 찾을 수 없습니다"
+
+#. Plugin Name of the plugin
+#: wdesignkit.php
+msgid "WDesignKit - Elementor & Gutenberg Starter Templates, Patterns, Cloud Workspace & Widget Builder"
+msgstr "WDesignKit - Elementor & 구텐베르크 스타터 템플릿, 패턴, 클라우드 작업 공간 및 위젯 빌더"
+
+#: includes/admin/class-api.php:3470
+msgid "Invalid Nonce or version not found"
+msgstr "유효하지 않은 Nonce 또는 버전을 찾을 수 없음"
+
+#: includes/admin/class-api.php:3340
+msgid "Reset White Label Successfully"
+msgstr "레이블 재설정 성공"
+
+#: includes/admin/class-api.php:3310
+msgid "Plugin Name Not Found"
+msgstr "플러그인 이름을 찾을 수 없음"
+
+#: includes/admin/class-api.php:2973
+msgid "Widget JSON not get"
+msgstr "위젯 JSON을 가져오지 못했습니다."
+
+#: includes/admin/class-api.php:2972
+msgid "Widget not get"
+msgstr "위젯을 받지 않다"
+
+#: includes/admin/class-api.php:2967
+msgid "Widget JSON get Successfully"
+msgstr "위젯 JSON을 성공적으로 가져왔습니다."
+
+#: includes/admin/class-api.php:2966
+msgid "Widget get Successfully"
+msgstr "위젯을 성공적으로 가져오기"
+
+#: includes/admin/class-api.php:2955
+msgid "widget JSON file not found."
+msgstr "위젯 JSON 파일을 찾을 수 없습니다."
+
+#: includes/admin/class-api.php:2954
+msgid "Widget JSON not found"
+msgstr "위젯 JSON을 찾을 수 없습니다"
+
+#: includes/admin/class-api.php:1926
+msgid "Elementor Container Activated Successfully."
+msgstr "Elementor 컨테이너가 성공적으로 활성화됨."
+
+#: includes/admin/class-api.php:1925
+msgid "Container Activated Successfully"
+msgstr "컨테이너가 성공적으로 활성화됨"
+
+#: includes/admin/class-api.php:940 includes/admin/class-api.php:1503
+msgid "Global Color and Typography found"
+msgstr "글로벌 컬러와 타이포그래피 발견"
+
+#: includes/admin/class-api.php:939 includes/admin/class-api.php:1502
+msgid "Global data Found"
+msgstr "글로벌 데이터 발견됨"
+
+#: includes/admin/class-api.php:1545
+msgid "No meta data found in kit"
+msgstr "키트에 메타 데이터를 찾을 수 없습니다."
+
+#: includes/admin/class-api.php:888 includes/admin/class-api.php:1533
+msgid "No active Elementor kit found"
+msgstr "활성 Elementor 킷을 찾을 수 없습니다"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:157
+msgid "Rate 5 Stars"
+msgstr "5별 평가"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:152
+msgid "docs"
+msgstr "문서"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:151
+msgid "Official Website"
+msgstr "공식 웹 사이트"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:96
+msgid "Upgrade PRO"
+msgstr "업그레이드 PRO"
+
+#. Description of the plugin
+#: wdesignkit.php
+msgid "Your All-in-One solution for effortless WordPress website creation and collaboration. With over 1,000+ Elementor and WordPress website templates, a library of 50+ pre-made widgets for Elementor, Gutenberg Blocks, and Bricks, along with a cloud workspace for collaboration and more."
+msgstr "쉬운 워드프레스 웹사이트 생성 및 협업을 위한 모두 해결책. 1,000개 이상의 Elementor 및 워드프레스 웹사이트 템플릿, Elementor용 50개 이상의 미리 만들어진 위젯 라이브러리, 구텐베르크 블록 및 브릭, 그리고 협업을 위한 클라우드 작업 공간을 제공합니다."
+
+#: includes/admin/notices/class-wdkit-rating.php:345
+msgid "Success Fully Close Rating Notice"
+msgstr "성공적으로 평가 알림을 달성하였습니다."
+
+#: includes/admin/notices/class-wdkit-rating.php:333
+msgid "You are not allowed to do this action"
+msgstr "이 작업은 허용되지 않습니다."
+
+#: includes/admin/notices/class-wdkit-rating.php:288
+msgid "Need Help ?"
+msgstr "도움이 필요하세요?"
+
+#: includes/admin/notices/class-wdkit-rating.php:287
+msgid "Give Review"
+msgstr "리뷰 작성하기"
+
+#: includes/admin/notices/class-wdkit-rating.php:283
+msgid "Your feedback is important to us and helps us improve WDesignKit further."
+msgstr "귀하의 피드백은 우리에게 중요하며 WDesignKit을 더 개선하는 데 도움이 됩니다."
+
+#: includes/admin/notices/class-wdkit-rating.php:282
+msgid "Rate your Experience with WDesignKit"
+msgstr "WDesignKit과의 경험을 평가해 주세요."
+
+#: includes/admin/class-wdkit-depends-installer.php:250
+#: includes/admin/class-wdkit-depends-installer.php:251
+msgid "Failed to activate WDesignKit"
+msgstr "WDesignKit를 활성화하지 못했습니다"
+
+#: includes/admin/class-wdkit-depends-installer.php:246
+#: includes/admin/class-wdkit-depends-installer.php:247
+msgid "Successfully updated WDesignKit"
+msgstr "WDesignKit을 성공적으로 업데이트했습니다."
+
+#: includes/admin/class-wdkit-depends-installer.php:231
+#: includes/admin/class-wdkit-depends-installer.php:232
+msgid "Failed to install the plugin update."
+msgstr "플러그인 업데이트를 설치하지 못했습니다."
+
+#: includes/admin/class-wdkit-depends-installer.php:216
+#: includes/admin/class-wdkit-depends-installer.php:217
+msgid "Plugin is already up to date."
+msgstr "플러그인은 이미 최신 상태입니다."
+
+#: includes/admin/class-wdkit-depends-installer.php:193
+#: includes/admin/class-wdkit-depends-installer.php:194
+#: includes/admin/class-wdkit-depends-installer.php:206
+#: includes/admin/class-wdkit-depends-installer.php:207
+msgid "Failed to retrieve plugin information."
+msgstr "플러그인 정보를 가져오지 못했습니다."
+
+#: includes/admin/class-wdkit-depends-installer.php:179
+msgid "Plugin not installed."
+msgstr "플러그인이 설치되지 않았습니다."
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:534
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:573
+msgid "Widget can not imported"
+msgstr "위젯을 가져올 수 없습니다."
+
+#: includes/admin/notices/wdkit-string.php:22 build/index.js:34406
+#: build/index.js:27110
+msgid "Categories"
+msgstr "분류"
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:195
+msgid "Documentation."
+msgstr "문서."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:192
+msgid "Read"
+msgstr "읽기"
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:188
+msgid "We reply within 24 working hours."
+msgstr "우리는 24시간 이내에 회신드립니다."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:186
+msgid "please add a ticket "
+msgstr "티켓을 추가해 주세요 "
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:183
+msgid "If you require any help , "
+msgstr "도움이 필요하시면, "
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:176
+msgid "Skip & Deactivate"
+msgstr "건너 뛰기 및 비활성화"
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:173
+msgid "Submit & Deactivate"
+msgstr "제출 & 비활성화"
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:167
+msgid "Please share the reason"
+msgstr "이유를 공유해주세요"
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:152
+msgid "Other"
+msgstr "기타"
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:149
+msgid "Its missing the feature i require."
+msgstr "나는 필요한 기능이 빠져 있습니다."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:146
+msgid "Dont want to use any wordpress plugin."
+msgstr "워드프레스 플러그인을 사용하고 싶지 않아요."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:143
+msgid "No more planning to use."
+msgstr "더 이상 사용할 계획 없음."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:140
+msgid "Found an alternative plugin."
+msgstr "대체 플러그인을 찾았습니다."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:137
+msgid "Performance Issues."
+msgstr "성능 문제."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:134
+msgid "Facing technical issues/bugs with the plugin."
+msgstr "플러그인과 관련된 기술적 문제/버그에 직면하고 있습니다."
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:131
+msgid "This is a temporary deactivation."
+msgstr "일시적으로 비활성화하는 경우"
+
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:113
+msgid "Quick Feedback"
+msgstr "빠른 피드백"
+
+#: includes/admin/class-api.php:1874
+msgid "Can Not Found Theme Name you Enterd."
+msgstr "입력한 테마 이름을 찾을 수 없습니다."
+
+#: includes/admin/class-api.php:1873
+msgid "Theme Name not Found"
+msgstr "테마 이름을 찾을 수 없음"
+
+#: includes/admin/class-api.php:1865
+msgid "Theme Not Activated !"
+msgstr "테마가 활성화되지 않았습니다!"
+
+#: includes/admin/class-api.php:1858
+msgid "Theme successfully activated"
+msgstr "테마가 성공적으로 활성화됨"
+
+#: includes/admin/class-api.php:1857
+msgid "Theme activated successfully"
+msgstr "테마 활성화됨"
+
+#: includes/admin/notices/wdkit-string.php:8 build/index.js:17808
+#: build/index.js:42088 build/index.js:42194 build/index.js:14694
+#: build/index.js:32658 build/index.js:32724
+msgid "Type"
+msgstr "형식"
+
+#: includes/admin/notices/wdkit-string.php:16 build/index.js:12135
+#: build/index.js:20970 build/index.js:31716 build/index.js:10676
+#: build/index.js:17032 build/index.js:25134
+msgid "Manage Workspace"
+msgstr "작업 공간 관리"
+
+#: includes/admin/notices/wdkit-string.php:9 build/index.js:16077
+#: build/index.js:17771 build/index.js:19211 build/index.js:25695
+#: build/index.js:33523 build/index.js:34501 build/index.js:13475
+#: build/index.js:14664 build/index.js:15758 build/index.js:20831
+#: build/index.js:26430 build/index.js:27163
+msgid "Free"
+msgstr "무료"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:154
+msgid "Join Community"
+msgstr "커뮤니티 가입"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:153
+msgid "Video Tutorials"
+msgstr "비디오 튜토리얼"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:97 build/index.js:32299
+#: build/index.js:25465
+msgid "Need Help?"
+msgstr "도움이 필요하다?"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:95 build/index.js:12191
+#: build/index.js:31752 build/index.js:10700 build/index.js:25154
+msgid "Settings"
+msgstr "설정"
+
+#: includes/admin/class-wdkit-enqueue.php:238
+#: includes/admin/notices/class-wdkit-deactivate-feedback.php:104
+#: build/index.js:20337 build/index.js:16647
+msgid "WDesignKit"
+msgstr "W디자인킷\"입니다."
+
+#: includes/admin/class-wdkit-depends-installer.php:137
+msgid "Unable to connect to the filesystem. Please confirm your credentials."
+msgstr "파일 시스템에 연결할 수 없습니다. 자격 증명을 확인해 주세요."
+
+#: includes/admin/class-api.php:3134
+msgid "Widget Not Added"
+msgstr "위젯이 추가되지 않았습니다."
+
+#: includes/admin/class-api.php:3081
+msgid "no message"
+msgstr "메시지 없음"
+
+#: includes/admin/class-api.php:3040
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:176
+msgid "Widget not Downloaded"
+msgstr "위젯 다운로드되지 않음"
+
+#: includes/admin/class-api.php:3039
+msgid "No Response Found"
+msgstr "응답을 찾을 수 없음"
+
+#: includes/admin/class-api.php:3005
+msgid " Widget not Downloaded"
+msgstr " 위젯 다운로드되지 않음"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:702
+msgid "Widget deleted successfully"
+msgstr "위젯이 성공적으로 삭제되었습니다"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:701
+msgid "widget deleted"
+msgstr "위젯 삭제됨"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:677
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:678
+msgid "Widget Not Deleted"
+msgstr "위젯이 삭제되지 않았습니다."
+
+#: includes/admin/class-api.php:3001 includes/admin/class-api.php:3129
+#: includes/admin/class-api.php:3185
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:171
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:673
+msgid "server error"
+msgstr "서버 오류"
+
+#: includes/admin/class-api.php:1947 includes/admin/class-api.php:2268
+#: includes/admin/class-api.php:2380
+msgid "Invalid import"
+msgstr "유효하지 않은 가져오기"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:133
+msgid "Widget List Not Found"
+msgstr "위젯 목록을 찾을 수 없습니다."
+
+#: includes/admin/class-api.php:1544 includes/admin/class-api.php:3293
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:113
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:136
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:207
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:221
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:132
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:254
+msgid "Data Not Found"
+msgstr "데이터를 찾을 수 없음"
+
+#: includes/admin/class-api.php:534
+msgid "Server Error, Data Not Found"
+msgstr "서버 오류, 데이터를 찾을 수 없음"
+
+#: includes/admin/class-api.php:533
+msgid "Server Error"
+msgstr "서버 오류"
+
+#: includes/admin/hooks/class-wdkit-login-ajax.php:134
+msgid "Login successful. Keep it up!"
+msgstr "로그인 성공. 계속하세요!"
+
+#: includes/admin/hooks/class-wdkit-login-ajax.php:133
+msgid "Success! Login successful."
+msgstr "성공! 로그인 성공."
+
+#: includes/admin/class-api.php:365
+#: includes/admin/hooks/class-wdkit-login-ajax.php:299
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:303
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:956 build/index.js:41241
+#: build/index.js:41342 build/index.js:32219 build/index.js:32267
+msgid "Success"
+msgstr "성공했네요"
+
+#. Translators: %s is a placeholder for the error message
+#: includes/admin/class-api.php:352
+#: includes/admin/hooks/class-wdkit-login-ajax.php:286
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:290
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:943
+msgid "API request error: %s"
+msgstr "API 요청 오류: %s"
+
+#: includes/admin/class-api.php:336
+#: includes/admin/hooks/class-wdkit-login-ajax.php:270
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:274
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:927
+msgid "API Not Found"
+msgstr "API를 찾을 수 없음"
+
+#: includes/admin/class-api.php:136
+#: includes/admin/hooks/class-wdkit-login-ajax.php:74
+msgid "Something went wrong."
+msgstr "문제가 발생했습니다."
+
+#: includes/admin/class-api.php:131
+#: includes/admin/hooks/class-wdkit-login-ajax.php:70
+#: includes/admin/hooks/class-wdkit-preset-ajax.php:70
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:75
+msgid "Insufficient permissions."
+msgstr "권한이 부족합니다."
+
+#. Author URI of the plugin
+#: wdesignkit.php
+msgid "https://posimyth.com/"
+msgstr "https://posimyth.com"
+
+#. Author of the plugin
+#: wdesignkit.php
+msgid "POSIMYTH"
+msgstr "포시미스"
+
+#. Plugin URI of the plugin
+#: wdesignkit.php
+msgid "https://wdesignkit.com/"
+msgstr "https://wdesignkit.com/"
+
+#: includes/admin/notices/wdkit-string.php:21 build/index.js:18072
+#: build/index.js:14876
+msgid "Tags"
+msgstr "태그"
+
+#: includes/admin/notices/wdkit-string.php:19 build/index.js:17931
+#: build/index.js:26626 build/index.js:14750 build/index.js:21584
+msgid "Plugins"
+msgstr "플러그인"
+
+#: includes/admin/notices/wdkit-string.php:5 build/index.js:17635
+#: build/index.js:26464 build/index.js:34555 build/index.js:14563
+#: build/index.js:21490 build/index.js:27193
+msgid "Search"
+msgstr "Search"
+
+#: includes/admin/notices/wdkit-string.php:6 build/index.js:17572
+#: build/index.js:17613 build/index.js:18613 build/index.js:26785
+#: build/index.js:34533 build/index.js:34591 build/index.js:34802
+#: build/index.js:14510 build/index.js:14541 build/index.js:15262
+#: build/index.js:21702 build/index.js:27188 build/index.js:27217
+#: build/index.js:27354
+msgid "Filters"
+msgstr "필터"
+
+#: includes/admin/notices/wdkit-string.php:15 build/index.js:16159
+#: build/index.js:31698 build/index.js:13529 build/index.js:25124
+msgid "Workspace"
+msgstr "작업 공간"
+
+#: includes/widget-load/elementor/wb-controller.php:92 build/index.js:40482
+#: build/index.js:40490 build/index.js:53026 build/index.js:31813
+#: build/index.js:31817 build/index.js:40743
+msgid "Select Template"
+msgstr "템플릿 선택"
+
+#: includes/widget-load/elementor/wb-controller.php:88
+msgid "You Haven't Saved Templates Yet."
+msgstr "아직 템플릿을 저장하지 않았습니다."
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:156
+msgid "Request Feature"
+msgstr "기능 요청"
+
+#: includes/admin/notices/class-wdkit-plugin-page.php:155
+msgid "What`s New?"
+msgstr "무슨 새소식이야?"
+
+#: includes/admin/notices/wdkit-string.php:11 build/index.js:17207
+#: build/index.js:17872 build/index.js:19298 build/index.js:23445
+#: build/index.js:14232 build/index.js:14718 build/index.js:15800
+#: build/index.js:18908
+msgid "Sections"
+msgstr "섹션"
+
+#: includes/admin/notices/wdkit-string.php:14 build/index.js:16134
+#: build/index.js:20882 build/index.js:22363 build/index.js:31253
+#: build/index.js:31610 build/index.js:13511 build/index.js:16964
+#: build/index.js:18046 build/index.js:24825 build/index.js:25084
+msgid "Widgets"
+msgstr "위젯"
+
+#: includes/admin/notices/wdkit-string.php:4 build/index.js:16109
+#: build/index.js:20862 build/index.js:22343 build/index.js:31233
+#: build/index.js:31541 build/index.js:13494 build/index.js:16957
+#: build/index.js:18040 build/index.js:24819 build/index.js:25052
+msgid "Templates"
+msgstr "템플릿"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:641
+msgid "Widget Exported Fail"
+msgstr "위젯 내보내기 실패"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:632
+msgid "Widget Exported successfully"
+msgstr "위젯이 성공적으로 내보내졌습니다."
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:631
+msgid "Widget Exported"
+msgstr "위젯 내보내기"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:603
+msgid "Widget Type Not Exists"
+msgstr "위젯 유형이 존재하지 않습니다."
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:602
+msgid "Widget Type Fail"
+msgstr "위젯 유형 실패"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:533
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:572
+msgid "Operation Fial!"
+msgstr "작전 실패!"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:563
+msgid "Widget imported successfully"
+msgstr "위젯이 성공적으로 가져와졌습니다."
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:562 build/index.js:35377
+#: build/index.js:27844
+msgid "Widget imported"
+msgstr "위젯이 가져왔습니다"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:521
+msgid "Widget Already Exist!"
+msgstr "위젯이 이미 존재합니다!"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:456 build/index.js:65524
+#: build/index.js:52274
+msgid "Success! Update Saved"
+msgstr "성공! 업데이트 저장됨"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:455 build/index.js:65524
+#: build/index.js:52274
+msgid "Update Saved Successfully"
+msgstr "업데이트가 성공적으로 저장되었습니다"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:292
+msgid "Builder Type not found"
+msgstr "빌더 유형을 찾을 수 없음"
+
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:255
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:293
+#: includes/admin/hooks/class-wdkit-widget-ajax.php:642
+msgid "something went wrong! please try again later."
+msgstr "문제가 발생했습니다! 나중에 다시 시도해주세요."
+
+#: includes/admin/class-api.php:2686
+msgid "Relevant Page Builder not installed or activated"
+msgstr "관련 페이지 빌더가 설치되지 않았거나 활성화되지 않았습니다"
+
+#: includes/admin/class-api.php:1948 includes/admin/class-api.php:2269
+#: includes/admin/class-api.php:2381
+msgid "Invalid import: Check your details and try again."
+msgstr "유효하지 않은 가져오기: 세부 정보를 확인하고 다시 시도하십시오."

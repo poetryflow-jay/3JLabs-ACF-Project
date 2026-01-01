@@ -1,0 +1,53 @@
+.wkit-wb-Widget_165b3324 .wkit-grid-item-hover-effect{
+    display:block;
+    position:relative;}.wkit-wb-Widget_165b3324 .grid-inner{
+    position:relative;
+    overflow:hidden;
+    display:grid;
+    height:300px;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 0.5rem;
+    grid-template-areas:
+        'pos-top-left pos-top-right'
+        'pos-bottom-left pos-bottom-right';
+    padding: 0.5rem;}.wkit-wb-Widget_165b3324 .grid-inner img[src=""], .grid-inner span[data-title=""], .grid-inner p[data-desc=""] {
+   display: none;}.wkit-wb-Widget_165b3324 .grid-inner-image{
+    background-size:cover;
+    background-position: 50% 50%;
+    position:absolute;
+    top:0;
+    z-index:1;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;}.wkit-wb-Widget_165b3324 .inner__box{
+    z-index: 2;
+    padding: 1rem;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, .15);
+    backdrop-filter: blur(5px);
+    opacity: 0;}.wkit-wb-Widget_165b3324 .pos-top-left{
+    grid-area: pos-top-left;}.wkit-wb-Widget_165b3324 .pos-top-right{
+    grid-area: pos-top-right;}.wkit-wb-Widget_165b3324 .pos-bottom-left{
+    grid-area: pos-bottom-left;}.wkit-wb-Widget_165b3324 .pos-bottom-right{
+    grid-area: pos-bottom-right;}.wkit-wb-Widget_165b3324 .pos-top-right,.pos-bottom-left{
+    clip-path: polygon(0 20px,20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%);}.wkit-wb-Widget_165b3324 .pos-top-left,.pos-bottom-right{
+    clip-path: polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));}.wkit-wb-Widget_165b3324 .pos-top-title, .pos-bottom-title{
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    font-weight: 200;
+    line-height: 0.8;
+    display:inline-flex;
+    color: #000;}.wkit-wb-Widget_165b3324 .pos-top-desc{
+    font-weight: 600;
+    margin-top: auto;
+    display:inline-flex;
+    font-size: 0.65rem;
+    color: #000;}.wkit-wb-Widget_165b3324 .pos-bottom-desc{
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: auto;
+    color: #000;}

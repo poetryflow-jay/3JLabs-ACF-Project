@@ -1,0 +1,5391 @@
+# Copyright (C) 2025 POSIMYTH
+# This file is distributed under the GNU General Public License v3 or later..
+msgid ""
+msgstr ""
+"Project-Id-Version: Nexter 4.2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/nexter\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-11-24T04:21:42+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: nexter\n"
+
+#. Theme Name of the theme
+#: style.css
+#: inc/core-function/nxt-core-function.php:251
+#: inc/panel-settings/plus-settings-options.php:59
+msgid "Nexter"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://nexterwp.com"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Nexter Theme is an ultra-lightweight, multipurpose WordPress theme built with pure vanilla JavaScript, crafted specifically for users who are serious about performance, speed, and SEO. With a footprint of less than 50KB, it delivers blazing-fast load times, making it the perfect base for business websites, personal portfolios, blogs, and online stores. Designed with clean, SEO-friendly code, Nexter ensures better search engine visibility while offering rock-solid compatibility with popular tools like Elementor, The Plus Addons for Elementor, and the default Gutenberg Block Editor. It’s fully WooCommerce-ready, accessibility-ready, and RTL-compatible, making it suitable for a global and diverse audience. Nexter follows secure coding standards, is regularly updated, and ensures full compatibility with the latest WordPress versions. To get the most out of it, Nexter works best with Nexter Blocks and Nexter Extension—together, they bring powerful blocks, advanced design tools, and performance-focused features that elevate your website-building experience. Plus, with access to over 1000 ready-to-import website templates and sections, you can build and launch stunning websites faster than ever before. Whether you’re a developer, designer, agency, or entrepreneur, Nexter Theme is your go-to choice for building fast, flexible, and professional WordPress websites. Learn More – https://nexterwp.com/nexter-theme/"
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "POSIMYTH"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://posimyth.com"
+msgstr ""
+
+#. translators: 1: Comment.
+#: comments.php:32
+#: comments.php:39
+#, php-format
+msgctxt "count comment"
+msgid "Comment (%1$s)"
+msgid_plural "Comment (%1$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:64
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:78
+msgid "Leave Your Comment"
+msgstr ""
+
+#. translators: 1: Leave a Reply
+#: comments.php:80
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: comments.php:81
+msgid "Cancel Reply"
+msgstr ""
+
+#: comments.php:82
+msgid "Submit Now"
+msgstr ""
+
+#: comments.php:84
+msgid "Comment"
+msgstr ""
+
+#. translators: 1: logged.
+#: comments.php:89
+#, php-format
+msgid "You must be %1$slogged in%2$s to post a comment."
+msgstr ""
+
+#. translators: 1: logged.
+#: comments.php:97
+#, php-format
+msgid "Logged in as %1$s%2$s. %3$sLog out?%4$s"
+msgstr ""
+
+#: comments.php:100
+msgid "Log out of this account"
+msgstr ""
+
+#: comments.php:112
+msgid "Name"
+msgstr ""
+
+#: comments.php:117
+msgid "Email Address *"
+msgstr ""
+
+#: comments.php:122
+msgid "Website"
+msgstr ""
+
+#: functions.php:70
+msgid "Primary"
+msgstr ""
+
+#: inc/core-function/nxt-core-function.php:85
+msgid "Skip to content"
+msgstr ""
+
+#: inc/core-function/nxt-core-function.php:132
+#: inc/core-function/nxt-core-function.php:420
+msgid "Home"
+msgstr ""
+
+#. translators: copyright: Made By Nexter
+#: inc/core-function/nxt-core-function.php:245
+#, php-format
+msgid "%1$s Made by&nbsp;%2$s&nbsp;WP Theme"
+msgstr ""
+
+#: inc/core-function/nxt-core-function.php:324
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:240
+#: inc/third-party/class-nexter-builder-documents.php:114
+msgid "Archives"
+msgstr ""
+
+#. translators: %s: Archive
+#: inc/core-function/nxt-core-function.php:422
+#, php-format
+msgid "Archive by \"%s\""
+msgstr ""
+
+#. translators: %s: Search term
+#: inc/core-function/nxt-core-function.php:424
+#, php-format
+msgid "Search Results for \"%s\""
+msgstr ""
+
+#. translators: %s: Posts Tagged
+#: inc/core-function/nxt-core-function.php:426
+#, php-format
+msgid "Posts Tagged \"%s\""
+msgstr ""
+
+#. translators: %s: Articles Posted
+#: inc/core-function/nxt-core-function.php:428
+#, php-format
+msgid "Articles Posted by %s"
+msgstr ""
+
+#: inc/core-function/nxt-core-function.php:429
+msgid "Error 404"
+msgstr ""
+
+#: inc/core-function/nxt-core-function.php:556
+#: inc/third-party/class-beaver-build-theme.php:78
+msgid "Page"
+msgstr ""
+
+#: inc/core-function/nxt-core-function.php:588
+msgid "PREV"
+msgstr ""
+
+#: inc/core-function/nxt-core-function.php:600
+msgid "NEXT"
+msgstr ""
+
+#: inc/core-function/nxt-helper-function.php:31
+msgid "Theme Color "
+msgstr ""
+
+#: inc/core-function/nxt-helper-function.php:101
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:100
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select Template"
+msgstr ""
+
+#: inc/core-function/nxt-helper-function.php:150
+#: inc/custom-metabox/nexter-sidebar-settings.php:85
+msgid "Custom Sidebar"
+msgstr ""
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:16
+msgid "Sidebar Settings"
+msgstr ""
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:39
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:73
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:137
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:206
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:275
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:178
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:231
+msgid "Display Sidebar"
+msgstr ""
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:44
+msgid "Customizer Default"
+msgstr ""
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:48
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:50
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:115
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:184
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:253
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:166
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:219
+msgid "No Sidebar"
+msgstr ""
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:52
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:54
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:119
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:188
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:257
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:167
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:220
+msgid "Left Sidebar"
+msgstr ""
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:56
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:58
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:123
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:192
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:261
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:168
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:221
+msgid "Right Sidebar"
+msgstr ""
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:74
+msgid "Select Sidebar"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:68
+msgid "Background Type"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:86
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Background Color"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:92
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Background Image"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:97
+msgid "No File Selected"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:108
+msgid "Background Position"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:110
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Left Top"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:111
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Left Center"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:112
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Left Bottom"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:114
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Center Top"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:115
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Center Center"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:116
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Center Bottom"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:118
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Right Top"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:119
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Right Center"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:120
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Right Bottom"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:126
+msgid "Background Size"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:128
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Auto"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:129
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Cover"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:130
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Contain"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:131
+#: inc/customizer/controls/background/nexter-control-background.php:142
+msgid "Repeat-Y"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:137
+msgid "Background Repeat"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:139
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "No Repeat"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:140
+msgid "Repeat All"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:141
+msgid "Repeat-X"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:148
+msgid "Background Attachment"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:150
+#: inc/customizer/controls/typography/nexter-control-typography.php:40
+#: inc/customizer/customizer-config/blog/class-single-blog.php:166
+#: inc/customizer/customizer-config/blog/class-single-blog.php:301
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:80
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:173
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:265
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:357
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:449
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:541
+msgid "Inherit"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:151
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Scroll"
+msgstr ""
+
+#: inc/customizer/controls/background/nexter-control-background.php:152
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Fixed"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:98
+msgid "Other System Fonts"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:107
+msgid "Custom Fonts"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:118
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Google Fonts"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:146
+msgid "100"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:147
+msgid "100 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:148
+msgid "200"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:149
+msgid "200 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:150
+msgid "300"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:151
+msgid "300 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:152
+msgid "400"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:153
+msgid "400 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:154
+msgid "500"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:155
+msgid "500 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:156
+msgid "600"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:157
+msgid "600 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:158
+msgid "700"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:159
+msgid "700 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:160
+msgid "800"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:161
+msgid "800 Italic"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:162
+msgid "900"
+msgstr ""
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:163
+msgid "900 Italic"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:39
+msgid "Single Blog"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:52
+msgid "Display Post Title"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:54
+#: inc/customizer/customizer-config/blog/class-single-blog.php:67
+#: inc/customizer/customizer-config/blog/class-single-blog.php:80
+#: inc/customizer/customizer-config/blog/class-single-blog.php:93
+#: inc/customizer/customizer-config/blog/class-single-blog.php:106
+#: inc/customizer/customizer-config/blog/class-single-blog.php:119
+#: inc/customizer/customizer-config/blog/class-single-blog.php:132
+#: inc/customizer/customizer-config/general/class-body-style.php:123
+#: inc/customizer/customizer-config/general/class-footer.php:47
+#: inc/customizer/customizer-config/general/class-header.php:47
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:54
+#: inc/customizer/customizer-config/pages/class-single-page.php:52
+msgid "OFF"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:55
+#: inc/customizer/customizer-config/blog/class-single-blog.php:68
+#: inc/customizer/customizer-config/blog/class-single-blog.php:81
+#: inc/customizer/customizer-config/blog/class-single-blog.php:94
+#: inc/customizer/customizer-config/blog/class-single-blog.php:107
+#: inc/customizer/customizer-config/blog/class-single-blog.php:120
+#: inc/customizer/customizer-config/blog/class-single-blog.php:133
+#: inc/customizer/customizer-config/general/class-body-style.php:124
+#: inc/customizer/customizer-config/general/class-footer.php:48
+#: inc/customizer/customizer-config/general/class-header.php:48
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:55
+#: inc/customizer/customizer-config/pages/class-single-page.php:53
+msgid "ON"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:65
+msgid "Display Featured Image"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:78
+msgid "Display Post Meta Info"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:91
+msgid "Display Post Navigation"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:104
+msgid "Display Author Info"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:117
+msgid "Display Post Tags"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:130
+msgid "Display Comment Box"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:143
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:53
+msgid "Primary Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:156
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Title Typography"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:169
+#: inc/customizer/customizer-config/blog/class-single-blog.php:304
+#: inc/customizer/customizer-config/typography/class-body-typography.php:54
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:54
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:147
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:239
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:331
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:423
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:515
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Font Family"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:181
+#: inc/customizer/customizer-config/blog/class-single-blog.php:194
+#: inc/customizer/customizer-config/blog/class-single-blog.php:209
+#: inc/customizer/customizer-config/blog/class-single-blog.php:316
+#: inc/customizer/customizer-config/blog/class-single-blog.php:329
+#: inc/customizer/customizer-config/blog/class-single-blog.php:344
+#: inc/customizer/customizer-config/general/class-layout-container.php:61
+#: inc/customizer/customizer-config/general/class-layout-container.php:138
+#: inc/customizer/customizer-config/general/class-layout-container.php:305
+#: inc/customizer/customizer-config/general/class-layout-container.php:382
+#: inc/customizer/customizer-config/general/class-layout-container.php:459
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:111
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:180
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:249
+#: inc/customizer/customizer-config/typography/class-body-typography.php:66
+#: inc/customizer/customizer-config/typography/class-body-typography.php:79
+#: inc/customizer/customizer-config/typography/class-body-typography.php:94
+#: inc/customizer/customizer.php:396
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:91
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:165
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:218
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Default"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:183
+#: inc/customizer/customizer-config/blog/class-single-blog.php:318
+#: inc/customizer/customizer-config/typography/class-body-typography.php:68
+msgid "Font Variant"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:196
+#: inc/customizer/customizer-config/blog/class-single-blog.php:331
+#: inc/customizer/customizer-config/typography/class-body-typography.php:81
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:64
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:157
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:249
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:341
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:433
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:525
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Font Weight"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:207
+#: inc/customizer/customizer-config/blog/class-single-blog.php:342
+#: inc/customizer/customizer-config/typography/class-body-typography.php:92
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:73
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:166
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:258
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:350
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:442
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:534
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Text Transform"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:211
+#: inc/customizer/customizer-config/blog/class-single-blog.php:346
+#: inc/customizer/customizer-config/typography/class-body-typography.php:96
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:82
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:175
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:267
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:359
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:451
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:543
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Capitalize"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:212
+#: inc/customizer/customizer-config/blog/class-single-blog.php:347
+#: inc/customizer/customizer-config/typography/class-body-typography.php:97
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:83
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:176
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:268
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:360
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:452
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:544
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Uppercase"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:213
+#: inc/customizer/customizer-config/blog/class-single-blog.php:348
+#: inc/customizer/customizer-config/typography/class-body-typography.php:98
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:84
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:177
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:269
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:361
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:453
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:545
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Lowercase"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:223
+#: inc/customizer/customizer-config/blog/class-single-blog.php:358
+#: inc/customizer/customizer-config/typography/class-body-typography.php:104
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:96
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:189
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:281
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:373
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:465
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:557
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Font Size"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:243
+#: inc/customizer/customizer-config/blog/class-single-blog.php:378
+#: inc/customizer/customizer-config/typography/class-body-typography.php:123
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:111
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:203
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:295
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:387
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:479
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:571
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Line Height"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:258
+#: inc/customizer/customizer-config/blog/class-single-blog.php:393
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Letter Spacing"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:276
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Title Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:291
+msgid "Post Meta Typography"
+msgstr ""
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:411
+msgid "Post Meta Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:43
+msgid "Body Background"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:54
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Background"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:69
+#: inc/customizer/customizer-config/general/class-body-style.php:80
+msgid "Content Background"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:92
+msgid "Body Frame"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:104
+msgid "Body Frame (Space)"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:108
+msgid "Top"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:109
+#: inc/customizer/customizer-config/general/class-layout-container.php:112
+#: inc/customizer/customizer-config/general/class-layout-container.php:189
+#: inc/customizer/customizer-config/general/class-layout-container.php:271
+#: inc/customizer/customizer-config/general/class-layout-container.php:357
+#: inc/customizer/customizer-config/general/class-layout-container.php:434
+#: inc/customizer/customizer-config/general/class-layout-container.php:511
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:132
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Right"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:110
+msgid "Bottom"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:111
+#: inc/customizer/customizer-config/general/class-layout-container.php:111
+#: inc/customizer/customizer-config/general/class-layout-container.php:188
+#: inc/customizer/customizer-config/general/class-layout-container.php:270
+#: inc/customizer/customizer-config/general/class-layout-container.php:356
+#: inc/customizer/customizer-config/general/class-layout-container.php:433
+#: inc/customizer/customizer-config/general/class-layout-container.php:510
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:131
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Left"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:121
+msgid "Fixed Body Frame"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-body-style.php:134
+msgid "Frame Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-footer.php:34
+#: inc/customizer/customizer-config/general/class-layout-container.php:130
+#: inc/third-party/class-beaver-build-theme.php:113
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Footer"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-footer.php:45
+msgid "Disable Footer"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-header.php:34
+#: inc/customizer/customizer-config/general/class-layout-container.php:53
+#: inc/third-party/class-beaver-build-theme.php:85
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Header"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-header.php:45
+msgid "Disable Header"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:65
+#: inc/customizer/customizer-config/general/class-layout-container.php:142
+#: inc/customizer/customizer-config/general/class-layout-container.php:208
+#: inc/customizer/customizer-config/general/class-layout-container.php:224
+#: inc/customizer/customizer-config/general/class-layout-container.php:309
+#: inc/customizer/customizer-config/general/class-layout-container.php:386
+#: inc/customizer/customizer-config/general/class-layout-container.php:463
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:77
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:85
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:92
+msgid "Container"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:69
+#: inc/customizer/customizer-config/general/class-layout-container.php:146
+#: inc/customizer/customizer-config/general/class-layout-container.php:228
+#: inc/customizer/customizer-config/general/class-layout-container.php:313
+#: inc/customizer/customizer-config/general/class-layout-container.php:390
+#: inc/customizer/customizer-config/general/class-layout-container.php:467
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:93
+msgid "Full Width"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:79
+#: inc/customizer/customizer-config/general/class-layout-container.php:156
+msgid "Container(Wide) Width"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:107
+#: inc/customizer/customizer-config/general/class-layout-container.php:184
+#: inc/customizer/customizer-config/general/class-layout-container.php:266
+#: inc/customizer/customizer-config/general/class-layout-container.php:352
+#: inc/customizer/customizer-config/general/class-layout-container.php:429
+#: inc/customizer/customizer-config/general/class-layout-container.php:506
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:127
+msgid "Spacing(Padding)"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:216
+msgid "Site Container"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:238
+#: inc/customizer/customizer-config/general/class-layout-container.php:326
+#: inc/customizer/customizer-config/general/class-layout-container.php:403
+#: inc/customizer/customizer-config/general/class-layout-container.php:480
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:99
+msgid "Container Width"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:297
+msgid "Page Container"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:374
+msgid "Single Post Container"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:451
+msgid "Archive Posts Container"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:35
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:149
+msgid "Side Bar"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:41
+msgid "Site Sidebar Layout"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:80
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:149
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:218
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:287
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:190
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:243
+msgid "Custom Sidebar Sections"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:102
+#: inc/customizer/customizer-register-panels-sections.php:61
+msgid "Pages"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:171
+msgid "Blog Posts"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:41
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:67
+msgid "Maintenance Mode"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:52
+msgid "Enable Maintenance Mode"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:61
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Type"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:68
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Coming Soon"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:75
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Who Can Access"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:81
+msgid "Logged In"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:82
+msgid "Custom"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:93
+msgid "Exclude User Roles"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-text-selection.php:40
+msgid "Selection Text/Content"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-text-selection.php:52
+msgid "Selected Text Background Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/general/class-text-selection.php:62
+msgid "Selected Text Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/pages/class-single-page.php:39
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Single Page"
+msgstr ""
+
+#: inc/customizer/customizer-config/pages/class-single-page.php:50
+msgid "Hide Featured Image"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:42
+msgid "Body Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:54
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Text Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:63
+msgid "Link Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:72
+msgid "Link Hover Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:40
+msgid "Heading (H1-H6) Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:52
+msgid "Heading (H1) Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:62
+msgid "Heading (H2) Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:72
+msgid "Heading (H3) Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:82
+msgid "Heading (H4) Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:92
+msgid "Heading (H5) Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:102
+msgid "Heading (H6) Color"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-body-typography.php:41
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Body"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-body-typography.php:51
+msgid "Default System Font"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-body-typography.php:151
+msgid "Paragraph (P) Margin Bottom"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:43
+msgid "Heading H1"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:136
+msgid "Heading H2"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:228
+msgid "Heading H3"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:317
+msgid "Heading H4"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:412
+msgid "Heading H5"
+msgstr ""
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:502
+msgid "Heading H6"
+msgstr ""
+
+#: inc/customizer/customizer-register-panels-sections.php:27
+#: inc/third-party/woocommerce/customizer/customizer-woocommerce.php:31
+msgid "General"
+msgstr ""
+
+#: inc/customizer/customizer-register-panels-sections.php:40
+msgid "Styling Colors"
+msgstr ""
+
+#: inc/customizer/customizer-register-panels-sections.php:48
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Typography"
+msgstr ""
+
+#: inc/customizer/customizer-register-panels-sections.php:68
+msgid "Blog"
+msgstr ""
+
+#: inc/customizer/customizer-register-panels-sections.php:112
+msgid "Site Identity"
+msgstr ""
+
+#: inc/customizer/customizer.php:394
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Clear"
+msgstr ""
+
+#: inc/customizer/customizer.php:395
+msgid "Clear color"
+msgstr ""
+
+#: inc/customizer/customizer.php:397
+msgid "Select default color"
+msgstr ""
+
+#: inc/customizer/customizer.php:398
+msgid "Select Color"
+msgstr ""
+
+#: inc/customizer/customizer.php:399
+msgid "Color value"
+msgstr ""
+
+#: inc/customizer/customizer.php:413
+msgid "Choose a file"
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:130
+msgid "Activate Nexter Extension Now !!!"
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:131
+msgid "Finally, You are Done Installing Nexter Theme & Extension as Well. Now It’s Time to Press the Pedal. Activate Nexter Extension and Get Over With it."
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:132
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Activate Nexter Extension"
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:136
+msgid "It’s Time to Install Nexter Extension"
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:137
+msgid "Now You’ve Already Installed Nexter Theme, You Need to Install Nexter Extension in Order to Get the Most of out From it. Nexter Extension is an Ultimate Solution to Your Page Building Experience Using Templates."
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:137
+msgid "Visit Here"
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:137
+msgid " to Learn More About Nexter Extension."
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:138
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Install Nexter Extension"
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:171
+#: inc/nexter-admin-enqueue.php:243
+#: inc/panel-settings/plus-settings-options.php:544
+msgid "Insufficient permissions."
+msgstr ""
+
+#: inc/nexter-admin-enqueue.php:206
+#: inc/nexter-admin-enqueue.php:281
+msgid "Failed to retrieve plugin information."
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:90
+#: inc/panel-settings/plus-settings-options.php:91
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Dashboard"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:97
+#: inc/panel-settings/plus-settings-options.php:98
+msgid "Templates"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:105
+#: inc/panel-settings/plus-settings-options.php:106
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Blocks"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:113
+#: inc/panel-settings/plus-settings-options.php:114
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Theme Builder"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:122
+#: inc/panel-settings/plus-settings-options.php:123
+#: inc/panel-settings/plus-settings-options.php:406
+#: inc/panel-settings/plus-settings-options.php:410
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Code Snippets"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:130
+#: inc/panel-settings/plus-settings-options.php:131
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Extensions"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:138
+#: inc/panel-settings/plus-settings-options.php:139
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Theme Customizer"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:146
+#: inc/panel-settings/plus-settings-options.php:147
+msgid "Get Pro Nexter"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:397
+msgid "Replace multiple small plugins with a single, unified snippet manager"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:398
+msgid "Add PHP, HTML, CSS safely without editing theme or core files"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:399
+msgid "Apply snippets site-wide or on specific pages, posts, or conditions"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:400
+msgid "Stay protected with built-in validation, version control & rollback"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:401
+msgid "Import or Organise snippets from our 1000+ Cloud Snippets Library"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:402
+msgid "Preview, test, and toggle snippets without affecting live visitors"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:411
+msgid "Add Custom PHP, HTML, CSS & JS Code to WordPress - No Child Theme or Extra Plugins Needed"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:412
+msgid "Skip the pain of editing core files or juggling dozens of mini plugins. Nexter Code Snippets lets you safely add and manage custom PHP, HTML, CSS right inside your dashboard, no child theme required. Build smarter, cleaner sites with total control and zero risk to performance."
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:414
+msgid "Activate Nexter Extensions"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:414
+msgid "Install Nexter Extensions"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:415
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Explore All Features"
+msgstr ""
+
+#: inc/panel-settings/plus-settings-options.php:432
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Nexter Extension"
+msgstr ""
+
+#. translators: %s: post date.
+#: inc/template-tags.php:30
+#, php-format
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr ""
+
+#. translators: %s: post author.
+#: inc/template-tags.php:46
+#, php-format
+msgctxt "post author"
+msgid "by %s"
+msgstr ""
+
+#. translators: %s: post title
+#: inc/template-tags.php:66
+#, php-format
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr ""
+
+#. translators: %s: screen readers text
+#. translators: %s: Name of current post. Only visible to screen readers
+#: inc/template-tags.php:83
+#: template-parts/content-page.php:41
+#, php-format
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:80
+msgid "Before Page"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:81
+msgid "After Page"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:87
+msgid "Header Before"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:88
+msgid "Header After"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:92
+#: inc/third-party/class-beaver-build-theme.php:99
+msgid "Content"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:94
+#: inc/third-party/class-beaver-build-theme.php:101
+msgid "Content Top"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:95
+#: inc/third-party/class-beaver-build-theme.php:102
+msgid "Content Bottom"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:106
+msgid "Sidebar"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:108
+msgid "Sidebar Before"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:109
+msgid "Sidebar After"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:115
+msgid "Footer Before"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:116
+msgid "Footer After"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:120
+msgid "Posts"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:122
+msgid "Comments Before"
+msgstr ""
+
+#: inc/third-party/class-beaver-build-theme.php:123
+msgid "Comments After"
+msgstr ""
+
+#: inc/third-party/class-nexter-builder-documents.php:108
+msgid "Singular"
+msgstr ""
+
+#: inc/third-party/documents/class-nxt-builder-ele-document-archives.php:21
+msgid "Nexter Archives Template"
+msgstr ""
+
+#: inc/third-party/documents/class-nxt-builder-ele-document-singular.php:21
+msgid "Nexter Singular Template"
+msgstr ""
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:42
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WooCommerce"
+msgstr ""
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:62
+msgid "Secondary Color"
+msgstr ""
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:163
+msgid "WooCommerce Sidebar"
+msgstr ""
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:216
+msgid "Single Product"
+msgstr ""
+
+#: inc/third-party/woocommerce/nexter-woocommerce-config.php:214
+msgid "Out of stock"
+msgstr ""
+
+#: inc/third-party/woocommerce/nexter-woocommerce-config.php:243
+msgid "Sale"
+msgstr ""
+
+#. translators: 1: count of products
+#: inc/third-party/woocommerce/nexter-woocommerce-config.php:287
+#, php-format
+msgctxt "product categories"
+msgid "(%1$s)"
+msgid_plural "(%1$s)"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/widgets.php:20
+msgid "Sidebar 1"
+msgstr ""
+
+#: inc/widgets.php:33
+msgid "Sidebar 2"
+msgstr ""
+
+#: inc/widgets.php:46
+msgid "Sidebar 3"
+msgstr ""
+
+#: inc/widgets.php:59
+msgid "Sidebar 4"
+msgstr ""
+
+#: inc/widgets.php:72
+msgid "Sidebar 5"
+msgstr ""
+
+#. translators: %s: search query.
+#: search.php:30
+#, php-format
+msgid "Search Results for : %s"
+msgstr ""
+
+#: searchform.php:2
+msgid "Search..."
+msgstr ""
+
+#: searchform.php:2
+msgid "Search for:"
+msgstr ""
+
+#: searchform.php:8
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Search"
+msgstr ""
+
+#: template-parts/404-page/404-page.php:14
+msgid "404 page"
+msgstr ""
+
+#: template-parts/404-page/404-page.php:15
+msgid "Oops! That page can&rsquo;t be found."
+msgstr ""
+
+#: template-parts/404-page/404-page.php:20
+msgid "Go Back Home"
+msgstr ""
+
+#: template-parts/archive/blog-post-meta.php:4
+#: template-parts/blog/blog-post-meta.php:4
+msgid "in "
+msgstr ""
+
+#: template-parts/archive/blog-post-meta.php:4
+#: template-parts/blog/blog-post-meta.php:4
+msgid ", "
+msgstr ""
+
+#: template-parts/archive/blog-post-meta.php:6
+#: template-parts/blog/blog-post-meta.php:5
+msgid "by "
+msgstr ""
+
+#: template-parts/archive/blog-post-meta.php:6
+#: template-parts/blog/blog-post-meta.php:5
+#: template-parts/blog/user-meta.php:4
+#: template-parts/blog/user-meta.php:7
+msgid "author"
+msgstr ""
+
+#: template-parts/archive/blog-post-meta.php:9
+#: template-parts/blog/blog-post-meta.php:8
+msgid "No Comments"
+msgstr ""
+
+#: template-parts/archive/blog-post-meta.php:9
+#: template-parts/blog/blog-post-meta.php:8
+msgid "1 Comment"
+msgstr ""
+
+#: template-parts/archive/blog-post-meta.php:9
+#: template-parts/blog/blog-post-meta.php:8
+msgid "% Comments"
+msgstr ""
+
+#: template-parts/archive/post-read-more.php:1
+msgid "Read More"
+msgstr ""
+
+#: template-parts/blog/post-navigation.php:5
+msgid "prev"
+msgstr ""
+
+#: template-parts/blog/post-navigation.php:6
+msgid "Previous Post"
+msgstr ""
+
+#: template-parts/blog/post-navigation.php:13
+msgid "next"
+msgstr ""
+
+#: template-parts/blog/post-navigation.php:14
+msgid "Next Post"
+msgstr ""
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr ""
+
+#. translators: 1: link to WP admin new post page.
+#: template-parts/content-none.php:24
+#, php-format
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr ""
+
+#: template-parts/content-none.php:37
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: template-parts/content-none.php:44
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr ""
+
+#: template-parts/content-page.php:28
+#: template-parts/content-single.php:30
+#: template-parts/content.php:30
+msgid "Pages:"
+msgstr ""
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content-single.php:19
+#: template-parts/content.php:19
+#, php-format
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Pro"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Free"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Welcome"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Utilities"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Performance"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Security"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Admin Interface"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Extra Options"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Asset Delivery"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom CSS & JS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Roll Back Plugin"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "White Label"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Import/Export"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "More Products"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Activated"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Activate PRO"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Upgrade Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Version "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "System Info"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get 1000+ Pre-Designed"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Pages & Templates."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Open Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Convert Figma to WordPress"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "in Minutes"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Install UiChemy"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "UiChemy Setting"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Best Elementor Addon with 120+"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Widgets"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Addon"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Open Addon"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Lightest Starter Theme for Page Builders"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Install Theme"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Open Theme Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "50+ WordPress Extensions to Make Site More Secure, Performant & Smart"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Extension"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Open Extensions"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "90+ Best WordPress Blocks for"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Gutenberg Editor"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Open Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "What's New?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Inactive"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " Active"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Total Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "50+"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "25 Active"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Total Extensions"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Learn More"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Stay Updated with Nexter & WordPress Updates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please provide your email & name."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please enter a valid email."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Success! You’ve been added to our email list."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Subscription failed. Please try again later."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Subscribe Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Documentation"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Read Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Need Help ?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Raise Ticket"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Join Community"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Join Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Request Feature"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Suggest Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Rate Nexter"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Join Discord"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Video Tutorials"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Watch Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "We're Active on"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "View More"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Blocks Library from WDesignKit"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Explore our curated selection of pre-built blocks for Gutenberg from the WDesignKit Blocks Library."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "View Blocks Library*"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "* WDesignKit Plugin Required"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Developer? Create Your Custom Gutenberg Block"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "With WDesignKit, you can easily convert your custom code into a Gutenberg block."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Request for Block"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "We’re always looking to improve our Block Library. Share your ideas, and we’ll consider adding them based on user demand."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Request Blocks*"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Oops, No Blocks Found!!"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please try searching with an alternative or more common term!"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Essential"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Creative"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Tabbed"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Social"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Advanced"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Listing"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Builder"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Extras"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WDesignKit"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable All"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable All"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "All"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Freemium"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Scan Unused Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Unused Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " Total Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "New"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Live Demo"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Read Docs"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Unused"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Used"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "90+ WordPress Gutenberg Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Unlock the Complete Potential of Nexter by Enabling Nexter Gutenberg Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Build professional, fast, and beautiful WordPress sites without relying on heavy page builders. Nexter Blocks work natively with Gutenberg, giving you everything you need while keeping your site lightweight and performance-focused."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Activate Nexter Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Install Nexter Blocks Free"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Nexter Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Nexter Theme Optimization Controls"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable or disable core theme features to match your design needs."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Theme Performance"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Global Colors"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Manage the overall color scheme of your site, ensuring a consistent look across all elements."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Global Typography"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Set your site’s default fonts and styles to maintain a uniform typography throughout."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Site Logo & Favicon"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Set your website logo and favicon."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Blog Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Customize the layout and appearance of your blog posts and archive pages."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Container Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Set the width and structure of your content areas to create a responsive and visually clean layout."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Header Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable or disable the default theme header."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Footer Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable or disable the default theme footer."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Body Style"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Control the background and overall look of the main body of your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Selection Text Color"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Change the highlight color when users select text on your site for a more personalized experience."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Theme Container"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable container settings from theme customizer."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Theme Header Footer"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable theme header and footer from theme customizer."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Reset CSS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove reset CSS."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Theme Sidebar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable sidebar settings from theme customizer."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Theme CSS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the default theme CSS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Theme Woo CSS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the WooCommerce CSS added by theme."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Skip Link"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the \"Skip to content\" link."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Nexter Theme"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Ultra-Lightweight WordPress Theme"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Start With the Lightest, Fastest Foundation for Your Website"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Nexter Theme gives you a rock-solid, super-clean base to build on — no heavy CSS frameworks, no bloated JavaScript, just a minimal, performance-first theme that keeps your site fast and stable while you design freely with Gutenberg or your favorite tools."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Install Nexter Theme"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Activate Theme"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Explore All Features "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "NEW"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Read How it Works"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Save"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Import Pre-Designed Website Templates Made with Nexter Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Download Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Live Preview"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "View More Website Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upgrade to Nexter Blocks PRO Unlimited Site Plan to Unlock Whitelabel Branding."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upgrade to Nexter Blocks PRO to Unlock all 90+ Blocks & 1000+ Pre-Made Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Performance Optimized"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "90+ WordPress Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "1000+ Pre-made Starter Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Use Code 'FIRST20' for FLAT 20%. (Offer applicable for 1st time only)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upgrade to Nexter PRO Unlimited Site Plan to Unlock Whitelabel Branding."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upgrade to Nexter Extension Pro to all Unlock all 50+ Features."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Better Performance & Security"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "50+ Extension Feature"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "50+ Extensions"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Whitelabel Nexter Extension"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Import/Export Theme Customizer Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Easily import or export Nexter Theme Customizer settings to use across different sites."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Import/Export Extension Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Easily import or export Nexter Extension settings to use across different sites."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Nexter Import/Export Data"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "PRO"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Export Customizer Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Export"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Import Customizer Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Choose File"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Import"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Export Extension Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Import Extension Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Not Found Font"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Desktop"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Tablet"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Phone"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Note : "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "image"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Delete"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Insert"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace Video"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace SVG"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace Image"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload Video"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload SVG"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload Image"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Repeat"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Repeat X"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Repeat Y"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "None"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Top-left"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Top-right"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Bottom-right"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Bottom-left"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Tip : "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Color"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Image"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Gradient"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Video"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Parallax"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Position"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Attachment"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Size"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Video Source"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Local"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "External"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Video URL"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Fallback Image (Poster)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Solid"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Dotted"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Dashed"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Double"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Border"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Border Color"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Border Width"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Underline"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Overline"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Line Through"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Normal"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Oblique"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Text Decoration"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Font Style"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Box Shadow"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Horizontal (X)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Vertical (Y)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Blur"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Spread"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Inset"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Outset"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Install Nexter Extension to Unlock this Feature."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace 50+ WordPress Plugins"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Theme Builder & Code Snippets"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Modular Code"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Activate Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Install Now"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add custom code snippets to your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "This admin bar tool provides insights into which code snippets and scripts are loaded on the current page, helping with debugging and optimization. It also includes a customizable code editor where you can set a fixed height in pixels or enable auto-grow to let the editor expand automatically based on the code content."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Set the editor height"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Adobe Fonts"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Connect your Adobe Typekit project ID to use Adobe fonts on your website."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Project ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom Fonts Upload"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload your custom fonts and use them on your website to give a unique look to your website."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "adobe scan"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "SMTP Email"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Use Google SMTP or a Custom SMTP to ensure your site’s emails are delivered to inboxes reliably."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace URL & Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Easily find and replace URL or text on your website. Useful when moving your site from one domain to another or just moving from http:// to https:// or going from www. to a non www. URL."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "URL/Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Duplicate Post"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "This will add a duplicate button to the post, page, custom post types that you can use to duplicate the same."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Regenerate Thumbnails"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Easily regenerate various sizes of image thumbnails at once or individually. This can be useful if image thumbnails are not showing properly on your website."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter API Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace Media"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace any existing media file without changing its URL, ID, or file name—perfect for updating images or documents without breaking links."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Content Post Order"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable a custom order for your posts, pages, or media—perfect for manual sorting or organizing content just the way you want it."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Taxonomy (Term) Order"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Easily order taxonomy terms (categories, tags or custom taxonomies) to control their display order in both wp-admin and the frontend."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Gutenberg"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Turn off the Gutenberg block editor for posts, pages, or both, perfect for those who prefer Classic Editor or use a page builder."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom User Avatar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Allow users to set their profile picture by choosing any image from the Media Library—no need for a Gravatar account."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Public Preview for Drafts"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable a temporary public link for your draft content. Let others view unpublished posts/pages before they're live. Great for collecting feedback or client approval."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Redirect 404"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "When someone visits a broken 404 page or missing link on your site, this setting will send 301 redirect them to the page you choose."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "301 (permanent) redirect to the homepage for all 404 (not found) pages."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Rollback Manager"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Easily switch back to restore a plugin or theme to its earlier version in just one click if something breaks after an update."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Admin Role Switcher"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "View admin pages and the site as a non-administrator user to test and manage user role experiences."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WP Debug Mode"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Debug Mode to get detailed error logs and developer warnings, making it easier to troubleshoot and fix issues."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Same as Original"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Draft"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Published"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Pending"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Private"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Thin 100"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Extra Light 200"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Light 300"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Regular 400"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Medium 500"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Semi-Bold 600"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Bold 700"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Extra-Bold 800"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Bolder 900"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Thin 100 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Extra Light 200 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Light 300 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Regular 400 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Medium 500 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Semi-Bold 600 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Bold 700 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Extra-Bold 800 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Bolder 900 Italic"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Regular"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select or Upload Font File"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Use this file"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upgrade to Pro for more than 5 Custom Fonts!"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Are you sure you want to remove this font? This action cannot be undone."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Variation: "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Font name cannot be empty."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Filename cannot be empty."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload Italic font file."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload Regular font file."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Font Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Font Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "--Choose File--"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload Your Font"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add Variant"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "BETA"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Beta"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Simple Font Upload"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Variable Font Upload"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Project ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Old URL/Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "http://oldurl.com or old text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "New URL/Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "http://newurl.com or new text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Case Sensitive"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Replace GUIDs"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Important GUID Note"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Search Limit"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Decrease the value if you face any server timeout."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select Tables"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select one or more database tables where you want to search and replace text or URLs."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Dry Run"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Who Can Duplicate"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "All Users"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Original Author"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Post Date"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Duplicate Time"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Current Time"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Postfix Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Postfix Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Post Author"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Current User"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Post Status"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Slug Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Slug Text"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Frontend Block Styles"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove default Gutenberg block CSS from the frontend of your site for selected types. This helps reduce unnecessary styling or improve page speed if Gutenberg isn’t in use."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Redirect to "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Path URL (e.g. new-404-page)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "This will be added after your main domain. For example: yoursite.com/page-not-found"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Set how long the preview link stays active"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "days"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "After the set number of days, the preview link will automatically expire for security. "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Gmail SMTP"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom SMTP"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "From Email"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter From Email ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "From Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter From Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Client ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Google Client ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Gmail API and Generate Client ID and Secret ID from Google Cloud Platform. Click Here to "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Client Secret"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Google Client Secret"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Redirect URI"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "SMTP Host"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter SMTP Host"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "SMTP Port"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter SMTP Port"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Encryption"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Auto TLS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "By default, TLS encryption is automatically used if the server supports it."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Authentication"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "SMTP Username"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter SMTP Username"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "SMTP Password"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter SMTP Password"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Send Test Email"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Type email here to check SMTP"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Send"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please refresh the page to see your settings in the admin bar."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Notice :"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If you lose access to your administrator account, recover it by visiting: "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Important :"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If you're using"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Ninja Firewall"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " ensure the option \"Block attempts to gain administrative privileges\" is unchecked in Firewall Policies before switching to a non-admin role. This prevents accidental lockouts from your admin account."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Back"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Regenerate"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Confirm"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Authorize with Gmail"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Connect SMTP"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Admin Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable various admin notifications individually."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Admin Notice"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Clean Admin Bar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove various elements from the admin bar."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Wider Admin Menu"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Set custom admin menu width."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Adjust the admin menu width to fit wider items."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Display Active Plugins First"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Show active plugins first in the Installed Plugins list"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Show active plugins first in the Installed Plugins list—handy for sites with many deactivated plugins during testing or development."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Display Active Plugin First"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "User Profile Clean"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove unnecessary fields from admin profile."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Customize the admin profile by removing unnecessary fields for a cleaner, more user-friendly interface."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WP Admin Menu Organizer"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Customize the admin menu order, rename menu items, or hide them as needed, from the settings under Nexter Extension > Admin Menu."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Elementor AdFree"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Easily remove unwanted Elementor banners from different areas of your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Frontend Admin Bar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide the admin bar from the frontend for all logged-in users."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Themes Update Notifications"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide theme update notifications in the WordPress backend."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Plugin Update Notifications"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide all the plugin update notifications in the WordPress backend."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Core Update Notifications"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide WordPress core update notifications in the WordPress backend."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide all the additional theme or plugin notifications in the WordPress backend."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove ‘PHP Update Required’ Notice"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide the PHP update required notification in the WordPress backend."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove Welcome Panel"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide the WordPress welcome panel from the backend."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Dashboard Activity"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Dashboard Activity Box. (dashboard_activity)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide At a Glance"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide At a Glance Box. (dashboard_right_now)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Quick Draft"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Dashboard Quick Draft Box. (dashboard_quick_press)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Site Health Status"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Dashboard Site Health Status Box. (dashboard_site_health)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide WooCommerce Setup"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Dashboard WooCommerce Setup Box. (wc_admin_dashboard_setup)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Events and News"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Dashboard WordPress Events and News Box. (dashboard_primary)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Admin Color Scheme"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Toolbar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Biographical Info"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Role"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Email"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "New Password"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Reset Password"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove WordPress Logo/Menu"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove Home Icon and Site Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove Customize Menu"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove Updates Counter/Link"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove Comments Counter/Link"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove New Content Menu"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove \"Howdy\""
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the Help Tab and Drawer"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Elementor AI banners"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide all Elementor AI notice from backend and Elementor editor."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Elementor Image Optimization Banner"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Elementor Image Optimization notice backend and Elementor editor."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Elementor Pro Ads"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Elementor Pro banner/notice from backend and Elementor editor."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Branded WP Admin"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Customize the look and feel of the admin login screen to match your branding."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Menu Width"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Layout"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Center"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Logo"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Width"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Link"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Box"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Padding"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Border Radius"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Field"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Focus"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Button"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hover"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Label"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "View Logs"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Show lists to"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Previous"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Next"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Advanced Security"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "A set of options to improve your site’s security."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "CAPTCHA"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add reCAPTCHA protection to your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Increase spam protection by adding reCAPTCHA protection at various locations on your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom Login URL"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add custom WP-Admin login URL."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Secure your site by hiding the WP-Admin login URL and creating a custom login URL to block spammers."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "SVG Upload"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Allow users to upload SVG files."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Allow selected or all user roles to upload SVG files, which will be sanitized for security."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable XML-RPC"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable XML-RPC to reduce brute force attacks."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide WordPress Version"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide the WordPress version from the public to increase security."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove REST API Links"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove REST API links from the code, if not used."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable File Editor"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable the WordPress file editor to increase security."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove Meta Generator"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the meta generator code to hide the WordPress and plugin versions from the public."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "XSS Protection"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable XSS protection to increase security."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Secure Cookies"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable secure cookies to ensure encrypted and secure data transfer."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Last Login Date & Time"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Track user's last login date and time and display it in the users list table."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Registration Date & Time"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Track user's registration date and time in the users list table."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Email from Spam Bots"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Display email like [obfuscate email=\"john@site.com\" display=\"inline\"] so bots can't scrape it."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Telephone Secure Spam Bots"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Protects contact info from bots — use [nxt_encode link=\"tel:+1555123\"]+1 (555) 123-4567[/nxt_encode] to display a safe, clickable number."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Author URLs for Security"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Changes links like /author/admin/ to a scrambled version and returns a 404 if someone tries to guess the original."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "REST API"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable REST API for logged-out and non-admin users."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enabled"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable for Non-Admin"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable When Logged Out"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "iFrame Security"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable iFrame embedding to prevent your site from being embedded on other websites."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disabled"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Same Origin"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Deny"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Message (Default)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Home Page"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "404 Page Template"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Right Click"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Drag/Drop"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Dev's Tools Hot Keys"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Search Hot Keys"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+C/CMD+C"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+V/CMD+V"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+A/CMD+A"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+U/CMD+U"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+P/CMD+P"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+H/CMD+H"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+L/CMD+L"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+K"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+O"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Ctrl+E"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Alt+D"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable F3"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable F6"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable F12"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Text Selection"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Default"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Login Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Registration Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Reset Password Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Comments Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add reCAPTCHA security to various locations of WooCommerce."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Checkout"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Pay For Order"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Forms Support"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add reCAPTCHA security on different 3rd-party forms."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Elementor Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Ninja Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WPForm"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Contact Form 7"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Everest Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Gravity Form"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "2-Factor Authentication"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add 2-Factor Authentication to secure your WordPress login."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add 2-Factor Authentication by different user roles to secure your WordPress login."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Content Protection"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "A set of options to protect your website content from plagiarism."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "A set of options to protect your website content from plagiarism and unauthorized copying."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Login Email Notification"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get email alerts for WordPress admin logins to track access."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get email notifications when someone logs into your WordPress admin to track any unusual activity."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Limit Login Attempts"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Limit failed login attempts per IP address to help protect your site from brute force attacks."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Paste your Font Awesome PRO Kit ID below <a href = 'https://fontawesome.com/license' target='_blank' rel='noopener noreferrer'> Get ID </a>"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "FontAwesome Pro Kit"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Google reCAPTCHA"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Cloudflare Turnstile (Beta)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Site Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add Google reCAPTCHA Site Key."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add Cloudflare Turnstile reCAPTCHA Site Key."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please Enter Site Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please Enter Turnstile Site Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Secret Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add Google reCAPTCHA Secret Key."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add Cloudflare Turnstile reCAPTCHA Secret Key."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please Enter Secret Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please Enter Turnstile Secret Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "The Generate Site Key and Secret key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Cloudflare Turnstile dashboard"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Protections"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Customisation"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Notice Style"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Message Position"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Top Right"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Bottom Right"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Message Disappear Time(ms)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Description Typography"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Title"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Description"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Description Color"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Icon"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Icon Color"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Progress"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Icon Background/Progress Color"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Change WP Admin Login Path"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add the custom login path."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please enter your custom path e.g. new-login-page"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Login URL Behaviour"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Set the action for the old login URL."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom Message"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Display a custom message for users accessing the old login URL."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Which User Roles are allowed"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "2A Email Customizations"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom Email Subject"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom Email Message"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "You can use hottags username for username, nicename for Name, token for One time token and time for time"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Who Get Alert"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Exclude IPs"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get your IP Address from"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "whatismyipaddress.com"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "You can also add multiple IPs using a comma in between. E.g. 192.168.1.XX, 10.0.0.XX"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Subject"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Message"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Limit Allowed failed login attempts before a 15-minute lockout."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "After multiple lockouts, further login attempts will be blocked for 30 Minutes."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Never Block IP Addresses"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter each IPv4 or IPv6 address on a new line."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Detect IP from Specific Header"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Use HTTP_X_FORWARDED_FOR IP if behind proxy; leave blank for default detection"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "There is no data available to view the logs"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Advanced Header Builder"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get rid of the limited Header customizer. Use Elementor Widgets or Blocks to create custom. menu."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Advanced Footer Builder"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Your custom Footer with no limit of layout. Create any footer layout you want with our Footer Builder."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Breadcrumbs Bar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Help users navigate your website by adding breadcrumb bar that shows the path they've taken."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "404 Page"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Turn a \"Page Not Found\" into an opportunity by customizing your 404 error page with your branding and helpful content."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Single Pages"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Create custom Single pages for your CPT, Blog Posts, or WooCommerce Product Pages."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Archive Pages"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Create custom listing pages for posts, CPT or WooCommerce Products."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get rid of the limited Header customizer. Use WordPress Blocks or Blocks to create custom menu."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Display Rules for Theme Builder Sections"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Control where and how your theme builder sections appear on your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Action & Filter Hooks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Fine-tune your website's behavior and appearance by utilizing action and filter hooks for developers to extend functionalities."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Open Theme Builder"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get Theme Builder for WordPress with our Nexter Extension"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Nexter WP Theme"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "The Plus Addons for Elementor"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WDesignKit – Templates, Widgets, Cloud Storage & More"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "UiChemy - Figma to WordPress Convertor"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Visit Official Website"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Install"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Activate"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Advanced Performance"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "A set of handy options to fine tune your WordPress site performance, remove unnecessary code."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Self-host Google Fonts locally for GDPR compliance, no third-party requests, and faster site performance."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Self-host Google Fonts locally for GDPR compliance."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Adobe Scan"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Comments"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable comments on the entire site or on specific post types."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Stop spam comments by disabling comments on the entire site or on specific post types."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Image Sizes"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable unnecessary image sizes to optimise your site's performance."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable unnecessary image sizes generated by WordPress, theme or plugin to optimise your site's performance."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Register Custom Image Sizes"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add custom image sizes to use specific dimensions for images on your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Elementor page builder icons."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Improve the Elementor page builder's performance by removing unnecessary icons."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Revisions Control"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Limit post revisions for supported post types to reduce database bloat."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Heartbeat Control"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Lower CPU by limiting Heartbeat API."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Reduce server CPU usage by limiting or disabling the WordPress Heartbeat API on selected locations of your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Image Upload Optimize"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Automatically resize large newly uploaded images to smaller dimensions and delete the files."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Emojis Script"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the wp-emoji-release.min.js from the code, to disable the use of emojis."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Embeds"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the wp-embed.min.js from the code, to disable embed preview."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Dashicons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the dashicons.min.css from the code, to disable the use of dashicons."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove RSD Link"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the RSD code from the code, to disable editing the site from 3rd party applications."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove wlwmanifest Link"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the wlwmanifest link from the code, to disable the use of Windows Live Writer."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove Shortlink"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the shortlink tag from the code, to disable the use of shortlinks for page and posts."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable RSS Feeds"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable the RSS Feeds from your website."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove RSS Feed Links"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the RSS Feed code from the code, to disable RSS Feed."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Self Pingbacks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable self pingbacks on your WordPress website."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Password Strength Meter"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Remove the password-strength related JavaScript from the code on unnecessary pages."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Defer CSS & JS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Load CSS and JS files using the “defer” attribute."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Media Library Infinite Scrolling"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Activate infinite scrolling in the Media Library's grid view — perfect for browsing large collections with ease."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Self-Host Google Fonts"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Display Swap"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable the \"swap\" attribute for Google Fonts to display system fonts while Google Fonts load."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Google Font"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Google Fonts loading."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Clear Google Fonts"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Delete the locally saved font files saved with the Self-Host Google Fonts feature."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Solid Icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable the solid icons from Font Awesome."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Regular Icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable the regular icons from Font Awesome."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Brands Icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable the brands icons from Font Awesome."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "E-icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable the e-icons from Elementor."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Default crop"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "No crop"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Everywhere"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Specific Post Type"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Reset"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Comments"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Image Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Height"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Crop"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Font Awesome Icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Elementor Icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Revisions For :"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Dashboard"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Frontend"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Post Editor"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Max Width (in pixels)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Default is 1920 pixels"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Max Height (in pixels)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Image Quality"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Image Quality (The default is 85 on a scale of 1 to 100. Higher values give better image quality but increase file size.)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "To skip image conversion and resizing, add \"-ne\" to the file name—for example: \"photo-ne.jpg\"."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Are you sure you want to remove this Image Size? This action cannot be undone."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Are you sure you want to reinstall the previous version?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Roll Back Nexter Blocks FREE Version"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Rollback"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Warning: Please backup your database before making the rollback."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Roll Back Nexter Extension FREE Version"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide all Help Links?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide all Plugin Updates related News?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Our Recommended plugin Ads?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Starter Templates Tab?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Licence Key Tab?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Hide Plugin RollBack Tab?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Plugin Name (Free Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Plugin Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Plugin Name (Pro Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Plugin Description (Free Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Plugin Description"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Plugin Description (Pro Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Developer / Agency (Theme)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Developer Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Website URL (Pro Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Website URL"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Theme Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Theme Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Theme Description"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Theme Description"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Theme Screenshot"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Brand Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Brand Name"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload Logo / Icon"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Developer / Agency (Pro Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Web URL"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Developer / Agency (Free Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Website URL (Free Version)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select or Upload Media"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Use this media"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Learn How it Works?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please keep the character under 50 characters"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please keep the character under 250 characters"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please enter a valid URL"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please keep the character 50 characters"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Please keep the character under 150 characters"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Save Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upload your Icon File"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Only .png, .jpg .svg supported"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Drag and drop to upload your super awesome"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "icon/logo"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Force Disable Options : "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If you enable this option, It will be completely hidden. If you want it back, You have to deactivate and activate the plugin to make it work again."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter your Activation Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Deactivate"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Manage"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Congratulation! License Successfully Activated."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "How to Find the Activation Key?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "1"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Visit POSIMYTH Store Dashboard"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "2"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Copy the License Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "3"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Paste the Key here & Hit Activate"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Facing Issues?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Check our troubleshooting guide"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Need Help?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Quick Support"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "PRO VERSION"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "FREE VERSION"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get Premium Support"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get Free Support"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Whats New?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Join Facebook Community"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Suggest New Features"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "AI Chat"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress Version: "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Plugin Version: "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "60 days Money-Back Guarantee"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Upgrade to Nexter Pro to Unlock 90+ WordPress"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " Blocks, 1000+ Ready Made Templates &"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " 50+ Extensions."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "100% Performance Optimised"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Create Websites in 60 Secs"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Trusted by 20K+ Users"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Delay 3rd Party JS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If this option enabled, Some 3rd party JS like FontAwesome Pro, Google Map, Lottiefiles will be delayed. It will be loaded based on Mouse event by user after page load."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If you enable this option, Your JS and CSS will be loaded with Defer Attribute. It will make HTML render of page faster and help getting better scores in Google Page Speed."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Regenerate Files"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If you notice any discrepancies between the frontend and backend design, we recommend clicking the button above to regenerate the assets dynamically. This will ensure the design reflects the latest changes. We strongly suggest using this feature when changing domains or moving from a staging environment to live."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Asset Manager"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Saved"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "PURGE ALL ASSETS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Smart Optimised (Recommended)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "On Demand Assets"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "In \"Smart Optimised\" method of caching, We use detect widgets used in each page, combine and minify all JS and CSS of page in two separate files for the best possible performance with least possible requests. All Cache stored at \"SiteURL/wp-content/uploads/nxt-addons/\""
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "REGENERATE ALL ASSETS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom CSS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add Your Custom CSS Styles"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Custom JS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add Your Custom JS Script"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get 1000+ Pre-Designed WordPress Websites & Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Skip"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Continue"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select Mode"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Template"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Special Offer"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Stay Updated"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Confirmation"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get access to 90+ WordPress Blocks at FLAT 20% OFF"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "USE CODE:"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "FIRST20 "
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "View all Block"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "100% Whitelabel Plugin"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Skip Setup"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "How would you like to start?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Import Ready Made Website"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get a Full Website Ready Under 60 seconds"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "This will install the WDesignKit Plugin, which enables you to import WordPress Website Templates & Sections."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Use WordPress Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Create your design with our highly customisable Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Select the Blocks You Want to Use"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Setting Up for Website Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enabling Website Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Installing WDesignKit"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WDesignKit Activated"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Why Do I Need a Theme Builder?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Our Theme Builder gives you the capability to customize the <strong>Header, Footer, Single, and Archive Pages</strong> using Nexter’s <strong>dynamic blocks</strong>.<br><br>You don’t need to rely on the <strong>limited controls of the customizer</strong> like other themes. This makes the <strong>Nexter ecosystem truly limitless</strong>, allowing you to create every element with blocks."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Will this work with any WordPress theme?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Yes, the Nexter Extension works with <strong> any WordPress theme</strong>. That said, we <strong> highly recommend using it with the Nexter theme</strong> — it’s the <strong> lightest theme available</strong>, under <strong> 10KB</strong>, built with <strong> pure vanilla JavaScript and no jQuery</strong>. This ensures your website stays lightning fast and optimized. But don’t worry, you’re free to use any theme you like!"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Will it break my current website?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Not at all! The Theme Builder is designed to <strong> integrate smoothly with your existing site</strong>. It won’t interfere with your current layout or content. You can activate and use it gradually, applying changes only when you’re ready."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get Free Theme Builder for"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "WordPress with Nexter Extension"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Free WordPress Header & Footer Builder"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Free Single, Archive & 404 Page Builder"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Pre-Made Theme Builder Section Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "100% Customisable with Blocks"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Theme Builder"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Get Exclusive WordPress Tips, Tricks and Resources Delivered Straight to Your Inbox!"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Join 500K+ Agency Owners, Marketers and WordPress Users."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "NO SPAM GUARANTEE"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Agree to contribute to make Nexter Blocks better by sharing non-sensitive details."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Setup Up Done Successfully."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "I just Installed Nexter Blocks! It comes with 90+ WordPress Blocks which replace multiple plugins for me, without compromising on my website performance. Excited to use it."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Post on"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Start Using"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Connect Google Maps API Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "To integrate Google Maps with your Maps Block, please enable the API, paste your Google Maps API key by clicking on the settings gear, and then save the changes."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Paste your <a href = \"https://developers.google.com/maps/documentation/embed/get-api-key\" target=\"_blank\" rel=\"noopener noreferrer\"> Google Maps API Key </a>"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Google Fonts"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "To disable Google Fonts, toggle this off. It will prevent any Google Fonts from loading and instead use the system font. If you want to avoid any Google Font requests, simply disable this option."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enable Nexter Global CSS"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If you do not plan to use Global CSS from Nexter Blocks and prefer to load it from your theme, you can disable it. It reduces extra CSS & JS loading on your site, ensuring faster performance and complete control over design."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Show Nexter Performance in Admin Bar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "This option adds the Nexter Performance menu to the WordPress top admin bar, allowing you to purge assets for individual pages or all pages directly from any screen."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Load Font Awesome PRO Icons"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Connect Font Awesome PRO icons by adding your Font awesome API key in the settings for access to more premium icons for your website."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " Enable Ajax Templates"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Load templates using Ajax mode for optimal performance. This file will load after the page finishes loading and will dynamically request content as you scroll."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Read more"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Lazy Rendering (SEO Friendly)"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If enabled, you can start using the class <b>nxt-lazy-load</b> in places where you want to lazy load content in an SEO-friendly way."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "How to Use?"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "If you don't need Dashicons from Nexter Blocks, you can disable them to reduce unnecessary CSS loading and improve your site's performance."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Template Button"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Turn off the template import option in the Gutenberg Editor if you’re not planning to use it."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Disable Quick Action Bar"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Turn off the Quick Action Bar in the Gutenberg editor if you don’t plan to use it."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Connect Mailchimp CRM"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Paste your your <a href = \"https://mailchimp.com/help/about-api-keys/\" target=\"_blank\" rel=\"noopener noreferrer\"> Mailchimp API Key </a> & <a href = \"https://mailchimp.com/help/find-audience-id/\" target=\"_blank\" rel=\"noopener noreferrer\">  List ID </a>"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Enter Audience / List ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Connect Google reCAPTCHA"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " Add your Google reCAPTCHA Site Key and Secret Key to enable spam protection with our form blocks and secure your site."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Place your <a href = \"https://www.google.com/recaptcha/about/\" target=\"_blank\" rel=\"noopener noreferrer\"> Google reCAPTCHA </a> Site Key & Secret Key"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Site Key reCAPTCHA v3"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Secret Key reCAPTCHA v3"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid " Add Event Tracking ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Add your Facebook Pixel ID and GA4 ID here to enable event tracking for your clicks. This will allow you to track events directly from WordPress for your ads and GA4 analytics."
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Click Here"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "GA4 ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Facebook Pixel ID"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Blocks Settings"
+msgstr ""
+
+#: inc/panel-settings/dashboard/build/index.js:1
+msgid "Successfully Saved"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Active"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Copied!"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "No Templates Found"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Looks like you don’t have any templates yet. Would you like to create one now?"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create "
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create Header"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add Header"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create Footer"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add Footer"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create Breadcrumb"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add Breadcrumb"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create Section"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add Section"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create Singular"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add Singular"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create Archive Page"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add Archive"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create Hooks"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add Hooks"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Create 404 Page"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add 404 Page"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Import Pre-Designed Section"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Import Pre-Designed Templates for Theme Builder"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Build your website faster with ready-to-use templates"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Fully customizable to match your brand and style"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Save time by avoiding repetitive design work"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Flexible layouts for headers, footers, pages, and more"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Activate WDesignKit to Import Templates"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Install WDesignKit to Import Templates"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Add New"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Click to Know How it Works"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "What is a Sections?"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Reusable content blocks that can be placed anywhere on your site, like a banner, promo strip, or CTA. They save time since you design once and reuse across multiple pages."
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Updating..."
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Theme builder template"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Edit "
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Last Updated :"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "All Layout"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Breadcrumbs"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Section"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Archive Page"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Hooks"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Import Templates"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Choose a Nexter Theme Builder template XML file of Builder templates, and add them to the list of templates available in your builder."
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Choose Template"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Please Install Nexter Extension to Enable Theme Builder."
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Switch to table view"
+msgstr ""
+
+#: inc/panel-settings/theme-builder/build/index.js:1
+msgid "Activated Now"
+msgstr ""

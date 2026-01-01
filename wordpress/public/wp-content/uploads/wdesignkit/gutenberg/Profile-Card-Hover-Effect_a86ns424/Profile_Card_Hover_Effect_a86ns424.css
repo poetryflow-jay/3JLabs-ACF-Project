@@ -1,0 +1,103 @@
+.wkit-wb-Widget_a86ns424 .wkit-profile-card-hover-effect{
+    display:block;
+    position:relative;
+    overflow: hidden;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-inner{
+  height: 380px;
+  width: 300px;
+  background: grey;
+  border-radius: 20px;
+  overflow: hidden;
+  background: black;
+  box-shadow: 0 70px 63px -60px #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: 0.3s linear;
+  overflow: hidden;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-image{
+    transition:0.8s;
+    padding:10px;
+    background-size:100%;
+    background-position:bottom;
+    background-repeat:no-repeat;
+    height:100%;
+    width:100%;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-inner:hover .wkit-profile-card-image{
+    background-size: 200%;
+    background-position: top left;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-border{
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  border:1px solid transparent;
+  border-radius: 20px;
+  transition: border 1s;
+  position: relative;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-inner:hover .wkit-profile-card-border{
+    border:1px solid #fff;}.wkit-wb-Widget_a86ns424 .profile-card-heading{
+  color: white;
+  margin: 20px;
+  opacity: 0;
+  transition: 1s;}.wkit-wb-Widget_a86ns424 .profile-card-heading-sub-title{
+  color: white;
+  margin: 20px;
+  width:max-content;
+  opacity: 0;
+  transition: 1s;}.wkit-wb-Widget_a86ns424 .tp-title-icon{
+    opacity:0;
+    transition: 1s;
+    position:relative;}.wkit-wb-Widget_a86ns424 .profile-card-icons{
+  fill: #fff;
+  position:absolute;
+  color: #fff;
+  height: 130px;
+  bottom:5%;
+  width: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;}.wkit-wb-Widget_a86ns424 .profile-card-icons .tp-title-icon {
+    display: inline-flex;
+    align-items: center;
+    font-size: 20px;
+    color: #fff;
+    transition: all 0.3s linear;}.wkit-wb-Widget_a86ns424 .profile-card-icons .tp-title-icon .dashicon{
+     width: auto;
+     height: auto;
+    font-size: 20px;
+    transition: all 0.3s linear;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-inner:hover .tp-title-icon{
+    opacity:1;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-inner:hover .profile-card-heading{
+    opacity:1;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-inner:hover .profile-card-heading-sub-title{
+    opacity:1;}.wkit-wb-Widget_a86ns424 .profile-icons{
+   display:flex; 
+   align-items: center;
+   justify-content:center;
+   text-decoration: none;}.wkit-wb-Widget_a86ns424 .tooltiptext {
+  visibility: hidden;
+  width: 92px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 0px 1px;
+  position: absolute;
+  z-index: 1;
+  left: 85%;}.wkit-wb-Widget_a86ns424 .tooltiptext::after{
+    content: "";
+    position: absolute;
+    top: 45%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 7px;
+    border-style: solid;
+    border-top-color:transparent !important;
+    border-bottom-color:transparent !important;
+    border-left-color:transparent !important;
+    border-right-color:#555;}.wkit-wb-Widget_a86ns424 .profile-icons:hover .tooltiptext{
+    visibility: visible;}.wkit-wb-Widget_a86ns424 .wkit-profile-card-hover-effect [data-tooltip=""]{
+    display:none;}@media only screen and (min-width: 481px) and (max-width: 1024px)  {  .wkit-wb-Widget_a86ns424
+	.wkit-profile-card-hover-effect{
+		position: relative;
+		display: flex;
+		justify-content: center;}}@media only screen and (max-width: 480px)  {  .wkit-wb-Widget_a86ns424
+	.wkit-profile-card-hover-effect{
+		position: relative;
+		display: flex;
+		justify-content: center;}}

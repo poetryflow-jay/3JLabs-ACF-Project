@@ -1,0 +1,832 @@
+/* ========== 1. Design Tokens ========== */
+
+:root {
+    /* --- Base Palette (Slate Theme) --- */
+    --amem-slate-100: #F1F5F9;
+    --amem-slate-200: #E2E8F0;
+    --amem-slate-300: #CBD5E1;
+    --amem-slate-400: #94A3B8;
+    --amem-slate-500: #64748B;
+    --amem-slate-900: #0F172A;
+
+    --amem-color-danger: #DC2626;
+
+    /* --- Typography --- */
+    --amem-text-default: var(--amem-slate-500, #64748B);
+    --amem-text-title: #000;
+    --amem-text-label: var(--amem-slate-900, #0F172A);
+    --amem-text-description: var(--amem-slate-500, #64748B);
+    --amem-text-input: var(--amem-slate-900, #0F172A);
+    --amem-text-placeholder: var(--amem-slate-400, #94A3B8);
+
+    --amem-text-button: #FFF;
+
+    /* --- Borders --- */
+    --amem-border-input-default: 1px solid var(--amem-slate-300, #CBD5E1);
+    --amem-border-input-active: 1px solid var(--amem-slate-400, #94A3B8);
+    --amem-border-control-default: 1px solid #E5E7EB;
+    --amem-border-menubar: 1px solid var(--amem-slate-300, #CBD5E1);
+    --amem-border-button: 0;
+
+    /* --- Backgrounds--- */
+    --amem-background: var(--amem-slate-900, #0F172A);
+    --amem-foreground: var(--amem-slate-100, #F1F5F9);
+    --amem-bg-button: var(--amem-slate-900, #0F172A);
+    --amem-bg-button-disabled: rgba(15, 23, 42, 0.5);
+    --amem-bg-control-selected: var(--amem-slate-900, #0F172A);
+    --amem-bg-tab: var(--amem-slate-100, #F1F5F9);
+    --amem-bg-menubar-active: var(--amem-slate-100, #F1F5F9);
+
+    /* --- Radius --- */
+    --amem-radius: 6px;
+
+    /* --- Spacing --- */
+    --amem-spacing-1: 4px;
+    --amem-spacing-2: 8px;
+    --amem-spacing-3: 12px;
+    --amem-spacing-4: 16px;
+    --amem-spacing-5: 24px;
+
+    /* --- Padding ---*/
+    --amem-padding-input: var(--amem-spacing-2) var(--amem-spacing-4); /* 8px 16px */
+    --amem-padding-textarea: var(--amem-spacing-2) var(--amem-spacing-3); /* 8px 12px */
+    --amem-padding-button: var(--amem-spacing-2) var(--amem-spacing-4); /* 8px 16px */
+}
+
+/* ========== 2. Layout / Structure ========== */
+
+.amem-form {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.amem-form.amem-form-type-login {
+    max-width: 300px;
+}
+
+.amem-form .amem-submit {
+    clear: both;
+    padding: var(--amem-spacing-2, 8px);
+    text-align: center;
+}
+
+.amem-form .acf-input-wrap {
+    overflow: visible;
+}
+
+.acf-field .acf-label {
+    margin: 0 0 6px;
+}
+
+.amem-local-field {
+    margin: 0px 0px 10px;
+}
+
+.amem-form .acf-fields .amem-field-type-amem-recaptcha {
+    padding: 0px;
+}
+
+/* ========== 3. Form elements ========== */
+
+/* Box-sizing reset */
+.amem-form .acf-field,
+.amem-form .acf-field .acf-label,
+.amem-form .acf-field .acf-input {
+    box-sizing: border-box;
+}
+
+/* Input, Select, Textarea base styles */
+.amem-form .acf-field input[type="date"],
+.amem-form .acf-field input[type="datetime-local"],
+.amem-form .acf-field input[type="datetime"],
+.amem-form .acf-field input[type="email"],
+.amem-form .acf-field input[type="month"],
+.amem-form .acf-field input[type="number"],
+.amem-form .acf-field input[type="password"],
+.amem-form .acf-field input[type="search"],
+.amem-form .acf-field input[type="tel"],
+.amem-form .acf-field input[type="text"],
+.amem-form .acf-field input[type="time"],
+.amem-form .acf-field input[type="url"],
+.amem-form .acf-field input[type="week"],
+.amem-form select,
+.amem-form textarea {
+    color: var(--amem-text-input);
+    background: #fff;
+    border: var(--amem-border-input-default);
+    border-radius: var(--amem-radius);
+    padding: var(--amem-padding-input);
+    box-shadow: none !important;
+    box-sizing: border-box;
+}
+
+/* Placeholder */
+.amem-form .acf-field input::placeholder,
+.amem-form .acf-field textarea::placeholder {
+    color: var(--amem-text-placeholder);
+}
+
+/* Focus Styles */
+.amem-form .acf-field input[type="date"]:focus-within,
+.amem-form .acf-field input[type="datetime-local"]:focus-within,
+.amem-form .acf-field input[type="datetime"]:focus-within,
+.amem-form .acf-field input[type="email"]:focus-within,
+.amem-form .acf-field input[type="month"]:focus-within,
+.amem-form .acf-field input[type="number"]:focus-within,
+.amem-form .acf-field input[type="password"]:focus-within,
+.amem-form .acf-field input[type="search"]:focus-within,
+.amem-form .acf-field input[type="tel"]:focus-within,
+.amem-form .acf-field input[type="text"]:focus-within,
+.amem-form .acf-field input[type="time"]:focus-within,
+.amem-form .acf-field input[type="url"]:focus-within,
+.amem-form .acf-field input[type="week"]:focus-within,
+.amem-form textarea:focus-within {
+    outline: none !important;
+    border: var(--amem-border-input-active) !important;
+    border-radius: var(--amem-radius);
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 0, rgba(0, 0, 0, 0) 0 0 0 0,
+        rgba(0, 0, 0, 0) 0 0 0 0, oklab(0.708 0 0 / 0.5) 0 0 0 3px,
+        rgba(0, 0, 0, 0.05) 0 1px 2px 0 !important;
+}
+
+/* Disabled Inputs */
+.amem-form input[type="text"]:disabled,
+.amem-form input[type="password"]:disabled,
+.amem-form input[type="email"]:disabled,
+.amem-form input[type="date"]:disabled,
+.amem-form input[type="datetime"]:disabled,
+.amem-form input[type="datetime-local"]:disabled,
+.amem-form input[type="month"]:disabled,
+.amem-form input[type="number"]:disabled,
+.amem-form input[type="search"]:disabled,
+.amem-form input[type="tel"]:disabled,
+.amem-form input[type="time"]:disabled,
+.amem-form input[type="url"]:disabled,
+.amem-form input[type="week"]:disabled,
+.amem-form textarea:disabled,
+.amem-form select:disabled {
+    background-color: #F9FAFB;
+    color: #808a9e;
+}
+
+/* Read-only Inputs */
+.amem-form input[type="text"]:read-only {
+    background-color: #F9FAFB;
+    color: #98A2B3;
+}
+/* --- Form Element: Paragraph & Instruction --- */
+.amem-form p,
+.amem-field-instructions {
+    color: var(--amem-text-description);
+}
+
+.amem-form p a {
+    color: inherit;
+}
+
+.amem-form input[type="checkbox"],
+.amem-form input[type="radio"],
+.amem-form input[type="range"] {
+    accent-color: var(--amem-bg-control-selected);
+}
+
+.amem-form .acf-radio-list,
+.amem-form .acf-checkbox-list,
+.amem-form ul.acf-radio-list:focus-within,
+.amem-form ul.acf-checkbox-list:focus-within {
+    border: 0px;
+}
+
+.amem-form .wp-editor-container textarea:focus-within {
+    box-shadow: none !important;
+    border-radius: 0px;
+    border: inherit;
+}
+
+/* --- Button Group Field --- */
+.amem-form .acf-button-group {
+    display: flex;
+    align-items: stretch;
+    align-content: center;
+    height: 40px;
+    border-radius: var(--amem-radius);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.1);
+}
+
+.amem-form .acf-button-group label {
+    display: inline-flex;
+    align-items: center;
+    align-content: center;
+    padding: var(--amem-spacing-2) var(--amem-spacing-4);
+    border: 1px solid #d0d5dd;
+    color: var(--amem-text-label);
+    font-weight: 500;
+}
+
+.amem-form .acf-button-group label.selected {
+    background: var(--amem-foreground);
+    color: var(--amem-background);
+    border: 1px solid #d0d5dd;
+}
+
+.amem-form .acf-button-group label:hover {
+    color: var(--amem-slate-900);
+    background: var(--amem-foreground);
+    border: 1px solid #d0d5dd;
+}
+
+/* --- Accordion Field --- */
+
+/* .amem-form .acf-field.acf-accordion .acf-label.acf-accordion-title {
+    padding: 0 0 16px 0px;
+} */
+.amem-form .acf-accordion .acf-accordion-title label {
+    font-size: 14px;
+    color: var(--amem-text-label);
+}
+.amem-form .acf-accordion .acf-accordion-title:hover {
+    background: transparent;
+}
+
+.amem-form .acf-accordion .acf-accordion-title:hover label {
+    background: transparent;
+    text-decoration: underline;
+}
+
+.amem-form
+    .acf-field.acf-accordion
+    .acf-input.acf-accordion-content
+    > .acf-fields {
+    border: none;
+}
+
+.amem-form .acf-accordion .acf-accordion-title .acf-accordion-icon::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.25em;
+    vertical-align: middle;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-width='1' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")
+        no-repeat center;
+    background-size: contain;
+}
+
+.amem-form .acf-accordion .acf-accordion-icon:before {
+    rotate: 270deg;
+}
+
+.amem-form .acf-accordion.-open .acf-accordion-icon:before {
+    rotate: 180deg;
+}
+/* --- True/False Field --- */
+
+.amem-form .acf-true-false {
+    border: 1px solid transparent;
+}
+
+.amem-form .acf-switch span {
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    line-height: 22px;
+    min-width: 15px;
+    padding: 4px 10px;
+    text-align: center;
+}
+
+.amem-form .acf-switch .acf-switch-off,
+.amem-form .acf-switch .acf-switch-on {
+    visibility: hidden;
+}
+
+.amem-form .acf-switch {
+    background-color: #d0d5dd;
+    border: none;
+    border-radius: 12px;
+    height: 20px;
+    width: 32px;
+}
+
+.amem-form .acf-switch.-on {
+    background-color: var(--amem-background);
+}
+
+.amem-form .acf-switch .acf-switch-slider {
+    border: none;
+    border-radius: 100px;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+        rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+        rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    height: 16px;
+    width: 16px;
+}
+
+.amem-form .acf-switch.-on .acf-switch-slider {
+    left: 14px;
+}
+
+/* .amem-form .acf-hl[data-cols] {
+    padding: 0;
+} */
+
+.amem-form .acf-hl > li {
+    float: left;
+    display: block;
+    margin: 0;
+}
+
+.amem-form .acf-field-tab {
+    display: none !important;
+}
+
+.amem-form .acf-field-seperator {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border-top: 1px solid #EAECF0;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+}
+
+.amem-form .acf-tab-wrap {
+    background: #F9FAFB;
+    border-bottom-color: #1D2939;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group {
+    display: flex;
+    align-items: stretch;
+    min-height: 48px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 24px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #EAECF0;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li {
+    display: flex;
+    margin-top: 0;
+    margin-right: 24px;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding: 0;
+}
+
+.amem-form ul.acf-tab-group {
+    border-bottom: #ccc solid 1px;
+    padding: 10px 10px 0;
+}
+
+.amem-form ul.acf-tab-group li {
+    margin: 0 0.5em 0 0;
+}
+
+.amem-form ul.acf-tab-group li a {
+    padding: 5px 10px;
+    display: block;
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    border: #ccc solid 1px;
+    border-bottom: 0 none;
+    text-decoration: none;
+    background: #e5e5e5;
+    transition: none;
+}
+
+.amem-form .acf-input .select2-container.-acf .select2-selection {
+    border: none;
+    line-height: 1;
+}
+
+.amem-form .acf-input .select2-container.-acf .select2-selection__rendered {
+    box-sizing: border-box;
+    padding-right: 0;
+    padding-left: 0;
+    background-color: #fff;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #D0D5DD;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+    border-radius: 6px;
+    color: #344054;
+}
+
+.amem-form
+    .acf-input
+    .select2-container--default
+    .select2-selection--multiple
+    .select2-selection__rendered {
+    padding-top: 0;
+    padding-right: 0px;
+    padding-bottom: 0;
+    padding-left: 0px;
+}
+
+.amem-form
+    .select2-container.-acf
+    .select2-selection--multiple
+    .select2-selection__choice {
+    display: inline-flex;
+    align-items: center;
+    margin: var(--amem-spacing-1);
+    padding: var(--amem-padding-input);
+    /*margin-top: 8px;
+    margin-left: 2px;
+    position: relative;
+    padding-top: 4px;
+    padding-right: auto;
+    padding-bottom: 4px;
+    padding-left: 8px;*/
+    background-color: #EBF5FA;
+    border-color: #A5D2E7;
+    color: #0783BE;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li a {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding-top: 3px;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background: none;
+    border-top: none;
+    border-right: none;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    border-left: none;
+    color: #667085;
+    font-weight: normal;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li a:hover {
+    color: #4a5261;
+    background-color: transparent;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li.active a {
+    background: none;
+    border-bottom-color: #0783BE;
+    color: #0783BE;
+}
+/**Select Style**/
+.amem-field select {
+    /* reset */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+
+
+.amem-field select:not([multiple]):focus {
+    background-image: linear-gradient(45deg, green 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, green 50%),
+            linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em,
+        calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-repeat: no-repeat;
+    outline: 0;
+}
+
+.amem-field.classic select:not([multiple]) {
+    background-image: linear-gradient(45deg, transparent 50%, blue 50%),
+        linear-gradient(135deg, blue 50%, transparent 50%),
+            linear-gradient(to right, skyblue, skyblue);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px), 100% 0;
+    background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+    background-repeat: no-repeat;
+}
+
+.amem-field.classic select:not([multiple]):focus {
+    background-image: linear-gradient(45deg, white 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, white 50%),
+            linear-gradient(to right, gray, gray);
+    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em, 100% 0;
+    background-size: 5px 5px, 5px 5px, 2.5em 2.5em;
+    background-repeat: no-repeat;
+    outline: 0;
+}
+
+.amem-field.round select:not([multiple]) {
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+            radial-gradient(#ddd 70%, transparent 72%);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px), calc(100% - 0.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+    background-repeat: no-repeat;
+}
+
+.amem-field.round select:not([multiple]):focus {
+    background-image: linear-gradient(45deg, white 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, white 50%),
+            radial-gradient(gray 70%, transparent 72%);
+    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em,
+        calc(100% - 0.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1.5em 1.5em;
+    background-repeat: no-repeat;
+    outline: 0;
+}
+/* --- Select2 --- */
+.amem-form
+    .select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
+    height: 100%;
+    padding: 0px var(--amem-spacing-4);
+}
+.amem-form .acf-input .select2-container.-acf .select2-selection {
+    height: auto;
+}
+.amem-form .acf-input .select2-container.-acf span.select2-selection__rendered {
+    padding: var(--amem-padding-input);
+    height: auto;
+    line-height: 1.5;
+}
+
+.select2-container.-acf .select2-selection--multiple .select2-search__field,
+.select2-container.-acf .select2-selection--multiple .select2-search__field:focus-within {
+    box-shadow: none !important;
+    border: none !important;
+}
+.amem-field select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+.amem-field select:not([multiple]),
+.amem-field select:not([multiple]):focus {
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%),
+        linear-gradient(135deg, gray 50%, transparent 50%),
+            linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) calc(1em + 2px),
+        calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    background-repeat: no-repeat;
+}
+
+/* --- Range --- */
+.amem-field .acf-range-wrap input[type="number"] {
+    padding-left: 8px !important;
+    padding-right: 4px !important;
+}
+
+/* --- Local Avatar --- */
+
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-modal-heading-text {
+    color: var(--amem-text-title);
+    font-size: 16px;
+}
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-link {
+    color: var(--amem-text-default);
+}
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-link:hover {
+    color: var(--amem-slate-900);
+}
+
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-reset svg {
+    fill: var(--amem-text-default);
+}
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-reset svg:hover {
+    fill: var(--amem-text-default);
+}
+
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-default,
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-default:hover {
+    border-color: var(--amem-slate-500);
+    color: var(--amem-text-default);
+    font-weight: 600px;
+}
+
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-primary,
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-primary:hover {
+    background: var(--amem-bg-button);
+    border: var(--amem-border-button);
+    font-weight: 600px;
+}
+
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-default,
+.amem-avatar-backdrop .amem-avatar-modal .amem-avatar-button-primary:hover {
+    opacity: 0.9;
+}
+
+/* ========== 4. Buttons ========== */
+
+/* --- Basic Button --- */
+
+.acf-btn.amem-btn {
+    color: var(--amem-text-button);
+    background-color: var(--amem-bg-button);
+    border: var(--amem-border-button);
+    padding: var(--amem-spacing-2) var(--amem-spacing-4);
+    font-weight: 600;
+    justify-content: center;
+    margin: var(--amem-spacing-3) 0;
+    font-size: 1em;
+}
+
+.acf-btn.amem-btn:hover {
+    background-color: var(--amem-bg-button);
+    opacity: 0.9;
+}
+
+/* --- Danger & Cancel Buttons --- */
+
+body .acf-btn.amem-btn-delete,
+body .acf-btn.amem-btn-cancel {
+    color: #FFFFFF !important;
+    background-color: var(--amem-color-danger);
+    border-color: var(--amem-color-danger) !important;
+}
+
+body .acf-btn.amem-btn-delete:hover,
+body .acf-btn.amem-btn-cancel:hover {
+    background-color: var(--amem-color-danger);
+}
+
+.acf-image-uploader .acf-button.button,
+.acf-file-uploader .acf-button.button {
+    color: var(--slate-700);
+    background-color: #FFF;
+    border: 1px solid var(--slate-200, #E2E8F0);
+    padding: var(--amem-spacing-1) var(--amem-spacing-2);
+    border-radius: var(--amem-radius);
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+        rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+        rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+    box-sizing: border-box;
+}
+
+/* ---  Login Form Button --- */
+
+.amem-form-type-login .acf-btn.amem-btn {
+    width: 100%;
+}
+
+.amem-link-alt {
+    color: inherit;
+}
+
+/* ========== 5. Form Feedback ========== */
+
+/* --- Password Strength Meter --- */
+
+body .amem-form .pass-strength-result {
+    background-color: transparent;
+    text-align: left;
+    padding: var(--amem-spacing-1);
+    border: none;
+    border-top: 1px solid transparent;
+    border-radius: 1px;
+    width: auto;
+    position: absolute;
+    left: 6px;
+    right: 6px;
+    font-size: small;
+    font-weight: 600;
+    opacity: 0;
+}
+
+/* Hide default 'weak' label */
+body .amem-form .pass-strength-result.weak {
+    display: none;
+}
+
+/* --- Strength Levels --- */
+
+body .amem-form .pass-strength-result.short,
+body .amem-form .pass-strength-result.bad,
+body .amem-form .pass-strength-result.good,
+body .amem-form .pass-strength-result.strong {
+    opacity: 1;
+    background-color: transparent;
+}
+
+body .amem-form .pass-strength-result.short {
+    border-top-color: #DC2626; /* red-600 */
+    color: #DC2626;
+}
+
+body .amem-form .pass-strength-result.bad {
+    border-top-color: #F97316; /* orange-500 */
+    color: #F97316;
+}
+
+body .amem-form .pass-strength-result.good {
+    border-top-color: #F59E0B; /* amber-500 */
+    color: #F59E0B;
+}
+
+body .amem-form .pass-strength-result.strong {
+    border-top-color: #16A34A; /* green-600 */
+    color: #16A34A;
+}
+
+/* --- ACF Notice Styles --- */
+.amem-form .acf-notice {
+    border: var(--amem-border-input-default);
+    border-radius: var(--amem-radius);
+    max-width: 576px;
+}
+
+.amem-form .acf-notice p {
+    font-size: small;
+    line-height: 1.5;
+    margin: 0;
+    text-shadow: none;
+    color: inherit;
+    font-weight: 500;
+}
+
+.amem-form .acf-notice p::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-circle-check' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E")
+        no-repeat center;
+    background-size: contain;
+    color: currentColor;
+}
+.amem-form .acf-notice.-error p {
+    color: var(--amem-color-danger);
+}
+
+.amem-form .acf-notice.-error p::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='%23DC2626' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='12'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E")
+        no-repeat center;
+    background-size: contain;
+}
+
+.amem-form .acf-notice {
+    color: var(--amem-text-title);
+    border: none;
+}
+
+/*Restricted-message*/
+.amem-form .acf-notice.amem-restricted-message {
+    color: var(--amem-text-title);
+    padding: var(--amem-spacing-3) var(--amem-spacing-4);
+    background-color: #FFF;
+}
+
+.amem-form .acf-notice.amem-restricted-message {
+    background: transparent;
+    border: var(--amem-border-input-default);
+}
+
+/* form notice */
+
+.amem-form .acf-notice {
+    color: var(--amem-text-title);
+    border: none;
+    background: var(--amem-slate-100);
+    padding: var(--amem-spacing-2) var(--amem-spacing-3);
+}
+
+.amem-form .acf-notice .acf-notice-dismiss {
+    border: none !important;
+}
+
+.amem-form .acf-field .acf-notice.-error,
+.amem-form .acf-notice.-error,
+.acf-notice.-error .amem-form .acf-notice.-error p {
+    border: none;
+    color: var(--amem-color-danger);
+    background: var(--amem-slate-100);
+    padding: var(--amem-spacing-2) var(--amem-spacing-3);
+}
+
+/* --- Form Variants --- */
+/* hide required asterisk */
+
+.amem-form-type-login .acf-required,
+.amem-form-type-passwordreset .acf-required {
+    display: none;
+}

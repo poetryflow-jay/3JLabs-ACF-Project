@@ -1,0 +1,213 @@
+<?php
+// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
+class WC_Gateway_Portone_Hub_NaverPay extends PORTONE_Payment_Gateway {
+
+	const GATEWAY_ID = 'iamport_hub_naverpay';
+
+	public function __construct() {
+		parent::__construct();
+
+		//settings
+		$this->method_title       = __( '포트원 네이버페이 결제 (PG사 인증, 허브형)', 'iamport-for-woocommerce' );
+		$this->method_description = __( '=> 포트원 서비스를 이용해 결제모듈을 연동할 수 있습니다.<br>=> 네이버페이 이용을 위해서는 이용하고 계신 PG사의 결제수단 네이버페이 신청, 검수를 통해 이용이 가능합니다.<br>=> 궁금한 사항이 있다면 헬프센터를 방문해 주세요.<br><a href="https://help.portone.io/" target="_blank">헬프센터 방문</a>', 'iamport-for-woocommerce' );
+		$this->has_fields         = true;
+		$this->supports           = array( 'products', 'refunds' );
+
+		$this->title       = portone_get( $this->settings, 'title' );
+		$this->description = portone_get_not_clean( $this->settings, 'description' );
+		$this->pg_provider = portone_get( $this->settings, 'pg_provider' );
+		$this->pg_id       = portone_get( $this->settings, 'pg_id' );
+	}
+
+	protected function get_gateway_id() {
+		return self::GATEWAY_ID;
+	}
+
+	public function init_form_fields() {
+		parent::init_form_fields();
+
+		$allProducts = array(
+			"all" => "[모든 상품]",
+		);
+		$allProducts += Portone_Helper::get_all_products();
+
+		$allCategories = array(
+			"none" => "[적용 카테고리 없음]",
+			"all"  => "[모든 카테고리]",
+		);
+		$allCategories += Portone_Helper::get_all_categories();
+
+		$this->form_fields = array_merge(
+			array(
+				'enabled'     => array(
+					'title'   => __( 'Enable/Disable', 'iamport-for-woocommerce' ),
+					'type'    => 'checkbox',
+					'label'   => __( '포트원(네이버페이 결제형 - 허브형) 결제 사용', 'iamport-for-woocommerce' ),
+					'default' => 'yes'
+				),
+				'title'       => array(
+					'title'       => __( 'Title', 'iamport-for-woocommerce' ),
+					'type'        => 'text',
+					'description' => __( '구매자에게 표시될 구매수단명', 'iamport-for-woocommerce' ),
+					'default'     => __( '네이버페이', 'iamport-for-woocommerce' ),
+					'desc_tip'    => true,
+				),
+				'description' => array(
+					'title'       => __( 'Customer Message', 'iamport-for-woocommerce' ),
+					'type'        => 'textarea',
+					'description' => __( '구매자에게 결제수단에 대한 상세설명을 합니다.', 'iamport-for-woocommerce' ),
+					'default'     => __( '주문확정 버튼을 클릭하시면 네이버페이 결제창이 나타나 결제를 진행하실 수 있습니다.', 'iamport-for-woocommerce' )
+				),
+			),
+			$this->form_fields,
+			array(
+				'_pg_auto_title'   => array(
+					'title'       => __( '(1) 네이버페이 결제 시, 자동 적용될 PG설정값 세팅', 'iamport-for-woocommerce' ),
+					'type'        => 'title',
+					'description' => '포트원 관리자페이지 내 복수의 PG설정이 되어있을 때, 구매상품 / 카테고리에 따라 자동으로 설정될 PG값을 지정합니다.',
+				),
+				'pg_provider'      => array(
+					'title'       => __( 'PG사 설정', 'iamport-for-woocommerce' ),
+					'type'        => 'select',
+					'default'     => '',
+					'description' => __( '2개 이상의 PG사를 이용 중이라면, 네이버페이를 서비스할 PG사를 선택해주세요. 선택된 PG사의 결제창이 호출됩니다.', 'iamport-for-woocommerce' ),
+					'options'     => array(
+						'none'         => '해당사항없음',
+						'html5_inicis' => 'KG이니시스-웹표준결제',
+						'kcp'          => 'NHN KCP',
+						'nice_v2'      => '(신)나이스페이먼츠',
+						'nice'         => '(구)나이스페이먼츠',
+						'tosspayments' => '(신)토스페이먼츠',
+						'smartro_v2'   => '스마트로'
+					)
+				),
+				'pg_id'            => array(
+					'title'       => __( 'PG상점아이디', 'iamport-for-woocommerce' ),
+					'type'        => 'text',
+					'description' => __( '동일한 PG사에서 여러 개의 상점아이디(MID)를 사용하는 경우 원하시는 PG상점아이디(MID)를 지정하여 결제할 수 있습니다.', 'iamport-for-woocommerce' ),
+				),
+				'pg_products'      => array(
+					'title'       => __( 'PG설정 적용대상(상품)', 'iamport-for-woocommerce' ),
+					'type'        => 'multiselect',
+					'default'     => 'all',
+					'description' => __( '위에서 설정한 [PG사 설정] 및 [PG상점아이디] 가 적용될 상품을 선택합니다. 선택한 상품 또는 아래에서 선택한 카테고리에 해당되지 않는 경우 [PG사 설정] 및 [PG상점아이디] 는 적용되지 않습니다.', 'iamport-for-woocommerce' ),
+					'options'     => $allProducts,
+				),
+				'pg_categories'    => array(
+					'title'       => __( 'PG설정 적용대상(카테고리)', 'iamport-for-woocommerce' ),
+					'type'        => 'multiselect',
+					'default'     => 'none',
+					'description' => __( '위에서 설정한 [PG사 설정] 및 [PG상점아이디] 가 적용될 카테고리를 선택합니다. 선택한 카테고리 또는 위에서 선택한 상품에 해당되지 않는 경우 [PG사 설정] 및 [PG상점아이디] 는 적용되지 않습니다.', 'iamport-for-woocommerce' ),
+					'options'     => $allCategories,
+				),
+				'_pg_manual_title' => array(
+					'title'       => __( '(2) 네이버페이 결제 시, 적용될 PG설정값을 고객이 직접 지정', 'iamport-for-woocommerce' ),
+					'type'        => 'title',
+					'description' => '체크아웃(Checkout)페이지에서 구매자가 네이버페이 결제수단 선택 후 세부 결제수단을 한 번 더 선택할 수 있습니다. 아래 기능을 사용하면 위에 설정된 [네이버페이 결제 시, 자동 적용될 PG설정값 세팅] 값은 모두 무시됩니다.',
+				),
+				'use_manual_pg'    => array(
+					'title'       => __( 'PG설정 구매자 선택방식 사용', 'iamport-for-woocommerce' ),
+					'type'        => 'checkbox',
+					'description' => __( '포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 활성화합니다. 네이버페이 결제수단 선택 시, 세부 결제수단 선택창이 추가로 출력됩니다.', 'iamport-for-woocommerce' ),
+					'default'     => 'no',
+				),
+				'manual_pg_id'     => array(
+					'title'       => __( 'PG설정 구매자 선택', 'iamport-for-woocommerce' ),
+					'type'        => 'textarea',
+					'description' => __( '"{PG사 코드}.{PG상점아이디} : 구매자에게 표시할 텍스트" 의 형식으로 여러 줄 입력가능합니다.', 'iamport-for-woocommerce' ),
+				),
+			) );
+	}
+
+	public static function get_customet_id( $order ) {
+		$user_id = $order->get_user_id();
+
+		if ( 0 != $user_id ) {
+			return $user_id;
+		} else {
+			return bin2hex( openssl_random_pseudo_bytes( 10 ) );
+		}
+	}
+
+	public function iamport_payment_info( $order_id ) {
+		$order                        = wc_get_order( $order_id );
+		$iamport_info                 = parent::iamport_payment_info( $order_id );
+		$iamport_info[ 'pay_method' ] = 'naverpay';
+
+		$iamport_info[ 'customer_id' ] = self::get_customet_id( $order );
+
+		$order->update_meta_data( '_customer_id_reserved', $iamport_info[ 'customer_id' ] );
+		$order->save_meta_data();
+
+		$useManualPg = filter_var( portone_get( $this->settings, 'use_manual_pg' ), FILTER_VALIDATE_BOOLEAN );
+
+		if ( ! $useManualPg ) { //Manual 모드이면 굳이 루프돌며 찾지 않음
+			if ( ! empty( $this->pg_provider ) && $this->pg_provider != 'none' ) {
+				$iamport_info[ 'pg' ] = $this->pg_provider;
+
+				if ( ! empty( $this->pg_id ) ) {
+					$iamport_info[ 'pg' ] = sprintf( "%s.%s", $this->pg_provider, $this->pg_id );
+				}
+
+				//조건에 해당되지 않으면 pg 파라메터 unset
+				$allAllowedInProduct  = ! empty( $this->settings[ 'pg_products' ] ) && ( $this->settings[ 'pg_products' ] === "all" || ( is_array( $this->settings[ 'pg_products' ] ) && in_array( "all", $this->settings[ 'pg_products' ] ) ) );
+				$allAllowedInCategory = ! empty( $this->settings[ 'pg_categories' ] ) && ( $this->settings[ 'pg_categories' ] === "all" || ( is_array( $this->settings[ 'pg_categories' ] ) && in_array( "all", $this->settings[ 'pg_categories' ] ) ) );
+
+				if ( ! ( $allAllowedInProduct || $allAllowedInCategory ) ) {
+					//타겟이 특정되어있을 때에만 검사한다.
+					$productList  = empty( $this->settings[ 'pg_products' ] ) || ! is_array( $this->settings[ 'pg_products' ] ) ? array() : $this->settings[ 'pg_products' ];
+					$categoryList = empty( $this->settings[ 'pg_categories' ] ) || ! is_array( $this->settings[ 'pg_categories' ] ) ? array() : $this->settings[ 'pg_categories' ];
+
+					if ( Portone_Helper::has_excluded_product( $order_id, $productList, $categoryList ) ) {
+						unset( $iamport_info[ 'pg' ] );
+					}
+				}
+			}
+		}
+
+		return $iamport_info;
+	}
+
+	public function iamport_order_detail( $order_id ) {
+		global $woocommerce;
+
+		$order = new WC_Order( $order_id );
+
+		$paymethod   = $order->get_meta( '_iamport_paymethod' );
+		$receipt_url = $order->get_meta( '_iamport_receipt_url' );
+		$vbank_name  = $order->get_meta( '_iamport_vbank_name' );
+		$vbank_num   = $order->get_meta( '_iamport_vbank_num' );
+		$vbank_date  = $order->get_meta( '_iamport_vbank_date' );
+		$tid         = $order->get_transaction_id();
+
+		// translators: %s: transaction number
+		$message = sprintf( __( '영수증보기(%s)', 'iamport-for-woocommerce' ), $tid );
+		ob_start();
+		?>
+        <h2><?php esc_html_e( '결제 상세', 'iamport-for-woocommerce' ) ?></h2>
+        <table class="shop_table order_details">
+            <tbody>
+            <tr>
+                <th><?php esc_html_e( '결제수단', 'iamport-for-woocommerce' ) ?></th>
+                <td><?php esc_html_e( '네이버페이', 'iamport-for-woocommerce' ) ?></td>
+            </tr>
+            <tr>
+                <th><?php esc_html_e( '매출전표', 'iamport-for-woocommerce' ) ?></th>
+                <td><a target="_blank" href="<?php echo esc_url( $receipt_url ) ?>"><?php echo esc_html( $message ); ?></a></td>
+            </tr>
+            </tbody>
+        </table>
+		<?php
+		ob_end_flush();
+	}
+
+	public function payment_fields() {
+		parent::payment_fields(); //description 출력
+
+		$useManualPg = filter_var( portone_get( $this->settings, 'use_manual_pg' ), FILTER_VALIDATE_BOOLEAN );
+		if ( $useManualPg ) {
+			echo Portone_Helper::htmlSecondaryPaymentMethod( portone_get_not_clean( $this->settings, 'manual_pg_id' ) );
+		}
+	}
+
+}

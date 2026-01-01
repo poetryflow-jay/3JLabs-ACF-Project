@@ -1,0 +1,921 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-21 17:32+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: nexter-pro-extensions.php:65
+#, php-format
+msgid ""
+"Nexter Extensions Pro requires PHP version %s+, plugin is currently NOT "
+"RUNNING."
+msgstr ""
+
+#: nexter-pro-extensions.php:78
+msgid ""
+"You are one step away from using Nexter Extensions. Please activate Nexter "
+"Extensions version."
+msgstr ""
+
+#: nexter-pro-extensions.php:79
+msgid "Activate Nexter Extensions"
+msgstr ""
+
+#: nexter-pro-extensions.php:83
+msgid ""
+"Nexter Extensions is missing. Would you please install that to make Nexter "
+"Extensions Pro working smoothly?"
+msgstr ""
+
+#: nexter-pro-extensions.php:84
+msgid "Install Nexter Extension"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:212
+msgid " Child Theme"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:264
+msgid "Settings"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:271
+msgid "Need Help?"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:272
+msgid "License"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:289
+msgid "Docs"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:290
+msgid "Join Community"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:291
+msgid "What's New?"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:292
+msgid "Request Feature"
+msgstr ""
+
+#: includes/nexter-load-extensions.php:293
+msgid "Rate Theme"
+msgstr ""
+
+#: includes/code-snippets/nexter-code-snippet-render-pro.php:3212
+#, php-format
+msgid "Untitled (#%d)"
+msgstr ""
+
+#: includes/sections-hooks/nexter-advanced-maintenance.php:277
+msgid "Maintenance Mode ON"
+msgstr ""
+
+#: includes/sections-hooks/maintenance/maintenance-mode.php:15
+msgid "maintenance mode"
+msgstr ""
+
+#: includes/sections-hooks/maintenance/maintenance-mode.php:17
+msgid "Website is Under Maintenance."
+msgstr ""
+
+#: includes/sections-hooks/maintenance/maintenance-mode.php:19
+msgid "We are coming soon."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:105
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:106
+msgid "Admin Menu"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:119
+msgid "Admin Menu Organizer"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:123
+msgid "Save Changes"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:308
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:438
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:542
+msgid "[ Submenu ]"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:315
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:445
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:549
+msgid "Hide"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:587
+msgid "Add Separator"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:590
+msgid "Reset Menu"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:698
+msgid "Hide until toggled"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:706
+msgid "Always hide for user role(s)"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:713
+msgid "All Roles"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:717
+msgid "All Roles Except"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:721
+msgid "Selected Roles"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:758
+#, php-format
+msgid ""
+"The role(s) specified above have sufficient <code>%s</code> access to view "
+"this menu item."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1046
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1074
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1047
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1048
+msgid "Add New"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1049
+msgid "Edit"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1051
+msgid "View"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1053
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1056
+#, php-format
+msgid "No %s found"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1059
+#, php-format
+msgid "No %s found in Trash"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1201
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1202
+msgid "Show All"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1211
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1212
+msgid "Show Less"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1329
+#: includes/settings-options/nexter-ext-admin-menu-organizer.php:1361
+msgid "Sorry, you are not allowed to access this page."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:98
+#: includes/settings-options/nexter-ext-library.php:142
+msgid "An Error Occurred, Please Try Again Later."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:111
+#: includes/settings-options/nexter-ext-library.php:265
+msgid "Your license key expired."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:117
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:121
+msgid "Invalid license."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:127
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:132
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:137
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:147
+msgid "Your License is active."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:289
+msgid "Invalid nonce. Unauthorized request."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:336
+msgid ""
+"Activate Nexter License to Receive Active Plugin Updates for Blocks & "
+"Extensions"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:337
+msgid ""
+"Your Pro version is installed, now activate your license for active updates "
+"and support access."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:338
+msgid "Activate License"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:344
+msgid "Your Nexter Pro License has Expired"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:346
+msgid "Your Nexter Extension License Has Expired"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:348
+msgid ""
+"Please renew your license to continue using Pro features and receive "
+"updates, security patches, and access to new features."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:349
+msgid "Renew License"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:354
+msgid "Final Reminder – Your Nexter Pro License Expires in 7 Days"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:355
+msgid ""
+"Your Nexter Pro license will expire in 7 days. Renewing ensures continued "
+"access to updates and Pro features without interruption."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:357
+msgid "Final Reminder – Nexter Extension License Expires in 7 Days"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:358
+msgid ""
+"Your Nexter Extension Pro license will expire in 7 days. Renewing ensures "
+"continued access to updates and Pro features without interruption."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:361
+msgid "Renew Now"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:366
+msgid "Heads-Up: Your Nexter Pro License Will Expire in 1 Month"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:367
+#: includes/settings-options/nexter-ext-library.php:370
+msgid ""
+"Your Pro license will expire in 30 days renew in advance to avoid any break "
+"in functionality or receiving active updates."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:369
+msgid "Heads-Up: Your Nexter Extension Pro License Will Expire in 1 Month"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:373
+msgid "Renew Early"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:421
+msgid "License Key Expired"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:425
+#, php-format
+msgid ""
+"Your license key for Nexter Extension has expired, which means updates and "
+"premium features are no longer active. Please visit %1$s to renew your "
+"license, update payment methods, or manage your subscription. For support, "
+"please raise a ticket at %2$s or email us at %3$s."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:434
+msgid "Congratulation! License Successfully Activated."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:438
+msgid "License Key Revoked"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:442
+#, php-format
+msgid ""
+"Your license key for Nexter Extension has been revoked due to a payment or "
+"account-related issue. Please visit %1$s to update your license key, manage "
+"payments, or pay pending invoices. For support, please raise a ticket at "
+"%2$s or email us at %3$s."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:451
+msgid "License Key Required"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:454
+#, php-format
+msgid ""
+"No license key is currently entered for Nexter Extension. Please add your "
+"license key to activate premium features. You can find and manage your key "
+"at %1$s. For support, please raise a ticket at %2$s or email us at %3$s."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:465
+msgid "Invalid License Key"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:469
+#, php-format
+msgid ""
+"The license key entered is invalid or inactive. Please double-check for "
+"typos, remove extra spaces, and try again. If the issue continues, confirm "
+"your key at %1$s. For support, please raise a ticket at %2$s or email us at "
+"%3$s."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:479
+msgid "License Key Does Not Match Product"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:483
+#, php-format
+msgid ""
+"The license key entered belongs to another POSIMYTH product. Please ensure "
+"you are using the correct license key for Nexter Extension by verifying it "
+"at %1$s. For support, please raise a ticket at %2$s or email us at %3$s."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:493
+msgid "Activation Limit Reached"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-library.php:497
+#, php-format
+msgid ""
+"You have reached the maximum number of site activations allowed by your "
+"plan. Please upgrade your plan at %1$s to enable additional activations. For "
+"support, please raise a ticket at %2$s or email us at %3$s."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-local-user-avatar.php:90
+msgid "Select Profile Picture"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-local-user-avatar.php:91
+msgid "Use as Profile Picture"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-local-user-avatar.php:135
+msgid "Profile Picture"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-local-user-avatar.php:142
+msgid "You are currently using the default profile picture."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-local-user-avatar.php:146
+msgid "Change"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-local-user-avatar.php:149
+msgid "Reset to Default"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-login-email-notification.php:47
+#: includes/settings-options/nexter-ext-login-email-notification.php:49
+msgid "Login @ "
+msgstr ""
+
+#: includes/settings-options/nexter-ext-login-email-notification.php:63
+msgid "logged in at "
+msgstr ""
+
+#: includes/settings-options/nexter-ext-login-email-notification.php:63
+msgid " on "
+msgstr ""
+
+#: includes/settings-options/nexter-ext-login-email-notification.php:64
+msgid "User Name: "
+msgstr ""
+
+#: includes/settings-options/nexter-ext-login-email-notification.php:106
+msgid "Site URL: "
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:35
+#: includes/settings-options/nexter-ext-media-replacement.php:105
+msgid "Select File to Replace"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:36
+msgid "Perform Replacement"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:54
+#: includes/settings-options/nexter-ext-media-replacement.php:55
+msgid "Edit or Replace"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:75
+msgid "Replace Media"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:77
+msgid "Upload a new file"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:77
+msgid ""
+"To replace the current file, click the link and upload a replacement file."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:95
+msgid "Media Replace"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:110
+msgid ""
+"This file will be replaced with a new one of the same type. The ID, publish "
+"date, and URL will remain unchanged."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-media-replacement.php:216
+#, php-format
+msgid ""
+"Media file replaced successfully. <a href=\"%s\" target=\"_blank\" rel="
+"\"noopener noreferrer\">Hard refresh</a> your browser to see the latest "
+"version."
+msgstr ""
+
+#: includes/settings-options/nexter-ext-public-preview-drafts.php:49
+#: includes/settings-options/nexter-ext-public-preview-drafts.php:67
+#: includes/settings-options/nexter-ext-public-preview-drafts.php:103
+msgid "Public Preview"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-public-preview-drafts.php:50
+#: includes/settings-options/nexter-ext-public-preview-drafts.php:104
+msgid "Link to preview this draft publiclly"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-public-preview-drafts.php:68
+msgid "Link to preview this draft publicly"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-public-preview-drafts.php:166
+msgid "This link has expired or is invalid!"
+msgstr ""
+
+#: includes/settings-options/nexter-ext-right-click-disable.php:48
+msgid "Warning"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:154
+msgid "Not a permission"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:157
+msgid "Security check failed"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:162
+#: includes/settings-options/nexter-settings-options.php:168
+msgid "File Import failed"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:175
+msgid "Valid .json file extension"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:181
+msgid "Please upload a file"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:194
+msgid "Invalid JSON format"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:215
+msgid "Extension settings imported successfully"
+msgstr ""
+
+#: includes/settings-options/nexter-settings-options.php:218
+msgid "No valid settings found in the file"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:565
+msgid "Error: User login API disabled due to an error."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:637
+msgid "Unable to generate a login nonce."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:666
+#, php-format
+msgid ""
+"WARNING: Your account attempted to login %1$s time without providing a valid "
+"two-factor token. The last failed login occurred %2$s ago. If this wasn't "
+"you, you should reset your password."
+msgid_plural ""
+"WARNING: Your account attempted to login %1$s times without providing a "
+"valid two-factor token. The last failed login occurred %2$s ago. If this "
+"wasn't you, you should reset your password."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/settings-options/nexter-two-factor-management.php:717
+#, php-format
+msgid ""
+"Your password was reset due to too many failed Two-Factor attempts. To "
+"regain access, please <a href=\"%s\">create a new password</a>. Check your "
+"email for further instructions."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:752
+#: includes/settings-options/nexter-two-factor-management.php:1241
+#: includes/settings-options/nexter-two-factor-management.php:1373
+#: includes/settings-options/nexter-two-factor-management.php:1434
+msgid "Cheatin&#8217; uh?"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:835
+msgid "Alternative Methods:"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1187
+msgid "Two Factor Revalidation required."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1256
+msgid "Failed to create a login nonce."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1306
+msgid "You have logged in successfully."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1403
+msgid "You have revalidated successfully."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1458
+#, php-format
+msgid ""
+"ERROR: Exceeded the maximum number of invalid verification codes. You can "
+"try again in %s. This limit protects your account against automated attacks."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1481
+msgid "ERROR: Invalid verification code."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1627
+msgid ""
+"Numerous failed two-factor authentication attempts suggest a potential "
+"compromise of the password. To safeguard the account, the password has been "
+"reset."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1628
+msgid ""
+"If you are the account owner, please check your email for instructions on "
+"how to regain access."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1632
+msgid "Password Reset"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1646
+msgid "Two-Factor Authentication"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1695
+msgid "Not Allowed by Admin"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1697
+msgid "Disabled"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1747
+msgid ""
+"To update your Two-Factor options, you must first revalidate your session."
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1748
+msgid "Revalidate now"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1765
+msgid "Two-Factor Options"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1771
+msgid "Enabled"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1772
+msgid "Primary"
+msgstr ""
+
+#: includes/settings-options/nexter-two-factor-management.php:1773
+msgid "Type"
+msgstr ""
+
+#: includes/settings-options/Nexter_SL_Plugin_Updater.php:238
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: includes/settings-options/Nexter_SL_Plugin_Updater.php:249
+#, php-format
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: includes/settings-options/Nexter_SL_Plugin_Updater.php:494
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: includes/settings-options/Nexter_SL_Plugin_Updater.php:495
+msgid "Error"
+msgstr ""
+
+#: includes/settings-options/2fa/function.login-footer.php:29
+#, php-format
+msgctxt "site"
+msgid "&larr; Go to %s"
+msgstr ""
+
+#: includes/settings-options/2fa/function.login-header.php:53
+#, php-format
+msgid "%1$s &lsaquo; %2$s &#8212; WordPress"
+msgstr ""
+
+#: includes/settings-options/2fa/function.login-header.php:57
+#, php-format
+msgid "Recovery Mode &#8212; %s"
+msgstr ""
+
+#: includes/settings-options/2fa/function.login-header.php:105
+msgid "https://wordpress.org/"
+msgstr ""
+
+#: includes/settings-options/2fa/function.login-header.php:131
+msgid ""
+"Usage of the title attribute on the login logo is not recommended for "
+"accessibility reasons. Use the link text instead."
+msgstr ""
+
+#: includes/settings-options/2fa/function.login-header.php:134
+msgid "Powered by WordPress"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:22
+msgctxt "Provider Label"
+msgid "Email"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:26
+msgid "Send a 2FA code to your email"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:212
+#, php-format
+msgid "Your 2FA Verification Code for %s"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:214
+#, php-format
+msgid ""
+"Hello %1$s,\r\n"
+"To complete your login, please enter the following Two-Factor Authentication "
+"code:\n"
+"Code: %2$s\n"
+"This code is valid for the next 10 minutes. If this wasn't you, please "
+"change your password immediately or contact the site admin.\n"
+"Best regards,\n"
+"%3$s\n"
+"Time Sent: %4$s"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:277
+msgid ""
+"A verification code has been dispatched to the email address linked to your "
+"account."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:279
+msgid "Verification Code:"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:281
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:337
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:334
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:674
+msgid "Submit"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:284
+msgid "Resend Code"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-email.php:360
+#, php-format
+msgid "Authentication codes will be sent to %s."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:104
+#, php-format
+msgid ""
+"Nexter: You have exhausted your recovery codes and need to <a href=\"%s"
+"\">regenerate them</a>!"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:122
+msgctxt "Provider Label"
+msgid "Recovery Codes"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:131
+msgid "Use a recovery code"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:169
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:292
+#, php-format
+msgid "%s unused code remaining; each recovery code can only be used once."
+msgid_plural ""
+"%s unused codes remaining, each recovery code can only be used once."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:177
+msgid "Generate new recovery codes"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:183
+msgid ""
+"Please make a note of these codes! Once you leave this page, you won't be "
+"able to view them again."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:185
+msgid "Download Codes"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:276
+#, php-format
+msgid "Two-Factor Recovery Codes for %s"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:296
+msgid "Cannot activate recovery codes for this user."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:331
+msgid "Enter a recovery code."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-recovery-code.php:333
+msgid "Recovery Code:"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:104
+msgctxt "Provider Label"
+msgid "Authenticator app"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:113
+msgid "Use your authenticator app"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:167
+msgid "Invalid Two Factor Authentication secret key."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:171
+msgid "Invalid Two Factor Authentication code."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:175
+msgid ""
+"Failed to save the Two-Factor Authentication code. Please rescan the QR code "
+"and enter the code provided by your application."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:179
+msgid "Cannot activate TOTP provider for this user."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:278
+msgid ""
+"Scan the QR code or manually enter the key, and then input an authentication "
+"code from your app to complete the setup."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:327
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:661
+msgid "Authentication Code:"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:330
+#, php-format
+msgid "eg. %s"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:372
+msgid ""
+"An authenticator app is currently configured. If reset is necessary, you "
+"will need to re-scan the QR code on all devices."
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:376
+msgid "Reset authenticator app"
+msgstr ""
+
+#: includes/settings-options/2fa/nexter-two-factor-management-provider-totp.php:658
+msgid "Enter the code generated by your authenticator app."
+msgstr ""
+
+#: includes/settings-options/terms-order/nexter-ext-term-order-admin.php:59
+#: includes/settings-options/terms-order/nexter-ext-term-order-admin.php:60
+msgid "Terms Order"
+msgstr ""
+
+#: includes/settings-options/terms-order/nexter-ext-term-order-admin.php:117
+msgid "Invalid Taxonomy."
+msgstr ""
+
+#: includes/settings-options/terms-order/nexter-ext-term-ordering-render.php:2
+msgid "Taxonomy Term Order"
+msgstr ""
+
+#: includes/settings-options/terms-order/nexter-ext-term-ordering-render.php:18
+msgid "Select Taxonomy"
+msgstr ""
+
+#: includes/settings-options/terms-order/nexter-ext-term-ordering-render.php:26
+msgid "terms"
+msgstr ""
+
+#: includes/settings-options/terms-order/nexter-ext-term-ordering-render.php:43
+msgid "Update"
+msgstr ""
+
+#: includes/settings-options/terms-order/nexter-ext-term-ordering-render.php:120
+msgid "Updating order..."
+msgstr ""

@@ -1,0 +1,218 @@
+.amem-form .hide-label .amem-label {
+	display: none;
+}
+
+.amem-submit {
+	clear: both;
+	padding: 15px 12px;
+}
+
+
+/**
+ * Field includes
+ */
+.amem-field-include {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+ 
+.amem-field-include th {
+	background-color: #fafafa;
+	border: 1px solid #ddd;
+	padding: 5px 10px;
+	text-align: left;
+}
+
+.amem-field-include td {
+	border: 1px solid #ddd;
+	padding: 15px 20px;
+}
+
+.amem-field-include-repeater td {
+	padding: 5px 10px;
+}
+
+
+/**
+ * Paging
+ */
+.amem-page-wrap {
+	border: 1px solid #EEE;
+	display: flex;
+	margin: 0 12px;
+}
+
+.amem-page-button {
+	background: #F9F9F9;
+	color: inherit;
+	cursor: default;
+	flex: 1;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	border-right: 1px solid #EEE;
+	position: relative;
+	text-decoration: none;
+}
+
+.amem-page-button:hover {
+	color: inherit;
+}
+
+.amem-page-button:last-child {
+	border-right: none;
+}
+
+.amem-page-button.enabled {
+	background: #fff;
+	cursor: pointer;
+}
+
+.amem-page-button.current {
+	color: #318cf3;
+}
+
+/*
+ * The pointed button is constructed using two triangles, before and after.
+ * The before triangle is the same color as the border.
+ * The after triangle is 1px smaller and overlays the before triangle with the button background color.
+ */
+.amem-page-button:before,
+.amem-page-button:after {
+	box-sizing: border-box;
+	content: '';
+	position: absolute;
+	top: 0;
+	height: 50px;
+	left: 100%;
+	border-left: 15px solid #EEE;
+	border-bottom: 25px solid transparent;
+	border-top: 25px solid transparent;
+	z-index: 1;
+}
+
+.amem-page-button:after {
+	top: 1px;
+	height: 48px;
+	border-left: 14px solid #F9F9F9;
+	border-bottom: 24px solid transparent;
+	border-top: 24px solid transparent;
+}
+
+.amem-page-button.enabled:after {
+	border-left-color: #FFF;
+}
+
+.amem-page-button:last-child:before,
+.amem-page-button:last-child:after {
+	content: none;
+}
+
+.amem-page-button .index {
+	background: #ddd;
+	border-radius: 10px;
+	color: #888;
+	display: inline-block;
+	font-size: 12px;
+	margin-right: 10px;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+.amem-page-button .title {
+	vertical-align: middle;
+	opacity: 0.5;
+}
+
+.amem-page-button.enabled .title {
+	opacity: 1;
+}
+
+/* Remove top border from fields immediately following a page break */
+.acf-fields .acf-field-page + .acf-field {
+	border-top: none;
+}
+
+.amem-previous-button,
+.amem-next-button {
+	margin-right: 10px;
+}
+
+.amem-field-type-page {
+	display: none;
+}
+
+.amem-field-instructions {
+	margin: 0;
+}
+
+.amem-field-instructions.-placement-field {
+	margin-top: 5px;
+}
+
+#acf-field_amem_errors { display: none; }
+
+.acf-fields > .acf-field.acf-field-amem-errors {
+	border-width: 0 !important;
+	margin: 0;
+	padding: 0;
+}
+
+.amem-left {
+	text-align: left;
+}
+.amem-right {
+	text-align: right;
+}
+.amem-center {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+.amem-field-row {
+	display: flex;
+	align-items: flex-start;
+}
+
+.amem-form .pass-strength-result.weak{
+	display:none
+}
+
+.amem-form .pass-strength-result{
+	background-color:#eee;border:1px solid #ddd;color:#23282d;margin:-1px 1px 5px;padding:3px 5px;text-align:center;width:100%;box-sizing:border-box;opacity:0; font-size: small;
+}
+
+.amem-form .pass-strength-result.short{
+	background-color:#f1adad;border-color:#e35b5b;opacity:1
+}
+
+.amem-form .pass-strength-result.bad{
+	background-color:#fbc5a9;border-color:#f78b53;opacity:1
+}
+
+.amem-form .pass-strength-result.good{
+	background-color:#ffe399;border-color:#ffc733;opacity:1
+}
+
+.amem-form .pass-strength-result.strong{
+	background-color:#c1e1b9;border-color:#83c373;opacity:1
+}
+
+.amem-form #pass1-text.short,#pass1.short{
+	border-color:#e35b5b
+}
+
+.amem-form #pass1-text.bad,#pass1.bad{
+	border-color:#f78b53
+}
+
+.amem-form #pass1-text.good,#pass1.good{
+	border-color:#ffc733
+}
+
+.amem-form #pass1-text.strong,#pass1.strong{
+	border-color:#83c373
+}

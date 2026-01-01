@@ -1,0 +1,1455 @@
+# Translation of Themes - Nexter in Korean
+# This file is distributed under the same license as the Themes - Nexter package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-04-14 16:04:48+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: ko_KR\n"
+"Project-Id-Version: Themes - Nexter\n"
+
+#. Description of the theme
+#: style.css
+#, gp-priority: high
+msgid "Nexter Theme is an ultra-lightweight, multipurpose WordPress theme built with pure vanilla JavaScript, crafted specifically for users who are serious about performance, speed, and SEO. With a footprint of less than 50KB, it delivers blazing-fast load times, making it the perfect base for business websites, personal portfolios, blogs, and online stores. Designed with clean, SEO-friendly code, Nexter ensures better search engine visibility while offering rock-solid compatibility with popular tools like Elementor, The Plus Addons for Elementor, and the default Gutenberg Block Editor. It’s fully WooCommerce-ready, accessibility-ready, and RTL-compatible, making it suitable for a global and diverse audience. Nexter follows secure coding standards, is regularly updated, and ensures full compatibility with the latest WordPress versions. To get the most out of it, Nexter works best with Nexter Blocks and Nexter Extension—together, they bring powerful blocks, advanced design tools, and performance-focused features that elevate your website-building experience. Plus, with access to over 1000 ready-to-import website templates and sections, you can build and launch stunning websites faster than ever before. Whether you’re a developer, designer, agency, or entrepreneur, Nexter Theme is your go-to choice for building fast, flexible, and professional WordPress websites. Learn More – https://nexterwp.com/nexter-theme/"
+msgstr "Nexter 테마는 성능, 속도, SEO에 진지한 사용자를 위해 순수 바닐라 JavaScript로 제작된 초경량 다목적 WordPress 테마입니다. 50KB 미만의 크기로 번개처럼 빠른 로드 시간을 제공하여 비즈니스 웹사이트, 개인 포트폴리오, 블로그 및 온라인 스토어에 완벽한 기반을 제공합니다. 깔끔하고 SEO 친화적인 코드로 설계된 Nexter는 검색 엔진 가시성을 향상시키면서 Elementor, The Plus Addons for Elementor, 기본 구텐베르크 블록 편집기와 같은 인기 있는 도구와의 견고한 호환성을 제공합니다. 완전한 WooCommerce 준비, 접근성 준비, RTL 호환성을 갖추고 있어 글로벌하고 다양한 청중에게 적합합니다. Nexter는 안전한 코딩 표준을 따르며 정기적으로 업데이트되며 최신 WordPress 버전과의 완전한 호환성을 보장합니다. Nexter Blocks 및 Nexter Extension과 함께 사용할 때 최상의 성능을 발휘하며, 강력한 블록, 고급 디자인 도구 및 성능 중심의 기능을 제공하여 웹사이트 구축 경험을 향상시킵니다. 또한 1000개 이상의 즉시 가져올 수 있는 웹사이트 템플릿 및 섹션에 액세스할 수 있어 놀라운 웹사이트를 그 어느 때보다 빠르게 구축하고 출시할 수 있습니다. 개발자, 디자이너, 에이전시 또는 기업가이든 Nexter 테마는 빠르고 유연하며 전문적인 WordPress 웹사이트를 구축하기 위한 최고의 선택입니다. 더 알아보기 – https://nexterwp.com/nexter-theme/"
+
+#. Theme Name of the theme
+#: style.css inc/core-function/nxt-core-function.php:252
+#, gp-priority: high
+msgid "Nexter"
+msgstr "넥스터"
+
+#: inc/panel-settings/plus-settings-options.php:162
+msgid "2-Factor Authentication"
+msgstr "2단계 인증"
+
+#: inc/panel-settings/plus-settings-options.php:161
+msgid "Content Protections"
+msgstr "콘텐츠 보호"
+
+#: inc/panel-settings/plus-settings-options.php:158
+msgid "Security :"
+msgstr "보안 :"
+
+#: inc/panel-settings/plus-settings-options.php:151
+msgid "Disable Icons"
+msgstr "아이콘 비활성화"
+
+#: inc/panel-settings/plus-settings-options.php:150
+msgid "Disable Image Sizes"
+msgstr "이미지 크기 비활성화"
+
+#: inc/panel-settings/plus-settings-options.php:140
+msgid "Conditional Code Load"
+msgstr "조건부 코드 로드"
+
+#: inc/panel-settings/plus-settings-options.php:139
+msgid "Smart Code Error Handling"
+msgstr "스마트 코드 오류 처리"
+
+#: inc/panel-settings/plus-settings-options.php:138
+msgid "Add HTML, CSS, JS & PHP Code"
+msgstr "HTML, CSS, JS 및 PHP 코드 추가"
+
+#: inc/panel-settings/plus-settings-options.php:136
+msgid "Code Snippets :"
+msgstr "코드 스니펫:"
+
+#: inc/panel-settings/plus-settings-options.php:132
+msgid "Regenerate Thumbnails"
+msgstr "썸네일 재생성"
+
+#: inc/panel-settings/plus-settings-options.php:131
+msgid "Replace Text & URL"
+msgstr "텍스트 및 URL 교체"
+
+#: inc/panel-settings/plus-settings-options.php:127
+msgid "Disable Admin Settings"
+msgstr "관리자 설정 비활성화"
+
+#: inc/panel-settings/plus-settings-options.php:126
+msgid "Adobe Fonts"
+msgstr "Adobe 글꼴"
+
+#: inc/panel-settings/plus-settings-options.php:120
+msgid "Action & Filter Hooks"
+msgstr "액션 및 필터 훅"
+
+#: inc/panel-settings/plus-settings-options.php:119
+msgid "Display Rules for Theme Builder"
+msgstr "테마 빌더의 표시 규칙"
+
+#: inc/panel-settings/plus-settings-options.php:118
+msgid "Archive Pages"
+msgstr "아카이브 페이지"
+
+#: inc/panel-settings/plus-settings-options.php:117
+msgid "Single Pages"
+msgstr "단일 페이지"
+
+#: inc/panel-settings/plus-settings-options.php:116
+msgid "404 Page"
+msgstr "404 페이지"
+
+#: inc/panel-settings/plus-settings-options.php:115
+msgid "Breadcrumbs Bar"
+msgstr "이동 경로 바"
+
+#: inc/panel-settings/plus-settings-options.php:114
+msgid "Advanced Footer Builder"
+msgstr "고급 푸터 빌더"
+
+#: inc/panel-settings/plus-settings-options.php:113
+msgid "Advanced Header Builder"
+msgstr "고급 헤더 빌더"
+
+#: inc/panel-settings/plus-settings-options.php:111
+msgid "Theme Builder :"
+msgstr "테마 빌더 :"
+
+#: inc/panel-settings/plus-settings-options.php:107
+msgid "View Features"
+msgstr "기능 보기"
+
+#: inc/panel-settings/plus-settings-options.php:106
+msgid "Install & Activate Nexter Extension"
+msgstr "Nexter 확장 프로그램 설치 및 활성화"
+
+#: inc/panel-settings/plus-settings-options.php:104
+msgid "To get the most out of Nexter Theme, we recommend installing Nexter Extension to unlock its full potential and access all features."
+msgstr "Nexter 테마를 최대한 활용하려면 Nexter 확장을 설치하여 모든 기능을 잠금 해제하고 액세스할 수 있도록 권장합니다."
+
+#: inc/panel-settings/plus-settings-options.php:103
+msgid "Install Nexter Extension to Unlock Nexter Theme"
+msgstr "Nexter 테마를 잠금 해제하려면 Nexter 확장을 설치하세요."
+
+#: inc/nexter-enqueue-style-script.php:231
+msgid "Failed to retrieve plugin information."
+msgstr "플러그인 정보를 가져오지 못했습니다."
+
+#: inc/customizer/customizer-config/pages/class-single-page.php:50
+msgid "Hide Featured Image"
+msgstr "추천 이미지 숨기기"
+
+#: inc/customizer/customizer-config/pages/class-single-page.php:39
+#: inc/customizer/customizer-register-panels-sections.php:267
+msgid "Single Page"
+msgstr "단일 페이지"
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:74
+msgid "Select Sidebar"
+msgstr "사이드바 선택"
+
+#: inc/nexter-enqueue-style-script.php:196
+msgid "Insufficient permissions."
+msgstr "권한이 부족합니다."
+
+#: inc/panel-settings/plus-settings-options.php:130
+msgid "Custom Upload Fonts"
+msgstr "사용자 정의 글꼴 업로드"
+
+#: inc/panel-settings/plus-settings-options.php:129
+msgid "Branded WP Admin"
+msgstr "브랜디드 WP 관리자"
+
+#: inc/panel-settings/plus-settings-options.php:149
+msgid "Advanced Performance"
+msgstr "고급 성능"
+
+#: inc/panel-settings/plus-settings-options.php:160
+msgid "Advanced Security"
+msgstr "고급 보안"
+
+#: inc/panel-settings/plus-settings-options.php:128
+msgid "Duplicate Post"
+msgstr "글 복제"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:107
+msgid "Custom Fonts"
+msgstr "사용자 정의 글꼴"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:106
+#: inc/customizer/customizer-config/general/class-layout-container.php:185
+#: inc/customizer/customizer-config/general/class-layout-container.php:257
+#: inc/customizer/customizer-config/general/class-layout-container.php:334
+#: inc/customizer/customizer-config/general/class-layout-container.php:411
+#: inc/customizer/customizer-config/general/class-layout-container.php:488
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:127
+msgid "Spacing(Padding)"
+msgstr "간격(패딩)"
+
+#: inc/panel-settings/plus-settings-options.php:147
+msgid "Performance :"
+msgstr "성능 :"
+
+#: inc/panel-settings/plus-settings-options.php:124
+msgid "Extra Options :"
+msgstr "추가 옵션 :"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:131
+msgid "Display Comment Box"
+msgstr "댓글 상자 표시"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:118
+msgid "Display Post Tags"
+msgstr "게시물 태그 표시"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:66
+msgid "Display Featured Image"
+msgstr "추천 이미지 표시"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:53
+msgid "Display Post Title"
+msgstr "게시물 제목 표시"
+
+#: inc/core-function/nxt-helper-function.php:31
+msgid "Theme Color "
+msgstr "테마 색상"
+
+#: inc/customizer/customizer-config/general/class-header.php:45
+msgid "Disable Header"
+msgstr "헤더 비활성화"
+
+#: inc/customizer/customizer-config/general/class-footer.php:45
+msgid "Disable Footer"
+msgstr "푸터 비활성화"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:412
+msgid "Post Meta Color"
+msgstr "글 메타 색상"
+
+#: inc/third-party/class-nexter-builder-documents.php:108
+msgid "Singular"
+msgstr "단수형"
+
+#: inc/third-party/documents/class-nxt-builder-ele-document-singular.php:21
+msgid "Nexter Singular Template"
+msgstr "넥스터 싱귤러 템플릿"
+
+#: inc/third-party/documents/class-nxt-builder-ele-document-archives.php:21
+msgid "Nexter Archives Template"
+msgstr "넥스터 아카이브 템플릿"
+
+#: comments.php:122
+msgid "Website"
+msgstr "웹사이트"
+
+#: comments.php:117
+msgid "Email Address *"
+msgstr "이메일 주소 *"
+
+#: comments.php:112
+msgid "Name"
+msgstr "이름"
+
+#: comments.php:100
+msgid "Log out of this account"
+msgstr "이 계정에서 로그아웃"
+
+#. translators: 1: logged.
+#: comments.php:97
+msgid "Logged in as %1$s%2$s. %3$sLog out?%4$s"
+msgstr "%1$s%2$s로 로그인된 상태입니다. %3$s로그아웃하시겠습니까?%4$s"
+
+#. translators: 1: logged.
+#: comments.php:89
+msgid "You must be %1$slogged in%2$s to post a comment."
+msgstr "댓글을 작성하려면 %1$s로그인된%2$s 상태여야 합니다."
+
+#: comments.php:84
+msgid "Comment"
+msgstr "댓글"
+
+#: comments.php:82
+msgid "Submit Now"
+msgstr "지금 제출하기"
+
+#: comments.php:81
+msgid "Cancel Reply"
+msgstr "답글 취소"
+
+#. translators: 1: Leave a Reply
+#: comments.php:80
+msgid "Leave a Reply to %s"
+msgstr "%s에게 답글 남기기"
+
+#: comments.php:78
+msgid "Leave Your Comment"
+msgstr "댓글을 남겨주세요"
+
+#: comments.php:64
+msgid "Comments are closed."
+msgstr "댓글이 닫혔습니다."
+
+#. translators: 1: Comment.
+#: comments.php:32 comments.php:39
+msgctxt "count comment"
+msgid "Comment (%1$s)"
+msgid_plural "Comment (%1$s)"
+msgstr[0] "댓글 (%1$s)"
+
+#. translators: %s: search query.
+#: search.php:30
+msgid "Search Results for : %s"
+msgstr "%s에 대한 검색 결과"
+
+#: functions.php:70
+msgid "Primary"
+msgstr "기본"
+
+#. translators: %s: post title
+#: inc/template-tags.php:66
+msgid "Leave a Comment<span class=\"screen-reader-text\"> on %s</span>"
+msgstr "댓글 남기기<span class=\"screen-reader-text\"> %s에 대한</span>"
+
+#. translators: %s: post author.
+#: inc/template-tags.php:46
+msgctxt "post author"
+msgid "by %s"
+msgstr "%s 작성"
+
+#. translators: %s: post date.
+#: inc/template-tags.php:30
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr "작성일자 %s"
+
+#: inc/core-function/nxt-core-function.php:601
+msgid "NEXT"
+msgstr "다음"
+
+#: inc/core-function/nxt-core-function.php:589
+msgid "PREV"
+msgstr "이전"
+
+#: inc/core-function/nxt-core-function.php:430
+msgid "Error 404"
+msgstr "오류 404"
+
+#. translators: %s: Articles Posted
+#: inc/core-function/nxt-core-function.php:429
+msgid "Articles Posted by %s"
+msgstr "%s님이 게시한 글"
+
+#. translators: %s: Posts Tagged
+#: inc/core-function/nxt-core-function.php:427
+msgid "Posts Tagged \"%s\""
+msgstr "태그가 \"%s\"인 글"
+
+#. translators: %s: Search term
+#: inc/core-function/nxt-core-function.php:425
+msgid "Search Results for \"%s\""
+msgstr "%s\"에 대한 검색 결과"
+
+#. translators: %s: Archive
+#: inc/core-function/nxt-core-function.php:423
+msgid "Archive by \"%s\""
+msgstr "%s\"의 아카이브"
+
+#. translators: copyright: Made By Nexter
+#: inc/core-function/nxt-core-function.php:246
+msgid "%1$s Made by&nbsp;%2$s&nbsp;WP Theme"
+msgstr "%2$s&nbsp;WP 테마에 의해 만들어진 %1$s"
+
+#: inc/core-function/nxt-core-function.php:132
+#: inc/core-function/nxt-core-function.php:421
+msgid "Home"
+msgstr "홈"
+
+#: inc/core-function/nxt-core-function.php:85
+msgid "Skip to content"
+msgstr "콘텐츠로 건너뛰기"
+
+#: inc/core-function/nxt-helper-function.php:155
+#: inc/custom-metabox/nexter-sidebar-settings.php:85
+msgid "Custom Sidebar"
+msgstr "사용자 정의 사이드바"
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:44
+msgid "Customizer Default"
+msgstr "사용자 정의 기능 기본"
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:16
+msgid "Sidebar Settings"
+msgstr "사이드바 설정"
+
+#: inc/customizer/customizer-register-panels-sections.php:286
+msgid "Single Post"
+msgstr "단일 글"
+
+#: inc/customizer/customizer-register-panels-sections.php:278
+msgid "Blog"
+msgstr "블로그"
+
+#: inc/customizer/customizer-register-panels-sections.php:183
+msgid "Typography"
+msgstr "타이포그래피"
+
+#: inc/customizer/customizer-register-panels-sections.php:168
+msgid "Headings H1-H6"
+msgstr "제목 H1-H6"
+
+#: inc/customizer/customizer-register-panels-sections.php:151
+msgid "Styling Colors"
+msgstr "스타일링 색상"
+
+#: inc/customizer/customizer-register-panels-sections.php:138
+msgid "Site Identity"
+msgstr "사이트 정체성"
+
+#: inc/customizer/customizer-register-panels-sections.php:87
+msgid "Selection Text Color"
+msgstr "선택한 텍스트 색상"
+
+#: inc/customizer/customizer-register-panels-sections.php:78
+msgid "Body Style"
+msgstr "바디 스타일"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:163
+msgid "900 Italic"
+msgstr "900 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:162
+msgid "900"
+msgstr "900"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:161
+msgid "800 Italic"
+msgstr "800 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:160
+msgid "800"
+msgstr "800"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:159
+msgid "700 Italic"
+msgstr "700 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:158
+msgid "700"
+msgstr "700"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:157
+msgid "600 Italic"
+msgstr "600 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:156
+msgid "600"
+msgstr "600"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:155
+msgid "500 Italic"
+msgstr "500 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:154
+msgid "500"
+msgstr "500"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:153
+msgid "400 Italic"
+msgstr "400 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:152
+msgid "400"
+msgstr "400\"은 숫자이므로 번역이 필요하지 않습니다."
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:151
+msgid "300 Italic"
+msgstr "300 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:150
+msgid "300"
+msgstr "300"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:149
+msgid "200 Italic"
+msgstr "200 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:148
+msgid "200"
+msgstr "200"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:147
+msgid "100 Italic"
+msgstr "100 이탤릭"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:146
+msgid "100"
+msgstr "100"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:118
+#: inc/panel-settings/plus-settings-options.php:152
+msgid "Google Fonts"
+msgstr "Google 글꼴"
+
+#: inc/customizer/controls/typography/nexter-control-typography.php:98
+msgid "Other System Fonts"
+msgstr "기타 시스템 글꼴"
+
+#: inc/customizer/controls/background/nexter-control-background.php:152
+msgid "Fixed"
+msgstr "수정됨"
+
+#: inc/customizer/controls/background/nexter-control-background.php:151
+msgid "Scroll"
+msgstr "스크롤"
+
+#: inc/customizer/controls/background/nexter-control-background.php:148
+msgid "Background Attachment"
+msgstr "배경 첨부파일"
+
+#: inc/customizer/controls/background/nexter-control-background.php:141
+msgid "Repeat-X"
+msgstr "반복-X"
+
+#: inc/customizer/controls/background/nexter-control-background.php:140
+msgid "Repeat All"
+msgstr "모두 반복"
+
+#: inc/customizer/controls/background/nexter-control-background.php:139
+msgid "No Repeat"
+msgstr "반복 없음"
+
+#: inc/customizer/controls/background/nexter-control-background.php:137
+msgid "Background Repeat"
+msgstr "배경 반복"
+
+#: inc/customizer/controls/background/nexter-control-background.php:131
+#: inc/customizer/controls/background/nexter-control-background.php:142
+msgid "Repeat-Y"
+msgstr "반복-Y"
+
+#: inc/customizer/controls/background/nexter-control-background.php:130
+msgid "Contain"
+msgstr "포함하다"
+
+#: inc/customizer/controls/background/nexter-control-background.php:129
+msgid "Cover"
+msgstr "덮개"
+
+#: inc/customizer/controls/background/nexter-control-background.php:128
+msgid "Auto"
+msgstr "자동"
+
+#: inc/customizer/controls/background/nexter-control-background.php:126
+msgid "Background Size"
+msgstr "배경 크기"
+
+#: inc/customizer/controls/background/nexter-control-background.php:120
+msgid "Right Bottom"
+msgstr "오른쪽 아래"
+
+#: inc/customizer/controls/background/nexter-control-background.php:119
+msgid "Right Center"
+msgstr "오른쪽 중앙"
+
+#: inc/customizer/controls/background/nexter-control-background.php:118
+msgid "Right Top"
+msgstr "오른쪽 상단"
+
+#: inc/customizer/controls/background/nexter-control-background.php:116
+msgid "Center Bottom"
+msgstr "중앙 하단"
+
+#: inc/customizer/controls/background/nexter-control-background.php:115
+msgid "Center Center"
+msgstr "센터 센터"
+
+#: inc/customizer/controls/background/nexter-control-background.php:114
+msgid "Center Top"
+msgstr "중앙 상단"
+
+#: inc/customizer/controls/background/nexter-control-background.php:112
+msgid "Left Bottom"
+msgstr "왼쪽 아래"
+
+#: inc/customizer/controls/background/nexter-control-background.php:111
+msgid "Left Center"
+msgstr "왼쪽 중앙"
+
+#: inc/customizer/controls/background/nexter-control-background.php:110
+msgid "Left Top"
+msgstr "왼쪽 상단"
+
+#: inc/customizer/controls/background/nexter-control-background.php:108
+msgid "Background Position"
+msgstr "배경 위치"
+
+#: inc/customizer/controls/background/nexter-control-background.php:97
+msgid "No File Selected"
+msgstr "파일이 선택되지 않음"
+
+#: inc/customizer/controls/background/nexter-control-background.php:92
+msgid "Background Image"
+msgstr "배경 이미지"
+
+#: inc/customizer/controls/background/nexter-control-background.php:86
+msgid "Background Color"
+msgstr "배경 색상"
+
+#: inc/customizer/controls/background/nexter-control-background.php:68
+msgid "Background Type"
+msgstr "배경 유형"
+
+#: inc/customizer/customizer.php:397
+msgid "Choose a file"
+msgstr "파일 선택"
+
+#: inc/customizer/customizer.php:383
+msgid "Color value"
+msgstr "색상 값"
+
+#: inc/customizer/customizer.php:382
+msgid "Select Color"
+msgstr "색상 선택"
+
+#: inc/customizer/customizer.php:381
+msgid "Select default color"
+msgstr "기본 색상 선택"
+
+#: inc/customizer/customizer.php:379
+msgid "Clear color"
+msgstr "투명한 색"
+
+#: inc/customizer/customizer.php:378
+msgid "Clear"
+msgstr "지우기"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:292
+msgid "Post Meta Typography"
+msgstr "글 메타 타이포그래피"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:277
+msgid "Title Color"
+msgstr "제목 색상"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:259
+#: inc/customizer/customizer-config/blog/class-single-blog.php:394
+msgid "Letter Spacing"
+msgstr "자간"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:157
+msgid "Title Typography"
+msgstr "제목 타이포그래피"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:105
+msgid "Display Author Info"
+msgstr "작성자 정보 표시"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:92
+msgid "Display Post Navigation"
+msgstr "글 내비게이션 표시"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:79
+msgid "Display Post Meta Info"
+msgstr "글 메타 정보 표시"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:40
+msgid "Single Blog"
+msgstr "단일 블로그"
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:74
+msgid "Link Hover Color"
+msgstr "링크 마우스 오버 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:65
+msgid "Link Color"
+msgstr "링크 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:56
+msgid "Text Color"
+msgstr "텍스트 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-body-colors.php:44
+msgid "Body Color"
+msgstr "바디 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:104
+msgid "Heading (H6) Color"
+msgstr "제목 (H6) 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:94
+msgid "Heading (H5) Color"
+msgstr "제목 (H5) 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:84
+msgid "Heading (H4) Color"
+msgstr "제목 (H4) 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:74
+msgid "Heading (H3) Color"
+msgstr "제목 (H3) 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:64
+msgid "Heading (H2) Color"
+msgstr "제목 (H2) 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:54
+msgid "Heading (H1) Color"
+msgstr "제목 (H1) 색상"
+
+#: inc/customizer/customizer-config/styling-colors/class-heading-colors.php:42
+msgid "Heading (H1-H6) Color"
+msgstr "제목 (H1-H6) 색상"
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:217
+msgid "Blog Posts"
+msgstr "블로그 글"
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:134
+#: inc/customizer/customizer-register-panels-sections.php:260
+msgid "Pages"
+msgstr "페이지"
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:59
+msgid "Site Sidebar Layout"
+msgstr "사이트 사이드바 레이아웃"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:433
+msgid "Archive Posts Container"
+msgstr "아카이브 게시물 컨테이너"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:356
+msgid "Single Post Container"
+msgstr "단일 글 컨테이너"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:279
+msgid "Page Container"
+msgstr "페이지 컨테이너"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:207
+msgid "Content/Body"
+msgstr "콘텐츠/본문"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:78
+#: inc/customizer/customizer-config/general/class-layout-container.php:157
+msgid "Container(Wide) Width"
+msgstr "컨테이너(넓은) 너비"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:136
+msgid "Frame Color"
+msgstr "프레임 색상"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:123
+msgid "Fixed Body Frame"
+msgstr "고정 본체 프레임"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:113
+#: inc/customizer/customizer-config/general/class-layout-container.php:110
+#: inc/customizer/customizer-config/general/class-layout-container.php:189
+#: inc/customizer/customizer-config/general/class-layout-container.php:261
+#: inc/customizer/customizer-config/general/class-layout-container.php:338
+#: inc/customizer/customizer-config/general/class-layout-container.php:415
+#: inc/customizer/customizer-config/general/class-layout-container.php:492
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:131
+msgid "Left"
+msgstr "왼쪽"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:112
+msgid "Bottom"
+msgstr "하단"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:111
+#: inc/customizer/customizer-config/general/class-layout-container.php:111
+#: inc/customizer/customizer-config/general/class-layout-container.php:190
+#: inc/customizer/customizer-config/general/class-layout-container.php:262
+#: inc/customizer/customizer-config/general/class-layout-container.php:339
+#: inc/customizer/customizer-config/general/class-layout-container.php:416
+#: inc/customizer/customizer-config/general/class-layout-container.php:493
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:132
+msgid "Right"
+msgstr "오른쪽"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:110
+msgid "Top"
+msgstr "상단"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:106
+msgid "Body Frame (Space)"
+msgstr "바디 프레임 (공간)"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:94
+msgid "Body Frame"
+msgstr "체형"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:71
+#: inc/customizer/customizer-config/general/class-body-style.php:82
+msgid "Content Background"
+msgstr "콘텐츠 배경"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:56
+msgid "Background"
+msgstr "배경"
+
+#: inc/customizer/customizer-config/general/class-body-style.php:45
+msgid "Body Background"
+msgstr "본문 배경"
+
+#: inc/customizer/customizer-config/general/class-text-selection.php:66
+msgid "Selected Text Color"
+msgstr "선택된 텍스트 색상"
+
+#: inc/customizer/customizer-config/general/class-text-selection.php:56
+msgid "Selected Text Background Color"
+msgstr "선택한 텍스트 배경 색상"
+
+#: inc/customizer/customizer-config/general/class-text-selection.php:44
+msgid "Selection Text/Content"
+msgstr "선택 텍스트/콘텐츠"
+
+#: inc/core-function/nxt-helper-function.php:86
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:102
+msgid "Select Template"
+msgstr "템플릿 선택"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:95
+msgid "Exclude User Roles"
+msgstr "사용자 역할 제외"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:84
+msgid "Custom"
+msgstr "사용자 정의"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:83
+msgid "Logged In"
+msgstr "로그인된"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:77
+msgid "Who Can Access"
+msgstr "누가 접근할 수 있나요"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:70
+msgid "Coming Soon"
+msgstr "곧 출시 예정"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:56
+#: inc/customizer/customizer-config/blog/class-single-blog.php:69
+#: inc/customizer/customizer-config/blog/class-single-blog.php:82
+#: inc/customizer/customizer-config/blog/class-single-blog.php:95
+#: inc/customizer/customizer-config/blog/class-single-blog.php:108
+#: inc/customizer/customizer-config/blog/class-single-blog.php:121
+#: inc/customizer/customizer-config/blog/class-single-blog.php:134
+#: inc/customizer/customizer-config/general/class-body-style.php:126
+#: inc/customizer/customizer-config/general/class-footer.php:48
+#: inc/customizer/customizer-config/general/class-header.php:48
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:57
+#: inc/customizer/customizer-config/pages/class-single-page.php:53
+msgid "ON"
+msgstr "켜짐"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:55
+#: inc/customizer/customizer-config/blog/class-single-blog.php:68
+#: inc/customizer/customizer-config/blog/class-single-blog.php:81
+#: inc/customizer/customizer-config/blog/class-single-blog.php:94
+#: inc/customizer/customizer-config/blog/class-single-blog.php:107
+#: inc/customizer/customizer-config/blog/class-single-blog.php:120
+#: inc/customizer/customizer-config/blog/class-single-blog.php:133
+#: inc/customizer/customizer-config/general/class-body-style.php:125
+#: inc/customizer/customizer-config/general/class-footer.php:47
+#: inc/customizer/customizer-config/general/class-header.php:47
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:56
+#: inc/customizer/customizer-config/pages/class-single-page.php:52
+msgid "OFF"
+msgstr "꺼짐"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:54
+msgid "Enable Maintenance Mode"
+msgstr "유지 관리 모드 활성화"
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:504
+#: inc/customizer/customizer-register-panels-sections.php:245
+msgid "Heading H6"
+msgstr "제목 H6"
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:414
+#: inc/customizer/customizer-register-panels-sections.php:236
+msgid "Heading H5"
+msgstr "헤딩 H5"
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:319
+#: inc/customizer/customizer-register-panels-sections.php:227
+msgid "Heading H4"
+msgstr "제목 H4"
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:230
+#: inc/customizer/customizer-register-panels-sections.php:218
+msgid "Heading H3"
+msgstr "제목 H3"
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:138
+#: inc/customizer/customizer-register-panels-sections.php:209
+msgid "Heading H2"
+msgstr "헤딩 H2"
+
+#: inc/customizer/controls/background/nexter-control-background.php:150
+#: inc/customizer/controls/typography/nexter-control-typography.php:40
+#: inc/customizer/customizer-config/blog/class-single-blog.php:167
+#: inc/customizer/customizer-config/blog/class-single-blog.php:302
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:82
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:175
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:267
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:359
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:451
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:543
+msgid "Inherit"
+msgstr "상속"
+
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:45
+#: inc/customizer/customizer-register-panels-sections.php:200
+msgid "Heading H1"
+msgstr "제목 H1"
+
+#: inc/customizer/customizer-config/typography/class-body-typography.php:169
+msgid "Paragraph (P) Margin Bottom"
+msgstr "단락(P) 아래쪽 여백"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:244
+#: inc/customizer/customizer-config/blog/class-single-blog.php:379
+#: inc/customizer/customizer-config/typography/class-body-typography.php:141
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:113
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:205
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:297
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:389
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:481
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:573
+msgid "Line Height"
+msgstr "줄 높이"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:224
+#: inc/customizer/customizer-config/blog/class-single-blog.php:359
+#: inc/customizer/customizer-config/typography/class-body-typography.php:122
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:98
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:191
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:283
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:375
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:467
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:559
+msgid "Font Size"
+msgstr "글꼴 크기"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:214
+#: inc/customizer/customizer-config/blog/class-single-blog.php:349
+#: inc/customizer/customizer-config/typography/class-body-typography.php:100
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:86
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:179
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:271
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:363
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:455
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:547
+msgid "Lowercase"
+msgstr "소문자"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:213
+#: inc/customizer/customizer-config/blog/class-single-blog.php:348
+#: inc/customizer/customizer-config/typography/class-body-typography.php:99
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:85
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:178
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:270
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:362
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:454
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:546
+msgid "Uppercase"
+msgstr "대문자"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:212
+#: inc/customizer/customizer-config/blog/class-single-blog.php:347
+#: inc/customizer/customizer-config/typography/class-body-typography.php:98
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:84
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:177
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:269
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:361
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:453
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:545
+msgid "Capitalize"
+msgstr "대문자로 쓰다"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:208
+#: inc/customizer/customizer-config/blog/class-single-blog.php:343
+#: inc/customizer/customizer-config/typography/class-body-typography.php:94
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:75
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:168
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:260
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:352
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:444
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:536
+msgid "Text Transform"
+msgstr "텍스트 변환"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:197
+#: inc/customizer/customizer-config/blog/class-single-blog.php:332
+#: inc/customizer/customizer-config/typography/class-body-typography.php:83
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:66
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:159
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:251
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:343
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:435
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:527
+msgid "Font Weight"
+msgstr "글꼴 두께"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:184
+#: inc/customizer/customizer-config/blog/class-single-blog.php:319
+#: inc/customizer/customizer-config/typography/class-body-typography.php:70
+msgid "Font Variant"
+msgstr "글꼴 변형"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:170
+#: inc/customizer/customizer-config/blog/class-single-blog.php:305
+#: inc/customizer/customizer-config/typography/class-body-typography.php:56
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:56
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:149
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:241
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:333
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:425
+#: inc/customizer/customizer-config/typography/class-heading-typography.php:517
+msgid "Font Family"
+msgstr "글꼴 모음"
+
+#: inc/customizer/customizer-config/typography/class-body-typography.php:53
+msgid "Default System Font"
+msgstr "기본 시스템 글꼴"
+
+#: inc/customizer/customizer-config/typography/class-body-typography.php:43
+#: inc/customizer/customizer-register-panels-sections.php:159
+#: inc/customizer/customizer-register-panels-sections.php:191
+msgid "Body"
+msgstr "본문"
+
+#: inc/nexter-enqueue-style-script.php:163
+msgid "Install Nexter Extension"
+msgstr "Nexter 확장 프로그램 설치"
+
+#: inc/nexter-enqueue-style-script.php:162
+msgid " to Learn More About Nexter Extension."
+msgstr "Nexter 확장 프로그램에 대해 더 알아보기."
+
+#: inc/nexter-enqueue-style-script.php:162
+msgid "Visit Here"
+msgstr "여기를 방문하세요"
+
+#: inc/nexter-enqueue-style-script.php:162
+msgid "Now You’ve Already Installed Nexter Theme, You Need to Install Nexter Extension in Order to Get the Most of out From it. Nexter Extension is an Ultimate Solution to Your Page Building Experience Using Templates."
+msgstr "이제 Nexter 테마를 설치했으니, Nexter 확장을 설치하여 최대한 활용해야 합니다. Nexter 확장은 템플릿을 사용한 페이지 빌딩 경험에 대한 궁극적인 솔루션입니다."
+
+#: inc/nexter-enqueue-style-script.php:161
+msgid "It’s Time to Install Nexter Extension"
+msgstr "넥스터 확장 프로그램을 설치할 시간입니다"
+
+#: inc/nexter-enqueue-style-script.php:157
+msgid "Activate Nexter Extension"
+msgstr "Nexter 확장 프로그램 활성화"
+
+#: inc/nexter-enqueue-style-script.php:156
+msgid "Finally, You are Done Installing Nexter Theme & Extension as Well. Now It’s Time to Press the Pedal. Activate Nexter Extension and Get Over With it."
+msgstr "마침내 Nexter 테마 및 확장 설치가 완료되었습니다. 이제 본격적으로 시작할 시간입니다. Nexter 확장을 활성화하고 마무리하세요."
+
+#: inc/nexter-enqueue-style-script.php:155
+msgid "Activate Nexter Extension Now !!!"
+msgstr "지금 Nexter 확장 프로그램을 활성화하세요 !!!"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:63
+msgid "Type"
+msgstr "유형"
+
+#: inc/panel-settings/plus-settings-options.php:65
+msgid " Settings"
+msgstr "설정"
+
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:43
+#: inc/customizer/customizer-config/general/class-maintenance-mode.php:69
+#: inc/customizer/customizer-register-panels-sections.php:96
+msgid "Maintenance Mode"
+msgstr "유지 보수 모드"
+
+#: inc/widgets.php:72
+msgid "Sidebar 5"
+msgstr "사이드바 5"
+
+#: inc/widgets.php:59
+msgid "Sidebar 4"
+msgstr "사이드바 4"
+
+#: inc/widgets.php:46
+msgid "Sidebar 3"
+msgstr "사이드바 3"
+
+#: inc/widgets.php:33
+msgid "Sidebar 2"
+msgstr "사이드바 2"
+
+#: inc/widgets.php:20
+msgid "Sidebar 1"
+msgstr "사이드바 1"
+
+#: inc/third-party/class-beaver-build-theme.php:123
+msgid "Comments After"
+msgstr "댓글 후"
+
+#: inc/third-party/class-beaver-build-theme.php:122
+msgid "Comments Before"
+msgstr "이전 댓글"
+
+#: inc/third-party/class-beaver-build-theme.php:120
+msgid "Posts"
+msgstr "게시물"
+
+#: inc/third-party/class-beaver-build-theme.php:116
+msgid "Footer After"
+msgstr "푸터 이후"
+
+#: inc/third-party/class-beaver-build-theme.php:115
+msgid "Footer Before"
+msgstr "푸터 이전"
+
+#: inc/customizer/customizer-config/general/class-footer.php:34
+#: inc/customizer/customizer-config/general/class-layout-container.php:129
+#: inc/customizer/customizer-register-panels-sections.php:57
+#: inc/third-party/class-beaver-build-theme.php:113
+msgid "Footer"
+msgstr "푸터"
+
+#: inc/third-party/class-beaver-build-theme.php:109
+msgid "Sidebar After"
+msgstr "사이드바 이후"
+
+#: inc/third-party/class-beaver-build-theme.php:108
+msgid "Sidebar Before"
+msgstr "사이드바 이전"
+
+#: inc/customizer/customizer-register-panels-sections.php:69
+#: inc/third-party/class-beaver-build-theme.php:106
+msgid "Sidebar"
+msgstr "사이드바"
+
+#: inc/third-party/class-beaver-build-theme.php:95
+#: inc/third-party/class-beaver-build-theme.php:102
+msgid "Content Bottom"
+msgstr "콘텐츠 하단"
+
+#: inc/third-party/class-beaver-build-theme.php:94
+#: inc/third-party/class-beaver-build-theme.php:101
+msgid "Content Top"
+msgstr "콘텐츠 상단"
+
+#: inc/third-party/class-beaver-build-theme.php:92
+#: inc/third-party/class-beaver-build-theme.php:99
+msgid "Content"
+msgstr "콘텐츠"
+
+#: inc/third-party/class-beaver-build-theme.php:88
+msgid "Header After"
+msgstr "헤더 이후"
+
+#: inc/third-party/class-beaver-build-theme.php:87
+msgid "Header Before"
+msgstr "헤더 이전"
+
+#: inc/customizer/customizer-config/general/class-header.php:34
+#: inc/customizer/customizer-config/general/class-layout-container.php:52
+#: inc/customizer/customizer-register-panels-sections.php:45
+#: inc/third-party/class-beaver-build-theme.php:85
+msgid "Header"
+msgstr "헤더"
+
+#: inc/third-party/class-beaver-build-theme.php:81
+msgid "After Page"
+msgstr "페이지 이후"
+
+#: inc/third-party/class-beaver-build-theme.php:80
+msgid "Before Page"
+msgstr "이전 페이지"
+
+#: inc/core-function/nxt-core-function.php:557
+#: inc/third-party/class-beaver-build-theme.php:78
+msgid "Page"
+msgstr "페이지"
+
+#: inc/customizer/customizer-register-panels-sections.php:28
+#: inc/third-party/woocommerce/customizer/customizer-woocommerce.php:31
+msgid "General"
+msgstr "일반"
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:216
+msgid "Single Product"
+msgstr "단일 제품"
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:98
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:181
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:264
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:347
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:190
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:243
+msgid "Custom Sidebar Sections"
+msgstr "맞춤 사이드바 섹션"
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:39
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:91
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:169
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:252
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:335
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:178
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:231
+msgid "Display Sidebar"
+msgstr "사이드바 표시"
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:56
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:76
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:155
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:238
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:321
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:168
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:221
+msgid "Right Sidebar"
+msgstr "오른쪽 사이드바"
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:52
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:72
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:151
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:234
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:317
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:167
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:220
+msgid "Left Sidebar"
+msgstr "왼쪽 사이드바"
+
+#: inc/custom-metabox/nexter-sidebar-settings.php:48
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:68
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:147
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:230
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:313
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:166
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:219
+msgid "No Sidebar"
+msgstr "사이드바 없음"
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:163
+msgid "WooCommerce Sidebar"
+msgstr "우커머스 사이드바"
+
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:35
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:149
+msgid "Side Bar"
+msgstr "사이드바"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:229
+#: inc/customizer/customizer-config/general/class-layout-container.php:308
+#: inc/customizer/customizer-config/general/class-layout-container.php:385
+#: inc/customizer/customizer-config/general/class-layout-container.php:462
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:99
+msgid "Container Width"
+msgstr "컨테이너 너비"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:68
+#: inc/customizer/customizer-config/general/class-layout-container.php:145
+#: inc/customizer/customizer-config/general/class-layout-container.php:219
+#: inc/customizer/customizer-config/general/class-layout-container.php:295
+#: inc/customizer/customizer-config/general/class-layout-container.php:372
+#: inc/customizer/customizer-config/general/class-layout-container.php:449
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:93
+msgid "Full Width"
+msgstr "전체 너비"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:182
+#: inc/customizer/customizer-config/blog/class-single-blog.php:195
+#: inc/customizer/customizer-config/blog/class-single-blog.php:210
+#: inc/customizer/customizer-config/blog/class-single-blog.php:317
+#: inc/customizer/customizer-config/blog/class-single-blog.php:330
+#: inc/customizer/customizer-config/blog/class-single-blog.php:345
+#: inc/customizer/customizer-config/general/class-layout-container.php:287
+#: inc/customizer/customizer-config/general/class-layout-container.php:364
+#: inc/customizer/customizer-config/general/class-layout-container.php:441
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:143
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:226
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:309
+#: inc/customizer/customizer-config/typography/class-body-typography.php:68
+#: inc/customizer/customizer-config/typography/class-body-typography.php:81
+#: inc/customizer/customizer-config/typography/class-body-typography.php:96
+#: inc/customizer/customizer.php:380
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:91
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:165
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:218
+msgid "Default"
+msgstr "기본"
+
+#: inc/customizer/customizer-config/general/class-layout-container.php:45
+#: inc/customizer/customizer-config/general/class-layout-container.php:64
+#: inc/customizer/customizer-config/general/class-layout-container.php:141
+#: inc/customizer/customizer-config/general/class-layout-container.php:215
+#: inc/customizer/customizer-config/general/class-layout-container.php:291
+#: inc/customizer/customizer-config/general/class-layout-container.php:368
+#: inc/customizer/customizer-config/general/class-layout-container.php:445
+#: inc/customizer/customizer-register-panels-sections.php:36
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:77
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:85
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:92
+msgid "Container"
+msgstr "컨테이너"
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:62
+msgid "Secondary Color"
+msgstr "보조 색상"
+
+#: inc/customizer/customizer-config/blog/class-single-blog.php:144
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:53
+msgid "Primary Color"
+msgstr "기본 색상"
+
+#: inc/third-party/woocommerce/customizer/class-woocommerce-general.php:42
+msgid "WooCommerce"
+msgstr "우커머스"
+
+#. translators: 1: count of products
+#: inc/third-party/woocommerce/nexter-woocommerce-config.php:285
+msgctxt "product categories"
+msgid "(%1$s)"
+msgid_plural "(%1$s)"
+msgstr[0] "(%1$s)"
+
+#: inc/third-party/woocommerce/nexter-woocommerce-config.php:241
+msgid "Sale"
+msgstr "세일"
+
+#: inc/third-party/woocommerce/nexter-woocommerce-config.php:212
+msgid "Out of stock"
+msgstr "재고 없음"
+
+#: inc/core-function/nxt-core-function.php:325
+#: inc/customizer/customizer-config/general/class-layout-sidebar.php:300
+#: inc/third-party/class-nexter-builder-documents.php:114
+msgid "Archives"
+msgstr "아카이브"
+
+#: template-parts/blog/post-navigation.php:14
+msgid "Next Post"
+msgstr "다음 글"
+
+#: template-parts/blog/post-navigation.php:13
+msgid "next"
+msgstr "다음"
+
+#: template-parts/blog/post-navigation.php:6
+msgid "Previous Post"
+msgstr "이전 글"
+
+#: template-parts/blog/post-navigation.php:5
+msgid "prev"
+msgstr "이전"
+
+#: template-parts/archive/post-read-more.php:2
+msgid "Read More"
+msgstr "더 읽기"
+
+#: template-parts/archive/blog-post-meta.php:9
+#: template-parts/blog/blog-post-meta.php:8
+msgid "% Comments"
+msgstr "% 댓글"
+
+#: template-parts/archive/blog-post-meta.php:9
+#: template-parts/blog/blog-post-meta.php:8
+msgid "1 Comment"
+msgstr "댓글 1개"
+
+#: template-parts/archive/blog-post-meta.php:9
+#: template-parts/blog/blog-post-meta.php:8
+msgid "No Comments"
+msgstr "댓글 없음"
+
+#: template-parts/archive/blog-post-meta.php:6
+#: template-parts/blog/blog-post-meta.php:5 template-parts/blog/user-meta.php:4
+#: template-parts/blog/user-meta.php:7
+msgid "author"
+msgstr "글쓴이"
+
+#: template-parts/archive/blog-post-meta.php:6
+#: template-parts/blog/blog-post-meta.php:5
+msgid "by "
+msgstr "작성자"
+
+#: template-parts/archive/blog-post-meta.php:4
+#: template-parts/blog/blog-post-meta.php:4
+msgid ", "
+msgstr ", "
+
+#: template-parts/archive/blog-post-meta.php:4
+#: template-parts/blog/blog-post-meta.php:4
+msgid "in "
+msgstr "안에"
+
+#: template-parts/content-none.php:44
+msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgstr "찾고 계신 내용을 찾을 수 없는 것 같습니다. 검색을 시도해 보세요."
+
+#: template-parts/content-none.php:37
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "죄송합니다. 검색 항목과 일치하는 결과가 없습니다. 다른 키워드로 다시 시도해 주세요."
+
+#. translators: 1: link to WP admin new post page.
+#: template-parts/content-none.php:24
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgstr "첫 번째 글을 공개할 준비가 되셨나요? <a href=\"%1$s\">여기에서 시작하세요</a>."
+
+#: template-parts/content-none.php:14
+msgid "Nothing Found"
+msgstr "찾을 수 없음"
+
+#. translators: %s: screen readers text
+#. translators: %s: Name of current post. Only visible to screen readers
+#: inc/template-tags.php:83 template-parts/content-page.php:41
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr "편집 <span class=\"screen-reader-text\">%s</span>"
+
+#: template-parts/404-page/404-page.php:20
+msgid "Go Back Home"
+msgstr "집으로 돌아가기"
+
+#: template-parts/404-page/404-page.php:15
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "이런! 해당 페이지를 찾을 수 없습니다."
+
+#: template-parts/404-page/404-page.php:14
+msgid "404 page"
+msgstr "404 페이지"
+
+#: template-parts/content-page.php:28 template-parts/content-single.php:30
+#: template-parts/content.php:30
+msgid "Pages:"
+msgstr "페이지:"
+
+#. translators: %s: Name of current post. Only visible to screen readers
+#: template-parts/content-single.php:19 template-parts/content.php:19
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "계속 읽기<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#: searchform.php:8
+msgid "Search"
+msgstr "검색"
+
+#: searchform.php:2
+msgid "Search for:"
+msgstr "검색:"
+
+#: searchform.php:2
+msgid "Search..."
+msgstr "검색..."
+
+#. Author URI of the theme
+#: style.css
+#, gp-priority: low
+msgid "https://posimyth.com"
+msgstr "https://posimyth.com"
+
+#. Author of the theme
+#: style.css
+#, gp-priority: low
+msgid "POSIMYTH"
+msgstr "포시미스"
+
+#. Theme URI of the theme
+#: style.css
+#, gp-priority: low
+msgid "https://nexterwp.com"
+msgstr "https://nexterwp.com"

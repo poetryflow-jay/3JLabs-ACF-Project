@@ -1,0 +1,88 @@
+.wkit-wb-Widget_mc5tke24 .wkit-flip-card{
+    position:relative;
+    display:block;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-inner{
+    width:100%;
+    height:100%;
+    position:relative;
+    display:flex;
+    justify-content:center; 
+    align-items:center;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-inner .wkit-flip-card-main{
+    position:relative;
+    width:100%;
+    height:150px;}.wkit-wb-Widget_mc5tke24 .flip-card-frontside .flip-card-frontside-title{
+    font-size: 15px;
+    text-align: center;
+    color: #fff;}.wkit-wb-Widget_mc5tke24 .flip-card-frontside .tp-title-icon{
+    font-size: 30px;
+    color: #fff;}.wkit-wb-Widget_mc5tke24 .flip-card-frontside .tp-title-icon .dashicon{
+    width: auto;
+    height: auto;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main >.flip-card-frontside{
+    flex-direction:column-reverse;}.wkit-wb-Widget_mc5tke24 .flip-card-backside .tp-title-icon{
+    position: relative;
+    text-align: center;
+    color: #fff;}.wkit-wb-Widget_mc5tke24 .flip-card-backside .tp-title-icon .dashicon{
+    width: auto;
+    height: auto;}.wkit-wb-Widget_mc5tke24 .flip-card-backside .flip-card-backside-content{
+    position: relative;
+    display: flex;
+    row-gap:5px;
+    flex-direction: column;}.wkit-wb-Widget_mc5tke24 .flip-card-backside .flip-card-backside-content .flip-card-title{
+    font-size: 17px;
+    color: #ccc;}.wkit-wb-Widget_mc5tke24 .flip-card-backside .flip-card-backside-content .flip-card-desk{
+    font-size: 15px;
+    color: #ccc;}.wkit-wb-Widget_mc5tke24 .flip-card-backside .flip-card-backside-content .flip-card-link{
+    display:flex;
+    width:max-content;
+    justify-content:left;
+    align-items:center;
+    text-decoration: none;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main > .flip-card-frontside{
+   background-color: #000;
+   overflow: hidden;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main > .flip-card-backside{
+    background-color: #000;
+     padding: 10px;
+     overflow: hidden;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main > .flip-card-frontside , .wkit-flip-card-main > .flip-card-backside{
+   /*.wkit-flip-card-main > .wkit-card-1{*/
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: -webkit-transform 0.6s;
+    -moz-transition: -moz-transform 0.6s;
+    -o-transition: -o-transform 0.6s;
+    transition: transform 0.6s;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main > .flip-card-frontside{
+    -webkit-transform: perspective(1000) rotateY(0);
+    -moz-transform: perspective(1000) rotateY(0);
+    -ms-transform: perspective(1000) rotateY(0);
+    -o-transform: perspective(1000) rotateY(0);
+    transform: perspective(1000) rotateY(0);
+    z-index: 900;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main.type-horizontal:hover > .flip-card-frontside{
+     cursor: pointer;
+    transform: rotateY(180deg);
+    transform: perspective(1000) rotateY(180deg);}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main.type-vertical:hover > .flip-card-frontside{
+    cursor: pointer;
+    transform: rotateX(180deg);
+    transform: perspective(1000) rotateX(180deg);}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main.type-horizontal > .flip-card-backside{
+    transform: rotateY(-180deg);
+    z-index: 800;
+    flex-direction: row;
+    align-items: flex-start;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main.type-horizontal:hover > .flip-card-backside{
+    cursor: pointer;
+    z-index: 950;
+    transform: rotateY(0deg);
+    transform: perspective(1000) rotateY(0deg);}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main.type-vertical > .flip-card-backside{
+    transform: rotateX(-180deg);
+    z-index: 800;
+    flex-direction: row;
+    align-items: flex-start;}.wkit-wb-Widget_mc5tke24 .wkit-flip-card-main.type-vertical:hover > .flip-card-backside{
+    cursor: pointer;
+    z-index: 950;
+    transform: rotateX(0deg);
+    transform: perspective(1000) rotateX(0deg);}

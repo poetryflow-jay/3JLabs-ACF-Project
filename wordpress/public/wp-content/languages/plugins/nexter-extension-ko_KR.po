@@ -1,0 +1,2718 @@
+# Translation of Plugins - Nexter Extension &#8211; Site Enhancements Toolkit - Stable (latest release) in Korean
+# This file is distributed under the same license as the Plugins - Nexter Extension &#8211; Site Enhancements Toolkit - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-10-12 22:40:11+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: ko_KR\n"
+"Project-Id-Version: Plugins - Nexter Extension &#8211; Site Enhancements Toolkit - Stable (latest release)\n"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1458
+msgid "Code snippet setting enabled successfully."
+msgstr "코드 스니펫 설정이 성공적으로 활성화되었습니다."
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1442
+msgid "Code snippet setting is already enabled."
+msgstr "코드 스니펫 설정이 이미 활성화되어 있습니다."
+
+#: include/panel-settings/nexter-ext-panel-settings.php:996
+msgid "DeActivated"
+msgstr "DeActivated"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1421
+msgid "No valid settings found in the file"
+msgstr "파일에서 유효한 설정을 찾을 수 없습니다"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1418
+msgid "Customizer settings imported successfully"
+msgstr "커스터마이저 설정이 성공적으로 가져와졌습니다"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1413
+msgid "Invalid JSON format"
+msgstr "잘못된 JSON 형식입니다"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1400
+msgid "Please upload a file"
+msgstr "파일을 업로드해주세요"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1394
+msgid "Valid .json file extension"
+msgstr "유효한 .json 파일 확장자"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1379
+#: include/panel-settings/nexter-ext-panel-settings.php:1387
+msgid "File Import failed"
+msgstr "파일 가져오기에 실패했습니다"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1372
+msgid "Security check failed"
+msgstr "보안 검사에 실패했습니다"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1367
+msgid "Not a permission"
+msgstr "권한이 없습니다"
+
+#: include/panel-settings/extensions/nexter-ext-wp-debug-mode.php:49
+msgid "Please disable and then activate the module again."
+msgstr "모듈을 비활성화한 후 다시 활성화해주세요."
+
+#. Translators: %s is the WP_DEBUG constant.
+#: include/panel-settings/extensions/nexter-ext-wp-debug-mode.php:46
+msgid "%s is disabled, even though WP Debug Mode module is active. Maybe the configuration file was edited manually after module activation."
+msgstr "%s가 비활성화되어 있습니다, WP Debug Mode 모듈이 활성화되어 있음에도 불구하고. 모듈 활성화 후 구성 파일이 수동으로 수정되었을 수 있습니다."
+
+#: include/panel-settings/extensions/nexter-ext-wp-debug-mode.php:33
+msgid "Please deactivate the module and activate it again to fix the issue."
+msgstr "문제를 해결하려면 모듈을 비활성화한 후 다시 활성화하십시오."
+
+#: include/panel-settings/extensions/nexter-ext-wp-debug-mode.php:32
+msgid "The WP Debug Mode module failed to initialize."
+msgstr "WP Debug Mode 모듈 초기화에 실패했습니다."
+
+#: include/panel-settings/extensions/nexter-ext-view-admin-role.php:289
+msgid "Switch back to Administrator"
+msgstr "관리자로 전환"
+
+#: include/panel-settings/extensions/nexter-ext-view-admin-role.php:120
+msgid "Administrator"
+msgstr "관리자"
+
+#: include/panel-settings/extensions/nexter-ext-view-admin-role.php:71
+msgid "Switch back to "
+msgstr "다시 전환할 대상:"
+
+#: include/panel-settings/extensions/nexter-ext-view-admin-role.php:51
+msgid "View admin as one of the roles below."
+msgstr "아래 역할 중 하나로 관리자 페이지 보기."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:359
+msgid "SMTP Connection successful."
+msgstr "SMTP 연결 성공."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:345
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:361
+msgid "SMTP Connection failed."
+msgstr "SMTP 연결 실패."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:324
+msgid "Invalid From Email address."
+msgstr "유효하지 않은 송신 이메일 주소입니다."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:313
+msgid "Please Select SMTP Type Custom."
+msgstr "SMTP 유형을 '사용자 지정'으로 선택하십시오."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:264
+msgid "Failed to send test email: "
+msgstr "테스트 이메일 전송 실패: "
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:262
+msgid "Test email sent successfully!"
+msgstr "테스트 이메일 전송 성공!"
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:257
+msgid "Gmail SMTP Test Email"
+msgstr "Gmail SMTP 테스트 이메일"
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:255
+msgid "Please Enter a valid Email ID to send the test mail."
+msgstr "테스트 메일 전송을 위해 유효한 이메일 ID를 입력하십시오."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:242
+msgid "Authorization failed: Unable to verify token."
+msgstr "인증 실패: 토큰을 확인할 수 없습니다."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:218
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:240
+msgid "Successfully authorized with Gmail!"
+msgstr "Gmail 인증 성공!"
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:197
+msgid "Access token not found in response"
+msgstr "응답에서 액세스 토큰을 찾을 수 없습니다."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:192
+msgid "Token request failed: "
+msgstr "토큰 요청 실패: "
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:177
+msgid "Missing Client ID or Secret"
+msgstr "클라이언트 ID 또는 비밀값이 누락되었습니다."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:168
+msgid "Missing authorization code"
+msgstr "인증 코드가 누락되었습니다."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:164
+msgid "Invalid OAuth nonce"
+msgstr "유효하지 않은 OAuth nonce"
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:160
+msgid "Invalid OAuth state"
+msgstr "유효하지 않은 OAuth 상태"
+
+#. translators: 1: Required PHP version, 2: Current version
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:140
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:229
+msgid "The Nexter Extension SMTP integration requires PHP version %1$s or higher. You are using %2$s."
+msgstr "Nexter Extension SMTP 통합에는 PHP 버전 %1$s 이상이 필요합니다. 현재 사용 중인 버전은 %2$s입니다."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:134
+msgid "OAuth redirect cannot run on localhost. Please use a live or staging domain."
+msgstr "OAuth 리디렉트는 로컬호스트에서 실행할 수 없습니다. 라이브 또는 스테이징 도메인을 사용해 주십시오."
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:107
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:151
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:224
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:250
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:272
+msgid "Unauthorized access"
+msgstr "무단 접근"
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:67
+msgid "Failed to process authorization"
+msgstr "인증 처리 실패"
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:30
+#: dashboard/build/index.js:1
+msgid "Gmail SMTP"
+msgstr "Gmail SMTP"
+
+#: include/panel-settings/extensions/nexter-ext-smtp-email.php:29
+msgid "Gmail SMTP Settings"
+msgstr "Gmail SMTP 설정"
+
+#: include/panel-settings/extensions/nexter-ext-limit-login-attempt.php:550
+msgid "Table not found."
+msgstr "테이블을 찾을 수 없습니다."
+
+#: include/panel-settings/extensions/nexter-ext-limit-login-attempt.php:543
+msgid "Unauthorized access."
+msgstr "무단 접근."
+
+#: include/panel-settings/extensions/nexter-ext-limit-login-attempt.php:264
+#: include/panel-settings/extensions/nexter-ext-limit-login-attempt.php:357
+msgid "Invalid username/email or incorrect password."
+msgstr "잘못된 사용자 이름/이메일 또는 잘못된 비밀번호."
+
+#: include/panel-settings/extensions/nexter-ext-limit-login-attempt.php:263
+#: include/panel-settings/extensions/nexter-ext-limit-login-attempt.php:356
+msgid "Error:"
+msgstr "오류:"
+
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:432
+msgid "Cloudflare Turnstile validated successfully."
+msgstr "Cloudflare Turnstile 검증 성공."
+
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:422
+msgid "Invalid CAPTCHA validation response format."
+msgstr "잘못된 CAPTCHA 검증 응답 형식."
+
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:405
+msgid "Comment Blocked"
+msgstr "댓글 차단됨"
+
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:322
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:349
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:384
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:404
+#: include/panel-settings/extensions/nexter-ext-cloudflare-captcha.php:429
+msgid "Please verify that you are human."
+msgstr "인간인지 확인해 주세요."
+
+#: include/classes/nexter-class-load.php:127
+msgid "Snippets List"
+msgstr "스니펫 목록"
+
+#: include/classes/load-code-snippet/nexter-code-snippet-render.php:731
+#: assets/js/admin/index.js:1
+msgid "Default Template"
+msgstr "기본 템플릿"
+
+#: include/classes/load-code-snippet/nexter-code-snippet-render.php:623
+#: assets/js/admin/index.js:1
+msgid "Authors"
+msgstr "작성자들"
+
+#: include/classes/load-code-snippet/nexter-code-snippet-render.php:304
+msgid "Nexter Snippets"
+msgstr "Nexter 스니펫"
+
+#: include/class-nexter-load-ext.php:503
+msgid "Compare Free vs Pro"
+msgstr "무료와 프로 비교"
+
+#: include/class-nexter-load-ext.php:501
+msgid "Nexter Extension free options cover the basics, but Pro takes it further with features like Login Protection, 2-Factor Authentication, Branded WP Admin & More."
+msgstr "Nexter Extension 무료 옵션은 기본적인 기능만 제공하지만, Pro는 로그인 보호, 2단계 인증, 브랜드화된 WP 관리자 등 추가 기능을 제공합니다."
+
+#: include/class-nexter-load-ext.php:500
+msgid "Replace 50+ WordPress Plugins with Nexter Extension Pro"
+msgstr "50개 이상의 워드프레스 플러그인을 Nexter Extension Pro로 대체하세요."
+
+#: include/panel-settings/nxt-deactive.php:160
+msgid "Submit & Deactivate"
+msgstr "제출 및 비활성화"
+
+#: include/panel-settings/nxt-deactive.php:159
+msgid "Skip & Deactivate"
+msgstr "건너뛰고 비활성화"
+
+#: include/panel-settings/nxt-deactive.php:152
+msgid "I agree to be contacted via email for support with this plugin."
+msgstr "이 플러그인 지원을 위해 이메일로 연락 받는 것에 동의합니다."
+
+#: include/panel-settings/nxt-deactive.php:147
+msgid "Ask AI"
+msgstr "AI에게 물어보기"
+
+#: include/panel-settings/nxt-deactive.php:147
+msgid " or "
+msgstr " 또는 "
+
+#: include/panel-settings/nxt-deactive.php:147 dashboard/build/index.js:1
+msgid "Documentation"
+msgstr "문서"
+
+#: include/panel-settings/nxt-deactive.php:147
+msgid "Looking for instant solutions? Read our "
+msgstr "즉각적인 해결책을 찾고 계신가요? 저희의"
+
+#: include/panel-settings/nxt-deactive.php:146
+msgid "We reply within 24 working hours."
+msgstr "영업일 기준 24시간 이내에 답변드립니다."
+
+#: include/panel-settings/nxt-deactive.php:146
+msgid "Create A Ticket."
+msgstr "티켓 생성하기."
+
+#: include/panel-settings/nxt-deactive.php:145
+msgid "If you require any help, please"
+msgstr "도움이 필요하시면,"
+
+#: include/panel-settings/nxt-deactive.php:143
+msgid "Please share more details"
+msgstr "자세한 내용을 공유해 주세요"
+
+#: include/panel-settings/nxt-deactive.php:127
+msgid "Other Reasons."
+msgstr "기타 이유들."
+
+#: include/panel-settings/nxt-deactive.php:123
+msgid "Missing Feature."
+msgstr "누락된 기능."
+
+#: include/panel-settings/nxt-deactive.php:119
+msgid "Compatibility Issue."
+msgstr "호환성 문제."
+
+#: include/panel-settings/nxt-deactive.php:115
+msgid "No Longer Needed."
+msgstr "더 이상 필요하지 않음."
+
+#: include/panel-settings/nxt-deactive.php:111
+msgid "Switched to Alternative."
+msgstr "대안으로 전환함."
+
+#: include/panel-settings/nxt-deactive.php:107
+msgid "Slow Performance."
+msgstr "느린 성능."
+
+#: include/panel-settings/nxt-deactive.php:103
+msgid "Plugin Issue."
+msgstr "플러그인 문제."
+
+#: include/panel-settings/nxt-deactive.php:99
+msgid "Just Debugging."
+msgstr "디버깅 중입니다."
+
+#: include/panel-settings/nxt-deactive.php:90
+msgid "Deactivation Reason"
+msgstr "비활성화 사유"
+
+#: include/panel-settings/nexter-ext-library.php:248
+msgid "Your Nexter Extension Pro Licence is Expired !!!"
+msgstr "귀하의 Nexter Extension Pro 라이선스가 만료되었습니다 !!!"
+
+#: include/panel-settings/nexter-ext-library.php:242
+msgid "Activate Nexter Extension Pro !!!"
+msgstr "Nexter Extension Pro를 활성화하세요 !!!"
+
+#: include/panel-settings/extensions/nexter-ext-svg-upload.php:128
+msgid "SVG could not be sanitized and was not uploaded for security reasons."
+msgstr "보안상의 이유로 SVG를 정리하지 못하여 업로드되지 않았습니다."
+
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:390
+msgid "You do not have sufficient permissions to perform rollbacks for this site."
+msgstr "이 사이트에서 롤백 작업을 수행할 수 있는 충분한 권한이 없습니다."
+
+#. Translators: %s is the current URL linking to the Rollback Manager page.
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:368
+msgid "<a href=\"%s\">Rollback Manager</a>"
+msgstr "<a href=\"%s\">롤백 관리자</a>"
+
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:336
+msgid "The referenced plugin does not exist."
+msgstr "참조된 플러그인이 존재하지 않습니다."
+
+#. Translators: %s is the rollback type (e.g., plugin or theme) author.
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:287
+msgid "It appears there are no versions to select. This is likely due to the %s author not using tags for their versions and only committing new releases to the repository trunk."
+msgstr "선택할 수 있는 버전이 없는 것 같습니다. 이는 아마도 %s 작성자가 버전 태그를 사용하지 않고 새로운 릴리스를 리포지토리 트렁크에만 커밋했기 때문일 수 있습니다."
+
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:74
+msgid "No Rollback Available: This is a non-WordPress.org theme."
+msgstr "롤백 불가: 이 테마는 WordPress.org 공식 테마가 아닙니다."
+
+#: include/panel-settings/extensions/nexter-ext-local-user-avatar.php:149
+msgid "Reset to Default"
+msgstr "기본값으로 재설정"
+
+#: include/panel-settings/extensions/nexter-ext-local-user-avatar.php:146
+msgid "Change"
+msgstr "변경"
+
+#: include/panel-settings/extensions/nexter-ext-local-user-avatar.php:142
+msgid "You are currently using the default profile picture."
+msgstr "현재 기본 프로필 사진을 사용 중입니다."
+
+#: include/panel-settings/extensions/nexter-ext-local-user-avatar.php:135
+msgid "Profile Picture"
+msgstr "프로필 사진"
+
+#: include/panel-settings/extensions/nexter-ext-local-user-avatar.php:91
+msgid "Use as Profile Picture"
+msgstr "프로필 사진으로 사용"
+
+#: include/panel-settings/extensions/nexter-ext-local-user-avatar.php:90
+msgid "Select Profile Picture"
+msgstr "프로필 사진 선택"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-theme-list.php:64
+msgid "(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)"
+msgstr "(워드프레스가 WordPress.org와의 안전한 연결을 설정할 수 없습니다. 서버 관리자에게 문의하십시오.)"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-theme-list.php:61
+msgid "An unexpected error occurred. Something may be wrong with WordPress.org or this server’s configuration."
+msgstr "예상치 못한 오류가 발생했습니다. WordPress.org 또는 이 서버의 설정에 문제가 있을 수 있습니다."
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-plugin-upgrader.php:16
+msgid "Plugin Rolled back Successfully."
+msgstr "플러그인이 성공적으로 롤백되었습니다."
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:156
+msgid "Continue"
+msgstr "계속"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:155
+msgid "Cancel"
+msgstr "취소"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:152
+msgid "We strongly recommend you create a complete backup before proceeding."
+msgstr "진행하기 전에 전체 백업을 생성하는 것을 강력히 권장합니다."
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:145
+msgid "New Version :"
+msgstr "새 버전 :"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:139
+msgid "Current Installed Version :"
+msgstr "현재 설치된 버전 :"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:130
+msgid "Theme Name :"
+msgstr "테마 이름 :"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:128
+msgid "Plugin Name :"
+msgstr "플러그인 이름 :"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:116
+msgid "Are you sure you want to perform the Rollback?"
+msgstr "롤백을 실행하시겠습니까?"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:103
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:73
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:108
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:151
+#: include/panel-settings/extensions/nexter-ext-rollback-manager.php:375
+#: dashboard/build/index.js:1
+msgid "Rollback"
+msgstr "롤백"
+
+#. Translators: %1$s is the current version, %2$s is the rollback item name.
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:76
+msgid "You currently have version %1$s installed of %2$s. We strongly recommend you create a complete backup before proceeding."
+msgstr "현재 %2$s의 %1$s 버전이 설치되어 있습니다. 진행하기 전에 전체 백업을 생성하는 것을 강력히 권장합니다."
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:56
+msgid "Required rollback parameters are missing or invalid. Please contact support."
+msgstr "필수 롤백 매개변수가 누락되었거나 잘못되었습니다. 지원팀에 문의하십시오."
+
+#. Translators: %s is the capitalized rollback type (e.g., Plugin or Theme).
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:39
+msgid "%s Rollback"
+msgstr "%s 롤백"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:30
+#: dashboard/build/index.js:1
+msgid "Rollback Manager"
+msgstr "롤백 관리자"
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:20
+msgid "Nexter Extension Rollback is missing necessary parameters to continue. Please contact support."
+msgstr "Nexter 확장 롤백에는 계속 진행하기 위한 필수 매개변수가 누락되었습니다. 지원팀에 문의하십시오."
+
+#: include/panel-settings/extensions/custom-fields/nxt-rb-action.php:67
+msgid "This rollback request is missing a proper query string. Please contact support."
+msgstr "이 롤백 요청에는 적절한 쿼리 문자열이 누락되었습니다. 지원팀에 문의하십시오."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:97
+msgid "Disable Gutenberg block editor and enable classic editor experience."
+msgstr "구텐베르크 블록 편집기를 비활성화하고 클래식 편집기를 활성화합니다."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:93
+msgid "Disable Gutenberg Editor (Use Classic Editor)"
+msgstr "구텐베르크 편집기 비활성화 (클래식 편집기 사용)"
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:89
+msgid "Change WordPress login logo URL to your site homepage."
+msgstr "워드프레스 로그인 로고 URL을 사이트 홈페이지로 변경합니다."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:85
+msgid "Customize Login Logo Link URL"
+msgstr "로그인 로고 링크 URL 사용자 정의"
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:81
+msgid "Restrict number of saved post revisions to reduce database size."
+msgstr "게시물 수정본 수를 제한하여 데이터베이스 크기를 줄입니다."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:77
+msgid "Limit Post Revisions to Optimize Database"
+msgstr "데이터베이스 최적화를 위해 게시물 수정본을 제한합니다."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:73
+msgid "Insert Google Analytics script directly without extra plugins."
+msgstr "추가 플러그인 없이 Google Analytics 스크립트를 직접 삽입합니다."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:69
+msgid "Add Google Analytics Tracking Code"
+msgstr "Google Analytics 추적 코드를 추가합니다."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:65
+msgid "Disable WordPress emoji scripts to improve page speed."
+msgstr "페이지 속도를 개선하기 위해 워드프레스 이모지 스크립트를 비활성화합니다."
+
+#: include/classes/load-code-snippet/nexter-import-code-snippets.php:61
+msgid "Disable Emojis for Faster Loading"
+msgstr "더 빠른 로딩을 위해 이모지를 비활성화합니다."
+
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:88
+msgid "Never"
+msgstr "절대"
+
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:78
+msgid "Last Login"
+msgstr "마지막 로그인"
+
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:48
+msgid "Registered"
+msgstr "등록됨"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:779
+msgid "Product Meta (SKU, category, tags)"
+msgstr "제품 메타 (SKU, 카테고리, 태그)"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:767
+msgid "Single Product Price"
+msgstr "단일 제품 가격"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:723
+msgid "Pagination"
+msgstr "페이지네이션"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:717
+msgid "Page Header"
+msgstr "페이지 헤더"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:716
+msgid "Page Before Header"
+msgstr "페이지 헤더 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:713
+msgid "Header Wrap After"
+msgstr "헤더 랩 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:710
+msgid "Header Wrap Before"
+msgstr "헤더 랩 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:672
+msgid "Inner Content After"
+msgstr "내부 콘텐츠 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:671
+msgid "Content Entry After"
+msgstr "콘텐츠 입력 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:670
+msgid "Content Entry Before"
+msgstr "콘텐츠 입력 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:668
+msgid "Content Entry Header After"
+msgstr "콘텐츠 항목 헤더 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:667
+msgid "Content After Entry Title"
+msgstr "항목 제목 이후 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:666
+msgid "Content Before Entry Title"
+msgstr "항목 제목 이전 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:665
+msgid "Content Entry Header"
+msgstr "콘텐츠 항목 헤더"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:664
+msgid "Content Entry Header Before"
+msgstr "콘텐츠 항목 헤더 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:663
+msgid "Inner Content Before"
+msgstr "내부 콘텐츠 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:659
+msgid "Header Hero"
+msgstr "헤더 히어로"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:649
+msgid "Footer After Bottom"
+msgstr "푸터 하단 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:648
+msgid "Footer After Bottom Inner"
+msgstr "푸터 하단 내부 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:647
+msgid "Footer Before Bottom Inner"
+msgstr "푸터 하단 내부 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:646
+msgid "Footer Before Bottom"
+msgstr "푸터 하단 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:645
+msgid "Footer After Widgets Inner"
+msgstr "푸터 위젯 내부 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:644
+msgid "Footer Before Widgets Inner"
+msgstr "푸터 위젯 내부 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:639
+#: include/custom-options/module/nexter-display-conditional-rules.php:720
+msgid "Content Primary After"
+msgstr "주요 콘텐츠 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:638
+#: include/custom-options/module/nexter-display-conditional-rules.php:715
+msgid "Content Primary Before"
+msgstr "주요 콘텐츠 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:635
+msgid "Footer After Inner"
+msgstr "푸터 내부 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:634
+msgid "Footer Before Inner"
+msgstr "푸터 내부 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:631
+msgid "Content After Main"
+msgstr "메인 이후 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:630
+msgid "Content After Wrap"
+msgstr "랩 이후 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:628
+msgid "Content After Inner"
+msgstr "내부 이후 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:627
+msgid "Content Page After"
+msgstr "페이지 콘텐츠 이후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:626
+msgid "Content Page Before"
+msgstr "페이지 콘텐츠 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:625
+msgid "Content Before Inner"
+msgstr "내부 이전 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:623
+msgid "Content Before Wrap"
+msgstr "랩 이전 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:622
+msgid "Content Before Main"
+msgstr "메인 이전 콘텐츠"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:621
+msgid "Header Top Bar"
+msgstr "헤더 상단 바"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:619
+msgid "Body End Wrap"
+msgstr "본문 끝 감싸기"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:618
+msgid "Body Start Wrap"
+msgstr "본문 시작 감싸기"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:611
+msgid "Footer Content After"
+msgstr "푸터 콘텐츠 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:610
+msgid "Footer Info"
+msgstr "푸터 정보"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:609
+msgid "Copyright Before"
+msgstr "저작권 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:608
+msgid "Footer Content Before"
+msgstr "푸터 콘텐츠 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:605
+msgid "Sidebar Content After"
+msgstr "사이드바 콘텐츠 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:604
+msgid "Sidebar Content Before"
+msgstr "사이드바 콘텐츠 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:603
+#: include/custom-options/module/nexter-display-conditional-rules.php:674
+msgid "Main Content After"
+msgstr "메인 콘텐츠 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:602
+msgid "Template Part After"
+msgstr "템플릿 파트 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:600
+msgid "Page Title After"
+msgstr "페이지 제목 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:599
+msgid "Page Title Before"
+msgstr "페이지 제목 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:597
+msgid "Template Part Before"
+msgstr "템플릿 파트 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:596
+#: include/custom-options/module/nexter-display-conditional-rules.php:660
+msgid "Main Content Before"
+msgstr "메인 콘텐츠 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:594
+msgid "Container Inside"
+msgstr "컨테이너 내부"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:593
+msgid "Site Container Inside"
+msgstr "사이트 컨테이너 내부"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:580
+#: include/custom-options/module/nexter-display-conditional-rules.php:601
+#: include/custom-options/module/nexter-display-conditional-rules.php:629
+#: include/custom-options/module/nexter-display-conditional-rules.php:642
+#: include/custom-options/module/nexter-display-conditional-rules.php:673
+#: include/custom-options/module/nexter-display-conditional-rules.php:693
+#: include/custom-options/module/nexter-display-conditional-rules.php:719
+msgid "Content After"
+msgstr "콘텐츠 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:577
+#: include/custom-options/module/nexter-display-conditional-rules.php:598
+#: include/custom-options/module/nexter-display-conditional-rules.php:624
+#: include/custom-options/module/nexter-display-conditional-rules.php:662
+#: include/custom-options/module/nexter-display-conditional-rules.php:690
+#: include/custom-options/module/nexter-display-conditional-rules.php:718
+msgid "Content Before"
+msgstr "콘텐츠 전"
+
+#: include/classes/load-sections/nexter-sections-loader.php:201
+msgid "Section"
+msgstr "섹션"
+
+#. Translators: %s is the URL for the POSIMYTH Store.
+#: include/panel-settings/nexter-ext-library.php:321
+msgid "Unfortunately, Your Activation Quota for Active / Running Websites Built With Nexter WP  is Over. Like What You’re Using ? Visit <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH Store</a> to Upgrade Your Existing Plan and Allow Your Creativity to Bloom."
+msgstr "안타깝게도, Nexter WP로 구축된 활성/실행 중인 웹사이트의 활성화 할당량이 초과되었습니다. 사용 중인 것이 마음에 드시나요? 기존 플랜을 업그레이드하여 창의력을 발휘할 수 있도록 <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH 스토어</a>를 방문하세요."
+
+#. Translators: Message shown when a user needs to order more items.
+#: include/panel-settings/nexter-ext-library.php:319
+msgid "You Should’ve Ordered More !!!"
+msgstr "더 많이 주문했어야 했어요 !!!"
+
+#. Translators: %s is the URL for the POSIMYTH Store.
+#: include/panel-settings/nexter-ext-library.php:313
+msgid "It Appears That Licence Key You Entered Belongs to Some Other Product from Our Product Collection. In Layman Terms, You Dialed a Wrong Number. Visit <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH Store</a> and Verify Your Licence Key for Nexter WP."
+msgstr "입력하신 라이선스 키가 당사 제품 컬렉션의 다른 제품에 속하는 것으로 보입니다. 쉽게 말해, 잘못된 번호로 연결하신 것입니다. <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH 스토어</a>를 방문하여 Nexter WP용 라이선스 키를 확인하세요."
+
+#. Translators: %s is the product name the license key belongs to.
+#: include/panel-settings/nexter-ext-library.php:311
+msgid "This License Key Belongs to Some Other Product"
+msgstr "이 라이선스 키는 다른 제품에 속합니다."
+
+#. Translators: %s is the POSIMYTH Store URL.
+#: include/panel-settings/nexter-ext-library.php:305
+msgid "We Can’t Find Licence Key You Just Entered in Any of Our Lists. Make Sure You Are Not Adding Any White Spaces With It. If You're Having This Issue Repeatedly, Visit  <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH Store</a> to Confirm Your Licence Key."
+msgstr "입력하신 라이선스 키를 당사 목록에서 찾을 수 없습니다. 공백이 포함되어 있지 않은지 확인하세요. 이 문제가 반복된다면, <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH 스토어</a>를 방문하여 라이선스 키를 확인하세요."
+
+#. Translators: Message shown when a typo is found in the license key.
+#: include/panel-settings/nexter-ext-library.php:303
+msgid "Typo in Licence Key is Unacceptable !"
+msgstr "Typo in Licence Key is Unacceptable !"
+
+#. translators: %s: store tpgb
+#: include/panel-settings/nexter-ext-library.php:296
+msgid "You’re Just One Step Away From Having Fun While Crafting Websites. Paste Your Licence Key for Nexter WP Here and Get Inspired With Other People Who Build With Us. Visit <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH Store</a> to Update Your Licence Key / Manage Payments / Pay Invoices."
+msgstr "You’re Just One Step Away From Having Fun While Crafting Websites. Paste Your Licence Key for Nexter WP Here and Get Inspired With Other People Who Build With Us. Visit <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">POSIMYTH Store</a> to Update Your Licence Key / Manage Payments / Pay Invoices."
+
+#: include/panel-settings/nexter-ext-library.php:294
+msgid "It's Time to Enter Licence Key"
+msgstr "It's Time to Enter Licence Key"
+
+#. translators: %1$s: POSIMYTH Store URL, %2$s: Nexter Support URL
+#: include/panel-settings/nexter-ext-library.php:286
+msgid "Your Licence Key for Nexter WP is Revoked for Some Reason. Visit %1$s to Update Your Licence Key / Manage Payments / Pay Invoices. Reach Out to Us at %2$s for Queries Regarding Our Products."
+msgstr "Your Licence Key for Nexter WP is Revoked for Some Reason. Visit %1$s to Update Your Licence Key / Manage Payments / Pay Invoices. Reach Out to Us at %2$s for Queries Regarding Our Products."
+
+#: include/panel-settings/nexter-ext-library.php:282
+msgid "We Have Revoked Your Licence for Nexter"
+msgstr "We Have Revoked Your Licence for Nexter"
+
+#: include/panel-settings/nexter-ext-library.php:278 dashboard/build/index.js:1
+msgid "Congratulation! License Successfully Activated."
+msgstr "Congratulation! License Successfully Activated."
+
+#. Translators: %1$s is the POSIMYTH Store URL, %2$s is the Nexter Support URL.
+#: include/panel-settings/nexter-ext-library.php:270
+msgid "Seems Like Your Licence Key for Nexter WP is Expired. Visit %1$s to Pay Invoices / Change Payment Methods / Manage Your Subscriptions. Please Don’t Hesitate to Reach Us at %2$s if You Have an Issue Regarding Our Products."
+msgstr "Seems Like Your Licence Key for Nexter WP is Expired. Visit %1$s to Pay Invoices / Change Payment Methods / Manage Your Subscriptions. Please Don’t Hesitate to Reach Us at %2$s if You Have an Issue Regarding Our Products."
+
+#: include/panel-settings/nexter-ext-library.php:266
+msgid "Your Licence Key is Expired !!!"
+msgstr "Your Licence Key is Expired !!!"
+
+#: include/panel-settings/nexter-ext-library.php:250
+msgid " if You Have an Issue Regarding Our Products."
+msgstr " if You Have an Issue Regarding Our Products."
+
+#: include/panel-settings/nexter-ext-library.php:250
+msgid "Nexter Support"
+msgstr "Nexter Support"
+
+#: include/panel-settings/nexter-ext-library.php:250
+msgid " to Pay Invoices / Change Payment Methods / Manage Your Subscriptions. Please Don’t Hesitate to Reach Us at"
+msgstr " to Pay Invoices / Change Payment Methods / Manage Your Subscriptions. Please Don’t Hesitate to Reach Us at"
+
+#: include/panel-settings/nexter-ext-library.php:249
+msgid "Seems Like Your Licence Key for Nexter WP is Expired. Visit"
+msgstr "Seems Like Your Licence Key for Nexter WP is Expired. Visit"
+
+#: include/panel-settings/nexter-ext-library.php:245
+#: include/panel-settings/nexter-ext-library.php:251
+msgid "I’ve Got a Licence Key"
+msgstr "I’ve Got a Licence Key"
+
+#: include/panel-settings/nexter-ext-library.php:244
+msgid " to Generate Your Licence Key."
+msgstr " to Generate Your Licence Key."
+
+#: include/panel-settings/nexter-ext-library.php:244
+#: include/panel-settings/nexter-ext-library.php:250
+msgid "POSIMYTH Store"
+msgstr "POSIMYTH Store"
+
+#: include/panel-settings/nexter-ext-library.php:243
+msgid "You’re Just One Step Away From Having Fun While Crafting Websites. Paste Your Licence Key for Nexter Extension Here and Get Inspired With Other People Who Build With Us. Visit"
+msgstr "You’re Just One Step Away From Having Fun While Crafting Websites. Paste Your Licence Key for Nexter Extension Here and Get Inspired With Other People Who Build With Us. Visit"
+
+#: include/panel-settings/nexter-ext-library.php:143
+msgid "Your License is active."
+msgstr "Your License is active."
+
+#: include/panel-settings/nexter-ext-library.php:133
+msgid "Your license key has reached its activation limit."
+msgstr "Your license key has reached its activation limit."
+
+#. translators: %s: item name
+#: include/panel-settings/nexter-ext-library.php:128
+msgid "This appears to be an invalid license key for %s."
+msgstr "This appears to be an invalid license key for %s."
+
+#: include/panel-settings/nexter-ext-library.php:123
+msgid "Your license is not active for this URL."
+msgstr "Your license is not active for this URL."
+
+#: include/panel-settings/nexter-ext-library.php:117
+msgid "Invalid license."
+msgstr "Invalid license."
+
+#: include/panel-settings/nexter-ext-library.php:113
+msgid "Your license key has been disabled."
+msgstr "Your license key has been disabled."
+
+#: include/panel-settings/nexter-ext-library.php:107
+#: include/panel-settings/nexter-ext-library.php:225
+msgid "Your license key expired."
+msgstr "Your license key expired."
+
+#: include/panel-settings/nexter-ext-library.php:94
+#: include/panel-settings/nexter-ext-library.php:138
+msgid "An Error Occurred, Please Try Again Later."
+msgstr "An Error Occurred, Please Try Again Later."
+
+#: include/class-nexter-load-ext.php:502 assets/js/admin/index.js:1
+#: dashboard/build/index.js:1
+msgid "Upgrade Now"
+msgstr "지금 업그레이드"
+
+#. translators: %s: Php Required
+#: nexter-extension.php:88
+msgid "Nexter Extensions requires PHP version %s+, plugin is currently NOT RUNNING."
+msgstr "Nexter Extensions는 PHP 버전 %s+를 필요로 하며, 현재 플러그인이 실행되고 있지 않습니다."
+
+#: include/rollback.php:168 include/rollback.php:204
+msgid "Rollback to Previous Version"
+msgstr "이전 버전으로 롤백"
+
+#: include/rollback.php:147
+msgid "Error, Try selecting another version."
+msgstr "오류, 다른 버전을 선택해보세요."
+
+#: include/rollback.php:141
+msgid "Rollback versions not allowed"
+msgstr "롤백 버전이 허용되지 않습니다."
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1233
+msgid "Failed to retrieve plugin information."
+msgstr "플러그인 정보를 가져오지 못했습니다."
+
+#: include/panel-settings/nexter-ext-panel-settings.php:1110
+msgid "You are not allowed to do this action"
+msgstr "이 작업을 수행할 권한이 없습니다."
+
+#. translators: %s is the size of the table in megabytes
+#: include/panel-settings/nexter-ext-panel-settings.php:1028
+msgid "(%s MB)"
+msgstr "(%s MB)"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:996
+#: dashboard/build/index.js:1
+msgid "Activated"
+msgstr "활성화됨"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:959
+msgid "Server not found."
+msgstr "서버를 찾을 수 없습니다."
+
+#: include/panel-settings/nexter-ext-panel-settings.php:881
+#: include/panel-settings/nexter-ext-panel-settings.php:882
+#: assets/js/admin/index.js:1 dashboard/build/index.js:1
+msgid "Code Snippets"
+msgstr "코드 스니펫"
+
+#: include/panel-settings/nexter-ext-panel-settings.php:864
+#: include/panel-settings/nexter-ext-panel-settings.php:865
+#: dashboard/build/index.js:1
+msgid "Dashboard"
+msgstr "대시보드"
+
+#: include/panel-settings/extensions/nexter-ext-replace-url.php:38
+#: include/panel-settings/extensions/nexter-ext-replace-url.php:88
+msgid "Select any table before replace"
+msgstr "교체하기 전에 테이블을 선택하세요"
+
+#: include/panel-settings/extensions/nexter-ext-replace-url.php:25
+msgid "The \"OLD\" and \"NEW\" URLs must be different"
+msgstr "\"OLD\"와 \"NEW\" URL은 달라야 합니다"
+
+#: include/panel-settings/extensions/nexter-ext-post-duplicator.php:198
+msgid "You do not have permission to duplicate this post."
+msgstr "이 게시물을 복제할 권한이 없습니다."
+
+#: include/panel-settings/extensions/nexter-ext-post-duplicator.php:119
+msgid "Copy"
+msgstr "복사"
+
+#: include/panel-settings/extensions/nexter-ext-post-duplicator.php:50
+msgid "Duplicate"
+msgstr "중복"
+
+#. translators: %s: singular name
+#: include/panel-settings/extensions/nexter-ext-post-duplicator.php:47
+msgid "Duplicate %s"
+msgstr "%s 복제"
+
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:543
+#: dashboard/build/index.js:1
+msgid "Home Page"
+msgstr "홈페이지"
+
+#. Translators: %s is the anchor tag linking to the Home Page.
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:536
+msgid "No feed available, please visit the %s!"
+msgstr "피드가 없습니다. %s를 방문하세요!"
+
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:330
+msgid "Sorry, do not have permission REST API requests."
+msgstr "죄송합니다, REST API 요청 권한이 없습니다."
+
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:243
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:758
+#: include/panel-settings/extensions/nexter-ext-performance-security-settings.php:763
+msgid "Comments are disabled."
+msgstr "댓글 기능이 비활성화되었습니다."
+
+#: include/panel-settings/extensions/nexter-ext-local-google-font.php:336
+msgid "Local fonts cleared."
+msgstr "로컬 폰트가 초기화되었습니다."
+
+#: include/panel-settings/extensions/nexter-ext-local-google-font.php:61
+msgid "Local Google Fonts"
+msgstr "로컬 구글 폰트"
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:415
+msgid "Click the BACK button on your browser and try again."
+msgstr "브라우저의 뒤로 가기 버튼을 클릭한 후 다시 시도하세요."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:415
+msgid "Error"
+msgstr "오류"
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:250
+msgid "You have entered incorrect  secret key."
+msgstr "잘못된 비밀 키를 입력하셨습니다."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:249
+msgid "User response is missing."
+msgstr "사용자 응답이 누락되었습니다."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:248
+msgid "reCaptcha v3 test failed"
+msgstr "reCaptcha v3 테스트에 실패했습니다."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:247
+msgid "User response is invalid"
+msgstr "사용자 응답이 유효하지 않습니다."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:246
+msgid "More than one reCAPTCHA has been found in the current form. Please remove all unnecessary reCAPTCHA fields to make it work properly."
+msgstr "현재 양식에서 두 개 이상의 reCAPTCHA가 발견되었습니다. 원활한 작동을 위해 불필요한 reCAPTCHA 필드를 모두 제거하세요."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:245
+msgid "You have entered an incorrect reCAPTCHA value."
+msgstr "잘못된 reCAPTCHA 값을 입력하셨습니다."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:243
+msgid "and enter it again"
+msgstr "그리고 이를 다시 입력하세요."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:243
+msgid "Check your domain configurations"
+msgstr "도메인 구성을 확인하세요."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:243
+msgid "Secret Key is invalid."
+msgstr "비밀 키가 유효하지 않습니다."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:242
+msgid "Secret Key is missing."
+msgstr "비밀 키가 누락되었습니다."
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:200
+msgid "Response is empty"
+msgstr "응답이 비어 있습니다"
+
+#: include/panel-settings/extensions/nexter-ext-google-captcha.php:152
+msgid "Authentication failed."
+msgstr "인증에 실패했습니다."
+
+#: include/panel-settings/extensions/nexter-ext-custom-login-redirect.php:175
+msgid "This has been disabled."
+msgstr "이 기능이 비활성화되었습니다."
+
+#: include/panel-settings/extensions/nexter-ext-custom-login-redirect.php:64
+msgid "This feature is not enabled."
+msgstr "이 기능이 활성화되지 않았습니다."
+
+#: include/panel-settings/extensions/nexter-ext-adobe-font.php:25
+#: include/panel-settings/extensions/nexter-ext-custom-upload-font.php:17
+msgid "Custom Fonts"
+msgstr "사용자 폰트"
+
+#: include/nexter-template/template-import-export.php:255
+#: assets/js/admin/index.js:1
+msgid "Import Now"
+msgstr "지금 가져오기"
+
+#: include/nexter-template/template-import-export.php:248
+msgid "Choose an Nexter Builder template XML file of Builder templates, and add them to the list of templates available in your builder."
+msgstr "Nexter Builder 템플릿 XML 파일을 선택하여 빌더에서 사용할 수 있는 템플릿 목록에 추가합니다."
+
+#: include/nexter-template/template-import-export.php:246
+msgid "Import Templates"
+msgstr "템플릿 가져오기"
+
+#: include/nexter-template/template-import-export.php:79
+msgid "Export Template"
+msgstr "템플릿 내보내기"
+
+#: include/nexter-template/nexter-template-function.php:51
+msgid "Post Type Description"
+msgstr "게시물 유형 설명"
+
+#: include/nexter-template/nexter-template-function.php:50
+msgid "Post Type"
+msgstr "게시물 유형"
+
+#: include/nexter-template/nexter-template-function.php:47
+msgid "Filter templates list"
+msgstr "템플릿 목록 필터"
+
+#: include/nexter-template/nexter-template-function.php:46
+msgid "Templates list navigation"
+msgstr "템플릿 목록 탐색"
+
+#: include/nexter-template/nexter-template-function.php:45
+msgid "Templates list"
+msgstr "템플릿 목록"
+
+#: include/nexter-template/nexter-template-function.php:44
+msgid "Uploaded to this template"
+msgstr "이 템플릿에 업로드됨"
+
+#: include/nexter-template/nexter-template-function.php:43
+msgid "Insert into template"
+msgstr "템플릿에 삽입"
+
+#: include/nexter-template/nexter-template-function.php:42
+msgid "Use as featured image"
+msgstr "대표 이미지로 사용"
+
+#: include/nexter-template/nexter-template-function.php:41
+msgid "Remove featured image"
+msgstr "대표 이미지 제거"
+
+#: include/nexter-template/nexter-template-function.php:40
+msgid "Set featured image"
+msgstr "대표 이미지 설정"
+
+#: include/nexter-template/nexter-template-function.php:39
+msgid "Featured Image"
+msgstr "대표 이미지"
+
+#: include/nexter-template/nexter-template-function.php:38
+msgid "Not found in Trash"
+msgstr "휴지통에서 찾을 수 없음"
+
+#: include/nexter-template/nexter-template-function.php:37
+msgid "Not found"
+msgstr "찾을 수 없음"
+
+#: include/nexter-template/nexter-template-function.php:36
+msgid "Search Template"
+msgstr "템플릿 검색"
+
+#: include/nexter-template/nexter-template-function.php:34
+#: include/nexter-template/nexter-template-function.php:35
+msgid "View Template"
+msgstr "템플릿 보기"
+
+#: include/nexter-template/nexter-template-function.php:33
+msgid "Update Template"
+msgstr "템플릿 업데이트"
+
+#: include/nexter-template/nexter-template-function.php:32
+msgid "Edit Template"
+msgstr "템플릿 편집"
+
+#: include/nexter-template/nexter-template-function.php:31
+msgid "New Template"
+msgstr "새 템플릿"
+
+#: include/nexter-template/nexter-template-function.php:30
+#: assets/js/admin/index.js:1
+msgid "Create New"
+msgstr "새로 만들기"
+
+#: include/nexter-template/nexter-template-function.php:29
+msgid "Add New Template"
+msgstr "새 템플릿 추가"
+
+#: include/nexter-template/nexter-template-function.php:27
+msgid "Parent Template:"
+msgstr "부모 템플릿:"
+
+#: include/nexter-template/nexter-template-function.php:26
+msgid "Template Attributes"
+msgstr "템플릿 속성들"
+
+#: include/nexter-template/nexter-template-function.php:25
+msgid "Template Archives"
+msgstr "템플릿 보관소"
+
+#: include/nexter-template/nexter-template-function.php:16
+#: dashboard/build/index.js:1
+msgid "Theme Builder"
+msgstr "테마 빌더"
+
+#: include/nexter-template/nexter-builder-shortcode.php:55
+#: assets/js/admin/index.js:1
+msgid "Shortcode"
+msgstr "쇼트코드"
+
+#: include/nexter-template/importer/parsers.php:84
+#: include/nexter-template/importer/parsers.php:89
+#: include/nexter-template/importer/parsers.php:315
+#: include/nexter-template/importer/parsers.php:533
+msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr "이 파일은 WXR 파일로 보이지 않습니다. WXR 버전 번호가 누락되었거나 올바르지 않습니다."
+
+#: include/nexter-template/importer/parsers.php:43
+msgid "Details are shown above. The importer will now try again with a different parser..."
+msgstr "상세 정보는 위에 표시되어 있습니다. 가져오기 도구가 이제 다른 파서를 사용하여 다시 시도합니다…"
+
+#: include/nexter-template/importer/parsers.php:42
+#: include/nexter-template/importer/parsers.php:72
+#: include/nexter-template/importer/parsers.php:80
+msgid "There was an error when reading this WXR file"
+msgstr "이 WXR 파일을 읽는 중 오류가 발생했습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1203
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr "업로드할 WXR (.xml) 파일을 선택한 후, 파일 업로드 및 가져오기를 클릭하십시오."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1202
+msgid "Howdy! Upload your WordPress eXtended RSS (WXR) file and we&#8217;ll import the posts, pages, comments, custom fields, categories, and tags into this site."
+msgstr "안녕하세요! WordPress eXtended RSS (WXR) 파일을 업로드하시면, 게시글, 페이지, 댓글, 사용자 정의 필드, 카테고리, 태그를 이 사이트로 가져옵니다."
+
+#. translators: %s: new version
+#: include/nexter-template/importer/class.wordpress-importer.php:1187
+msgid "A new version of this importer is available. Please update to version %s to ensure compatibility with newer export files."
+msgstr "이 가져오기 도구의 새 버전이 사용 가능합니다. 최신 내보내기 파일과의 호환성을 위해 버전 %s로 업데이트하십시오."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1179
+msgid "Import WordPress"
+msgstr "WordPress 가져오기"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1076
+msgid "Remote file is too large, limit is %s"
+msgstr "원격 파일이 너무 큽니다. 제한은 %s 입니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1070
+msgid "Zero size file downloaded"
+msgstr "크기가 0인 파일이 다운로드되었습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1065
+msgid "Remote file is incorrect size"
+msgstr "원격 파일의 크기가 올바르지 않습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1058
+msgid "Remote server returned error response %1$d %2$s"
+msgstr "원격 서버가 오류 응답 %1$d %2$s를 반환했습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:1050
+msgid "Remote server did not respond"
+msgstr "원격 서버가 응답하지 않았습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:997
+msgid "Invalid file type"
+msgstr "잘못된 파일 형식입니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:984
+msgid "Fetching attachments is not enabled"
+msgstr "첨부 파일 가져오기가 활성화되어 있지 않습니다."
+
+#. translators: %s: menu slug
+#: include/nexter-template/importer/class.wordpress-importer.php:919
+msgid "Menu item skipped due to invalid menu slug: %s"
+msgstr "잘못된 메뉴 슬러그(%s) 때문에 메뉴 항목이 건너뛰어졌습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:911
+msgid "Menu item skipped due to missing menu slug"
+msgstr "메뉴 슬러그가 없어서 메뉴 항목이 건너뛰어졌습니다."
+
+#. translators: %s: post title
+#: include/nexter-template/importer/class.wordpress-importer.php:732
+msgid "Failed to import %1$s &#8220;%2$s&#8221;"
+msgstr "%1$s &#8220;%2$s&#8221; 가져오기에 실패했습니다."
+
+#. translators: %s: post title post type
+#: include/nexter-template/importer/class.wordpress-importer.php:631
+msgid "Failed to import &#8220;%1$s&#8221;: Invalid post type %2$s"
+msgstr "&#8220;%1$s&#8221; 가져오기에 실패했습니다: 잘못된 포스트 유형 %2$s"
+
+#. translators: %s: taxonomy term name
+#. translators: %s: term name
+#: include/nexter-template/importer/class.wordpress-importer.php:537
+#: include/nexter-template/importer/class.wordpress-importer.php:766
+msgid "Failed to import %1$s %2$s"
+msgstr "%1$s %2$s 가져오기에 실패했습니다."
+
+#. translators: %s: tag name
+#: include/nexter-template/importer/class.wordpress-importer.php:481
+msgid "Failed to import post tag %s"
+msgstr "게시물 태그 %s 가져오기에 실패했습니다."
+
+#. translators: %s: category name
+#: include/nexter-template/importer/class.wordpress-importer.php:435
+msgid "Failed to import category %s"
+msgstr "카테고리 %s 가져오기에 실패했습니다."
+
+#. translators: %s: author name
+#: include/nexter-template/importer/class.wordpress-importer.php:382
+msgid "Failed to create new user for %s. Their posts will be attributed to the current user."
+msgstr "%s 의 새 사용자를 생성하지 못했습니다. 해당 사용자의 글은 현재 사용자에게 할당됩니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:328
+msgid "- Select -"
+msgstr "- 선택 -"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:322
+msgid "or assign posts to an existing user:"
+msgstr "또는 게시물을 기존 사용자에게 할당:"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:320
+msgid "assign posts to an existing user:"
+msgstr "기존 사용자에게 게시물을 할당:"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:312
+msgid "as a new user:"
+msgstr "새 사용자로서:"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:309
+msgid "or create new user with login name:"
+msgstr "또는 로그인 이름으로 새 사용자를 생성:"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:298
+msgid "Import author:"
+msgstr "작가 가져오기:"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:285
+msgid "Submit"
+msgstr "제출"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:281
+msgid "Download and import file attachments"
+msgstr "파일 첨부 다운로드 및 가져오기"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:278
+msgid "Import Attachments"
+msgstr "첨부 파일 가져오기"
+
+#. translators: %s: user role
+#: include/nexter-template/importer/class.wordpress-importer.php:268
+msgid "If a new user is created by WordPress, a new password will be randomly generated and the new user&#8217;s role will be set as %s. Manually changing the new user&#8217;s details will be necessary."
+msgstr "만약 WordPress에 의해 새 사용자가 생성된다면, 새 비밀번호가 무작위로 생성되며 새 사용자의 역할은 %s로 설정됩니다. 새 사용자의 세부 정보를 수동으로 변경해야 합니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:265
+msgid "To make it easier for you to edit and save the imported content, you may want to reassign the author of the imported item to an existing user of this site. For example, you may want to import all the entries as <code>admin</code>s entries."
+msgstr "가져온 콘텐츠를 더 쉽게 편집 및 저장할 수 있도록, 가져온 항목의 작가를 이 사이트의 기존 사용자에게 다시 할당할 수 있습니다. 예를 들어, 모든 항목을 <code>admin</code>의 항목으로 가져오고 싶을 수 있습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:264
+msgid "Assign Authors"
+msgstr "작가 할당"
+
+#. translators: %s: post author
+#: include/nexter-template/importer/class.wordpress-importer.php:237
+msgid "Failed to import author %s. Their posts will be attributed to the current user."
+msgstr "작가 %s 가져오기에 실패했습니다. 해당 작가의 글은 현재 사용자에게 할당됩니다."
+
+#. translators: %s: version
+#: include/nexter-template/importer/class.wordpress-importer.php:211
+msgid "This WXR file (version %s) may not be supported by this version of the importer. Please consider updating."
+msgstr "이 WXR 파일(버전 %s)은 이 버전의 가져오기 도구에서 지원되지 않을 수 있습니다. 업데이트를 고려해 보세요."
+
+#. translators: %s: export file
+#: include/nexter-template/importer/class.wordpress-importer.php:194
+msgid "The export file could not be found at <code>%s</code>. It is likely that this was caused by a permissions problem."
+msgstr "내보내기 파일을 <code>%s</code>에서 찾을 수 없습니다. 이는 권한 문제로 인해 발생했을 가능성이 높습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:173
+msgid "Remember to update the passwords and roles of imported users."
+msgstr "가져온 사용자의 비밀번호와 역할을 업데이트하는 것을 잊지 마세요."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:172
+msgid "Have fun!"
+msgstr "즐겁게 사용하세요!"
+
+#: include/nexter-template/importer/class.wordpress-importer.php:172
+msgid "All done."
+msgstr "모두 완료되었습니다."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:129
+msgid "The file does not exist, please try again."
+msgstr "파일이 존재하지 않습니다. 다시 시도해주세요."
+
+#: include/nexter-template/importer/class.wordpress-importer.php:128
+#: include/nexter-template/importer/class.wordpress-importer.php:137
+#: include/nexter-template/importer/class.wordpress-importer.php:188
+#: include/nexter-template/importer/class.wordpress-importer.php:192
+#: include/nexter-template/importer/class.wordpress-importer.php:202
+msgid "Sorry, there has been an error."
+msgstr "죄송합니다, 오류가 발생했습니다."
+
+#: include/custom-options/nexter-sections-settings.php:44
+msgid " Code"
+msgstr "코드"
+
+#: include/custom-options/nexter-sections-settings.php:41
+msgid "Code Type is : "
+msgstr "코드 유형은 : "
+
+#: include/custom-options/nexter-sections-settings.php:40
+msgid "Layout is : Code Snippet"
+msgstr "레이아웃은 : 코드 스니펫"
+
+#: include/custom-options/nexter-builder-condition.php:1486
+msgid "Specific Pages/Posts"
+msgstr "특정 페이지/게시물"
+
+#: include/custom-options/nexter-builder-condition.php:1473
+msgid "Select User Roles"
+msgstr "사용자 역할 선택"
+
+#: include/custom-options/nexter-builder-condition.php:1460
+msgid "Select Login Status"
+msgstr "로그인 상태 선택"
+
+#: include/custom-options/nexter-builder-condition.php:1447
+msgid "Select Browser"
+msgstr "브라우저 선택"
+
+#: include/custom-options/nexter-builder-condition.php:1434
+msgid "Select Operating System"
+msgstr "운영 체제 선택"
+
+#: include/custom-options/nexter-builder-condition.php:1421
+msgid "Select Days"
+msgstr "요일 선택"
+
+#: include/custom-options/nexter-builder-condition.php:1142
+msgid "Check this option to disable footer."
+msgstr "푸터를 비활성화하려면 이 옵션을 선택하세요."
+
+#: include/custom-options/nexter-builder-condition.php:1140
+msgid "Disable Footer"
+msgstr "푸터 비활성화"
+
+#: include/custom-options/nexter-builder-condition.php:1132
+msgid "Check this option to disable header."
+msgstr "헤더를 비활성화하려면 이 옵션을 선택하세요."
+
+#: include/custom-options/nexter-builder-condition.php:1130
+msgid "Disable Header"
+msgstr "헤더 비활성화"
+
+#: include/custom-options/nexter-builder-condition.php:1007
+msgid "Add Condition"
+msgstr "조건 추가"
+
+#: include/custom-options/nexter-builder-condition.php:872
+#: include/custom-options/nexter-builder-condition.php:1027
+msgid "Exclude"
+msgstr "제외"
+
+#: include/custom-options/nexter-builder-condition.php:871
+#: include/custom-options/nexter-builder-condition.php:1026
+msgid "Include"
+msgstr "포함"
+
+#: include/custom-options/nexter-builder-condition.php:836
+msgid "Preview ID"
+msgstr "미리보기 ID"
+
+#: include/custom-options/nexter-builder-condition.php:826
+msgid "Preview Type"
+msgstr "미리보기 유형"
+
+#: include/custom-options/nexter-builder-condition.php:689
+#: include/custom-options/nexter-builder-condition.php:793
+#: include/custom-options/nexter-builder-condition.php:1159
+msgid "Go Back"
+msgstr "뒤로 가기"
+
+#: include/custom-options/nexter-builder-condition.php:674
+msgid "Exclude From"
+msgstr "제외 대상"
+
+#: include/custom-options/nexter-builder-condition.php:668
+msgid "Include In"
+msgstr "포함 대상"
+
+#: include/custom-options/nexter-builder-condition.php:648
+#: include/custom-options/nexter-builder-condition.php:758
+#: include/custom-options/nexter-builder-condition.php:1110
+msgid "Select where you want to load the template"
+msgstr "템플릿을 불러올 위치를 선택하세요."
+
+#: include/custom-options/nexter-builder-condition.php:647
+#: include/custom-options/nexter-builder-condition.php:757
+#: include/custom-options/nexter-builder-condition.php:1109
+msgid "Set Display Conditions"
+msgstr "디스플레이 조건 설정"
+
+#: include/custom-options/nexter-builder-condition.php:608
+#: include/custom-options/nexter-builder-condition.php:739
+#: include/custom-options/nexter-builder-condition.php:1089
+#: assets/js/admin/index.js:1
+msgid "Create"
+msgstr "생성"
+
+#: include/custom-options/nexter-builder-condition.php:608
+#: include/custom-options/nexter-builder-condition.php:739
+#: include/custom-options/nexter-builder-condition.php:1089
+#: dashboard/build/index.js:1
+msgid "Save"
+msgstr "저장"
+
+#: include/custom-options/nexter-builder-condition.php:565
+#: include/custom-options/nexter-builder-condition.php:569
+#: dashboard/build/index.js:1
+msgid "Next"
+msgstr "다음"
+
+#: include/custom-options/nexter-builder-condition.php:560
+#: include/custom-options/nexter-builder-condition.php:683
+#: include/custom-options/nexter-builder-condition.php:784
+#: include/custom-options/nexter-builder-condition.php:1154
+#: include/panel-settings/extensions/custom-fields/nxt-rb-menu.php:104
+#: dashboard/build/index.js:1
+msgid "Read How it Works"
+msgstr "작동 방식을 읽어보세요"
+
+#: include/custom-options/nexter-builder-condition.php:553
+msgid "You can set your header effect from here or directly from your Navigation Menu block or widget."
+msgstr "여기에서 헤더 효과를 설정하거나 네비게이션 메뉴 블록 또는 위젯에서 바로 설정할 수 있습니다."
+
+#: include/custom-options/nexter-builder-condition.php:552
+msgid "Close Settings"
+msgstr "설정 닫기"
+
+#: include/custom-options/nexter-builder-condition.php:551
+msgid "Additional Settings"
+msgstr "추가 설정"
+
+#: include/custom-options/nexter-builder-condition.php:545
+msgid "10"
+msgstr "10"
+
+#: include/custom-options/nexter-builder-condition.php:544
+#: assets/js/admin/index.js:1
+msgid "Priority"
+msgstr "우선순위"
+
+#: include/custom-options/nexter-builder-condition.php:532
+msgid "Actions Hooks"
+msgstr "작업 후크"
+
+#: include/custom-options/nexter-builder-condition.php:509
+msgid "Footer Effects"
+msgstr "푸터 효과"
+
+#: include/custom-options/nexter-builder-condition.php:498
+msgid "Transparent Header"
+msgstr "투명 헤더"
+
+#: include/custom-options/nexter-builder-condition.php:482
+msgid "Enter Template Name"
+msgstr "템플릿 이름 입력"
+
+#: include/custom-options/nexter-builder-condition.php:481
+msgid "Name of Template"
+msgstr "템플릿 이름"
+
+#: include/custom-options/nexter-builder-condition.php:451
+msgid "Select Type"
+msgstr "유형 선택"
+
+#: include/custom-options/nexter-builder-condition.php:449
+msgid "Select Template"
+msgstr "템플릿 선택"
+
+#: include/custom-options/nexter-builder-condition.php:441
+msgid "Start by selecting the template type & post source."
+msgstr "템플릿 유형 및 게시물 소스를 선택하여 시작하세요."
+
+#: include/custom-options/nexter-builder-condition.php:440
+msgid "Create your New Templates"
+msgstr "새 템플릿을 생성하세요."
+
+#: include/custom-options/nexter-builder-condition.php:392
+msgid "Zoom Out Effect"
+msgstr "줌 아웃 효과"
+
+#: include/custom-options/nexter-builder-condition.php:391
+#: dashboard/build/index.js:1
+msgid "Fixed"
+msgstr "고정"
+
+#: include/custom-options/nexter-builder-condition.php:386
+msgid "Normal + Sticky"
+msgstr "일반 + 스티키"
+
+#: include/custom-options/nexter-builder-condition.php:385
+msgid "Sticky"
+msgstr "스티키"
+
+#: include/custom-options/nexter-builder-condition.php:384
+#: include/custom-options/nexter-builder-condition.php:390
+#: dashboard/build/index.js:1
+msgid "Normal"
+msgstr "일반"
+
+#: include/custom-options/nexter-builder-condition.php:363
+#: include/custom-options/nexter-builder-condition.php:599
+#: include/custom-options/nexter-builder-condition.php:732
+#: include/custom-options/nexter-builder-condition.php:1019
+#: include/custom-options/nexter-builder-condition.php:1080
+#: include/custom-options/nexter-builder-condition.php:1200
+#: include/panel-settings/extensions/nexter-ext-image-sizes.php:49
+#: include/panel-settings/extensions/nexter-ext-local-google-font.php:329
+#: include/panel-settings/extensions/nexter-ext-post-duplicator.php:192
+#: include/panel-settings/nexter-ext-panel-settings.php:930
+#: include/panel-settings/nexter-ext-panel-settings.php:947
+#: include/panel-settings/nexter-ext-panel-settings.php:1195
+#: include/panel-settings/nexter-ext-panel-settings.php:1299
+#: include/panel-settings/nexter-ext-panel-settings.php:1433
+msgid "Insufficient permissions."
+msgstr "권한이 부족합니다."
+
+#: include/custom-options/nexter-builder-condition.php:343
+msgid "Yes I want to leave"
+msgstr "네, 떠나고 싶습니다"
+
+#: include/custom-options/nexter-builder-condition.php:342
+msgid "Leaving the changes without saving the data cause unsaved material"
+msgstr "데이터를 저장하지 않고 변경 사항을 남기면 저장되지 않은 자료가 발생합니다"
+
+#: include/custom-options/nexter-builder-condition.php:341
+msgid "Are you sure?"
+msgstr "정말 확실합니까?"
+
+#: include/custom-options/nexter-builder-condition.php:53
+#: include/custom-options/nexter-builder-condition.php:200
+#: include/custom-options/nexter-builder-condition.php:311
+msgid "You do not have permission to perform this action"
+msgstr "이 작업을 수행할 권한이 없습니다"
+
+#: include/custom-options/nexter-builder-condition.php:50
+#: include/custom-options/nexter-builder-condition.php:197
+#: include/custom-options/nexter-builder-condition.php:308
+msgid "Nonce verification failed"
+msgstr "Nonce 검증에 실패했습니다"
+
+#: include/custom-options/module/nexter-display-singular-rules.php:216
+msgid "All "
+msgstr "전체"
+
+#: include/custom-options/module/nexter-display-singular-archives-rules.php:445
+msgid "Search Results"
+msgstr "검색 결과"
+
+#. translators: %s: By Author
+#: include/custom-options/module/nexter-display-singular-archives-rules.php:346
+msgid "%s : By Author"
+msgstr "%s : 작성자별"
+
+#. translators: %s: Taxonomy Label
+#. translators: %s: Taxonomy terms
+#: include/custom-options/module/nexter-display-archives-rules.php:567
+#: include/custom-options/module/nexter-display-singular-archives-rules.php:314
+msgid "%1$s : Child %2$s"
+msgstr "%1$s : 자식 %2$s"
+
+#. translators: %s: Taxonomy Label
+#: include/custom-options/module/nexter-display-singular-archives-rules.php:267
+msgid "%1$s : %2$s"
+msgstr "%1$s : %2$s"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:3481
+#: include/custom-options/nexter-builder-condition.php:1574
+msgid "---Select---"
+msgstr "---선택---"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1867
+#: include/custom-options/nexter-builder-condition.php:1401
+#: assets/js/admin/index.js:1
+msgid "Logged Out"
+msgstr "로그아웃됨"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1866
+#: include/custom-options/nexter-builder-condition.php:1400
+#: assets/js/admin/index.js:1
+msgid "Logged In"
+msgstr "로그인됨"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1860
+#: include/custom-options/nexter-builder-condition.php:1396
+#: assets/js/admin/index.js:1
+msgid "Opera"
+msgstr "오페라"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1859
+#: include/custom-options/nexter-builder-condition.php:1395
+#: assets/js/admin/index.js:1
+msgid "Opera Mini"
+msgstr "오페라 미니"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1858
+#: include/custom-options/nexter-builder-condition.php:1394
+#: assets/js/admin/index.js:1
+msgid "Google Chrome"
+msgstr "구글 크롬"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1857
+#: include/custom-options/nexter-builder-condition.php:1393
+#: assets/js/admin/index.js:1
+msgid "Mozilla Firefox"
+msgstr "모질라 파이어폭스"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1856
+#: include/custom-options/nexter-builder-condition.php:1392
+#: assets/js/admin/index.js:1
+msgid "Internet Explorer"
+msgstr "인터넷 익스플로러"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1851
+#: include/custom-options/nexter-builder-condition.php:1389
+#: assets/js/admin/index.js:1
+msgid "Search Bot"
+msgstr "검색 봇"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1850
+#: include/custom-options/nexter-builder-condition.php:1388
+#: assets/js/admin/index.js:1
+msgid "OS/2"
+msgstr "OS/2"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1849
+#: include/custom-options/nexter-builder-condition.php:1387
+#: assets/js/admin/index.js:1
+msgid "BeOS"
+msgstr "BeOS"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1848
+#: include/custom-options/nexter-builder-condition.php:1386
+#: assets/js/admin/index.js:1
+msgid "QNX"
+msgstr "QNX"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1847
+#: include/custom-options/nexter-builder-condition.php:1385
+#: assets/js/admin/index.js:1
+msgid "Mac OS"
+msgstr "Mac OS"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1846
+#: include/custom-options/module/nexter-display-conditional-rules.php:1861
+#: include/custom-options/nexter-builder-condition.php:1384
+#: include/custom-options/nexter-builder-condition.php:1397
+#: assets/js/admin/index.js:1
+msgid "Safari"
+msgstr "사파리"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1845
+#: include/custom-options/nexter-builder-condition.php:1383
+#: assets/js/admin/index.js:1
+msgid "Linux"
+msgstr "리눅스"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1844
+#: include/custom-options/nexter-builder-condition.php:1382
+#: assets/js/admin/index.js:1
+msgid "SunOS"
+msgstr "SunOS"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1843
+#: include/custom-options/nexter-builder-condition.php:1381
+#: assets/js/admin/index.js:1
+msgid "OpenBSD"
+msgstr "OpenBSD"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1842
+#: include/custom-options/nexter-builder-condition.php:1380
+#: assets/js/admin/index.js:1
+msgid "Windows"
+msgstr "윈도우즈"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1841
+#: assets/js/admin/index.js:1
+msgid "iPhone"
+msgstr "아이폰"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1836
+#: include/custom-options/nexter-builder-condition.php:1377
+#: assets/js/admin/index.js:1
+msgid "Sunday"
+msgstr "일요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1835
+#: include/custom-options/nexter-builder-condition.php:1376
+#: assets/js/admin/index.js:1
+msgid "Saturday"
+msgstr "토요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1834
+#: include/custom-options/nexter-builder-condition.php:1375
+#: assets/js/admin/index.js:1
+msgid "Friday"
+msgstr "금요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1833
+#: include/custom-options/nexter-builder-condition.php:1374
+#: assets/js/admin/index.js:1
+msgid "Thursday"
+msgstr "목요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1832
+#: include/custom-options/nexter-builder-condition.php:1373
+#: assets/js/admin/index.js:1
+msgid "Wednesday"
+msgstr "수요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1831
+#: include/custom-options/nexter-builder-condition.php:1372
+#: assets/js/admin/index.js:1
+msgid "Tuesday"
+msgstr "화요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1830
+#: include/custom-options/nexter-builder-condition.php:1371
+#: assets/js/admin/index.js:1
+msgid "Monday"
+msgstr "월요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1775
+msgid "All singulars  "
+msgstr "모든 단수"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:1770
+msgid " archive page"
+msgstr "아카이브 페이지"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:857
+msgid "After Cart"
+msgstr "장바구니 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:856
+msgid "After Cart Totals"
+msgstr "장바구니 총계 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:855
+msgid "Proceed To Checkout"
+msgstr "결제 진행하기"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:854
+msgid "Cart Totals After Order Total"
+msgstr "주문 총계 후의 장바구니 총계"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:853
+msgid "Cart Totals Before Order Total"
+msgstr "주문 총계 전의 장바구니 총계"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:852
+msgid "Cart Totals After Shipping"
+msgstr "배송 후의 장바구니 총계"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:851
+msgid "After Shipping Calculator"
+msgstr "배송 계산기 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:850
+msgid "Before Shipping Calculator"
+msgstr "배송 계산기 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:849
+msgid "Cart Totals Before Shipping"
+msgstr "배송 전의 장바구니 총계"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:848
+msgid "Before Cart Totals"
+msgstr "장바구니 총계 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:847
+msgid "Cart Collaterals"
+msgstr "장바구니 부가 정보"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:846
+msgid "After Cart Table"
+msgstr "장바구니 테이블 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:845
+msgid "After Cart Contents"
+msgstr "장바구니 내용 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:844
+msgid "Cart Coupon"
+msgstr "장바구니 쿠폰"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:843
+msgid "Cart Contents"
+msgstr "장바구니 내용"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:842
+msgid "Before Cart Contents"
+msgstr "장바구니 내용 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:841
+msgid "Before Cart Table"
+msgstr "장바구니 테이블 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:840
+msgid "Before Cart"
+msgstr "장바구니 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:837
+#: assets/js/admin/index.js:1
+msgid "After Checkout Form"
+msgstr "체크아웃 양식 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:836
+msgid "Checkout After Order Review"
+msgstr "주문 검토 후 체크아웃"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:835
+msgid "Review Order After Payment"
+msgstr "결제 후 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:834
+msgid "Review Order After Submit"
+msgstr "제출 후 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:833
+msgid "Review Order Before Submit"
+msgstr "제출 이전 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:832
+msgid "Review Order Before Payment"
+msgstr "결제 이전 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:831
+msgid "Review Order After Order Total"
+msgstr "주문 합계 후 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:830
+msgid "Review Order Before Order Total"
+msgstr "주문 합계 이전 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:829
+msgid "Review Order After Shipping"
+msgstr "배송 후 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:828
+msgid "Review Order Before Shipping"
+msgstr "배송 이전 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:827
+msgid "Review Order After Cart Contents"
+msgstr "장바구니 내용 후 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:826
+msgid "Review Order Before Cart Contents"
+msgstr "장바구니 내용 이전 주문 검토"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:825
+msgid "Checkout Before Order Review"
+msgstr "주문 검토 이전 체크아웃"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:824
+msgid "Checkout After Customer Details"
+msgstr "고객 정보 후 체크아웃"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:823
+msgid "After Order Notes"
+msgstr "주문 메모 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:822
+msgid "Before Order Notes"
+msgstr "주문 메모 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:821
+msgid "After Checkout Shipping Form"
+msgstr "체크아웃 배송 양식 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:820
+msgid "Before Checkout Shipping Form"
+msgstr "체크아웃 배송 양식 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:819
+msgid "After Checkout Billing Form"
+msgstr "체크아웃 결제 양식 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:818
+msgid "Before Checkout Billing Form"
+msgstr "체크아웃 결제 폼 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:817
+msgid "Checkout Before Customer Details"
+msgstr "체크아웃 전 고객 세부 정보"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:816
+#: assets/js/admin/index.js:1
+msgid "Before Checkout Form"
+msgstr "체크아웃 폼 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:814
+msgid "After Edit Account Form"
+msgstr "계정 수정 폼 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:813
+msgid "Edit Account Form End"
+msgstr "계정 수정 폼 끝"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:812
+msgid "Edit Account Form"
+msgstr "계정 수정 폼"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:811
+msgid "Edit Account Form Start"
+msgstr "계정 수정 폼 시작"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:810
+msgid "Before Edit Account Form"
+msgstr "계정 수정 폼 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:809
+msgid "After Edit Account Address form"
+msgstr "계정 수정 주소 폼 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:808
+msgid "Before Edit Account Address Form"
+msgstr "계정 수정 주소 폼 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:807
+msgid "Account Content"
+msgstr "계정 내용"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:806
+msgid "After Account Downloads"
+msgstr "계정 다운로드 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:805
+msgid "After Available Downloads"
+msgstr "사용 가능한 다운로드 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:804
+msgid "Before Available Downloads"
+msgstr "사용 가능한 다운로드 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:803
+msgid "Before Account Orders Pagination"
+msgstr "계정 주문 페이지네이션 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:802
+msgid "Account Dashboard"
+msgstr "계정 대시보드"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:801
+msgid "After Account Navigation"
+msgstr "계정 내비게이션 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:800
+msgid "Before Account Navigation"
+msgstr "계정 내비게이션 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:799
+msgid "Account Navigation"
+msgstr "계정 내비게이션"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:795
+msgid "After Main Content"
+msgstr "메인 콘텐츠 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:794
+msgid "After Shop Loop"
+msgstr "쇼핑 루프 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:793
+msgid "After Shop Loop Item"
+msgstr "쇼핑 루프 항목 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:792
+msgid "After Shop Loop Item Title"
+msgstr "쇼핑 루프 항목 제목 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:791
+msgid "Shop Loop Item Title"
+msgstr "쇼핑 루프 항목 제목"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:790
+msgid "Before Shop Loop Item Title"
+msgstr "쇼핑 루프 항목 제목 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:789
+msgid "Before Shop Loop Item"
+msgstr "샵 루프 아이템 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:788
+msgid "Before Shop Loop"
+msgstr "샵 루프 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:787
+msgid "Archive Description"
+msgstr "아카이브 설명"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:786
+msgid "Before Main Content"
+msgstr "주요 콘텐츠 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:783
+#: assets/js/admin/index.js:1
+msgid "After Single Product"
+msgstr "단일 상품 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:782
+msgid "After Single Product Summary"
+msgstr "단일 상품 요약 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:781
+msgid "WooCommerce Share"
+msgstr "우커머스 공유"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:780
+msgid "Product Meta End"
+msgstr "상품 메타 종료"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:778
+msgid "Product Meta Start"
+msgstr "상품 메타 시작"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:777
+msgid "After Add To Cart Form"
+msgstr "장바구니 추가 폼 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:776
+msgid "After Variation Form"
+msgstr "변형 폼 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:775
+msgid "After Add To Cart Button"
+msgstr "장바구니 추가 버튼 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:774
+msgid "After Single Variation"
+msgstr "단일 변형 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:773
+msgid "After Add To Cart"
+msgstr "장바구니 추가 후"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:772
+msgid "Before Add To Cart"
+msgstr "장바구니 추가 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:771
+msgid "Single Variation"
+msgstr "단일 변형"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:770
+msgid "Before Single Variation"
+msgstr "단일 변형 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:769
+msgid "Before Add To Cart Button"
+msgstr "장바구니 추가 버튼 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:768
+msgid "Before Variations Form"
+msgstr "변형 폼 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:766
+msgid "Before Add To Cart Form"
+msgstr "장바구니 추가 폼 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:765
+msgid "Single Product Summary"
+msgstr "단일 상품 요약"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:764
+msgid "Before Single Product Summary"
+msgstr "단일 상품 요약 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:763
+#: assets/js/admin/index.js:1
+msgid "Before Single Product"
+msgstr "단일 상품 전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:584
+#: include/custom-options/module/nexter-display-conditional-rules.php:678
+#: include/custom-options/module/nexter-display-conditional-rules.php:729
+#: include/custom-options/module/nexter-display-conditional-rules.php:754
+msgid "Body Bottom"
+msgstr "본문 하단"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:573
+#: include/custom-options/module/nexter-display-conditional-rules.php:655
+#: include/custom-options/module/nexter-display-conditional-rules.php:709
+#: include/custom-options/module/nexter-display-conditional-rules.php:739
+msgid "Body Top"
+msgstr "본문 상단"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:570
+#: include/custom-options/module/nexter-display-conditional-rules.php:684
+#: include/custom-options/module/nexter-display-conditional-rules.php:706
+#: include/custom-options/module/nexter-display-conditional-rules.php:736
+msgid "Head Bottom"
+msgstr "헤드 하단"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:569
+#: include/custom-options/module/nexter-display-conditional-rules.php:683
+#: include/custom-options/module/nexter-display-conditional-rules.php:705
+#: include/custom-options/module/nexter-display-conditional-rules.php:735
+msgid "Head Top"
+msgstr "헤드 상단"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:568
+#: include/custom-options/module/nexter-display-conditional-rules.php:704
+#: include/custom-options/module/nexter-display-conditional-rules.php:734
+msgid "Html Before"
+msgstr "HTML 이전"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:564
+#: include/custom-options/module/nexter-display-conditional-rules.php:585
+#: include/custom-options/module/nexter-display-conditional-rules.php:613
+#: include/custom-options/module/nexter-display-conditional-rules.php:650
+#: include/custom-options/module/nexter-display-conditional-rules.php:679
+#: include/custom-options/module/nexter-display-conditional-rules.php:700
+#: include/custom-options/module/nexter-display-conditional-rules.php:730
+#: include/custom-options/module/nexter-display-conditional-rules.php:755
+msgid "Wp Footer"
+msgstr "WP 바닥글"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:563
+#: include/custom-options/module/nexter-display-conditional-rules.php:571
+#: include/custom-options/module/nexter-display-conditional-rules.php:589
+#: include/custom-options/module/nexter-display-conditional-rules.php:617
+#: include/custom-options/module/nexter-display-conditional-rules.php:654
+#: include/custom-options/module/nexter-display-conditional-rules.php:685
+#: include/custom-options/module/nexter-display-conditional-rules.php:707
+#: include/custom-options/module/nexter-display-conditional-rules.php:737
+msgid "Wp Head"
+msgstr "WP 헤드"
+
+#. translators: %s: Archive Post Label
+#. translators: %s: Taxonomy Label
+#: include/custom-options/module/nexter-display-conditional-rules.php:251
+#: include/custom-options/module/nexter-display-conditional-rules.php:258
+#: include/custom-options/nexter-builder-condition.php:1250
+#: include/custom-options/nexter-builder-condition.php:1257
+msgid "All %s Archive"
+msgstr "모든 %s 아카이브"
+
+#. translators: %s: Post Label
+#: include/custom-options/module/nexter-display-conditional-rules.php:247
+#: include/custom-options/nexter-builder-condition.php:1246
+msgid "All %s"
+msgstr "모든 %s"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:225
+#: include/custom-options/nexter-builder-condition.php:1302
+msgid "Particular Posts / Pages / Taxonomies, etc."
+msgstr "특정 게시물 / 페이지 / 분류 등"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:223
+msgid "Particular Posts/Pages/Taxonomies"
+msgstr "특정 게시물/페이지/분류"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:179
+#: include/custom-options/nexter-builder-condition.php:1298
+msgid "User Roles"
+msgstr "사용자 역할"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:178
+#: include/custom-options/nexter-builder-condition.php:1297
+msgid "Login Status"
+msgstr "로그인 상태"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:177
+#: include/custom-options/nexter-builder-condition.php:1296
+msgid "Browser"
+msgstr "브라우저"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:176
+#: include/custom-options/nexter-builder-condition.php:1295
+msgid "Operating System"
+msgstr "운영 체제"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:174
+msgid "Visitors Source"
+msgstr "방문자 출처"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:170
+#: include/custom-options/nexter-builder-condition.php:1291
+msgid "Day of Week"
+msgstr "요일"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:168
+msgid "Date & Time"
+msgstr "날짜 및 시간"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:164
+msgid "Default Pages"
+msgstr "기본 페이지"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:158
+#: include/custom-options/nexter-builder-condition.php:1287
+msgid "WooCommerce Shop Page"
+msgstr "WooCommerce 상점 페이지"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:153
+#: include/custom-options/nexter-builder-condition.php:1283
+#: assets/js/admin/index.js:1
+msgid "Search Page"
+msgstr "검색 페이지"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:152
+#: include/custom-options/module/nexter-display-singular-archives-rules.php:380
+#: include/custom-options/nexter-builder-condition.php:1282
+msgid "Author Archive"
+msgstr "작성자 아카이브"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:151
+#: include/custom-options/module/nexter-display-singular-archives-rules.php:413
+#: include/custom-options/nexter-builder-condition.php:1281
+#: assets/js/admin/index.js:1
+msgid "Date Archive"
+msgstr "날짜 아카이브"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:150
+#: include/custom-options/nexter-builder-condition.php:1280
+msgid "Blog / Posts Page"
+msgstr "블로그 / 게시물 페이지"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:149
+#: include/custom-options/module/nexter-display-singular-rules.php:206
+#: include/custom-options/module/nexter-display-singular-rules.php:207
+#: include/custom-options/module/nexter-display-singular-rules.php:310
+#: include/custom-options/nexter-builder-condition.php:1279
+#: assets/js/admin/index.js:1
+msgid "Front Page"
+msgstr "프론트 페이지"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:142
+#: include/custom-options/nexter-builder-condition.php:1274
+msgid "All Singulars"
+msgstr "모든 단일 항목"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:141
+#: include/custom-options/nexter-builder-condition.php:1273
+#: assets/js/admin/index.js:1
+msgid "Entire Website"
+msgstr "전체 웹사이트"
+
+#: include/custom-options/module/nexter-display-conditional-rules.php:139
+msgid "Standard"
+msgstr "표준"
+
+#. translators: %s: Taxonomy Label
+#: include/custom-options/module/nexter-display-archives-rules.php:532
+msgid "%1$s : First Child %2$s"
+msgstr "%1$s : 첫 번째 하위 항목 %2$s"
+
+#. translators: %s: Archive
+#: include/custom-options/module/nexter-display-archives-rules.php:413
+msgid "Default %s Archive"
+msgstr "기본 %s 아카이브"
+
+#: include/custom-options/module/nexter-display-archives-rules.php:363
+#: include/custom-options/module/nexter-display-conditional-rules.php:143
+#: include/custom-options/nexter-builder-condition.php:1275
+msgid "All Archives"
+msgstr "모든 아카이브"
+
+#: include/custom-options/module/nexter-display-archives-rules.php:111
+#: include/custom-options/module/nexter-display-singular-archives-rules.php:60
+msgid "Empty Data"
+msgstr "데이터 없음"
+
+#: include/classes/third-party/documents/class-nxt-builder-ele-document-singular.php:21
+msgid "Nexter Singular Template"
+msgstr "Nexter 단일 템플릿"
+
+#: include/classes/third-party/documents/class-nxt-builder-ele-document-archives.php:21
+msgid "Nexter Archives Template"
+msgstr "Nexter 아카이브 템플릿"
+
+#: include/classes/third-party/class-nexter-builder-documents.php:114
+#: include/custom-options/nexter-builder-condition.php:379
+msgid "Archives"
+msgstr "아카이브"
+
+#: include/classes/load-sections/nexter-sections-loader.php:195
+#: include/classes/third-party/class-nexter-builder-documents.php:108
+#: include/custom-options/nexter-builder-condition.php:378
+#: assets/js/admin/index.js:1
+msgid "Singular"
+msgstr "단일"
+
+#: include/classes/third-party/class-beaver-build-theme.php:123
+#: include/custom-options/module/nexter-display-conditional-rules.php:747
+msgid "Comments After"
+msgstr "댓글 후"
+
+#: include/classes/third-party/class-beaver-build-theme.php:122
+#: include/custom-options/module/nexter-display-conditional-rules.php:722
+#: include/custom-options/module/nexter-display-conditional-rules.php:746
+msgid "Comments Before"
+msgstr "댓글 전"
+
+#: include/classes/third-party/class-beaver-build-theme.php:120
+#: assets/js/admin/index.js:1
+msgid "Posts"
+msgstr "게시물"
+
+#: include/classes/third-party/class-beaver-build-theme.php:116
+#: include/custom-options/module/nexter-display-conditional-rules.php:583
+#: include/custom-options/module/nexter-display-conditional-rules.php:612
+#: include/custom-options/module/nexter-display-conditional-rules.php:636
+#: include/custom-options/module/nexter-display-conditional-rules.php:677
+#: include/custom-options/module/nexter-display-conditional-rules.php:699
+#: include/custom-options/module/nexter-display-conditional-rules.php:728
+#: include/custom-options/module/nexter-display-conditional-rules.php:753
+msgid "Footer After"
+msgstr "푸터 후"
+
+#: include/classes/third-party/class-beaver-build-theme.php:115
+#: include/custom-options/module/nexter-display-conditional-rules.php:582
+#: include/custom-options/module/nexter-display-conditional-rules.php:607
+#: include/custom-options/module/nexter-display-conditional-rules.php:633
+#: include/custom-options/module/nexter-display-conditional-rules.php:676
+#: include/custom-options/module/nexter-display-conditional-rules.php:698
+#: include/custom-options/module/nexter-display-conditional-rules.php:727
+#: include/custom-options/module/nexter-display-conditional-rules.php:752
+msgid "Footer Before"
+msgstr "푸터 전"
+
+#: include/classes/third-party/class-beaver-build-theme.php:109
+#: include/custom-options/module/nexter-display-conditional-rules.php:696
+#: include/custom-options/module/nexter-display-conditional-rules.php:750
+msgid "Sidebar After"
+msgstr "사이드바 후"
+
+#: include/classes/third-party/class-beaver-build-theme.php:108
+#: include/custom-options/module/nexter-display-conditional-rules.php:641
+#: include/custom-options/module/nexter-display-conditional-rules.php:695
+#: include/custom-options/module/nexter-display-conditional-rules.php:749
+msgid "Sidebar Before"
+msgstr "사이드바 전"
+
+#: include/classes/third-party/class-beaver-build-theme.php:106
+#: include/custom-options/module/nexter-display-conditional-rules.php:725
+msgid "Sidebar"
+msgstr "사이드바"
+
+#: include/classes/third-party/class-beaver-build-theme.php:95
+#: include/classes/third-party/class-beaver-build-theme.php:102
+#: include/custom-options/module/nexter-display-conditional-rules.php:579
+#: include/custom-options/module/nexter-display-conditional-rules.php:692
+#: include/custom-options/module/nexter-display-conditional-rules.php:744
+msgid "Content Bottom"
+msgstr "콘텐츠 하단"
+
+#: include/classes/third-party/class-beaver-build-theme.php:94
+#: include/classes/third-party/class-beaver-build-theme.php:101
+#: include/custom-options/module/nexter-display-conditional-rules.php:578
+#: include/custom-options/module/nexter-display-conditional-rules.php:691
+#: include/custom-options/module/nexter-display-conditional-rules.php:743
+msgid "Content Top"
+msgstr "콘텐츠 상단"
+
+#: include/classes/third-party/class-beaver-build-theme.php:92
+#: include/classes/third-party/class-beaver-build-theme.php:99
+msgid "Content"
+msgstr "콘텐츠"
+
+#: include/classes/third-party/class-beaver-build-theme.php:88
+#: include/custom-options/module/nexter-display-conditional-rules.php:575
+#: include/custom-options/module/nexter-display-conditional-rules.php:591
+#: include/custom-options/module/nexter-display-conditional-rules.php:657
+#: include/custom-options/module/nexter-display-conditional-rules.php:688
+#: include/custom-options/module/nexter-display-conditional-rules.php:712
+#: include/custom-options/module/nexter-display-conditional-rules.php:741
+msgid "Header After"
+msgstr "헤더 후"
+
+#: include/classes/third-party/class-beaver-build-theme.php:87
+#: include/custom-options/module/nexter-display-conditional-rules.php:574
+#: include/custom-options/module/nexter-display-conditional-rules.php:590
+#: include/custom-options/module/nexter-display-conditional-rules.php:656
+#: include/custom-options/module/nexter-display-conditional-rules.php:687
+#: include/custom-options/module/nexter-display-conditional-rules.php:711
+#: include/custom-options/module/nexter-display-conditional-rules.php:740
+msgid "Header Before"
+msgstr "헤더 전"
+
+#: include/classes/third-party/class-beaver-build-theme.php:81
+msgid "After Page"
+msgstr "페이지 후"
+
+#: include/classes/third-party/class-beaver-build-theme.php:80
+msgid "Before Page"
+msgstr "페이지 전"
+
+#: include/classes/third-party/class-beaver-build-theme.php:78
+msgid "Page"
+msgstr "페이지"
+
+#: include/classes/nexter-class-load.php:119
+msgid "Template List"
+msgstr "템플릿 목록"
+
+#: include/classes/load-sections/nexter-sections-loader.php:444
+msgid "Specific"
+msgstr "특정"
+
+#: include/classes/load-sections/nexter-sections-loader.php:399
+msgid "Exclusion :"
+msgstr "제외 :"
+
+#: include/classes/load-sections/nexter-sections-loader.php:312
+msgid "Actions : "
+msgstr "동작 :"
+
+#: include/classes/load-sections/nexter-sections-loader.php:305
+msgid "Hooks : "
+msgstr "후크 :"
+
+#: include/classes/load-sections/nexter-sections-loader.php:290
+msgid "Type :"
+msgstr "유형 :"
+
+#: include/classes/load-sections/nexter-sections-loader.php:282
+#: include/classes/load-sections/nexter-sections-loader.php:286
+msgid "Rule :"
+msgstr "규칙 :"
+
+#: include/classes/load-sections/nexter-sections-loader.php:279
+#: include/classes/load-sections/nexter-sections-loader.php:391
+msgid "Display :"
+msgstr "표시 :"
+
+#: include/classes/load-sections/nexter-sections-loader.php:184
+#: include/classes/load-sections/nexter-sections-loader.php:203
+#: include/classes/load-sections/nexter-sections-loader.php:225
+#: include/classes/load-sections/nexter-sections-loader.php:315
+#: include/classes/load-sections/nexter-sections-loader.php:318
+#: include/classes/load-sections/nexter-sections-loader.php:332
+#: include/classes/load-sections/nexter-sections-loader.php:356
+#: include/panel-settings/nexter-ext-panel-settings.php:1315
+#: dashboard/build/index.js:1
+msgid "None"
+msgstr "없음"
+
+#: include/classes/load-sections/nexter-sections-loader.php:181
+msgid "Snippet : "
+msgstr "스니펫 :"
+
+#: include/classes/load-sections/nexter-sections-loader.php:199
+#: include/custom-options/module/nexter-display-conditional-rules.php:154
+#: include/custom-options/nexter-builder-condition.php:380
+#: include/custom-options/nexter-builder-condition.php:1284
+#: assets/js/admin/index.js:1 dashboard/build/index.js:1
+msgid "404 Page"
+msgstr "404 페이지"
+
+#: include/classes/load-sections/nexter-sections-loader.php:154
+#: assets/js/admin/index.js:1
+msgid "Status"
+msgstr "상태"
+
+#: include/classes/load-sections/nexter-sections-loader.php:153
+#: assets/js/admin/index.js:1
+msgid "Author"
+msgstr "작성자"
+
+#: include/classes/load-sections/nexter-sections-loader.php:152
+msgid "Date"
+msgstr "날짜"
+
+#: include/classes/load-sections/nexter-sections-loader.php:151
+msgid "Conditions"
+msgstr "조건"
+
+#: include/classes/load-sections/nexter-sections-loader.php:150
+#: include/custom-options/nexter-builder-condition.php:487
+#: assets/js/admin/index.js:1 dashboard/build/index.js:1
+msgid "Type"
+msgstr "유형"
+
+#: include/classes/load-sections/nexter-sections-loader.php:123
+msgid "404"
+msgstr "404"
+
+#: include/classes/load-sections/nexter-sections-loader.php:122
+#: include/classes/load-sections/nexter-sections-loader.php:197
+#: assets/js/admin/index.js:1
+msgid "Archive"
+msgstr "아카이브"
+
+#: include/classes/load-sections/nexter-sections-loader.php:121
+msgid "Single"
+msgstr "단일"
+
+#: include/classes/load-sections/nexter-sections-loader.php:120
+#: include/classes/load-sections/nexter-sections-loader.php:193
+#: include/custom-options/nexter-builder-condition.php:374
+msgid "Hooks"
+msgstr "후크"
+
+#: include/classes/load-sections/nexter-sections-loader.php:119
+#: include/classes/load-sections/nexter-sections-loader.php:191
+#: include/custom-options/nexter-builder-condition.php:373
+msgid "Breadcrumb"
+msgstr "내비게이션 경로"
+
+#: include/classes/load-sections/nexter-sections-loader.php:118
+#: include/classes/load-sections/nexter-sections-loader.php:189
+#: include/classes/third-party/class-beaver-build-theme.php:113
+#: include/custom-options/nexter-builder-condition.php:372
+#: dashboard/build/index.js:1
+msgid "Footer"
+msgstr "바닥글"
+
+#: include/classes/load-sections/nexter-sections-loader.php:117
+#: include/classes/load-sections/nexter-sections-loader.php:187
+#: include/classes/third-party/class-beaver-build-theme.php:85
+#: include/custom-options/nexter-builder-condition.php:371
+msgid "Header"
+msgstr "머리글"
+
+#: include/classes/load-sections/nexter-sections-loader.php:116
+#: include/custom-options/nexter-builder-condition.php:375
+msgid "Sections"
+msgstr "섹션"
+
+#: include/classes/load-sections/nexter-sections-loader.php:113
+#: include/classes/load-sections/nexter-sections-loader.php:252
+#: include/classes/load-sections/nexter-sections-loader.php:285
+#: include/custom-options/module/nexter-display-archives-rules.php:62
+#: include/custom-options/module/nexter-display-archives-rules.php:306
+#: include/custom-options/module/nexter-display-archives-rules.php:315
+#: include/custom-options/module/nexter-display-archives-rules.php:342
+#: include/custom-options/module/nexter-display-archives-rules.php:346
+#: include/custom-options/module/nexter-display-singular-rules.php:91
+#: include/custom-options/nexter-builder-condition.php:931
+#: include/custom-options/nexter-builder-condition.php:996
+#: include/custom-options/nexter-builder-condition.php:1044
+#: include/custom-options/nexter-builder-condition.php:1056
+#: include/custom-options/nexter-builder-condition.php:1636
+#: include/custom-options/nexter-builder-condition.php:1645
+#: include/custom-options/nexter-builder-condition.php:1668
+#: include/custom-options/nexter-builder-condition.php:1672
+msgid "All"
+msgstr "전체"
+
+#: include/classes/load-code-snippet/nexter-php-snippet-validator-loopback.php:102
+msgid "Something went wrong."
+msgstr "문제가 발생했습니다."
+
+#: include/classes/load-code-snippet/nexter-php-snippet-validator-loopback.php:87
+msgid "Unable to communicate back with site to check for fatal errors, so the PHP change was reverted. You will need to upload your PHP file change by some other means, such as by using SFTP."
+msgstr "치명적인 오류를 확인하기 위해 사이트와 통신할 수 없어 PHP 변경 사항이 원래대로 되돌려졌습니다. SFTP와 같은 다른 방법을 사용하여 PHP 파일 변경 사항을 업로드해야 합니다."
+
+#: include/classes/load-code-snippet/nexter-php-snippet-validator-loopback.php:34
+msgid "Undefined Content ID"
+msgstr "정의되지 않은 콘텐츠 ID"
+
+#: include/classes/load-code-snippet/nexter-php-snippet-validator-loopback.php:26
+#: include/panel-settings/extensions/nexter-ext-replace-url.php:52
+#: include/panel-settings/extensions/nexter-ext-replace-url.php:102
+msgid "Only Admin can run this."
+msgstr "관리자만 실행할 수 있습니다."
+
+#: include/classes/load-code-snippet/nexter-code-snippet-render.php:350
+msgid "Failed to load HTML. Check syntax."
+msgstr "HTML 로드에 실패했습니다. 구문을 확인하십시오."
+
+#: include/class-nexter-load-ext.php:180
+msgid "Rate Plugin"
+msgstr "플러그인 평가"
+
+#: include/class-nexter-load-ext.php:179 dashboard/build/index.js:1
+msgid "Request Feature"
+msgstr "기능 요청"
+
+#: include/class-nexter-load-ext.php:178 dashboard/build/index.js:1
+msgid "What's New?"
+msgstr "새로운 기능"
+
+#: include/class-nexter-load-ext.php:177 dashboard/build/index.js:1
+msgid "Join Community"
+msgstr "커뮤니티 참여"
+
+#: include/class-nexter-load-ext.php:176
+msgid "Docs"
+msgstr "문서"
+
+#: include/class-nexter-load-ext.php:175
+msgid "Official Site"
+msgstr "공식 사이트"
+
+#: include/class-nexter-load-ext.php:158 assets/js/admin/index.js:1
+msgid "Upgrade PRO"
+msgstr "PRO 업그레이드"
+
+#: include/class-nexter-load-ext.php:150 dashboard/build/index.js:1
+msgid "Need Help?"
+msgstr "도움이 필요하신가요?"
+
+#: include/class-nexter-load-ext.php:146
+msgid "Settings"
+msgstr "설정"
+
+#. Author URI of the plugin
+#: nexter-extension.php
+msgid "https://posimyth.com"
+msgstr "https://posimyth.com"
+
+#. Author of the plugin
+#: nexter-extension.php
+msgid "POSIMYTH"
+msgstr "POSIMYTH"
+
+#. Description of the plugin
+#: nexter-extension.php
+msgid "Extension for Nexter Theme to unlock all FREE features. Keep this active to use access its all features"
+msgstr "Nexter 테마의 모든 무료 기능을 잠금 해제하기 위한 확장 프로그램입니다. 모든 기능에 접근하려면 이 기능을 활성 상태로 유지하세요."
+
+#. Plugin URI of the plugin
+#: nexter-extension.php
+msgid "https://nexterwp.com"
+msgstr "https://nexterwp.com"
+
+#. Plugin Name of the plugin
+#: nexter-extension.php
+#: include/panel-settings/nexter-ext-panel-settings.php:664
+#: include/panel-settings/nexter-ext-panel-settings.php:667
+#: include/rollback.php:204
+msgid "Nexter Extension"
+msgstr "Nexter 확장 프로그램"

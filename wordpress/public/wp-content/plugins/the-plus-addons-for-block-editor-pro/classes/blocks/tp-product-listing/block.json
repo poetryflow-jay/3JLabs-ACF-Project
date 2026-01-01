@@ -1,0 +1,2167 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "tpgb/tp-product-listing",
+    "version": "0.1.0",
+    "title": "Product listing",
+    "category": "tpgb",
+    "description": "List your Store Products on your website with intuitive design",
+    "example": {
+        "attributes": {}
+    },
+    "supports": {
+        "align": ["wide", "full"]
+    },
+    "textdomain": "tpgb",
+    "attributes": {
+        "block_id": {
+            "type": "string",
+            "default": ""
+        },
+        "PlType": {
+            "type": "string",
+            "default": "page_listing"
+        },
+        "RPlType": {
+            "type": "string",
+            "default": "both"
+        },
+        "style": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "layout": {
+            "type": "string",
+            "default": "grid"
+        },
+        "postCategory": {
+            "type": "string",
+            "default": "[]"
+        },
+        "proTag": {
+            "type": "string",
+            "default": "[]"
+        },
+        "IPs": {
+            "type": "string",
+            "default": ""
+        },
+        "EPs": {
+            "type": "string",
+            "default": ""
+        },
+        "MaxPd": {
+            "type": "string",
+            "default": 8
+        },
+        "offsetP": {
+            "type": "string",
+            "default": 0
+        },
+        "orderBy": {
+            "type": "string",
+            "default": "date"
+        },
+        "order": {
+            "type": "string",
+            "default": "desc"
+        },
+        "DisPr": {
+            "type": "string",
+            "default": "all"
+        },
+        "columns": {
+            "type": "object",
+            "default": {
+                "md": 3,
+                "sm": 4,
+                "xs": 6
+            }
+        },
+        "columnSpace": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": 15,
+                    "right": 15,
+                    "bottom": 15,
+                    "left": 15
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .grid-item{padding:{{columnSpace}};}"
+                }
+            ]
+        },
+        "metrocolumns": {
+            "type": "object",
+            "default": {
+                "md": 3,
+                "sm": 3,
+                "xs": 3
+            }
+        },
+        "metroStyle": {
+            "type": "object",
+            "default": {
+                "md": "style-1",
+                "sm": "style-1",
+                "xs": "style-1"
+            }
+        },
+        "metroCustom": {
+            "type": "string",
+            "default": ""
+        },
+        "ShowFilter": {
+            "type": "boolean",
+            "default": false
+        },
+        "filterBy": {
+            "type": "string",
+            "default": "category"
+        },
+        "ShowallFilter": {
+            "type": "boolean",
+            "default": true
+        },
+        "TextCat": {
+            "type": "string",
+            "default": "All"
+        },
+        "filterStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "filterHvrStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "CatName": {
+            "type": "string",
+            "default": "Filters"
+        },
+        "filterAlignment": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": ".tpgb-category-filter .tpgb-filter-data{text-align:{{filterAlignment}};}"
+                }
+            ]
+        },
+        "TitleTag": {
+            "type": "string",
+            "default": "h3"
+        },
+        "VPPrice": {
+            "type": "boolean",
+            "default": false
+        },
+        "OnHImgCng": {
+            "type": "boolean",
+            "default": true
+        },
+        "DisCtg": {
+            "type": "boolean",
+            "default": false
+        },
+        "DisRtg": {
+            "type": "boolean",
+            "default": false
+        },
+        "CBDis": {
+            "type": "boolean",
+            "default": true
+        },
+        "AddTCText": {
+            "type": "string",
+            "default": "Add to cart"
+        },
+        "SOptext": {
+            "type": "string",
+            "default": "Select Options"
+        },
+        "Compare": {
+            "type": "boolean",
+            "default": false
+        },
+        "Wishlist": {
+            "type": "boolean",
+            "default": false
+        },
+        "QuickView": {
+            "type": "boolean",
+            "default": false
+        },
+        "DisImgSize": {
+            "type": "boolean",
+            "default": false
+        },
+        "ImageSize": {
+            "type": "string",
+            "default": "full"
+        },
+        "postLodop": {
+            "type": "string",
+            "default": "none"
+        },
+        "postview": {
+            "type": "number",
+            "default": 3
+        },
+        "pagiOpt": {
+            "type": "string",
+            "default": ""
+        },
+        "loadbtnText": {
+            "type": "string",
+            "default": "Load More"
+        },
+        "loadingtxt": {
+            "type": "string",
+            "default": "Loading..."
+        },
+        "allposttext": {
+            "type": "string",
+            "default": "All Done"
+        },
+        "TitleTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .post-title,{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .post-title a"
+                }
+            ],
+            "scopy": true
+        },
+        "TitleNCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .post-title,{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .post-title a{color:{{TitleNCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "TitleHCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .product-list-content:hover .post-title,{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .product-list-content:hover .post-title a{color:{{TitleHCr}};}"
+                }
+            ]
+        },
+        "TitleNBgCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-3 .post-title{background:{{TitleNBgCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "TitleHBgCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-3 .product-list-content:hover .post-title{background:{{TitleHBgCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "RatMrg": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisRtg",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .woocommerce-product-rating{padding:{{RatMrg}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "RatingCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisRtg",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .star-rating span::before,{{PLUS_WRAP}}.tpgb-product-listing .star-rating::before{color:{{RatingCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PriceMgn": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .wrapper-cart-price{margin:{{PriceMgn}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PriceTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .wrapper-cart-price .price .amount,{{PLUS_WRAP}}.tpgb-product-listing .wrapper-cart-price .price .amount .woocommerce-Price-currencySymbol"
+                }
+            ],
+            "scopy": true
+        },
+        "PriceNCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .wrapper-cart-price .price .amount,{{PLUS_WRAP}}.tpgb-product-listing .wrapper-cart-price .price .amount .woocommerce-Price-currencySymbol{color:{{PriceNCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PriceHCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .wrapper-cart-price .price .amount,{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .wrapper-cart-price .price .amount .woocommerce-Price-currencySymbol{color:{{PriceHCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PrePriceTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .wrapper-cart-price .price del .amount,{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .wrapper-cart-price .price del .amount .woocommerce-Price-currencySymbol"
+                }
+            ],
+            "scopy": true
+        },
+        "PrePriceNCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .wrapper-cart-price .price del .amount,{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .wrapper-cart-price .price del .amount .woocommerce-Price-currencySymbol{color:{{PrePriceNCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PrePriceHCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .wrapper-cart-price .price del .amount,{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .wrapper-cart-price .price del .amount .woocommerce-Price-currencySymbol{color:{{PrePriceHCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "DisBadge": {
+            "type": "boolean",
+            "default": true,
+            "scopy": true
+        },
+        "BadOutStSty": {
+            "type": "boolean",
+            "default": true,
+            "scopy": true
+        },
+        "BadOutStTxt": {
+            "type": "string",
+            "default": "Out of Stock",
+            "scopy": true
+        },
+        "BadTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "BadOutStSty",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.out-of-stock"
+                }
+            ],
+            "scopy": true
+        },
+        "BadCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "BadOutStSty",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.out-of-stock{color:{{BadCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "BadBgCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "BadOutStSty",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.out-of-stock{background:{{BadBgCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "BadBoxSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "BadOutStSty",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.out-of-stock"
+                }
+            ],
+            "scopy": true
+        },
+        "OnSaleSyl": {
+            "type": "boolean",
+            "default": true,
+            "scopy": true
+        },
+        "saleTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "OnSaleSyl",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.onsale"
+                }
+            ],
+            "scopy": true
+        },
+        "saleCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "OnSaleSyl",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.onsale{color:{{saleCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "saleBgCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "OnSaleSyl",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.onsale{background:{{saleBgCr}};}{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.onsale:before{border-color: transparent transparent transparent {{saleBgCr}};}{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.onsale:after{border-color:{{saleBgCr}} transparent transparent;}"
+                }
+            ],
+            "scopy": true
+        },
+        "saleBoxSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "DisBadge",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "OnSaleSyl",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content span.badge.out-of-stock"
+                }
+            ],
+            "scopy": true
+        },
+        "CbAlign": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner{text-align:{{CbAlign}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "CbPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .post-content-bottom{padding:{{CbPadding}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "CbNBgCr": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .post-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "CbHBgCr": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .post-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "CbNBocSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .post-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "CbHBocSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .post-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "PIBgCr": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .product-image:before"
+                }
+            ],
+            "scopy": true
+        },
+        "PIHBgCr": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .product-image:before"
+                }
+            ],
+            "scopy": true
+        },
+        "PIBRs": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .product-content-image{border-radius:{{PIBRs}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PiNBoxSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .product-content-image"
+                }
+            ],
+            "scopy": true
+        },
+        "PiHBoxSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content:hover .product-content-image"
+                }
+            ],
+            "scopy": true
+        },
+        "Addpadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "!=",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple{padding:{{Addpadding}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple"
+                }
+            ],
+            "scopy": true
+        },
+        "AddNCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple{color:{{AddNCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddNICr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-1 .add_to_cart_button span.icon .woo-arrow svg *{fill:{{AddNICr}};}"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-1 .add_to_cart_button .icon .sr-loader-icon::after,{{PLUS_WRAP}}.tpgb-product-listing.product-style-1 .add_to_cart_button .icon .check::after,{{PLUS_WRAP}}.tpgb-product-listing.product-style-1 .add_to_cart_button .icon .check::before{background:{{AddNICr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddNBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "!=",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple"
+                }
+            ],
+            "scopy": true
+        },
+        "AddHCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple:hover{color:{{AddHCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddHICr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-1 .add_to_cart_button:hover span.icon .arrow svg *{fill:{{AddHICr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddHBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "!=",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "AddBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "!=",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple"
+                }
+            ],
+            "scopy": true
+        },
+        "AddBorderCr": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "!=",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple{border-radius:{{AddBorderCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddBoxSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "!=",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .product-list-content .add_to_cart.product_type_simple"
+                }
+            ],
+            "scopy": true
+        },
+        "AddNQICr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-2 .product-list-content a.quick-view-btn{color:{{AddNQICr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddNQIBgCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-2 .product-list-content a.quick-view-btn{background:{{AddNQIBgCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddHQICr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-2 .product-list-content a.quick-view-btn{color:{{AddHQICr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "AddHQIBgCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing.product-style-2 .product-list-content a.quick-view-btn{background:{{AddHQIBgCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "BloopPad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .grid-item .product-list-content{padding:{{BloopPad}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "BloopB": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .grid-item .product-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "blooprad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .grid-item .product-list-content{border-radius: {{blooprad}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "BloopNBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .grid-item .product-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "BloopHBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .grid-item .product-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "BloopNBsw": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .grid-item .product-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "BloopHBsw": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-product-listing .post-loop-inner .grid-item .product-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "FcatTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories .tpgb-filter-list a"
+                }
+            ],
+            "scopy": true
+        },
+        "InPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories.hover-style-1 .tpgb-filter-list a span:not(.tpgb-category-count),{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count),{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)::before,{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)::before,{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories.hover-style-3 .tpgb-filter-list a,{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories.hover-style-4 .tpgb-filter-list a{padding:{{InPadding}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter  .tpgb-categories .tpgb-filter-list{margin:{{FCMargin}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCHBcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .hover-style-1 .tpgb-filter-list a.active::after,{{PLUS_WRAP}}.tpgb-category-filter .hover-style-1 .tpgb-filter-list a:hover::after{background:{{FCHBcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCNcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a.all span.tpgb-category-count{color:{{FCNcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgHs": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": ["style-2", "style-4"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count),{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-4 .tpgb-filter-list a:after"
+                }
+            ],
+            "scopy": true
+        },
+        "FcBCrHs": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-4"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-4 .tpgb-filter-list a:before{border-top-color:{{FcBCrHs}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgRs": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count){border-radius:{{FCBgRs}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FcBoxhsd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)"
+                }
+            ],
+            "scopy": true
+        },
+        "FCHcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter:not(.hover-style-2) .tpgb-filter-list a:hover,{{PLUS_WRAP}}.tpgb-category-filter:not(.hover-style-2) .tpgb-filter-list a:focus,{{PLUS_WRAP}}.tpgb-category-filter:not(.hover-style-2) .tpgb-filter-list a.active,{{PLUS_WRAP}}.tpgb-category-filter .hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)::before{color:{{FCHcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgHvrs": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": ["style-2", "style-4"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.tpgb-category-list:hover span:not(.tpgb-category-count):before,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.tpgb-category-list.active span:not(.tpgb-category-count):before"
+                }
+            ],
+            "scopy": true
+        },
+        "FCHvrBre": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a:hover span:not(.tpgb-category-count):before,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.active span:not(.tpgb-category-count):before{border-radius:{{FCHvrBre}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FcBoxhversd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a:hover span:not(.tpgb-category-count):before,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.active span:not(.tpgb-category-count):before"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgTp": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a.all span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a:hover span.tpgb-category-count"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.all span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a:hover span.tpgb-category-count"
+                }
+            ],
+            "scopy": true
+        },
+        "FCCategCcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a.all.active span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories .tpgb-filter-list a:hover span.tpgb-category-count{color:{{FCCategCcr}};}"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.all span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a:hover span.tpgb-category-count{color:{{FCCategCcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBoxSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.all span.tpgb-category-count"
+                }
+            ],
+            "scopy": true
+        },
+        "PNFPad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .error-handal{padding:{{PNFPad}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PNFTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .error-handal"
+                }
+            ],
+            "scopy": true
+        },
+        "PNFCr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .error-handal{color:{{PNFCr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PNFBgCr": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .error-handal"
+                }
+            ],
+            "scopy": true
+        },
+        "PNFB": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .error-handal"
+                }
+            ],
+            "scopy": true
+        },
+        "PNFBRs": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .error-handal{border-radius:{{PNFBRs}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "PNFBoxSw": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .error-handal"
+                }
+            ],
+            "scopy": true
+        },
+        "pagitypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a,{{PLUS_WRAP}} .tpgb-pagination span"
+                }
+            ],
+            "scopy": true
+        },
+        "pagiColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a.inactive,{{PLUS_WRAP}} .tpgb-pagination span{color : {{pagiColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "pagihvrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a:hover,{{PLUS_WRAP}} .tpgb-pagination a:focus,{{PLUS_WRAP}} .tpgb-pagination span.current{color : {{pagihvrColor}}; border-bottom-color: {{pagihvrColor}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more"
+                }
+            ],
+            "scopy": true
+        },
+        "btncolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more{color : {{btncolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnhvrcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover{color : {{btnhvrcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnBgtype": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more"
+                }
+            ],
+            "scopy": true
+        },
+        "btnHvrBgtype": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "btnBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more"
+                }
+            ],
+            "scopy": true
+        },
+        "btnhvrBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "btnBradius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more{border-radius : {{btnBradius}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnhvrBradius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover{border-radius : {{btnhvrBradius}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "allTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .tpgb-post-loaded"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-post-loaded"
+                }
+            ],
+            "scopy": true
+        },
+        "allcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .tpgb-post-loaded{color : {{allcolor}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-post-loaded{color : {{allcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "spinSize": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-spin-ring div{ width: {{spinSize}}px; height:{{spinSize}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "spinBSize": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-spin-ring div{ border-width: {{spinBSize}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "spinColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-spin-ring div{ border-color: {{spinColor}} transparent transparent transparent ; }"
+                }
+            ],
+            "scopy": true
+        },
+        "slideColumns": {
+            "type": "object",
+            "default": {
+                "md": 4,
+                "sm": 3,
+                "xs": 2
+            },
+            "scopy": true
+        },
+        "centerslideScale": {
+            "type": "string",
+            "default": "1",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "centerMode",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "centerSlideEffect",
+                            "relation": "==",
+                            "value": "scale"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .splide__list .splide__slide.is-active > article, {{PLUS_WRAP}} .splide__list .splide__slide.is-active > div{-webkit-transform: scale({{centerslideScale}});-moz-transform: scale({{centerslideScale}});-ms-transform: scale({{centerslideScale}});-o-transform: scale({{centerslideScale}});transform: scale({{centerslideScale}});}{{PLUS_WRAP}} .splide__list .splide__slide > article, {{PLUS_WRAP}} .splide__list .splide__slide > div{transition: .3s all linear;}"
+                }
+            ],
+            "scopy": true
+        },
+        "normalslideScale": {
+            "type": "string",
+            "default": "1",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "centerMode",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "centerSlideEffect",
+                            "relation": "==",
+                            "value": "scale"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .splide__list .splide__slide  > article, {{PLUS_WRAP}} .splide__list .splide__slide  > div{-webkit-transform: scale({{normalslideScale}});-moz-transform: scale({{normalslideScale}});-ms-transform: scale({{normalslideScale}});-o-transform: scale({{normalslideScale}});transform: scale({{normalslideScale}});}{{PLUS_WRAP}} .splide__list .splide__slide > article, {{PLUS_WRAP}} .splide__list .splide__slide > div{transition: .3s all linear;}"
+                }
+            ],
+            "scopy": true
+        },
+        "slideOpacity": {
+            "type": "object",
+            "default": {
+                "md": 1,
+                "sm": 1,
+                "xs": 1
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "centerMode",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .splide__list .splide__slide:not(.is-active) > article, {{PLUS_WRAP}} .splide__list .splide__slide:not(.is-active) > div{opacity:{{slideOpacity}};}{{PLUS_WRAP}} .splide__list .splide__slide > article, {{PLUS_WRAP}} .splide__list .splide__slide > div{transition: .3s all linear;}"
+                }
+            ],
+            "scopy": true
+        },
+        "slideBoxShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "centerMode",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "centerSlideEffect",
+                            "relation": "==",
+                            "value": "shadow"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .splide__list .splide__slide.is-active > article,{{PLUS_WRAP}} .splide__list .splide__slide.is-active > div"
+                }
+            ],
+            "scopy": true
+        }
+    }
+}

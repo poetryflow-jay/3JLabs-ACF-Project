@@ -1,0 +1,149 @@
+# Translation of Plugins - Create Block Theme - Stable (latest release) in Korean
+# This file is distributed under the same license as the Plugins - Create Block Theme - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-06-11 05:16:36+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: ko_KR\n"
+"Project-Id-Version: Plugins - Create Block Theme - Stable (latest release)\n"
+
+#. Translators: Pattern name.
+#: includes/create-theme/theme-patterns.php:178
+msgid "A pattern with this name already exists: \"%s\"."
+msgstr "이 이름을 가진 패턴이 이미 존재합니다: \"%s\"."
+
+#: includes/class-create-block-theme-api.php:454
+msgid "Theme Reset."
+msgstr "테마 재설정."
+
+#: includes/class-create-block-theme-api.php:427
+msgid "Font Families retrieved."
+msgstr "검색된 글꼴 패밀리입니다."
+
+#: includes/create-theme/theme-utils.php:152
+msgid "Invalid screenshot file"
+msgstr "잘못된 스크린샷 파일"
+
+#: includes/create-theme/theme-utils.php:131
+msgid "Screenshot not found"
+msgstr "스크린샷을 찾을 수 없습니다."
+
+#: includes/class-create-block-theme-api.php:295
+msgid "Unable to create a zip file. ZipArchive not available."
+msgstr "Zip 파일을 만들 수 없습니다. ZipArchive를 사용할 수 없습니다."
+
+#: includes/class-create-block-theme-api.php:261
+msgid "Theme Variation Created."
+msgstr "테마 변형이 생성되었습니다."
+
+#: includes/class-create-block-theme-api.php:236
+msgid "Child Theme Created."
+msgstr "하위 테마가 생성되었습니다."
+
+#: includes/class-create-block-theme-api.php:166
+msgid "Theme data retrieved."
+msgstr "테마 데이터가 검색되었습니다."
+
+#: includes/create-theme/theme-json.php:20
+msgid "Variation already exists."
+msgstr "이미 변형이 존재합니다."
+
+#: includes/create-theme/theme-tags.php:67
+msgid "Custom Tags"
+msgstr "사용자 지정 태그"
+
+#: includes/create-theme/theme-tags.php:47
+msgid "read more"
+msgstr "더 읽기"
+
+#: includes/class-create-block-theme-api.php:186
+msgid "Readme file data retrieved."
+msgstr "Readme 파일 데이터가 검색되었습니다."
+
+#: includes/class-create-block-theme-api.php:410
+msgid "Theme Saved."
+msgstr "테마가 저장되었습니다."
+
+#: includes/class-create-block-theme-api.php:358
+msgid "Theme Updated."
+msgstr "테마가 업데이트되었습니다."
+
+#: includes/class-create-block-theme-api.php:283
+msgid "Blank Theme Created."
+msgstr "빈 테마가 생성되었습니다."
+
+#: includes/class-create-block-theme-api.php:213
+msgid "Cloned Theme Created."
+msgstr "복제 테마가 생성되었습니다."
+
+#: includes/create-theme/theme-create.php:19
+#: includes/create-theme/theme-create.php:48
+#: includes/create-theme/theme-create.php:92
+msgid "Theme already exists."
+msgstr "테마가 이미 존재합니다."
+
+#: includes/create-theme/theme-tags.php:69
+msgid "custom, tags, custom-tags"
+msgstr "사용자 정의, 태그, 사용자 정의 태그"
+
+#: includes/create-theme/theme-tags.php:72
+msgid "Add custom tags (single or hyphenated words, separated by commas)"
+msgstr "사용자 정의 태그 추가(쉼표로 구분된 단일 또는 하이픈으로 연결된 단어)"
+
+#: includes/create-theme/theme-tags.php:87
+msgid "(max 3 tags)"
+msgstr "(최대 3개 태그)"
+
+#: includes/create-theme/theme-tags.php:47 build/plugin-sidebar.js:10
+msgid "https://make.wordpress.org/themes/handbook/review/required/theme-tags/"
+msgstr "https://make.wordpress.org/themes/handbook/review/required/theme-tags/"
+
+#. Translators: Theme Tags link.
+#: includes/create-theme/theme-tags.php:43
+msgid "Add theme tags to help categorize the theme (%s)."
+msgstr "테마를 분류하는 데 도움이 되는 테마 태그를 추가합니다(%s)."
+
+#: includes/create-theme/theme-tags.php:37
+msgid "Theme Tags"
+msgstr "테마 태그"
+
+#. Plugin URI of the plugin
+#: create-block-theme.php
+msgid "https://wordpress.org/plugins/create-block-theme"
+msgstr "https://wordpress.org/plugins/create-block-theme"
+
+#: includes/class-create-block-theme-admin-landing.php:22
+#: build/plugin-sidebar.js:11
+msgctxt "UI String"
+msgid "Create Block Theme"
+msgstr "블록 테마 만들기"
+
+#: assets/boilerplate/theme.json
+msgctxt "Font family name"
+msgid "System Font"
+msgstr "시스템 글꼴"
+
+#. Author URI of the plugin
+#: create-block-theme.php build/plugin-sidebar.js:1 build/plugin-sidebar.js:10
+msgid "https://wordpress.org/"
+msgstr "https://wordpress.org/"
+
+#. Author of the plugin
+#: create-block-theme.php
+msgid "WordPress.org"
+msgstr "WordPress.org"
+
+#. Description of the plugin
+#: create-block-theme.php
+msgid "Generates a block theme"
+msgstr "블록 테마를 생성합니다."
+
+#. Plugin Name of the plugin
+#: create-block-theme.php build/admin-landing-page.js:1
+#: build/plugin-sidebar.js:11
+msgid "Create Block Theme"
+msgstr "블록 테마 만들기"

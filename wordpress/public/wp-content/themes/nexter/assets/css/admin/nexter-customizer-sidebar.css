@@ -1,0 +1,62 @@
+/* SideBar Page/Post Styling Start */
+#nxt_sidebar_settings .inside{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0 15px 15px;
+}
+#nxt_sidebar_settings .nxt-page-post-sidebar, #nxt_sidebar_settings .nxt-custom-sidebar {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+#nxt_sidebar_settings [for="nxt_post_page_sidebar"], #nxt_sidebar_settings [for="nxt_post_page_display_sidebar"], #nxt_sidebar_settings [for="nxt_post_page_custom_sidebar"]{
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15.96px;
+    text-align: left;
+    color: #010101;
+}
+.edit-post-meta-boxes-area #nxt_sidebar_settings h2.hndle{
+    padding: 8px 12px;
+}
+#nxt_sidebar_settings input.nxt-sidebar-radio{
+    display: none;
+}
+#nxt_sidebar_settings .nxt-sidebar-selection{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px
+}
+#nxt_sidebar_settings .nxt-sidebar-option {
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    /* margin: 10px 0 10px; */
+    padding: 0;
+    justify-content: center;
+    width: calc(50% - 5px);
+    align-items: center;
+}
+#nxt_sidebar_settings .nxt-sidebar-option img {
+    border: 1px solid #8F8F8FA6;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    width: 100%;
+    width: -webkit-fill-available;
+}
+#nxt_sidebar_settings input[type="radio"]:checked + img {
+    border-color: #1717CC;
+}
+
+#advanced-sortables #nxt_sidebar_settings .nxt-sidebar-option, #normal-sortables #nxt_sidebar_settings .nxt-sidebar-option {
+    width: 150px;
+}
+#advanced-sortables #nxt_sidebar_settings .nxt-sidebar-selection, #normal-sortables #nxt_sidebar_settings .nxt-sidebar-selection {
+    justify-content: flex-start;
+}
+/* SideBar Page/Post Styling End */

@@ -1,0 +1,5 @@
+/**
+ * GenerateBlocks
+ */
+
+import './blocks/form';

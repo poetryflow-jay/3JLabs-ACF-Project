@@ -1,0 +1,4376 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "tpgb/tp-login-register",
+    "version": "0.1.0",
+    "title": "Login & Signup",
+    "category": "tpgb",
+    "description": "Customize your Login Form, Registration & Signup Form, Password Reset Form for your website.",
+    "example": {
+        "attributes": {}
+    },
+    "supports": {
+        "align": ["wide", "full"]
+    },
+    "textdomain": "tpgb",
+    "attributes": {
+        "block_id": {
+            "type": "string",
+            "default": ""
+        },
+        "formType": {
+            "type": "string",
+            "default": "login"
+        },
+        "formLayout": {
+            "type": "string",
+            "default": "standard-form"
+        },
+        "btnType": {
+            "type": "string",
+            "default": "button-click"
+        },
+        "lostLink": {
+            "type": "string",
+            "default": "default"
+        },
+        "formAlign": {
+            "type": "object",
+            "default": {
+                "md": "left",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register{ text-align: {{formAlign}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap{ text-align: {{formAlign}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "loformAlign": {
+            "type": "object",
+            "default": {
+                "md": "left",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "forgot_password"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-lostpass-form{ text-align: {{loformAlign}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tab1btnTxt": {
+            "type": "string",
+            "default": "Login"
+        },
+        "tab2btnTxt": {
+            "type": "string",
+            "default": "Register"
+        },
+        "dactiveTab": {
+            "type": "string",
+            "default": "login"
+        },
+        "btnAlign": {
+            "type": "object",
+            "default": {
+                "md": "flex-start",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "button"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap{ justify-content : {{btnAlign}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "cntAlign": {
+            "type": "string",
+            "default": "left",
+            "scopy": true
+        },
+        "loField": {
+            "type": "array",
+            "repeaterField": [
+                {
+                    "loginfName": {
+                        "type": "string",
+                        "default": "username"
+                    },
+                    "FieldLabel": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "placeholder": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "content": {
+                        "type": "string",
+                        "default": "Enter your Text"
+                    },
+                    "showInline": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "regisTxt": {
+                        "type": "string",
+                        "default": "Sign Up"
+                    },
+                    "loBeTxt": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "fieldWidth": {
+                        "type": "object",
+                        "default": {
+                            "md": "",
+                            "unit": "%"
+                        },
+                        "style": [
+                            {
+                                "selector": "{{PLUS_WRAP}} .tpgb-login-form {{TP_REPEAT_ID}}.tpgb-field-group { width: {{fieldWidth}};display: inline-flex;flex-direction: column; }"
+                            }
+                        ],
+                        "scopy": true
+                    },
+                    "socialAlign": {
+                        "type": "object",
+                        "default": {
+                            "md": "center",
+                            "sm": "",
+                            "xs": ""
+                        },
+                        "style": [
+                            {
+                                "selector": "{{PLUS_WRAP}} {{TP_REPEAT_ID}}.tpgb-field-group .tpgn-socialbtn-wrap{justify-content : {{socialAlign}}; }"
+                            }
+                        ],
+                        "scopy": true
+                    },
+                    "facebooklog": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "faceAppid": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "faceSecid": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "solayout": {
+                        "type": "string",
+                        "default": "solayout-1"
+                    },
+                    "googloTitle": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "googlePic": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "gbtnType": {
+                        "type": "string",
+                        "default": "standard"
+                    },
+                    "googlThm": {
+                        "type": "string",
+                        "default": "outline"
+                    },
+                    "gostandshape": {
+                        "type": "string",
+                        "default": "rectangular"
+                    },
+                    "gobtnTxt": {
+                        "type": "string",
+                        "default": "signin_with"
+                    },
+                    "gobctmTxt": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "gobtnSize": {
+                        "type": "string",
+                        "default": "large"
+                    },
+                    "gobctWidth": {
+                        "type": "number",
+                        "default": ""
+                    },
+                    "goioshape": {
+                        "type": "string",
+                        "default": "square"
+                    },
+                    "goioSize": {
+                        "type": "string",
+                        "default": "large"
+                    },
+                    "regisLink": {
+                        "type": "string",
+                        "default": "default"
+                    },
+                    "regisUrl": {
+                        "type": "object",
+                        "default": {
+                            "url": "#",
+                            "target": ""
+                        }
+                    },
+                    "magiclabel": {
+                        "type": "string",
+                        "default": "Email"
+                    },
+                    "magicplace": {
+                        "type": "string",
+                        "default": "Enter Mail"
+                    },
+                    "mabtnText": {
+                        "type": "string",
+                        "default": "Send Magic Link"
+                    },
+                    "mabmailSub": {
+                        "type": "string",
+                        "default": "Login Magic Link for [tpgb_sitename]"
+                    },
+                    "magicMsg": {
+                        "type": "string",
+                        "default": " Hello [tpgb_username] <br/> Here`s your one-click login link you requested for your [tpgb_sitename] account <br/> <a style=\"color : #2271b1; font-size: 15px; line-height: 25px;\" href=\"[tpgb_link]\" target=\"_blank\" rel=\"noopener noreferrer\" > Login Now </a> <br/> By clicking on the above button you will access your account from [tpgb_email] <br/><br/> If you haven`t requested for the link, no further action is required, the link will automatically expire in 24 hours."
+                    },
+                    "magicrelink": {
+                        "type": "string",
+                        "default": "[]"
+                    },
+                    "loginIcon": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "LfobtniPosi": {
+                        "type": "string",
+                        "default": "before"
+                    },
+                    "soctmUrl": {
+                        "type": "object",
+                        "default": {
+                            "url": "#",
+                            "target": ""
+                        }
+                    }
+                }
+            ],
+            "default": [
+                {
+                    "_key": "0",
+                    "loginfName": "username",
+                    "FieldLabel": "Username",
+                    "placeholder": "Enter Username",
+                    "fieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "LfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "soctmUrl": {
+                        "url": "#"
+                    },
+                    "regisUrl": {
+                        "url": "#"
+                    }
+                },
+                {
+                    "_key": "1",
+                    "loginfName": "password",
+                    "FieldLabel": "Password",
+                    "placeholder": "Enter Password",
+                    "fieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "LfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "soctmUrl": {
+                        "url": "#"
+                    },
+                    "regisUrl": {
+                        "url": "#"
+                    }
+                },
+                {
+                    "_key": "2",
+                    "loginfName": "remember-me",
+                    "content": "Remember Me",
+                    "fieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "LfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "soctmUrl": {
+                        "url": "#"
+                    },
+                    "regisUrl": {
+                        "url": "#"
+                    }
+                },
+                {
+                    "_key": "3",
+                    "loginfName": "lost-password",
+                    "content": "Lost Password",
+                    "LfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "soctmUrl": {
+                        "url": "#"
+                    },
+                    "regisUrl": {
+                        "url": "#"
+                    }
+                },
+                {
+                    "_key": "4",
+                    "loginfName": "login-button",
+                    "content": "Log In",
+                    "fieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "LfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "soctmUrl": {
+                        "url": "#"
+                    },
+                    "regisUrl": {
+                        "url": "#"
+                    }
+                }
+            ]
+        },
+        "loglodTxt": {
+            "type": "string",
+            "default": "Please Wait..."
+        },
+        "losuTxt": {
+            "type": "string",
+            "default": "Login successful."
+        },
+        "loemvalText": {
+            "type": "string",
+            "default": "Ops! Wrong username or password!"
+        },
+        "loeroTxt": {
+            "type": "string",
+            "default": "Something went wrong. Please try again."
+        },
+        "rediaflogin": {
+            "type": "array",
+            "default": []
+        },
+        "redirctUrl": {
+            "type": "object",
+            "default": {
+                "url": "",
+                "target": "",
+                "nofollow": ""
+            }
+        },
+        "regisField": {
+            "type": "array",
+            "repeaterField": [
+                {
+                    "regisfName": {
+                        "type": "string",
+                        "default": "first-name"
+                    },
+                    "regfieldLabel": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "replaceholder": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "passToggle": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "showIcon": {
+                        "type": "string",
+                        "default": "fas fa-eye"
+                    },
+                    "hideIcon": {
+                        "type": "string",
+                        "default": "fas fa-eye-slash"
+                    },
+                    "strongPass": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "spitopoff": {
+                        "type": "object",
+                        "default": {
+                            "md": "",
+                            "unit": "px"
+                        },
+                        "style": [
+                            {
+                                "selector": "{{PLUS_WRAP}} {{TP_REPEAT_ID}} .tpgb-form-controls .tpgb-password-show{ top : {{spitopoff}} }"
+                            }
+                        ]
+                    },
+                    "spileftoff": {
+                        "type": "object",
+                        "default": {
+                            "md": "",
+                            "unit": "px"
+                        },
+                        "style": [
+                            {
+                                "selector": "{{PLUS_WRAP}} {{TP_REPEAT_ID}} .tpgb-form-controls .tpgb-password-show{ right : {{spileftoff}} }"
+                            }
+                        ]
+                    },
+                    "passHint": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "passVisi": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "passHintlay": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "passMeter": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "rebtnTxt": {
+                        "type": "string",
+                        "default": "Register"
+                    },
+                    "rebtnIcon": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "terms": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "loginTxt": {
+                        "type": "string",
+                        "default": "Login"
+                    },
+                    "loginLink": {
+                        "type": "string",
+                        "default": "default"
+                    },
+                    "relogUrl": {
+                        "type": "object",
+                        "default": {
+                            "url": "",
+                            "target": "",
+                            "nofollow": ""
+                        }
+                    },
+                    "beforeTxt": {
+                        "type": "string",
+                        "default": "Already have an account?"
+                    },
+                    "passPattern": {
+                        "type": "string",
+                        "default": "pattern-1"
+                    },
+                    "refieldWidth": {
+                        "type": "object",
+                        "default": {
+                            "md": "",
+                            "unit": "%"
+                        },
+                        "style": [
+                            {
+                                "selector": "{{PLUS_WRAP}} .tpgb-register-form {{TP_REPEAT_ID}}.tpgb-field-group { width: {{refieldWidth}};display: inline-flex;flex-direction: column; }"
+                            }
+                        ],
+                        "scopy": true
+                    },
+                    "clickIcon": {
+                        "type": "string",
+                        "default": "fas fa-info-circle"
+                    },
+                    "errorMsg": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "apiKey": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "listId": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "facebooklog": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "faceAppid": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "faceSecid": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "socialAlign": {
+                        "type": "object",
+                        "default": {
+                            "md": "center",
+                            "sm": "",
+                            "xs": ""
+                        },
+                        "style": [
+                            {
+                                "selector": "{{PLUS_WRAP}} {{TP_REPEAT_ID}}.tpgb-field-group .tpgn-socialbtn-wrap{justify-content : {{socialAlign}}; }"
+                            }
+                        ],
+                        "scopy": true
+                    },
+                    "solayout": {
+                        "type": "string",
+                        "default": "solayout-1"
+                    },
+                    "googlThm": {
+                        "type": "string",
+                        "default": "light"
+                    },
+                    "googloTitle": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "googlePic": {
+                        "type": "boolean",
+                        "default": false
+                    },
+                    "gbtnType": {
+                        "type": "string",
+                        "default": "standard"
+                    },
+                    "gostandshape": {
+                        "type": "string",
+                        "default": "rectangular"
+                    },
+                    "gobtnTxt": {
+                        "type": "string",
+                        "default": "signin_with"
+                    },
+                    "gobctmTxt": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "gobtnSize": {
+                        "type": "string",
+                        "default": "large"
+                    },
+                    "gobctWidth": {
+                        "type": "number",
+                        "default": ""
+                    },
+                    "goioshape": {
+                        "type": "string",
+                        "default": "square"
+                    },
+                    "goioSize": {
+                        "type": "string",
+                        "default": "large"
+                    },
+                    "acfKey": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "recaposition": {
+                        "type": "string",
+                        "default": "inline"
+                    },
+                    "RfobtniPosi": {
+                        "type": "string",
+                        "default": "before"
+                    },
+                    "acfField": {
+                        "type": "string",
+                        "default": "text"
+                    },
+                    "soctmUrl": {
+                        "type": "object",
+                        "default": {
+                            "url": "#",
+                            "target": ""
+                        }
+                    }
+                }
+            ],
+            "default": [
+                {
+                    "_key": "0",
+                    "regisfName": "first-name",
+                    "regfieldLabel": "First Name",
+                    "replaceholder": "Enter First Name",
+                    "refieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "errorMsg": "Invalid First Name Value.",
+                    "showIcon": "fas fa-eye",
+                    "hideIcon": "fas fa-eye-slash",
+                    "RfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "acfField": "text",
+                    "soctmUrl": {
+                        "url": "#"
+                    }
+                },
+                {
+                    "_key": "1",
+                    "regisfName": "last-name",
+                    "regfieldLabel": "Last Name",
+                    "replaceholder": "Enter Last Name",
+                    "refieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "errorMsg": "Invalid Last Name Value.",
+                    "showIcon": "fas fa-eye",
+                    "hideIcon": "fas fa-eye-slash",
+                    "RfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "acfField": "text",
+                    "soctmUrl": {
+                        "url": "#"
+                    }
+                },
+                {
+                    "_key": "2",
+                    "regisfName": "email",
+                    "regfieldLabel": "Email",
+                    "replaceholder": "Enter Email",
+                    "refieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "errorMsg": "Invalid Email Address.",
+                    "showIcon": "fas fa-eye",
+                    "hideIcon": "fas fa-eye-slash",
+                    "RfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "acfField": "text",
+                    "soctmUrl": {
+                        "url": "#"
+                    }
+                },
+                {
+                    "_key": "3",
+                    "regisfName": "register-button",
+                    "rebtnTxt": "Register",
+                    "refieldWidth": {
+                        "unit": "%",
+                        "md": ""
+                    },
+                    "googlThm": "outline",
+                    "googloTitle": false,
+                    "googlePic": false,
+                    "showIcon": "fas fa-eye",
+                    "hideIcon": "fas fa-eye-slash",
+                    "RfobtniPosi": "before",
+                    "gbtnType": "standard",
+                    "gostandshape": "rectangular",
+                    "gobtnTxt": "signin_with",
+                    "gobctmTxt": "",
+                    "gobtnSize": "large",
+                    "gobctWidth": "",
+                    "goioshape": "square",
+                    "goioSize": "large",
+                    "acfField": "text",
+                    "soctmUrl": {
+                        "url": "#"
+                    }
+                }
+            ]
+        },
+        "honeypot": {
+            "type": "boolean",
+            "default": false
+        },
+        "recaptcha": {
+            "type": "boolean",
+            "default": false
+        },
+        "reAction": {
+            "type": "array",
+            "default": []
+        },
+        "relodTxt": {
+            "type": "string",
+            "default": "Please wait..."
+        },
+        "resuTxt": {
+            "type": "string",
+            "default": "Registration Successful."
+        },
+        "regdirectUrl": {
+            "type": "object",
+            "default": {
+                "url": "",
+                "target": ""
+            }
+        },
+        "regemailSub": {
+            "type": "string",
+            "default": "Account Successfully Registered at [tpgb_sitename]"
+        },
+        "regemailMsg": {
+            "type": "string",
+            "default": "Dear [tpgb_firstname], Welcome! </br> Thank you for registering at [tpgb_sitename], your account have been created. </br></br> Please find your login details below. </br> Username: [tpgb_username] </br> Password: [tpgb_password] </br></br> Thanks, </br> [tpgb_sitename]"
+        },
+        "reemvalText": {
+            "type": "string",
+            "default": "An account already exists with this email address."
+        },
+        "reeroTxt": {
+            "type": "string",
+            "default": "Something went wrong. Please try again."
+        },
+        "lopassLabel": {
+            "type": "string",
+            "default": "Username/Email"
+        },
+        "loplaceho": {
+            "type": "string",
+            "default": "Username/Email"
+        },
+        "lobtntxt": {
+            "type": "string",
+            "default": "Email Reset Link"
+        },
+        "lobtnIcon": {
+            "type": "string",
+            "default": ""
+        },
+        "loheading": {
+            "type": "string",
+            "default": "Lost your password?"
+        },
+        "btnIcon": {
+            "type": "string",
+            "default": "fas fa-user-circle"
+        },
+        "btntxt": {
+            "type": "string",
+            "default": "Login/Signup"
+        },
+        "stpassreq": {
+            "type": "boolean",
+            "default": false
+        },
+        "lorehide": {
+            "type": "boolean",
+            "default": false
+        },
+        "lostWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "%"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-field-group { width: {{lostWidth}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "loginTitle": {
+            "type": "string",
+            "default": "Sign In"
+        },
+        "regisTitle": {
+            "type": "string",
+            "default": "Create an Account"
+        },
+        "blockTemp": {
+            "type": "string",
+            "default": ""
+        },
+        "backendVisi": {
+            "type": "boolean",
+            "default": false
+        },
+        "cutemail": {
+            "type": "boolean",
+            "default": false
+        },
+        "lostlodTxt": {
+            "type": "string",
+            "default": "Please wait..."
+        },
+        "lostuTxt": {
+            "type": "string",
+            "default": "Mail sent. Please check your mailbox."
+        },
+        "losteroTxt": {
+            "type": "string",
+            "default": "Something went wrong. Please try again."
+        },
+        "lostemSub": {
+            "type": "string",
+            "default": "Reset your [tpgb_sitename] Password"
+        },
+        "lostpasMsg": {
+            "type": "string",
+            "default": "Hello [tpgb_username] </br> We have received a request to reset your password for [tpgb_sitename]. </br> To set your new password please <a style=\"color : #2271b1; font-size: 15px; line-height: 25px;\" href=\"[tpgb_link]\" target=\"_blank\" rel=\"noopener noreferrer\" > click here </a>  </br></br> If you didnt ask for reset, you can safely ignore this email, the link will automatically expire after 24 hours. </br></br> Thanks,</br>[tpgb_sitename] "
+        },
+        "lostpasspage": {
+            "type": "object",
+            "default": {}
+        },
+        "accoutMenu": {
+            "type": "boolean",
+            "default": true
+        },
+        "showInback": {
+            "type": "boolean",
+            "default": false
+        },
+        "userProf": {
+            "type": "boolean",
+            "default": true
+        },
+        "meuserName": {
+            "type": "boolean",
+            "default": true
+        },
+        "pronamePatt": {
+            "type": "string",
+            "default": "none"
+        },
+        "meeditPro": {
+            "type": "boolean",
+            "default": true
+        },
+        "editprotxt": {
+            "type": "string",
+            "default": "Edit Profile"
+        },
+        "editproIcon": {
+            "type": "string",
+            "default": ""
+        },
+        "logoutBtn": {
+            "type": "boolean",
+            "default": true
+        },
+        "lotouttxt": {
+            "type": "string",
+            "default": "Logout"
+        },
+        "lotoutIcon": {
+            "type": "string",
+            "default": ""
+        },
+        "extraMenu": {
+            "type": "array",
+            "repeaterField": [
+                {
+                    "extmTitle": {
+                        "type": "string",
+                        "default": "Menu"
+                    },
+                    "extIcon": {
+                        "type": "string",
+                        "default": ""
+                    },
+                    "extmLink": {
+                        "type": "object",
+                        "default": {
+                            "url": "#",
+                            "target": "",
+                            "nofollow": ""
+                        }
+                    }
+                }
+            ],
+            "default": [
+                {
+                    "extmTitle": "Menu 1",
+                    "extmLink": {
+                        "url": "#",
+                        "target": "",
+                        "nofollow": ""
+                    }
+                }
+            ]
+        },
+        "losrecaptch": {
+            "type": "boolean",
+            "default": false
+        },
+        "lorecaposition": {
+            "type": "string",
+            "default": "inline"
+        },
+        "formlaTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-label,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-label,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-label,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-label"
+                }
+            ],
+            "scopy": true
+        },
+        "formlaColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-label,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-label,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-label,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-label{color:{{formlaColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "foinFieldtypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input"
+                }
+            ],
+            "scopy": true
+        },
+        "formplaColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input::placeholder,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input::placeholder,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input::placeholder,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input::placeholder{ color : {{formplaColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "foinAlignment": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input::placeholder,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input::placeholder,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input::placeholder,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input::placeholder,{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input{ text-align : {{foinAlignment}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "foinPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input{ padding : {{foinPadding}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "foinMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input{ margin : {{foinMargin}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fotxtColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input{ color : {{fotxtColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "formfiBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input"
+                }
+            ],
+            "scopy": true
+        },
+        "formfiBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "type": "",
+                "color": "",
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    },
+                    "sm": {},
+                    "xs": {},
+                    "unit": ""
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input"
+                }
+            ],
+            "scopy": true
+        },
+        "foinbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input{ border-radius  : {{foinbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "formfiSh": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input"
+                }
+            ],
+            "scopy": true
+        },
+        "focutxtColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input:focus{ color : {{focutxtColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "formfofiBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input:focus"
+                }
+            ],
+            "scopy": true
+        },
+        "formfoBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "type": "",
+                "color": "",
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    },
+                    "sm": {},
+                    "xs": {},
+                    "unit": ""
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input:focus"
+                }
+            ],
+            "scopy": true
+        },
+        "foinfobRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input:focus{ border-radius  : {{foinfobRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "formfoSh": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-login-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-form-controls input:focus,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-form-controls input:focus"
+                }
+            ],
+            "scopy": true
+        },
+        "formbtnTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button"
+                }
+            ],
+            "scopy": true
+        },
+        "formbtnWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button{ width:100%; max-width : {{formbtnWidth}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnAlign": {
+            "type": "object",
+            "default": {
+                "md": "left",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-submit-wrap,{{PLUS_WRAP}} .tpgb-login-form .tpgb-submit-wrap,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-submit-wrap ,{{PLUS_WRAP}} .tpgb-rp-form  .tpgb-submit-wrap,{{PLUS_WRAP}} .tpgb-magic-form .tpgb-submit-wrap,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-submit-wrap { text-align : {{fobtnAlign}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtntxAlign": {
+            "type": "object",
+            "default": {
+                "md": "center",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button .tpgb-lrbtn-icon,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button .tpgb-lrbtn-icon,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button .tpgb-lrbtn-icon ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button .tpgb-lrbtn-icon,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button .tpgb-lrbtn-icon,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button .tpgb-lrbtn-icon{ justify-content : {{fobtntxAlign}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtniPosi": {
+            "type": "string",
+            "default": "after"
+        },
+        "fobtntMargin": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "type": "",
+                "color": "",
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    },
+                    "unit": "px"
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button{ margin : {{fobtntMargin}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnPadding": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "type": "",
+                "color": "",
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    },
+                    "unit": "px"
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button{ padding : {{fobtnPadding}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "formbtnColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button{ color : {{formbtnColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnBg": {
+            "type": "object",
+            "default": {
+                "openBg": 1,
+                "bgType": "color",
+                "bgDefaultColor": "#5048e5"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "type": "",
+                "color": "",
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    },
+                    "sm": {},
+                    "xs": {},
+                    "unit": ""
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button{ border-radius  : {{fobtnbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnBsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button"
+                }
+            ],
+            "scopy": true
+        },
+        "fobHvrcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button:hover,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button:hover ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button:hover,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button:hover{ color : {{fobHvrcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnhvrBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button:hover,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button:hover ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button:hover,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnhvrBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "type": "",
+                "color": "",
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    },
+                    "sm": {},
+                    "xs": {},
+                    "unit": ""
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button:hover,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button:hover ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button:hover,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnhvrbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button:hover,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button:hover ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button:hover,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button:hover{ border-radius  : {{fobtnhvrbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobtnhvrBsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form button.tpgb-register-button:hover,{{PLUS_WRAP}} .tpgb-login-form button.tpgb-login-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-lost-pass-button:hover ,{{PLUS_WRAP}} .tpgb-rp-form  button.tpgb-resetpassword-button:hover,{{PLUS_WRAP}} .tpgb-magic-form button.tpgb-magic-link-button:hover,{{PLUS_WRAP}} .tpgb-lostpass-form button.tpgb-forget-password-button:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "foheadTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title,{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-forgot-password-label"
+                }
+            ],
+            "scopy": true
+        },
+        "foheadColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title,{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-forgot-password-label{ color : {{foheadColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "foheadMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title,{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title,{{PLUS_WRAP}} .tpgb-lostpass-form .tpgb-forgot-password-label{ margin : {{foheadMargin}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "lostpastxtTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-field-group a.tpgb-re-login"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link,{{PLUS_WRAP}} .tpgb-register-form .tpgb-field-group a.tpgb-re-login"
+                }
+            ],
+            "scopy": true
+        },
+        "lostpastxtAlign": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group.tpgb-login-regtxt{ text-align : {{lostpastxtAlign}} }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-field-group.tpgb-login-regtxt{ text-align : {{lostpastxtAlign}} }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group.tpgb-login-regtxt,{{PLUS_WRAP}} .tpgb-register-form .tpgb-field-group.tpgb-login-regtxt{ text-align : {{lostpastxtAlign}}; display : block }"
+                }
+            ],
+            "scopy": true
+        },
+        "lostpasColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link{ color : {{lostpasColor}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-field-group a.tpgb-re-login{ color : {{lostpasColor}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link,{{PLUS_WRAP}} .tpgb-register-form .tpgb-field-group a.tpgb-re-login{ color : {{lostpasColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "txtrightsSpc": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link{ margin-left : {{txtrightsSpc}}px; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-re-login{ margin-left : {{txtrightsSpc}}px; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link,{{PLUS_WRAP}} .tpgb-register-form .tpgb-re-login{ margin-left : {{txtrightsSpc}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "lostpaMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link{ margin : {{lostpaMargin}}; } {{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link{ display : block }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link,{{PLUS_WRAP}} .tpgb-register-form .tpgb-re-login{ margin : {{lostpaMargin}}; } {{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-register-link{ display : block }"
+                }
+            ],
+            "scopy": true
+        },
+        "fobeforeTxt": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-loginbefore-text"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-loginbefore-text"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-loginbefore-text,{{PLUS_WRAP}} .tpgb-register-form .tpgb-loginbefore-text"
+                }
+            ],
+            "scopy": true
+        },
+        "beforeColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-loginbefore-text{ color : {{beforeColor}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-loginbefore-text{ color : {{beforeColor}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-loginbefore-text,{{PLUS_WRAP}} .tpgb-register-form .tpgb-loginbefore-text{ color : {{beforeColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "remebTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-choice-label"
+                }
+            ],
+            "scopy": true
+        },
+        "remebColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-choice-label{ color : {{remebColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "remeAlignment": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-recheck-wrap , {{PLUS_WRAP}} .tpgb-remember-me { justify-content : {{remeAlignment}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "remebMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-remember-me,{{PLUS_WRAP}}.tpgb-login-register .tpgb-recheck-wrap{ margin : {{remebMargin}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "remebPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-choice-label{ padding : {{remebPadding}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "remebunchColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=checkbox]{ background : {{remebunchColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "raduncheBor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=checkbox]{ border-color : {{raduncheBor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "remebchColor": {
+            "type": "string",
+            "default": "#5048e5",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=checkbox]:checked, {{PLUS_WRAP}} .tpgb-login-register input[type=\"checkbox\"]:hover:checked,{{PLUS_WRAP}} .tpgb-login-register input[type=\"checkbox\"]:focus:checked{ background : {{remebchColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "remebchkColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=\"checkbox\"]:checked::before{ border-color : {{remebchkColor}}; }"
+                }
+            ]
+        },
+        "radcheBor": {
+            "type": "string",
+            "default": "#5048e5",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=checkbox]:checked, {{PLUS_WRAP}} .tpgb-login-register input[type=\"checkbox\"]:hover:checked,{{PLUS_WRAP}} .tpgb-login-register input[type=\"checkbox\"]:focus:checked{ border-color : {{radcheBor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "backArrow": {
+            "type": "string",
+            "default": "fas fa-arrow-left"
+        },
+        "backarrSize": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lostpass-form.tpgb-login-lost .tpgb-lpu-back{ font-size : {{backarrSize}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "backarrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lostpass-form.tpgb-login-lost .tpgb-lpu-back{ color : {{backarrColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "noticmsgTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-regis-noti.active .tpgb-re-response"
+                }
+            ],
+            "scopy": true
+        },
+        "notimsgColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-regis-noti.active .tpgb-re-response{ color : {{notimsgColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "notimsgBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-regis-noti.active"
+                }
+            ],
+            "scopy": true
+        },
+        "noticonSize": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-regis-noti .tpgb-re-response svg{ width : {{noticonSize}} } {{PLUS_WRAP}} .tpgb-regis-noti .tpgb-re-response span.loading-spinner-reg{ font-size : {{noticonSize}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "noticonColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-regis-noti .tpgb-re-response svg{ fill : {{noticonColor}}; } {{PLUS_WRAP}} .tpgb-regis-noti .tpgb-re-response span.loading-spinner-reg{ color : {{noticonColor}};  }"
+                }
+            ],
+            "scopy": true
+        },
+        "menuliTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-log-menu .tpgb-acct-list a.tpgb-acc-link"
+                }
+            ],
+            "scopy": true
+        },
+        "menuAlign": {
+            "type": "object",
+            "default": {
+                "md": "left",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-acct-list .tpgb-acc-item{ text-align : {{menuAlign}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "menulipad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu{ padding : {{menulipad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "menulisColor": {
+            "type": "object",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-acct-list a.tpgb-acc-link{ color : {{menulisColor}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "menuhvrlisColor": {
+            "type": "object",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-acct-list a.tpgb-acc-link:hover{ color : {{menuhvrlisColor}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "menuliBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu"
+                }
+            ],
+            "scopy": true
+        },
+        "menuhvrliBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "menuBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu"
+                }
+            ],
+            "scopy": true
+        },
+        "menuhvrBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "menulibRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu{ border-radius : {{menulibRad}}; } "
+                }
+            ],
+            "scopy": true
+        },
+        "menuhvrlibRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu:hover{ border-radius : {{menuhvrlibRad}}; } "
+                }
+            ],
+            "scopy": true
+        },
+        "menuliBsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu"
+                }
+            ],
+            "scopy": true
+        },
+        "menuHvrliBsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-log-menu:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "uimgright": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-acc-text img.avatar{ margin-right : {{uimgright}}px; } "
+                }
+            ],
+            "scopy": true
+        },
+        "uimgSize": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-acc-text img.avatar{ width : {{uimgSize}}px; height : {{uimgSize}}px; line-height : {{uimgSize}}px; } "
+                }
+            ],
+            "scopy": true
+        },
+        "uimgBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-acc-text img.avatar "
+                }
+            ],
+            "scopy": true
+        },
+        "uimgbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-acc-text img.avatar{ border-radius : {{uimgbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "uimgBsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-acc-text img.avatar "
+                }
+            ],
+            "scopy": true
+        },
+        "userTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-btn .tpgb-acc-text"
+                }
+            ],
+            "scopy": true
+        },
+        "menupadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn{ padding : {{menupadding}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "usernColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn .tpgb-acc-text{ color : {{usernColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "userBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn"
+                }
+            ],
+            "scopy": true
+        },
+        "userBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn"
+                }
+            ],
+            "scopy": true
+        },
+        "userbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn{ border-radius : {{userbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "userBsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn"
+                }
+            ],
+            "scopy": true
+        },
+        "usernHvrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn:hover{ color : {{usernHvrColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "userHvrBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "userhvrBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "userbhvrRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn:hover{ border-radius : {{userbhvrRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "userhvrBsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-account-menu .tpgb-account-btn:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "miconSize": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-acc-item .tpgb-acc-icon{ font-size : {{miconSize}}; } "
+                }
+            ],
+            "scopy": true
+        },
+        "miconSpacing": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-acc-item .tpgb-acc-icon{ margin-right : {{miconSpacing}}; } "
+                }
+            ],
+            "scopy": true
+        },
+        "miconColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-acc-item .tpgb-acc-icon{ color : {{miconColor}}; } "
+                }
+            ],
+            "scopy": true
+        },
+        "mhvriconColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-acc-link:hover .tpgb-acc-icon{ color : {{mhvriconColor}}; } "
+                }
+            ],
+            "scopy": true
+        },
+        "bmaxWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "btnType",
+                            "relation": "==",
+                            "value": ["button-click", "button-hover"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap{ min-width: {{bmaxWidth}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "bmaxHeight": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap{ max-height: {{bmaxHeight}};  min-height: {{bmaxHeight}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "bmargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-lostpass-form{ margin : {{bmargin}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "btnType",
+                            "relation": "==",
+                            "value": ["button-click", "button-hover", "button-popup"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap .tpgb-lostpass-form{ margin : {{bmargin}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "bpadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-lostpass-form{ padding : {{bpadding}};  }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "btnType",
+                            "relation": "==",
+                            "value": ["button-click", "button-hover"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap .tpgb-lostpass-form{ padding : {{bpadding}};  }"
+                }
+            ],
+            "scopy": true
+        },
+        "bbgType": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "btnType",
+                            "relation": "==",
+                            "value": ["button-click", "button-hover"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap .tpgb-lostpass-form"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-lostpass-form"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "btnType",
+                            "relation": "==",
+                            "value": ["button-click", "button-hover", "button-popup"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        },
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "forgot_password"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-lostpass-form"
+                }
+            ],
+            "scopy": true
+        },
+        "boxborRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-lostpass-form{ border-radius : {{boxborRad}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "btnType",
+                            "relation": "==",
+                            "value": ["button-click", "button-hover"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap .tpgb-lostpass-form{ border-radius : {{boxborRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "boxbShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "btnType",
+                            "relation": "==",
+                            "value": ["button-click", "button-hover"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-form-wrap .tpgb-lostpass-form"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "==",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-lostpass-form"
+                }
+            ],
+            "scopy": true
+        },
+        "tabbtnAllign": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-form-tab-wrap .tpgb-form-tabbtn{ text-align: {{tabbtnAllign}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tabbtnTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn"
+                }
+            ],
+            "scopy": true
+        },
+        "tabbtnPadd": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn{ padding : {{tabbtnPadd}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tabbtnWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn{ max-width : {{tabbtnWidth}}; min-width : {{tabbtnWidth}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tabBtcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn{ color : {{tabBtcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tabtBbg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn"
+                }
+            ],
+            "scopy": true
+        },
+        "tabbtBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn"
+                }
+            ],
+            "scopy": true
+        },
+        "tabBbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn{ border-radius : {{tabBbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tabBbsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn"
+                }
+            ],
+            "scopy": true
+        },
+        "tabBtActcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn.active{ color : {{tabBtActcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tabtActBbg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn.active"
+                }
+            ],
+            "scopy": true
+        },
+        "tabbtActBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn.active"
+                }
+            ],
+            "scopy": true
+        },
+        "tabBactbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn.active{ border-radius : {{tabBactbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "tabBactbsha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-tab-wrap .tpgb-ftab-btn.active"
+                }
+            ],
+            "scopy": true
+        },
+        "betSpace": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": "login-register"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-form-tab-wrap .tpgb-form-tabbtn .tpgb-ftab-btn:last-child{ margin-left : {{betSpace}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpbtntypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpbtnmar": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button{ margin : {{hcpbtnmar}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpbtnpadd": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button{ padding : {{hcpbtnpadd}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-formbtn-hover{ width : {{hcpWidth}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button{ color : {{hcpColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpBtad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button{ border-radius : {{hcpBtad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpbSha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpHvrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button:hover{ color : {{hcpHvrColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpHvrBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpHvrBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "hcphvrBtad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button:hover{ border-radius : {{hcphvrBtad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcphvrbSha": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpbIconsi": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button .tpgb-hcp-icon{ font-size : {{hcpbIconsi}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcprigSpa": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button .tpgb-hcp-icon{  margin-right : {{hcprigSpa}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpiconColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button .tpgb-hcp-icon{ color : {{hcpiconColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "hcpihveColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formLayout",
+                            "relation": "!=",
+                            "value": "standard-form"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-wrap .tpgb-show-button:hover .tpgb-hcp-icon{ color : {{hcpihveColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "cutmsgTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls .tpgb-error-field"
+                }
+            ],
+            "scopy": true
+        },
+        "cutmsgpadd": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls .tpgb-error-field{ padding : {{cutmsgpadd}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "msgtopOff": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls .tpgb-error-field{ top : {{msgtopOff}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "cutmsgColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls .tpgb-error-field{ color : {{cutmsgColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "cutmsgBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls .tpgb-error-field"
+                }
+            ],
+            "scopy": true
+        },
+        "cutmsgBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls .tpgb-error-field"
+                }
+            ],
+            "scopy": true
+        },
+        "cutmsgBorrad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-form-controls .tpgb-error-field{ border-radius : {{cutmsgBorrad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "termsCondi": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-choice-label"
+                }
+            ],
+            "scopy": true
+        },
+        "termcondiTxt": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-choice-label{ color : {{termcondiTxt}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "termsBg": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox { background : {{termsBg}};  } "
+                }
+            ],
+            "scopy": true
+        },
+        "termsBor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox { border-color : {{termsBor}};  } "
+                }
+            ],
+            "scopy": true
+        },
+        "termscheBg": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox:checked,{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox:hover:checked,{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox:focus:checked { background : {{termscheBg}};  } "
+                }
+            ],
+            "scopy": true
+        },
+        "termscheBor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox:checked,{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox:hover:checked,{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox:focus:checked { border-color : : {{termscheBor}};  } "
+                }
+            ],
+            "scopy": true
+        },
+        "termchkColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login-register", "register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-check-terms .tpgb-login-checkbox:checked::before{ border-color : {{termchkColor}}; }"
+                }
+            ]
+        },
+        "magictxtTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-magic-tag"
+                }
+            ],
+            "scopy": true
+        },
+        "magictxtColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-magic-tag{ color:{{magictxtColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "foheadingAlign": {
+            "type": "object",
+            "default": {
+                "md": "left",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "loginTitle",
+                            "relation": "!=",
+                            "value": ""
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title{ text-align: {{foheadingAlign}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "regisTitle",
+                            "relation": "!=",
+                            "value": ""
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-wrap .tpgb-form-title{ text-align: {{foheadingAlign}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "extrtxtTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-register-msg,{{PLUS_WRAP}} .tpgb-login-form .tpgb-register-msg"
+                }
+            ],
+            "scopy": true
+        },
+        "extrtxtAlign": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-register-msg,{{PLUS_WRAP}} .tpgb-login-form .tpgb-register-msg{ display : block; text-align : {{extrtxtAlign}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "extrtMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-lore-exttxt,{{PLUS_WRAP}} .tpgb-login-form .tpgb-lore-exttxt{ margin : {{extrtMargin}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "extrtxtColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-register-form .tpgb-register-msg,{{PLUS_WRAP}} .tpgb-login-form .tpgb-register-msg{ color : {{extrtxtColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "radiounchBg": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=radio]{ background-color : {{radiounchBg}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "radiounchBor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=radio]{ border-color : {{radiounchBor}} }"
+                }
+            ]
+        },
+        "radiocheBg": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=radio]:checked:before{ background-color : {{radiocheBg}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "radiocheBor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=radio]:checked{ border-color : {{radiocheBor}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "filePadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=file]{ padding : {{filePadding}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "fileBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register input[type=file]"
+                }
+            ],
+            "scopy": true
+        },
+        "socialBtnTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook .tpgb-social-logo p ,{{PLUS_WRAP}} .tpgb-btn-google .tpgb-btn-goo span.abcRioButtonContents,{{PLUS_WRAP}} .tpgb-btn-google .tpgb-social-logo.tpgb-goo-dark"
+                }
+            ],
+            "scopy": true
+        },
+        "socialBtnpadd": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook .tpgb-social-logo , {{PLUS_WRAP}} .tpgb-btn-google .tpgb-btn-goo .tpgb-social-logo{ padding : {{socialBtnpadd}} } "
+                }
+            ],
+            "scopy": true
+        },
+        "socibtnColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook a.tpgb-btn-fb .tpgb-social-logo > p, {{PLUS_WRAP}} .tpgb-btn-google .tpgb-btn-goo .abcRioButtonContents{ color : {{socibtnColor}} !important } "
+                }
+            ],
+            "scopy": true
+        },
+        "socibtnhvrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook:hover a.tpgb-btn-fb, {{PLUS_WRAP}} .tpgb-btn-google:hover .tpgb-btn-goo .abcRioButtonContents{ color : {{socibtnhvrColor}} !important } "
+                }
+            ],
+            "scopy": true
+        },
+        "sobtnBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgn-socialbtn-wrap a.tpgb-btn-fb, {{PLUS_WRAP}} .tpgb-btn-google .tpgb-social-logo, {{PLUS_WRAP}} .tpgb-btn-google .abcRioButton"
+                }
+            ],
+            "scopy": true
+        },
+        "sohvrbtnBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook:hover a.tpgb-btn-fb, {{PLUS_WRAP}} .tpgb-btn-google:hover .tpgb-social-logo , {{PLUS_WRAP}} .tpgb-btn-google:hover .abcRioButton "
+                }
+            ],
+            "scopy": true
+        },
+        "sobtnBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgn-socialbtn-wrap a.tpgb-btn-fb, {{PLUS_WRAP}} .tpgb-btn-google .tpgb-social-logo, {{PLUS_WRAP}} .tpgb-btn-google .abcRioButton"
+                }
+            ],
+            "scopy": true
+        },
+        "sobtnhvrBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook:hover a.tpgb-btn-fb, {{PLUS_WRAP}} .tpgb-btn-google:hover .tpgb-social-logo , {{PLUS_WRAP}} .tpgb-btn-google:hover .abcRioButton "
+                }
+            ],
+            "scopy": true
+        },
+        "sobtnbRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgn-socialbtn-wrap a.tpgb-btn-fb, {{PLUS_WRAP}} .tpgb-btn-google .tpgb-social-logo, {{PLUS_WRAP}} .tpgb-btn-google .abcRioButton{ border-radius: {{sobtnbRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "sobtnbhvrRad": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook:hover a.tpgb-btn-fb, {{PLUS_WRAP}} .tpgb-btn-google:hover .tpgb-social-logo , {{PLUS_WRAP}} .tpgb-btn-google:hover .abcRioButton{ border-radius: {{sobtnbhvrRad}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "sobtnWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-btn-facebook .tpgb-btn-fb,{{PLUS_WRAP}} .tpgb-btn-facebook, {{PLUS_WRAP}} .tpgb-btn-google .tpgb-social-logo ,.tpgb-btn-google .tpgb-btn-goo .abcRioButtonLightBlue{ width : {{sobtnWidth}} !important; } "
+                }
+            ]
+        },
+        "formbtnIcons": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-register-button .tpgb-lrbtn-icon .tpgb-lrbtn,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-button .tpgb-lrbtn-icon .tpgb-lrbtn,{{PLUS_WRAP}}.tpgb-login-register .tpgb-forget-password-button .tpgb-lrbtn-icon .tpgb-lrbtn{ font-size : {{formbtnIcons}} } "
+                }
+            ]
+        },
+        "formbtnISpace": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-register-button .tpgb-lrbtn-icon,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-button .tpgb-lrbtn-icon,{{PLUS_WRAP}}.tpgb-login-register .tpgb-forget-password-button .tpgb-lrbtn-icon{ column-gap : {{formbtnISpace}} } "
+                }
+            ]
+        },
+        "formIconColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-register-button .tpgb-lrbtn-icon .tpgb-lrbtn,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-button .tpgb-lrbtn-icon .tpgb-lrbtn,{{PLUS_WRAP}}.tpgb-login-register .tpgb-forget-password-button .tpgb-lrbtn-icon .tpgb-lrbtn{ color : {{formIconColor}} } "
+                }
+            ]
+        },
+        "fbtnHicColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["register", "login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-login-register .tpgb-register-button:hover .tpgb-lrbtn-icon .tpgb-lrbtn,{{PLUS_WRAP}}.tpgb-login-register .tpgb-login-button:hover .tpgb-lrbtn-icon .tpgb-lrbtn , {{PLUS_WRAP}}.tpgb-login-register .tpgb-forget-password-button:hover .tpgb-lrbtn-icon .tpgb-lrbtn { color : {{fbtnHicColor}} } "
+                }
+            ]
+        },
+        "lostxtTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-lost-password"
+                }
+            ]
+        },
+        "lostxtAlign": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-field-group.tpgb-lostpass-relink{ text-align : {{lostxtAlign}} }"
+                }
+            ]
+        },
+        "losttxtColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group .tpgb-lost-password{ color : {{losttxtColor}} }"
+                }
+            ]
+        },
+        "losttxtMar": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "formType",
+                            "relation": "==",
+                            "value": ["login-register", "login"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-login-form .tpgb-field-group.tpgb-lostpass-relink{ margin : {{losttxtMar}} }"
+                }
+            ]
+        },
+        "showBlockContent": {
+            "type": "boolean",
+            "default": true
+        }
+    }
+}
