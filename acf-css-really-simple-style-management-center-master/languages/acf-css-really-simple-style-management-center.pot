@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Project-Id-Version: ACF CSS Manager 13.2.0\n"
 "Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
-"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"POT-Creation-Date: 2026-01-02 00:00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,6 +13,31 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: Translation Generator Script\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+
+#. Plugin Name of the plugin
+#: acf-css-really-simple-style-guide.php:3
+msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: acf-css-really-simple-style-guide.php:4
+msgid "https://3j-labs.com"
+msgstr ""
+
+#. Description of the plugin
+#: acf-css-really-simple-style-guide.php:5
+msgid "A comprehensive style management plugin that centrally and consistently manages all style elements of your WordPress website, including color palettes, typography, buttons, and forms. The Free version provides basic style management features for maintaining brand consistency and efficient design system operation. Install the Pro version plugin alongside to access Basic, Premium, and Unlimited features. Fully integrated with WordPress Customizer for intuitive style management with real-time preview."
+msgstr ""
+
+#. Author of the plugin
+#: acf-css-really-simple-style-guide.php:7
+msgid "3J Labs"
+msgstr ""
+
+#. Author URI of the plugin
+#: acf-css-really-simple-style-guide.php:9
+msgid "https://3j-labs.com"
+msgstr ""
 
 #: acf-css-really-simple-style-guide.php:500
 msgid "현재 버전을 사용 중입니다."

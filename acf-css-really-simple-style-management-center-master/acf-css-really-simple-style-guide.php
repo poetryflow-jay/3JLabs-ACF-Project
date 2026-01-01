@@ -8,6 +8,7 @@
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
  * Text Domain:       acf-css-really-simple-style-management-center
+ * Domain Path:       /languages
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
