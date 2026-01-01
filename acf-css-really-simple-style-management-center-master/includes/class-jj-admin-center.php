@@ -112,7 +112,10 @@ final class JJ_Admin_Center {
             $core_enabled = in_array( $plugin_file, $core_auto_updates, true );
 
             // 플러그인 내부 설정 옵션과 동기화(불일치 시에만)
-            $update_settings = get_option( 'jj_style_guide_update_settings', array() );
+            // [Phase 8.1] Options Cache 활용
+            $update_settings = class_exists( 'JJ_Options_Cache' ) 
+                ? JJ_Options_Cache::get_option( 'jj_style_guide_update_settings', array() )
+                : get_option( 'jj_style_guide_update_settings', array() );
             if ( isset( $update_settings['auto_update_enabled'] ) && (bool) $update_settings['auto_update_enabled'] !== $core_enabled ) {
                 $update_settings['auto_update_enabled'] = $core_enabled;
                 update_option( 'jj_style_guide_update_settings', $update_settings );
@@ -178,19 +181,28 @@ final class JJ_Admin_Center {
         wp_enqueue_script( 'jquery-ui-mouse' );
         wp_enqueue_script( 'jquery-ui-sortable' );
         
+        // [Phase 8.1] 공통 유틸리티 먼저 로드
+        wp_enqueue_script(
+            'jj-common-utils',
+            JJ_STYLE_GUIDE_URL . 'assets/js/jj-common-utils.js',
+            array( 'jquery' ),
+            $js_ver,
+            true
+        );
+        
         wp_enqueue_script(
             'jj-admin-center',
             $js_url,
-            array( 'jquery', 'wp-color-picker', 'jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-sortable' ),
+            array( 'jquery', 'wp-color-picker', 'jquery-ui-core', 'jquery-ui-mouse', 'jquery-ui-sortable', 'jj-common-utils' ),
             $js_ver,
             true
         );
         
         // [v5.0.3] 키보드 단축키 시스템 로드
-        wp_enqueue_script( 'jj-keyboard-shortcuts', JJ_STYLE_GUIDE_URL . 'assets/js/jj-keyboard-shortcuts.js', array( 'jquery' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
+        wp_enqueue_script( 'jj-keyboard-shortcuts', JJ_STYLE_GUIDE_URL . 'assets/js/jj-keyboard-shortcuts.js', array( 'jquery', 'jj-common-utils' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
         
         // [v5.0.3] 툴팁 시스템 로드
-        wp_enqueue_script( 'jj-tooltips', JJ_STYLE_GUIDE_URL . 'assets/js/jj-tooltips.js', array( 'jquery' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
+        wp_enqueue_script( 'jj-tooltips', JJ_STYLE_GUIDE_URL . 'assets/js/jj-tooltips.js', array( 'jquery', 'jj-common-utils' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
 
         // AJAX 파라미터 로컬라이즈
         wp_localize_script(
@@ -1071,14 +1083,35 @@ final class JJ_Admin_Center {
     }
 
     /**
+     * [Phase 8.2] 통합 AJAX 보안 검증 헬퍼
+     * 
+     * @param string $ajax_action AJAX 액션명
+     * @param string $nonce_key Nonce 키
+     * @param string $capability 필요한 권한
+     * @return bool 검증 성공 여부
+     */
+    private function verify_ajax_security( $ajax_action, $nonce_key, $capability = 'manage_options' ) {
+        if ( class_exists( 'JJ_Security_Hardener' ) ) {
+            return JJ_Security_Hardener::verify_ajax_request( $ajax_action, $nonce_key, $capability );
+        } else {
+            // 폴백
+            check_ajax_referer( $nonce_key, 'security' );
+            if ( ! current_user_can( $capability ) ) {
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+                return false;
+            }
+            return true;
+        }
+    }
+
+    /**
      * AJAX 핸들러: 팔레트 데이터 가져오기
      * [v3.8.0] 관리자 센터 Colors 탭에서 팔레트 색상 불러오기용
+     * [Phase 8.2] 보안 강화
      */
     public function ajax_get_palette_data() {
-        check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
-
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        if ( ! $this->verify_ajax_security( 'jj_get_palette_data', 'jj_admin_center_save_action', 'manage_options' ) ) {
+            return;
         }
 
         // 팔레트 데이터 가져오기
@@ -1132,12 +1165,11 @@ final class JJ_Admin_Center {
 
     /**
      * [v3.8.0 신규] AJAX: 라이센스 키 저장
+     * [Phase 8.2] 보안 강화
      */
     public function ajax_save_license_key() {
-        check_ajax_referer( 'jj_license_save_action', 'nonce' );
-        
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        if ( ! $this->verify_ajax_security( 'jj_save_license_key', 'jj_license_save_action', 'manage_options' ) ) {
+            return;
         }
         
         $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
@@ -1306,11 +1338,12 @@ final class JJ_Admin_Center {
      * - WP 코어의 auto_update_plugins(site option)를 직접 업데이트합니다.
      * - 플러그인 목록 화면의 토글과 동일한 효과를 가집니다.
      */
+    /**
+     * [Phase 8.2] 보안 강화
+     */
     public function ajax_toggle_auto_update_plugin() {
-        check_ajax_referer( 'jj_admin_center_save_action', 'security' );
-
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        if ( ! $this->verify_ajax_security( 'jj_toggle_auto_update_plugin', 'jj_admin_center_save_action', 'manage_options' ) ) {
+            return;
         }
 
         $plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) : '';
@@ -1370,11 +1403,12 @@ final class JJ_Admin_Center {
      * - delete_site_transient('update_plugins') 후 wp_update_plugins()를 호출하여
      *   Updates 탭의 "업데이트 가능" 표시를 최신으로 만듭니다.
      */
+    /**
+     * [Phase 8.2] 보안 강화
+     */
     public function ajax_suite_refresh_updates() {
-        check_ajax_referer( 'jj_admin_center_save_action', 'security' );
-
-        if ( ! current_user_can( 'update_plugins' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        if ( ! $this->verify_ajax_security( 'jj_suite_refresh_updates', 'jj_admin_center_save_action', 'update_plugins' ) ) {
+            return;
         }
 
         // 캐시 삭제
@@ -1411,7 +1445,13 @@ final class JJ_Admin_Center {
     /**
      * [v5.1.7 신규] AJAX: 지금 업데이트 확인
      */
+    /**
+     * [Phase 8.2] 보안 강화
+     */
     public function ajax_check_updates_now() {
+        if ( ! $this->verify_ajax_security( 'jj_check_updates_now', 'jj_admin_center_save_action', 'update_plugins' ) ) {
+            return;
+        }
         check_ajax_referer( 'jj_admin_center_save_action', 'security' );
         
         if ( ! current_user_can( 'update_plugins' ) ) {
@@ -1469,12 +1509,11 @@ final class JJ_Admin_Center {
 
     /**
      * [v4.0.1 신규] AJAX: Admin Center 설정 저장
+     * [Phase 8.2] 보안 강화
      */
     public function ajax_save_admin_center_settings() {
-        check_ajax_referer( 'jj_admin_center_save_action', 'security' );
-        
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        if ( ! $this->verify_ajax_security( 'jj_admin_center_save', 'jj_admin_center_save_action', 'manage_options' ) ) {
+            return;
         }
 
         try {
@@ -1693,12 +1732,21 @@ final class JJ_Admin_Center {
 
     /**
      * [Phase 6] AJAX: 자가 진단 실행
+     * [Phase 8.2] 보안 강화: Security Hardener 활용
      */
     public function ajax_run_self_test() {
-        check_ajax_referer( 'jj_admin_center_save_action', 'security' );
-        
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+        // [Phase 8.2] 통합 보안 검증
+        if ( class_exists( 'JJ_Security_Hardener' ) ) {
+            if ( ! JJ_Security_Hardener::verify_ajax_request( 'jj_run_self_test', 'jj_admin_center_save_action', 'manage_options' ) ) {
+                return; // verify_ajax_request가 이미 오류 응답을 보냄
+            }
+        } else {
+            // 폴백: 기존 검증
+            check_ajax_referer( 'jj_admin_center_save_action', 'security' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+                return;
+            }
         }
         
         if ( ! class_exists( 'JJ_Self_Tester' ) ) {
@@ -1720,27 +1768,66 @@ final class JJ_Admin_Center {
 
     /**
      * [v8.0.0] Bulk Installer: 파일 업로드 핸들러
+     * [Phase 8.2] 보안 강화: 파일 검증 및 보안 헬퍼 활용
      */
     public function ajax_handle_bulk_upload() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        if ( ! current_user_can( 'install_plugins' ) ) wp_send_json_error( '권한이 없습니다.' );
-        if ( empty( $_FILES['file'] ) ) wp_send_json_error( '파일이 없습니다.' );
+        // [Phase 8.2] 통합 보안 검증
+        if ( ! $this->verify_ajax_security( 'jj_bulk_install_upload', 'jj_bulk_install', 'install_plugins' ) ) {
+            return;
+        }
+        
+        if ( empty( $_FILES['file'] ) ) {
+            wp_send_json_error( array( 'message' => __( '파일이 없습니다.', 'jj-style-guide' ) ) );
+            return;
+        }
 
-        $file = $_FILES['file'];
+        // [Phase 8.2] 파일 업로드 검증 강화
+        $allowed_types = array( 'application/zip', 'application/x-zip-compressed' );
+        $max_size = 50 * 1024 * 1024; // 50MB
+        
+        if ( class_exists( 'JJ_Security_Hardener' ) ) {
+            $validation = JJ_Security_Hardener::validate_upload( $_FILES['file'], $allowed_types, $max_size );
+            
+            if ( is_wp_error( $validation ) ) {
+                wp_send_json_error( array( 'message' => $validation->get_error_message() ) );
+                return;
+            }
+            
+            $file = $validation;
+        } else {
+            // 기본 검증
+            $file = $_FILES['file'];
+            if ( isset( $file['size'] ) && $file['size'] > $max_size ) {
+                wp_send_json_error( array( 'message' => __( '파일 크기가 너무 큽니다.', 'jj-style-guide' ) ) );
+                return;
+            }
+        }
+        
         $upload_dir = wp_upload_dir();
         $temp_dir = $upload_dir['basedir'] . '/jj-bulk-temp/';
-        if ( ! file_exists( $temp_dir ) ) wp_mkdir_p( $temp_dir );
+        if ( ! file_exists( $temp_dir ) ) {
+            wp_mkdir_p( $temp_dir );
+        }
         
-        $target_path = $temp_dir . basename( $file['name'] );
+        // [Phase 8.2] 파일명 정리 및 경로 조작 방지
+        $safe_filename = sanitize_file_name( $file['name'] );
+        $target_path = $temp_dir . $safe_filename;
+        
+        // 경로 조작 방지 (directory traversal)
+        $target_path = realpath( dirname( $target_path ) ) . '/' . basename( $target_path );
+        if ( strpos( $target_path, realpath( $temp_dir ) ) !== 0 ) {
+            wp_send_json_error( array( 'message' => __( '유효하지 않은 파일 경로입니다.', 'jj-style-guide' ) ) );
+            return;
+        }
         
         if ( move_uploaded_file( $file['tmp_name'], $target_path ) ) {
             wp_send_json_success( array( 
                 'path' => $target_path,
-                'name' => $file['name'],
+                'name' => $safe_filename,
                 'type' => $this->detect_bulk_type( $target_path )
             ) );
         } else {
-            wp_send_json_error( '파일 업로드 실패' );
+            wp_send_json_error( array( 'message' => __( '파일 업로드 실패', 'jj-style-guide' ) ) );
         }
     }
 
@@ -1787,9 +1874,13 @@ final class JJ_Admin_Center {
     /**
      * [v8.0.0] Bulk Installer: 활성화 핸들러
      */
+    /**
+     * [Phase 8.2] 보안 강화
+     */
     public function ajax_handle_bulk_activate() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        if ( ! current_user_can( 'install_plugins' ) ) wp_send_json_error( '권한이 없습니다.' );
+        if ( ! $this->verify_ajax_security( 'jj_bulk_activate_plugin', 'jj_bulk_install', 'install_plugins' ) ) {
+            return;
+        }
         
         $slug = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
         if ( ! $slug ) wp_send_json_error( '플러그인 정보가 없습니다.' );

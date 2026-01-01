@@ -161,25 +161,92 @@ final class JJ_Options_Cache {
     
     /**
      * [v5.3.6] 캐시 크기 제한 및 정리
+     * [Phase 8.1] 개선: 더 적극적인 캐시 관리 및 LRU 알고리즘 적용
      * 메모리 사용량이 높을 때 오래된 캐시 항목 제거
      */
     public function limit_cache_size() {
+        $cache_count = count( self::$cache );
+        
+        // 기본 캐시 항목 수 제한 (메모리 매니저 없어도 작동)
+        $max_items = 100;
+        
         // 메모리 매니저가 있는 경우 사용
         if ( class_exists( 'JJ_Memory_Manager' ) ) {
             $memory_manager = JJ_Memory_Manager::instance();
             $memory_info = $memory_manager->get_memory_limit_info();
+            $usage_ratio = $memory_manager->get_memory_usage_ratio();
             
-            // 낮은 메모리 환경(256MB 미만)이거나 사용량이 높은 경우 캐시 크기 제한
-            if ( $memory_info['is_low_memory'] || $memory_manager->get_memory_usage_ratio() > 0.7 ) {
-                // 최대 캐시 크기: 메모리 제한의 5% 또는 5MB 중 작은 값
+            // 메모리 사용량에 따라 캐시 크기 동적 조정
+            if ( $memory_info['is_low_memory'] ) {
+                $max_items = 50; // 낮은 메모리 환경: 50개
+                $max_cache_size = min( $memory_info['limit'] * 0.03, 3 * 1024 * 1024 );
+            } elseif ( $usage_ratio > 0.8 ) {
+                $max_items = 75; // 높은 사용량: 75개
+                $max_cache_size = min( $memory_info['limit'] * 0.04, 4 * 1024 * 1024 );
+            } elseif ( $usage_ratio > 0.7 ) {
+                $max_items = 100; // 중간 사용량: 100개
                 $max_cache_size = min( $memory_info['limit'] * 0.05, 5 * 1024 * 1024 );
+            } else {
+                $max_items = 150; // 낮은 사용량: 150개
+                $max_cache_size = min( $memory_info['limit'] * 0.06, 6 * 1024 * 1024 );
+            }
+            
+            // 캐시 항목 수 제한 (LRU: 최근 사용되지 않은 항목 제거)
+            if ( $cache_count > $max_items ) {
+                // 옵션 버전을 기준으로 정렬 (오래된 것부터 제거)
+                uasort( self::$option_versions, function( $a, $b ) {
+                    return $a - $b; // 오름차순 (오래된 것 먼저)
+                } );
+                
+                $remove_count = $cache_count - $max_items;
+                $removed = 0;
+                foreach ( array_keys( self::$option_versions ) as $option_name ) {
+                    if ( $removed >= $remove_count ) {
+                        break;
+                    }
+                    $cache_key = $this->get_cache_key( $option_name );
+                    if ( isset( self::$cache[ $cache_key ] ) ) {
+                        unset( self::$cache[ $cache_key ] );
+                        unset( self::$option_versions[ $option_name ] );
+                        $removed++;
+                    }
+                }
+            }
+            
+            // 메모리 기반 캐시 크기 제한
+            $current_size = $this->get_memory_usage();
+            if ( $current_size > $max_cache_size ) {
                 $removed_count = $memory_manager->limit_cache_size( self::$cache, $max_cache_size );
                 
                 if ( $removed_count > 0 && function_exists( 'error_log' ) && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
                     error_log( sprintf(
-                        'JJ Options Cache: 메모리 최적화를 위해 %d개의 캐시 항목을 제거했습니다.',
-                        $removed_count
+                        'JJ Options Cache: 메모리 최적화를 위해 %d개의 캐시 항목을 제거했습니다. (사용량: %.2f MB / 제한: %.2f MB)',
+                        $removed_count,
+                        $current_size / 1024 / 1024,
+                        $max_cache_size / 1024 / 1024
                     ) );
+                }
+            }
+        } else {
+            // 메모리 매니저가 없는 경우 단순 항목 수 제한
+            if ( $cache_count > $max_items ) {
+                // 버전 기준 정렬 후 오래된 항목 제거
+                uasort( self::$option_versions, function( $a, $b ) {
+                    return $a - $b;
+                } );
+                
+                $remove_count = $cache_count - $max_items;
+                $removed = 0;
+                foreach ( array_keys( self::$option_versions ) as $option_name ) {
+                    if ( $removed >= $remove_count ) {
+                        break;
+                    }
+                    $cache_key = $this->get_cache_key( $option_name );
+                    if ( isset( self::$cache[ $cache_key ] ) ) {
+                        unset( self::$cache[ $cache_key ] );
+                        unset( self::$option_versions[ $option_name ] );
+                        $removed++;
+                    }
                 }
             }
         }
@@ -292,12 +359,36 @@ final class JJ_Options_Cache {
                 $results[ $option_name ] = $value;
             }
         } elseif ( ! empty( $missing_options ) && function_exists( 'get_option' ) ) {
-            // 폴백: 개별 로드 (하지만 캐시에 저장하여 다음 요청에서 재사용)
-            foreach ( $missing_options as $option_name ) {
-                $value = get_option( $option_name, false );
-                $cache_key = $this->get_cache_key( $option_name );
-                self::$cache[ $cache_key ] = $value;
-                $results[ $option_name ] = $value;
+            // [Phase 8.1] 최적화: 직접 데이터베이스 쿼리로 배치 로드
+            global $wpdb;
+            if ( ! empty( $wpdb ) && method_exists( $wpdb, 'prepare' ) ) {
+                $placeholders = implode( ',', array_fill( 0, count( $missing_options ), '%s' ) );
+                $query = $wpdb->prepare(
+                    "SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name IN ($placeholders)",
+                    $missing_options
+                );
+                $db_results = $wpdb->get_results( $query, OBJECT_K );
+                
+                foreach ( $missing_options as $option_name ) {
+                    $value = false;
+                    if ( isset( $db_results[ $option_name ] ) ) {
+                        // unserialize 필요시 처리
+                        $option_value = $db_results[ $option_name ]->option_value;
+                        $value = maybe_unserialize( $option_value );
+                    }
+                    
+                    $cache_key = $this->get_cache_key( $option_name );
+                    self::$cache[ $cache_key ] = $value;
+                    $results[ $option_name ] = $value;
+                }
+            } else {
+                // 폴백: 개별 로드 (하지만 캐시에 저장하여 다음 요청에서 재사용)
+                foreach ( $missing_options as $option_name ) {
+                    $value = get_option( $option_name, false );
+                    $cache_key = $this->get_cache_key( $option_name );
+                    self::$cache[ $cache_key ] = $value;
+                    $results[ $option_name ] = $value;
+                }
             }
         }
         

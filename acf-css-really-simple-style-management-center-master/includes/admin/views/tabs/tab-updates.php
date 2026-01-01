@@ -144,6 +144,144 @@ if ( ! defined( 'ABSPATH' ) ) {
         <h2 style="margin-top: 0;"><?php esc_html_e( '업데이트 개요 (코어 + 애드온)', 'jj-style-guide' ); ?></h2>
         <p class="description"><?php esc_html_e( 'WordPress 플러그인 목록 UX처럼, 설치/활성/업데이트/자동 업데이트 상태를 한 번에 확인합니다.', 'jj-style-guide' ); ?></p>
 
+        <?php
+        // ============================================================
+        // [Phase 8.0] Suite 전체 일괄 제어 패널
+        // ============================================================
+        // 코어 버전 추출 (주 버전만)
+        $core_version = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '0.0.0';
+        $core_major = preg_match( '/^(\d+\.\d+)/', $core_version, $m ) ? $m[1] : '0.0';
+        
+        // 버전 불일치 감지
+        $version_mismatches = array();
+        foreach ( $suite as $it_vm ) {
+            $pf_vm = $find_plugin_file( $it_vm['candidates'] ?? array() );
+            if ( '' === $pf_vm || ! isset( $all_plugins[ $pf_vm ] ) ) continue;
+            
+            $ver_vm = (string) $all_plugins[ $pf_vm ]['Version'];
+            $addon_major = preg_match( '/^(\d+\.\d+)/', $ver_vm, $m ) ? $m[1] : '0.0';
+            
+            // 코어와 애드온 간 주 버전 불일치 감지
+            if ( $core_major !== $addon_major && $it_vm['id'] !== 'core' ) {
+                $version_mismatches[] = array(
+                    'name' => isset( $it_vm['label'] ) ? (string) $it_vm['label'] : $pf_vm,
+                    'version' => $ver_vm,
+                    'core_version' => $core_version,
+                    'expected_major' => $core_major,
+                );
+            }
+        }
+        ?>
+        
+        <!-- Suite 전체 일괄 제어 패널 -->
+        <div style="margin: 20px 0; padding: 16px; border: 2px solid #2271b1; border-radius: 6px; background: #f0f6fc;">
+            <h3 style="margin-top: 0; color: #2271b1;">
+                <span class="dashicons dashicons-admin-settings" style="vertical-align: middle;"></span>
+                <?php esc_html_e( 'Suite 전체 일괄 제어', 'jj-style-guide' ); ?>
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 12px;">
+                <!-- 전체 자동 업데이트 제어 -->
+                <div style="padding: 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
+                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '전체 자동 업데이트', 'jj-style-guide' ); ?></strong>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <button type="button" class="button button-primary" id="jj-suite-auto-update-all-on">
+                            <span class="dashicons dashicons-update" style="vertical-align: middle;"></span>
+                            <?php esc_html_e( '전체 ON', 'jj-style-guide' ); ?>
+                        </button>
+                        <button type="button" class="button button-secondary" id="jj-suite-auto-update-all-off">
+                            <span class="dashicons dashicons-dismiss" style="vertical-align: middle;"></span>
+                            <?php esc_html_e( '전체 OFF', 'jj-style-guide' ); ?>
+                        </button>
+                    </div>
+                    <p class="description" style="margin: 8px 0 0 0; font-size: 12px;">
+                        <?php esc_html_e( '설치된 모든 Suite 플러그인의 자동 업데이트를 일괄 제어합니다.', 'jj-style-guide' ); ?>
+                    </p>
+                </div>
+                
+                <!-- 전체 업데이트 체크 -->
+                <div style="padding: 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
+                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '업데이트 확인', 'jj-style-guide' ); ?></strong>
+                    <button type="button" class="button button-primary" id="jj-suite-check-all-updates">
+                        <span class="dashicons dashicons-update" style="vertical-align: middle;"></span>
+                        <?php esc_html_e( '전체 업데이트 체크', 'jj-style-guide' ); ?>
+                    </button>
+                    <p class="description" style="margin: 8px 0 0 0; font-size: 12px;">
+                        <?php esc_html_e( 'WordPress 업데이트 서버에서 모든 Suite 플러그인의 업데이트를 확인합니다.', 'jj-style-guide' ); ?>
+                    </p>
+                </div>
+                
+                <!-- 업데이트 적용 안내 -->
+                <div style="padding: 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
+                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '업데이트 적용', 'jj-style-guide' ); ?></strong>
+                    <?php if ( $suite_updates > 0 ) : ?>
+                        <div style="padding: 8px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; margin-bottom: 8px;">
+                            <strong style="color: #856404;">
+                                <?php
+                                printf(
+                                    /* translators: %d: number of updates */
+                                    esc_html__( '%d개 플러그인 업데이트 가능', 'jj-style-guide' ),
+                                    (int) $suite_updates
+                                );
+                                ?>
+                            </strong>
+                        </div>
+                        <a href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>" class="button button-primary">
+                            <?php esc_html_e( '업데이트 페이지로 이동', 'jj-style-guide' ); ?>
+                        </a>
+                    <?php else : ?>
+                        <div style="padding: 8px; background: #d1e7dd; border: 1px solid #198754; border-radius: 4px;">
+                            <span style="color: #0f5132;">
+                                <span class="dashicons dashicons-yes-alt" style="vertical-align: middle;"></span>
+                                <?php esc_html_e( '모든 플러그인이 최신 버전입니다.', 'jj-style-guide' ); ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                    <p class="description" style="margin: 8px 0 0 0; font-size: 12px;">
+                        <?php esc_html_e( '업데이트가 있으면 WordPress 업데이트 페이지에서 일괄 적용할 수 있습니다.', 'jj-style-guide' ); ?>
+                    </p>
+                </div>
+            </div>
+            
+            <?php if ( ! empty( $version_mismatches ) ) : ?>
+                <!-- 버전 불일치 경고 -->
+                <div style="margin-top: 16px; padding: 14px; background: #f8d7da; border: 2px solid #d63638; border-radius: 4px;">
+                    <h4 style="margin: 0 0 10px 0; color: #d63638;">
+                        <span class="dashicons dashicons-warning" style="vertical-align: middle;"></span>
+                        <?php esc_html_e( '버전 불일치 감지', 'jj-style-guide' ); ?>
+                    </h4>
+                    <p style="margin: 0 0 10px 0; color: #721c24;">
+                        <?php
+                        printf(
+                            /* translators: 1: core version 2: number of mismatches */
+                            esc_html__( '코어 버전(%1$s)과 호환되지 않는 애드온이 %2$d개 발견되었습니다.', 'jj-style-guide' ),
+                            esc_html( $core_version ),
+                            count( $version_mismatches )
+                        );
+                        ?>
+                    </p>
+                    <ul style="margin: 10px 0 0 20px; padding: 0;">
+                        <?php foreach ( $version_mismatches as $vm ) : ?>
+                            <li style="margin-bottom: 6px; color: #721c24;">
+                                <strong><?php echo esc_html( $vm['name'] ); ?>:</strong>
+                                <?php
+                                printf(
+                                    /* translators: 1: current version 2: expected major version */
+                                    esc_html__( '현재 %1$s (예상: %2$s.x)', 'jj-style-guide' ),
+                                    esc_html( $vm['version'] ),
+                                    esc_html( $vm['expected_major'] )
+                                );
+                                ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <p style="margin: 12px 0 0 0; font-size: 12px; color: #721c24;">
+                        <?php esc_html_e( '💡 권장 조치: 코어와 애드온을 모두 최신 버전으로 업데이트하거나, 동일한 주 버전으로 맞추세요.', 'jj-style-guide' ); ?>
+                    </p>
+                </div>
+            <?php endif; ?>
+        </div>
+
         <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top: 10px;">
             <input type="search"
                    id="jj-updates-suite-search"

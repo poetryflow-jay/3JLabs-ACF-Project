@@ -937,6 +937,114 @@
             bulkSetAutoUpdateForVisibleRows(false);
         });
 
+        // [Phase 8.0] Suite 전체 일괄 제어: 전체 자동 업데이트 ON/OFF
+        function bulkSetAutoUpdateForAllInstalled(targetEnabled) {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.nonce) return;
+            
+            const rows = $('.jj-suite-row[data-installed="1"]');
+            if (!rows.length) {
+                alert('설치된 Suite 플러그인이 없습니다.');
+                return;
+            }
+
+            const verb = targetEnabled ? 'ON' : 'OFF';
+            if (!confirm('설치된 모든 Suite 플러그인(' + rows.length + '개)에 대해 Auto-Update를 ' + verb + '으로 설정할까요?')) {
+                return;
+            }
+
+            const $btnAllOn = $('#jj-suite-auto-update-all-on');
+            const $btnAllOff = $('#jj-suite-auto-update-all-off');
+            $btnAllOn.prop('disabled', true);
+            $btnAllOff.prop('disabled', true);
+
+            let i = 0;
+            let ok = 0;
+            let fail = 0;
+
+            function step() {
+                if (i >= rows.length) {
+                    setSuiteActionsStatus('<strong>완료:</strong> 전체 Auto-Update ' + verb + ' 적용 ' + ok + '개, 실패 ' + fail + '개', (fail ? 'warning' : 'success'));
+                    $btnAllOn.prop('disabled', false);
+                    $btnAllOff.prop('disabled', false);
+                    // UI 업데이트를 위해 잠시 후 새로고침
+                    setTimeout(function() { window.location.reload(); }, 1200);
+                    return;
+                }
+
+                const $row = rows.eq(i);
+                const plugin = $row.attr('data-plugin') || '';
+                i++;
+
+                if (!plugin) {
+                    fail++;
+                    step();
+                    return;
+                }
+
+                setSuiteActionsStatus('진행 중… ' + i + '/' + rows.length + ' — ' + plugin, 'info');
+                $.post(jjAdminCenter.ajax_url, {
+                    action: 'jj_toggle_auto_update_plugin',
+                    security: jjAdminCenter.nonce,
+                    plugin: plugin,
+                    enabled: targetEnabled ? '1' : '0'
+                }).done(function(resp) {
+                    if (resp && resp.success) {
+                        ok++;
+                        const enabled = !!(resp.data && resp.data.enabled);
+                        setSuiteRowAutoUpdate($row, enabled);
+                    } else {
+                        fail++;
+                    }
+                }).fail(function() {
+                    fail++;
+                }).always(function() {
+                    setTimeout(step, 120);
+                });
+            }
+
+            step();
+        }
+
+        $wrap.on('click', '#jj-suite-auto-update-all-on', function(e) {
+            e.preventDefault();
+            bulkSetAutoUpdateForAllInstalled(true);
+        });
+
+        $wrap.on('click', '#jj-suite-auto-update-all-off', function(e) {
+            e.preventDefault();
+            bulkSetAutoUpdateForAllInstalled(false);
+        });
+
+        // Suite 전체 업데이트 체크
+        $wrap.on('click', '#jj-suite-check-all-updates', function(e) {
+            e.preventDefault();
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.nonce) return;
+
+            const $btn = $(this);
+            $btn.prop('disabled', true);
+            setSuiteActionsStatus('<span class="spinner is-active" style="float:none; margin:0 6px 0 0;"></span> 전체 업데이트를 확인하는 중…', 'info');
+
+            $.post(jjAdminCenter.ajax_url, { 
+                action: 'jj_suite_refresh_updates', 
+                security: jjAdminCenter.nonce 
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    const d = resp.data || {};
+                    const msg = (d.message ? d.message : '업데이트 정보를 갱신했습니다.')
+                        + ' (updates=' + (d.updates_count || 0) + ', checked=' + (d.checked_count || 0) + ')';
+                    setSuiteActionsStatus('<strong>완료:</strong> ' + msg + ' — 잠시 후 화면을 새로고칩니다.', 'success');
+                    setTimeout(function() { window.location.reload(); }, 900);
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '업데이트 체크에 실패했습니다.';
+                    setSuiteActionsStatus('<strong>오류:</strong> ' + msg, 'error');
+                }
+            }).fail(function() {
+                setSuiteActionsStatus('<strong>오류:</strong> 서버 통신 오류가 발생했습니다.', 'error');
+            }).always(function() {
+                $btn.prop('disabled', false);
+            });
+        });
+
         // Suite report copy / download
         function getSuiteReportPayload() {
             const rows = [];

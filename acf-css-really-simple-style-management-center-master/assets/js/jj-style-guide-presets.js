@@ -986,6 +986,15 @@
         }
 
         showToast('프리셋이 적용되었습니다. (되돌리기 가능)', 'success');
+        
+        // [Phase 8.4] 전역 Undo 시스템에 알림
+        if (typeof window.JJUndoSystem !== 'undefined') {
+          window.JJUndoSystem.captureSnapshot(preset.name || '프리셋 적용');
+          window.JJUndoSystem.updateUndoButton();
+        }
+        
+        // [Phase 8.4] 커스텀 이벤트 발생 (다른 스크립트에서 감지 가능)
+        $(document).trigger('jj:preset:applied', [preset.name || '프리셋']);
       });
 
       $undo.prop('disabled', !lastUndoSnapshot);
@@ -995,6 +1004,12 @@
         if (!confirm(label + ' 적용 전 상태로 되돌릴까요?')) return;
         restoreColorSnapshot(lastUndoSnapshot);
         lastUndoSnapshot = null;
+        
+        // [Phase 8.4] 전역 Undo 시스템에 알림
+        if (typeof window.JJUndoSystem !== 'undefined') {
+            window.JJUndoSystem.captureSnapshot('색상 복원');
+            window.JJUndoSystem.updateUndoButton();
+        }
         lastUndoLabel = '';
         $undo.prop('disabled', true);
         showToast('되돌렸습니다.', 'info');

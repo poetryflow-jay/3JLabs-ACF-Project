@@ -10,6 +10,23 @@ if ( ! defined( 'ABSPATH' ) ) {
             <?php esc_html_e( '플러그인의 메모리 사용량, 캐시 상태, 성능 정보를 확인할 수 있습니다.', 'jj-style-guide' ); ?>
         </p>
 
+        <?php
+        // [Phase 8.0] 매니페스트 검증 및 자가진단
+        $manifest_diagnosis = array();
+        $can_repair = false;
+        if ( class_exists( 'JJ_Safe_Loader' ) && method_exists( 'JJ_Safe_Loader', 'validate_manifest' ) ) {
+            $manifest_result = JJ_Safe_Loader::validate_manifest();
+            if ( class_exists( 'JJ_Safe_Loader' ) && method_exists( 'JJ_Safe_Loader', 'generate_diagnosis' ) ) {
+                $manifest_diagnosis = JJ_Safe_Loader::generate_diagnosis();
+                $can_repair = ! empty( $manifest_diagnosis['can_repair'] );
+            }
+        }
+        $has_missing_required = ! empty( $manifest_diagnosis['diagnosis']['manifest']['missing_required'] );
+        
+        // 활성화 오류 확인
+        $activation_error = get_option( 'jj_style_guide_activation_error', null );
+        ?>
+
         <!-- [Phase 6] 자가 진단 기능 -->
         <div class="jj-self-test-section" style="margin-bottom: 25px; padding: 15px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; border-left: 4px solid #2271b1;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -31,6 +48,118 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </button>
                 </div>
             </div>
+            
+            <?php if ( $has_missing_required || $activation_error ) : ?>
+                <!-- [Phase 8.0] 매니페스트 검증 결과 및 해결 방법 -->
+                <div style="margin-top: 15px; padding: 14px; background: <?php echo $has_missing_required ? '#f8d7da' : '#fff3cd'; ?>; border: 2px solid <?php echo $has_missing_required ? '#d63638' : '#ffc107'; ?>; border-radius: 4px;">
+                    <h4 style="margin: 0 0 10px 0; color: <?php echo $has_missing_required ? '#721c24' : '#856404'; ?>;">
+                        <span class="dashicons dashicons-<?php echo $has_missing_required ? 'warning' : 'info'; ?>" style="vertical-align: middle;"></span>
+                        <?php esc_html_e( '파일 누락 감지', 'jj-style-guide' ); ?>
+                    </h4>
+                    <?php if ( $has_missing_required ) : ?>
+                        <p style="margin: 0 0 10px 0; color: #721c24;">
+                            <?php
+                            printf(
+                                /* translators: %d: number of missing files */
+                                esc_html__( '필수 파일 %d개가 누락되었습니다. 플러그인이 정상 작동하지 않을 수 있습니다.', 'jj-style-guide' ),
+                                count( $manifest_diagnosis['diagnosis']['manifest']['missing_required'] )
+                            );
+                            ?>
+                        </p>
+                        <ul style="margin: 10px 0 0 20px; padding: 0; color: #721c24;">
+                            <?php foreach ( array_slice( $manifest_diagnosis['diagnosis']['manifest']['missing_required'], 0, 10 ) as $missing ) : ?>
+                                <li style="margin-bottom: 4px;">
+                                    <code><?php echo esc_html( $missing['path'] ); ?></code>
+                                </li>
+                            <?php endforeach; ?>
+                            <?php if ( count( $manifest_diagnosis['diagnosis']['manifest']['missing_required'] ) > 10 ) : ?>
+                                <li style="color: #856404;">
+                                    <?php
+                                    printf(
+                                        /* translators: %d: additional count */
+                                        esc_html__( '... 외 %d개 파일 누락', 'jj-style-guide' ),
+                                        count( $manifest_diagnosis['diagnosis']['manifest']['missing_required'] ) - 10
+                                    );
+                                    ?>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    <?php endif; ?>
+                    
+                    <?php if ( $activation_error ) : ?>
+                        <div style="margin-top: 12px; padding: 10px; background: #fff; border: 1px solid #d63638; border-radius: 4px;">
+                            <strong style="color: #721c24;"><?php esc_html_e( '활성화 오류:', 'jj-style-guide' ); ?></strong>
+                            <div style="margin-top: 6px; color: #721c24; font-size: 12px;">
+                                <?php
+                                $reason = isset( $activation_error['reason'] ) ? $activation_error['reason'] : 'unknown';
+                                $message = isset( $activation_error['message'] ) ? $activation_error['message'] : '';
+                                
+                                if ( 'minimal_boot_failed' === $reason ) {
+                                    esc_html_e( '최소 부팅 경로 실패: 필수 파일이 누락되어 플러그인을 시작할 수 없습니다.', 'jj-style-guide' );
+                                } elseif ( 'activation_exception' === $reason || 'activation_fatal_error' === $reason ) {
+                                    printf(
+                                        /* translators: %s: error message */
+                                        esc_html__( '활성화 중 오류: %s', 'jj-style-guide' ),
+                                        esc_html( $message )
+                                    );
+                                } else {
+                                    esc_html_e( '알 수 없는 활성화 오류가 발생했습니다.', 'jj-style-guide' );
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if ( ! empty( $manifest_diagnosis['solutions'] ) ) : ?>
+                        <div style="margin-top: 12px;">
+                            <strong style="color: #721c24; display: block; margin-bottom: 8px;"><?php esc_html_e( '💡 해결 방법:', 'jj-style-guide' ); ?></strong>
+                            <?php foreach ( $manifest_diagnosis['solutions'] as $solution ) : ?>
+                                <div style="margin-bottom: 8px; padding: 10px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
+                                    <strong style="color: #0f172a;"><?php echo esc_html( $solution['title'] ); ?></strong>
+                                    <p style="margin: 6px 0 0 0; font-size: 12px; color: #475569;">
+                                        <?php echo esc_html( $solution['description'] ); ?>
+                                    </p>
+                                    <?php if ( ! empty( $solution['action_url'] ) ) : ?>
+                                        <a href="<?php echo esc_url( $solution['action_url'] ); ?>" class="button button-small" style="margin-top: 8px;">
+                                            <?php echo esc_html( $solution['title'] ); ?>
+                                        </a>
+                                    <?php elseif ( 'repair_missing_files' === $solution['action'] && $can_repair ) : ?>
+                                        <button type="button" class="button button-small button-primary" id="jj-repair-missing-files" style="margin-top: 8px;">
+                                            <?php esc_html_e( '복구 시도', 'jj-style-guide' ); ?>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <div style="margin-top: 12px; padding: 10px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <button type="button" class="button button-small" id="jj-copy-diagnosis-log">
+                                <?php esc_html_e( '로그 복사', 'jj-style-guide' ); ?>
+                            </button>
+                            <button type="button" class="button button-small" id="jj-download-diagnosis-log">
+                                <?php esc_html_e( '로그 다운로드', 'jj-style-guide' ); ?>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php elseif ( ! empty( $manifest_diagnosis ) && ! empty( $manifest_diagnosis['diagnosis']['manifest']['missing_optional'] ) ) : ?>
+                <!-- 선택적 파일 누락 알림 (경고) -->
+                <div style="margin-top: 15px; padding: 12px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px;">
+                    <p style="margin: 0; color: #856404; font-size: 13px;">
+                        <span class="dashicons dashicons-info" style="vertical-align: middle;"></span>
+                        <?php
+                        printf(
+                            /* translators: %d: number of optional files */
+                            esc_html__( '선택적 파일 %d개가 누락되었습니다. 일부 기능이 제한될 수 있습니다.', 'jj-style-guide' ),
+                            count( $manifest_diagnosis['diagnosis']['manifest']['missing_optional'] )
+                        );
+                        ?>
+                    </p>
+                </div>
+            <?php endif; ?>
+            
             <div id="jj-self-test-results" style="margin-top: 15px; display: none;">
                 <hr style="margin: 15px 0;">
                 <div class="jj-test-progress">
@@ -40,6 +169,70 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <ul class="jj-test-results-list" style="list-style: none; margin: 10px 0 0 0; padding: 0;"></ul>
             </div>
         </div>
+
+        <?php
+        // [Phase 8.2] 보안 로그 표시
+        $security_logs = array();
+        if ( class_exists( 'JJ_Security_Hardener' ) ) {
+            $security_logs = JJ_Security_Hardener::get_security_logs( 20 );
+        }
+        ?>
+        
+        <?php if ( ! empty( $security_logs ) ) : ?>
+            <!-- [Phase 8.2] 보안 이벤트 로그 -->
+            <div class="jj-security-logs-section" style="margin: 20px 0; padding: 15px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; border-left: 4px solid #d63638;">
+                <h4 style="margin: 0 0 10px 0;">
+                    <span class="dashicons dashicons-shield-alt" style="vertical-align: middle;"></span>
+                    <?php esc_html_e( '보안 이벤트 로그', 'jj-style-guide' ); ?>
+                </h4>
+                <p style="margin: 0 0 12px 0; font-size: 13px; color: #666;">
+                    <?php esc_html_e( '최근 보안 관련 이벤트를 확인할 수 있습니다.', 'jj-style-guide' ); ?>
+                </p>
+                <table class="widefat striped" style="margin-top: 10px;">
+                    <thead>
+                        <tr>
+                            <th><?php esc_html_e( '시간', 'jj-style-guide' ); ?></th>
+                            <th><?php esc_html_e( '이벤트 타입', 'jj-style-guide' ); ?></th>
+                            <th><?php esc_html_e( '상세', 'jj-style-guide' ); ?></th>
+                            <th><?php esc_html_e( 'IP', 'jj-style-guide' ); ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ( array_reverse( array_slice( $security_logs, -10 ) ) as $log ) : ?>
+                            <tr>
+                                <td style="white-space: nowrap;">
+                                    <?php echo esc_html( isset( $log['timestamp'] ) ? $log['timestamp'] : '' ); ?>
+                                </td>
+                                <td>
+                                    <code style="font-size: 11px;">
+                                        <?php echo esc_html( isset( $log['type'] ) ? $log['type'] : '' ); ?>
+                                    </code>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ( isset( $log['data'] ) && is_array( $log['data'] ) ) {
+                                        $details = array();
+                                        if ( isset( $log['data']['action'] ) ) {
+                                            $details[] = 'Action: ' . esc_html( $log['data']['action'] );
+                                        }
+                                        if ( isset( $log['data']['capability'] ) ) {
+                                            $details[] = 'Required: ' . esc_html( $log['data']['capability'] );
+                                        }
+                                        echo implode( ', ', $details );
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <code style="font-size: 11px;">
+                                        <?php echo esc_html( isset( $log['ip'] ) ? $log['ip'] : '' ); ?>
+                                    </code>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
 
         <?php
         // 메모리 사용량 정보

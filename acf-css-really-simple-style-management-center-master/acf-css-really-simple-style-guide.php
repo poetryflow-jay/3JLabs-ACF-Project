@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS - Advanced Custom Fonts&Colors&Styles Setting Manager (Master)
  * Plugin URI:        https://j-j-labs.com
  * Description:       WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다.
- * Version:           8.0.0
+ * Version:           8.3.2
  * Author:            3J Labs
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://poetryflow.blog
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '8.0.0' ); // [v7.0.0] Operation Deep Dive - Stability & Reliability Overhaul
+    define( 'JJ_STYLE_GUIDE_VERSION', '8.3.2' ); // [v8.3.2] Phase 8.2-8.4: 보안 강화, UX 개선, Undo 시스템 확장
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
@@ -179,6 +179,14 @@ try {
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-cache.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-css-injector.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-options-cache.php', true );
+    // [Phase 8.1] Transient Cache (자주 읽히는 옵션 캐싱)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-transient-cache.php', true );
+    // [Phase 8.1] Asset Optimizer (성능 최적화)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-asset-optimizer.php', true );
+    // [Phase 8.2] Security Hardener (보안 강화)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-security-hardener.php', true );
+    // [Phase 8.5.1] AI Extension Promoter (AI Extension 감지 및 활성화 유도)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-ai-extension-promoter.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-edition-controller.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-theme-metadata.php', false );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-0-customizer.php', false );
@@ -214,6 +222,7 @@ try {
 /**
  * 활성화 훅 래퍼 함수 (치명적 오류 방지)
  * [v5.1.7] 전체 함수를 try-catch로 감싸고 상수 정의 확인 추가
+ * [Phase 8.0] 최소 부팅 경로 적용: Activation 시 최소한의 파일만 로드
  */
 function jj_simple_style_guide_master_activate() {
     try {
@@ -227,16 +236,43 @@ function jj_simple_style_guide_master_activate() {
             }
         }
         
-        // 활성화 매니저 클래스가 로드되지 않은 경우 로드 시도
+        // [Phase 8.0] 최소 부팅 경로 확인
+        // Safe Loader가 이미 로드되어 있어야 함 (최상단에서 로드됨)
+        $minimal_boot = array( 'can_boot' => true, 'missing' => array() );
+        if ( class_exists( 'JJ_Safe_Loader' ) && method_exists( 'JJ_Safe_Loader', 'get_minimal_boot_path' ) ) {
+            $minimal_boot = JJ_Safe_Loader::get_minimal_boot_path();
+        }
         
+        // 최소 부팅 실패 시 안전하게 종료
+        if ( ! $minimal_boot['can_boot'] ) {
+            if ( function_exists( 'error_log' ) ) {
+                error_log( 'ACF CSS: 최소 부팅 실패 - ' . ( isset( $minimal_boot['reason'] ) ? $minimal_boot['reason'] : 'Unknown' ) );
+            }
+            // 플러그인 옵션에 오류 기록 (Admin Center 접근 가능하도록)
+            update_option( 'jj_style_guide_activation_error', array(
+                'timestamp' => current_time( 'mysql' ),
+                'reason' => 'minimal_boot_failed',
+                'missing' => isset( $minimal_boot['missing'] ) ? $minimal_boot['missing'] : array(),
+            ) );
+            return;
+        }
+        
+        // 활성화 매니저 클래스가 로드되지 않은 경우 로드 시도
         if ( ! class_exists( 'JJ_Activation_Manager' ) ) {
             $activation_file = JJ_STYLE_GUIDE_PATH . 'includes/class-jj-activation-manager.php';
             if ( file_exists( $activation_file ) ) {
-                require_once $activation_file;
+                // Safe Loader 사용
+                if ( class_exists( 'JJ_Safe_Loader' ) && method_exists( 'JJ_Safe_Loader', 'safe_require' ) ) {
+                    JJ_Safe_Loader::safe_require( $activation_file, true );
+                } else {
+                    require_once $activation_file;
+                }
             } else {
                 if ( function_exists( 'error_log' ) ) {
                     error_log( 'ACF CSS Really Simple Style Management Center: 활성화 매니저 파일을 찾을 수 없습니다. 기본 활성화만 수행합니다.' );
                 }
+                // 최소한의 활성화 정보만 저장
+                update_option( 'jj_style_guide_activated', current_time( 'mysql' ) );
                 return;
             }
         }
@@ -245,14 +281,28 @@ function jj_simple_style_guide_master_activate() {
         if ( class_exists( 'JJ_Activation_Manager' ) && method_exists( 'JJ_Activation_Manager', 'activate' ) ) {
             try {
                 JJ_Activation_Manager::activate();
+                // 활성화 성공 시 오류 정보 삭제
+                delete_option( 'jj_style_guide_activation_error' );
             } catch ( Exception $e ) {
                 if ( function_exists( 'error_log' ) ) {
                     error_log( 'ACF CSS Really Simple Style Management Center: 활성화 중 오류 발생 - ' . $e->getMessage() );
                 }
+                // 오류 정보 저장
+                update_option( 'jj_style_guide_activation_error', array(
+                    'timestamp' => current_time( 'mysql' ),
+                    'reason' => 'activation_exception',
+                    'message' => $e->getMessage(),
+                ) );
             } catch ( Error $e ) {
                 if ( function_exists( 'error_log' ) ) {
                     error_log( 'ACF CSS Really Simple Style Management Center: 활성화 중 치명적 오류 발생 - ' . $e->getMessage() );
                 }
+                // 오류 정보 저장
+                update_option( 'jj_style_guide_activation_error', array(
+                    'timestamp' => current_time( 'mysql' ),
+                    'reason' => 'activation_fatal_error',
+                    'message' => $e->getMessage(),
+                ) );
             }
         } else {
             if ( function_exists( 'error_log' ) ) {
@@ -1031,7 +1081,7 @@ final class JJ_Simple_Style_Guide_Master {
         update_option( JJ_STYLE_GUIDE_TEMP_OPTIONS_KEY, $temp_options );
 
         wp_send_json_success( array(
-            'message' => __( '현재 브랜드 팔레트가 임시 팔레트로 저장되었습니다.', 'acf-css-really-simple-style-management-center' ) ),
+            'message' => __( '현재 브랜드 팔레트가 임시 팔레트로 저장되었습니다.', 'acf-css-really-simple-style-management-center' ),
             'temp_palettes' => $temp_options['palettes'],
         ) );
     }

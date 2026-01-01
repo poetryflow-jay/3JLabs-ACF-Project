@@ -1,9 +1,33 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+3J Labs Code Quality Assurance
+==================================
+
+[자동 품질 검사 헤더]
+
+이 파일은 다음 규칙을 준수합니다:
+1. 문법 검사: 배포/저장/커밋 전 Python 문법 오류 검사 필수
+2. 코드 품질: PEP 8 스타일 가이드 준수
+3. 변경 사항: 모든 코드 변경은 변경 로그에 기록
+
+검사 시점:
+- 개발 시작 시: 빠른 검사 (python -m py_compile)
+- 코드 저장 전: 중간 검사 (문법 + 기본 검증)
+- 배포/커밋 전: 종합 검사 (모든 규칙 적용)
+
+검사 도구:
+- python code_quality_checker.py --quick (빠른 검사)
+- python code_quality_checker.py (전체 검사)
+"""
+
 import os
 import shutil
 import zipfile
 import re
 import json
 import subprocess
+from pathlib import Path
 from datetime import datetime
 import time
 
@@ -72,6 +96,7 @@ class JJ_Deployment_Engine:
             'timestamp': self.build_time.isoformat(),
             'builds': []
         }
+        self.php_bin = self._find_php_bin()
         self._prepare_directories()
 
     def _prepare_directories(self):
@@ -89,6 +114,84 @@ class JJ_Deployment_Engine:
             return {'commit': msg, 'hash': sha}
         except:
             return {'commit': 'Manual Build', 'hash': 'none'}
+
+    # ------------------------------------------------------------
+    # PHP Lint
+    # ------------------------------------------------------------
+    def _find_php_bin(self):
+        """
+        Locate PHP CLI. Priority:
+        1) Environment variable PHP_BIN
+        2) php in PATH (shutil.which)
+        If not found, abort with clear guidance.
+        """
+        env_bin = os.environ.get('PHP_BIN')
+        if env_bin and shutil.which(env_bin):
+            return shutil.which(env_bin)
+        which_php = shutil.which('php')
+        if which_php:
+            return which_php
+        raise SystemExit(
+            "PHP CLI가 필요합니다. (문법 검사 강제)\n"
+            "- Windows: winget install --id PHP.PHP\n"
+            "- 또는 PHP 포터블을 받고, 환경변수 PHP_BIN에 php.exe 경로를 지정하세요."
+        )
+
+    def lint_dir(self, root_path: str):
+        """
+        Run `php -l` for all .php files under root_path.
+        If any fails, abort build.
+        
+        타임아웃: 파일당 최대 5초
+        진행 상황: 파일별 진행 표시
+        """
+        php_files = list(Path(root_path).rglob('*.php'))
+        if not php_files:
+            return
+        
+        print(f"    - PHP 문법 검사: {len(php_files)}개 파일")
+        
+        for idx, f in enumerate(php_files, 1):
+            # 진행 상황 표시 (10개마다)
+            if idx % 10 == 0 or idx == len(php_files):
+                print(f"      검사 중... ({idx}/{len(php_files)})", end='\r')
+            
+            cmd = [self.php_bin, '-l', str(f)]
+            try:
+                # 타임아웃 설정: 파일당 최대 5초
+                result = subprocess.run(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    timeout=5,
+                    text=True
+                )
+                
+                if result.returncode != 0:
+                    output = result.stdout if result.stdout else ''
+                    print()  # 줄바꿈
+                    raise SystemExit(
+                        f"PHP Lint 실패: {f}\n"
+                        f"명령: {' '.join(cmd)}\n"
+                        f"출력:\n{output}"
+                    )
+            except subprocess.TimeoutExpired:
+                print()  # 줄바꿈
+                raise SystemExit(
+                    f"PHP Lint 타임아웃 (5초 초과): {f}\n"
+                    f"파일이 너무 크거나 PHP 실행에 문제가 있을 수 있습니다."
+                )
+            except subprocess.CalledProcessError as e:
+                output = e.output.decode(errors='replace') if isinstance(e.output, bytes) else str(e.output)
+                print()  # 줄바꿈
+                raise SystemExit(
+                    f"PHP Lint 실패: {f}\n"
+                    f"명령: {' '.join(cmd)}\n"
+                    f"출력:\n{output}"
+                )
+        
+        print()  # 최종 줄바꿈
+        print(f"    ✓ 모든 PHP 파일 검사 통과 ({len(php_files)}개)")
 
     def copy_files(self, src, dst):
         count = 0
@@ -200,6 +303,10 @@ class JJ_Deployment_Engine:
                 main_file = os.path.join(temp_dir, 'acf-css-really-simple-style-guide.php')
                 self.process_core_file(main_file, edition, channel, ver)
 
+                # Lint after processing
+                print(f"    - lint: {temp_dir}")
+                self.lint_dir(temp_dir)
+
                 with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
                     for root, dirs, files in os.walk(temp_dir):
                         for file in files:
@@ -256,6 +363,10 @@ class JJ_Deployment_Engine:
                 main_file_path = os.path.join(temp_dir, main_filename)
                 if os.path.exists(main_file_path):
                     self.process_addon_file(main_file_path, channel, key)
+
+                # Lint after processing
+                print(f"    - lint: {temp_dir}")
+                self.lint_dir(temp_dir)
                 
                 # Zip
                 zip_name = f"{name_base}{suffix}-v{ver}.zip"

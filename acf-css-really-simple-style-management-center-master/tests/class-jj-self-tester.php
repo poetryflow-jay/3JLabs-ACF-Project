@@ -311,6 +311,171 @@ class JJ_Self_Tester {
             );
         }
 
+        // [Phase 8.0] 실제 운영 체크리스트 확장
+
+        // 8. AJAX / Nonce 검증
+        $results[] = array(
+            'test'    => 'AJAX: Nonce verification',
+            'status'  => ( defined( 'JJ_STYLE_GUIDE_VERSION' ) && function_exists( 'wp_create_nonce' ) ) ? 'pass' : 'warn',
+            'message' => ( defined( 'JJ_STYLE_GUIDE_VERSION' ) && function_exists( 'wp_create_nonce' ) )
+                ? 'AJAX nonce functions available'
+                : 'Nonce functions may not be available',
+        );
+
+        if ( class_exists( 'JJ_Admin_Center' ) && method_exists( 'JJ_Admin_Center', 'instance' ) ) {
+            $admin_center = JJ_Admin_Center::instance();
+            if ( method_exists( $admin_center, 'get_ajax_url' ) ) {
+                $ajax_url = $admin_center->get_ajax_url();
+                $results[] = array(
+                    'test'    => 'AJAX: URL configured',
+                    'status'  => ! empty( $ajax_url ) ? 'pass' : 'warn',
+                    'message' => ! empty( $ajax_url ) ? ( 'URL: ' . $ajax_url ) : 'AJAX URL not configured',
+                );
+            }
+        }
+
+        // 9. 업데이트 트랜지언트 상태
+        if ( function_exists( 'get_site_transient' ) ) {
+            $update_transient = get_site_transient( 'update_plugins' );
+            $transient_valid = ( is_object( $update_transient ) || is_array( $update_transient ) );
+            $transient_age = 0;
+            if ( is_object( $update_transient ) && isset( $update_transient->last_checked ) ) {
+                $transient_age = time() - (int) $update_transient->last_checked;
+            }
+            
+            $results[] = array(
+                'test'    => 'Update Transient: Status',
+                'status'  => $transient_valid ? ( $transient_age < 86400 ? 'pass' : 'warn' ) : 'warn',
+                'message' => $transient_valid
+                    ? ( 'Last checked: ' . ( $transient_age < 3600 ? $transient_age . 's ago' : ( floor( $transient_age / 3600 ) . 'h ago' ) ) )
+                    : 'Transient not found or invalid',
+            );
+        }
+
+        // 10. Cron 스케줄 상태
+        if ( function_exists( 'wp_next_scheduled' ) ) {
+            $wp_update_plugins_next = wp_next_scheduled( 'wp_update_plugins' );
+            $wp_update_plugins_status = $wp_update_plugins_next ? 'pass' : 'warn';
+            $results[] = array(
+                'test'    => 'Cron: wp_update_plugins',
+                'status'  => $wp_update_plugins_status,
+                'message' => $wp_update_plugins_next
+                    ? ( 'Next scheduled: ' . ( function_exists( 'date_i18n' ) ? date_i18n( 'Y-m-d H:i:s', $wp_update_plugins_next ) : (string) $wp_update_plugins_next ) )
+                    : 'Not scheduled (may be disabled)',
+            );
+            
+            $wp_update_themes_next = wp_next_scheduled( 'wp_update_themes' );
+            $results[] = array(
+                'test'    => 'Cron: wp_update_themes',
+                'status'  => $wp_update_themes_next ? 'pass' : 'warn',
+                'message' => $wp_update_themes_next
+                    ? ( 'Next scheduled: ' . ( function_exists( 'date_i18n' ) ? date_i18n( 'Y-m-d H:i:s', $wp_update_themes_next ) : (string) $wp_update_themes_next ) )
+                    : 'Not scheduled (may be disabled)',
+            );
+        } else {
+            $results[] = array(
+                'test'    => 'Cron: Functions',
+                'status'  => 'warn',
+                'message' => 'wp_next_scheduled() not available',
+            );
+        }
+
+        // 11. 권한 확인
+        $cap_manage_options = current_user_can( 'manage_options' );
+        $cap_install_plugins = current_user_can( 'install_plugins' );
+        $cap_activate_plugins = current_user_can( 'activate_plugins' );
+        
+        $results[] = array(
+            'test'    => 'Permissions: manage_options',
+            'status'  => $cap_manage_options ? 'pass' : 'fail',
+            'message' => $cap_manage_options ? 'User can manage options' : 'User cannot manage options (critical)',
+        );
+        
+        $results[] = array(
+            'test'    => 'Permissions: install_plugins',
+            'status'  => $cap_install_plugins ? 'pass' : 'warn',
+            'message' => $cap_install_plugins ? 'User can install plugins' : 'User cannot install plugins (plugin updates may fail)',
+        );
+        
+        $results[] = array(
+            'test'    => 'Permissions: activate_plugins',
+            'status'  => $cap_activate_plugins ? 'pass' : 'warn',
+            'message' => $cap_activate_plugins ? 'User can activate plugins' : 'User cannot activate plugins (add-on activation may fail)',
+        );
+
+        // 12. 필수 플러그인 연동 (WooCommerce 상세)
+        if ( function_exists( 'is_plugin_active' ) ) {
+            $required_plugins = array(
+                'woocommerce/woocommerce.php' => array(
+                    'name' => 'WooCommerce',
+                    'required_for' => 'Woo License add-on',
+                ),
+            );
+            
+            foreach ( $required_plugins as $plugin_file => $plugin_info ) {
+                $installed = function_exists( 'get_plugins' ) && isset( get_plugins()[ $plugin_file ] );
+                $active = is_plugin_active( $plugin_file );
+                
+                if ( $installed ) {
+                    $plugin_data = get_plugins()[ $plugin_file ];
+                    $version = isset( $plugin_data['Version'] ) ? $plugin_data['Version'] : 'unknown';
+                    
+                    $results[] = array(
+                        'test'    => 'Plugin Integration: ' . $plugin_info['name'],
+                        'status'  => $active ? 'pass' : 'warn',
+                        'message' => $active
+                            ? ( 'Active (v' . $version . ') - ' . $plugin_info['required_for'] )
+                            : ( 'Installed but inactive (v' . $version . ') - ' . $plugin_info['required_for'] ),
+                    );
+                } else {
+                    $results[] = array(
+                        'test'    => 'Plugin Integration: ' . $plugin_info['name'],
+                        'status'  => 'warn',
+                        'message' => 'Not installed - ' . $plugin_info['required_for'],
+                    );
+                }
+            }
+        }
+
+        // 13. PHP/WordPress 환경 호환성
+        $php_version = PHP_VERSION;
+        $php_major = (int) explode( '.', $php_version )[0];
+        $php_minor = (int) explode( '.', $php_version )[1];
+        $php_compatible = ( $php_major > 7 || ( $php_major === 7 && $php_minor >= 4 ) );
+        
+        $results[] = array(
+            'test'    => 'Environment: PHP Version',
+            'status'  => $php_compatible ? 'pass' : 'fail',
+            'message' => 'PHP ' . $php_version . ( $php_compatible ? ' (Compatible)' : ' (Requires PHP 7.4+)' ),
+        );
+
+        $wp_version = get_bloginfo( 'version' );
+        $wp_major = (float) $wp_version;
+        $wp_compatible = $wp_major >= 5.0;
+        
+        $results[] = array(
+            'test'    => 'Environment: WordPress Version',
+            'status'  => $wp_compatible ? 'pass' : 'warn',
+            'message' => 'WordPress ' . $wp_version . ( $wp_compatible ? ' (Compatible)' : ' (Requires WordPress 5.0+)' ),
+        );
+
+        // 14. 데이터베이스 연결 상태
+        global $wpdb;
+        if ( isset( $wpdb ) && method_exists( $wpdb, 'get_var' ) ) {
+            $db_check = $wpdb->get_var( 'SELECT 1' );
+            $results[] = array(
+                'test'    => 'Database: Connection',
+                'status'  => ( $db_check === '1' || $db_check === 1 ) ? 'pass' : 'fail',
+                'message' => ( $db_check === '1' || $db_check === 1 ) ? 'Database connection OK' : 'Database connection failed',
+            );
+        } else {
+            $results[] = array(
+                'test'    => 'Database: Connection',
+                'status'  => 'warn',
+                'message' => 'Database object not available',
+            );
+        }
+
         return $results;
     }
 }

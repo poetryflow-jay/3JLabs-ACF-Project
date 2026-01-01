@@ -1,5 +1,5 @@
 /**
- * J&J Admin Center Styles - v5.0.3
+ * J&J Admin Center Styles - v8.3.2
  * 
  * 탭 기반 인터페이스와 2패널 레이아웃 구현
  * - 탭 네비게이션 스타일
@@ -10,9 +10,10 @@
  * - [v3.8.0 신규] 라이센스 관리 스타일
  * - [v5.0.3] 애니메이션 개선 및 부드러운 전환 효과
  * - [v6.3.0 신규] 왼쪽 고정 사이드바 네비게이션 추가
+ * - [v8.3.2] 폼 UX 개선 스타일
  * 
  * @since 3.7.0
- * @updated 6.3.0
+ * @updated 8.3.2
  */
 
 /* 컨테이너 */
@@ -1332,3 +1333,7 @@
 
 
 
+/* [Phase 8.3.2] 폼 UX 개선 스타일 */
+.jj-autosaved { border-left: 3px solid #72aee6 !important; background-color: #f0f6fc !important; }
+.jj-field-error { border-color: #d63638 !important; }
+.jj-help-icon:hover { color: #135e96 !important; }
