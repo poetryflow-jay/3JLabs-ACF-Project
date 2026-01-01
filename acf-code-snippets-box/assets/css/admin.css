@@ -1,0 +1,198 @@
+/**
+ * ACF Code Snippets Box - Admin Styles
+ * 
+ * @package ACF_Code_Snippets_Box
+ */
+
+/* 일반 스타일 */
+.acf-csb-dashboard h1 {
+    display: flex;
+    align-items: center;
+}
+
+/* 코드 에디터 래퍼 */
+.acf-csb-code-editor-wrapper {
+    position: relative;
+}
+
+.acf-csb-code-editor-wrapper textarea {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #3c3c3c;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+/* CodeMirror 커스터마이징 */
+.CodeMirror {
+    border-radius: 8px;
+    font-size: 14px;
+    height: auto;
+    min-height: 400px;
+    border: 1px solid #ddd;
+}
+
+/* 메타박스 스타일 */
+#acf_csb_settings .inside {
+    padding: 15px;
+}
+
+#acf_csb_settings label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#acf_csb_settings select,
+#acf_csb_settings input[type="text"],
+#acf_csb_settings input[type="number"],
+#acf_csb_settings textarea {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* 트리거 조건 테이블 */
+.acf-csb-triggers-wrapper .form-table th {
+    width: 150px;
+    padding: 15px 10px 15px 0;
+}
+
+.acf-csb-triggers-wrapper .form-table td {
+    padding: 15px 10px;
+}
+
+/* 코드 타입 배지 */
+.acf-csb-type-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.acf-csb-type-badge.type-css { background: #f5576c; }
+.acf-csb-type-badge.type-js { background: #f0ad4e; }
+.acf-csb-type-badge.type-php { background: #8892bf; }
+.acf-csb-type-badge.type-html { background: #e34c26; }
+
+/* 상태 아이콘 */
+.acf-csb-status-active {
+    color: #00a32a;
+}
+
+.acf-csb-status-inactive {
+    color: #999;
+}
+
+/* 통계 카드 호버 효과 */
+.acf-csb-stat-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.acf-csb-stat-card:hover {
+    transform: translateY(-5px);
+}
+
+/* 프리셋 카드 */
+.acf-csb-preset-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.acf-csb-preset-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* 코드 블록 스타일 */
+.acf-csb-preset-card pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.acf-csb-preset-card code {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 12px;
+}
+
+/* 반응형 */
+@media (max-width: 782px) {
+    .acf-csb-stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .acf-csb-quick-actions {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .acf-csb-preset-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ACF CSS 연동 배지 */
+.acf-csb-acf-css-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* 힌트 스타일 (자동완성) */
+.acf-csb-hint-color::before {
+    content: '🎨';
+    margin-right: 5px;
+}
+
+.acf-csb-hint-font::before {
+    content: '🔤';
+    margin-right: 5px;
+}
+
+.acf-csb-hint-size::before {
+    content: '📐';
+    margin-right: 5px;
+}
+
+.acf-csb-hint-spacing::before {
+    content: '↔️';
+    margin-right: 5px;
+}
+
+/* 다크 모드 지원 */
+@media (prefers-color-scheme: dark) {
+    .acf-csb-code-editor-wrapper textarea {
+        background: #0d1117;
+        color: #c9d1d9;
+        border-color: #30363d;
+    }
+}
+
+/* 애니메이션 */
+@keyframes acf-csb-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.acf-csb-dashboard .acf-csb-stat-card,
+.acf-csb-dashboard .acf-csb-action-card {
+    animation: acf-csb-fade-in 0.5s ease forwards;
+}
+
+.acf-csb-dashboard .acf-csb-stat-card:nth-child(1) { animation-delay: 0.1s; }
+.acf-csb-dashboard .acf-csb-stat-card:nth-child(2) { animation-delay: 0.2s; }
+.acf-csb-dashboard .acf-csb-stat-card:nth-child(3) { animation-delay: 0.3s; }
+.acf-csb-dashboard .acf-csb-stat-card:nth-child(4) { animation-delay: 0.4s; }
