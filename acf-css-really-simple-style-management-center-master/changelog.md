@@ -1,5 +1,110 @@
 # ACF CSS: Advanced Custom Fonts&Colors&Styles Setting - Really Simple WordPress Style Management Center - Changelog
 
+## 📋 Roadmap (다음 Phase 계획)
+
+### Phase 15: 로컬 WordPress 테스트 환경 구축
+- Kinsta 호스팅과 동일한 사양의 로컬 개발/테스트 환경
+- Docker + nginx + PHP-FPM 기반
+- 플러그인 자동 업데이트/재설치 시스템
+- Kinsta 백업 파일 복원 기능
+
+### Phase 16: ACF Code Snippets (코드 스니펫 플러그인)
+- WP CODEBOX 2, Code Snippets와 유사한 기능
+- JS, CSS, PHP, HTML 코드 스니펫 관리
+- 조건부 트리거 시스템
+- 프리셋 코드 라이브러리
+- ACF CSS 패밀리/애드온으로 연동
+
+---
+
+## 🔜 Next Phase Preview (Coming Soon)
+
+### Phase 15: 로컬 WordPress 테스트 환경 구축
+- Kinsta 호스팅과 동일한 PHP/nginx 사양
+- 플러그인 자동 업데이트/재설치 시스템
+- 로컬 및 브라우저에서 실시간 테스트
+
+### Phase 16: ACF Code Snippets (코드 스니펫 플러그인)
+- WP CODEBOX 2, Code Snippets와 유사한 코드 관리 플러그인
+- JS, CSS, PHP, HTML 코드 스니펫 저장 및 조건부 실행
+- 다국어 툴팁, 문법 제안, 프리셋 코드 라이브러리
+- ACF CSS 패밀리 플러그인 및 애드온
+
+---
+
+## Version 13.2.0 (2026-01-01) - 툴팁 & 넛지 시스템 + 22개 언어 지원
+
+### 🎯 Phase 13.2: 툴팁(Tooltip) 시스템 확장
+- **Admin Center 전역 툴팁**: 모든 주요 UI 요소에 상황별 도움말 툴팁 추가
+- **다국어 툴팁 데이터**: 한국어, 영어, 일본어, 중국어 등 다국어 지원
+- **접근성 향상**: ARIA 속성, 키보드 네비게이션, ESC 키 닫기 지원
+- **툴팁 카테고리**: 색상, 타이포그래피, Figma, 내보내기, 백업 관련 툴팁 추가
+
+### 💡 넛지(Nudge) 시스템 신규 구현
+- **온보딩 가이드**: 플러그인 첫 사용 시 5단계 단계별 안내 모달
+- **미완료 설정 알림**: 색상/타이포그래피 미설정 시 부드러운 알림
+- **최적화 제안**: 캐시 활성화, 자동 백업 등 최적화 팁 제공
+- **새 기능 안내**: 버전 업데이트 시 새로운 기능 소개 (내보내기, Figma 연동 등)
+- **일일 팁**: 매일 랜덤 사용 팁 제공 (키보드 단축키, 프리셋, 반응형 등)
+- **사용자별 닫기 상태 저장**: user_meta 기반 개인화
+
+### 🌍 22개 언어/로케일 번역 파일 생성
+**우선순위 1 (핵심 언어)**:
+- 한국어 (`ko_KR`)
+- 영어 미국/영국 (`en_US`, `en_GB`)
+- 중국어 간체/번체/홍콩 (`zh_CN`, `zh_TW`, `zh_HK`)
+- 일본어 (`ja`)
+- 스페인어 (`es_ES`)
+
+**우선순위 2 (사용 인구 기준)**:
+- 힌디어 (`hi_IN`)
+- 포르투갈어 브라질 (`pt_BR`)
+- 러시아어 (`ru_RU`)
+- 프랑스어 프랑스/캐나다 (`fr_FR`, `fr_CA`)
+- 독일어 독일/스위스 (`de_DE`, `de_CH`)
+
+**우선순위 3 (추가 언어)**:
+- 베트남어 (`vi`)
+- 튀르키예어 (`tr_TR`)
+- 이탈리아어 (`it_IT`)
+- 태국어 (`th`)
+- 네덜란드어 네덜란드/벨기에 (`nl_NL`, `nl_BE`)
+- 우크라이나어 (`uk`)
+
+### 📄 새 파일
+- `includes/class-jj-nudge-system.php` - 넛지 시스템 백엔드
+- `assets/js/jj-nudge-system.js` - 넛지 시스템 프론트엔드
+- `assets/css/jj-nudge-system.css` - 넛지 시스템 스타일
+- `languages/*.po` - 22개 언어 번역 파일
+
+---
+
+## Version 13.0.0 (2026-01-01) - 스타일 가이드 내보내기 + 폰트 추천 + Figma 연동
+
+### 📤 Phase 11: 스타일 가이드 내보내기
+- **PDF 내보내기**: 브라우저 인쇄 기능을 활용한 깔끔한 PDF 생성
+- **PNG 이미지 내보내기**: html2canvas 기반 2배 해상도 캡처
+- **HTML 파일 내보내기**: 완전한 독립형 스타일 가이드 HTML
+- **CSS 변수 내보내기**: 모든 디자인 토큰을 CSS 커스텀 프로퍼티로
+- **JSON 토큰 내보내기**: 프로그래밍용 디자인 토큰 구조
+- **ZIP 전체 내보내기**: HTML + CSS + JSON + README 압축
+
+### 🔤 Phase 12: 폰트 추천 + 원클릭 설치
+- **한국어 무료 폰트 10종**: Pretendard, Noto Sans KR, IBM Plex Sans KR 등
+- **영문 무료 폰트 10종**: Inter, Poppins, Montserrat, Roboto 등
+- **유료 폰트 참조 목록**: Sandoll Gothic Neo, Yoon Gothic, Helvetica Neue 등
+- **원클릭 Google Fonts 적용**: 클릭 시 즉시 사이트에 폰트 로드
+- **Typography 섹션 UI 업데이트**: 폰트 추천 패널 추가
+
+### 🎨 Phase 13: Figma 연동
+- **Admin Center > Figma 탭 추가**: API 토큰 및 파일 키 관리
+- **연결 테스트**: Figma API 연결 상태 확인
+- **Figma → WordPress**: 색상/타이포그래피 스타일 가져오기
+- **WordPress → Figma**: JJ 토큰을 Figma Variables JSON으로 내보내기
+- **보안**: API 토큰 base64 암호화 저장
+
+---
+
 ## Version 6.2.1 (2025-12-19) - Go-to-Market 준비 완료
 
 ### 🚀 마케팅 런치 준비

@@ -42,9 +42,11 @@ define( 'WP_HOME', 'http://localhost:8080' );
 define( 'WP_SITEURL', 'http://localhost:8080' );
 
 // 디버그 모드 (개발 환경)
+// 오류는 로그에만 기록하고 화면에는 표시하지 않음 (Quirks Mode 방지)
 define( 'WP_DEBUG', true );
 define( 'WP_DEBUG_LOG', true );
-define( 'WP_DEBUG_DISPLAY', true );
+define( 'WP_DEBUG_DISPLAY', false );
+@ini_set( 'display_errors', 0 );
 define( 'SCRIPT_DEBUG', true );
 
 // 메모리 제한 (Kinsta 동일)
