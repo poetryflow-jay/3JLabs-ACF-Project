@@ -1,0 +1,1184 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "tpgb/tp-mailchimp",
+	"version": "0.1.0",
+	"title": "Mailchimp",
+	"category": "tpgb",
+	"description": "Directly integrate your mailchimp singup forms with unique designs",
+	"example": {
+		"attributes": {}
+	},
+	"supports": {
+		"align": ["wide", "full"]
+	},
+	"textdomain": "tpgb",
+	"attributes": {
+		"block_id": {
+			"type": "string",
+			"default": ""
+		},
+		"styleType": {
+			"type": "string",
+			"default": "style-1"
+		},
+		"Alignment": {
+			"type": "object",
+			"default": "center",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .tpgb-mailchimp-form input.form-control{ text-align: {{Alignment}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"DFirstName": {
+			"type": "boolean",
+			"default": true
+		},
+		"fNameField": {
+			"type": "string",
+			"default": "Enter First Name"
+		},
+		"fNameWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "%"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						},
+						{
+							"key": "DFirstName",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .tpgb-mailchimp-form input.form-control.tp-mailchimp-first-name{ width: {{fNameWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"DLastName": {
+			"type": "boolean",
+			"default": false
+		},
+		"lNameField": {
+			"type": "string",
+			"default": "Enter Last Name"
+		},
+		"lNameWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "%"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						},
+						{
+							"key": "DLastName",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .tpgb-mailchimp-form input.form-control.tp-mailchimp-last-name{ width: {{lNameWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"DBirthField": {
+			"type": "boolean",
+			"default": false
+		},
+		"monthField": {
+			"type": "string",
+			"default": "MM"
+		},
+		"dayField": {
+			"type": "string",
+			"default": "DD"
+		},
+		"birthFWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "%"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DBirthField",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .tpgb-mailchimp-form input.form-control.tp-mailchimp-birth-day , {{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .tpgb-mailchimp-form input.form-control.tp-mailchimp-birth-month{ width: {{birthFWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"DPhoneField": {
+			"type": "boolean",
+			"default": false
+		},
+		"phoneField": {
+			"type": "string",
+			"default": "8882229999"
+		},
+		"phoneFWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "%"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DPhoneField",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .tpgb-mailchimp-form input.form-control.tp-mailchimp-phone{ width: {{phoneFWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"nameIconType": {
+			"type": "string",
+			"default": "fontAwesome"
+		},
+		"nameIcon": {
+			"type": "string",
+			"default": "far fa-user"
+		},
+		"emailField": {
+			"type": "string",
+			"default": "Enter Email Address"
+		},
+		"emailIconType": {
+			"type": "string",
+			"default": "fontAwesome"
+		},
+		"emailIcon": {
+			"type": "string",
+			"default": "far fa-envelope"
+		},
+		"emailFWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "%"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .tpgb-mailchimp-form input.form-control.tp-mailchimp-email{ width: {{emailFWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"mGroup": {
+			"type": "boolean",
+			"default": false
+		},
+		"mGroupIds": {
+			"type": "array",
+			"default": []
+		},
+		"mTags": {
+			"type": "boolean",
+			"default": false
+		},
+		"mTagsIds": {
+			"type": "string",
+			"default": ""
+		},
+		"mDoubleOpt": {
+			"type": "boolean",
+			"default": false
+		},
+		"msgDouble": {
+			"type": "string",
+			"default": "Thanks for Subscribing with us. Please Check Email and Confirm to Subscribe."
+		},
+		"btnName": {
+			"type": "string",
+			"default": "Subscribe"
+		},
+		"ariaLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"iconType": {
+			"type": "string",
+			"default": "none"
+		},
+		"btnIcon": {
+			"type": "string",
+			"default": "fa fa-chevron-right"
+		},
+		"iconPosition": {
+			"type": "string",
+			"default": "iconRight",
+			"scopy": true
+		},
+		"iconSpace": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "iconType",
+							"relation": "==",
+							"value": "fontAwesome"
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .subscribe-btn-icon.btn-before { margin-right: {{iconSpace}}; } {{PLUS_WRAP}} .subscribe-btn-icon.btn-after { margin-left: {{iconSpace}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"iconSize": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "iconType",
+							"relation": "==",
+							"value": "fontAwesome"
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .subscribe-btn-icon { font-size: {{iconSize}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"btnWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "%"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 button.subscribe-btn-submit{ width: {{btnWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"buttonAlign": {
+			"type": "object",
+			"default": "center",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .plus-newsletter-input-wrapper{ text-align: {{buttonAlign}};} {{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 .subscribe-btn-submit{ display: inline-block; margin-left: auto !important; margin-right: auto !important; margin-top: 10px;}"
+				}
+			],
+			"scopy": true
+		},
+		"thankYouPage": {
+			"type": "boolean",
+			"default": false
+		},
+		"thankYouPageLink": {
+			"type": "object",
+			"default": {
+				"url": "",
+				"target": "",
+				"nofollow": ""
+			}
+		},
+		"loadingMessage": {
+			"type": "string",
+			"default": "Please wait.."
+		},
+		"incorrectEmail": {
+			"type": "string",
+			"default": "Incorrect email address."
+		},
+		"successMessage": {
+			"type": "string",
+			"default": "Thank You for subscribing. Please check mailbox and confirm your subscription."
+		},
+		"prefixIconSize": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "!=",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp .plus-newsletter-input-wrapper span.prefix-icon { font-size: {{prefixIconSize}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"iconColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "!=",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp .plus-newsletter-input-wrapper span.prefix-icon { color: {{iconColor}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"prefixIconAdjust": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "!=",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp .plus-newsletter-input-wrapper span.prefix-icon { margin-top: {{prefixIconAdjust}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"fieldTypo": {
+			"type": "object",
+			"default": {
+				"openTypography": 0,
+				"size": {
+					"md": "",
+					"unit": "px"
+				}
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp .plus-newsletter-input-wrapper input.form-control"
+				}
+			],
+			"scopy": true
+		},
+		"placeHColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} input.form-control::placeholder { color: {{placeHColor}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"innerPadding": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control{padding: {{innerPadding}};}"
+				}
+			],
+			"scopy": true
+		},
+		"outerPadding": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form .plus-newsletter-input-wrapper{margin: {{outerPadding}};}"
+				}
+			],
+			"scopy": true
+		},
+		"textNormalColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control { color: {{textNormalColor}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"normalBG": {
+			"type": "object",
+			"default": {
+				"openBg": 0,
+				"bgType": "color",
+				"videoSource": "local",
+				"bgDefaultColor": "",
+				"bgGradient": {
+					"color1": "#16d03e",
+					"color2": "#1f91f3",
+					"type": "linear",
+					"direction": "90",
+					"start": 5,
+					"stop": 80,
+					"radial": "center",
+					"clip": false
+				},
+				"overlayBg": "",
+				"overlayBgOpacity": "",
+				"bgGradientOpacity": ""
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp .plus-newsletter-input-wrapper input.form-control"
+				}
+			],
+			"scopy": true
+		},
+		"bgNormalB": {
+			"type": "object",
+			"default": {
+				"openBorder": 1,
+				"type": "solid",
+				"color": "#d3d3d3",
+				"width": {
+					"md": {
+						"top": "1",
+						"left": "1",
+						"bottom": "1",
+						"right": "1"
+					},
+					"unit": "px"
+				}
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control"
+				}
+			],
+			"scopy": true
+		},
+		"BNormalRadius": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control{border-radius:  {{BNormalRadius}};}"
+				}
+			],
+			"scopy": true
+		},
+		"normalboxShadow": {
+			"type": "object",
+			"default": {
+				"openShadow": true,
+				"inset": 0,
+				"horizontal": 0,
+				"vertical": 3,
+				"blur": 20,
+				"spread": -10,
+				"color": "#d3d3d3"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control"
+				}
+			],
+			"scopy": true
+		},
+		"textFocusColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control:focus { color: {{textFocusColor}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"focusBG": {
+			"type": "object",
+			"default": {
+				"openBg": 0,
+				"bgType": "color",
+				"videoSource": "local",
+				"bgDefaultColor": "",
+				"bgGradient": {
+					"color1": "#16d03e",
+					"color2": "#1f91f3",
+					"type": "linear",
+					"direction": "90",
+					"start": 5,
+					"stop": 80,
+					"radial": "center",
+					"clip": false
+				},
+				"overlayBg": "",
+				"overlayBgOpacity": "",
+				"bgGradientOpacity": ""
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp .plus-newsletter-input-wrapper input.form-control:focus"
+				}
+			],
+			"scopy": true
+		},
+		"bgFocusB": {
+			"type": "object",
+			"default": {
+				"openBorder": 0,
+				"type": "",
+				"color": "",
+				"width": {
+					"md": {
+						"top": "1",
+						"left": "1",
+						"bottom": "1",
+						"right": "1"
+					},
+					"sm": {},
+					"xs": {},
+					"unit": "px"
+				}
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control:focus"
+				}
+			],
+			"scopy": true
+		},
+		"BFocusRadius": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control:focus{border-radius:  {{BFocusRadius}};}"
+				}
+			],
+			"scopy": true
+		},
+		"focusboxShadow": {
+			"type": "object",
+			"default": {
+				"openShadow": 0,
+				"inset": 0,
+				"horizontal": 0,
+				"vertical": 4,
+				"blur": 8,
+				"spread": 0,
+				"color": "rgba(0,0,0,0.40)"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form input.form-control:focus"
+				}
+			],
+			"scopy": true
+		},
+		"btnTypo": {
+			"type": "object",
+			"default": {
+				"openTypography": 0,
+				"size": {
+					"md": "",
+					"unit": "px"
+				}
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "btnName",
+							"relation": "!=",
+							"value": ""
+						}
+					],
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit"
+				}
+			],
+			"scopy": true
+		},
+		"btnPadding": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "15",
+					"right": "25",
+					"bottom": "15",
+					"left": "25"
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit {padding: {{btnPadding}};}"
+				}
+			],
+			"scopy": true
+		},
+		"btnMargin": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-1"
+						}
+					],
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit {margin: {{btnMargin}};}"
+				},
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-2"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-2 button.subscribe-btn-submit {margin: {{btnMargin}};}"
+				},
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 button.subscribe-btn-submit {margin: {{btnMargin}};}"
+				}
+			],
+			"scopy": true
+		},
+		"btnTextNmlClr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit { color: {{btnTextNmlClr}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"btnNormalBG": {
+			"type": "object",
+			"default": {
+				"openBg": 1,
+				"bgType": "color",
+				"videoSource": "local",
+				"bgDefaultColor": "#cd2653",
+				"bgGradient": {
+					"color1": "#16d03e",
+					"color2": "#1f91f3",
+					"type": "linear",
+					"direction": "90",
+					"start": 5,
+					"stop": 80,
+					"radial": "center",
+					"clip": false
+				},
+				"overlayBg": "",
+				"overlayBgOpacity": "",
+				"bgGradientOpacity": ""
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit"
+				}
+			],
+			"scopy": true
+		},
+		"btnNormalB": {
+			"type": "object",
+			"default": {
+				"openBorder": 0,
+				"type": "",
+				"color": "",
+				"width": {
+					"md": {
+						"top": "1",
+						"left": "1",
+						"bottom": "1",
+						"right": "1"
+					},
+					"unit": "px"
+				}
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit"
+				}
+			],
+			"scopy": true
+		},
+		"btnNmlBRadius": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit{border-radius: {{btnNmlBRadius}};}"
+				}
+			],
+			"scopy": true
+		},
+		"normalbtnShadow": {
+			"type": "object",
+			"default": {
+				"openShadow": 0,
+				"inset": 0,
+				"horizontal": 0,
+				"vertical": 4,
+				"blur": 8,
+				"spread": 0,
+				"color": "rgba(0,0,0,0.40)"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit"
+				}
+			],
+			"scopy": true
+		},
+		"btnTextHvrClr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit:hover { color: {{btnTextHvrClr}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"btnHoverBG": {
+			"type": "object",
+			"default": {
+				"openBg": 0,
+				"bgType": "color",
+				"videoSource": "local",
+				"bgDefaultColor": "",
+				"bgGradient": {
+					"color1": "#16d03e",
+					"color2": "#1f91f3",
+					"type": "linear",
+					"direction": "90",
+					"start": 5,
+					"stop": 80,
+					"radial": "center",
+					"clip": false
+				},
+				"overlayBg": "",
+				"overlayBgOpacity": "",
+				"bgGradientOpacity": ""
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit:hover"
+				}
+			],
+			"scopy": true
+		},
+		"btnHoverB": {
+			"type": "object",
+			"default": {
+				"openBorder": 0,
+				"type": "",
+				"color": "",
+				"width": {
+					"md": {
+						"top": "1",
+						"left": "1",
+						"bottom": "1",
+						"right": "1"
+					},
+					"unit": "px"
+				}
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit:hover"
+				}
+			],
+			"scopy": true
+		},
+		"btnHvrBRadius": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit:hover{border-radius: {{btnHvrBRadius}};}"
+				}
+			],
+			"scopy": true
+		},
+		"hoverbtnShadow": {
+			"type": "object",
+			"default": {
+				"openShadow": 0,
+				"inset": 0,
+				"horizontal": 0,
+				"vertical": 4,
+				"blur": 8,
+				"spread": 0,
+				"color": "rgba(0,0,0,0.40)"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} button.subscribe-btn-submit:hover"
+				}
+			],
+			"scopy": true
+		},
+		"resMsgTypo": {
+			"type": "object",
+			"default": {
+				"openTypography": 0,
+				"size": {
+					"md": "",
+					"unit": "px"
+				}
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-notification"
+				}
+			],
+			"scopy": true
+		},
+		"resMsgColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-notification { color: {{resMsgColor}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"resLoadingBG": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-notification { background: {{resLoadingBG}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"resSuccessBG": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-notification.success-msg { background: {{resSuccessBG}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"formMaxWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-mailchimp-form { max-width : {{formMaxWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"mailCalign": {
+			"type": "object",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						},
+						{
+							"key": "mailCalign",
+							"relation": "==",
+							"value": "left"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 form.tpgb-mailchimp-form { margin-left: 0; }"
+				},
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						},
+						{
+							"key": "mailCalign",
+							"relation": "==",
+							"value": "center"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 form.tpgb-mailchimp-form { margin: 0 auto; }"
+				},
+				{
+					"condition": [
+						{
+							"key": "styleType",
+							"relation": "==",
+							"value": "style-3"
+						},
+						{
+							"key": "mailCalign",
+							"relation": "==",
+							"value": "right"
+						}
+					],
+					"selector": "{{PLUS_WRAP}}.tpgb-mailchimp.form-style-3 form.tpgb-mailchimp-form {  margin-right: 0; }"
+				}
+			],
+			"scopy": true
+		},
+		"gdprCompli": {
+			"type": "boolean",
+			"default": false
+		},
+		"gdprSub": {
+			"type": "string",
+			"default": "You Must Accept The Terms Of Service"
+		},
+		"gdpError": {
+			"type": "string",
+			"default": "Please Check Required."
+		},
+		"gdprtxtTypo": {
+			"type": "object",
+			"default": {
+				"openTypography": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "gdprCompli",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-gdpr-wrap .tpgb-gdpr-desc"
+				}
+			],
+			"scopy": true
+		},
+		"gdprtxtColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "gdprCompli",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-gdpr-wrap .tpgb-gdpr-desc{ color : {{gdprtxtColor}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"gdtermsBg": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "gdprCompli",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-gdpr-wrap .tpgb-gdpr-label{ background : {{gdtermsBg}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"gdtermsBor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "gdprCompli",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-gdpr-wrap .tpgb-gdpr-label{ border-color : {{gdtermsBor}} }"
+				}
+			],
+			"scopy": true
+		},
+		"gdtermicon": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "gdprCompli",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-gdpr-wrap .tpgb-gdpr-label::before,{{PLUS_WRAP}} .tpgb-gdpr-wrap .tpgb-gdpr-label::after{ background : {{gdtermicon}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"gdprPadd": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "gdprCompli",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-gdpr-wrap { padding : {{gdprPadd}}; }"
+				}
+			],
+			"scopy": true
+		}
+	}
+}

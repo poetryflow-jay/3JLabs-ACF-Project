@@ -1,0 +1,111 @@
+# Translation of Plugins - UiChemy — Figma Converter for Elementor, Gutenberg and Bricks - Stable (latest release) in Korean
+# This file is distributed under the same license as the Plugins - UiChemy — Figma Converter for Elementor, Gutenberg and Bricks - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-06-02 13:02:42+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.0.2\n"
+"Language: ko_KR\n"
+"Project-Id-Version: Plugins - UiChemy — Figma Converter for Elementor, Gutenberg and Bricks - Stable (latest release)\n"
+
+#: includes/admin/class-uich-elementor.php:104
+msgid "CSS Code"
+msgstr "CSS 코드"
+
+#: includes/admin/class-uich-elementor.php:97
+msgid "UiChemy : Custom CSS"
+msgstr "UiChemy : 사용자 정의 CSS"
+
+#: includes/admin/class-uich-api.php:1321
+msgid "Could not update the data."
+msgstr "데이터를 업데이트할 수 없습니다."
+
+#: includes/admin/class-uich-api.php:977
+msgid "No data Provided for Importing."
+msgstr "가져올 데이터가 제공되지 않았습니다."
+
+#: includes/admin/class-uich-api.php:914
+msgid "This post doesn't have Elementor data."
+msgstr "이 글에는 Elementor 데이터가 없습니다."
+
+#: includes/admin/class-uich-api.php:869 includes/admin/class-uich-api.php:1054
+#: includes/admin/class-uich-api.php:1260
+msgid "Post does not exist with given ID & Type."
+msgstr "주어진 ID 및 유형의 게시물이 존재하지 않습니다."
+
+#: includes/admin/class-uich-api.php:860 includes/admin/class-uich-api.php:1045
+#: includes/admin/class-uich-api.php:1251
+msgid "Post ID not provided for Updating."
+msgstr "업데이트를 위한 게시물 ID가 제공되지 않았습니다."
+
+#: includes/admin/class-uich-api.php:714
+msgid "Required Elementor Plugin Please Install and Active."
+msgstr "필수 Elementor 플러그인 설치 및 활성화 필요."
+
+#: includes/notices/class-uich-plugin-page.php:113
+msgid "Request Feature"
+msgstr "기능 요청"
+
+#: includes/notices/class-uich-plugin-page.php:112 dashboard/build/index.js:1
+msgid "What's New?"
+msgstr "새로운 소식은 무엇인가요?"
+
+#: includes/notices/class-uich-plugin-page.php:111
+msgid "Join Community"
+msgstr "커뮤니티 가입"
+
+#: includes/notices/class-uich-plugin-page.php:110
+msgid "Video Tutorials"
+msgstr "동영상 튜토리얼"
+
+#: includes/notices/class-uich-plugin-page.php:87
+msgid "Need Help?"
+msgstr "도움이 필요하신가요?"
+
+#: includes/notices/class-uich-plugin-page.php:86
+msgid "Settings"
+msgstr "설정"
+
+#: includes/admin/class-uich-api.php:1395
+msgid "Invalid Security Token"
+msgstr "유효하지 않은 보안 토큰"
+
+#: includes/admin/class-uich-api.php:1341
+msgid "All Good."
+msgstr "모두 괜찮아."
+
+#: includes/admin/class-uich-api.php:693 includes/admin/class-uich-api.php:773
+#: includes/admin/class-uich-api.php:1180
+msgid "No JSON data found."
+msgstr "JSON 데이터를 찾을 수 없습니다."
+
+#: includes/admin/class-uich-api.php:337
+msgid "Reset Successful"
+msgstr "재설정 완료"
+
+#. Author URI of the plugin
+#: uichemy.php
+msgid "https://posimyth.com"
+msgstr "https://posimyth.com\"은 번역이 필요하지 않은 URL입니다. URL은 모든 언어에서 동일하게 사용됩니다."
+
+#. Author of the plugin
+#: uichemy.php
+msgid "POSIMYTH"
+msgstr "포시미스"
+
+#. Description of the plugin
+#: uichemy.php
+msgid "Convert Figma Design to 100% Editable WordPress websites in Elementor Website Builder and Gutenberg aka WordPress Block Editor."
+msgstr "Figma 디자인을 100% 편집 가능한 WordPress 웹사이트로 변환하기: Elementor 웹사이트 빌더와 구텐베르크, 즉 WordPress 블록 편집기에서."
+
+#. Plugin URI of the plugin
+#: uichemy.php
+msgid "https://uichemy.com"
+msgstr "https://uichemy.com"
+
+#: includes/admin/class-uich-enqueue.php:457
+msgid "UiChemy"
+msgstr "UiChemy"

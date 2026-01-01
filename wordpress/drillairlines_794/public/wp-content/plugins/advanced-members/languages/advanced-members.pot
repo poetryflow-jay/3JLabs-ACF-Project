@@ -1,0 +1,2309 @@
+# Copyright (C) 2025 danbilabs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced Members for ACF 1.2.4\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/advanced-members\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-10-24T16:45:52+09:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: advanced-members\n"
+
+#. Plugin Name of the plugin
+msgid "Advanced Members for ACF"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://danbilabs.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Lightweight & All-in-One Membership Plugin for ACF Fans."
+msgstr ""
+
+#. Author of the plugin
+msgid "danbilabs"
+msgstr ""
+
+#: acf/fields/class-avatar.php:36
+#: admin/class-admin-options.php:346
+msgid "Avatar"
+msgstr ""
+
+#: acf/fields/class-avatar.php:53
+msgid "Select Avatar"
+msgstr ""
+
+#: acf/fields/class-avatar.php:54
+msgid "Edit Avatar"
+msgstr ""
+
+#: acf/fields/class-avatar.php:55
+msgid "Update Avatar"
+msgstr ""
+
+#: acf/fields/class-avatar.php:56
+msgid "Uploaded to this post"
+msgstr ""
+
+#: acf/fields/class-avatar.php:57
+msgid "All Avatars"
+msgstr ""
+
+#: acf/fields/class-avatar.php:71
+msgid "Preview Size"
+msgstr ""
+
+#: acf/fields/class-avatar.php:72
+msgid "Shown when entering data. Default: 150"
+msgstr ""
+
+#: acf/fields/class-avatar.php:154
+msgid "User Avatar"
+msgstr ""
+
+#: acf/fields/class-avatar.php:156
+msgid "Remove"
+msgstr ""
+
+#: acf/fields/class-avatar.php:179
+msgid "Upload file"
+msgstr ""
+
+#: acf/fields/class-avatar.php:180
+msgid "Drag and drop files here"
+msgstr ""
+
+#: acf/fields/class-avatar.php:197
+msgid "No Avatar selected"
+msgstr ""
+
+#: acf/fields/class-avatar.php:197
+msgid "Add Avatar"
+msgstr ""
+
+#: acf/fields/class-avatar.php:211
+msgid "Cropping image..."
+msgstr ""
+
+#: acf/fields/class-avatar.php:212
+msgid "Failed to crop image"
+msgstr ""
+
+#: acf/fields/class-avatar.php:213
+msgid "Crop"
+msgstr ""
+
+#: acf/fields/class-avatar.php:214
+msgid "Cancel"
+msgstr ""
+
+#: acf/fields/class-avatar.php:215
+msgid "Crop image"
+msgstr ""
+
+#: acf/fields/class-avatar.php:216
+msgid "Reset crop"
+msgstr ""
+
+#. translators: %d: Upload progress percantage
+#: acf/fields/class-avatar.php:218
+msgid "Uploading image. Progress %d%%."
+msgstr ""
+
+#: acf/fields/class-avatar.php:219
+msgid "Upload failed."
+msgstr ""
+
+#: acf/fields/class-avatar.php:220
+msgid "Avatatar updated."
+msgstr ""
+
+#: acf/fields/class-display-name.php:15
+msgid "Display Name"
+msgstr ""
+
+#: acf/fields/class-display-name.php:17
+msgid "Select the name to display publicly. Synced to `display_name` user data."
+msgstr ""
+
+#: acf/fields/class-display-name.php:27
+msgid "Start typing or choose one of the options"
+msgstr ""
+
+#: acf/fields/class-errors.php:13
+msgid "AMem Errors (Internal)"
+msgstr ""
+
+#: acf/fields/class-first-name.php:12
+msgid "First Name"
+msgstr ""
+
+#: acf/fields/class-first-name.php:14
+msgid "First name of the user. Synced to `first_name` user meta."
+msgstr ""
+
+#: acf/fields/class-last-name.php:12
+msgid "Last Name"
+msgstr ""
+
+#: acf/fields/class-last-name.php:14
+msgid "Last name of the user. Synced to `last_name` user meta."
+msgstr ""
+
+#: acf/fields/class-nickname.php:12
+msgid "Nickname"
+msgstr ""
+
+#: acf/fields/class-nickname.php:14
+msgid "Nickname of the user. Synced to `nickname` user meta."
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:22
+#: admin/views/html-dashboard-page.php:128
+msgid "Google reCAPTCHA"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:44
+msgid "Override Global Settings"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:45
+msgid "Use different settings from global."
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:52
+msgid "Version"
+msgstr ""
+
+#. translators: %s: Google document URL
+#: acf/fields/class-recaptcha.php:54
+msgid "Select the reCAPTCHA version. You can find details about verions from the <a href=\"%s\" target=\"_blank\">Google Guides</a>."
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:59
+#: admin/views/html-options-page.php:835
+msgid "reCAPTCHA V3"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:60
+#: admin/views/html-options-page.php:836
+msgid "reCAPTCHA V2"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:74
+#: admin/views/html-options-page.php:883
+msgid "Theme"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:75
+#: admin/views/html-options-page.php:884
+msgid "Select the reCAPTCHA theme for v2"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:79
+#: admin/views/html-options-page.php:891
+msgid "Light"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:80
+#: admin/views/html-options-page.php:892
+msgid "Dark"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:99
+#: admin/views/html-options-page.php:915
+msgid "Size"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:100
+msgid "Select the reCAPTCHA size for v2"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:104
+#: admin/views/html-options-page.php:923
+msgid "Normal"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:105
+#: admin/views/html-options-page.php:924
+msgid "Compact"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:124
+#: admin/views/html-options-page.php:952
+msgid "Hide Badge"
+msgstr ""
+
+#. translators: %s: Google documnet URL
+#: acf/fields/class-recaptcha.php:126
+#: admin/views/html-options-page.php:954
+msgid "Hide the <a href=\"%s\" target=\"_blank\">reCAPTCHA v3 badge</a>"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:147
+#: admin/views/html-options-page.php:981
+msgid "Score Threshold"
+msgstr ""
+
+#. translators: %s: Google document URL
+#: acf/fields/class-recaptcha.php:149
+msgid "Select the score threshold to verify. 0.0 means very likely a bot and 1.0 means very likely a human. Google's default value is 0.5. Check the <a href=\"%s\" target=\"_blank\">Google guides</a>"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:182
+#: admin/views/html-options-page.php:745
+msgid "Site Key"
+msgstr ""
+
+#. translators: %s: reCAPTCHA console URL
+#: acf/fields/class-recaptcha.php:184
+#: admin/views/html-options-page.php:747
+msgid "Enter the site key. <a href=\"%s\" target=\"_blank\">reCAPTCHA API Admin</a>"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:199
+#: admin/views/html-options-page.php:765
+msgid "Secret Key"
+msgstr ""
+
+#. translators: %s: reCAPTCHA console URL
+#: acf/fields/class-recaptcha.php:201
+#: admin/views/html-options-page.php:767
+msgid "Enter the secret key. <a href=\"%s\" target=\"_blank\">reCAPTCHA API Admin</a>"
+msgstr ""
+
+#: acf/fields/class-recaptcha.php:314
+msgid "reCAPTCHA is not ready. Site key or Secret key is not set yet"
+msgstr ""
+
+#: acf/fields/class-user-bio.php:19
+msgid "User Bio"
+msgstr ""
+
+#: acf/fields/class-user-bio.php:21
+msgid "Biographical info of the user. Synced to `description` user meta."
+msgstr ""
+
+#: acf/fields/class-user-email.php:12
+#: core/actions/account.php:312
+msgid "User Email"
+msgstr ""
+
+#: acf/fields/class-user-email.php:14
+msgid "Email of the user. Synced to `user_email` user data."
+msgstr ""
+
+#. translators: Given email address
+#: acf/fields/class-user-email.php:72
+msgid "'%s' is not a valid email address"
+msgstr ""
+
+#: acf/fields/class-user-email.php:86
+msgid "The email does not existing in this site. Please try a different email"
+msgstr ""
+
+#. translators: email value string
+#: acf/fields/class-user-email.php:97
+msgid "The email %s is already assigned to an existing account. Please try a different email or login to your account"
+msgstr ""
+
+#. translators: email value string
+#: acf/fields/class-user-email.php:106
+msgid "The username %s is taken. Please try a different username"
+msgstr ""
+
+#: acf/fields/class-user-email.php:155
+msgid "Set as Username"
+msgstr ""
+
+#: acf/fields/class-user-email.php:156
+msgid "Save value as username as well. (Only works with registration forms)"
+msgstr ""
+
+#: acf/fields/class-user-password-confirm.php:12
+msgid "User Password Confirm"
+msgstr ""
+
+#: acf/fields/class-user-password-confirm.php:78
+#: acf/fields/class-user-password.php:91
+msgid "The passwords do not match"
+msgstr ""
+
+#: acf/fields/class-user-password-confirm.php:93
+#: acf/fields/class-user-password.php:162
+#: acf/fields/class-user-password.php:165
+#: acf/fields/class-user-password.php:215
+#: acf/fields/class-user-password.php:216
+#: acf/fields/class-user-password.php:231
+#: acf/fields/class-user-password.php:232
+#: core/class-password-reset.php:221
+msgid "Password Confirm"
+msgstr ""
+
+#: acf/fields/class-user-password-current.php:12
+msgid "User Password Current"
+msgstr ""
+
+#: acf/fields/class-user-password-current.php:16
+msgid "Type your current password"
+msgstr ""
+
+#: acf/fields/class-user-password-current.php:70
+msgid "Current password is required"
+msgstr ""
+
+#: acf/fields/class-user-password.php:12
+msgid "User Password"
+msgstr ""
+
+#: acf/fields/class-user-password.php:14
+msgid "Login password of the user. Synced to `user_pass` user data."
+msgstr ""
+
+#: acf/fields/class-user-password.php:99
+msgid "The password is too weak. Please make it stronger."
+msgstr ""
+
+#: acf/fields/class-user-password.php:186
+msgid "Password Strength"
+msgstr ""
+
+#: acf/fields/class-user-password.php:191
+msgid "Very Weak"
+msgstr ""
+
+#: acf/fields/class-user-password.php:192
+msgid "Weak"
+msgstr ""
+
+#: acf/fields/class-user-password.php:193
+msgid "Medium"
+msgstr ""
+
+#: acf/fields/class-user-password.php:194
+msgid "Strong"
+msgstr ""
+
+#: acf/fields/class-user-password.php:201
+msgid "Show password confirmation"
+msgstr ""
+
+#: acf/fields/class-user-password.php:202
+msgid "Show password confirmation field for users to check that the password is not mistyped. (Only works with Advanced Members Forms)"
+msgstr ""
+
+#: acf/fields/class-user-password.php:211
+msgid "Password Confirm Label"
+msgstr ""
+
+#: acf/fields/class-user-password.php:212
+msgid "Label for the password confirmation field"
+msgstr ""
+
+#: acf/fields/class-user-password.php:227
+msgid "Password Confirm Placeholder Text"
+msgstr ""
+
+#: acf/fields/class-user-password.php:228
+msgid "Placeholder text for the password confirmation field"
+msgstr ""
+
+#: acf/fields/class-user-tos.php:19
+msgid "Consent"
+msgstr ""
+
+#: acf/fields/class-user-tos.php:21
+msgid "Provides an agreement field for terms of service or privacy policy."
+msgstr ""
+
+#. translators: site name string
+#: acf/fields/class-user-tos.php:26
+msgid "By creating an account, you agree to %s's {terms}."
+msgstr ""
+
+#: acf/fields/class-user-tos.php:98
+msgid "Message"
+msgstr ""
+
+#: acf/fields/class-user-tos.php:99
+msgid "Displays text alongside the checkbox. You can use TOS page link with {terms}."
+msgstr ""
+
+#: acf/fields/class-user-tos.php:116
+#: admin/class-admin-options.php:382
+#: admin/class-admin-options.php:445
+#: admin/views/html-options-page.php:33
+msgid "Not Selected"
+msgstr ""
+
+#: acf/fields/class-user-tos.php:128
+msgid "Terms Page"
+msgstr ""
+
+#: acf/fields/class-user-tos.php:131
+msgid "Leave empty for no page link"
+msgstr ""
+
+#: acf/fields/class-user-tos.php:138
+msgid "Terms page link text"
+msgstr ""
+
+#: acf/fields/class-user-tos.php:139
+msgid "Text for the page link text. Leave empty to use the page title."
+msgstr ""
+
+#: acf/fields/class-user-url.php:12
+msgid "Website"
+msgstr ""
+
+#: acf/fields/class-user-url.php:14
+msgid "Website URL of the user. Synced to `url` user meta."
+msgstr ""
+
+#: acf/fields/class-username.php:12
+#: core/class-config.php:248
+msgid "Username or Email"
+msgstr ""
+
+#: acf/fields/class-username.php:16
+msgid "User login name. You can use this field as \"Username or Email\" on the Login/Registration form."
+msgstr ""
+
+#: acf/fields/class-username.php:76
+msgid "The username contains illegal characters. Please enter only latin letters, numbers, @, -, . and _"
+msgstr ""
+
+#. translators: Username or email string
+#: acf/fields/class-username.php:90
+msgid "The username or email %s is already in use. Please try a different username"
+msgstr ""
+
+#. translators: Username or email string
+#: acf/fields/class-username.php:109
+msgid "The username or email %s does not exist on this site. Please try a different username"
+msgstr ""
+
+#: acf/fields/class-username.php:139
+msgid "The Username field works as a \"Username or Email\" field on the Login page."
+msgstr ""
+
+#: acf/fields/class-username.php:140
+msgid "Users cannot change their username, and this field is displayed as disabled except on the registration form."
+msgstr ""
+
+#: acf/fields/class-username.php:145
+msgid "Field instructions"
+msgstr ""
+
+#: admin/class-acf-location-members.php:60
+msgid "All"
+msgstr ""
+
+#: admin/class-admin-form.php:58
+msgid "Form deleted."
+msgstr ""
+
+#: admin/class-admin-form.php:59
+msgid "Form updated."
+msgstr ""
+
+#: admin/class-admin-form.php:62
+msgid "Form saved."
+msgstr ""
+
+#: admin/class-admin-form.php:63
+msgid "Form submitted."
+msgstr ""
+
+#: admin/class-admin-form.php:64
+msgid "Form scheduled for."
+msgstr ""
+
+#: admin/class-admin-form.php:65
+msgid "Form draft updated."
+msgstr ""
+
+#. translators: %s post type name
+#: admin/class-admin-form.php:85
+msgid "%s form updated"
+msgstr ""
+
+#. translators: %s post type name
+#: admin/class-admin-form.php:89
+msgid "%s form created"
+msgstr ""
+
+#: admin/class-admin-form.php:143
+#: admin/class-admin-options.php:333
+msgid "General"
+msgstr ""
+
+#: admin/class-admin-form.php:164
+#: admin/class-admin-forms.php:142
+msgid "Shortcode"
+msgstr ""
+
+#: admin/class-admin-form.php:175
+msgid "Form Type"
+msgstr ""
+
+#: admin/class-admin-form.php:179
+#: admin/views/html-options-page.php:53
+#: core/actions/registration.php:208
+#: core/class-config.php:274
+#: core/functions-forms.php:198
+msgid "Registration"
+msgstr ""
+
+#: admin/class-admin-form.php:180
+#: admin/views/html-options-page.php:58
+#: core/actions/login.php:266
+#: core/actions/login.php:355
+#: core/class-config.php:275
+#: core/functions-forms.php:199
+#: core/functions-forms.php:756
+#: core/modules/menu/class-items.php:35
+msgid "Login"
+msgstr ""
+
+#: admin/class-admin-form.php:181
+#: admin/class-admin-options.php:334
+#: core/actions/account.php:545
+#: core/class-account.php:163
+#: core/class-config.php:278
+#: core/class-rest.php:34
+#: core/functions-forms.php:200
+#: core/modules/menu/class-items.php:39
+msgid "Account"
+msgstr ""
+
+#: admin/class-admin-form.php:189
+msgid "Override Global AJAX setting"
+msgstr ""
+
+#: admin/class-admin-form.php:193
+msgid "Override the Global AJAX option and force the Form AJAX setting"
+msgstr ""
+
+#: admin/class-admin-form.php:202
+#: admin/views/html-options-page.php:184
+msgid "AJAX Submit"
+msgstr ""
+
+#: admin/class-admin-form.php:206
+msgid "Enable/disable AJAX form submit instead of page load. This overrides the global option and is overridden by the shortcode attribute ajax=\"0\""
+msgstr ""
+
+#: admin/class-admin-form.php:220
+msgid "reCAPTCHA disabled"
+msgstr ""
+
+#. translators: 1: Settings URL, 2: reCAPTCHA console URL
+#: admin/class-admin-form.php:226
+msgid "Valid Google reCAPTCHA site key and secret key <a href=\"%1$s\">should be set</a> before applying reCAPTCHA to the form. <a href=\"%2$s\" target=\"_blank\">reCAPTCHA API Admin</a>"
+msgstr ""
+
+#: admin/class-admin-form.php:245
+msgid "Use reCAPTCHA"
+msgstr ""
+
+#: admin/class-admin-form.php:248
+msgid "Check form submission with reCAPTCHA."
+msgstr ""
+
+#: admin/class-admin-form.php:266
+msgid "Show &quot;Remember Me&quot;"
+msgstr ""
+
+#: admin/class-admin-form.php:267
+msgid "Allow users to choose If they want to stay signed in even after closing the browser."
+msgstr ""
+
+#: admin/class-admin-form.php:285
+msgid "Forgot Password Link"
+msgstr ""
+
+#: admin/class-admin-form.php:286
+msgid "Show the forgot password link in the login form"
+msgstr ""
+
+#: admin/class-admin-form.php:303
+msgid "Extra Button"
+msgstr ""
+
+#: admin/class-admin-form.php:304
+msgid "Use a secondary button on the login form."
+msgstr ""
+
+#: admin/class-admin-form.php:322
+msgid "Secondary Button Text"
+msgstr ""
+
+#: admin/class-admin-form.php:323
+msgid "Secondary button text on the login form. Leave empty for &quot;Register&quot;"
+msgstr ""
+
+#: admin/class-admin-form.php:344
+msgid "Secondary Button URL"
+msgstr ""
+
+#: admin/class-admin-form.php:345
+msgid "Secondary button URL. Leave empty to use the Registration page URL"
+msgstr ""
+
+#: admin/class-admin-form.php:368
+msgid "Registration Role"
+msgstr ""
+
+#: admin/class-admin-form.php:369
+msgid "The role assigned upon registration through this sign-up form."
+msgstr ""
+
+#: admin/class-admin-form.php:391
+msgid "Registration Status"
+msgstr ""
+
+#: admin/class-admin-form.php:392
+msgid "Select what action is taken after a person registers on your site. Depending on the status you can redirect them to their profile, a custom url or show a custom message"
+msgstr ""
+
+#: admin/class-admin-form.php:397
+msgid "Auto Approve"
+msgstr ""
+
+#: admin/class-admin-form.php:398
+msgid "Requires Email Activation"
+msgstr ""
+
+#: admin/class-admin-form.php:411
+msgid "Force show success message"
+msgstr ""
+
+#: admin/class-admin-form.php:412
+msgid "Do not redirect after registration and show a message instead of the form. Useful when &quot;Requires Email Activation&quot; is selected above."
+msgstr ""
+
+#: admin/class-admin-form.php:435
+msgid "The custom message"
+msgstr ""
+
+#: admin/class-admin-form.php:437
+msgid "Thank you for registering. Before you can login we need you to activate your account by clicking the activation link in the email we just sent you."
+msgstr ""
+
+#: admin/class-admin-form.php:462
+msgid "Unset Fields"
+msgstr ""
+
+#: admin/class-admin-form.php:463
+msgid "Advanced Members will unset username, user email, and user password fields and show them with core fields."
+msgstr ""
+
+#: admin/class-admin-form.php:473
+#: core/functions-forms.php:752
+msgid "Submit"
+msgstr ""
+
+#: admin/class-admin-form.php:517
+msgid "Submit Button Text"
+msgstr ""
+
+#: admin/class-admin-form.php:518
+msgid "Submit button text. Leave empty to use the default text."
+msgstr ""
+
+#: admin/class-admin-form.php:605
+#: admin/views/html-option-single-email.php:34
+msgid "Active"
+msgstr ""
+
+#: admin/class-admin-form.php:606
+msgid "Enable or disable this form."
+msgstr ""
+
+#: admin/class-admin-form.php:617
+msgid "Form settings"
+msgstr ""
+
+#: admin/class-admin-form.php:688
+msgid "Field Groups"
+msgstr ""
+
+#: admin/class-admin-form.php:691
+msgid "Form Pages"
+msgstr ""
+
+#: admin/class-admin-form.php:716
+msgid "Connect fields to the form by setting the location of your fields group to this form. You can connect multiple field groups to this form."
+msgstr ""
+
+#: admin/class-admin-form.php:734
+msgid "Label"
+msgstr ""
+
+#: admin/class-admin-form.php:735
+msgid "Name"
+msgstr ""
+
+#: admin/class-admin-form.php:736
+#: admin/class-admin-forms.php:141
+#: admin/views/html-options-page.php:850
+msgid "Type"
+msgstr ""
+
+#: admin/class-admin-form.php:757
+msgid "No field groups connected to this form"
+msgstr ""
+
+#: admin/class-admin-form.php:763
+msgid "Create field group"
+msgstr ""
+
+#: admin/class-admin-form.php:828
+msgid "Below are the pages where this form is embedded. You can view each Page on the frontend or edit it in the admin screen."
+msgstr ""
+
+#: admin/class-admin-form.php:845
+msgid "View Page"
+msgstr ""
+
+#: admin/class-admin-form.php:847
+#: admin/class-admin-options.php:496
+msgid "Edit Page"
+msgstr ""
+
+#: admin/class-admin-form.php:852
+msgid "No connected Pages. You can embed this form into a Page with the Adv. Members Form block or the Shortcode displayed on top of this form settings section."
+msgstr ""
+
+#: admin/class-admin-forms.php:89
+msgid "Show all"
+msgstr ""
+
+#: admin/class-admin-forms.php:90
+msgid "Login Forms"
+msgstr ""
+
+#: admin/class-admin-forms.php:91
+msgid "Registration Forms"
+msgstr ""
+
+#: admin/class-admin-forms.php:92
+msgid "Account Forms"
+msgstr ""
+
+#: admin/class-admin-forms.php:139
+msgid "ID"
+msgstr ""
+
+#: admin/class-admin-forms.php:140
+msgid "Field Group"
+msgstr ""
+
+#: admin/class-admin-forms.php:165
+msgid "No connected field groups"
+msgstr ""
+
+#: admin/class-admin-forms.php:232
+msgid "No description"
+msgstr ""
+
+#: admin/class-admin-forms.php:268
+msgid "No field groups"
+msgstr ""
+
+#: admin/class-admin-forms.php:323
+msgid "No taxonomies"
+msgstr ""
+
+#: admin/class-admin-options.php:41
+#: admin/class-admin.php:368
+#: admin/class-admin.php:387
+#: core/class-blocks.php:77
+msgid "Advanced Members"
+msgstr ""
+
+#: admin/class-admin-options.php:43
+#: admin/class-menu.php:71
+#: admin/class-menu.php:195
+msgid "Advanced Members Settings"
+msgstr ""
+
+#: admin/class-admin-options.php:43
+msgid "Settings"
+msgstr ""
+
+#: admin/class-admin-options.php:45
+#: core/class-amem-form.php:103
+#: core/class-locations.php:20
+msgid "Members Forms"
+msgstr ""
+
+#: admin/class-admin-options.php:45
+#: core/class-amem-form.php:107
+msgid "Forms"
+msgstr ""
+
+#: admin/class-admin-options.php:100
+msgid "Dashboard Update Success"
+msgstr ""
+
+#: admin/class-admin-options.php:118
+msgid "Options Update Success"
+msgstr ""
+
+#: admin/class-admin-options.php:187
+msgid "Update"
+msgstr ""
+
+#: admin/class-admin-options.php:229
+#: admin/views/form-top.php:32
+msgid "Save Changes"
+msgstr ""
+
+#: admin/class-admin-options.php:312
+msgid "Modules"
+msgstr ""
+
+#: admin/class-admin-options.php:317
+msgid "Advanced Members Dashboard"
+msgstr ""
+
+#: admin/class-admin-options.php:337
+#: admin/views/html-dashboard-page.php:37
+msgid "Redirects"
+msgstr ""
+
+#: admin/class-admin-options.php:340
+#: admin/views/html-dashboard-page.php:80
+msgid "Content Restriction"
+msgstr ""
+
+#: admin/class-admin-options.php:343
+msgid "Admin Bar"
+msgstr ""
+
+#: admin/class-admin-options.php:349
+msgid "reCAPTCHA"
+msgstr ""
+
+#: admin/class-admin-options.php:352
+msgid "Emails"
+msgstr ""
+
+#: admin/class-admin-options.php:363
+msgid "Members Settings"
+msgstr ""
+
+#. translators: %s: Active posts count
+#: admin/class-admin-posts.php:86
+msgid "Active <span class=\"count\">(%s)</span>"
+msgid_plural "Active <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/class-admin-posts.php:143
+msgid "Activate this item"
+msgstr ""
+
+#: admin/class-admin-posts.php:143
+msgid "Activate"
+msgstr ""
+
+#: admin/class-admin-posts.php:147
+msgid "Deactivate this item"
+msgstr ""
+
+#: admin/class-admin-posts.php:147
+msgid "Deactivate"
+msgstr ""
+
+#: admin/class-admin-posts.php:195
+msgid "No posts"
+msgstr ""
+
+#. translators: %s: number of post types activated
+#: admin/class-admin-posts.php:237
+msgid "%s Form activated."
+msgid_plural "%s forms activated."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of post types deactivated
+#: admin/class-admin-posts.php:244
+msgid "%s Form deactivated."
+msgid_plural "%s forms deactivated."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of post types duplicated
+#: admin/class-admin-posts.php:251
+msgid "%s Form duplicated."
+msgid_plural "%s forms duplicated."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of post types synchronized
+#: admin/class-admin-posts.php:258
+msgid "%s Form synchronized."
+msgid_plural "%s forms synchronized."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: Plugin name.
+#: admin/class-admin.php:104
+msgid "Advanced Members needs to create several pages (Registration, Login, Password Reset, Account, Change Password, Delete Account, Logout) to function correctly."
+msgstr ""
+
+#: admin/class-admin.php:108
+msgid "Create Pages"
+msgstr ""
+
+#: admin/class-admin.php:110
+msgid "No thanks"
+msgstr ""
+
+#: admin/class-admin.php:145
+msgid "Advanced Members User Account Fields"
+msgstr ""
+
+#: admin/class-menu.php:55
+#: admin/class-menu.php:179
+#: core/modules/class-restriction.php:628
+msgid "Everyone"
+msgstr ""
+
+#: admin/class-menu.php:56
+#: admin/class-menu.php:180
+#: core/modules/class-restriction.php:631
+msgid "Logged Out Users"
+msgstr ""
+
+#: admin/class-menu.php:57
+#: admin/class-menu.php:181
+#: core/modules/class-restriction.php:629
+msgid "Logged In Users"
+msgstr ""
+
+#: admin/class-menu.php:78
+#: admin/class-menu.php:102
+#: admin/class-menu.php:201
+msgid "Who can see this menu?"
+msgstr ""
+
+#: admin/class-menu.php:117
+#: admin/class-menu.php:217
+msgid "Select the user roles that can see this menu"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:85
+#: admin/views/form-top-navigation.php:251
+msgid "Options Pages"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:85
+msgid "PRO"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:96
+msgid "4 Months Free"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:175
+msgid "Advanced Custom Fields logo"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:185
+msgid "More"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:195
+msgid "Other"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:211
+msgid "Unlock Extra Features with ACF PRO"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:222
+msgid "Renew ACF PRO License"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:234
+msgid "WP Engine logo"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:247
+msgid "Tools"
+msgstr ""
+
+#: admin/views/form-top-navigation.php:249
+msgid "Updates"
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:38
+msgid "Redirect users to different pages or URLs after they register, log in and log out based on user roles."
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:54
+msgid "Menu Item Visibility"
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:55
+msgid "Enable/disable menu visibility settings on the navigation menu screen. You can show or hide the menu by the user's login status and role."
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:66
+msgid "Menu Visibility"
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:67
+msgid "Menu Visibility feature is supported on WP 5.4.0 or later."
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:81
+msgid "Control content access based on login status and User Roles."
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:96
+msgid "Disable Admin Bar"
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:97
+msgid "Disable the admin bar based on user roles."
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:112
+msgid "Local Avatar"
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:113
+msgid "Allow users to upload a local avatar."
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:129
+msgid "Check form submission with Google reCAPTCHA."
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:169
+msgid "Documentation"
+msgstr ""
+
+#: admin/views/html-dashboard-page.php:173
+msgid ""
+"Need Help?\n"
+"\t\t\t\t\t\tWe have a knowledge\n"
+"\t\t\t\t\t\tbase full of articles to get\n"
+"\t\t\t\t\t\tyou started.</p>\n"
+"\t\t\t\t\t\t<a target=\"_blank\" href=\"https://advanced-members.com/doc/getting-started/\">Browse Documentation</a>"
+msgstr ""
+
+#: admin/views/html-option-single-email.php:51
+msgid "Subject Line"
+msgstr ""
+
+#: admin/views/html-option-single-email.php:52
+msgid "This is the subject line of the e-mail"
+msgstr ""
+
+#: admin/views/html-option-single-email.php:70
+msgid "Message Body"
+msgstr ""
+
+#: admin/views/html-option-single-email.php:71
+msgid "This is the content of the e-mail"
+msgstr ""
+
+#: admin/views/html-option-single-role.php:22
+#: admin/views/html-options-page.php:469
+#: admin/views/html-options-page.php:499
+#: admin/views/html-options-page.php:581
+msgid "Use global rule"
+msgstr ""
+
+#. translators: form action names string
+#: admin/views/html-option-single-role.php:24
+msgid "Set a URL to redirect user after they %s"
+msgstr ""
+
+#: admin/views/html-option-single-role.php:46
+#: admin/views/html-options-page.php:384
+msgid "Set Custom Redirect URL"
+msgstr ""
+
+#: admin/views/html-options-account_forms.php:31
+msgid "Add role"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:13
+msgid "Admin E-mail Address"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:14
+msgid "Set which email addresses admin notifications are sent to"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:26
+msgid "Mail appears from"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:27
+msgid "Set the name that appears in the from text. By default, this will be the name of your WordPress site."
+msgstr ""
+
+#: admin/views/html-options-list-email.php:39
+msgid "Mail appears from address"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:40
+msgid "Set the email address from which the email notifications appear. By default, this will be the email from your site's admin"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:52
+msgid "Email Activation Link Expiry"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:53
+msgid "Set the email activation link expiry time limit in days."
+msgstr ""
+
+#: admin/views/html-options-list-email.php:67
+msgid "Override Core Password Changed Email"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:68
+msgid "Override the WordPress core password changed email content template with Advanced Members."
+msgstr ""
+
+#: admin/views/html-options-list-email.php:79
+#: core/class-config.php:241
+#: core/class-config.php:265
+msgid "Email"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:80
+msgid "Recipient(s)"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:81
+msgid "Status"
+msgstr ""
+
+#: admin/views/html-options-list-email.php:92
+msgid "Member"
+msgstr ""
+
+#: admin/views/html-options-page.php:23
+msgid "&mdash; Select a Page &mdash;"
+msgstr ""
+
+#: admin/views/html-options-page.php:55
+msgctxt "user_action"
+msgid "registered."
+msgstr ""
+
+#: admin/views/html-options-page.php:60
+msgctxt "user_action"
+msgid "logged in."
+msgstr ""
+
+#: admin/views/html-options-page.php:63
+#: core/class-config.php:277
+#: core/modules/menu/class-items.php:37
+msgid "Logout"
+msgstr ""
+
+#: admin/views/html-options-page.php:65
+msgctxt "user_action"
+msgid "logged out."
+msgstr ""
+
+#: admin/views/html-options-page.php:68
+#: admin/views/html-options-page.php:301
+#: core/class-account.php:180
+#: core/class-account.php:181
+#: core/class-config.php:280
+#: core/class-rest.php:48
+#: core/modules/menu/class-items.php:41
+msgid "Delete Account"
+msgstr ""
+
+#: admin/views/html-options-page.php:70
+msgctxt "user_action"
+msgid "delete account."
+msgstr ""
+
+#: admin/views/html-options-page.php:75
+msgid "Go to Homepage"
+msgstr ""
+
+#: admin/views/html-options-page.php:76
+msgid "Refresh active page"
+msgstr ""
+
+#: admin/views/html-options-page.php:77
+msgid "Go to Admin page"
+msgstr ""
+
+#: admin/views/html-options-page.php:78
+msgid "Go to Login page"
+msgstr ""
+
+#: admin/views/html-options-page.php:79
+msgid "Go to Registration page"
+msgstr ""
+
+#: admin/views/html-options-page.php:80
+msgid "Redirect to URL"
+msgstr ""
+
+#: admin/views/html-options-page.php:122
+msgid "Advanced Members Pages"
+msgstr ""
+
+#: admin/views/html-options-page.php:149
+msgid "Styles"
+msgstr ""
+
+#: admin/views/html-options-page.php:152
+msgid "No Styles"
+msgstr ""
+
+#: admin/views/html-options-page.php:153
+msgid "shadcn/ui"
+msgstr ""
+
+#: admin/views/html-options-page.php:154
+msgid "ACF style"
+msgstr ""
+
+#: admin/views/html-options-page.php:164
+msgid "Default Styles"
+msgstr ""
+
+#: admin/views/html-options-page.php:165
+msgid "Select default style for Advanced Members forms. You can also disable default style."
+msgstr ""
+
+#: admin/views/html-options-page.php:176
+msgid "Etc."
+msgstr ""
+
+#: admin/views/html-options-page.php:185
+msgid "Enable/disable AJAX form submit instead of page load. This option is overridden by the Form and Shortcode option."
+msgstr ""
+
+#: admin/views/html-options-page.php:196
+msgid "Account Form Settings"
+msgstr ""
+
+#: admin/views/html-options-page.php:218
+msgid "Current Password on Account"
+msgstr ""
+
+#: admin/views/html-options-page.php:219
+msgid "Show the current password confirmation field on the general account page"
+msgstr ""
+
+#: admin/views/html-options-page.php:255
+msgid "Account Form by User Roles"
+msgstr ""
+
+#: admin/views/html-options-page.php:263
+msgid "Default Account Form"
+msgstr ""
+
+#. translators: Delete account explain message
+#: admin/views/html-options-page.php:304
+#: core/actions/account.php:411
+msgid "By deleting your account, all of its data will be destroyed. This is not recoverable. %s"
+msgstr ""
+
+#: admin/views/html-options-page.php:305
+#: core/actions/account.php:412
+msgid "To delete your account, click on the button below."
+msgstr ""
+
+#: admin/views/html-options-page.php:308
+#: core/actions/account.php:415
+msgid "To delete your account enter your password below."
+msgstr ""
+
+#: admin/views/html-options-page.php:312
+#: core/actions/account.php:423
+msgid "Account Delete Confirmation"
+msgstr ""
+
+#: admin/views/html-options-page.php:321
+msgid "Account Deletion Custom Text"
+msgstr ""
+
+#: admin/views/html-options-page.php:322
+msgid "This is custom text that will be displayed to users before they delete their accounts from your site."
+msgstr ""
+
+#: admin/views/html-options-page.php:340
+msgid "Account Deletion Confirmation Label"
+msgstr ""
+
+#: admin/views/html-options-page.php:341
+msgid "This is the label that will be displayed to the right of the account deletion agreement checkbox."
+msgstr ""
+
+#: admin/views/html-options-page.php:354
+msgid "Redirection Settings"
+msgstr ""
+
+#. translators: form action names string
+#: admin/views/html-options-page.php:362
+msgid "Set a url to redirect user after they %s"
+msgstr ""
+
+#: admin/views/html-options-page.php:399
+msgid "User role redirection settings"
+msgstr ""
+
+#: admin/views/html-options-page.php:407
+msgid "Enable redirection by role"
+msgstr ""
+
+#: admin/views/html-options-page.php:408
+msgid "Enable/disable redirection by user role"
+msgstr ""
+
+#: admin/views/html-options-page.php:470
+#: admin/views/html-options-page.php:500
+#: admin/views/html-options-page.php:582
+msgid "Show"
+msgstr ""
+
+#: admin/views/html-options-page.php:471
+#: admin/views/html-options-page.php:501
+#: admin/views/html-options-page.php:583
+msgid "Hide"
+msgstr ""
+
+#: admin/views/html-options-page.php:474
+msgid "Select the roles to disable the admin bar for"
+msgstr ""
+
+#: admin/views/html-options-page.php:504
+msgid "Avatar Settings"
+msgstr ""
+
+#: admin/views/html-options-page.php:530
+msgid "Avatar Sizes"
+msgstr ""
+
+#: admin/views/html-options-page.php:531
+msgid "Comma-separated list of avatar sizes (numbers). Sizes should be between 80-512."
+msgstr ""
+
+#: admin/views/html-options-page.php:545
+msgid "Set Default Avatar"
+msgstr ""
+
+#: admin/views/html-options-page.php:546
+msgid "Set default avatar for this site globally. This will replace gravatar defaults."
+msgstr ""
+
+#: admin/views/html-options-page.php:561
+msgid "Default Avatar Image"
+msgstr ""
+
+#: admin/views/html-options-page.php:598
+msgid "Enable the \"Content Restriction\" settings for post types"
+msgstr ""
+
+#: admin/views/html-options-page.php:608
+msgid "Select post types to control content restriction."
+msgstr ""
+
+#: admin/views/html-options-page.php:620
+msgid "Enable the \"Content Restriction\" by Taxonomies"
+msgstr ""
+
+#: admin/views/html-options-page.php:625
+#: core/modules/class-restriction.php:605
+msgid "About Term Rule"
+msgstr ""
+
+#: admin/views/html-options-page.php:626
+#: core/modules/class-restriction.php:606
+msgid "&#8251; The term access rule will be applied to posts connected to the term, not to the term itself."
+msgstr ""
+
+#: admin/views/html-options-page.php:626
+#: core/modules/class-restriction.php:606
+msgid "&#8251; This means you can apply rules to all posts connected to this term at once, rather than individually."
+msgstr ""
+
+#: admin/views/html-options-page.php:638
+msgid "Select taxonomies to control content restriction."
+msgstr ""
+
+#: admin/views/html-options-page.php:650
+msgid "Content Restriction Methods"
+msgstr ""
+
+#: admin/views/html-options-page.php:659
+#: core/modules/class-restriction.php:662
+msgid "Redirect to the Login Page"
+msgstr ""
+
+#: admin/views/html-options-page.php:678
+#: core/modules/class-restriction.php:663
+msgid "Redirect to custom URL"
+msgstr ""
+
+#: admin/views/html-options-page.php:693
+#: core/modules/class-restriction.php:664
+msgid "Show Restriction Message"
+msgstr ""
+
+#: admin/views/html-options-page.php:708
+#: core/modules/class-restriction.php:665
+msgid "Show the Excerpt and Restriction Message"
+msgstr ""
+
+#: admin/views/html-options-page.php:722
+msgid "Default Restriction Message"
+msgstr ""
+
+#: admin/views/html-options-page.php:725
+#: admin/views/html-options-page.php:726
+#: core/class-options.php:176
+msgid "We're sorry, but you don't currently have access to this content."
+msgstr ""
+
+#: admin/views/html-options-page.php:741
+msgid "API Key Settings"
+msgstr ""
+
+#: admin/views/html-options-page.php:787
+#: core/modules/class-recaptcha.php:209
+msgid "reCAPTCHA will not function properly until validated Site Key and Secret Key are configured."
+msgstr ""
+
+#: admin/views/html-options-page.php:799
+msgid "Please review the following before using reCAPTCHA on your site:"
+msgstr ""
+
+#: admin/views/html-options-page.php:801
+msgid "Make sure you've entered valid API keys"
+msgstr ""
+
+#. translators: %s: reCAPTCHA admin URL
+#: admin/views/html-options-page.php:802
+msgid "Is your site domain added in the <a href=\"%s\" target=\"_blank\">reCAPTCHA API Admin</a> settings?"
+msgstr ""
+
+#. translators: %s: reCAPTCHA admin URL
+#: admin/views/html-options-page.php:803
+msgid "Have you selected the correct type of v2 reCAPTCHA (Invisible or Checkbox)?"
+msgstr ""
+
+#: admin/views/html-options-page.php:822
+msgid "Global settings for Google reCAPTCHA"
+msgstr ""
+
+#: admin/views/html-options-page.php:831
+msgid "reCAPTCHA Version"
+msgstr ""
+
+#. translators: %s: Google document URL
+#: admin/views/html-options-page.php:833
+msgid "Select the reCAPTCHA version. You can find details of verions form <a href=\"%s\" target=\"_blank\">Google Guide</a>."
+msgstr ""
+
+#. translators: %s: Google document URL
+#: admin/views/html-options-page.php:852
+msgid "Select the reCAPTCHA type for v2. Checkbox: \"I'm not a robot\", Invisible: Invisible reCAPTCHA badge. See <a href=\"%s\">Google Guide</a> for more details."
+msgstr ""
+
+#: admin/views/html-options-page.php:859
+msgid "Checkbox"
+msgstr ""
+
+#: admin/views/html-options-page.php:860
+msgid "Invisible"
+msgstr ""
+
+#: admin/views/html-options-page.php:916
+msgid "Select the reCAPTCHA size of v2"
+msgstr ""
+
+#. translators: %s: Google document URL
+#: admin/views/html-options-page.php:983
+msgid "Select score threshold to verify. 0.0 mens very likely a bot and 1.0 very likely a human. Google's default value is 0.5. Check <a href=\"%s\" target=\"_blank\">Google guide</a>"
+msgstr ""
+
+#: admin/views/html-options-page.php:1039
+msgid "Built-in Forms"
+msgstr ""
+
+#: admin/views/html-options-page.php:1040
+msgid "Apply reCAPTCHA to all built-in forms like Change Password, Reset Password, Delete Account."
+msgstr ""
+
+#: admin/views/html-options-roles-redirection.php:8
+#: core/modules/class-restriction.php:646
+msgid "User Roles"
+msgstr ""
+
+#: admin/views/html-options-rule-fields.php:31
+msgid "Add Role mapping"
+msgstr ""
+
+#: admin/views/location-rule.php:27
+msgid "Form is"
+msgstr ""
+
+#. translators: 1: ACF anchor open, 2: anchor close, 3: ACF Pro anchor open, 4: anchor close
+#: advanced-members.php:165
+msgid "Advanced Members for ACF requires %1$sACF%2$s or %3$sACF Pro%4$s."
+msgstr ""
+
+#: advanced-members.php:196
+msgid "The installed ACF or ACF Pro is not compatible with Advanced Members for ACF. Please update the plugin to 6.2.0 or later."
+msgstr ""
+
+#: core/actions/account.php:70
+#: core/actions/account.php:86
+msgid "Account updated"
+msgstr ""
+
+#: core/actions/account.php:73
+#: core/actions/account.php:87
+msgid "Password updated"
+msgstr ""
+
+#: core/actions/account.php:88
+#: core/class-account.php:354
+msgid "Account deleted"
+msgstr ""
+
+#. translators: Login page URL
+#: core/actions/account.php:100
+msgid "Please <a href=\"%s\" title=\"Login\">login</a> to manage your account"
+msgstr ""
+
+#: core/actions/account.php:129
+msgid "Username cannot be changed."
+msgstr ""
+
+#: core/actions/account.php:133
+msgid "User login cannot be changed."
+msgstr ""
+
+#: core/actions/account.php:137
+msgid "Please enter your email."
+msgstr ""
+
+#: core/actions/account.php:158
+#: core/actions/account.php:237
+msgid "Administrator users cannot be deleted on this page."
+msgstr ""
+
+#: core/actions/account.php:205
+msgid "Failed to process account update with the given data."
+msgstr ""
+
+#: core/actions/account.php:300
+#: core/class-config.php:231
+#: core/class-config.php:260
+msgid "Username"
+msgstr ""
+
+#: core/actions/account.php:346
+#: core/actions/account.php:383
+#: core/actions/account.php:446
+msgid "Current Password"
+msgstr ""
+
+#: core/actions/account.php:349
+#: core/actions/account.php:386
+msgid "Your Current Password"
+msgstr ""
+
+#: core/actions/account.php:371
+#: core/class-password-reset.php:217
+msgid "New Password"
+msgstr ""
+
+#: core/actions/account.php:374
+#: core/class-password-reset.php:220
+msgid "Your Password"
+msgstr ""
+
+#: core/actions/account.php:487
+msgid "Default account form not set in settings."
+msgstr ""
+
+#: core/actions/login.php:56
+msgid "Your account is now activated!"
+msgstr ""
+
+#: core/actions/login.php:241
+msgid "Failed to login."
+msgstr ""
+
+#: core/actions/login.php:270
+#: core/functions-forms.php:759
+#: core/modules/menu/class-items.php:36
+msgid "Register"
+msgstr ""
+
+#: core/actions/login.php:287
+#: core/actions/login.php:308
+msgid "Remember me"
+msgstr ""
+
+#: core/actions/login.php:337
+msgid "Forgot your password?"
+msgstr ""
+
+#: core/actions/password-reset.php:179
+msgid "An unknown error occurred. Please try again."
+msgstr ""
+
+#: core/actions/password-reset.php:222
+msgid "Send Reset Email"
+msgstr ""
+
+#: core/actions/password-reset.php:224
+#: core/class-account.php:170
+#: core/class-config.php:279
+#: core/class-rest.php:41
+#: core/modules/menu/class-items.php:40
+msgid "Change Password"
+msgstr ""
+
+#: core/actions/password-reset.php:251
+#: core/class-config.php:276
+#: core/class-rest.php:55
+#: core/functions-forms.php:208
+#: core/modules/menu/class-items.php:38
+msgid "Password Reset"
+msgstr ""
+
+#: core/actions/registration.php:33
+msgid "Your account is awaiting e-mail verification. Please check your inbox"
+msgstr ""
+
+#: core/actions/registration.php:141
+msgid "Failed to process registration with the given data."
+msgstr ""
+
+#: core/class-account.php:164
+#: core/functions-forms.php:762
+msgid "Update Account"
+msgstr ""
+
+#: core/class-account.php:171
+msgid "Update Password"
+msgstr ""
+
+#: core/class-account.php:189
+msgid "Logged Out"
+msgstr ""
+
+#: core/class-amem-form.php:101
+msgctxt "Post Type General Name"
+msgid "Advanced Members Forms"
+msgstr ""
+
+#: core/class-amem-form.php:102
+msgctxt "Post Type Singular Name"
+msgid "Form"
+msgstr ""
+
+#: core/class-amem-form.php:104
+#: core/class-amem-form.php:131
+#: core/class-amem-form.php:132
+msgid "Form"
+msgstr ""
+
+#: core/class-amem-form.php:105
+msgid "Form Archives"
+msgstr ""
+
+#: core/class-amem-form.php:106
+msgid "Parent Form:"
+msgstr ""
+
+#: core/class-amem-form.php:108
+msgid "Add New Form"
+msgstr ""
+
+#: core/class-amem-form.php:109
+msgid "Add New"
+msgstr ""
+
+#: core/class-amem-form.php:110
+msgid "New Form"
+msgstr ""
+
+#: core/class-amem-form.php:111
+msgid "Edit Form"
+msgstr ""
+
+#: core/class-amem-form.php:112
+msgid "Update Form"
+msgstr ""
+
+#: core/class-amem-form.php:113
+msgid "View Form"
+msgstr ""
+
+#: core/class-amem-form.php:114
+msgid "Search Form"
+msgstr ""
+
+#: core/class-amem-form.php:115
+msgid "Not found"
+msgstr ""
+
+#: core/class-amem-form.php:116
+msgid "Not found in Trash"
+msgstr ""
+
+#: core/class-amem-form.php:117
+msgid "Featured Image"
+msgstr ""
+
+#: core/class-amem-form.php:118
+msgid "Set featured image"
+msgstr ""
+
+#: core/class-amem-form.php:119
+msgid "Remove featured image"
+msgstr ""
+
+#: core/class-amem-form.php:120
+msgid "Use as featured image"
+msgstr ""
+
+#: core/class-amem-form.php:121
+msgid "Insert into form"
+msgstr ""
+
+#: core/class-amem-form.php:122
+msgid "Uploaded to this form"
+msgstr ""
+
+#: core/class-amem-form.php:123
+msgid "Forms list"
+msgstr ""
+
+#: core/class-amem-form.php:124
+msgid "Forms list navigation"
+msgstr ""
+
+#: core/class-amem-form.php:125
+msgid "Filter forms list"
+msgstr ""
+
+#: core/class-blocks.php:54
+#: build/blocks/blocks.js:1
+msgid "Adv. Members Form"
+msgstr ""
+
+#. translators: 1: &mdash; entitiy, 2: &mdash; entitiy
+#: core/class-blocks.php:140
+msgid " %1$s Select a form %2$s "
+msgstr ""
+
+#: core/class-config.php:70
+msgid "Account Welcome Email"
+msgstr ""
+
+#: core/class-config.php:81
+msgid "Whether to send the user an email when their account is automatically approved"
+msgstr ""
+
+#: core/class-config.php:87
+msgid "Account Activation Email"
+msgstr ""
+
+#: core/class-config.php:95
+msgid "Send the user an email when their account needs e-mail activation. (This option is always on)"
+msgstr ""
+
+#: core/class-config.php:102
+msgid "Delete Account Email"
+msgstr ""
+
+#: core/class-config.php:109
+msgid "Whether to send the user an email when their account is deleted"
+msgstr ""
+
+#: core/class-config.php:115
+msgid "Password Reset Email"
+msgstr ""
+
+#: core/class-config.php:123
+msgid "Send an email when users changed their password (This option is always on)"
+msgstr ""
+
+#: core/class-config.php:130
+msgid "Password Changed Email"
+msgstr ""
+
+#: core/class-config.php:137
+msgid "Whether to send the user an email when they requests to reset password (Recommended, please keep on)"
+msgstr ""
+
+#: core/class-config.php:157
+msgid "New User Notification"
+msgstr ""
+
+#: core/class-config.php:163
+msgid "Whether to receive notification when a new user account is created"
+msgstr ""
+
+#: core/class-config.php:169
+msgid "Account Deletion Notification"
+msgstr ""
+
+#: core/class-config.php:172
+msgid "Whether to receive notification when an account is deleted"
+msgstr ""
+
+#: core/class-config.php:236
+#: core/class-config.php:253
+msgid "Password"
+msgstr ""
+
+#: core/class-errors.php:27
+msgid "You are already logged in."
+msgstr ""
+
+#. translators: Login URL
+#: core/class-errors.php:29
+msgid "You have been logged out of the site. You can <a href=\"%s\">log in here</a>."
+msgstr ""
+
+#: core/class-errors.php:30
+msgid "Invalid form detected."
+msgstr ""
+
+#: core/class-errors.php:31
+msgid "Please enter your username or email"
+msgstr ""
+
+#: core/class-errors.php:32
+msgid "Please enter your password"
+msgstr ""
+
+#: core/class-errors.php:33
+msgid "Please enter your email"
+msgstr ""
+
+#. translators: Given username
+#: core/class-errors.php:35
+msgid "The username %s does not exist on this site. Please try a different username"
+msgstr ""
+
+#: core/class-errors.php:36
+msgid "Password is incorrect. Please try again."
+msgstr ""
+
+#. translators: Current URL
+#: core/class-errors.php:38
+msgid "Your submission failed. Please <a href=\"%s\">reload the page</a> and try again."
+msgstr ""
+
+#: core/class-errors.php:39
+msgid "Spam Detected"
+msgstr ""
+
+#: core/class-errors.php:40
+msgid "rejected user"
+msgstr ""
+
+#: core/class-errors.php:41
+msgid "Form is disabled"
+msgstr ""
+
+#: core/class-fields.php:222
+msgid "Hide Label"
+msgstr ""
+
+#. translators: %s: Provider name
+#: core/class-log.php:197
+msgid "No file \"%s.log\"."
+msgstr ""
+
+#: core/class-mail.php:147
+#: core/class-password-reset.php:265
+msgid "Your set password"
+msgstr ""
+
+#: core/class-password-reset.php:43
+msgid "If an account matching the provided details exists, we will send a password reset link. Please check your inbox."
+msgstr ""
+
+#: core/class-password-reset.php:44
+msgid "You have successfully changed your password."
+msgstr ""
+
+#: core/class-password-reset.php:45
+msgid "Your password reset link appears to be invalid. Please request a new link below."
+msgstr ""
+
+#: core/class-password-reset.php:46
+msgid "Your password reset link has expired. Please request a new link below."
+msgstr ""
+
+#: core/class-password-reset.php:47
+msgid "An unknown error occurred while resetting your password. Please request a new link below."
+msgstr ""
+
+#: core/class-password-reset.php:196
+msgid "Username or User Email"
+msgstr ""
+
+#: core/class-setup.php:43
+#: core/class-setup.php:86
+msgid "Default Registration"
+msgstr ""
+
+#: core/class-setup.php:45
+#: core/class-setup.php:88
+msgid "Default Login"
+msgstr ""
+
+#: core/class-setup.php:47
+#: core/class-setup.php:90
+msgid "Default Account"
+msgstr ""
+
+#: core/class-user.php:92
+msgid "Awaiting E-mail Confirmation"
+msgstr ""
+
+#: core/class-user.php:95
+msgid "Pending Review"
+msgstr ""
+
+#: core/class-user.php:98
+msgid "Membership Rejected"
+msgstr ""
+
+#: core/class-user.php:101
+msgid "Membership Inactive"
+msgstr ""
+
+#: core/class-user.php:106
+msgid "Approved"
+msgstr ""
+
+#: core/class-user.php:316
+msgid "Super administrators cannot be deleted."
+msgstr ""
+
+#: core/class-user.php:406
+msgid "Resend Activation E-mail"
+msgstr ""
+
+#: core/class-user.php:451
+msgid "Activation mail sent"
+msgstr ""
+
+#: core/class-user.php:484
+msgid "This activation link is not valid! Please check the login name"
+msgstr ""
+
+#: core/class-user.php:489
+msgid "This activation link has expired or has already been used."
+msgstr ""
+
+#: core/class-user.php:494
+msgid "This activation link has expired."
+msgstr ""
+
+#: core/forms/submissions.php:528
+#: core/forms/submissions.php:538
+msgid "Validation failed"
+msgstr ""
+
+#: core/functions-forms.php:729
+msgid "Passwords Match"
+msgstr ""
+
+#: core/functions-forms.php:765
+msgid "Connect"
+msgstr ""
+
+#: core/functions-helpers.php:307
+msgid "Cannot find the role"
+msgstr ""
+
+#: core/functions-helpers.php:546
+msgid "Yes"
+msgstr ""
+
+#: core/functions-helpers.php:547
+msgid "No"
+msgstr ""
+
+#: core/functions-helpers.php:643
+msgid "Insert field"
+msgstr ""
+
+#: core/functions-helpers.php:657
+msgid "All fields"
+msgstr ""
+
+#. translators: %s: Image subsize name
+#: core/modules/class-avatar.php:244
+msgid "Failed to create subsize (%s)"
+msgstr ""
+
+#: core/modules/class-avatar.php:443
+msgid "Image file not provided"
+msgstr ""
+
+#: core/modules/class-avatar.php:467
+msgid "Image field missing."
+msgstr ""
+
+#: core/modules/class-avatar.php:474
+msgid "Key field missing."
+msgstr ""
+
+#: core/modules/class-avatar.php:509
+msgid "Invalid file type."
+msgstr ""
+
+#. translators: %d: max file size
+#: core/modules/class-avatar.php:522
+msgid "File size too large. Maximum file size is %d megabytes."
+msgstr ""
+
+#: core/modules/class-avatar.php:540
+msgid "Failed to parse image."
+msgstr ""
+
+#. translators: 1: min file width 2: min file height
+#: core/modules/class-avatar.php:555
+msgid "Image too small. Minimum image dimensions are %1$dx%2$d pixels."
+msgstr ""
+
+#: core/modules/class-avatar.php:621
+msgid "Failed to get image data."
+msgstr ""
+
+#: core/modules/class-avatar.php:678
+msgid "Failed to fetch remote image"
+msgstr ""
+
+#: core/modules/class-avatar.php:686
+msgid "Failed to open image"
+msgstr ""
+
+#: core/modules/class-avatar.php:730
+msgid "Failed to crop"
+msgstr ""
+
+#: core/modules/class-avatar.php:842
+msgid "Nonce missing."
+msgstr ""
+
+#: core/modules/class-avatar.php:849
+msgid "Invalid nonce."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:182
+msgid "An error has occurred"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:183
+msgid "reCAPTCHA has expired"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:205
+msgid "The grecaptcha object could not be found after loading the reCAPTCHA API."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:206
+msgid "Failed to load reCAPTCHA API:"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:207
+msgid "Your key have been validated."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:208
+msgid "Site key and Secret key have been verified. You can safely save your keys."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:210
+msgid "Failed to load reCAPTCHA v2. Maybe invalid site key."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:211
+msgid "Unknown error (null) occurred. Please check your site key and reCAPTCHA settings."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:212
+msgid "v2 reCAPTCHA Checkbox type keys cannot be verified. You can check it by yourself on frontend forms."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:213
+msgid "Please enter your key."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:239
+msgid "Secret key is not set"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:243
+msgid "Token is not set"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:247
+msgid "Version is not set"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:273
+msgid "An error has occurred while verifying reCAPTCHA"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:280
+msgid "reCAPTCHA verification failed, please try again"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:286
+msgid "The secret parameter is missing"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:287
+msgid "The secret parameter is invalid or malformed"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:288
+msgid "The response parameter is missing"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:289
+msgid "The response parameter is invalid or malformed"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:290
+msgid "The request is invalid or malformed"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:291
+msgid "The response is no longer valid: either is too old or has been used previously"
+msgstr ""
+
+#: core/modules/class-recaptcha.php:322
+msgid "An error has occurred while requesting reCAPTCHA token."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:342
+msgid "Please reload the page and try again."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:345
+msgid "Invalid response from reCAPTCHA."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:349
+msgid "Failed to verify reCAPTCHA."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:352
+msgid "Failed to verify hostname with reCAPTCHA."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:355
+msgid "Failed to verify action with reCAPTCHA."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:358
+msgid "It's very likely a bot(reCAPTCHA)."
+msgstr ""
+
+#: core/modules/class-recaptcha.php:361
+msgid "Maybe expired reCAPTCHA."
+msgstr ""
+
+#: core/modules/class-restriction.php:624
+msgid "Allow Access"
+msgstr ""
+
+#: core/modules/class-restriction.php:625
+msgid "Select who should have access to this content."
+msgstr ""
+
+#: core/modules/class-restriction.php:630
+msgid "Logged in Users with Specific Roles"
+msgstr ""
+
+#: core/modules/class-restriction.php:647
+msgid "Select the user roles that can see this content."
+msgstr ""
+
+#: core/modules/class-restriction.php:680
+msgid "What happens when users without access try to view the post?"
+msgstr ""
+
+#: core/modules/class-restriction.php:702
+msgid "Custom Redirect URL"
+msgstr ""
+
+#: core/modules/class-restriction.php:722
+msgid "Use Custom restriction message"
+msgstr ""
+
+#: core/modules/class-restriction.php:752
+msgid "Custom Restriction Message"
+msgstr ""
+
+#: core/rest/class-rest-controller.php:31
+msgid "You are not allowed to access forms."
+msgstr ""
+
+#: core/rest/class-rest-controller.php:53
+msgid "You are not allowed to access the requested form."
+msgstr ""
+
+#: core/rest/class-rest-controller.php:107
+msgid "The requested form was not found."
+msgstr ""
+
+#: build/blocks/blocks.js:1
+msgid "Select Form"
+msgstr ""
+
+#: build/blocks/blocks.js:1
+msgid "– Select a Form –"
+msgstr ""
+
+#: build/blocks/blocks.js:1
+msgid "Advanced Members Form"
+msgstr ""
+
+#: build/blocks/blocks.js:1
+msgid "Edit this form"
+msgstr ""
+
+#: build/blocks/blocks/form/block.json
+msgctxt "block title"
+msgid "Adv. Members Form"
+msgstr ""
+
+#: build/blocks/blocks/form/block.json
+msgctxt "block description"
+msgid "Add Advanced Members Form to your content."
+msgstr ""

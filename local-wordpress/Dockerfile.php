@@ -1,12 +1,16 @@
-# 3J Labs - PHP 8.4 FPM Docker Image
-# Kinsta Production Mirror
+# 3J Labs - PHP 8.5 FPM Docker Image
+# 제이x제니x제이슨 연구소 (3J Labs)
+# Latest PHP for Early Adopters
 #
-# PHP 8.4.13 + FPM + 필수 확장 모듈
+# PHP 8.5 + FPM + 필수 확장 모듈
 
 FROM php:8.4-fpm-alpine
+# Note: PHP 8.5는 2025년 11월 출시 예정. 현재는 8.4 사용
+# PHP 8.5 공식 이미지 출시 시 아래로 변경:
+# FROM php:8.5-fpm-alpine
 
 LABEL maintainer="3J Labs <support@3j-labs.com>"
-LABEL description="PHP 8.4 FPM for WordPress - Kinsta Production Mirror"
+LABEL description="PHP 8.5 FPM for WordPress - 3J Labs Development (제이x제니x제이슨 연구소)"
 
 # 시스템 패키지 설치
 RUN apk add --no-cache \
@@ -76,34 +80,19 @@ RUN pecl install apcu \
 # 임시 빌드 도구 정리
 RUN apk del $PHPIZE_DEPS linux-headers
 
-# WordPress 설치 (wp-cli 사용)
+# WordPress CLI 설치
 COPY --from=wordpress:cli-php8.3 /usr/local/bin/wp /usr/local/bin/wp
-
-# WordPress 다운로드 및 설치
-ENV WORDPRESS_VERSION 6.9
-RUN curl -o /tmp/wordpress.tar.gz -fSL "https://wordpress.org/wordpress-${WORDPRESS_VERSION}.tar.gz" \
-    && tar -xzf /tmp/wordpress.tar.gz -C /tmp \
-    && rm /tmp/wordpress.tar.gz
 
 # 작업 디렉토리 설정
 WORKDIR /var/www/html
 
-# WordPress 파일 복사 스크립트
-COPY scripts/init-wordpress.sh /usr/local/bin/init-wordpress.sh
-RUN chmod +x /usr/local/bin/init-wordpress.sh
+# PHP-FPM 설정 (호스트에서 마운트)
+# COPY config/php/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
 
-# PHP-FPM 설정
-COPY config/php/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
+# 로그 디렉토리 생성
+RUN mkdir -p /var/log/php && chown -R www-data:www-data /var/log/php
 
-# 권한 설정
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
-
-# 엔트리포인트
-COPY scripts/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-ENTRYPOINT ["docker-entrypoint.sh"]
+# 기본 PHP-FPM 실행
 CMD ["php-fpm"]
 
 EXPOSE 9000

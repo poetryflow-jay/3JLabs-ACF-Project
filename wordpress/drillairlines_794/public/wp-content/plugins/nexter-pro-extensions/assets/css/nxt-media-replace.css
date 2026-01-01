@@ -1,0 +1,62 @@
+.compat-field-nxt-media-replace {
+    display: none!important
+}
+
+.mime-type-warning {
+    color: red;
+    font-weight: 700;
+    font-size: 13px;
+    height: 32px;
+    line-height: 32px;
+    margin-top: 15px
+}
+
+.media-frame-toolbar .media-toolbar-primary {
+    display: flex;
+    flex-direction: row;
+    align-items: center
+}
+
+.nxt-media-replace-desc,.wp-core-ui .button-secondary.nxt-media-replace-button {
+    margin-top: 8px
+}
+
+.nxt-media-replace-desc p:last-child {
+    margin-bottom: 0
+}
+
+.compat-item .compat-field-nxt-media-replace th.label {
+    display: none;
+    min-width: 0%;
+    width: 0%
+}
+
+.compat-item .compat-field-nxt-media-replace .field {
+    float: left;
+    width: 99.8%
+}
+
+.compat-field-nxt-media-replace .postbox {
+    margin-bottom: 0
+}
+
+.compat-field-nxt-media-replace .postbox .inside {
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding-bottom: 0
+}
+
+.media-modal .compat-field-nxt-media-replace .postbox .inside {
+    padding-bottom: 12px
+}
+
+#nxt-media-replace-main .postbox .inside {
+    padding-bottom: 0
+}
+
+.compat-field-nxt-media-replace .postbox-header .hndle {
+    font-size: 1.125em;
+    line-height: 1;
+    padding-left: 12px;
+    padding-right: 12px
+}

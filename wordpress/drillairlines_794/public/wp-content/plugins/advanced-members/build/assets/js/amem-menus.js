@@ -1,0 +1,1 @@
+!function(n){n(document).on("ready",(function(){n(".amem-nav-edit").length&&e.init()}));var e={init:function(){n(document).on("change",".amem-nav-edit .amem_nav_item-filter_users",this.onChange)},onChange:function(e){var a=n(e.currentTarget),t=a.val();a.closest(".amem-nav-edit").find(".amem-nav-roles")["logged_in"==t?"removeClass":"addClass"]("acf-hidden")}}}(jQuery);

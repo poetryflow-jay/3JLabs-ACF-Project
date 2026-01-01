@@ -1,0 +1,987 @@
+#poststuff #dashdocu .inside {
+	padding: 20px;
+}
+
+#poststuff #dashdocu .inside .document_text {
+	font-size: 13px;
+	line-height: 1.5;
+	margin: 1em 0;
+}
+
+#adminmenu .wp-submenu li.amem-submenu-separator-wrap {
+  margin: 0 0 0 0;
+  padding: 0;
+  height: inherit;
+}
+
+#adminmenu li.amem-submenu-separator-wrap a {
+	cursor: default;
+}
+
+#adminmenu li.amem-submenu-separator-wrap a:hover,
+#adminmenu li.amem-submenu-separator-wrap a:focus {
+  box-shadow: none;
+}
+
+#toplevel_page_edit-post_type-acf-field-group .wp-submenu a[href^="edit.php?post_type=amem-"]::before,
+#toplevel_page_edit-post_type-acf-field-group .wp-submenu a[href^="edit.php?post_type=acf-field-group&page=amem_settings"]::before,
+.acf-admin-toolbar .acf-header-tab-acf-more .acf-header-tab-amem-settings::before,
+.acf-admin-toolbar .acf-header-tab-acf-more .acf-header-tab-amem-form::before {
+	content: "\21B3";
+  margin-right: 0.5em;
+  opacity: 0.5;
+}
+
+
+
+.post-type-acf_members .metabox-holder.columns-1 #amem-field-group-fields,
+.post-type-acf_members .metabox-holder.columns-1 #advanced-members-form-settings{
+	max-width: 1440px;
+}
+
+#advanced-members-form-settings .acf-button-group {
+	display: inline-flex;
+}
+#advanced-members-form-settings .acf-field[data-name=amem_form_description],
+#advanced-members-form-settings .acf-field[data-name=amem_form_register_max_width],
+#advanced-members-form-settings .acf-field-select,
+#advanced-members-form-settings .acf-field-text,
+#advanced-members-form-settings .acf-field-textarea,
+.amem-option-page .acf-field:not(.acf-field-seperator) {
+  max-width: 600px;
+}
+
+#advanced-members-form-settings .acf-field-textarea textarea,
+.amem-option-page .acf-field-textarea textarea {
+	min-height: 70px;
+}
+
+#advanced-members-form-settings .field-group-settings-tab {
+	padding: 24px;
+}
+
+#amem-field-group-fields .inside {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+#advanced-members-form-settings .acf-field,
+#amem-field-group-fields .advanced-members-field {
+	border: none;
+	padding: 16px 24px;
+}
+
+#amem-field-group-fields .advanced-members-field table .field-group-heading {
+	background: #e3e3e3;
+}
+.amem-option-page .acf-field-true-false.amem-readonly .acf-switch {
+	opacity: 0.5;
+}
+
+.amem-option-page .acf-field input[type=text],
+.amem-option-page .acf-field input[type=password],
+.amem-option-page .acf-field input[type=date],
+.amem-option-page .acf-field input[type=datetime],
+.amem-option-page .acf-field input[type=datetime-local],
+.amem-option-page .acf-field input[type=email],
+.amem-option-page .acf-field input[type=month],
+.amem-option-page .acf-field input[type=number],
+.amem-option-page .acf-field input[type=search],
+.amem-option-page .acf-field input[type=tel],
+.amem-option-page .acf-field input[type=time],
+.amem-option-page .acf-field input[type=url],
+.amem-option-page .acf-field input[type=week],
+.amem-option-page .acf-field textarea,
+.amem-option-page .acf-field select {
+  width: 100%;
+  padding: 4px 8px;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.amem-option-page .acf-setting-list-wrap {
+	overflow: hidden;
+  border: 1px solid #c3c4c7;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-thead {
+  background-color: #F9FAFB;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #EAECF0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #EAECF0;
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-thead li {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #344054;
+  font-weight: 500;
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-field-list .email-notification-settings,
+.amem-option-page .acf-setting-list-wrap .acf-field-list .role-redirection-settings{
+	border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #dddddd;
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-field-list .email-notification-settings:hover,
+.amem-option-page .acf-setting-list-wrap .acf-field-list .role-redirection-settings:hover{
+  background-color: #f7fbfd;
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-field-list ul {
+	cursor: pointer;
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-field-list li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 60px;
+  color: #344054;
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-field-list .settings {
+    box-sizing: border-box;
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #fff;
+    border-left-width: 4px;
+    border-left-style: solid;
+    border-left-color: #6BB5D8;
+}
+
+.amem-option-page .acf-setting-list-wrap .acf-field-list .settings .acf-field {
+    box-sizing: border-box;
+    width: 100%;
+		max-width: 100%;
+		margin: 0 0 32px 0;
+    padding: 0 72px
+}
+
+
+.amem-option-page .acf-setting-list-wrap .li-field-order {
+    width: 30px;
+    justify-content: center;
+}
+
+.amem-option-page .acf-setting-list-wrap .li-field-email {
+  	width: calc(50% - 64px);
+}
+
+.amem-option-page .acf-setting-list-wrap .li-field-recipient,
+.amem-option-page .acf-setting-list-wrap .li-field-email-status {
+  	width: 25%;
+}
+
+.amem-option-page .acf-setting-list-wrap .li-field-email-status .amem-email-is-active:before {
+    content: "\f147";
+}
+
+.amem-option-page .acf-setting-list-wrap .li-field-email-status .amem-email-is-disable:before {
+		color: #c6c6c6;
+    content: "\f158";
+}
+
+.amem-option-page .email-notification-settings .li-field-email,
+.amem-option-page .role-redirection-settings .li-field-rolename {
+    position: relative;
+    padding-left: 40px;
+}
+
+.amem-option-page .email-notification-settings > .handle strong,
+.amem-option-page .role-redirection-settings > .handle strong {
+    display: block;
+    padding-bottom: 0;
+    font-size: 14px;
+    line-height: 14px;
+    min-height: 14px;
+}
+
+.amem-option-page .email-notification-settings.open .handle,
+.amem-option-page .role-redirection-settings.open .handle {
+    background-color: #D8EBF5;
+    border: none;
+    text-shadow: none;
+}
+
+.amem-option-page .email-notification-settings .acf-field-settings-main,
+.amem-option-page .role-redirection-settings .acf-field-settings-main  {
+  padding-top: 32px;
+  padding-right: 0;
+  padding-bottom: 32px;
+  padding-left: 0;
+}
+
+.amem-option-page .email-notification-settings .li-field-email:before,
+.amem-option-page .role-redirection-settings .li-field-rolename:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 6px;
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  margin-top: -2px;
+  background-color: #667085;
+  border: none;
+  border-radius: 0;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  text-indent: 500%;
+  white-space: nowrap;
+  overflow: hidden;
+  -webkit-mask-image: url(../../images/icons/icon-chevron-down.svg);
+  mask-image: url(../../images/icons/icon-chevron-down.svg);
+}
+
+.amem-option-page .email-notification-settings.open .li-field-email:before,
+.amem-option-page .role-redirection-settings.open .li-field-rolename:before {
+	-webkit-mask-image: url(../../images/icons/icon-chevron-up.svg);
+	mask-image: url(../../images/icons/icon-chevron-up.svg);
+}
+
+
+.amem-option-page .email-notification-settings .settings,
+.amem-option-page .role-redirection-settings .settings{
+	display: none;
+	width: 100%;
+}
+
+.amem-option-page .email-notification-settings.open .settings,
+.amem-option-page .role-redirection-settings.open .settings{
+	display: block;
+}
+
+.advanced-members-field p.description {
+  display: block;
+  margin-top: 6px;
+  color: #667085;
+}
+
+.advanced-members-field .advanced-members-input table {
+	margin: 12px 0;
+	border-radius: 8px;
+}
+
+.advanced-members-field .advanced-members-input table td {
+	color: #667085;
+}
+
+.amem-form-list .tablenav.top {
+	padding-bottom: 10px;
+	height: 40px;
+}
+
+.amem-form-list .tablenav.top .actions.bulkactions,
+.amem-form-list .tablenav.top .actions #filter-by-date {
+	display: none;
+}
+
+
+
+.amem-admin-page .amem-form-list p.search-box {
+  margin-top: 5px;
+  margin-right: 0;
+  margin-bottom: 24px;
+  margin-left: 0;
+}
+
+.amem-form-list #posts-filter p.search-box #post-search-input {
+  min-width: 280px;
+  margin-top: 0;
+  margin-right: 8px;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.amem-form-list .wp-list-table {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  border-radius: 8px;
+  border: none;
+  overflow: hidden;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+}
+
+.amem-form-list .wp-list-table thead th,
+.amem-form-list .wp-list-table thead td,
+.amem-form-list .wp-list-table tfoot th,
+.amem-form-list .wp-list-table tfoot td {
+  height: 48px;
+  padding-right: 24px;
+  padding-left: 24px;
+  box-sizing: border-box;
+  background-color: #F9FAFB;
+  border-color: #EAECF0;
+  font-weight: 500;
+}
+
+.amem-form-list .wp-list-table thead td.check-column:hover,
+.amem-form-list .wp-list-table tfoot td.check-column:hover {
+	background-color: #F9FAFB !important;
+}
+
+.amem-form-list .wp-list-table th,
+.amem-form-list .wp-list-table td {
+  color: #344054;
+}
+
+.amem-form-list .wp-list-table tbody th,
+.amem-form-list .wp-list-table tbody td {
+  box-sizing: border-box;
+  height: 60px;
+  padding-top: 10px;
+  padding-right: 24px;
+  padding-bottom: 10px;
+  padding-left: 24px;
+  vertical-align: top;
+  background-color: #fff;
+  border-bottom-width: 1px;
+  border-bottom-color: #EAECF0;
+  border-bottom-style: solid;
+}
+
+.amem-form-list .wp-list-table tbody tr:hover {
+	background: #46b450;
+}
+
+.amem-option-page .postbox-container > .inside {
+	background: #FFF;
+	border-radius: 8px;
+}
+
+.amem-admin-page h1.wp-heading-inline,
+.amem-admin-page .page-title-action {
+  display: none;
+}
+
+.amem-admin-page .wrap {
+	margin-top: 48px;
+  margin-right: 32px;
+  margin-bottom: 0;
+  margin-left: 12px;
+}
+
+.amem-admin-page #postbox-container-2 {
+	border: none;
+	border-radius: 8px;
+	/* box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1); */
+}
+
+.amem-admin-page .acf-tab-wrap,
+.amem-admin-page .acf-tab-dashboard-wrap {
+	background: #F9FAFB;
+	border-bottom-color: #1D2939;
+}
+
+.amem-option-page .inside {
+	padding-top: 48px;
+	padding-right: 48px;
+	padding-bottom: 24px;
+	padding-left: 48px;
+	margin-top: 0 !important;
+	margin-right: 0 !important;
+	margin-bottom: 0 !important;
+	margin-left: 0 !important;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #EAECF0;
+}
+
+.amem-option-page .acf-tab-wrap,
+.amem-option-page .acf-tab-dashboard-wrap {
+	position: relative;
+  top: -48px;
+  left: -48px;
+  width: calc(100% + 96px);
+	border-radius: 8px;
+}
+
+.amem-option-page .acf-field {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 24px;
+    margin-left: 0;
+}
+
+
+.amem-option-page .acf-field .acf-label {
+  margin-bottom: 6px;
+	display: block;
+	font-weight: 500;
+	margin: 0 0 3px;
+	padding: 0;
+}
+
+.amem-option-page .acf-switch-input {
+  opacity: 0;
+  position: absolute;
+  margin: 0;
+}
+
+.amem-option-page .acf-field-true-false {
+	display: flex;
+	align-items: flex-start;
+}
+
+.amem-option-page .acf-field-true-false .acf-label {
+    order: 2;
+    display: block;
+    align-items: center;
+    margin-top: 2px;
+    margin-bottom: 0;
+    margin-left: 12px;
+}
+
+.amem-option-page .acf-switch .acf-switch-slider {
+	position: relative;
+	top: 2px;
+	left: 2px;
+	bottom: 2px;
+	right: 50%;
+	z-index: 1;
+	background: #fff;
+	border-radius: 3px;
+	border: #7e8993 solid 1px;
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+	transition-property: left, right;
+}
+
+.amem-option-page .acf-field-seperator {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-top: 1px solid #EAECF0;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.amem-option-page .acf-tab-group,
+.amem-option-page .acf-tab-dashboard-group {
+  border-bottom: #ccc solid 1px;
+  padding: 10px 10px 0;
+}
+
+.amem-option-page .acf-tab-group li,
+.amem-option-page .acf-tab-dashboard-group li {
+    margin: 0 0.5em 0 0;
+}
+
+.amem-option-page .acf-tab-group li a,
+.amem-option-page .acf-tab-dashboard-group li a {
+  padding: 5px 10px;
+  display: block;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  border: #ccc solid 1px;
+  border-bottom: 0 none;
+  text-decoration: none;
+  background: #e5e5e5;
+  transition: none;
+}
+
+.amem-option-page .acf-hl > li {
+  float: left;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.amem-option-page .acf-field-tab {
+	display: none !important;
+}
+
+.amem-admin-page .postbox, .amem-admin-page .acf-box {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+}
+
+.amem-admin-page .postbox-header{
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	min-height: 64px;
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding-top: 0;
+	padding-right: 24px;
+	padding-bottom: 0;
+	padding-left: 24px;
+	border-bottom-width: 0;
+	border-bottom-style: none;
+}
+
+
+.amem-admin-page .acf-tab-wrap .acf-tab-group,
+.amem-admin-page .acf-tab-dashboard-wrap .acf-tab-dashboard-group {
+	display: flex;
+	align-items: stretch;
+	min-height: 48px;
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 24px;
+	margin-top: 0;
+	margin-bottom: 0;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #EAECF0;
+}
+
+.amem-admin-page .acf-tab-wrap .acf-tab-group li,
+.amem-admin-page .acf-tab-dashboard-wrap .acf-tab-dashboard-group li {
+	display: flex;
+	margin-top: 0;
+	margin-right: 24px;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding: 0;
+}
+.amem-admin-page .acf-fields .acf-tab-wrap .acf-tab-group li a,
+.amem-option-page .acf-tab-dashboard-wrap .acf-tab-dashboard-group li a,
+.amem-option-page .acf-tab-wrap .acf-tab-group li a {
+	box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+  padding-top: 3px;
+  padding-right: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  background: none;
+  border-top: none;
+  border-right: none;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+  border-bottom-color: transparent;
+  border-left: none;
+  color: #667085;
+  font-weight: normal;
+}
+
+.amem-admin-page .acf-fields .acf-tab-wrap .acf-tab-group li a:hover,
+.amem-option-page .acf-tab-dashboard-wrap .acf-tab-dashboard-group li a:hover,
+.amem-option-page .acf-tab-wrap .acf-tab-group li a:hover {
+	color: #4a5261;
+	background-color: transparent;
+}
+
+.amem-admin-page .acf-fields .acf-tab-wrap .acf-tab-group li.active a,
+.amem-option-page .acf-tab-dashboard-wrap .acf-tab-dashboard-group li.active a,
+.amem-option-page .acf-tab-wrap .acf-tab-group li.active a {
+	background: none;
+	border-bottom-color: #0783BE;
+	color: #0783BE;
+}
+
+.amem-admin-page .wp-list-table .column-amem-id {
+	width : 10ch;
+}
+
+.amem-admin-page input[type=checkbox]:checked {
+	background-color: #EBF5FA;
+	border-color: #0783BE;
+}
+
+.amem-admin-page input[type=radio],
+.amem-admin-page input[type=checkbox] {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #98A2B3;
+  background: #fff;
+  box-shadow: none;
+}
+
+.amem-admin-page input[type=text],
+.amem-admin-page input[type=search],
+.amem-admin-page input[type=number],
+.amem-admin-page textarea,
+.amem-admin-page select {
+    box-sizing: border-box;
+    height: 40px;
+    padding-right: 12px;
+    padding-left: 12px;
+    background-color: #fff;
+    border-color: #D0D5DD;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+    border-radius: 6px;
+    color: #344054;
+}
+
+.amem-admin-page .button {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding-right: 16px;
+  padding-left: 16px;
+  background-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #0783BE;
+  border-radius: 6px;
+  color: #0783BE;
+}
+
+.amem-admin-page input[type=checkbox]:checked:before,
+.amem-admin-page input[type=checkbox]:focus-visible:before {
+  position: relative;
+  top: -1px;
+  left: -1px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.amem-admin-page select {
+  min-width: 260px;
+  max-width: 100%;
+  padding-right: 40px;
+  padding-left: 12px;
+  background-image: url(../../images/icons/icon-chevron-down.svg);
+  background-position: right 10px top 50%;
+  background-size: 20px;
+}
+
+.amem-admin-page .acf-input .select2-container.-acf .select2-selection {
+    border: none;
+    line-height: 1;
+}
+
+.amem-admin-page .acf-input .select2-container.-acf .select2-selection__rendered {
+  box-sizing: border-box;
+  padding-right: 0;
+  padding-left: 0;
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #D0D5DD;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 6px;
+  color: #344054;
+}
+
+.amem-admin-page .acf-input .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  padding-top: 0;
+  padding-right: 6px;
+  padding-bottom: 0;
+  padding-left: 6px;
+}
+
+.amem-admin-page .select2-container.-acf .select2-selection--multiple .select2-selection__choice {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-left: 2px;
+  position: relative;
+  padding-top: 4px;
+  padding-right: auto;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  background-color: #EBF5FA;
+  border-color: #A5D2E7;
+  color: #0783BE;
+}
+
+.amem-admin-page .acf-button-group {
+  display: flex;
+  align-items: stretch;
+  align-content: center;
+  height: 40px;
+  border-radius: 6px;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+}
+
+.amem-admin-page .acf-button-group label {
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  border: #D0D5DD solid 1px;
+  padding: 6px 16px;
+  color: #475467;
+  font-weight: 500;
+}
+
+.amem-admin-page .acf-button-group label.selected {
+  background: #F9FAFB;
+  color: #0783BE;
+}
+
+.amem-admin-page .acf-true-false {
+  border: 1px solid transparent;
+}
+
+.amem-admin-page .acf-switch span {
+	display: inline-block;
+  float: left;
+  text-align: center;
+  font-size: 13px;
+  line-height: 22px;
+  padding: 4px 10px;
+  min-width: 15px;
+}
+
+.amem-admin-page .acf-switch .acf-switch-off,
+.amem-admin-page .acf-switch .acf-switch-on {
+  visibility: hidden;
+}
+
+.amem-admin-page .acf-switch.-on {
+  background-color: #0783BE;
+}
+
+.amem-admin-page .acf-switch .acf-switch-slider {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 100px;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+.amem-admin-page .acf-switch.-on .acf-switch-slider {
+  left: 20px;
+}
+
+.amem-admin-page .acf-switch {
+  width: 42px;
+  height: 24px;
+  border: none;
+  background-color: #D0D5DD;
+  border-radius: 12px;
+}
+
+
+.amem-admin-page .copyable {
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+}
+
+.amem-admin-page .copyable:hover:after{
+	content: '';
+	padding-left: 5px;
+	display: inline-flex;
+	width: 12px;
+	height: 12px;
+	background-color: #D0D5DD;
+	border: none;
+	border-radius: 0;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-position: center;
+	mask-position: center;
+	text-indent: 500%;
+	white-space: nowrap;
+	overflow: hidden;
+	-webkit-mask-image: url('../../images/icons/icon-copy.svg');
+	mask-image: url('../../images/icons/icon-copy.svg');
+	background-size: cover;
+}
+
+.amem-admin-page .copyable.copied:hover:after {
+	-webkit-mask-image: url('../../images/icons/icon-check-circle-solid.svg');
+	mask-image: url('../../images/icons/icon-check-circle-solid.svg');
+	background-color: #49ad52;
+}
+
+
+.amem-option-page .acf-field,
+.amem-option-page .acf-field .acf-label,
+.amem-option-page .acf-field .acf-input {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+.post-type-amem-form i.acf-icon {
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+    border: none;
+    border-radius: 0;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    text-indent: 500%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.amem-admin-page i.acf-icon-stars {
+    -webkit-mask-image: url(../../images/icons/icon-stars.svg);
+    mask-image: url(../../images/icons/icon-stars.svg);
+}
+
+.amem-admin-page i.acf-icon-plus {
+    -webkit-mask-image: url(../../images/icons/icon-add.svg);
+    mask-image: url(../../images/icons/icon-add.svg);
+}
+
+.acf-field-object-username .acf-field-setting-name,
+.acf-field-object-user-email .acf-field-setting-name,
+.acf-field-object-first-name .acf-field-setting-name,
+.acf-field-object-last-name .acf-field-setting-name,
+.acf-field-object-user-password .acf-field-setting-name,
+.acf-field-object-user-password-confirm .acf-field-setting-name,
+.acf-field-object-user-bio .acf-field-setting-name,
+.acf-field-object-user-url .acf-field-setting-name,
+.acf-field-object-role .acf-field-setting-name,
+.acf-field-object-nickname .acf-field-setting-name,
+.acf-field-object-display-name .acf-field-setting-name {
+  display: none;
+}
+
+/* Core page option */
+.acf-field-core-register > .acf-input,
+.acf-field-core-login > .acf-input,
+.acf-field-core-password-reset > .acf-input,
+.acf-field-core-logout > .acf-input,
+.acf-field-core-account > .acf-input,
+.acf-field-core-account-password > .acf-input,
+.acf-field-core-account-delete > .acf-input {
+  display:flex;
+  gap: 1em;
+}
+
+.acf-modal.acf-browse-fields-modal .acf-field-picker .acf-modal-content [data-category="Members"].acf-field-types-tab .field-type-label {
+  text-align: center;
+}
+
+.field-type-icon.field-type-icon-user-email:before,
+.field-type-icon.field-type-icon-first-name:before,
+.field-type-icon.field-type-icon-last-name:before,
+.field-type-icon.field-type-icon-user-password:before,
+.field-type-icon.field-type-icon-user-bio:before,
+.field-type-icon.field-type-icon-user-tos:before,
+.field-type-icon.field-type-icon-display-name:before,
+.field-type-icon.field-type-icon-nickname:before,
+.field-type-icon.field-type-icon-user-url:before,
+.field-type-icon.field-type-icon-username:before {
+  -webkit-mask-image: url("../../images/icons/icon-field-amem.svg");
+  mask-image: url("../../images/icons/icon-field-amem.svg");
+}
+
+.amem-hidden {
+
+}
+
+.amem-block-preview {
+  padding: 30px;
+  text-align: center;
+  background: #f5f5f5;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.amem-block-preview .amem-block-description {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: #888;
+  font-weight: 700;
+}
+
+/*.amem-block-preview .amem-block-description:before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  position: relative;
+  background-color: #0783BE;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  -webkit-mask-image: url("../../images/icons/icon-field-amem.svg");
+  mask-image: url("../../images/icons/icon-field-amem.svg");
+}*/
+.amem-block-preview .amem-block-description:before {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+  content: "";
+  width: 32px;
+  height: 32px;
+  position: relative;
+  background-color: #888;
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-image: url("../../images/icons/icon-field-amem.svg");
+  mask-image: url("../../images/icons/icon-field-amem.svg");
+}
+.amem-block-preview .amem-block-form-select {
+  max-width: 365px;
+  margin: 0 auto;
+}
+.amem-block-preview .amem-block-form-name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.amem-block-preview .amem-block-subtitle {
+  margin-top: 15px;
+  color: #555;
+}
+/* Menu */
+.amem-nav-roles-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 3px;
+}
+.amem-nav-roles-list > label {
+  flex-grow: 1;
+  width: 33.333%;
+  padding: 3px 0;
+}
+.wp-customizer .amem-nav-roles-list > label {
+  width: 50%;
+}
+.amem-nav-roles {
+}
+.acf-hidden {
+  display: none;
+}

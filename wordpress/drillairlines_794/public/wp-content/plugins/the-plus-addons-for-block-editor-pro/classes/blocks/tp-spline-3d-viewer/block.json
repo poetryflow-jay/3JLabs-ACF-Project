@@ -1,0 +1,87 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "tpgb/tp-spline-3d-viewer",
+	"version": "0.1.0",
+	"title": "Spline 3D Viewer",
+	"category": "tpgb",
+	"description": "Allows you to easily embed interactive 3D models created with Spline into your WordPress website.",
+	"example": {
+		"attributes": {}
+	},
+	"supports": {
+		"align": ["wide","full"]
+	},
+	"textdomain": "tpgb",
+	"attributes": {
+		"block_id": {
+			"type": "string",
+			"default": ""
+		},
+		"backVisible": {
+			"type": "boolean",
+			"default": false
+		},
+		"sFileUrl": {
+			"type": "string",
+			"default": "TPGB_ASSETS_URL/assets/file/scene.splinecode"
+		},
+		"svLoadIcon": {
+			"type": "boolean",
+			"default": false
+		},
+		"svHintIcon": {
+			"type": "boolean",
+			"default": false
+		},
+		"targetArea": {
+			"type": "string",
+			"default": "unset"
+		},
+		"canWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-sv-inner { width: {{canWidth}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"canHeight": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-sv-inner { height: {{canHeight}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"circleColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-sv-loading { border-color: {{circleColor}}; }"
+				}
+			],
+			"scopy": true
+		},
+		"loaderColor": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-sv-loading { border-right-color: {{loaderColor}}; }"
+				}
+			],
+			"scopy": true
+		}
+	}
+}

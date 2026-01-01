@@ -1,0 +1,17 @@
+[class*="wkit-wb-Widget_"] {
+  width: 100% !important;}.wkit-wb-Widget_s1jbry24 .wkit-widget-gallery-item {
+    will-change: transform;
+    pointer-events: auto;
+    margin: 0;
+    position: relative;
+    overflow: hidden;}.wkit-wb-Widget_s1jbry24 .wkit-widget-item-img {
+    width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    background-size: cover;}.wkit-wb-Widget_s1jbry24 .wkit-image-grid-wrap {
+    width: 100%;
+    grid-gap: 1rem;
+    pointer-events: none;
+    grid-template-columns: repeat(10,1fr);
+    display: grid;
+    margin: 2rem auto;}

@@ -1,0 +1,424 @@
+
+/** 
+ * From admin.css
+ */
+.amem-form .acf-field input[type=text],
+.amem-form .acf-field input[type=password],
+.amem-form .acf-field input[type=email],
+.amem-form .acf-field input[type=date],
+.amem-form .acf-field input[type=datetime],
+.amem-form .acf-field input[type=datetime-local],
+.amem-form .acf-field input[type=email],
+.amem-form .acf-field input[type=month],
+.amem-form .acf-field input[type=number],
+.amem-form .acf-field input[type=search],
+.amem-form .acf-field input[type=tel],
+.amem-form .acf-field input[type=time],
+.amem-form .acf-field input[type=url],
+.amem-form .acf-field input[type=week],
+.amem-form textarea,
+.amem-form select {
+  box-sizing: border-box;
+  height: 40px;
+  padding-right: 12px;
+  padding-left: 12px;
+  background-color: #fff;
+  border-color: #D0D5DD;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 6px;
+  color: #344054;
+}
+
+.amem-form input[type=checkbox]:checked {
+	background-color: #EBF5FA;
+	border-color: #0783BE;
+}
+
+.amem-form input[type=radio],
+.amem-form input[type=checkbox] {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #98A2B3;
+  background: #fff;
+  box-shadow: none;
+}
+
+.amem-form input[type=checkbox]:checked:before,
+.amem-form input[type=checkbox]:focus-visible:before {
+  position: relative;
+  top: -1px;
+  left: -1px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.amem-form input[type=text]:focus,
+.amem-form input[type=password]:focus,
+.amem-form input[type=email]:focus,
+.amem-form input[type=date]:focus,
+.amem-form input[type=datetime]:focus,
+.amem-form input[type=datetime-local]:focus,
+.amem-form input[type=email]:focus,
+.amem-form input[type=month]:focus,
+.amem-form input[type=number]:focus,
+.amem-form input[type=search]:focus,
+.amem-form input[type=tel]:focus,
+.amem-form input[type=time]:focus,
+.amem-form input[type=url]:focus,
+.amem-form input[type=week]:focus,
+.amem-form textarea:focus,
+.amem-form select:focus {
+  outline: 3px solid #EBF5FA;
+  border-color: #399CCB;
+}
+.amem-form input[type=text]:disabled,
+.amem-form input[type=password]:disabled,
+.amem-form input[type=email]:disabled,
+.amem-form input[type=date]:disabled,
+.amem-form input[type=datetime]:disabled,
+.amem-form input[type=datetime-local]:disabled,
+.amem-form input[type=email]:disabled,
+.amem-form input[type=month]:disabled,
+.amem-form input[type=number]:disabled,
+.amem-form input[type=search]:disabled,
+.amem-form input[type=tel]:disabled,
+.amem-form input[type=time]:disabled,
+.amem-form input[type=url]:disabled,
+.amem-form input[type=week]:disabled,
+.amem-form textarea:disabled,
+.amem-form select:disabled {
+  background-color: #F9FAFB;
+  color: #808a9e;
+}
+.amem-form input[type=text]:placeholder,
+.amem-form input[type=password]:placeholder,
+.amem-form input[type=email]:placeholder,
+.amem-form input[type=date]:placeholder,
+.amem-form input[type=datetime]:placeholder,
+.amem-form input[type=datetime-local]:placeholder,
+.amem-form input[type=email]:placeholder,
+.amem-form input[type=month]:placeholder,
+.amem-form input[type=number]:placeholder,
+.amem-form input[type=search]:placeholder,
+.amem-form input[type=tel]:placeholder,
+.amem-form input[type=time]:placeholder,
+.amem-form input[type=url]:placeholder,
+.amem-form input[type=week]:placeholder,
+.amem-form textarea::placeholder,
+.amem-form select::placeholder {
+  color: #98A2B3;
+}
+.amem-form input[type=text]:read-only {
+  background-color: #F9FAFB;
+  color: #98A2B3;
+}
+
+.amem-form select {
+  min-width: 260px;
+  max-width: 100%;
+  padding-right: 40px;
+  padding-left: 12px;
+  background-image: url(../../images/icons/icon-chevron-down.svg);
+  background-position: right 10px top 50%;
+  background-size: 20px;
+}
+
+.amem-form .acf-field {
+	margin-top: 0;
+	margin-right: 0;
+	margin-bottom: 24px;
+	margin-left: 0;
+}
+
+.amem-form .acf-field .acf-label {
+	margin-bottom: 6px;
+	display: block;
+	font-weight: 500;
+	margin: 0 0 3px;
+	padding: 0;
+}
+
+.amem-form .acf-switch-input {
+	opacity: 0;
+	position: absolute;
+	margin: 0;
+}
+
+.amem-form .acf-field-true-false {
+	display: flex;
+	align-items: flex-start;
+}
+
+.amem-form .acf-field-true-false .acf-label {
+	order: 2;
+	display: block;
+	align-items: center;
+	margin-top: 2px;
+	margin-bottom: 0;
+	margin-left: 12px;
+}
+
+.amem-form .acf-switch .acf-switch-slider {
+	position: relative;
+	top: 2px;
+	left: 2px;
+	bottom: 2px;
+	right: 50%;
+	z-index: 1;
+	background: #fff;
+	border-radius: 3px;
+	border: #7e8993 solid 1px;
+	-webkit-transition: all 0.25s ease;
+	-moz-transition: all 0.25s ease;
+	-o-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+	transition-property: left, right;
+}
+
+.amem-form .acf-button-group {
+  display: flex;
+  align-items: stretch;
+  align-content: center;
+  height: 40px;
+  border-radius: 6px;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+}
+
+.amem-form .acf-button-group label {
+  display: inline-flex;
+  align-items: center;
+  align-content: center;
+  border: #D0D5DD solid 1px;
+  padding: 6px 16px;
+  color: #475467;
+  font-weight: 500;
+}
+
+.amem-form .acf-button-group label.selected {
+  background: #F9FAFB;
+  color: #0783BE;
+}
+
+.amem-form .acf-true-false {
+  border: 1px solid transparent;
+}
+
+.amem-form .acf-switch span {
+	display: inline-block;
+  float: left;
+  text-align: center;
+  font-size: 13px;
+  line-height: 22px;
+  padding: 4px 10px;
+  min-width: 15px;
+}
+
+.amem-form .acf-switch .acf-switch-off,
+.amem-form .acf-switch .acf-switch-on {
+  visibility: hidden;
+}
+
+.amem-form .acf-switch.-on {
+  background-color: #0783BE;
+}
+
+.amem-form .acf-switch .acf-switch-slider {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 100px;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+}
+
+.amem-form .acf-switch.-on .acf-switch-slider {
+  left: 20px;
+}
+
+.amem-form .acf-switch {
+  width: 42px;
+  height: 24px;
+  border: none;
+  background-color: #D0D5DD;
+  border-radius: 12px;
+}
+
+.amem-form .acf-hl > li {
+	float: left;
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+.amem-form .acf-field-tab {
+	display: none !important;
+}
+
+.amem-form .acf-field-seperator {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	border-top: 1px solid #EAECF0;
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+}
+
+.amem-form .acf-tab-wrap {
+	background: #F9FAFB;
+	border-bottom-color: #1D2939;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group {
+	display: flex;
+	align-items: stretch;
+	min-height: 48px;
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 24px;
+	margin-top: 0;
+	margin-bottom: 0;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #EAECF0;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li {
+	display: flex;
+	margin-top: 0;
+	margin-right: 24px;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding: 0;
+}
+
+.amem-form ul.acf-tab-group {
+	border-bottom: #ccc solid 1px;
+	padding: 10px 10px 0;
+}
+
+.amem-form ul.acf-tab-group li {
+	margin: 0 0.5em 0 0;
+}
+
+.amem-form ul.acf-tab-group li a {
+	padding: 5px 10px;
+	display: block;
+	color: #555;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 24px;
+	border: #ccc solid 1px;
+	border-bottom: 0 none;
+	text-decoration: none;
+	background: #e5e5e5;
+	transition: none;
+}
+
+.amem-form .acf-input .select2-container.-acf .select2-selection {
+    border: none;
+    line-height: 1;
+}
+
+.amem-form .acf-input .select2-container.-acf .select2-selection__rendered {
+  box-sizing: border-box;
+  padding-right: 0;
+  padding-left: 0;
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #D0D5DD;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+  border-radius: 6px;
+  color: #344054;
+}
+
+.amem-form .acf-input .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+  padding-top: 0;
+  padding-right: 6px;
+  padding-bottom: 0;
+  padding-left: 6px;
+}
+
+.amem-form .select2-container.-acf .select2-selection--multiple .select2-selection__choice {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-left: 2px;
+  position: relative;
+  padding-top: 4px;
+  padding-right: auto;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  background-color: #EBF5FA;
+  border-color: #A5D2E7;
+  color: #0783BE;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li a {
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	height: 100%;
+	padding-top: 3px;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+	background: none;
+	border-top: none;
+	border-right: none;
+	border-bottom-width: 3px;
+	border-bottom-style: solid;
+	border-bottom-color: transparent;
+	border-left: none;
+	color: #667085;
+	font-weight: normal;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li a:hover {
+	color: #4a5261;
+	background-color: transparent;
+}
+
+.amem-form .acf-tab-wrap ul.acf-tab-group li.active a {
+	background: none;
+	border-bottom-color: #0783BE;
+	color: #0783BE;
+}
+
+.amem-form .acf-field,
+.amem-form .acf-field .acf-label,
+.amem-form .acf-field .acf-input {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+/** @end admin.css */
+
+/** Buttons */
+.acf-btn.amem-btn-delete,
+.acf-btn.amem-btn-cancel {
+	border-color: #D13737 !important;
+	color: #D13737 !important;
+	background-color: #ffffff;
+}
+
+.acf-btn.amem-btn-delete:hover,
+.acf-btn.amem-btn-cancel:hover {
+  background-color: #fbeded;
+}
+
+/* Default form max-witdh and positon */
+.amem-form {
+	max-width: 600px;
+	margin: 0 auto;
+}

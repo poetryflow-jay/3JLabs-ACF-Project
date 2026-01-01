@@ -1,0 +1,262 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "tpgb/tp-scroll-sequence",
+    "version": "0.1.0",
+    "title": "Scroll Sequence",
+    "category": "tpgb",
+    "description": "Interactive page scrolling sequences with images and video",
+    "example": {
+        "attributes": {}
+    },
+    "supports": {
+        "align": ["wide", "full"]
+    },
+    "textdomain": "tpgb",
+    "attributes": {
+        "block_id": {
+            "type": "string",
+            "default": ""
+        },
+        "scrollType": {
+            "type": "string",
+            "default": "image"
+        },
+        "imageGallery": {
+            "type": "array",
+            "default": []
+        },
+        "reverseOrder": {
+            "type": "boolean",
+            "default": false
+        },
+        "imagePath": {
+            "type": "string",
+            "default": ""
+        },
+        "imageUpldType": {
+            "type": "string",
+            "default": "gallery"
+        },
+        "imageDigit": {
+            "type": "string",
+            "default": "1"
+        },
+        "imagePrefix": {
+            "type": "string",
+            "default": ""
+        },
+        "imageType": {
+            "type": "string",
+            "default": "jpg"
+        },
+        "totalImage": {
+            "type": "string",
+            "default": "20"
+        },
+        "applyTo": {
+            "type": "string",
+            "default": "body"
+        },
+        "preloadImg": {
+            "type": "string",
+            "default": "20"
+        },
+        "imgLazyLoad": {
+            "type": "boolean",
+            "default": false
+        },
+        "initialLoadImg": {
+            "type": "string",
+            "default": ""
+        },
+        "canAlign": {
+            "type": "object",
+            "default": {},
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "applyTo",
+                            "relation": "==",
+                            "value": "none"
+                        },
+                        {
+                            "key": "canAlign",
+                            "relation": "==",
+                            "value": "left"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} { margin-left: 0; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "applyTo",
+                            "relation": "==",
+                            "value": "none"
+                        },
+                        {
+                            "key": "canAlign",
+                            "relation": "==",
+                            "value": "center"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} { margin: 0 auto; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "applyTo",
+                            "relation": "==",
+                            "value": "none"
+                        },
+                        {
+                            "key": "canAlign",
+                            "relation": "==",
+                            "value": "right"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} { margin-right: 0; }"
+                }
+            ],
+            "scopy": true
+        },
+        "canVidPosition": {
+            "type": "object",
+            "groupField": [
+                {
+                    "posTop": {
+                        "type": "object",
+                        "default": {
+                            "md": "",
+                            "unit": "%"
+                        },
+                        "style": [
+                            {
+                                "condition": [
+                                    {
+                                        "key": "applyTo",
+                                        "relation": "!=",
+                                        "value": "none"
+                                    }
+                                ],
+                                "selector": "{{PLUS_WRAP}}-canvas { top: {{posTop}}; }"
+                            }
+                        ],
+                        "scopy": true
+                    },
+                    "posLeft": {
+                        "type": "object",
+                        "default": {
+                            "md": "",
+                            "unit": "px"
+                        },
+                        "style": [
+                            {
+                                "condition": [
+                                    {
+                                        "key": "applyTo",
+                                        "relation": "!=",
+                                        "value": "none"
+                                    }
+                                ],
+                                "selector": "{{PLUS_WRAP}}-canvas { left: {{posLeft}}; }"
+                            }
+                        ],
+                        "scopy": true
+                    }
+                }
+            ],
+            "default": {
+                "posTop": {
+                    "md": "",
+                    "unit": "%"
+                },
+                "posLeft": {
+                    "md": "",
+                    "unit": "%"
+                }
+            }
+        },
+        "canVidWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "applyTo",
+                            "relation": "!=",
+                            "value": "none"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}-canvas { width: {{canVidWidth}} !important; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "applyTo",
+                            "relation": "==",
+                            "value": "none"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} {{PLUS_WRAP}}-canvas { width: {{canVidWidth}} !important; }"
+                }
+            ],
+            "scopy": true
+        },
+        "canVidHeight": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "applyTo",
+                            "relation": "!=",
+                            "value": "none"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}-canvas { height: {{canVidHeight}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "applyTo",
+                            "relation": "==",
+                            "value": "none"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} {{PLUS_WRAP}}-canvas { height: {{canVidHeight}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "canVidZIndex": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}-canvas { z-index: {{canVidZIndex}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "canStartOffset": {
+            "type": "string",
+            "default": "",
+            "scopy": true
+        },
+        "canEndOffset": {
+            "type": "string",
+            "default": "",
+            "scopy": true
+        }
+    }
+}

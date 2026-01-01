@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "."
+		},
+		{
+			"path": "../Mobile & Web Game Factory"
+		},
+		{
+			"path": ".."
 		}
 	],
 	"settings": {

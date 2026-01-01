@@ -1,0 +1,54 @@
+.wkit-wb-Widget_d0l3gf24 .wkit-scroll-wrapper{
+   position:relative;
+   width:100%;
+   display:block;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-wrapper .wkit-scroll-banner{
+    position:relative;
+    width:100%;
+    height:100vh;
+    text-align:center;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    background-image:url("https://etemplates.wdesignkit.com/widgets/wp-content/plugins/elementor/assets/images/placeholder.png");
+    background-repeat: no-repeat;
+    transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow: hidden;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-banner-title-style.style-2{
+    display:flex;
+    align-items: center;
+    justify-content:space-between;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-wrapper .wkit-title{
+    font-size: clamp(50px, 6vw, 90px);
+    position:relative;
+    color:#fff;
+    margin-bottom:20px;
+    white-space: pre-line;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-wrapper .wkit-read-more{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:15px 30px;
+    color:#fff;
+    background:black;
+    border-radius:4px;
+    width: max-content;
+    transition: 0.3s linear;}.wkit-wb-Widget_d0l3gf24 .wkit-read-icon .tp-title-icon {
+    color: white;
+    transition: 0.3s linear;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-wrapper .wkit-description{
+    font-size:14px;
+    text-align:center;
+    color:#ccc;
+    margin-top: 0;
+    margin-bottom:20px;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-banner-title-style.style-1 .wkit-scroll-banner-btn-wrap {
+    display: inline-block;
+    position: relative;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-banner-title-style.style-2 .wkit-scroll-banner-btn-wrap {
+    position:relative;
+    display:flex;
+    justify-content:center;
+    width:100%;}.wkit-wb-Widget_d0l3gf24 .wkit-read-more .wkit-read-icon .tp-title-icon svg{
+    height:auto;
+    width:20px;}.wkit-wb-Widget_d0l3gf24 .wkit-scroll-banner .wkit-read-icon .tp-title-icon {
+    display: flex;}[data-title=""], [data-desc=""] {
+    display: none !important;}@media(max-width:600px) {  .wkit-wb-Widget_d0l3gf24
+     .wkit-scroll-banner-title-style.style-2{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;}}

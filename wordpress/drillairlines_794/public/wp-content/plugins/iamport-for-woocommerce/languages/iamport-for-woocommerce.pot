@@ -1,0 +1,1543 @@
+# Copyright (C) 2025 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: iamport-for-woocommerce 3.3.11\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/iamport-for-woocommerce\n"
+"POT-Creation-Date: 2025-12-23 06:54:04+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: CodeM\n"
+"Poedit: \n"
+"Language: ko_KR\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:56
+#: includes/abstracts/abstract-portone-payment-gateway.php:59
+msgid "[포트원] 가맹점 식별코드"
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:58
+#: includes/abstracts/abstract-portone-payment-gateway.php:65
+#: includes/abstracts/abstract-portone-payment-gateway.php:72
+#: includes/gateways/class-wc-gateway-portone-subscription.php:73
+#: includes/gateways/class-wc-gateway-portone-subscription.php:80
+msgid ""
+"https://admin.portone.io에서 회원가입 후, \"결제 연동 > 연동 정보 > 식별코드 ・ API Keys > V1 "
+"API\"에서 확인하실 수 있습니다."
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:63
+#: includes/abstracts/abstract-portone-payment-gateway.php:66
+#: includes/gateways/class-wc-gateway-portone-subscription.php:71
+#: includes/gateways/class-wc-gateway-portone-subscription.php:74
+msgid "[포트원] REST API 키"
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:70
+#: includes/abstracts/abstract-portone-payment-gateway.php:73
+#: includes/gateways/class-wc-gateway-portone-subscription.php:78
+#: includes/gateways/class-wc-gateway-portone-subscription.php:81
+msgid "[포트원] REST API Secret"
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:203
+#: includes/abstracts/abstract-portone-payment-gateway.php:204
+msgid "요청하신 결제금액이 다릅니다."
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:243
+msgid "가상계좌 입금대기 중"
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:263
+#: includes/abstracts/abstract-portone-payment-gateway.php:264
+msgid "실제 결제가 이루어지지 않았습니다."
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:280
+msgid "결제요청 승인에 실패하였습니다."
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:318
+#. translators: %s: Cancel Amount
+msgid "부분환불(%s원) 내역을 환불정보에 반영하였습니다."
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:323
+msgid "전액환불되어 우커머스 주문 상태를 \"환불됨\"으로 수정합니다."
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:356
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:336
+#. translators: %s: error message
+msgid "결제승인정보를 받아오지 못했습니다. 관리자에게 문의해주세요. %s"
+msgstr ""
+
+#: includes/abstracts/abstract-portone-payment-gateway.php:445
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:595
+#: includes/gateways/class-wc-gateway-portone-subscription.php:707
+#. translators: %s: Cancel Amount
+#. translators: %s: refund amount
+msgid "%s 원 환불완료"
+msgstr ""
+
+#: includes/class-portone-helper.php:29
+msgid "정기결제 구매자정보 생성에 실패하였습니다."
+msgstr ""
+
+#: includes/class-portone-helper.php:35
+msgid "정기결제기능은 로그인된 사용자만 사용하실 수 있습니다."
+msgstr ""
+
+#: includes/class-portone-post-types.php:20
+#. translators: %s: number of orders with a return request
+msgid "반품요청 <span class=\"count\">(%s)</span>"
+msgid_plural "반품요청 <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-portone-post-types.php:29
+#. translators: %s: number of orders with a exchange request
+msgid "교환신청 <span class=\"count\">(%s)</span>"
+msgid_plural "교환신청 <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-portone-post-types.php:38
+#. translators: %s: number of orders with change shipping address requests
+msgid "배송지 변경 <span class=\"count\">(%s)</span>"
+msgid_plural "배송지 변경 <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-portone-post-types.php:47
+#. translators: %s: number of orders waiting for virtual account deposit
+msgid "가상계좌 입금대기 중 <span class=\"count\">(%s)</span>"
+msgid_plural "가상계좌 입금대기 중 <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-portone-tax.php:32
+msgid "부가세"
+msgstr ""
+
+#: includes/emails/class-iamport-email-vbank-confirm-order.php:15
+msgid "New customer order"
+msgstr ""
+
+#: includes/emails/class-iamport-email-vbank-confirm-order.php:16
+msgid "[{site_title}] New customer order ({order_number}) - {order_date}"
+msgstr ""
+
+#: includes/emails/class-iamport-email-vbank-confirm-order.php:82
+msgid "Recipient(s)"
+msgstr ""
+
+#: includes/emails/class-iamport-email-vbank-confirm-order.php:85
+#. translators: %s: WooCommerce order ID
+msgid ""
+"Enter recipients (comma separated) for this email. Defaults to "
+"<code>%s</code>."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:12
+msgid "포트원(신용카드)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:13
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:12
+#: includes/gateways/class-wc-gateway-portone-kakao.php:13
+#: includes/gateways/class-wc-gateway-portone-trans.php:12
+#: includes/gateways/class-wc-gateway-portone-vbank.php:62
+msgid ""
+"=> 포트원 서비스를 이용해 결제모듈을 연동할 수 있습니다.<br>=> 궁금한 사항이 있다면 헬프센터를 방문해 주세요.<br><a "
+"href=\"https://help.portone.io/\" target=\"_blank\">헬프센터 방문</a>"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:44
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:34
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:43
+#: includes/gateways/class-wc-gateway-portone-kakao.php:39
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:92
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:30
+#: includes/gateways/class-wc-gateway-portone-phone.php:45
+#: includes/gateways/class-wc-gateway-portone-samsung.php:30
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:38
+#: includes/gateways/class-wc-gateway-portone-subscription.php:58
+#: includes/gateways/class-wc-gateway-portone-trans.php:47
+#: includes/gateways/class-wc-gateway-portone-vbank.php:101
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:46
+msgid "포트원(신용카드) 결제 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:50
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:40
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:49
+#: includes/gateways/class-wc-gateway-portone-kakao.php:45
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:98
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:36
+#: includes/gateways/class-wc-gateway-portone-phone.php:51
+#: includes/gateways/class-wc-gateway-portone-samsung.php:36
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:44
+#: includes/gateways/class-wc-gateway-portone-subscription.php:64
+#: includes/gateways/class-wc-gateway-portone-trans.php:53
+#: includes/gateways/class-wc-gateway-portone-vbank.php:107
+msgid "Title"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:52
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:42
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:51
+#: includes/gateways/class-wc-gateway-portone-kakao.php:47
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:100
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:38
+#: includes/gateways/class-wc-gateway-portone-phone.php:53
+#: includes/gateways/class-wc-gateway-portone-samsung.php:38
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:46
+#: includes/gateways/class-wc-gateway-portone-subscription.php:66
+#: includes/gateways/class-wc-gateway-portone-trans.php:55
+#: includes/gateways/class-wc-gateway-portone-vbank.php:109
+msgid "구매자에게 표시될 구매수단명"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:53
+msgid "신용카드 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:57
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:47
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:56
+#: includes/gateways/class-wc-gateway-portone-kakao.php:52
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:105
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:43
+#: includes/gateways/class-wc-gateway-portone-phone.php:58
+#: includes/gateways/class-wc-gateway-portone-samsung.php:43
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:51
+#: includes/gateways/class-wc-gateway-portone-trans.php:60
+#: includes/gateways/class-wc-gateway-portone-vbank.php:114
+msgid "Customer Message"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:59
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:49
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:58
+#: includes/gateways/class-wc-gateway-portone-kakao.php:54
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:107
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:45
+#: includes/gateways/class-wc-gateway-portone-phone.php:60
+#: includes/gateways/class-wc-gateway-portone-samsung.php:45
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:53
+#: includes/gateways/class-wc-gateway-portone-trans.php:62
+#: includes/gateways/class-wc-gateway-portone-vbank.php:116
+msgid "구매자에게 결제수단에 대한 상세설명을 합니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:60
+msgid "주문확정 버튼을 클릭하시면 신용카드 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:66
+msgid "(1) 신용카드 결제 시, 자동 적용될 PG설정값 세팅"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:71
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:70
+#: includes/gateways/class-wc-gateway-portone-phone.php:77
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:57
+#: includes/gateways/class-wc-gateway-portone-subscription.php:103
+#: includes/gateways/class-wc-gateway-portone-trans.php:79
+#: includes/gateways/class-wc-gateway-portone-vbank.php:179
+msgid "PG사 설정"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:74
+msgid "2개 이상의 PG사를 이용 중이라면, 신용카드를 서비스할 PG사를 선택해주세요. 선택된 PG사의 결제창이 호출됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:95
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:68
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:85
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:49
+#: includes/gateways/class-wc-gateway-portone-phone.php:96
+#: includes/gateways/class-wc-gateway-portone-samsung.php:49
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:74
+#: includes/gateways/class-wc-gateway-portone-subscription.php:122
+#: includes/gateways/class-wc-gateway-portone-trans.php:101
+#: includes/gateways/class-wc-gateway-portone-vbank.php:201
+msgid "PG상점아이디"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:97
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:70
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:87
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:51
+#: includes/gateways/class-wc-gateway-portone-phone.php:98
+#: includes/gateways/class-wc-gateway-portone-samsung.php:51
+#: includes/gateways/class-wc-gateway-portone-subscription.php:124
+#: includes/gateways/class-wc-gateway-portone-trans.php:103
+#: includes/gateways/class-wc-gateway-portone-vbank.php:203
+msgid "동일한 PG사에서 여러 개의 상점아이디(MID)를 사용하는 경우 원하시는 PG상점아이디(MID)를 지정하여 결제할 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:100
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:90
+#: includes/gateways/class-wc-gateway-portone-phone.php:101
+#: includes/gateways/class-wc-gateway-portone-trans.php:106
+#: includes/gateways/class-wc-gateway-portone-vbank.php:206
+msgid "PG설정 적용대상(상품)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:103
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:93
+#: includes/gateways/class-wc-gateway-portone-phone.php:104
+#: includes/gateways/class-wc-gateway-portone-trans.php:109
+#: includes/gateways/class-wc-gateway-portone-vbank.php:209
+msgid ""
+"위에서 설정한 [PG사 설정] 및 [PG상점아이디] 가 적용될 상품을 선택합니다. 선택한 상품 또는 아래에서 선택한 카테고리에 해당되지 "
+"않는 경우 [PG사 설정] 및 [PG상점아이디] 는 적용되지 않습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:107
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:97
+#: includes/gateways/class-wc-gateway-portone-phone.php:108
+#: includes/gateways/class-wc-gateway-portone-trans.php:113
+#: includes/gateways/class-wc-gateway-portone-vbank.php:213
+msgid "PG설정 적용대상(카테고리)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:110
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:100
+#: includes/gateways/class-wc-gateway-portone-phone.php:111
+#: includes/gateways/class-wc-gateway-portone-trans.php:116
+#: includes/gateways/class-wc-gateway-portone-vbank.php:216
+msgid ""
+"위에서 설정한 [PG사 설정] 및 [PG상점아이디] 가 적용될 카테고리를 선택합니다. 선택한 카테고리 또는 위에서 선택한 상품에 "
+"해당되지 않는 경우 [PG사 설정] 및 [PG상점아이디] 는 적용되지 않습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:114
+msgid "(2) 신용카드 결제 시, 적용될 PG설정값을 고객이 직접 지정"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:119
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:109
+#: includes/gateways/class-wc-gateway-portone-kakao.php:90
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:140
+#: includes/gateways/class-wc-gateway-portone-phone.php:120
+#: includes/gateways/class-wc-gateway-portone-trans.php:125
+#: includes/gateways/class-wc-gateway-portone-vbank.php:225
+msgid "PG설정 구매자 선택방식 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:121
+msgid ""
+"포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 활성화합니다. 신용카드 결제수단 선택 시, 세부 "
+"결제수단 선택창이 추가로 출력됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:125
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:115
+#: includes/gateways/class-wc-gateway-portone-kakao.php:96
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:146
+#: includes/gateways/class-wc-gateway-portone-phone.php:126
+#: includes/gateways/class-wc-gateway-portone-trans.php:131
+#: includes/gateways/class-wc-gateway-portone-vbank.php:231
+msgid "PG설정 구매자 선택"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:127
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:117
+#: includes/gateways/class-wc-gateway-portone-kakao.php:98
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:148
+#: includes/gateways/class-wc-gateway-portone-phone.php:128
+#: includes/gateways/class-wc-gateway-portone-trans.php:133
+#: includes/gateways/class-wc-gateway-portone-vbank.php:233
+msgid "\"{PG사 코드}.{PG상점아이디} : 구매자에게 표시할 텍스트\" 의 형식으로 여러 줄 입력가능합니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:177
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:184
+#: includes/gateways/class-wc-gateway-portone-kakao.php:116
+#: includes/gateways/class-wc-gateway-portone-phone.php:158
+#: includes/gateways/class-wc-gateway-portone-samsung.php:76
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:88
+#: includes/gateways/class-wc-gateway-portone-subscription.php:138
+#: includes/gateways/class-wc-gateway-portone-trans.php:187
+#: includes/gateways/class-wc-gateway-portone-vbank.php:327
+#. translators: %s: transaction number
+#. translators: %s: transaction id
+#. translators: %s: transaction number
+#. translators: %s: transaction number
+#. translators: %s: transaction number
+#. translators: %s: transaction id
+msgid "영수증보기(%s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:180
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:146
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:187
+#: includes/gateways/class-wc-gateway-portone-kakao.php:119
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:241
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:70
+#: includes/gateways/class-wc-gateway-portone-phone.php:161
+#: includes/gateways/class-wc-gateway-portone-samsung.php:67
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:92
+#: includes/gateways/class-wc-gateway-portone-subscription.php:142
+#: includes/gateways/class-wc-gateway-portone-trans.php:190
+#: includes/gateways/class-wc-gateway-portone-vbank.php:303
+msgid "결제 상세"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:184
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:150
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:191
+#: includes/gateways/class-wc-gateway-portone-kakao.php:123
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:245
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:74
+#: includes/gateways/class-wc-gateway-portone-phone.php:165
+#: includes/gateways/class-wc-gateway-portone-samsung.php:71
+#: includes/gateways/class-wc-gateway-portone-trans.php:194
+#: includes/gateways/class-wc-gateway-portone-vbank.php:307
+msgid "결제수단"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:185
+msgid "신용카드"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-card.php:188
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:195
+#: includes/gateways/class-wc-gateway-portone-kakao.php:127
+#: includes/gateways/class-wc-gateway-portone-phone.php:169
+#: includes/gateways/class-wc-gateway-portone-samsung.php:75
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:96
+#: includes/gateways/class-wc-gateway-portone-subscription.php:146
+#: includes/gateways/class-wc-gateway-portone-trans.php:198
+#: includes/gateways/class-wc-gateway-portone-vbank.php:325
+msgid "매출전표"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:11
+msgid "포트원(Eximbay)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:36
+msgid ""
+"포트원(Eximbay) 결제 사용. (Eximbay를 사용하시려면, <a "
+"href=\"https://admin.portone.io/settings\" target=\"_blank\">포트원 관리자페이지의 "
+"PG설정화면</a>에서 \"추가PG사\"로 Eximbay를 추가 후 사용해주세요.)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:43
+msgid "Eximbay 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:50
+msgid "주문확정 버튼을 클릭하시면 Eximbay 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:53
+msgid "세부 결제수단"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:55
+msgid "엑심베이 결제수단으로 사용할 세부 결제수단들을 선택해주세요."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:58
+msgid "[모든 결제수단]"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:59
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:77
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:111
+msgid "CreditCard"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:60
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:79
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:112
+msgid "UnionPay"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:61
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:81
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:113
+msgid "Alipay"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:62
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:83
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:114
+msgid "WechatPay"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:63
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:85
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:115
+msgid "Molpay"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:64
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:87
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:116
+msgid "EContext(일본편의점결제)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:151
+msgid "Eximbay"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-eximbay.php:157
+msgid "QR link"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:11
+msgid "포트원 네이버페이 결제 (PG사 인증, 허브형)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:12
+msgid ""
+"=> 포트원 서비스를 이용해 결제모듈을 연동할 수 있습니다.<br>=> 네이버페이 이용을 위해서는 이용하고 계신 PG사의 결제수단 "
+"네이버페이 신청, 검수를 통해 이용이 가능합니다.<br>=> 궁금한 사항이 있다면 헬프센터를 방문해 주세요.<br><a "
+"href=\"https://help.portone.io/\" target=\"_blank\">헬프센터 방문</a>"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:45
+msgid "포트원(네이버페이 결제형 - 허브형) 결제 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:52
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:192
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:246
+msgid "네이버페이"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:59
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:108
+msgid "주문확정 버튼을 클릭하시면 네이버페이 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:65
+msgid "(1) 네이버페이 결제 시, 자동 적용될 PG설정값 세팅"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:73
+msgid "2개 이상의 PG사를 이용 중이라면, 네이버페이를 서비스할 PG사를 선택해주세요. 선택된 PG사의 결제창이 호출됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:104
+msgid "(2) 네이버페이 결제 시, 적용될 PG설정값을 고객이 직접 지정"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-hub-naverpay.php:111
+msgid ""
+"포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 활성화합니다. 네이버페이 결제수단 선택 시, 세부 "
+"결제수단 선택창이 추가로 출력됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:12
+msgid "포트원(카카오페이)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:41
+msgid ""
+"포트원(카카오페이) 결제 사용. (카카오페이를 사용하시려면, <a "
+"href=\"https://admin.portone.io/settings\" target=\"_blank\">포트원 관리자페이지의 "
+"PG설정화면</a>에서 \"추가PG사\"로 카카오페이를 추가 후 사용해주세요.)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:48
+msgid "카카오페이 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:55
+msgid "주문확정 버튼을 클릭하시면 카카오페이 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:58
+msgid "카카오페이 구매버튼을 출력할 상품카테고리"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:59
+msgid "일부 상품 카테고리에만 카카오페이 구매버튼을 출력하도록 설정할 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:61
+#: includes/gateways/class-wc-gateway-portone-kakao.php:68
+msgid "[모든 카테고리]"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:65
+msgid "카카오페이 구매버튼을 비활성화시킬 상품카테고리"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:66
+msgid "일부 상품 카테고리에만 카카오페이 구매버튼을 출력하지 않도록 설정할 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:68
+msgid "[비활성화할 카테고리 없음]"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:72
+msgid "신규 카카오페이"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:73
+msgid "신규 카카오페이 방식으로 사용하시겠습니까? (주)카카오페이와 계약이 필요하니 사전에 확인바랍니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:75
+msgid "LGCNS계약 종료 후 카카오페이 계약된 경우 체크해주세요."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:79
+msgid "일반결제용 CID"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:81
+msgid "카카오페이 일반결제에 사용될 가맹점코드(CID)를 입력해주세요."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:84
+msgid "정기결제용 CID"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:86
+msgid "카카오페이 정기결제에 사용될 가맹점코드(CID)를 입력해주세요."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:92
+msgid ""
+"(신규 카카오페이 버전에서만 사용가능) 포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 "
+"활성화합니다. 카카오페이 결제수단 선택 시, 세부 결제수단 선택창이 추가로 출력됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:124
+msgid "카카오페이"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:193
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:378
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:496
+#: includes/gateways/class-wc-gateway-portone-subscription.php:276
+#. translators: %s: error message
+msgid "정기결제승인에 실패하였습니다. (상세 : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:233
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:415
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:535
+#: includes/gateways/class-wc-gateway-portone-subscription.php:527
+#. translators: 1: renewal round, 2: transaction id
+msgid "정기결제 회차 과금(%1$s차결제)에 성공하였습니다. (imp_uid : %2$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:241
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:424
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:256
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:543
+#. translators: %s: transaction id
+#. translators: %s: transaction number
+#. translators: %s: transaction id
+msgid "이미 결제완료처리된 주문에 대해서 결제가 발생했습니다. (imp_uid : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:292
+#: includes/gateways/class-wc-gateway-portone-kakao.php:301
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:480
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:491
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:436
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:445
+#. translators: 1: payment status, 2: error detail
+msgid "정기결제 최초 과금(signup fee)에 실패하였습니다(%1$s). (사유 : %2$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-kakao.php:294
+#: includes/gateways/class-wc-gateway-portone-kakao.php:303
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:483
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:494
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:438
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:447
+#. translators: 1: renewal round, 2: payment status, 3: error detail
+msgid "정기결제 회차 과금(%1$s차결제)에 실패하였습니다(%2$s). (사유 : %3$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:52
+msgid "포트원(결제형-네이버페이)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:94
+msgid "포트원(결제형-네이버페이) 사용. (결제형-네이버페이 설정을 위해서는 네이버페이 가입승인 후 포트원 고객센터로 연락부탁드립니다.)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:101
+msgid "네이버페이(결제형)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:111
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:114
+msgid "네이버페이 검수모드"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:112
+msgid ""
+"네이버페이 검수단계에서는 일반 사용자에게 네이버페이 결제수단이 보여지면 안됩니다. \"검수모드\" [체크]하시면 특정 사용자에게만 "
+"네이버페이 결제수단이 노출되며, [체크해제]하시면 모든 사용자에게 노출됩니다. 아래에서 네이버페이 검수용 사용자 아이디를 지정하시면 "
+"됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:118
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:119
+msgid "네이버페이 검수용 사용자명"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:120
+msgid "네이버페이 검수단계에서는 특정 사용자에게만 네이버페이 결제수단을 노출합니다. (콤마로 구분하여 여러 명 지정 가능)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:125
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:126
+msgid "이용완료일 사용 여부"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:127
+msgid "이용완료일 기준 정산 및 포인트 적립 가맹점에서만 사용해주세요"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:132
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:133
+msgid "이용완료일(yyyyMMdd)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:134
+msgid "사용 여부를 체크한 뒤 20991231와 같은 형식으로 적어주세요."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:142
+msgid ""
+"포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 활성화합니다. 네이버페이(결제형) 결제수단 선택 "
+"시, 세부 결제수단 선택창이 추가로 출력됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:193
+#: includes/gateways/class-wc-gateway-portone-naverpay-ext.php:199
+msgid "네이버상품 카테고리"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:11
+msgid "포트원(Paymentwall)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:12
+msgid "현재 Paymentwall은 신용카드를 이용한 결제만 정상적으로 동작합니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:32
+msgid ""
+"포트원(Paymentwall) 결제 사용. (Paymentwall 사용하시려면, <a "
+"href=\"https://admin.portone.io/settings\" target=\"_blank\">포트원 관리자페이지의 "
+"PG설정화면</a>에서 \"추가PG사\"로 Paymentwall을 추가 후 사용해주세요.)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:39
+msgid "Paymentwall 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:46
+msgid "주문확정 버튼을 클릭하시면 Paymentwall 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-paymentwall.php:75
+msgid "Paymentwall"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:10
+msgid "포트원(휴대폰소액결제)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:11
+msgid ""
+"=> 포트원 서비스를 이용해 결제모듈을 연동할 수 있습니다.<br>=> 다날과 계약 후 이용하시면 보다 합리적인 수수료, 정산주기 "
+"조건으로 휴대폰결제 서비스를 이용하실 수 있습니다.</a><br>=> 궁금한 사항이 있다면 헬프센터를 방문해 주세요.<br><a "
+"href=\"https://help.portone.io/\" target=\"_blank\">헬프센터 방문</a>"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:47
+msgid "포트원(휴대폰소액결제) 결제 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:54
+msgid "휴대폰소액결제 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:61
+msgid "주문확정 버튼을 클릭하시면 휴대폰소액결제 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:64
+msgid "디지털 상품"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:65
+msgid "판매하시는 상품이 배송되는 형태의 실물이 아니라 디지털 파일 등 무형의 서비스 상품이라면 체크해주세요(통신사 필수 요구사항)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:67
+msgid "디지털 상품인 경우 체크해주세요"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:72
+msgid "(1) 휴대폰소액결제 시, 자동 적용될 PG설정값 세팅"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:80
+msgid "2개 이상의 PG사를 이용 중이라면, 휴대폰 소액결제를 서비스할 PG사를 선택해주세요. 선택된 PG사의 결제창이 호출됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:115
+msgid "(2) 휴대폰소액결제 시, 적용될 PG설정값을 고객이 직접 지정"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:122
+msgid ""
+"포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 활성화합니다. 휴대폰소액결제 결제수단 선택 시, "
+"세부 결제수단 선택창이 추가로 출력됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-phone.php:166
+msgid "휴대폰소액결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-samsung.php:11
+msgid "포트원(삼성페이)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-samsung.php:12
+msgid ""
+"=> 포트원 서비스를 이용해 쉽게 삼성페이를 연동할 수 있습니다(KG이니시스 계약 필요).<br>=> 궁금한 사항이 있다면 헬프센터를 "
+"방문해 주세요.<br><a href=\"https://help.portone.io/\" target=\"_blank\">헬프센터 "
+"방문</a>"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-samsung.php:32
+msgid "포트원(삼성페이) 결제 사용. (삼성페이를 사용하시려면, KG이니시스 가입이 필요합니다.)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-samsung.php:39
+msgid "삼성페이 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-samsung.php:46
+msgid "주문확정 버튼을 클릭하시면 삼성페이 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-samsung.php:72
+msgid "삼성페이"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:11
+msgid "포트원(정기결제-결제창방식)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:12
+msgid ""
+"KG이니시스, 다날과 같이 결제창을 통해 빌링키 발급이 이뤄지는 정기결제의 경우 본 결제 방식을 통해 정기결제를 이용하실 수 있습니다. "
+"(정기결제 기능을 위해서는 Woocommerce-Subscription 플러그인 설치가 필요합니다.)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:40
+msgid "포트원(정기결제-결제창방식) 결제 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:47
+msgid "포트원 정기결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:54
+msgid "주문확정 버튼을 클릭하시면 PG사에서 제공하는 신용카드 정보 입력 결제창이 나타나 정기결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:60
+msgid "이용 중인 PG사를 반드시 선택해주세요."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:76
+msgid "동일한 PG사에서 일반 신용카드 결제도 함께 사용하는 경우 정기결제용으로 발급받은 PG상점아이디(MID)를 별도로 기재해주셔야 합니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:239
+#. translators: %s: transaction number
+msgid "정기결제 결제수단 등록에 성공하였습니다. (imp_uid : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:242
+#: includes/gateways/class-wc-gateway-portone-subscription.php:433
+#. translators: %s: transaction number
+#. translators: %s: transaction id
+msgid "정기결제 최초 과금(signup fee)에 성공하였습니다. (imp_uid : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:269
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:274
+msgid "빌링키 발급에 실패하였습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:309
+#. translators: %s: cancel amount
+msgid "포트원 관리자 페이지(https://admin.portone.io)에서 부분취소(%s원)하였습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:314
+msgid "포트원 관리자 페이지(https://admin.portone.io)에서 취소하여 우커머스 결제 상태를 \"환불됨\"으로 수정합니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription-ex.php:461
+msgid "정기결제 최초 과금(signup fee)시 금액 검증에 실패하였습니다(요청 결제금액 : %1$s, 실제 결제금액 : %2$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:12
+msgid "포트원(KEY-IN결제/정기결제)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:13
+msgid ""
+"포트원을 통해 KEY-IN결제 또는 정기결제를 사용하실 수 있습니다. (정기결제 기능을 위해서는 "
+"Woocommerce-Subscription 플러그인 설치가 필요합니다. KEY-IN결제는 이용가능)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:60
+msgid "포트원(KEY-IN결제/정기결제) 결제 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:67
+msgid "KEY-IN결제/정기결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:85
+msgid "신용카드 입력 Form 유형"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:88
+msgid "PG사와 계약 시 협의된 신용카드 인증 유형에 맞게 출력여부를 지정할 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:98
+msgid "(1) 키인결제 시, 자동 적용될 PG설정값 세팅"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:106
+msgid "키인결제를 서비스할 PG사를 선택해주세요. 선택된 PG사의 결제창이 호출됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:165
+msgid "Card number"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:169
+msgid "Expiry (MM/YY)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:170
+msgid "MM / YY"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:173
+#: includes/gateways/class-wc-gateway-portone-subscription.php:174
+msgid "생년월일6자리 또는 사업자등록번호10자리"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:177
+#: includes/gateways/class-wc-gateway-portone-subscription.php:178
+msgid "카드비밀번호 앞2자리"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:194
+msgid "할부"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:263
+msgid "정기결제 등록카드"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:304
+#. translators: %s: error detail
+msgid "정기결제 최초 과금(signup fee)에 실패하였습니다. (상세사유 : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:309
+#. translators: %s: error detail
+msgid "KEY-IN결제에 실패하였습니다. (상세사유 : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:321
+#. translators: %s: error detail
+msgid "빌링키 등록에 실패하였습니다. (상세사유 : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:340
+msgid "포트원-정기결제 결제수단 변경 성공"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:449
+#. translators: %s: transaction id
+msgid "KEY-IN방식 결제에 성공하였습니다. (imp_uid : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:461
+#. translators: %s: payment status
+msgid "정기결제 최초 과금(signup fee)에 실패하였습니다. (status : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:464
+#. translators: %s: payment status
+msgid "KEY-IN방식 결제에 실패하였습니다. (status : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:473
+#. translators: %s: error detail
+msgid "정기결제 최초 과금(signup fee)에 실패하였습니다. (사유 : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:476
+#. translators: %s: error detail
+msgid "KEY-IN방식 결제에 실패하였습니다. (사유 : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:537
+#. translators: 1: renewal round, 2: error message, 3: payment status
+msgid "정기결제 회차 과금(%1$s차결제)에 실패하였습니다. (사유 : %2$s, status : %3$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:544
+#. translators: 1: renewal round, 2: error message
+msgid "정기결제 회차 과금(%1$s차결제)에 실패하였습니다. (사유 : %2$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:611
+#. translators: 1: paid amount, 2: transaction id
+msgid "카드등록 중 테스트 결제 %1$s원 승인이 성공되었습니다. 곧 자동취소됩니다.(%2$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:624
+#. translators: %s: cancel amount
+msgid "카드등록 중 테스트한 결제 %s원에 대한 취소/환불이 정상적으로 처리되었습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:629
+#. translators: 1: cancel amount, 2: error detail
+msgid "카드등록 중 테스트한 결제 %1$s원에 대한 취소/환불에 실패하였습니다.(%2$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:639
+#. translators: 1: cancel amount, 2: error detail
+msgid "카드등록 중 테스트 결제 %1$s원에 대한 결제가 실패하였습니다.(%2$s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:655
+msgid "정기결제 최초 빌링키 등록에 성공하였습니다. (signup-fee : 0원)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-subscription.php:658
+#. translators: %s: error detail
+msgid "정기결제 최초 빌링키 등록에 실패하였습니다. (사유 : %s)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:11
+msgid "포트원(실시간계좌이체)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:49
+msgid "포트원(실시간계좌이체) 결제 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:56
+msgid "실시간계좌이체 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:63
+msgid "주문확정 버튼을 클릭하시면 실시간계좌이체 결제창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:66
+msgid "실시간계좌이체 에스크로"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:68
+msgid "실시간계좌이체 결제수단을 에스크로 방식으로 제공할까요?"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:70
+msgid "일반 실시간계좌이체가 에스크로(구매자 안전결제)방식의 실시간계좌이체로 대체됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:74
+msgid "(1) 계좌이체 결제 시, 자동 적용될 PG설정값 세팅"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:82
+msgid "2개 이상의 PG사를 이용 중이라면, 실시간계좌이체를 서비스할 PG사를 선택해주세요. 선택된 PG사의 결제창이 호출됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:120
+msgid "(2) 계좌이체 결제 시, 적용될 PG설정값을 고객이 직접 지정"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:127
+msgid ""
+"포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 활성화합니다. 계좌이체 결제수단 선택 시, 세부 "
+"결제수단 선택창이 추가로 출력됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-trans.php:195
+msgid "실시간계좌이체"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:61
+msgid "포트원(가상계좌)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:103
+msgid "포트원(가상계좌) 결제 사용"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:110
+msgid "가상계좌 결제"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:117
+msgid "주문확정 버튼을 클릭하시면 가상계좌 주문개설 창이 나타나 결제를 진행하실 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:120
+msgid "가상계좌 에스크로"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:122
+msgid "가상계좌 결제수단을 에스크로 방식으로 제공할까요?"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:124
+msgid "일반 가상계좌가 에스크로(구매자 안전결제)방식의 가상계좌로 대체됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:127
+msgid "가상계좌입금기한 설정"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:130
+msgid "가상계좌입금기한을 강제로 설정하고싶을 때 사용합니다. 미설정시 결제창에서 구매자가 선택할 수 있습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:163
+msgid "사업자등록번호"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:165
+msgid "사업자등록번호10자리(다날Tpay이용자는 반드시 입력해주세요. 숫자만 입력해주세요)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:168
+msgid "가맹점 상호"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:170
+msgid ""
+"가상계좌 생성 시 고객에게 표시될 예금주 명 앞에 가맹점의 상호가 노출되기 원하시는 경우 설정하시면 됩니다.(다날-가상계좌 사용시 "
+"필수. 예시 : 시옷 홍길동)"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:174
+msgid "(1) 가상계좌 결제 시, 자동 적용될 PG설정값 세팅"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:182
+msgid "2개 이상의 PG사를 이용 중이라면, 가상계좌를 서비스할 PG사를 선택해주세요. 선택된 PG사의 결제창이 호출됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:220
+msgid "(2) 가상계좌 결제 시, 적용될 PG설정값을 고객이 직접 지정"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:227
+msgid ""
+"포트원 계정에 설정된 여러 PG사 / MID를 사용자의 선택에 따라 적용하는 기능을 활성화합니다. 가상계좌 결제수단 선택 시, 세부 "
+"결제수단 선택창이 추가로 출력됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:308
+msgid "가상계좌"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:312
+#: includes/gateways/class-wc-gateway-portone-vbank.php:331
+msgid "가상계좌 입금은행"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:316
+#: includes/gateways/class-wc-gateway-portone-vbank.php:341
+msgid "가상계좌번호"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:318
+#. translators: %s: virtual bank account number
+msgid "입금완료( %s )"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:321
+#: includes/gateways/class-wc-gateway-portone-vbank.php:345
+msgid "가상계좌 입금기한"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:322
+msgid "입금완료"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:336
+msgid "가상계좌 예금주"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:342
+#. translators: %s: virtual bank account number
+msgid "%s 입금을 부탁드립니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:360
+msgid "가상계좌 입금내역이 확인되었습니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:364
+msgid "아래의 가상계좌로 입금해주셔야 최종적으로 주문이 완료처리됩니다."
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:388
+msgid "가상계좌 환불"
+msgstr ""
+
+#: includes/gateways/class-wc-gateway-portone-vbank.php:611
+#: includes/gateways/class-wc-gateway-portone-vbank.php:622
+msgid "관리자의 요청으로 주문건의 가상계좌 환불처리가 완료되었습니다."
+msgstr ""
+
+#: includes/portone-functions.php:89
+msgid "서비스제공기간(시작)"
+msgstr ""
+
+#: includes/portone-functions.php:98
+msgid "서비스제공기간(종료)"
+msgstr ""
+
+#: includes/portone-functions.php:107
+msgid "c"
+msgstr ""
+
+#: includes/portone-functions.php:174
+msgid "가상계좌정보"
+msgstr ""
+
+#: includes/portone-functions.php:176
+msgid "은행명"
+msgstr ""
+
+#: includes/portone-functions.php:178
+msgid "예금주"
+msgstr ""
+
+#: includes/portone-functions.php:180
+msgid "계좌번호"
+msgstr ""
+
+#: includes/portone-functions.php:181
+msgid "입금기한"
+msgstr ""
+
+#: includes/portone-functions.php:338
+msgid "해당되는 woocommerce gateway를 찾을 수 없습니다."
+msgstr ""
+
+#: includes/portone-functions.php:385
+msgid "구매자 환불요청"
+msgstr ""
+
+#: includes/portone-functions.php:390
+msgid "구매자요청에 의해 전액 환불완료"
+msgstr ""
+
+#: includes/portone-functions.php:452
+msgid "포트원 옵션"
+msgstr ""
+
+#: includes/portone-functions.php:455 includes/portone-settings-tab.php:52
+msgid "자동 완료됨 처리"
+msgstr ""
+
+#: includes/portone-functions.php:456
+msgid ""
+"처리중 상태를 거치지 않고 완료됨으로 자동 변경하시겠습니까?<br>(우커머스에서 \"처리중\"상태는 결제가 완료되었음을, "
+"\"완료됨\"상태는 상품발송이 완료되었음을 의미합니다. 발송될 상품없이 결제가 되면 곧 서비스가 개시되어야 하는 경우 사용하시면 "
+"편리합니다."
+msgstr ""
+
+#: includes/portone-functions.php:498
+#. translators: %s: WooCommerce order ID
+msgid "#%s 주문을 반품요청하시겠습니까?"
+msgstr ""
+
+#: includes/portone-functions.php:502
+msgid "반품요청사유"
+msgstr ""
+
+#: includes/portone-functions.php:504 includes/portone-functions.php:561
+msgid "사유를 입력해주세요"
+msgstr ""
+
+#: includes/portone-functions.php:511
+msgid "판매자에게 반품요청하시겠습니까?"
+msgstr ""
+
+#: includes/portone-functions.php:520 includes/portone-functions.php:618
+msgid "반품요청"
+msgstr ""
+
+#: includes/portone-functions.php:533 includes/portone-functions.php:590
+msgid "그냥두기"
+msgstr ""
+
+#: includes/portone-functions.php:555
+#. translators: %s: WooCommerce order ID
+msgid "#%s 주문을 교환요청하시겠습니까?"
+msgstr ""
+
+#: includes/portone-functions.php:559
+msgid "교환요청사유"
+msgstr ""
+
+#: includes/portone-functions.php:568
+msgid "판매자에게 교환요청하시겠습니까?"
+msgstr ""
+
+#: includes/portone-functions.php:577 includes/portone-functions.php:630
+msgid "교환요청"
+msgstr ""
+
+#: includes/portone-functions.php:667
+#. translators: %s: Return Request Reason
+msgid "반품요청 사유 : %s"
+msgstr ""
+
+#: includes/portone-functions.php:683
+#. translators: %s: Exchange Request Reason
+msgid "교환요청 사유 : %s"
+msgstr ""
+
+#: includes/portone-functions.php:761
+msgid "전화번호"
+msgstr ""
+
+#: includes/portone-functions.php:801
+msgid "잘못된 요청입니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:14
+msgid "포트원"
+msgstr ""
+
+#: includes/portone-settings-tab.php:38
+msgid "포트원 공통 결제 설정"
+msgstr ""
+
+#: includes/portone-settings-tab.php:44
+msgid "포트원 자바스크립트 SDK 버전"
+msgstr ""
+
+#: includes/portone-settings-tab.php:45
+msgid "포트원 모듈의 버전을 설정해주세요."
+msgstr ""
+
+#: includes/portone-settings-tab.php:53
+msgid ""
+"처리중(배송준비중) 상태를 거치지 않고 완료됨으로 자동 변경하시겠습니까?<br>우커머스에서 \"처리중(배송처리중)\"상태는 결제가 "
+"완료되었음을, \"완료됨\"상태는 상품발송이 완료되었음을 의미합니다. 아래의 경우 사용하시면 유용합니다.<br> ㄴ 온라인 강의와 같이 "
+"발송될 상품이 없어 결제가 되면 곧 서비스가 개시되어야 하는 경우<br> ㄴ 구매자가 직접 환불을 못하도록 막아야 하는 "
+"경우(\"처리중(배송준비중)\"상태에서는 구매자가 환불이 가능하므로 \"완료됨\"상태로 변경하여 환불을 방지)"
+msgstr ""
+
+#: includes/portone-settings-tab.php:59
+msgid "커스텀 처리중(배송준비중) 주문 상태"
+msgstr ""
+
+#: includes/portone-settings-tab.php:60
+msgid ""
+"결제승인된 주문 건을 \"처리중(배송준비중)\" 상태를 대신해 별도로 정의한 상태로 변경하고 싶으시다면 설정해주세요. <br> ㄴ 위의 "
+"\"자동 완료됨 처리\"가 설정돼있으면 본 설정은 무시됩니다.<br> ㄴ 설정된 커스텀 주문상태는 \"처리중(배송준비중)\"과 "
+"마찬가지로 고객이 환불 가능한 주문상태입니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:67
+msgid "교환요청 활성화"
+msgstr ""
+
+#: includes/portone-settings-tab.php:68
+msgid "결제된 주문이 \"완료됨\" 상태일 때에도 구매자가 교환요청을 할 수 있도록 버튼을 생성합니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:74
+msgid "환불요청 활성화"
+msgstr ""
+
+#: includes/portone-settings-tab.php:75
+msgid "결제된 주문이 \"완료됨\" 상태일 때에도 구매자가 환불요청을 할 수 있도록 버튼을 생성합니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:81
+msgid "교환요청 기한(일자)"
+msgstr ""
+
+#: includes/portone-settings-tab.php:82
+msgid ""
+"구매자 교환요청버튼을 몇 일간 노출할지 결정합니다. (구매 시점 기준으로 기한이 지나면 교환 불가). 빈 값이거나 0이면 기한을 "
+"설정하지 않습니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:88
+msgid "환불요청 기한(일자)"
+msgstr ""
+
+#: includes/portone-settings-tab.php:89
+msgid ""
+"구매자 환불요청버튼을 몇 일간 노출할지 결정합니다. (구매 시점 기준으로 기한이 지나면 환불 불가). 빈 값이거나 0이면 기한을 "
+"설정하지 않습니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:102
+msgid "포트원 결제주소 처리"
+msgstr ""
+
+#: includes/portone-settings-tab.php:103
+msgid "결제주소 내 줄바꿈(Carriage Return) 모두 제거"
+msgstr ""
+
+#: includes/portone-settings-tab.php:114
+msgid "포트원 정기 결제 설정"
+msgstr ""
+
+#: includes/portone-settings-tab.php:120
+msgid "카드 유효성 테스트 금액"
+msgstr ""
+
+#: includes/portone-settings-tab.php:121
+msgid ""
+"0보다 큰 숫자인 경우에만 테스트 결제를 수행합니다.<br>정기결제 카드정보 등록 시, 카드정보의 유효성 검사는 이뤄지지만 결제가 "
+"가능한 카드인지 판별하기 어려운 예외적인 경우가 있습니다.(ex. 분실정지된 카드, 한도초과 카드)<br>카드정보 확인과 동시에 테스트 "
+"결제를 진행해봄으로써 분실정지되거나 한도초과된 카드의 등록을 사전에 방지할 수 있습니다.<br>테스트결제는 결제 후 3~4초 후에 자동 "
+"취소됩니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:127
+msgid "무이자 할부 안내"
+msgstr ""
+
+#: includes/portone-settings-tab.php:128
+msgid ""
+"정기결제 최초결제 및 KEY-IN결제 시 결제금액이 5만원이상인 경우 할부 개월 선택이 가능합니다. 카드사마다 무이자 할부 제공기준이 "
+"모두 달라, 별도의 문구를 통해 고객에게 안내가 필요합니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:138
+msgid "포트원 기타 설정"
+msgstr ""
+
+#: includes/portone-settings-tab.php:144
+msgid "신용카드 최대 할부개월 제한"
+msgstr ""
+
+#: includes/portone-settings-tab.php:145
+msgid ""
+"5만원 이상 거래건에 대해, PG사 결제창 내 할부선택 옵션이 나타나게 되는데 사용자가 선택가능한 최대 할부개월 수를 제한하는 "
+"기능입니다."
+msgstr ""
+
+#: includes/portone-settings-tab.php:166
+msgid "[가상계좌 입금대기 중] 주문 상태 라벨 설정"
+msgstr ""
+
+#: includes/portone-settings-tab.php:167
+msgid "가상계좌 발급 후 아직 입금되지 않은 주문 건에 대한 상태값 명칭을 변경할 수 있습니다. (기본값 : 가상계좌 입금대기 중)"
+msgstr ""
+
+#: includes/portone-settings-tab.php:173
+msgid "[반품요청] 주문 상태 라벨 설정"
+msgstr ""
+
+#: includes/portone-settings-tab.php:174
+msgid "반품요청된 주문 건에 대한 상태값 명칭을 변경할 수 있습니다. (기본값 : 반품요청)"
+msgstr ""
+
+#: includes/portone-settings-tab.php:180
+msgid "[교환요청] 주문 상태 라벨 설정"
+msgstr ""
+
+#: includes/portone-settings-tab.php:181
+msgid "교환요청된 주문 건에 대한 상태값 명칭을 변경할 수 있습니다. (기본값 : 교환요청)"
+msgstr ""
+
+#: includes/portone-settings-tab.php:187
+msgid "앱 스킴명 설정"
+msgstr ""
+
+#: includes/portone-settings-tab.php:188
+msgid "앱 이용 시, 스킴명이 필요한 경우 스킴명을 입력합니다."
+msgstr ""
+
+#: includes/templates/vbank.php:22
+msgid "가상계좌 환불처리는 전액환불만 가능하며 PG사 계약에 따라 환불 수수료가 부과됩니다."
+msgstr ""
+
+#: includes/templates/vbank.php:23
+msgid "환불 은행(코드)"
+msgstr ""
+
+#: includes/templates/vbank.php:25
+msgid "환불처리할 은행을 선택해주세요."
+msgstr ""
+
+#: includes/templates/vbank.php:26
+msgid "환불은행을 선택하세요."
+msgstr ""
+
+#: includes/templates/vbank.php:47
+msgid "환불하기"
+msgstr ""
+
+#: includes/utility/WPUtil.php:33
+msgid "Guest"
+msgstr ""
+
+#: includes/class-portone-post-types.php:14
+msgctxt "Order status"
+msgid "반품요청"
+msgstr ""
+
+#: includes/class-portone-post-types.php:23
+msgctxt "Order status"
+msgid "교환신청"
+msgstr ""
+
+#: includes/class-portone-post-types.php:32
+msgctxt "Order status"
+msgid "배송지 변경"
+msgstr ""
+
+#: includes/class-portone-post-types.php:41
+msgctxt "Order status"
+msgid "가상계좌 입금대기 중"
+msgstr ""

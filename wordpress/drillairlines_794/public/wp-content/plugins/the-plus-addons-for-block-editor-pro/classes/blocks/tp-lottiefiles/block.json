@@ -1,0 +1,780 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"name": "tpgb/tp-lottiefiles",
+	"version": "0.1.0",
+	"title": "Lottie Animations",
+	"category": "tpgb",
+	"description": "Embed Json or Lottie animation with complete freedom of customization",
+	"example": {
+		"attributes": {}
+	},
+	"supports": {
+		"align": ["wide", "full"]
+	},
+	"textdomain": "tpgb",
+	"attributes": {
+		"block_id": {
+			"type": "string",
+			"default": ""
+		},
+		"JSONInput": {
+			"type": "string",
+			"default": "url"
+		},
+		"JSONURL": {
+			"type": "object",
+			"default": {
+				"url": "https://assets7.lottiefiles.com/packages/lf20_UlPcA57JIG.json",
+				"target": "",
+				"nofollow": ""
+			}
+		},
+		"Popup": {
+			"type": "boolean",
+			"default": true
+		},
+		"JSINCode": {
+			"type": "string",
+			"default": ""
+		},
+		"PlayOn": {
+			"type": "string",
+			"default": "autoplay"
+		},
+		"LoopA": {
+			"type": "boolean",
+			"default": true
+		},
+		"TotalLps": {
+			"type": "string",
+			"default": ""
+		},
+		"PlaySpeed": {
+			"type": "string",
+			"default": 0.5
+		},
+		"OnHeight": {
+			"type": "string",
+			"default": "bm_custom"
+		},
+		"Duration": {
+			"type": "object",
+			"default": {
+				"md": 0,
+				"unit": "px"
+			}
+		},
+		"Offset": {
+			"type": "object",
+			"default": {
+				"md": 0,
+				"unit": "px"
+			}
+		},
+		"STimeT": {
+			"type": "boolean",
+			"default": false
+		},
+		"STime": {
+			"type": "string",
+			"default": ""
+		},
+		"EndTimeT": {
+			"type": "boolean",
+			"default": false
+		},
+		"EndTime": {
+			"type": "string",
+			"default": ""
+		},
+		"URLT": {
+			"type": "boolean",
+			"default": false
+		},
+		"URLType": {
+			"type": "string",
+			"default": "normal"
+		},
+		"URLN": {
+			"type": "object",
+			"default": {
+				"url": "",
+				"target": "",
+				"nofollow": ""
+			}
+		},
+		"URLD": {
+			"type": "object",
+			"default": {
+				"url": "",
+				"target": "",
+				"nofollow": ""
+			}
+		},
+		"HeadingT": {
+			"type": "boolean",
+			"default": false
+		},
+		"HText": {
+			"type": "string",
+			"default": "Heading"
+		},
+		"DescriptionT": {
+			"type": "boolean",
+			"default": false
+		},
+		"DText": {
+			"type": "string",
+			"default": "Description"
+		},
+		"Renderer": {
+			"type": "string",
+			"default": ""
+		},
+		"Delay": {
+			"type": "string",
+			"default": ""
+		},
+		"ariaLabel": {
+			"type": "string",
+			"default": ""
+		},
+		"CAlignment": {
+			"type": "object",
+			"default": {
+				"md": "center",
+				"sm": "",
+				"xs": ""
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}}.tpgb-lottiefiles .tpgb-bodymovin,{{PLUS_WRAP}}.tpgb-lottiefiles .tpgb-lottiefile-heading,{{PLUS_WRAP}}.tpgb-lottiefiles .tpgb-lottiefile-description{text-align:{{CAlignment}};}"
+				}
+			],
+			"scopy": true
+		},
+		"MaxWidth": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-bodymovin{max-width:{{MaxWidth}};}"
+				}
+			],
+			"scopy": true
+		},
+		"MinHeight": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-bodymovin{min-height:{{MinHeight}};}"
+				}
+			],
+			"scopy": true
+		},
+		"HMargin": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"bottom": "",
+					"left": "",
+					"right": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-heading{margin:{{HMargin}};}"
+				}
+			],
+			"scopy": true
+		},
+		"HPadding": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"bottom": "",
+					"left": "",
+					"right": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-heading{padding:{{HPadding}};}"
+				}
+			],
+			"scopy": true
+		},
+		"HTypo": {
+			"type": "object",
+			"default": {
+				"openTypography": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-heading"
+				}
+			],
+			"scopy": true
+		},
+		"HNCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-heading{color:{{HNCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"HNbgCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-heading{background:{{HNbgCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"HHCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover .tpgb-lottiefile-heading{color:{{HHCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"HHbgCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover .tpgb-lottiefile-heading{background:{{HHbgCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"DMargin": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"bottom": "",
+					"left": "",
+					"right": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-description{margin:{{DMargin}};}"
+				}
+			],
+			"scopy": true
+		},
+		"DPadding": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"bottom": "",
+					"left": "",
+					"right": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-description{padding:{{DPadding}};}"
+				}
+			],
+			"scopy": true
+		},
+		"DTypo": {
+			"type": "object",
+			"default": {
+				"openTypography": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-description"
+				}
+			],
+			"scopy": true
+		},
+		"DNCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-description{color:{{DNCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"DNbgCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd .tpgb-lottiefile-description{background:{{DNbgCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"DHCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover .tpgb-lottiefile-description{color:{{DHCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"DHbgCr": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover .tpgb-lottiefile-description{background:{{DHbgCr}};}"
+				}
+			],
+			"scopy": true
+		},
+		"CBPadding": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"bottom": "",
+					"left": "",
+					"right": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd{padding:{{CBPadding}};}"
+				}
+			],
+			"scopy": true
+		},
+		"CBMargin": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"bottom": "",
+					"left": "",
+					"right": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd{margin:{{CBMargin}};}"
+				}
+			],
+			"scopy": true
+		},
+		"CBnBg": {
+			"type": "object",
+			"default": {
+				"openBg": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd"
+				}
+			],
+			"scopy": true
+		},
+		"CBnB": {
+			"type": "object",
+			"default": {
+				"openBorder": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd"
+				}
+			],
+			"scopy": true
+		},
+		"CBnBrs": {
+			"type": "object",
+			"default": {
+				"md": {
+					"top": "",
+					"bottom": "",
+					"left": "",
+					"right": ""
+				},
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd{border-radius:{{CBnBrs}};}"
+				}
+			],
+			"scopy": true
+		},
+		"CBnBoxS": {
+			"type": "object",
+			"default": {
+				"openShadow": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd"
+				}
+			],
+			"scopy": true
+		},
+		"CBhBg": {
+			"type": "object",
+			"default": {
+				"openBg": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover"
+				}
+			],
+			"scopy": true
+		},
+		"CBhB": {
+			"type": "object",
+			"default": {
+				"openBorder": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover"
+				}
+			],
+			"scopy": true
+		},
+		"CBhBrs": {
+			"type": "object",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover{border-radius:{{CBhBrs}};}"
+				}
+			],
+			"scopy": true
+		},
+		"CBhBoxS": {
+			"type": "object",
+			"default": {
+				"openShadow": 0
+			},
+			"style": [
+				{
+					"condition": [
+						{
+							"key": "HeadingT",
+							"relation": "==",
+							"value": true
+						},
+						{
+							"key": "DescriptionT",
+							"relation": "==",
+							"value": true
+						}
+					],
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover"
+				}
+			],
+			"scopy": true
+		},
+		"NFilter": {
+			"type": "object",
+			"default": {
+				"openFilter": false
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd,{{PLUS_WRAP}} .tpgb-bodymovin"
+				}
+			],
+			"scopy": true
+		},
+		"NOpacity": {
+			"type": "string",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd,{{PLUS_WRAP}} .tpgb-bodymovin{opacity:{{NOpacity}};}"
+				}
+			],
+			"scopy": true
+		},
+		"TDuration": {
+			"type": "string",
+			"default": "",
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd,{{PLUS_WRAP}} .tpgb-bodymovin{transition:{{TDuration}}s;}"
+				}
+			],
+			"scopy": true
+		},
+		"HFilter": {
+			"type": "object",
+			"default": {
+				"openFilter": false
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover,{{PLUS_WRAP}} .tpgb-bodymovin:hover"
+				}
+			],
+			"scopy": true
+		},
+		"HOpacity": {
+			"type": "string",
+			"default": {
+				"md": "",
+				"unit": "px"
+			},
+			"style": [
+				{
+					"selector": "{{PLUS_WRAP}} .tpgb-lottiefile-hd:hover,{{PLUS_WRAP}} .tpgb-bodymovin:hover{opacity:{{HOpacity}};}"
+				}
+			],
+			"scopy": true
+		},
+		"showBlockContent": {
+			"type": "boolean",
+			"default": true
+		}
+	}
+}

@@ -1,0 +1,23 @@
+.wkit-wb-Widget_ltsce624 .grad-stroke-text {
+    font-size: 48px;
+    font-weight: 800;
+    text-transform: uppercase;
+    background: linear-gradient(-91deg, #EEF85B 5%, #7AEC8D 53%, #09E5C3 91%);
+    -webkit-background-clip: text;
+    transition: 0.3s linear;}.wkit-wb-Widget_ltsce624 .text-gradient-animated .grad-stroke-text{
+    --anicolor1 : #7953cd;
+    --anicolor2 : #00affa;
+    --anicolor3 : #ff0000;
+    --anicolor4 : #0190cd;
+    --anicolor5 : #764ada;
+    
+    background: linear-gradient( to right, var(--anicolor1) 20%, var(--anicolor2) 30%, var(--anicolor3) 50%, var(--anicolor4) 70%, var(--anicolor5) 80%);
+    background-size: 500% auto;
+    -webkit-background-clip: text;
+    animation: wtextshine 5s ease-in-out infinite alternate;}.wkit-wb-Widget_ltsce624 .grad-as-fill .grad-stroke-text{
+    -webkit-text-fill-color: transparent;}.wkit-wb-Widget_ltsce624 .grad-as-stroke .grad-stroke-text{
+    color: #fff;}.wkit-wb-Widget_ltsce624 .grad-stroke-text{
+     -webkit-text-stroke: 4px transparent;}@keyframes wtextshine {
+    0% {
+        background-position: 0% 50%;}100% {
+        background-position: 100% 50%;}}

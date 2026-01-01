@@ -1,0 +1,2815 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "tpgb/tp-post-listing",
+    "version": "0.1.0",
+    "title": "Post Listing",
+    "category": "tpgb",
+    "description": "List your blog post on your website with intuitive design",
+    "example": {
+        "attributes": {}
+    },
+    "supports": {
+        "align": ["wide", "full"]
+    },
+    "textdomain": "tpgb",
+    "attributes": {
+        "block_id": {
+            "type": "string",
+            "default": ""
+        },
+        "postListing": {
+            "type": "string",
+            "default": "page_listing"
+        },
+        "relatedPost": {
+            "type": "string",
+            "default": "category"
+        },
+        "postType": {
+            "type": "string",
+            "default": "post"
+        },
+        "style": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "blockTemplate": {
+            "type": "string",
+            "default": ""
+        },
+        "cuscntType": {
+            "type": "string",
+            "default": "reusable-block"
+        },
+        "backendVisi": {
+            "type": "boolean",
+            "default": false
+        },
+        "layout": {
+            "type": "string",
+            "default": "grid"
+        },
+        "style2Alignment": {
+            "type": "string",
+            "default": "center"
+        },
+        "style3Alignment": {
+            "type": "string",
+            "default": "left"
+        },
+        "styleLayout": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "minHeight": {
+            "type": "object",
+            "default": {
+                "md": 350,
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-4"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-4 .tpgb-post-featured-img{min-height: {{minHeight}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "postCategory": {
+            "type": "string",
+            "default": "[]"
+        },
+        "postTag": {
+            "type": "string",
+            "default": "[]"
+        },
+        "taxonomySlug": {
+            "type": "string",
+            "default": ""
+        },
+        "includePosts": {
+            "type": "string",
+            "default": ""
+        },
+        "excludePosts": {
+            "type": "string",
+            "default": ""
+        },
+        "displayPosts": {
+            "type": "string",
+            "default": 6
+        },
+        "offsetPosts": {
+            "type": "string",
+            "default": 0
+        },
+        "orderBy": {
+            "type": "string",
+            "default": "date"
+        },
+        "order": {
+            "type": "string",
+            "default": "desc"
+        },
+        "customQueryId": {
+            "type": "string",
+            "default": ""
+        },
+        "columns": {
+            "type": "object",
+            "default": {
+                "md": 6,
+                "sm": 6,
+                "xs": 12
+            }
+        },
+        "metrocolumns": {
+            "type": "object",
+            "default": {
+                "md": 3,
+                "sm": 3,
+                "xs": 3
+            }
+        },
+        "metroStyle": {
+            "type": "object",
+            "default": {
+                "md": "style-1",
+                "sm": "style-1",
+                "xs": "style-1"
+            }
+        },
+        "metroCustom": {
+            "type": "string",
+            "default": ""
+        },
+        "columnSpace": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": 15,
+                    "right": 15,
+                    "bottom": 15,
+                    "left": 15
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .grid-item{padding: {{columnSpace}};}"
+                }
+            ]
+        },
+        "ShowFilter": {
+            "type": "boolean",
+            "default": false
+        },
+        "ShowallFilter": {
+            "type": "boolean",
+            "default": true
+        },
+        "filterStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "filterHvrStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "TextCat": {
+            "type": "string",
+            "default": "All"
+        },
+        "CatName": {
+            "type": "string",
+            "default": "Filters"
+        },
+        "catfilterId": {
+            "type": "string",
+            "default": ""
+        },
+        "filterBy": {
+            "type": "string",
+            "default": "category"
+        },
+        "filterAlignment": {
+            "type": "object",
+            "default": "",
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-filter-data{ text-align: {{filterAlignment}}; }"
+                }
+            ]
+        },
+        "childcategory": {
+            "type": "boolean",
+            "default": false
+        },
+        "ShowTitle": {
+            "type": "boolean",
+            "default": true
+        },
+        "titleTag": {
+            "type": "string",
+            "default": "h3"
+        },
+        "titleByLimit": {
+            "type": "string",
+            "default": "default"
+        },
+        "titleLimit": {
+            "type": "string",
+            "default": 30
+        },
+        "Showdot": {
+            "type": "boolean",
+            "default": false
+        },
+        "titleTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0,
+                "size": {
+                    "md": 20,
+                    "unit": "px"
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowTitle",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-title a"
+                }
+            ],
+            "scopy": true
+        },
+        "titleNormalColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowTitle",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-title a{color: {{titleNormalColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "titleHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowTitle",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-title a{color: {{titleHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "ShowExcerpt": {
+            "type": "boolean",
+            "default": false
+        },
+        "excerptByLimit": {
+            "type": "string",
+            "default": "default"
+        },
+        "excerptLimit": {
+            "type": "string",
+            "default": 30
+        },
+        "excerptTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0,
+                "size": {
+                    "md": 14,
+                    "unit": "px"
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowExcerpt",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt,{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt p"
+                }
+            ],
+            "scopy": true
+        },
+        "excerptNormalColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowExcerpt",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt,{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt p{color: {{excerptNormalColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "excerptHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowExcerpt",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-excerpt,{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-excerpt p{color: {{excerptHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "ShowPostMeta": {
+            "type": "boolean",
+            "default": true
+        },
+        "ShowDate": {
+            "type": "boolean",
+            "default": true
+        },
+        "ShowAuthor": {
+            "type": "boolean",
+            "default": true
+        },
+        "authorTxt": {
+            "type": "string",
+            "default": "By "
+        },
+        "ShowAuthorImg": {
+            "type": "boolean",
+            "default": true
+        },
+        "postMetaStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "postMetaTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowPostMeta",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span > a,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info .post-author-date > a"
+                }
+            ],
+            "scopy": true
+        },
+        "postMetaNormalColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowPostMeta",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span > a,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info .post-author-date > a{color: {{postMetaNormalColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "postMetaHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowPostMeta",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .post-meta-info > span,{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .post-meta-info > span > a,{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .post-meta-info .post-author-date > a{color: {{postMetaHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "DisImgSize": {
+            "type": "boolean",
+            "default": false
+        },
+        "ImageSize": {
+            "type": "string",
+            "default": "full"
+        },
+        "postLodop": {
+            "type": "string",
+            "default": "none"
+        },
+        "pagiOpt": {
+            "type": "string",
+            "default": ""
+        },
+        "postview": {
+            "type": "string",
+            "default": 3
+        },
+        "loadbtnText": {
+            "type": "string",
+            "default": "Load More"
+        },
+        "loadingtxt": {
+            "type": "string",
+            "default": "Loading..."
+        },
+        "allposttext": {
+            "type": "string",
+            "default": "All Done"
+        },
+        "disableAnim": {
+            "type": "boolean",
+            "default": false
+        },
+        "notFoundText": {
+            "type": "string",
+            "default": "No Posts found"
+        },
+        "viewPostNtab": {
+            "type": "boolean",
+            "default": false
+        },
+        "showPostCategory": {
+            "type": "boolean",
+            "default": false
+        },
+        "showcateTag": {
+            "type": "string",
+            "default": "category"
+        },
+        "catNo": {
+            "type": "string",
+            "default": ""
+        },
+        "postCategoryStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "postCategoryTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a"
+                }
+            ],
+            "scopy": true
+        },
+        "catpadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a{ padding : {{catpadding}}; }"
+                }
+            ]
+        },
+        "catbetSpa": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a{ margin-left : {{catbetSpa}}; } {{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a:first-child{ margin-left: 0 ; } {{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a:last-child{ margin-right: 0 ; }"
+                }
+            ]
+        },
+        "postCategoryColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a{color: {{postCategoryColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "postCategoryHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a:hover{color: {{postCategoryHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "catBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a"
+                }
+            ],
+            "scopy": true
+        },
+        "catBorderHover": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    }
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "cat2BorderHover": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-post-category.cat-style-2 > a:before{ background : {{cat2BorderHover}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "catRadius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a{border-radius: {{catRadius}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "catRadiusHover": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover{border-radius: {{catRadiusHover}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "catBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a"
+                }
+            ],
+            "scopy": true
+        },
+        "catBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "catBoxShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a"
+                }
+            ],
+            "scopy": true
+        },
+        "catBoxShadowHover": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "FcatTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a"
+                }
+            ],
+            "scopy": true
+        },
+        "InPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter  .tpgb-categories.hover-style-1 .tpgb-filter-list a span:not(.tpgb-category-count), {{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count), {{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)::before, {{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)::before, {{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-3 .tpgb-filter-list a, {{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-4 .tpgb-filter-list a{padding:{{InPadding}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter  .tpgb-categories .tpgb-filter-list{margin:{{FCMargin}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCNcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a.all span.tpgb-category-count{color:{{FCNcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCHBcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .hover-style-1 .tpgb-filter-list a.active::after,{{PLUS_WRAP}} .tpgb-category-filter .hover-style-1 .tpgb-filter-list a:hover::after{background:{{FCHBcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCHcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter:not(.hover-style-2) .tpgb-filter-list a:hover, {{PLUS_WRAP}} .tpgb-category-filter:not(.hover-style-2) .tpgb-filter-list a:focus, {{PLUS_WRAP}} .tpgb-category-filter:not(.hover-style-2) .tpgb-filter-list a.active, {{PLUS_WRAP}} .tpgb-category-filter .hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)::before{color:{{FCHcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgHs": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": ["style-2", "style-4"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count),{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-4 .tpgb-filter-list a:after"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgHvrs": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": ["style-2", "style-4"]
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.tpgb-category-list:hover span:not(.tpgb-category-count):before,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.tpgb-category-list.active span:not(.tpgb-category-count):before"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgRs": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count){border-radius:{{FCBgRs}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCHvrBre": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a:hover span:not(.tpgb-category-count):before,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.active span:not(.tpgb-category-count):before{border-radius:{{FCHvrBre}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FcBoxhsd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a span:not(.tpgb-category-count)"
+                }
+            ],
+            "scopy": true
+        },
+        "FcBoxhversd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a:hover span:not(.tpgb-category-count):before,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-2 .tpgb-filter-list a.active span:not(.tpgb-category-count):before"
+                }
+            ],
+            "scopy": true
+        },
+        "FCCategCcr": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a.all span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a:hover span.tpgb-category-count{color:{{FCCategCcr}};}"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.all span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a:hover span.tpgb-category-count{color:{{FCCategCcr}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBgTp": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a.all span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories .tpgb-filter-list a:hover span.tpgb-category-count"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.all span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.active span.tpgb-category-count,{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a:hover span.tpgb-category-count"
+                }
+            ],
+            "scopy": true
+        },
+        "FcBCrHs": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "filterHvrStyle",
+                            "relation": "==",
+                            "value": "style-4"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.hover-style-4 .tpgb-filter-list a:before{border-top-color:{{FcBCrHs}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "FCBoxSd": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "ShowFilter",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-category-filter .tpgb-categories.style-1 .tpgb-filter-list a.all span.tpgb-category-count"
+                }
+            ],
+            "scopy": true
+        },
+        "contentLeftSpace": {
+            "type": "object",
+            "default": {
+                "md": 10,
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3.content-align-left .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3.content-align-left-right .grid-item:nth-child(odd) .tpgb-content-bottom{padding-left: {{contentLeftSpace}};} {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3.content-align-right .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3.content-align-left-right .grid-item:nth-child(even) .tpgb-content-bottom{padding-right: {{contentLeftSpace}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "contentBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-1 .dynamic-list-content .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content .tpgb-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "contentBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-1 .dynamic-list-content:hover .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content:hover .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content:hover .tpgb-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "imageHoverStyle": {
+            "type": "string",
+            "default": "style-1",
+            "scopy": true
+        },
+        "imageOverlayBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content .tpgb-post-featured-img > a:before"
+                }
+            ],
+            "scopy": true
+        },
+        "imageOverlayBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-featured-img > a:before"
+                }
+            ],
+            "scopy": true
+        },
+        "imgRadius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .tpgb-post-featured-img{border-radius: {{imgRadius}};}"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .tpgb-post-featured-img{border-radius: {{imgRadius}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "imgRadiusHover": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content:hover .tpgb-post-featured-img{border-radius: {{imgRadiusHover}};}"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content:hover .tpgb-post-featured-img{border-radius: {{imgRadiusHover}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "imgBoxShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .tpgb-post-featured-img"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .tpgb-post-featured-img"
+                }
+            ],
+            "scopy": true
+        },
+        "imgBoxShadowHover": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content:hover .tpgb-post-featured-img"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content:hover .tpgb-post-featured-img"
+                }
+            ],
+            "scopy": true
+        },
+        "imgHeight": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content .tpgb-post-featured-img img{min-height : {{imgHeight}}; max-height : {{imgHeight}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "boxPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "0",
+                    "right": "0",
+                    "bottom": "0",
+                    "left": "0"
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content{padding: {{boxPadding}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorderHover": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    }
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorderRadius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content{border-radius: {{boxBorderRadius}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorderRadiusHover": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover{border-radius: {{boxBorderRadiusHover}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBoxShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBoxShadowHover": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "ShowButton": {
+            "type": "boolean",
+            "default": false
+        },
+        "postBtnsty": {
+            "type": "string",
+            "default": "style-7"
+        },
+        "btnAlign": {
+            "type": "object",
+            "default": {
+                "md": "center",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button{ text-align: {{btnAlign}}; }"
+                }
+            ]
+        },
+        "postbtntext": {
+            "type": "string",
+            "default": "Read More"
+        },
+        "pobtnIconType": {
+            "type": "string",
+            "default": "icon"
+        },
+        "pobtnIconName": {
+            "type": "string",
+            "default": "fa fa-angle-right"
+        },
+        "btnIconPosi": {
+            "type": "string",
+            "default": "after",
+            "scopy": true
+        },
+        "pagitypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a,{{PLUS_WRAP}} .tpgb-pagination span"
+                }
+            ],
+            "scopy": true
+        },
+        "pagiColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a.inactive,{{PLUS_WRAP}} .tpgb-pagination span{color : {{pagiColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "pagihvrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a:hover,{{PLUS_WRAP}} .tpgb-pagination a:focus,{{PLUS_WRAP}} .tpgb-pagination span.current{color : {{pagihvrColor}}; border-bottom-color: {{pagihvrColor}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more"
+                }
+            ],
+            "scopy": true
+        },
+        "btncolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more{color : {{btncolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnhvrcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover{color : {{btnhvrcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnBgtype": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more"
+                }
+            ],
+            "scopy": true
+        },
+        "btnHvrBgtype": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "btnBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more"
+                }
+            ],
+            "scopy": true
+        },
+        "btnhvrBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "btnBradius": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more{border-radius : {{btnBradius}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "btnhvrBradius": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .post-load-more:hover{border-radius : {{btnhvrBradius}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "allTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .tpgb-post-loaded"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-post-loaded"
+                }
+            ],
+            "scopy": true
+        },
+        "allcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "load_more"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-load-more .tpgb-post-loaded{color : {{allcolor}}; }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-post-loaded{color : {{allcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "spinSize": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-spin-ring div{ width: {{spinSize}}px; height:{{spinSize}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "spinBSize": {
+            "type": "object",
+            "default": {
+                "md": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-spin-ring div{ border-width: {{spinBSize}}px; }"
+                }
+            ],
+            "scopy": true
+        },
+        "spinColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "lazy_load"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-lazy-load .tpgb-spin-ring div{ border-color: {{spinColor}} transparent transparent transparent ; }"
+                }
+            ],
+            "scopy": true
+        },
+        "butTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button .button-link-wrap"
+                }
+            ],
+            "scopy": true
+        },
+        "butNcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button .button-link-wrap{color : {{butNcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "buthvrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button:hover .button-link-wrap{color : {{buthvrColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "butbgType": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button .button-link-wrap"
+                }
+            ],
+            "scopy": true
+        },
+        "butHvrbgType": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button:hover .button-link-wrap"
+                }
+            ],
+            "scopy": true
+        },
+        "pbutBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button .button-link-wrap"
+                }
+            ],
+            "scopy": true
+        },
+        "pbutHvrBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button:hover .button-link-wrap"
+                }
+            ],
+            "scopy": true
+        },
+        "butBradius": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button .button-link-wrap {border-radius : {{butBradius}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "butHvrBradius": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button:hover .button-link-wrap {border-radius : {{butHvrBradius}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "butBshadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button .button-link-wrap"
+                }
+            ],
+            "scopy": true
+        },
+        "butHvrBshadow": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button:hover .button-link-wrap"
+                }
+            ],
+            "scopy": true
+        },
+        "butpadding": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowButton",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postBtnsty",
+                            "relation": "==",
+                            "value": "style-8"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.dynamic-style-3 .tpgb-adv-button .button-link-wrap { padding : {{butpadding}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "childTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a"
+                }
+            ],
+            "scopy": true
+        },
+        "chInPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a{padding: {{chInPadding}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "chMargin": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list {margin:{{chMargin}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "childcatAlign": {
+            "type": "object",
+            "default": {
+                "md": "center",
+                "sm": "",
+                "xs": ""
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child {justify-content:{{childcatAlign}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "chiCatcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a{color: {{chiCatcolor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "chiCatActcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a:hover,{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a.active{ color : {{chiCatActcolor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "chiCatBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a"
+                }
+            ],
+            "scopy": true
+        },
+        "chiCatActBg": {
+            "type": "object",
+            "default": {
+                "openBg": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a:hover,{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a.active"
+                }
+            ],
+            "scopy": true
+        },
+        "chicatBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a"
+                }
+            ],
+            "scopy": true
+        },
+        "chicatActBor": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a:hover,{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a.active"
+                }
+            ],
+            "scopy": true
+        },
+        "chidCatShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a"
+                }
+            ],
+            "scopy": true
+        },
+        "chidCatActShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a:hover,{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a.active"
+                }
+            ],
+            "scopy": true
+        },
+        "childBradius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a { border-radius:{{childBradius}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "childBHradius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "bottom": "",
+                    "left": "",
+                    "right": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        },
+                        {
+                            "key": "childcategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a:hover,{{PLUS_WRAP}}.tpgb-child-filter .category-filters-child .tpgb-child-list a.active { border-radius:{{childBradius}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "ftxtTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "filterStyle",
+                            "relation": "==",
+                            "value": "style-4"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-filter-data.style-4 .tpgb-filters-link"
+                }
+            ]
+        },
+        "ftxtcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "filterStyle",
+                            "relation": "==",
+                            "value": "style-4"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-filter-data.style-4 .tpgb-filters-link{color:{{ftxtcolor}};}"
+                }
+            ]
+        },
+        "ftxthvrcolor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "filterStyle",
+                            "relation": "==",
+                            "value": "style-4"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-filter-data.style-4 .tpgb-filters-link:hover{color:{{ftxthvrcolor}};}"
+                }
+            ]
+        },
+        "stimgWidth": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "%"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content .post-content-image{ flex: 0 0 {{stimgWidth}} !important; max-width: {{stimgWidth}} !important;  } {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content .tpgb-content-bottom{ flex: 0 0 calc(100% - {{stimgWidth}}); !important; max-width: calc(100% - {{stimgWidth}} ) !important;  }"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "@media (max-width: 1024px){.text-center{text-align: center;}} @media (max-width: 767px) { {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content.tpgb-dynamic-tran .tpgb-content-bottom{ flex: 0 0 100% !important; max-width: 100% !important;  } }",
+                    "media": "xs"
+                }
+            ],
+            "scopy": true
+        }
+    }
+}

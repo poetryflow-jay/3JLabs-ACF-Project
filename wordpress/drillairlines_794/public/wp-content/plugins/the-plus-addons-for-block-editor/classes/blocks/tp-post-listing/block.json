@@ -1,0 +1,1123 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "name": "tpgb/tp-post-listing",
+    "version": "0.1.0",
+    "title": "Post Listing",
+    "category": "tpgb",
+    "description": "List your blog post on your website with intuitive design.",
+    "example": {
+        "attributes": {}
+    },
+	"supports": {
+		"align": ["wide","full"]
+	},
+	"textdomain": "the-plus-addons-for-block-editor",
+    "attributes": {
+        "block_id": {
+            "type": "string",
+            "default": ""
+        },
+        "postListing": {
+            "type": "string",
+            "default": "page_listing"
+        },
+        "relatedPost": {
+            "type": "string",
+            "default": "category"
+        },
+        "postType": {
+            "type": "string",
+            "default": "post"
+        },
+        "style": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "blockTemplate": {
+            "type": "string",
+            "default": ""
+        },
+        "backendVisi": {
+            "type": "boolean",
+            "default": false
+        },
+        "layout": {
+            "type": "string",
+            "default": "grid"
+        },
+        "style2Alignment": {
+            "type": "string",
+            "default": "center"
+        },
+        "styleLayout": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "postCategory": {
+            "type": "string",
+            "default": "[]"
+        },
+        "postTag": {
+            "type": "string",
+            "default": "[]"
+        },
+        "taxonomySlug": {
+            "type": "string",
+            "default": ""
+        },
+        "includePosts": {
+            "type": "string",
+            "default": ""
+        },
+        "excludePosts": {
+            "type": "string",
+            "default": ""
+        },
+        "displayPosts": {
+            "type": "string",
+            "default": 6
+        },
+        "offsetPosts": {
+            "type": "string",
+            "default": 0
+        },
+        "orderBy": {
+            "type": "string",
+            "default": "date"
+        },
+        "order": {
+            "type": "string",
+            "default": "desc"
+        },
+        "columns": {
+            "type": "object",
+            "default": {
+                "md": 6,
+                "sm": 6,
+                "xs": 12
+            }
+        },
+        "columnSpace": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": 15,
+                    "right": 15,
+                    "bottom": 15,
+                    "left": 15
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "layout",
+                            "relation": "!=",
+                            "value": "carousel"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .grid-item{padding: {{columnSpace}};}"
+                }
+            ]
+        },
+        "ShowFilter": {
+            "type": "boolean",
+            "default": false
+        },
+        "catfilterId": {
+            "type": "string",
+            "default": ""
+        },
+        "ShowTitle": {
+            "type": "boolean",
+            "default": true
+        },
+        "titleTag": {
+            "type": "string",
+            "default": "h3"
+        },
+        "titleByLimit": {
+            "type": "string",
+            "default": "default"
+        },
+        "Showdot": {
+            "type": "boolean",
+            "default": false
+        },
+        "titleTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0,
+                "size": {
+                    "md": 20,
+                    "unit": "px"
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowTitle",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-title a"
+                }
+            ],
+            "scopy": true
+        },
+        "titleNormalColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowTitle",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-title a{color: {{titleNormalColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "titleHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowTitle",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-title a{color: {{titleHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "ShowExcerpt": {
+            "type": "boolean",
+            "default": false
+        },
+        "excerptByLimit": {
+            "type": "string",
+            "default": "default"
+        },
+        "excerptLimit": {
+            "type": "string",
+            "default": 30
+        },
+        "excerptTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0,
+                "size": {
+                    "md": 14,
+                    "unit": "px"
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowExcerpt",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt,{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt p"
+                }
+            ],
+            "scopy": true
+        },
+        "excerptNormalColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowExcerpt",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt,{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-excerpt p{color: {{excerptNormalColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "excerptHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowExcerpt",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-excerpt,{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-excerpt p{color: {{excerptHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "ShowPostMeta": {
+            "type": "boolean",
+            "default": true
+        },
+        "ShowDate": {
+            "type": "boolean",
+            "default": true
+        },
+        "ShowAuthor": {
+            "type": "boolean",
+            "default": true
+        },
+        "authorTxt": {
+            "type": "string",
+            "default": "By "
+        },
+        "ShowAuthorImg": {
+            "type": "boolean",
+            "default": true
+        },
+        "postMetaStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "postMetaTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowPostMeta",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span > a,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info .post-author-date > a"
+                }
+            ],
+            "scopy": true
+        },
+        "postMetaNormalColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowPostMeta",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info > span > a,{{PLUS_WRAP}}.tpgb-post-listing .post-meta-info .post-author-date > a{color: {{postMetaNormalColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "postMetaHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "ShowPostMeta",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .post-meta-info > span,{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .post-meta-info > span > a,{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .post-meta-info .post-author-date > a{color: {{postMetaHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "postLodop": {
+            "type": "string",
+            "default": "none"
+        },
+        "showPostCategory": {
+            "type": "boolean",
+            "default": false
+        },
+        "postCategoryStyle": {
+            "type": "string",
+            "default": "style-1"
+        },
+        "postCategoryTypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a"
+                }
+            ],
+            "scopy": true
+        },
+        "postCategoryColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a{color: {{postCategoryColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "postCategoryHoverColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category > a:hover{color: {{postCategoryHoverColor}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "catBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a"
+                }
+            ],
+            "scopy": true
+        },
+        "catBorderHover": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    }
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "cat2BorderHover": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-post-category.cat-style-2 > a:before{ background : {{cat2BorderHover}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "catRadius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a{border-radius: {{catRadius}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "catRadiusHover": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover{border-radius: {{catRadiusHover}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "catBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a"
+                }
+            ],
+            "scopy": true
+        },
+        "catBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "catBoxShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a"
+                }
+            ],
+            "scopy": true
+        },
+        "catBoxShadowHover": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "showPostCategory",
+                            "relation": "==",
+                            "value": true
+                        },
+                        {
+                            "key": "postCategoryStyle",
+                            "relation": "==",
+                            "value": "style-1"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .tpgb-post-category.cat-style-1 > a:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "contentBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-1 .dynamic-list-content .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content .tpgb-content-bottom,{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content .tpgb-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "contentBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-1 .dynamic-list-content:hover .tpgb-content-bottom, {{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content:hover .tpgb-content-bottom,{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content:hover .tpgb-content-bottom"
+                }
+            ],
+            "scopy": true
+        },
+        "imageHoverStyle": {
+            "type": "string",
+            "default": "style-1",
+            "scopy": true
+        },
+        "imageOverlayBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content .tpgb-post-featured-img > a:before"
+                }
+            ],
+            "scopy": true
+        },
+        "imageOverlayBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover .tpgb-post-featured-img > a:before"
+                }
+            ],
+            "scopy": true
+        },
+        "imgRadius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .tpgb-post-featured-img{border-radius: {{imgRadius}};}"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .tpgb-post-featured-img{border-radius: {{imgRadius}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "imgRadiusHover": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content:hover .tpgb-post-featured-img{border-radius: {{imgRadiusHover}};}"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content:hover .tpgb-post-featured-img{border-radius: {{imgRadiusHover}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "imgBoxShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .tpgb-post-featured-img"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .tpgb-post-featured-img"
+                }
+            ],
+            "scopy": true
+        },
+        "imgBoxShadowHover": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-3"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-3 .dynamic-list-content:hover .tpgb-post-featured-img"
+                },
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content:hover .tpgb-post-featured-img"
+                }
+            ],
+            "scopy": true
+        },
+        "imgHeight": {
+            "type": "object",
+            "default": {
+                "md": "",
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "style",
+                            "relation": "==",
+                            "value": "style-2"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing.dynamic-style-2 .dynamic-list-content .tpgb-post-featured-img img{min-height : {{imgHeight}}; max-height : {{imgHeight}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "boxPadding": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content{padding: {{boxPadding}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorder": {
+            "type": "object",
+            "default": {
+                "openBorder": 0
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorderHover": {
+            "type": "object",
+            "default": {
+                "openBorder": 0,
+                "width": {
+                    "md": {
+                        "top": "",
+                        "left": "",
+                        "bottom": "",
+                        "right": ""
+                    }
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorderRadius": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content{border-radius: {{boxBorderRadius}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBorderRadiusHover": {
+            "type": "object",
+            "default": {
+                "md": {
+                    "top": "",
+                    "right": "",
+                    "bottom": "",
+                    "left": ""
+                },
+                "unit": "px"
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover{border-radius: {{boxBorderRadiusHover}};}"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBg": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBgHover": {
+            "type": "object",
+            "default": {
+                "bgType": "color",
+                "bgDefaultColor": "",
+                "bgGradient": {
+                    "direction": 90
+                }
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBoxShadow": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content"
+                }
+            ],
+            "scopy": true
+        },
+        "boxBoxShadowHover": {
+            "type": "object",
+            "default": {
+                "openShadow": 0,
+                "blur": 8,
+                "color": "rgba(0,0,0,0.40)",
+                "horizontal": 0,
+                "inset": 0,
+                "spread": 0,
+                "vertical": 4
+            },
+            "style": [
+                {
+                    "selector": "{{PLUS_WRAP}}.tpgb-post-listing .dynamic-list-content:hover"
+                }
+            ],
+            "scopy": true
+        },
+        "pagitypo": {
+            "type": "object",
+            "default": {
+                "openTypography": 0
+            },
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a,{{PLUS_WRAP}} .tpgb-pagination span"
+                }
+            ],
+            "scopy": true
+        },
+        "pagiColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a.inactive,{{PLUS_WRAP}} .tpgb-pagination span{color : {{pagiColor}}; }"
+                }
+            ],
+            "scopy": true
+        },
+        "pagihvrColor": {
+            "type": "string",
+            "default": "",
+            "style": [
+                {
+                    "condition": [
+                        {
+                            "key": "postLodop",
+                            "relation": "==",
+                            "value": "pagination"
+                        }
+                    ],
+                    "selector": "{{PLUS_WRAP}} .tpgb-pagination a:hover,{{PLUS_WRAP}} .tpgb-pagination a:focus,{{PLUS_WRAP}} .tpgb-pagination span.current{color : {{pagihvrColor}}; border-bottom-color: {{pagihvrColor}} }"
+                }
+            ],
+            "scopy": true
+        },
+        "metrocolumns": {
+            "type": "object",
+            "default": {
+                "md": 3,
+                "sm": 3,
+                "xs": 3
+            }
+        },
+        "metroStyle": {
+            "type": "object",
+            "default": {
+                "md": "style-1",
+                "sm": "style-1",
+                "xs": "style-1"
+            }
+        }
+    }
+}

@@ -1,0 +1,89 @@
+== Changelog ==
+
+- 1.1.13 - 2025-05-21 =
+* Updated WordPress & WooCommerce requirements
+
+- 1.1.12 - 2024-12-11 =
+* Fix - Vulnerability to Sensitive Data Exposure (Thanks to @mika_sec for the report)
+
+- 1.1.11 - 2024-09-24 =
+* Fix - Enable HPOS compatibility
+* Updated WordPress & WooCommerce requirements
+
+= 1.1.10 - 2024-04-05 =
+* Updated WordPress & WooCommerce requirements
+
+= 1.1.9 - 2023-12-03 =
+* Updated WordPress & WooCommerce requirements
+
+= 1.1.8 - 2022-08-20 =
+* Fix - Enqueue scripts & style when postcode field is displayed
+* Updated WordPress & WooCommerce requirements
+
+= 1.1.7 - 2022-02-25 =
+* Updated WordPress & WooCommerce requirements
+
+= 1.1.6 - 2021-03-21 =
+* Fix - Missing output method for Kakao Channel
+
+= 1.1.5 - 2021-02-09 =
+* Fix - Updated the script for the address autocompletion (postcode)
+
+= 1.1.4 - 2021-02-08 =
+* Fix - Improved PHP 8 support
+
+= 1.1.3 - 2021-01-31 =
+* Fix - Prevents popup to display an error message API (Postcode)
+* Fix - Prevents PHP notices in Naver & Daum SEP
+* Fix - Naver TalkTalk Banner
+* Fix - Minor bug fixes
+
+= 1.1.2 - 2021-01-17 =
+* Fix - Korea for WooCommerce is now translatable from translate.wordpress.org
+* Fix - Minor bug fixes
+
+= 1.1.1 - 2021-01-05 =
+* New - New Korea for WooCommerce branding 🎨
+* New - Korea for WooCommerce is now translatable from translate.wordpress.org
+* New - Added woocommerce_korea_loaded action hook
+* New - Korean version of sample data for WooCommerce added
+* New - Added wc_korea_checkout_phone_validation filter hook
+* New - Added wc_korea_checkout_phone_format filter hook
+* Tweak - Use absolute path constant to avoid potential issues when opcache is activated
+* Tweak - Updated postcode finder styling
+* Tweak - Set embed as default for display mode for Postcode finder
+* Tweak - Added jQuery dependency to postcode script
+* Tweak - Test account feature for payment gateways dropped
+* Fix - Fixes installments for korean payment gateways
+* Fix - Postcode finder is now working for shipping address fields
+* Fix - Minor bug fixes
+
+= 1.1.0 - 2020-08-09 =
+* New - Korean phone format and validate
+* New - Coding Standards WordPress & WooCommerce compliance
+* Tweak - Order virtual bank template improved
+* Tweak - Rename multilingual compatibility class
+* Fix - Postcode Finder wasn't initiated when shop was selling to a single country
+* Fix - Partially refunded order status dropped
+* Fix - Remove unused file
+
+= 1.0.5 - 2020-05-19 =
+* New - New addons added
+
+= 1.0.4 - 2020-05-15 =
+* Tweak - Main settings improved for Korean Payment Gateways 
+
+= 1.0.3 - 2020-04-20 =
+* Fix - Columns height of the addons page.
+* Fix - When an update of an addon was available, fatal error was thrown.
+* Fix - When saving licenses changes, fatal error was thrown.
+
+= 1.0.2 - 2020-03-30 =
+* Add - Display mode option to the postcode finder. (default: overlay)
+* Fix - Strict standards warning.
+
+= 1.0.1 - 2020-02-06 =
+* Fix - Strict standards warning.
+
+= 1.0 - 2019-11-20 =
+* First Release

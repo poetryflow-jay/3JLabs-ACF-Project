@@ -1,0 +1,57 @@
+.wkit-wb-Widget_ultclt25 .wkit-coupon-row {
+    display: flex;
+    width: 100%;
+    justify-content: center;}.wkit-wb-Widget_ultclt25 .wkit-coupon-row .wkit-coupon-code-style-1,.wkit-coupon-row .wkit-coupon-code-style-2{
+    display:none;}.wkit-wb-Widget_ultclt25 .wkit-coupon-row.style-1 .wkit-coupon-code-style-1{
+     display:flex;
+     gap: 10px;}.wkit-wb-Widget_ultclt25 .wkit-coupon-row.style-2 .wkit-coupon-code-style-2{
+     display:flex;
+     width:max-content;}.wkit-wb-Widget_ultclt25 .wkit-coupon-code-style-1 .copy-btn-icon .tp-title-icon{
+    display: flex;
+    font-size: 15px;
+    color:#fff;
+    transition: 0.3s linear;}.wkit-wb-Widget_ultclt25 .wkit-coupon-code-style-1 .tp-title-icon .dashicon{
+    width: auto;
+    height: auto;
+    font-size: 15px;
+    transition: 0.3s linear;}.wkit-wb-Widget_ultclt25 .wkit-coupon-row #copyvalue {
+    border: 1px solid #000;
+    background: transparent;
+    padding: 10px 20px;
+    color: #7158fe;
+    cursor: pointer;}.wkit-wb-Widget_ultclt25 .wkit-coupon-row .copybtn {
+    color:#fff;
+    border: 1px dashed #fff;
+    padding: 10px 20px;
+    white-space: nowrap;
+    cursor: pointer;
+    background:#000;
+    display:flex;
+    gap:5px;
+    align-items:center;
+    transition: 0.3s linear;}.wkit-wb-Widget_ultclt25 .copybtn1{
+     position: relative;
+     cursor: pointer;
+     border:0;
+     padding: 0;
+     cursor: pointer;
+     background:#000;
+     color:#fff;
+     width: 100%;
+     transition: 0.3s linear;}.wkit-wb-Widget_ultclt25 .copiedtext{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-1em);
+    color: #000;
+    transition: all .500s;}.wkit-wb-Widget_ultclt25 .copied{
+  opacity: 1;
+  transform: translateY(-4em);}.wkit-wb-Widget_ultclt25 input.copiedinner{
+    border:0;
+    background:transparent;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;}

@@ -1,0 +1,234 @@
+#nexter-code-snippets {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #f0f0f1;
+    box-sizing: border-box;
+    position: relative;
+    padding: 20px 20px 0 0;;
+}
+.nxt-code-heading-title {
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #1a1a1a;
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    justify-content: space-between;
+    line-height: 20px;
+    margin: 0;
+    padding: 16px 25px;
+    position: relative;
+    width: 100%;
+}
+.nxt-install-ext-sec {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 0 25px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+.nxt-ins-ext-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 55%;
+    flex-basis: 55%;
+}
+.nxt-ins-ext-inner .badge {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 14px;
+    gap: 8px;
+    border: 1px solid #D1D1D6;
+    border-radius: 49px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #1A1A1A;
+}
+h1.nxt-ins-heading {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 32px;
+    color: #1A1A1A;
+    margin: 0;
+}
+p.nxt-ins-desc {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #666666;
+    margin: 0;
+}
+.nxt-ins-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px;
+}
+.ins-btn-primary {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 8px;
+    background: #1717cc;
+    border-radius: 5px;
+    text-decoration: blink;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #F0F0F1;
+    border: 0;
+    outline: 0;
+    transition: all .3s ease-in-out;
+}
+.ins-btn-primary:hover,.ins-btn-primary:focus {
+    background: #0303a0;
+    color: #F0F0F1;
+}
+.ins-btn-outline {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 8px;
+    border: 1px solid #D1D1D6;
+    border-radius: 5px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: #1A1A1A !important;
+    background: #fff;
+    text-decoration: blink;
+    transition: all .3s ease-in-out;
+}
+.ins-btn-outline:hover,.ins-btn-outline:focus {
+    color: #1717cc !important;
+    border: 1px solid #1717cc;
+}
+.nxt-ins-ext-img {
+display: flex;
+    margin-right: -25px;
+    position: relative;
+    flex-basis: 47%;
+}
+
+.nxt-ins-ext-img img {
+    width: 100%;
+    height: auto;
+}
+.nxt-ins-ext-cover {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px
+}
+
+ul.nxt-feature-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 0 0;
+    gap: 14px;
+    border-top: 1px solid #f0f0f0
+}
+
+ul.nxt-feature-list li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    gap: 10px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #1a1a1a
+}
+
+.nxt_ext_toggle_btn_cover {
+    position: relative;
+    display: inline-block;
+    width: 49px;
+    height: 26px;
+
+    .nxt_toggle_btn {
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+    
+    .nxt_toggle_lock_icon {
+        padding-right: 7px;
+        width: 32%;
+        display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0px;
+    }
+
+    .switch-label {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #d1d1d6;
+        transition: 0.4s;
+        border-radius: 100px;
+        display: flex;
+        justify-content: right;
+    }
+    
+    .switch-button {
+        position: absolute;
+        height: 16px;
+        width: 16px;
+        left: 5px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: 0.4s;
+    }
+    
+    .nxt_toggle_btn:checked + .switch-label {
+        background-color: #1717cc;
+    }
+
+    .nxt_toggle_btn:checked + .switch-label .switch-button {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+    }
+
+    .switch-label:active .switch-button {
+        width: 25px;
+        height: 16px;
+    }
+}
