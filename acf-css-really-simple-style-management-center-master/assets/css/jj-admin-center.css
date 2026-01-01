@@ -1337,3 +1337,4 @@
 .jj-autosaved { border-left: 3px solid #72aee6 !important; background-color: #f0f6fc !important; }
 .jj-field-error { border-color: #d63638 !important; }
 .jj-help-icon:hover { color: #135e96 !important; }
+.screen-reader-text { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

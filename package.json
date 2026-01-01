@@ -4,9 +4,11 @@
   "description": "ACF CSS Manager - Build configuration",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack --mode development --watch",
-    "minify-css": "postcss assets/css/*.css --dir assets/css/minified --use cssnano",
-    "analyze": "webpack-bundle-analyzer dist/stats.json"
+    "build:dev": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "minify-css": "postcss acf-css-really-simple-style-management-center-master/assets/css/*.css --dir acf-css-really-simple-style-management-center-master/assets/css/minified --use cssnano",
+    "analyze": "webpack --mode production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "webpack": "^5.88.0",

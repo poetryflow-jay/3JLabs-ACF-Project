@@ -14,18 +14,22 @@ module.exports = (env, argv) => {
 
   return {
     entry: {
-      // Admin Center (Critical Path)
-      'admin-center': path.join(baseDir, 'assets/js/jj-common-utils.js'),
-      'admin-center': [
+      // Admin Center (Critical Path) - [Phase 8.3] 개선된 버전
+      'admin-center-bundle': [
         path.join(baseDir, 'assets/js/jj-common-utils.js'),
-        path.join(baseDir, 'assets/js/jj-admin-center.js')
+        path.join(baseDir, 'assets/js/jj-admin-center.js'),
+        path.join(baseDir, 'assets/js/jj-admin-center-keyboard.js'),
+        path.join(baseDir, 'assets/js/jj-form-enhancer.js'),
+        path.join(baseDir, 'assets/js/jj-undosystem.js')
       ],
       
       // Style Guide Editor
       'style-guide-editor': path.join(baseDir, 'assets/js/jj-style-guide-editor.js'),
       
-      // Presets
-      'style-guide-presets': path.join(baseDir, 'assets/js/jj-style-guide-presets.js'),
+      // Presets (Phase 8.4에서 개선됨)
+      'style-guide-presets': [
+        path.join(baseDir, 'assets/js/jj-style-guide-presets.js')
+      ],
       
       // Labs Center
       'labs-center': path.join(baseDir, 'assets/js/jj-labs-center.js'),
@@ -34,6 +38,7 @@ module.exports = (env, argv) => {
       'keyboard-shortcuts': path.join(baseDir, 'assets/js/jj-keyboard-shortcuts.js'),
       'tooltips': path.join(baseDir, 'assets/js/jj-tooltips.js'),
       'live-preview': path.join(baseDir, 'assets/js/jj-live-preview.js'),
+      'customizer-tooltips': path.join(baseDir, 'assets/js/jj-customizer-tooltips.js'),
     },
     
     output: {
