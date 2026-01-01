@@ -17,6 +17,18 @@ msgstr ""
 "X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
 
+#. Plugin Name of the plugin
+msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
+msgstr "ACF CSS - Gestionnaire de Configuration de Polices, Couleurs et Styles Personnalisés Avancés"
+
+#. Description of the plugin
+msgid "A comprehensive style management plugin that centrally and consistently manages all style elements of your WordPress website, including color palettes, typography, buttons, and forms. The Free version provides basic style management features for maintaining brand consistency and efficient design system operation. Install the Pro version plugin alongside to access Basic, Premium, and Unlimited features. Fully integrated with WordPress Customizer for intuitive style management with real-time preview."
+msgstr "Un plugin de gestion de styles complet qui gère de manière centralisée et cohérente tous les éléments de style de votre site WordPress, y compris les palettes de couleurs, la typographie, les boutons et les formulaires. La version gratuite fournit des fonctionnalités de gestion de styles de base pour maintenir la cohérence de la marque et l'exploitation efficace du système de design. Installez le plugin Pro en parallèle pour accéder aux fonctionnalités Basic, Premium et Unlimited. Entièrement intégré avec WordPress Customizer pour une gestion intuitive des styles avec aperçu en temps réel."
+
+#. Author of the plugin
+msgid "3J Labs"
+msgstr "3J Labs"
+
 # Core UI
 msgid "스타일 센터"
 msgstr "Centre de Styles"
