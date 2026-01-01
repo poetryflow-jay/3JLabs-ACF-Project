@@ -110,41 +110,41 @@ class JJ_AI_Extension_Promoter {
                 <div style="flex: 1;">
                     <h3 style="margin: 0 0 8px 0; font-size: 16px; color: #1d2327;">
                         <span class="dashicons dashicons-art" style="vertical-align: middle; color: #72aee6;"></span>
-                        <?php esc_html_e( '🤖 AI 스타일 인텔리전스 활용하기', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '🤖 AI 스타일 인텔리전스 활용하기', 'acf-css-really-simple-style-management-center' ); ?>
                     </h3>
                     <p style="margin: 0 0 12px 0; font-size: 14px; color: #50575e;">
-                        <?php esc_html_e( 'AI Extension을 활성화하면 AI 기반 팔레트 자동 생성, 스마트 스타일 추천, 로컬 AI 모델(Gemma 3) 연동 등 고급 기능을 사용할 수 있습니다.', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( 'AI Extension을 활성화하면 AI 기반 팔레트 자동 생성, 스마트 스타일 추천, 로컬 AI 모델(Gemma 3) 연동 등 고급 기능을 사용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                     </p>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         <?php if ( $status['installed'] && $status['can_activate'] ) : ?>
                             <button type="button" class="button button-primary jj-activate-ai-extension" 
                                     data-nonce="<?php echo esc_attr( $nonce ); ?>">
                                 <span class="dashicons dashicons-admin-plugins" style="vertical-align: middle;"></span>
-                                <?php esc_html_e( 'AI Extension 활성화', 'jj-style-guide' ); ?>
+                                <?php esc_html_e( 'AI Extension 활성화', 'acf-css-really-simple-style-management-center' ); ?>
                             </button>
                         <?php elseif ( ! $status['installed'] && $status['can_install'] ) : ?>
                             <button type="button" class="button button-primary jj-install-ai-extension" 
                                     data-nonce="<?php echo esc_attr( $nonce ); ?>">
                                 <span class="dashicons dashicons-download" style="vertical-align: middle;"></span>
-                                <?php esc_html_e( 'AI Extension 설치', 'jj-style-guide' ); ?>
+                                <?php esc_html_e( 'AI Extension 설치', 'acf-css-really-simple-style-management-center' ); ?>
                             </button>
                             <p style="margin: 0; font-size: 12px; color: #666;">
-                                <?php esc_html_e( '(수동 설치 필요: 플러그인 폴더에 AI Extension 파일이 있어야 합니다)', 'jj-style-guide' ); ?>
+                                <?php esc_html_e( '(수동 설치 필요: 플러그인 폴더에 AI Extension 파일이 있어야 합니다)', 'acf-css-really-simple-style-management-center' ); ?>
                             </p>
                         <?php else : ?>
                             <p style="margin: 0; font-size: 13px; color: #856404;">
-                                <?php esc_html_e( '플러그인 설치/활성화 권한이 필요합니다.', 'jj-style-guide' ); ?>
+                                <?php esc_html_e( '플러그인 설치/활성화 권한이 필요합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                             </p>
                         <?php endif; ?>
                         <a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button">
-                            <?php esc_html_e( '플러그인 페이지로 이동', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '플러그인 페이지로 이동', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </div>
                 </div>
                 <button type="button" class="notice-dismiss jj-dismiss-ai-promo" 
                         data-nonce="<?php echo esc_attr( $nonce ); ?>"
                         style="position: absolute; top: 10px; right: 10px; padding: 5px;">
-                    <span class="screen-reader-text"><?php esc_html_e( '다시 보지 않기', 'jj-style-guide' ); ?></span>
+                    <span class="screen-reader-text"><?php esc_html_e( '다시 보지 않기', 'acf-css-really-simple-style-management-center' ); ?></span>
                 </button>
             </div>
         </div>
@@ -186,7 +186,7 @@ class JJ_AI_Extension_Promoter {
             // 설치 버튼 (안내만)
             $('.jj-install-ai-extension').on('click', function(e) {
                 e.preventDefault();
-                alert('<?php esc_js_e( 'AI Extension은 수동으로 설치해야 합니다. 플러그인 폴더에 acf-css-ai-extension 폴더가 있는지 확인하세요.', 'jj-style-guide' ); ?>');
+                alert('<?php esc_js_e( 'AI Extension은 수동으로 설치해야 합니다. 플러그인 폴더에 acf-css-ai-extension 폴더가 있는지 확인하세요.', 'acf-css-really-simple-style-management-center' ); ?>');
             });
             
             // 다시 보지 않기
@@ -222,7 +222,7 @@ class JJ_AI_Extension_Promoter {
         } else {
             check_ajax_referer( 'jj_ai_extension_action', 'nonce' );
             if ( ! current_user_can( 'activate_plugins' ) ) {
-                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
                 return;
             }
         }
@@ -231,13 +231,13 @@ class JJ_AI_Extension_Promoter {
         
         // 플러그인 존재 확인
         if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) ) {
-            wp_send_json_error( array( 'message' => __( 'AI Extension이 설치되어 있지 않습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( 'AI Extension이 설치되어 있지 않습니다.', 'acf-css-really-simple-style-management-center' ) ) );
             return;
         }
         
         // 이미 활성화되어 있는지 확인
         if ( is_plugin_active( $plugin_file ) ) {
-            wp_send_json_success( array( 'message' => __( '이미 활성화되어 있습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_success( array( 'message' => __( '이미 활성화되어 있습니다.', 'acf-css-really-simple-style-management-center' ) ) );
             return;
         }
         
@@ -247,7 +247,7 @@ class JJ_AI_Extension_Promoter {
         if ( is_wp_error( $result ) ) {
             wp_send_json_error( array( 'message' => $result->get_error_message() ) );
         } else {
-            wp_send_json_success( array( 'message' => __( 'AI Extension이 활성화되었습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_success( array( 'message' => __( 'AI Extension이 활성화되었습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
     
@@ -255,7 +255,7 @@ class JJ_AI_Extension_Promoter {
      * AJAX: AI Extension 설치 (안내만)
      */
     public function ajax_install_extension() {
-        wp_send_json_error( array( 'message' => __( '수동 설치가 필요합니다. 플러그인 폴더에 AI Extension 파일이 있는지 확인하세요.', 'jj-style-guide' ) ) );
+        wp_send_json_error( array( 'message' => __( '수동 설치가 필요합니다. 플러그인 폴더에 AI Extension 파일이 있는지 확인하세요.', 'acf-css-really-simple-style-management-center' ) ) );
     }
     
     /**

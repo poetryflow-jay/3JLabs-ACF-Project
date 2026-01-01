@@ -141,8 +141,8 @@ if ( ! defined( 'ABSPATH' ) ) {
         }
         ?>
 
-        <h2 style="margin-top: 0;"><?php esc_html_e( '업데이트 개요 (코어 + 애드온)', 'jj-style-guide' ); ?></h2>
-        <p class="description"><?php esc_html_e( 'WordPress 플러그인 목록 UX처럼, 설치/활성/업데이트/자동 업데이트 상태를 한 번에 확인합니다.', 'jj-style-guide' ); ?></p>
+        <h2 style="margin-top: 0;"><?php esc_html_e( '업데이트 개요 (코어 + 애드온)', 'acf-css-really-simple-style-management-center' ); ?></h2>
+        <p class="description"><?php esc_html_e( 'WordPress 플러그인 목록 UX처럼, 설치/활성/업데이트/자동 업데이트 상태를 한 번에 확인합니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
 
         <?php
         // ============================================================
@@ -177,68 +177,68 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div style="margin: 20px 0; padding: 16px; border: 2px solid #2271b1; border-radius: 6px; background: #f0f6fc;">
             <h3 style="margin-top: 0; color: #2271b1;">
                 <span class="dashicons dashicons-admin-settings" style="vertical-align: middle;"></span>
-                <?php esc_html_e( 'Suite 전체 일괄 제어', 'jj-style-guide' ); ?>
+                <?php esc_html_e( 'Suite 전체 일괄 제어', 'acf-css-really-simple-style-management-center' ); ?>
             </h3>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 12px;">
                 <!-- 전체 자동 업데이트 제어 -->
                 <div style="padding: 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
-                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '전체 자동 업데이트', 'jj-style-guide' ); ?></strong>
+                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '전체 자동 업데이트', 'acf-css-really-simple-style-management-center' ); ?></strong>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <button type="button" class="button button-primary" id="jj-suite-auto-update-all-on">
                             <span class="dashicons dashicons-update" style="vertical-align: middle;"></span>
-                            <?php esc_html_e( '전체 ON', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '전체 ON', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                         <button type="button" class="button button-secondary" id="jj-suite-auto-update-all-off">
                             <span class="dashicons dashicons-dismiss" style="vertical-align: middle;"></span>
-                            <?php esc_html_e( '전체 OFF', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '전체 OFF', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                     </div>
                     <p class="description" style="margin: 8px 0 0 0; font-size: 12px;">
-                        <?php esc_html_e( '설치된 모든 Suite 플러그인의 자동 업데이트를 일괄 제어합니다.', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '설치된 모든 Suite 플러그인의 자동 업데이트를 일괄 제어합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                     </p>
                 </div>
                 
                 <!-- 전체 업데이트 체크 -->
                 <div style="padding: 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
-                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '업데이트 확인', 'jj-style-guide' ); ?></strong>
+                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '업데이트 확인', 'acf-css-really-simple-style-management-center' ); ?></strong>
                     <button type="button" class="button button-primary" id="jj-suite-check-all-updates">
                         <span class="dashicons dashicons-update" style="vertical-align: middle;"></span>
-                        <?php esc_html_e( '전체 업데이트 체크', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '전체 업데이트 체크', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                     <p class="description" style="margin: 8px 0 0 0; font-size: 12px;">
-                        <?php esc_html_e( 'WordPress 업데이트 서버에서 모든 Suite 플러그인의 업데이트를 확인합니다.', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( 'WordPress 업데이트 서버에서 모든 Suite 플러그인의 업데이트를 확인합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                     </p>
                 </div>
                 
                 <!-- 업데이트 적용 안내 -->
                 <div style="padding: 12px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
-                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '업데이트 적용', 'jj-style-guide' ); ?></strong>
+                    <strong style="display: block; margin-bottom: 8px;"><?php esc_html_e( '업데이트 적용', 'acf-css-really-simple-style-management-center' ); ?></strong>
                     <?php if ( $suite_updates > 0 ) : ?>
                         <div style="padding: 8px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; margin-bottom: 8px;">
                             <strong style="color: #856404;">
                                 <?php
                                 printf(
                                     /* translators: %d: number of updates */
-                                    esc_html__( '%d개 플러그인 업데이트 가능', 'jj-style-guide' ),
+                                    esc_html__( '%d개 플러그인 업데이트 가능', 'acf-css-really-simple-style-management-center' ),
                                     (int) $suite_updates
                                 );
                                 ?>
                             </strong>
                         </div>
                         <a href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>" class="button button-primary">
-                            <?php esc_html_e( '업데이트 페이지로 이동', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '업데이트 페이지로 이동', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     <?php else : ?>
                         <div style="padding: 8px; background: #d1e7dd; border: 1px solid #198754; border-radius: 4px;">
                             <span style="color: #0f5132;">
                                 <span class="dashicons dashicons-yes-alt" style="vertical-align: middle;"></span>
-                                <?php esc_html_e( '모든 플러그인이 최신 버전입니다.', 'jj-style-guide' ); ?>
+                                <?php esc_html_e( '모든 플러그인이 최신 버전입니다.', 'acf-css-really-simple-style-management-center' ); ?>
                             </span>
                         </div>
                     <?php endif; ?>
                     <p class="description" style="margin: 8px 0 0 0; font-size: 12px;">
-                        <?php esc_html_e( '업데이트가 있으면 WordPress 업데이트 페이지에서 일괄 적용할 수 있습니다.', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '업데이트가 있으면 WordPress 업데이트 페이지에서 일괄 적용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                     </p>
                 </div>
             </div>
@@ -248,13 +248,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <div style="margin-top: 16px; padding: 14px; background: #f8d7da; border: 2px solid #d63638; border-radius: 4px;">
                     <h4 style="margin: 0 0 10px 0; color: #d63638;">
                         <span class="dashicons dashicons-warning" style="vertical-align: middle;"></span>
-                        <?php esc_html_e( '버전 불일치 감지', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '버전 불일치 감지', 'acf-css-really-simple-style-management-center' ); ?>
                     </h4>
                     <p style="margin: 0 0 10px 0; color: #721c24;">
                         <?php
                         printf(
                             /* translators: 1: core version 2: number of mismatches */
-                            esc_html__( '코어 버전(%1$s)과 호환되지 않는 애드온이 %2$d개 발견되었습니다.', 'jj-style-guide' ),
+                            esc_html__( '코어 버전(%1$s)과 호환되지 않는 애드온이 %2$d개 발견되었습니다.', 'acf-css-really-simple-style-management-center' ),
                             esc_html( $core_version ),
                             count( $version_mismatches )
                         );
@@ -267,7 +267,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <?php
                                 printf(
                                     /* translators: 1: current version 2: expected major version */
-                                    esc_html__( '현재 %1$s (예상: %2$s.x)', 'jj-style-guide' ),
+                                    esc_html__( '현재 %1$s (예상: %2$s.x)', 'acf-css-really-simple-style-management-center' ),
                                     esc_html( $vm['version'] ),
                                     esc_html( $vm['expected_major'] )
                                 );
@@ -276,7 +276,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <?php endforeach; ?>
                     </ul>
                     <p style="margin: 12px 0 0 0; font-size: 12px; color: #721c24;">
-                        <?php esc_html_e( '💡 권장 조치: 코어와 애드온을 모두 최신 버전으로 업데이트하거나, 동일한 주 버전으로 맞추세요.', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '💡 권장 조치: 코어와 애드온을 모두 최신 버전으로 업데이트하거나, 동일한 주 버전으로 맞추세요.', 'acf-css-really-simple-style-management-center' ); ?>
                     </p>
                 </div>
             <?php endif; ?>
@@ -287,42 +287,42 @@ if ( ! defined( 'ABSPATH' ) ) {
                    id="jj-updates-suite-search"
                    class="regular-text"
                    style="min-width: 260px;"
-                   placeholder="<?php echo esc_attr__( '플러그인 검색…', 'jj-style-guide' ); ?>" />
+                   placeholder="<?php echo esc_attr__( '플러그인 검색…', 'acf-css-really-simple-style-management-center' ); ?>" />
             <label style="display:inline-flex; gap:6px; align-items:center;">
                 <input type="checkbox" id="jj-updates-suite-hide-uninstalled" />
-                <?php esc_html_e( '미설치 숨기기', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '미설치 숨기기', 'acf-css-really-simple-style-management-center' ); ?>
             </label>
             <label style="display:inline-flex; gap:6px; align-items:center;">
                 <input type="checkbox" id="jj-updates-suite-only-updates" />
-                <?php esc_html_e( '업데이트만 보기', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '업데이트만 보기', 'acf-css-really-simple-style-management-center' ); ?>
             </label>
 
             <button type="button" class="button" id="jj-suite-refresh-updates">
-                <?php esc_html_e( '전체 업데이트 다시 체크', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '전체 업데이트 다시 체크', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="button button-secondary" id="jj-suite-auto-update-on">
-                <?php esc_html_e( '보이는 항목 Auto-Update ON', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '보이는 항목 Auto-Update ON', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="button button-secondary" id="jj-suite-auto-update-off">
-                <?php esc_html_e( '보이는 항목 Auto-Update OFF', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '보이는 항목 Auto-Update OFF', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
 
             <button type="button" class="button" id="jj-suite-copy-report">
-                <?php esc_html_e( '스위트 리포트 복사', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '스위트 리포트 복사', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="button" id="jj-suite-download-report">
-                <?php esc_html_e( '스위트 리포트 JSON', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '스위트 리포트 JSON', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <label style="display:inline-flex; gap:6px; align-items:center;">
                 <input type="checkbox" id="jj-updates-suite-only-mismatch" />
-                <?php esc_html_e( '불일치만 보기', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '불일치만 보기', 'acf-css-really-simple-style-management-center' ); ?>
             </label>
 
             <span class="description" style="margin-left:auto;">
                 <?php
                 printf(
                     /* translators: 1: installed 2: total 3: active 4: updates 5: auto updates */
-                    esc_html__( '설치 %1$d/%2$d · 활성 %3$d · 업데이트 %4$d · Auto-Update %5$d', 'jj-style-guide' ),
+                    esc_html__( '설치 %1$d/%2$d · 활성 %3$d · 업데이트 %4$d · Auto-Update %5$d', 'acf-css-really-simple-style-management-center' ),
                     (int) $suite_installed,
                     (int) $suite_total,
                     (int) $suite_active,
@@ -335,12 +335,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php
                 printf(
                     /* translators: 1: last checked 2: next check */
-                    esc_html__( '마지막 체크: %1$s · 다음 체크: %2$s', 'jj-style-guide' ),
+                    esc_html__( '마지막 체크: %1$s · 다음 체크: %2$s', 'acf-css-really-simple-style-management-center' ),
                     esc_html( $last_checked_human ),
                     esc_html( $next_check_human )
                 );
                 ?>
-                · <a href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>"><?php esc_html_e( '워드프레스 업데이트', 'jj-style-guide' ); ?></a>
+                · <a href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>"><?php esc_html_e( '워드프레스 업데이트', 'acf-css-really-simple-style-management-center' ); ?></a>
             </span>
         </div>
 
@@ -349,13 +349,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         <table class="widefat striped" style="margin-top: 12px;">
             <thead>
                 <tr>
-                    <th><?php esc_html_e( '플러그인', 'jj-style-guide' ); ?></th>
-                    <th><?php esc_html_e( '상태', 'jj-style-guide' ); ?></th>
-                    <th><?php esc_html_e( '버전', 'jj-style-guide' ); ?></th>
-                    <th><?php esc_html_e( '업데이트', 'jj-style-guide' ); ?></th>
-                    <th><?php esc_html_e( '자동 업데이트', 'jj-style-guide' ); ?></th>
-                    <th><?php esc_html_e( '채널', 'jj-style-guide' ); ?></th>
-                    <th><?php esc_html_e( '바로가기', 'jj-style-guide' ); ?></th>
+                    <th><?php esc_html_e( '플러그인', 'acf-css-really-simple-style-management-center' ); ?></th>
+                    <th><?php esc_html_e( '상태', 'acf-css-really-simple-style-management-center' ); ?></th>
+                    <th><?php esc_html_e( '버전', 'acf-css-really-simple-style-management-center' ); ?></th>
+                    <th><?php esc_html_e( '업데이트', 'acf-css-really-simple-style-management-center' ); ?></th>
+                    <th><?php esc_html_e( '자동 업데이트', 'acf-css-really-simple-style-management-center' ); ?></th>
+                    <th><?php esc_html_e( '채널', 'acf-css-really-simple-style-management-center' ); ?></th>
+                    <th><?php esc_html_e( '바로가기', 'acf-css-really-simple-style-management-center' ); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -444,7 +444,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <td>
                             <strong><?php echo esc_html( $name ); ?></strong>
                             <?php if ( ! $installed ) : ?>
-                                <div class="description" style="margin-top: 2px;"><?php esc_html_e( '미설치', 'jj-style-guide' ); ?></div>
+                                <div class="description" style="margin-top: 2px;"><?php esc_html_e( '미설치', 'acf-css-really-simple-style-management-center' ); ?></div>
                             <?php endif; ?>
                             <?php if ( ! empty( $it['requires'] ) ) : ?>
                                 <div class="description" style="margin-top: 2px;">
@@ -469,18 +469,18 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </td>
                         <td>
                             <span class="jj-status-badge <?php echo $active ? 'active' : 'inactive'; ?>">
-                                <?php echo $active ? esc_html__( 'ACTIVE', 'jj-style-guide' ) : esc_html__( 'INACTIVE', 'jj-style-guide' ); ?>
+                                <?php echo $active ? esc_html__( 'ACTIVE', 'acf-css-really-simple-style-management-center' ) : esc_html__( 'INACTIVE', 'acf-css-really-simple-style-management-center' ); ?>
                             </span>
                             <?php if ( $activate_url ) : ?>
                                 <div style="margin-top: 8px;">
                                     <a class="button button-small button-primary" href="<?php echo esc_url( $activate_url ); ?>">
-                                        <?php esc_html_e( '활성화', 'jj-style-guide' ); ?>
+                                        <?php esc_html_e( '활성화', 'acf-css-really-simple-style-management-center' ); ?>
                                     </a>
                                 </div>
                             <?php elseif ( $deactivate_url ) : ?>
                                 <div style="margin-top: 8px;">
                                     <a class="button button-small" href="<?php echo esc_url( $deactivate_url ); ?>">
-                                        <?php esc_html_e( '비활성화', 'jj-style-guide' ); ?>
+                                        <?php esc_html_e( '비활성화', 'acf-css-really-simple-style-management-center' ); ?>
                                     </a>
                                 </div>
                             <?php endif; ?>
@@ -491,13 +491,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <td>
                             <?php if ( $has_update ) : ?>
                                 <span class="jj-license-type-badge jj-license-type-basic" style="background:#dba617;">
-                                    <?php esc_html_e( 'UPDATE AVAILABLE', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( 'UPDATE AVAILABLE', 'acf-css-really-simple-style-management-center' ); ?>
                                 </span>
                                 <div class="description" style="margin-top: 4px;">
                                     <?php
                                     printf(
                                         /* translators: %s: new version */
-                                        esc_html__( '새 버전: %s', 'jj-style-guide' ),
+                                        esc_html__( '새 버전: %s', 'acf-css-really-simple-style-management-center' ),
                                         esc_html( $new_ver )
                                     );
                                     ?>
@@ -505,19 +505,19 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <?php if ( $update_now_url ) : ?>
                                     <div style="margin-top: 8px;">
                                         <a href="<?php echo esc_url( $update_now_url ); ?>" class="button button-small button-primary">
-                                            <?php esc_html_e( '지금 업데이트', 'jj-style-guide' ); ?>
+                                            <?php esc_html_e( '지금 업데이트', 'acf-css-really-simple-style-management-center' ); ?>
                                         </a>
                                     </div>
                                 <?php endif; ?>
                             <?php else : ?>
                                 <span class="jj-license-type-badge jj-license-type-basic" style="background:#1d6b2f;">
-                                    <?php esc_html_e( '최신', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( '최신', 'acf-css-really-simple-style-management-center' ); ?>
                                 </span>
                             <?php endif; ?>
                         </td>
                         <td>
                             <span class="jj-status-badge jj-suite-auto-badge <?php echo $auto_enabled ? 'active' : 'inactive'; ?>">
-                                <?php echo $auto_enabled ? esc_html__( 'AUTO UPDATE: ON', 'jj-style-guide' ) : esc_html__( 'AUTO UPDATE: OFF', 'jj-style-guide' ); ?>
+                                <?php echo $auto_enabled ? esc_html__( 'AUTO UPDATE: ON', 'acf-css-really-simple-style-management-center' ) : esc_html__( 'AUTO UPDATE: OFF', 'acf-css-really-simple-style-management-center' ); ?>
                             </span>
                             <?php if ( $installed && $pf ) : ?>
                                 <div style="margin-top: 8px;">
@@ -525,7 +525,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                         class="button button-small jj-suite-toggle-auto-update"
                                         data-plugin="<?php echo esc_attr( $pf ); ?>"
                                         data-enabled="<?php echo $auto_enabled ? '1' : '0'; ?>">
-                                        <?php echo $auto_enabled ? esc_html__( '비활성화', 'jj-style-guide' ) : esc_html__( '활성화', 'jj-style-guide' ); ?>
+                                        <?php echo $auto_enabled ? esc_html__( '비활성화', 'acf-css-really-simple-style-management-center' ) : esc_html__( '활성화', 'acf-css-really-simple-style-management-center' ); ?>
                                     </button>
                                 </div>
                             <?php endif; ?>
@@ -537,7 +537,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 </span>
                                 <?php if ( $is_mismatch ) : ?>
                                     <span class="jj-license-type-badge jj-license-type-basic" style="background:#d63638; margin-left:6px;">
-                                        <?php esc_html_e( 'MISMATCH', 'jj-style-guide' ); ?>
+                                        <?php esc_html_e( 'MISMATCH', 'acf-css-really-simple-style-management-center' ); ?>
                                     </span>
                                 <?php endif; ?>
                             <?php else : ?>
@@ -546,7 +546,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </td>
                         <td>
                             <a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button button-small button-secondary">
-                                <?php esc_html_e( '플러그인 목록', 'jj-style-guide' ); ?>
+                                <?php esc_html_e( '플러그인 목록', 'acf-css-really-simple-style-management-center' ); ?>
                             </a>
                         </td>
                     </tr>
@@ -556,21 +556,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <div style="margin-top: 14px; padding: 12px; border: 1px solid #c3c4c7; border-radius: 6px; background: #fff;">
             <p class="description" style="margin:0;">
-                <?php esc_html_e( '자동 업데이트 토글은 WordPress 코어의 설정(플러그인 목록 화면)과 동일하게 동작합니다.', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '자동 업데이트 토글은 WordPress 코어의 설정(플러그인 목록 화면)과 동일하게 동작합니다.', 'acf-css-really-simple-style-management-center' ); ?>
             </p>
         </div>
 
         <hr style="margin: 26px 0;">
 
-        <h2 style="margin-top: 0;"><?php esc_html_e( '플러그인 업데이트 설정', 'jj-style-guide' ); ?></h2>
-        <p class="description"><?php esc_html_e( '플러그인 업데이트 및 로그 전송 설정을 관리합니다. (WordPress 플러그인 목록의 “자동 업데이트 활성/비활성”과 동기화됩니다.)', 'jj-style-guide' ); ?></p>
+        <h2 style="margin-top: 0;"><?php esc_html_e( '플러그인 업데이트 설정', 'acf-css-really-simple-style-management-center' ); ?></h2>
+        <p class="description"><?php esc_html_e( '플러그인 업데이트 및 로그 전송 설정을 관리합니다. (WordPress 플러그인 목록의 “자동 업데이트 활성/비활성”과 동기화됩니다.)', 'acf-css-really-simple-style-management-center' ); ?></p>
 
         <?php
         $installed_channel = defined( 'JJ_STYLE_GUIDE_UPDATE_CHANNEL' ) ? JJ_STYLE_GUIDE_UPDATE_CHANNEL : '';
         ?>
         <div style="margin: 16px 0 8px; padding: 14px; border: 1px solid #c3c4c7; border-radius: 6px; background: #fff; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
             <span class="jj-status-badge <?php echo $core_auto_update_enabled ? 'active' : 'inactive'; ?>">
-                <?php echo $core_auto_update_enabled ? esc_html__( 'AUTO UPDATE: ON', 'jj-style-guide' ) : esc_html__( 'AUTO UPDATE: OFF', 'jj-style-guide' ); ?>
+                <?php echo $core_auto_update_enabled ? esc_html__( 'AUTO UPDATE: ON', 'acf-css-really-simple-style-management-center' ) : esc_html__( 'AUTO UPDATE: OFF', 'acf-css-really-simple-style-management-center' ); ?>
             </span>
             <?php if ( $installed_channel ) : ?>
                 <span class="jj-license-type-badge jj-license-type-basic" style="background:#2271b1;">
@@ -580,21 +580,21 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php
                     printf(
                         /* translators: %s: channel */
-                        esc_html__( '현재 설치된 빌드 채널: %s', 'jj-style-guide' ),
+                        esc_html__( '현재 설치된 빌드 채널: %s', 'acf-css-really-simple-style-management-center' ),
                         esc_html( $installed_channel )
                     );
                     ?>
                 </span>
             <?php endif; ?>
             <a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button button-secondary" style="margin-left:auto;">
-                <?php esc_html_e( '플러그인 목록에서 확인', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '플러그인 목록에서 확인', 'acf-css-really-simple-style-management-center' ); ?>
             </a>
         </div>
         
         <table class="form-table" style="margin-top: 20px;">
             <tr>
                 <th scope="row">
-                    <label for="jj_auto_update_enabled"><?php esc_html_e( '자동 업데이트', 'jj-style-guide' ); ?></label>
+                    <label for="jj_auto_update_enabled"><?php esc_html_e( '자동 업데이트', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
@@ -604,48 +604,48 @@ if ( ! defined( 'ABSPATH' ) ) {
                                    name="jj_update_settings[auto_update_enabled]" 
                                    value="1" 
                                    <?php checked( $update_settings['auto_update_enabled'], true ); ?>>
-                            <?php esc_html_e( '자동 업데이트 활성화', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '자동 업데이트 활성화', 'acf-css-really-simple-style-management-center' ); ?>
                         </label>
                         <button type="button" 
                                 id="jj-toggle-auto-update" 
                                 class="button button-small"
                                 data-enabled="<?php echo $update_settings['auto_update_enabled'] ? '1' : '0'; ?>">
-                            <?php echo $update_settings['auto_update_enabled'] ? esc_html__( '비활성화', 'jj-style-guide' ) : esc_html__( '활성화', 'jj-style-guide' ); ?>
+                            <?php echo $update_settings['auto_update_enabled'] ? esc_html__( '비활성화', 'acf-css-really-simple-style-management-center' ) : esc_html__( '활성화', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                     </div>
                     <p class="description">
-                        <?php esc_html_e( '새 버전이 출시되면 자동으로 업데이트됩니다. (자동 업데이트를 꺼도 “업데이트 알림/수동 업데이트”는 유지됩니다.)', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '새 버전이 출시되면 자동으로 업데이트됩니다. (자동 업데이트를 꺼도 “업데이트 알림/수동 업데이트”는 유지됩니다.)', 'acf-css-really-simple-style-management-center' ); ?>
                     </p>
                 </td>
             </tr>
             
             <tr>
                 <th scope="row">
-                    <label for="jj_update_channel"><?php esc_html_e( '업데이트 채널', 'jj-style-guide' ); ?></label>
+                    <label for="jj_update_channel"><?php esc_html_e( '업데이트 채널', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <select id="jj_update_channel" name="jj_update_settings[update_channel]" style="min-width: 200px;">
                         <option value="stable" <?php selected( $update_settings['update_channel'], 'stable' ); ?>>
-                            <?php esc_html_e( '정식 (Stable)', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '정식 (Stable)', 'acf-css-really-simple-style-management-center' ); ?>
                         </option>
                         <option value="beta" <?php selected( $update_settings['update_channel'], 'beta' ); ?>>
-                            <?php esc_html_e( '베타 (Beta)', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '베타 (Beta)', 'acf-css-really-simple-style-management-center' ); ?>
                         </option>
                         <?php if ( $is_partner_or_higher ) : ?>
                             <option value="staging" <?php selected( $update_settings['update_channel'], 'staging' ); ?>>
-                                <?php esc_html_e( '스테이징 (Staging)', 'jj-style-guide' ); ?>
+                                <?php esc_html_e( '스테이징 (Staging)', 'acf-css-really-simple-style-management-center' ); ?>
                             </option>
                         <?php endif; ?>
                     </select>
                     <p class="description">
-                        <?php esc_html_e( '업데이트를 받을 채널을 선택하세요. 베타/스테이징은 실험적일 수 있으니 운영 사이트에서는 주의가 필요합니다.', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '업데이트를 받을 채널을 선택하세요. 베타/스테이징은 실험적일 수 있으니 운영 사이트에서는 주의가 필요합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                     </p>
                 </td>
             </tr>
             
             <tr>
                 <th scope="row">
-                    <label for="jj_beta_updates_enabled"><?php esc_html_e( '베타 업데이트', 'jj-style-guide' ); ?></label>
+                    <label for="jj_beta_updates_enabled"><?php esc_html_e( '베타 업데이트', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <label>
@@ -655,12 +655,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                                value="1" 
                                <?php checked( $update_settings['beta_updates_enabled'], true ); ?>
                                <?php disabled( $is_partner_or_higher, true ); ?>>
-                        <?php esc_html_e( '베타 업데이트 수신', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '베타 업데이트 수신', 'acf-css-really-simple-style-management-center' ); ?>
                     </label>
                     <p class="description">
-                        <?php esc_html_e( '베타 버전 업데이트를 받을지 선택합니다. 베타 버전은 불안정할 수 있습니다.', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '베타 버전 업데이트를 받을지 선택합니다. 베타 버전은 불안정할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         <?php if ( $is_partner_or_higher ) : ?>
-                        <br><strong style="color: #d63638;"><?php esc_html_e( 'Partner/Master는 내부 정책상 로그/업데이트 옵션이 일부 고정될 수 있습니다.', 'jj-style-guide' ); ?></strong>
+                        <br><strong style="color: #d63638;"><?php esc_html_e( 'Partner/Master는 내부 정책상 로그/업데이트 옵션이 일부 고정될 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?></strong>
                         <?php endif; ?>
                     </p>
                 </td>
@@ -668,7 +668,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             
             <tr>
                 <th scope="row">
-                    <label><?php esc_html_e( '로그 전송', 'jj-style-guide' ); ?></label>
+                    <label><?php esc_html_e( '로그 전송', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <fieldset>
@@ -679,13 +679,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                                    value="1" 
                                    <?php checked( $update_settings['send_app_logs'], true ); ?>
                                    <?php disabled( $is_partner_or_higher, true ); ?>>
-                            <?php esc_html_e( '앱 내 로그 전송', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '앱 내 로그 전송', 'acf-css-really-simple-style-management-center' ); ?>
                         </label>
                         <?php if ( $is_partner_or_higher ) : ?>
-                        <span style="color: #d63638; margin-left: 10px;"><?php esc_html_e( '(필수)', 'jj-style-guide' ); ?></span>
+                        <span style="color: #d63638; margin-left: 10px;"><?php esc_html_e( '(필수)', 'acf-css-really-simple-style-management-center' ); ?></span>
                         <?php endif; ?>
                         <p class="description" style="margin-left: 25px;">
-                            <?php esc_html_e( '플러그인 내부 로그를 개발자에게 전송합니다.', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '플러그인 내부 로그를 개발자에게 전송합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         </p>
                         
                         <label style="display: block; margin-top: 15px;">
@@ -695,13 +695,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                                    value="1" 
                                    <?php checked( $update_settings['send_error_logs'], true ); ?>
                                    <?php disabled( $is_partner_or_higher, true ); ?>>
-                            <?php esc_html_e( '오류 로그 전송', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '오류 로그 전송', 'acf-css-really-simple-style-management-center' ); ?>
                         </label>
                         <?php if ( $is_partner_or_higher ) : ?>
-                        <span style="color: #d63638; margin-left: 10px;"><?php esc_html_e( '(필수)', 'jj-style-guide' ); ?></span>
+                        <span style="color: #d63638; margin-left: 10px;"><?php esc_html_e( '(필수)', 'acf-css-really-simple-style-management-center' ); ?></span>
                         <?php endif; ?>
                         <p class="description" style="margin-left: 25px;">
-                            <?php esc_html_e( '오류 및 예외 로그를 개발자에게 전송합니다.', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '오류 및 예외 로그를 개발자에게 전송합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         </p>
                     </fieldset>
                 </td>
@@ -712,12 +712,12 @@ if ( ! defined( 'ABSPATH' ) ) {
             <button type="button" 
                     id="jj-save-update-settings" 
                     class="button button-primary">
-                <?php esc_html_e( '설정 저장', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '설정 저장', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" 
                     id="jj-check-updates-now" 
                     class="button button-secondary">
-                <?php esc_html_e( '지금 업데이트 확인', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '지금 업데이트 확인', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
         </p>
         
@@ -738,84 +738,84 @@ if ( ! defined( 'ABSPATH' ) ) {
         $wh_events       = ( isset( $webhook_settings['events'] ) && is_array( $webhook_settings['events'] ) ) ? $webhook_settings['events'] : array( 'style_settings_updated', 'admin_center_updated' );
         ?>
 
-        <h2><?php esc_html_e( 'Webhook 자동화', 'jj-style-guide' ); ?></h2>
-        <p class="description"><?php esc_html_e( '설정 변경 시 외부 자동화 시스템(CI/CD, Slack, 자체 서버 등)으로 Webhook을 전송합니다.', 'jj-style-guide' ); ?></p>
+        <h2><?php esc_html_e( 'Webhook 자동화', 'acf-css-really-simple-style-management-center' ); ?></h2>
+        <p class="description"><?php esc_html_e( '설정 변경 시 외부 자동화 시스템(CI/CD, Slack, 자체 서버 등)으로 Webhook을 전송합니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
 
         <table class="form-table" style="margin-top: 20px;">
             <tr>
                 <th scope="row">
-                    <label for="jj_webhooks_enabled"><?php esc_html_e( 'Webhook 활성화', 'jj-style-guide' ); ?></label>
+                    <label for="jj_webhooks_enabled"><?php esc_html_e( 'Webhook 활성화', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <label>
                         <input type="checkbox" id="jj_webhooks_enabled" name="jj_webhooks[enabled]" value="1" <?php checked( $wh_enabled, true ); ?> />
-                        <?php esc_html_e( '전송 활성화', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '전송 활성화', 'acf-css-really-simple-style-management-center' ); ?>
                     </label>
-                    <p class="description"><?php esc_html_e( '활성화 시, 아래 이벤트가 발생할 때 등록된 URL로 POST 요청이 전송됩니다.', 'jj-style-guide' ); ?></p>
+                    <p class="description"><?php esc_html_e( '활성화 시, 아래 이벤트가 발생할 때 등록된 URL로 POST 요청이 전송됩니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </td>
             </tr>
 
             <tr>
                 <th scope="row">
-                    <label for="jj_webhooks_endpoints"><?php esc_html_e( 'Webhook URL', 'jj-style-guide' ); ?></label>
+                    <label for="jj_webhooks_endpoints"><?php esc_html_e( 'Webhook URL', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <textarea id="jj_webhooks_endpoints" name="jj_webhooks[endpoints]" rows="4" class="large-text code" placeholder="https://example.com/webhook"><?php echo esc_textarea( $wh_endpoints ); ?></textarea>
-                    <p class="description"><?php esc_html_e( '한 줄에 하나씩 입력하세요. (여러 개 가능)', 'jj-style-guide' ); ?></p>
+                    <p class="description"><?php esc_html_e( '한 줄에 하나씩 입력하세요. (여러 개 가능)', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </td>
             </tr>
 
             <tr>
                 <th scope="row">
-                    <label for="jj_webhooks_secret"><?php esc_html_e( '서명(Secret)', 'jj-style-guide' ); ?></label>
+                    <label for="jj_webhooks_secret"><?php esc_html_e( '서명(Secret)', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <input type="password" id="jj_webhooks_secret" name="jj_webhooks[secret]" value="" class="regular-text" autocomplete="new-password" />
                     <label style="margin-left: 10px;">
                         <input type="checkbox" name="jj_webhooks[clear_secret]" value="1" />
-                        <?php esc_html_e( 'Secret 초기화', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( 'Secret 초기화', 'acf-css-really-simple-style-management-center' ); ?>
                     </label>
-                    <p class="description"><?php esc_html_e( '입력하면 저장되며, 비워두면 기존 Secret을 유지합니다. Secret이 있으면 X-JJ-Signature 헤더(HMAC-SHA256)가 포함됩니다.', 'jj-style-guide' ); ?></p>
+                    <p class="description"><?php esc_html_e( '입력하면 저장되며, 비워두면 기존 Secret을 유지합니다. Secret이 있으면 X-JJ-Signature 헤더(HMAC-SHA256)가 포함됩니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </td>
             </tr>
 
             <tr>
                 <th scope="row">
-                    <label for="jj_webhooks_payload_mode"><?php esc_html_e( '페이로드', 'jj-style-guide' ); ?></label>
+                    <label for="jj_webhooks_payload_mode"><?php esc_html_e( '페이로드', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <select id="jj_webhooks_payload_mode" name="jj_webhooks[payload_mode]">
                         <option value="minimal" <?php selected( $wh_payload_mode, 'minimal' ); ?>>
-                            <?php esc_html_e( 'Minimal (키/메타 중심)', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Minimal (키/메타 중심)', 'acf-css-really-simple-style-management-center' ); ?>
                         </option>
                         <option value="full" <?php selected( $wh_payload_mode, 'full' ); ?>>
-                            <?php esc_html_e( 'Full (설정 전체 포함)', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Full (설정 전체 포함)', 'acf-css-really-simple-style-management-center' ); ?>
                         </option>
                     </select>
-                    <p class="description"><?php esc_html_e( 'Full은 데이터가 커질 수 있으므로 자동화 목적에 맞게 선택하세요.', 'jj-style-guide' ); ?></p>
+                    <p class="description"><?php esc_html_e( 'Full은 데이터가 커질 수 있으므로 자동화 목적에 맞게 선택하세요.', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </td>
             </tr>
 
             <tr>
                 <th scope="row">
-                    <label for="jj_webhooks_timeout"><?php esc_html_e( '타임아웃(초)', 'jj-style-guide' ); ?></label>
+                    <label for="jj_webhooks_timeout"><?php esc_html_e( '타임아웃(초)', 'acf-css-really-simple-style-management-center' ); ?></label>
                 </th>
                 <td>
                     <input type="number" id="jj_webhooks_timeout" name="jj_webhooks[timeout_seconds]" min="1" max="30" value="<?php echo esc_attr( $wh_timeout ); ?>" />
-                    <p class="description"><?php esc_html_e( '테스트/동기 전송 시 적용됩니다. 실사용 전송은 비동기(blocking=false)로 수행됩니다.', 'jj-style-guide' ); ?></p>
+                    <p class="description"><?php esc_html_e( '테스트/동기 전송 시 적용됩니다. 실사용 전송은 비동기(blocking=false)로 수행됩니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </td>
             </tr>
 
             <tr>
-                <th scope="row"><?php esc_html_e( '이벤트', 'jj-style-guide' ); ?></th>
+                <th scope="row"><?php esc_html_e( '이벤트', 'acf-css-really-simple-style-management-center' ); ?></th>
                 <td>
                     <label style="display: block; margin-bottom: 8px;">
                         <input type="checkbox" name="jj_webhooks[events][]" value="style_settings_updated" <?php checked( in_array( 'style_settings_updated', $wh_events, true ), true ); ?> />
-                        <?php esc_html_e( '스타일 센터 설정 저장', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '스타일 센터 설정 저장', 'acf-css-really-simple-style-management-center' ); ?>
                     </label>
                     <label style="display: block;">
                         <input type="checkbox" name="jj_webhooks[events][]" value="admin_center_updated" <?php checked( in_array( 'admin_center_updated', $wh_events, true ), true ); ?> />
-                        <?php esc_html_e( 'Admin Center(메뉴/상단바/텍스트/업데이트 등) 저장', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( 'Admin Center(메뉴/상단바/텍스트/업데이트 등) 저장', 'acf-css-really-simple-style-management-center' ); ?>
                     </label>
                 </td>
             </tr>
@@ -823,7 +823,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <p class="submit">
             <button type="button" id="jj-test-webhook" class="button button-secondary">
-                <?php esc_html_e( 'Webhook 테스트', 'jj-style-guide' ); ?>
+                <?php esc_html_e( 'Webhook 테스트', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <span id="jj-webhook-test-result" style="margin-left: 10px;"></span>
         </p>

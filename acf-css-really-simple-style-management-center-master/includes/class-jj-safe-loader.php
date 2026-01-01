@@ -255,9 +255,9 @@ if ( ! class_exists( 'JJ_Safe_Loader' ) ) {
             if ( ! empty( $manifest_result['missing_required'] ) ) {
                 $solutions[] = array(
                     'type' => 'repair',
-                    'title' => __( '누락된 필수 파일 복구', 'jj-style-guide' ),
+                    'title' => __( '누락된 필수 파일 복구', 'acf-css-really-simple-style-management-center' ),
                     'description' => sprintf(
-                        __( '%d개의 필수 파일이 누락되었습니다. 복구를 시도할 수 있습니다.', 'jj-style-guide' ),
+                        __( '%d개의 필수 파일이 누락되었습니다. 복구를 시도할 수 있습니다.', 'acf-css-really-simple-style-management-center' ),
                         count( $manifest_result['missing_required'] )
                     ),
                     'action' => 'repair_missing_files',
@@ -266,8 +266,8 @@ if ( ! class_exists( 'JJ_Safe_Loader' ) ) {
                 
                 $solutions[] = array(
                     'type' => 'reinstall',
-                    'title' => __( '플러그인 재설치', 'jj-style-guide' ),
-                    'description' => __( '플러그인을 비활성화하고 최신 버전으로 재설치하세요.', 'jj-style-guide' ),
+                    'title' => __( '플러그인 재설치', 'acf-css-really-simple-style-management-center' ),
+                    'description' => __( '플러그인을 비활성화하고 최신 버전으로 재설치하세요.', 'acf-css-really-simple-style-management-center' ),
                     'action' => 'reinstall_plugin',
                     'action_url' => admin_url( 'plugins.php' ),
                 );
@@ -279,8 +279,8 @@ if ( ! class_exists( 'JJ_Safe_Loader' ) ) {
                 $diagnosis['load_errors'] = $load_errors;
                 $solutions[] = array(
                     'type' => 'check_syntax',
-                    'title' => __( 'PHP 문법 오류 확인', 'jj-style-guide' ),
-                    'description' => __( '로드 오류가 있는 파일의 PHP 문법을 확인하세요.', 'jj-style-guide' ),
+                    'title' => __( 'PHP 문법 오류 확인', 'acf-css-really-simple-style-management-center' ),
+                    'description' => __( '로드 오류가 있는 파일의 PHP 문법을 확인하세요.', 'acf-css-really-simple-style-management-center' ),
                     'action' => 'check_php_syntax',
                     'action_url' => '',
                 );

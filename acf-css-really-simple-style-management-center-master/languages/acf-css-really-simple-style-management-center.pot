@@ -1,387 +1,4604 @@
-# Copyright (C) 2025 J&J Labs
+# Copyright (C) 2026 3J Labs
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: ACF CSS Manager 6.2.0\n"
-"Report-Msgid-Bugs-To: https://j-j-labs.com/support\n"
-"POT-Creation-Date: 2025-12-18 00:00:00+0000\n"
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: Cursor AI\n"
+"X-Generator: Translation Generator Script\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
 
-#: acf-css-really-simple-style-guide.php:5
-msgid "WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다."
+#: acf-css-really-simple-style-guide.php:500
+msgid "현재 버전을 사용 중입니다."
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "J&J 관리자 센터"
+#: acf-css-really-simple-style-guide.php:501
+msgid "더 많은 기능을 이용하려면 업그레이드하세요:"
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "일반 설정"
+#: acf-css-really-simple-style-guide.php:503
+#: acf-css-really-simple-style-guide.php:758
+#: includes\class-jj-admin-center.php:566
+#: includes\class-jj-admin-center.php:566
+#: includes\class-jj-labs-center.php:378
+#: includes\class-jj-labs-center.php:378
+#: includes\class-jj-labs-center.php:407
+#: includes\class-jj-license-manager.php:948
+#: includes\admin\views\tabs\tab-cloud.php:84
+#: includes\admin\views\tabs\tab-cloud.php:84
+#: includes\admin\views\tabs\tab-section-layout.php:20
+#: includes\admin\views\tabs\tab-section-layout.php:20
+msgid "업그레이드하기"
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "어드민 메뉴"
+#: acf-css-really-simple-style-guide.php:507
+msgid "모든 팔레트 사용 가능 (브랜드, 시스템, 얼터너티브, 어나더, 임시)"
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "섹션 레이아웃"
+#: acf-css-really-simple-style-guide.php:508
+msgid "모든 테마 및 플러그인 어댑터 지원"
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "텍스트"
+#: acf-css-really-simple-style-guide.php:509
+msgid "관리자 센터 및 실험실 센터 전체 기능"
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "색상"
+#: acf-css-really-simple-style-guide.php:510
+msgid "섹션별 내보내기/불러오기"
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "비주얼"
+#: acf-css-really-simple-style-guide.php:511
+msgid "고급 색상 선택 기능 (스포이드, 팔레트 불러오기)"
 msgstr ""
 
-#: includes/class-jj-admin-center.php
-msgid "클라우드"
-msgstr ""
-
-#: includes/class-jj-admin-center.php
-msgid "백업 관리"
-msgstr ""
-
-#: includes/class-jj-admin-center.php
-msgid "업데이트"
-msgstr ""
-
-#: includes/class-jj-admin-center.php
-msgid "라이센스"
-msgstr ""
-
-#: includes/class-jj-admin-center.php
-msgid "시스템 상태"
-msgstr ""
-
-#: includes/class-jj-admin-center.php
-msgid "저장"
-msgstr ""
-
-#: includes/class-jj-admin-center.php
-msgid "설정이 저장되었습니다."
-msgstr ""
-
-#: includes/class-jj-admin-center.php
-msgid "권한이 없습니다."
-msgstr ""
-
-#. Style Center
-#: includes/class-jj-style-guide-admin.php
-msgid "스타일 센터"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "브랜드 팔레트"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "시스템 팔레트"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "타이포그래피"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "버튼 스타일"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "폼 스타일"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "기본 색상"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "Primary"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "Secondary"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "Accent"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "배경색"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "텍스트 색상"
-msgstr ""
-
-#. Typography
-#: includes/class-jj-style-guide-admin.php
-msgid "제목 폰트"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "본문 폰트"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "버튼 폰트"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "폰트 크기"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "폰트 두께"
-msgstr ""
-
-#. Buttons
-#: includes/class-jj-style-guide-admin.php
-msgid "기본 버튼"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "테두리 반경"
-msgstr ""
-
-#: includes/class-jj-style-guide-admin.php
-msgid "패딩"
-msgstr ""
-
-#. Cloud
-#: includes/modules/cloud-manager/class-jj-cloud-manager.php
-msgid "클라우드로 내보내기"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-cloud-manager.php
-msgid "클라우드에서 가져오기"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-cloud-manager.php
-msgid "공유 코드 입력"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-cloud-manager.php
-msgid "서버 통신 오류"
-msgstr ""
-
-#. Template Market
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "템플릿 마켓"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "검색"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "전체"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "비즈니스"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "카페/레스토랑"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "기술/개발"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "적용하기"
-msgstr ""
-
-#: includes/modules/cloud-manager/class-jj-template-market.php
-msgid "내 스타일 판매하기"
-msgstr ""
-
-#. Partner Hub
-#: includes/modules/partner-hub/class-jj-partner-hub.php
-msgid "Partner Hub"
-msgstr ""
-
-#: includes/modules/partner-hub/class-jj-partner-hub.php
-msgid "연결된 사이트"
-msgstr ""
-
-#: includes/modules/partner-hub/class-jj-partner-hub.php
-msgid "사이트 추가"
-msgstr ""
-
-#: includes/modules/partner-hub/class-jj-partner-hub.php
-msgid "전체 동기화"
-msgstr ""
-
-#: includes/modules/partner-hub/class-jj-partner-hub.php
-msgid "활성"
-msgstr ""
-
-#: includes/modules/partner-hub/class-jj-partner-hub.php
-msgid "오류"
-msgstr ""
-
-#. Multisite
-#: includes/multisite/class-jj-multisite-controller.php
-msgid "네트워크 설정"
-msgstr ""
-
-#: includes/multisite/class-jj-multisite-controller.php
-msgid "사이트 오버라이드 허용"
-msgstr ""
-
-#: includes/multisite/class-jj-multisite-controller.php
-msgid "전체 사이트 적용"
-msgstr ""
-
-#: includes/multisite/class-jj-multisite-controller.php
-msgid "이 사이트는 네트워크에서 스타일을 관리 중입니다."
-msgstr ""
-
-#. Webhook
-#: includes/integrations/class-jj-webhook-manager.php
-msgid "Webhook 자동화"
-msgstr ""
-
-#: includes/integrations/class-jj-webhook-manager.php
-msgid "Webhook 활성화"
-msgstr ""
-
-#: includes/integrations/class-jj-webhook-manager.php
-msgid "엔드포인트 URL"
-msgstr ""
-
-#: includes/integrations/class-jj-webhook-manager.php
-msgid "시크릿 키"
-msgstr ""
-
-#: includes/integrations/class-jj-webhook-manager.php
-msgid "테스트 Webhook"
-msgstr ""
-
-#. License
-#: includes/class-jj-license-manager.php
-msgid "라이센스 키"
-msgstr ""
-
-#: includes/class-jj-license-manager.php
-msgid "라이센스 활성화"
-msgstr ""
-
-#: includes/class-jj-license-manager.php
-msgid "라이센스가 활성화되었습니다."
-msgstr ""
-
-#: includes/class-jj-license-manager.php
-msgid "유효하지 않은 라이센스 키입니다."
-msgstr ""
-
-#. Quick Links
-#: acf-css-really-simple-style-guide.php
+#: acf-css-really-simple-style-guide.php:540
+#: includes\class-jj-plugin-list-enhancer.php:111
 msgid "Settings"
 msgstr ""
 
-#: acf-css-really-simple-style-guide.php
+#: acf-css-really-simple-style-guide.php:543
+#: includes\class-jj-plugin-list-enhancer.php:114
 msgid "Styles"
 msgstr ""
 
-#: acf-css-really-simple-style-guide.php
+#: acf-css-really-simple-style-guide.php:546
+#: includes\class-jj-plugin-list-enhancer.php:117
 msgid "Menu"
 msgstr ""
 
-#: acf-css-really-simple-style-guide.php
+#: acf-css-really-simple-style-guide.php:549
+#: includes\class-jj-admin-center.php:484
+#: includes\class-jj-admin-center.php:484
+#: includes\class-jj-admin-center.php:601
+#: includes\class-jj-admin-center.php:601
+#: includes\class-jj-plugin-list-enhancer.php:120
 msgid "Visual"
 msgstr ""
 
-#. AI Extension
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "ACF CSS AI"
+#: acf-css-really-simple-style-guide.php:569
+#: acf-css-really-simple-style-guide.php:570
+#: acf-css-really-simple-style-guide.php:580
+#: acf-css-really-simple-style-guide.php:581
+#: acf-css-really-simple-style-guide.php:588
+#: acf-css-really-simple-style-guide.php:589
+#: acf-css-really-simple-style-guide.php:740
+#: acf-css-really-simple-style-guide.php:853
+msgid "ACF CSS 스타일 센터"
 msgstr ""
 
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "프롬프트"
+#: acf-css-really-simple-style-guide.php:598
+#: acf-css-really-simple-style-guide.php:599
+msgid "ACF CSS 스타일 설정 페이지"
 msgstr ""
 
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "AI 제안 생성"
+#: acf-css-really-simple-style-guide.php:681
+#: includes\class-jj-labs-center.php:286
+msgid "저장 중..."
 msgstr ""
 
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "적용(저장)"
+#: acf-css-really-simple-style-guide.php:682
+#: includes\class-jj-labs-center.php:287
+msgid "스타일 저장됨"
 msgstr ""
 
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "제안 결과"
-msgstr ""
-
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "프롬프트를 입력하세요."
-msgstr ""
-
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "AI 제안이 적용되었습니다."
-msgstr ""
-
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "Cloud 저장"
-msgstr ""
-
-#: acf-css-ai-extension/includes/class-jj-acf-css-ai-extension.php
-msgid "코어 플러그인이 감지되지 않았습니다."
-msgstr ""
-
-#. Common
-msgid "예"
-msgstr ""
-
-msgid "아니오"
-msgstr ""
-
-msgid "확인"
-msgstr ""
-
-msgid "취소"
-msgstr ""
-
-msgid "삭제"
-msgstr ""
-
-msgid "수정"
-msgstr ""
-
-msgid "추가"
-msgstr ""
-
-msgid "닫기"
-msgstr ""
-
-msgid "로딩 중..."
-msgstr ""
-
-msgid "성공"
-msgstr ""
-
-msgid "실패"
-msgstr ""
-
-msgid "경고"
-msgstr ""
-
+#: acf-css-really-simple-style-guide.php:684
 msgid "오류가 발생했습니다."
 msgstr ""
 
+#: acf-css-really-simple-style-guide.php:765
+#: includes\editor-views\view-section-colors.php:121
+msgid "실시간 미리보기"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:773
+#: acf-css-really-simple-style-guide.php:842
+msgid "스타일 저장"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:835
+msgid "더 많은 기능을 이용하려면 업그레이드하세요."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:855
+msgid "오류가 발생했습니다:"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:868
+#: acf-css-really-simple-style-guide.php:959
+#: acf-css-really-simple-style-guide.php:1039
+#: acf-css-really-simple-style-guide.php:1105
+#: acf-css-really-simple-style-guide.php:1105
+#: acf-css-really-simple-style-guide.php:1166
+#: acf-css-really-simple-style-guide.php:1256
+#: includes\class-jj-admin-center.php:1111
+#: includes\class-jj-admin-center.php:1229
+#: includes\class-jj-admin-center.php:1260
+#: includes\class-jj-admin-center.php:1469
+#: includes\class-jj-admin-center.php:1758
+#: includes\class-jj-ai-extension-promoter.php:225
+#: includes\class-jj-asset-optimizer.php:176
+#: includes\class-jj-backup-manager.php:447
+#: includes\class-jj-backup-manager.php:471
+#: includes\class-jj-backup-manager.php:497
+#: includes\class-jj-backup-manager.php:523
+#: includes\class-jj-backup-manager.php:541
+#: includes\class-jj-backup-manager.php:564
+#: includes\class-jj-backup-manager.php:583
+#: includes\class-jj-customizer-sync.php:325
+#: includes\class-jj-feedback-collector.php:67
+#: includes\class-jj-labs-center.php:63
+#: includes\class-jj-license-issuer.php:581
+#: includes\class-jj-license-issuer.php:612
+#: includes\class-jj-license-issuer.php:638
+#: includes\class-jj-license-issuer.php:668
+#: includes\class-jj-migration-manager.php:568
+#: includes\class-jj-migration-manager.php:598
+#: includes\class-jj-plugin-list-enhancer.php:228
+#: includes\class-jj-plugin-updater.php:283
+#: includes\class-jj-security-hardener.php:140
+#: includes\integrations\class-jj-webhook-manager.php:263
+msgid "권한이 없습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:871
+msgid "잘못된 데이터입니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:880
+#: includes\api\class-jj-style-guide-rest-api.php:144
+msgid "이 사이트는 네트워크에서 스타일을 관리 중입니다. 네트워크 관리자에서 변경해주세요."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:926
+#: includes\class-jj-backup-manager.php:590
+msgid "설정이 저장되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:988
+#: acf-css-really-simple-style-guide.php:1068
+msgid "이 기능은 업그레이드가 필요합니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:997
+msgid "지원하지 않는 대상 팔레트입니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1005
+msgid "임시 팔레트에 저장된 값이 없습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1030
+msgid "임시 팔레트가 브랜드 팔레트에 적용되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1079
+msgid "브랜드 팔레트 값이 비어 있습니다. 먼저 브랜드 색상을 입력해 주세요."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1091
+msgid "현재 브랜드 팔레트가 임시 팔레트로 저장되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1112
+#: acf-css-really-simple-style-guide.php:1112
+#: acf-css-really-simple-style-guide.php:1173
+msgid "지원하지 않는 섹션 타입입니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1117
+#: acf-css-really-simple-style-guide.php:1117
+#: acf-css-really-simple-style-guide.php:1178
+msgid "지원하지 않는 섹션 서브타입입니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1182
+msgid "업로드된 파일이 없습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1188
+msgid "파일을 읽을 수 없습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1193
+#: acf-css-really-simple-style-guide.php:1429
+msgid "JSON 형식이 올바르지 않습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1236
+msgid "설정이 성공적으로 불러와졌습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1264
+msgid "요청 파라미터가 올바르지 않습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1269
+#: acf-css-really-simple-style-guide.php:1306
+msgid "AI 프리셋만 관리할 수 있습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1274
+msgid "지원하지 않는 작업입니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1299
+msgid "선택된 항목이 없습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1302
+msgid "한 번에 최대 20개까지만 처리할 수 있습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1391
+#: acf-css-really-simple-style-guide.php:1652
+msgid "완료되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1393
+msgid "삭제 완료: %d개 삭제, %d개 누락"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1395
+msgid "상단 고정: %d개 적용, %d개 이미 고정, %d개 누락"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1397
+msgid "고정 해제: %d개 적용, %d개 이미 해제, %d개 누락"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1412
+msgid "불러올 JSON이 비어있습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1415
+msgid "불러올 데이터가 너무 큽니다. (안전상 제한) JSON을 나눠서 가져오세요."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1420
+msgid "JSON 파싱에 실패했습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1482
+msgid "가져온 AI 팔레트"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1584
+msgid "가져오기 완료: %d개 추가, %d개 건너뜀"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1618
+msgid "이름이 비어있습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1628
+msgid "해당 프리셋을 찾을 수 없습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1653
+msgid "삭제되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1654
+msgid "상단 고정되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1655
+msgid "고정이 해제되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1656
+msgid "이름이 변경되었습니다."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1975
+#: acf-css-really-simple-style-guide.php:1975
+msgid "부팅 진단 경고가 감지되었습니다. (파일 누락/로드 오류)"
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1987
+#: acf-css-really-simple-style-guide.php:1987
+msgid "원인 확인: %s → System Status 탭에서 “자가 진단”을 실행하세요."
+msgstr ""
+
+#: acf-css-really-simple-style-guide.php:1988
+#: acf-css-really-simple-style-guide.php:1988
+msgid "Admin Center"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:28
+msgid "코어 / 대시보드"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:31
+msgid "ProPanel"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:34
+msgid "LearnDash K"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:40
+msgid "LearnDash Dashboard 색상"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:74
+msgid "LearnDash ProPanel 스타일"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:78
+msgid "진행도 바 색상 (Progress Bar)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:96
+msgid "LearnDash K (단비스토어) 스타일"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-ld.php:100
+msgid "단비 버튼 색상"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:27
+msgid "코어 / 기본"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:30
+msgid "UM Korea (단비)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:33
+msgid "UM Optimize"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:39
+msgid "UM 코어 색상"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:61
+msgid "UM Korea (단비스토어) 스타일"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:65
+msgid "소셜 로그인 버튼 배경"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:78
+msgid "소셜 로그인 버튼 텍스트"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:96
+msgid "UM Optimize 스타일"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-um.php:100
+msgid "프로필 헤더 배경"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:34
+msgid "개별 상품"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:37
+msgid "상점 / 아카이브"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:40
+msgid "Kadence Shop Kit"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:43
+msgid "WooCommerce K"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:50
+msgid "상품명 (Product Title)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:53
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:90
+msgid "타이포그래피 재정의"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:65
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:102
+#: includes\class-jj-customizer-manager.php:314
+#: includes\editor-views\view-section-typography.php:171
+msgid "Font Family"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:66
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:103
+#: includes\editor-views\view-section-forms.php:90
+#: includes\editor-views\view-section-typography.php:181
+msgid "Weight"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:67
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:104
+#: includes\editor-views\view-section-forms.php:100
+#: includes\editor-views\view-section-typography.php:190
+msgid "Style"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:68
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:105
+#: includes\class-jj-customizer-manager.php:338
+#: includes\editor-views\view-section-typography.php:199
+msgid "Line Height (em)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:69
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:106
+#: includes\class-jj-customizer-manager.php:343
+#: includes\editor-views\view-section-typography.php:210
+msgid "Letter Spacing (px)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:70
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:107
+#: includes\editor-views\view-section-forms.php:110
+#: includes\editor-views\view-section-typography.php:221
+msgid "Transform"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:71
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:108
+#: includes\editor-views\view-section-typography.php:237
+msgid "Size (Desktop)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:71
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:108
+#: includes\editor-views\view-section-typography.php:246
+msgid "Size (Tablet)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:71
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:108
+#: includes\editor-views\view-section-typography.php:255
+msgid "Size (Mobile)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:76
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:113
+msgid "색상 재정의"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:78
+msgid "기본값: 테마의 H1 색상을 따름"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:82
+msgid "색상 (Normal & Hover)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:87
+msgid "가격 (Product Price)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:115
+msgid "기본값: 테마의 가격 색상을 따름"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:119
+msgid "색상 (Normal)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:127
+msgid "버튼 텍스트 (Text)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:133
+msgid "버튼 스타일 재정의"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:143
+#: includes\class-jj-admin-center.php:478
+#: includes\class-jj-admin-center.php:478
+#: includes\class-jj-admin-center.php:598
+#: includes\class-jj-admin-center.php:598
+#: includes\editor-views\view-section-buttons.php:91
+#: includes\editor-views\view-section-buttons.php:117
+#: includes\editor-views\view-section-buttons.php:143
+#: includes\editor-views\view-section-forms.php:155
+msgid "Colors"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:143
+#: includes\editor-views\view-section-buttons.php:92
+#: includes\editor-views\view-section-buttons.php:118
+#: includes\editor-views\view-section-buttons.php:144
+msgid "배경 색상 (Normal & Hover)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:143
+#: includes\editor-views\view-section-buttons.php:93
+#: includes\editor-views\view-section-buttons.php:119
+#: includes\editor-views\view-section-buttons.php:145
+msgid "텍스트 색상 (Normal & Hover)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:143
+#: includes\editor-views\view-section-buttons.php:94
+#: includes\editor-views\view-section-buttons.php:120
+#: includes\editor-views\view-section-buttons.php:146
+msgid "테두리 색상 (Normal & Hover)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:144
+#: includes\editor-views\view-section-buttons.php:96
+#: includes\editor-views\view-section-buttons.php:122
+#: includes\editor-views\view-section-buttons.php:148
+#: includes\editor-views\view-section-forms.php:165
+msgid "Layout"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:144
+#: includes\editor-views\view-section-buttons.php:97
+#: includes\editor-views\view-section-buttons.php:123
+#: includes\editor-views\view-section-buttons.php:149
+#: includes\editor-views\view-section-forms.php:167
+msgid "Border Radius (px)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:144
+#: includes\editor-views\view-section-buttons.php:98
+#: includes\editor-views\view-section-buttons.php:124
+#: includes\editor-views\view-section-buttons.php:150
+#: includes\editor-views\view-section-forms.php:177
+msgid "Padding (px)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:145
+#: includes\editor-views\view-section-buttons.php:100
+#: includes\editor-views\view-section-buttons.php:126
+#: includes\editor-views\view-section-buttons.php:152
+msgid "Button Shadow"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:145
+#: includes\editor-views\view-section-buttons.php:101
+#: includes\editor-views\view-section-buttons.php:127
+#: includes\editor-views\view-section-buttons.php:153
+msgid "Color"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:145
+#: includes\editor-views\view-section-buttons.php:101
+#: includes\editor-views\view-section-buttons.php:127
+#: includes\editor-views\view-section-buttons.php:153
+msgid "X Offset (px)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:145
+#: includes\editor-views\view-section-buttons.php:101
+#: includes\editor-views\view-section-buttons.php:127
+#: includes\editor-views\view-section-buttons.php:153
+msgid "Y Offset (px)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:145
+#: includes\editor-views\view-section-buttons.php:101
+#: includes\editor-views\view-section-buttons.php:127
+#: includes\editor-views\view-section-buttons.php:153
+msgid "Blur (px)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:145
+#: includes\editor-views\view-section-buttons.php:101
+#: includes\editor-views\view-section-buttons.php:127
+#: includes\editor-views\view-section-buttons.php:153
+msgid "Spread (px)"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:156
+msgid "Kadence Shop Kit 스타일"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:160
+msgid "Quick View 버튼 배경"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:178
+msgid "WooCommerce K (단비스토어) 스타일"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:182
+msgid "네이버페이 버튼 배경"
+msgstr ""
+
+#: assets\css\legacy\editor-views\view-section-spoke-wc.php:195
+msgid "카카오페이 버튼 배경"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:56
+#: includes\admin\views\tabs\tab-admin-menu.php:56
+msgid "메뉴 목록"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:79
+#: includes\admin\views\tabs\tab-admin-menu.php:79
+#: includes\admin\views\tabs\tab-admin-menu.php:115
+#: includes\admin\views\tabs\tab-admin-menu.php:115
+#: includes\admin\views\tabs\tab-admin-menu.php:200
+#: includes\admin\views\tabs\tab-admin-menu.php:200
+#: includes\admin\views\tabs\tab-admin-menu.php:329
+#: includes\admin\views\tabs\tab-admin-menu.php:329
+#: includes\admin\views\tabs\tab-section-layout.php:72
+#: includes\admin\views\tabs\tab-section-layout.php:72
+#: includes\admin\views\tabs\tab-section-layout.php:111
+#: includes\admin\views\tabs\tab-section-layout.php:111
+msgid "표시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:79
+#: includes\admin\views\tabs\tab-admin-menu.php:79
+#: includes\admin\views\tabs\tab-admin-menu.php:115
+#: includes\admin\views\tabs\tab-admin-menu.php:115
+msgid "숨김"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:207
+#: includes\admin\views\tabs\tab-admin-menu.php:207
+msgid "이 메뉴 항목 표시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:212
+#: includes\admin\views\tabs\tab-admin-menu.php:212
+#: includes\admin\views\tabs\tab-admin-menu.php:355
+#: includes\admin\views\tabs\tab-admin-menu.php:355
+#: includes\admin\views\tabs\tab-section-layout.php:73
+#: includes\admin\views\tabs\tab-section-layout.php:73
+msgid "순서"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:233
+#: includes\admin\views\tabs\tab-admin-menu.php:233
+#: includes\admin\views\tabs\tab-admin-menu.php:379
+#: includes\admin\views\tabs\tab-admin-menu.php:379
+msgid "현재 순서:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:237
+#: includes\admin\views\tabs\tab-admin-menu.php:237
+msgid "순서는 1부터 시작하며, 현재 순서는 왼쪽 메뉴 목록에도 표시됩니다. 드래그 앤 드롭 또는 화살표 버튼으로 조정할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:242
+#: includes\admin\views\tabs\tab-admin-menu.php:242
+#: includes\admin\views\tabs\tab-admin-menu.php:341
+#: includes\admin\views\tabs\tab-admin-menu.php:341
+msgid "레이블"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:249
+#: includes\admin\views\tabs\tab-admin-menu.php:249
+msgid "비워두면 기본 레이블이 사용됩니다. 변경 시 왼쪽 메뉴 목록에 즉시 반영됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:253
+#: includes\admin\views\tabs\tab-admin-menu.php:253
+msgid "아이콘"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:261
+#: includes\admin\views\tabs\tab-admin-menu.php:261
+msgid "Dashicons 클래스 이름 (예: dashicons-admin-generic) 또는 이미지 URL을 입력하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:263
+#: includes\admin\views\tabs\tab-admin-menu.php:263
+#: includes\admin\views\tabs\tab-admin-menu.php:300
+#: includes\admin\views\tabs\tab-admin-menu.php:300
+#: includes\admin\views\tabs\tab-admin-menu.php:399
+#: includes\admin\views\tabs\tab-admin-menu.php:399
+msgid "기본값:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:264
+#: includes\admin\views\tabs\tab-admin-menu.php:264
+msgid "Dashicons 목록 보기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:285
+#: includes\admin\views\tabs\tab-admin-menu.php:285
+#: includes\admin\views\tabs\tab-admin-menu.php:388
+#: includes\admin\views\tabs\tab-admin-menu.php:388
+msgid "권한"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:289
+#: includes\admin\views\tabs\tab-admin-menu.php:289
+#: includes\admin\views\tabs\tab-admin-menu.php:392
+#: includes\admin\views\tabs\tab-admin-menu.php:392
+msgid "-- 기본값 사용 --"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:290
+#: includes\admin\views\tabs\tab-admin-menu.php:290
+msgid "manage_options (관리자)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:291
+#: includes\admin\views\tabs\tab-admin-menu.php:291
+msgid "edit_posts (편집자 이상)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:292
+#: includes\admin\views\tabs\tab-admin-menu.php:292
+msgid "publish_posts (작성자 이상)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:293
+#: includes\admin\views\tabs\tab-admin-menu.php:293
+msgid "edit_published_posts (작성자 이상)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:294
+#: includes\admin\views\tabs\tab-admin-menu.php:294
+msgid "read (구독자 이상)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:295
+#: includes\admin\views\tabs\tab-admin-menu.php:295
+msgid "manage_network (네트워크 관리자)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:298
+#: includes\admin\views\tabs\tab-admin-menu.php:298
+msgid "이 메뉴를 볼 수 있는 최소 권한을 설정합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:307
+#: includes\admin\views\tabs\tab-admin-menu.php:307
+msgid "서브메뉴"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:309
+#: includes\admin\views\tabs\tab-admin-menu.php:309
+msgid "이 메뉴 항목의 서브메뉴를 편집할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:336
+#: includes\admin\views\tabs\tab-admin-menu.php:336
+msgid "이 서브메뉴 표시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:350
+#: includes\admin\views\tabs\tab-admin-menu.php:350
+msgid "변경 시 왼쪽 메뉴 목록에 즉시 반영됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:383
+#: includes\admin\views\tabs\tab-admin-menu.php:383
+msgid "순서는 1부터 시작하며, 왼쪽 메뉴 목록에도 표시됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:393
+#: includes\admin\views\tabs\tab-admin-menu.php:393
+msgid "manage_options"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:394
+#: includes\admin\views\tabs\tab-admin-menu.php:394
+msgid "edit_posts"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:395
+#: includes\admin\views\tabs\tab-admin-menu.php:395
+msgid "publish_posts"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-admin-menu.php:396
+#: includes\admin\views\tabs\tab-admin-menu.php:396
+msgid "read"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:7
+#: includes\admin\views\tabs\tab-backup.php:7
+msgid "백업 및 복원"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:9
+#: includes\admin\views\tabs\tab-backup.php:9
+msgid "플러그인 설정을 백업하고 복원할 수 있습니다. 자동 백업은 매일, 주간, 월간으로 자동 생성됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:13
+#: includes\admin\views\tabs\tab-backup.php:13
+msgid "백업 생성"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:17
+#: includes\admin\views\tabs\tab-backup.php:17
+msgid "백업 레이블 (선택사항)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:21
+#: includes\admin\views\tabs\tab-backup.php:21
+msgid "수동 백업 생성"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:31
+#: includes\admin\views\tabs\tab-backup.php:31
+msgid "자동 백업 설정"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:35
+#: includes\admin\views\tabs\tab-backup.php:35
+msgid "설정 변경 시 자동 백업"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:43
+#: includes\admin\views\tabs\tab-backup.php:43
+msgid "설정이 변경될 때마다 자동으로 백업 생성"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:46
+#: includes\admin\views\tabs\tab-backup.php:46
+msgid "이 옵션을 활성화하면 스타일 센터나 Admin Center에서 설정을 변경할 때마다 자동으로 백업이 생성됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:55
+#: includes\admin\views\tabs\tab-backup.php:55
+msgid "백업 목록"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:59
+#: includes\admin\views\tabs\tab-backup.php:59
+msgid "백업 목록을 불러오는 중..."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:65
+#: includes\admin\views\tabs\tab-backup.php:65
+msgid "변경 이력"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-backup.php:69
+#: includes\admin\views\tabs\tab-backup.php:69
+msgid "변경 이력을 불러오는 중..."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:8
+#: includes\admin\views\tabs\tab-cloud.php:8
+msgid "JJ Cloud Ecosystem"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:10
+#: includes\admin\views\tabs\tab-cloud.php:10
+msgid "스타일 설정을 클라우드에 저장하고, 다른 사이트에서 코드로 불러오세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:19
+#: includes\admin\views\tabs\tab-cloud.php:19
+msgid "☁️ 클라우드에 저장 (Export)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:20
+#: includes\admin\views\tabs\tab-cloud.php:20
+msgid "현재 설정을 클라우드에 안전하게 백업합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:22
+#: includes\admin\views\tabs\tab-cloud.php:22
+msgid "지금 저장하기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:25
+#: includes\admin\views\tabs\tab-cloud.php:25
+msgid "공유 코드:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:26
+#: includes\admin\views\tabs\tab-cloud.php:26
+msgid "이 코드를 복사하여 다른 사이트에서 사용하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:31
+#: includes\admin\views\tabs\tab-cloud.php:31
+msgid "📥 클라우드에서 불러오기 (Import)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:32
+#: includes\admin\views\tabs\tab-cloud.php:32
+msgid "공유 코드를 입력하여 설정을 즉시 적용합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:45
+#: includes\admin\views\tabs\tab-cloud.php:45
+msgid "🎨 스타일 템플릿 마켓"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:47
+#: includes\admin\views\tabs\tab-cloud.php:47
+msgid "전문가가 디자인한 스타일 템플릿을 둘러보고 내 사이트에 즉시 적용해보세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:51
+#: includes\admin\views\tabs\tab-cloud.php:51
+msgid "템플릿 검색..."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:53
+#: includes\admin\views\tabs\tab-cloud.php:53
+msgid "전체 카테고리"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:54
+#: includes\admin\views\tabs\tab-cloud.php:54
+msgid "비즈니스"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:55
+#: includes\admin\views\tabs\tab-cloud.php:55
+msgid "카페/레스토랑"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:56
+#: includes\admin\views\tabs\tab-cloud.php:56
+msgid "기술/개발"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:59
+#: includes\admin\views\tabs\tab-cloud.php:59
+#: includes\editor-views\view-section-colors.php:101
+#: includes\editor-views\view-section-colors.php:229
+msgid "새로고침"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:66
+#: includes\admin\views\tabs\tab-cloud.php:66
+msgid "템플릿을 불러오는 중..."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:72
+#: includes\admin\views\tabs\tab-cloud.php:72
+msgid "나만의 스타일을 마켓에 등록하고 수익을 창출해보세요!"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:74
+#: includes\admin\views\tabs\tab-cloud.php:74
+msgid "내 스타일 판매하기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:82
+#: includes\admin\views\tabs\tab-cloud.php:82
+msgid "Premium 기능입니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-cloud.php:83
+#: includes\admin\views\tabs\tab-cloud.php:83
+msgid "클라우드 동기화 기능을 사용하려면 업그레이드하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:9
+#: includes\admin\views\tabs\tab-colors.php:9
+msgid "🤖 AI 스타일 인텔리전스"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:10
+#: includes\admin\views\tabs\tab-colors.php:10
+msgid "메인 색상 하나만 고르면, 전문적인 팔레트를 자동으로 생성해 드립니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:15
+#: includes\admin\views\tabs\tab-colors.php:15
+msgid "단색 (Monochromatic)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:16
+#: includes\admin\views\tabs\tab-colors.php:16
+msgid "유사색 (Analogous)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:17
+#: includes\admin\views\tabs\tab-colors.php:17
+msgid "보색 (Complementary)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:18
+#: includes\admin\views\tabs\tab-colors.php:18
+msgid "3색 조화 (Triadic)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:21
+#: includes\admin\views\tabs\tab-colors.php:21
+msgid "팔레트 생성"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:25
+#: includes\admin\views\tabs\tab-colors.php:25
+msgid "추천 팔레트:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:30
+#: includes\admin\views\tabs\tab-colors.php:30
+msgid "이 팔레트 적용하기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:35
+#: includes\admin\views\tabs\tab-colors.php:35
+msgid "관리자 메뉴 / 상단바 색상"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:37
+#: includes\admin\views\tabs\tab-colors.php:37
+msgid "좌측 관리자 메뉴와 상단 관리자 바에 사용할 배경/텍스트 색상을 지정할 수 있습니다. #RRGGBB 형식으로 입력해 주세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:42
+#: includes\admin\views\tabs\tab-colors.php:42
+msgid "사이드바 배경"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:57
+#: includes\admin\views\tabs\tab-colors.php:57
+#: includes\admin\views\tabs\tab-colors.php:128
+#: includes\admin\views\tabs\tab-colors.php:128
+msgid "팔레트에서 선택:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:65
+#: includes\admin\views\tabs\tab-colors.php:65
+#: includes\admin\views\tabs\tab-colors.php:136
+#: includes\admin\views\tabs\tab-colors.php:136
+msgid "스포이드"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:75
+msgid "사이드바 텍스트 (기본)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:79
+msgid "사이드바 텍스트 (호버)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:83
+msgid "사이드바 배경 (호버)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:87
+msgid "사이드바 배경 (활성 메뉴)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:91
+msgid "사이드바 텍스트 (활성 메뉴)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:95
+msgid "상단바 배경"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:99
+msgid "상단바 텍스트 (기본)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:103
+msgid "상단바 텍스트 (호버)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:149
+#: includes\admin\views\tabs\tab-colors.php:149
+msgid "팔레트에서 색상 불러오기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:150
+#: includes\admin\views\tabs\tab-colors.php:150
+msgid "불러올 팔레트를 선택하세요. 선택한 색상이 현재 입력 필드에 적용됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:158
+#: includes\admin\views\tabs\tab-colors.php:158
+msgid "취소"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-colors.php:166
+#: includes\admin\views\tabs\tab-colors.php:166
+msgid "색상 기본값으로 되돌리기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-general.php:8
+#: includes\admin\views\tabs\tab-general.php:8
+msgid "일반 설정"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-general.php:10
+#: includes\admin\views\tabs\tab-general.php:10
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-general.php:15
+#: includes\admin\views\tabs\tab-general.php:15
+msgid "관리자 메뉴 표시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-general.php:19
+#: includes\admin\views\tabs\tab-general.php:19
+msgid "좌측 관리자 메뉴 표시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-general.php:24
+#: includes\admin\views\tabs\tab-general.php:24
+msgid "관리자 툴바 표시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-general.php:28
+#: includes\admin\views\tabs\tab-general.php:28
+msgid "상단 관리자 툴바 표시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:19
+#: includes\admin\views\tabs\tab-license.php:19
+msgid "라이센스 관리 모듈을 로드할 수 없습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:33
+#: includes\admin\views\tabs\tab-license.php:37
+msgid "기한 연장"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:66
+#: includes\admin\views\tabs\tab-license.php:66
+msgid "라이센스 관리 (License Management)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:68
+#: includes\admin\views\tabs\tab-license.php:68
+msgid "제품 정품 인증을 통해 모든 기능을 활성화하고 자동 업데이트를 받으세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:76
+#: includes\admin\views\tabs\tab-license.php:76
+msgid "마스터 권한: 라이센스 발급 도구"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:79
+#: includes\admin\views\tabs\tab-license.php:79
+msgid "라이센스 키를 생성, 검증, 관리할 수 있는 발급자(Issuer) 패널로 이동합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:83
+#: includes\admin\views\tabs\tab-license.php:83
+msgid "라이센스 발급 관리자 이동"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:94
+#: includes\admin\views\tabs\tab-license.php:94
+msgid "현재 라이센스 상태"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:99
+#: includes\admin\views\tabs\tab-license.php:99
+msgid "활성화 상태:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:104
+#: includes\admin\views\tabs\tab-license.php:104
+msgid "정품 인증됨"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:109
+#: includes\admin\views\tabs\tab-license.php:109
+msgid "인증되지 않음"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:115
+#: includes\admin\views\tabs\tab-license.php:115
+msgid "에디션:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:133
+#: includes\admin\views\tabs\tab-license.php:133
+msgid "만료일:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:140
+msgid "%d일 남음"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:156
+#: includes\admin\views\tabs\tab-license.php:156
+msgid "더 많은 기능을 잠금 해제하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:178
+#: includes\admin\views\tabs\tab-license.php:178
+msgid "저장 및 검증"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:182
+#: includes\admin\views\tabs\tab-license.php:182
+msgid "구매 확인 이메일에 포함된 라이센스 키를 입력하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-license.php:194
+#: includes\admin\views\tabs\tab-license.php:194
+msgid "라이센스 키 제거 및 초기화"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:18
+#: includes\admin\views\tabs\tab-section-layout.php:18
+msgid "이 기능은 Premium 버전 이상에서 사용할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:19
+#: includes\admin\views\tabs\tab-section-layout.php:19
+msgid "섹션 레이아웃을 자유롭게 변경하고 탭을 제어하려면 업그레이드하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:24
+#: includes\admin\views\tabs\tab-section-layout.php:24
+msgid "스타일 센터 섹션 레이아웃"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:26
+#: includes\admin\views\tabs\tab-section-layout.php:26
+msgid "각 섹션의 표시 여부와 순서를 제어할 수 있습니다. 번호는 표시가 허용된 섹션의 순서에 맞추어 자동으로 계산됩니다. [v5.0.0] 각 섹션 내의 탭도 활성화/비활성화할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:27
+#: includes\admin\views\tabs\tab-section-layout.php:27
+#: includes\editor-views\view-labs-overrides.php:16
+#: includes\editor-views\view-labs-overrides.php:16
+#: includes\editor-views\view-labs-scanner.php:16
+#: includes\editor-views\view-labs-scanner.php:16
+#: includes\editor-views\view-labs-supported-list.php:160
+#: includes\editor-views\view-labs-supported-list.php:160
+msgid "도움말"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:34
+#: includes\admin\views\tabs\tab-section-layout.php:34
+msgid "섹션 또는 탭을 비활성화하면 스타일 센터에서 해당 섹션/탭이 표시되지 않습니다. 비활성화된 섹션/탭의 설정 데이터는 보존되지만 UI에서 접근할 수 없게 됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:50
+#: includes\admin\views\tabs\tab-section-layout.php:50
+msgid "기본값으로 되돌리기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:58
+#: includes\admin\views\tabs\tab-section-layout.php:58
+msgid "섹션 또는 탭 검색..."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:71
+#: includes\admin\views\tabs\tab-section-layout.php:71
+msgid "섹션"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:156
+#: includes\admin\views\tabs\tab-section-layout.php:156
+msgid "섹션 내 탭 활성화/비활성화"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-section-layout.php:174
+#: includes\admin\views\tabs\tab-section-layout.php:174
+msgid "전체 선택"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:10
+#: includes\admin\views\tabs\tab-system-status.php:10
+msgid "플러그인의 메모리 사용량, 캐시 상태, 성능 정보를 확인할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:34
+#: includes\admin\views\tabs\tab-system-status.php:34
+msgid "🩺 자가 진단 (Self-Health Check)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:36
+#: includes\admin\views\tabs\tab-system-status.php:36
+msgid "플러그인의 핵심 기능이 정상 작동하는지 검사합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:41
+#: includes\admin\views\tabs\tab-system-status.php:41
+msgid "결과 복사"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:44
+#: includes\admin\views\tabs\tab-system-status.php:44
+msgid "JSON 다운로드"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:47
+#: includes\admin\views\tabs\tab-system-status.php:47
+msgid "자가 진단 실행"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:57
+#: includes\admin\views\tabs\tab-system-status.php:57
+msgid "파일 누락 감지"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:64
+#: includes\admin\views\tabs\tab-system-status.php:64
+msgid "필수 파일 %d개가 누락되었습니다. 플러그인이 정상 작동하지 않을 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:80
+#: includes\admin\views\tabs\tab-system-status.php:80
+msgid "... 외 %d개 파일 누락"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:91
+#: includes\admin\views\tabs\tab-system-status.php:91
+msgid "활성화 오류:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:98
+#: includes\admin\views\tabs\tab-system-status.php:98
+msgid "최소 부팅 경로 실패: 필수 파일이 누락되어 플러그인을 시작할 수 없습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:102
+#: includes\admin\views\tabs\tab-system-status.php:102
+msgid "활성화 중 오류: %s"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:106
+#: includes\admin\views\tabs\tab-system-status.php:106
+msgid "알 수 없는 활성화 오류가 발생했습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:115
+#: includes\admin\views\tabs\tab-system-status.php:115
+msgid "💡 해결 방법:"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:128
+#: includes\admin\views\tabs\tab-system-status.php:128
+msgid "복구 시도"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:139
+#: includes\admin\views\tabs\tab-system-status.php:139
+msgid "로그 복사"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:142
+#: includes\admin\views\tabs\tab-system-status.php:142
+msgid "로그 다운로드"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:155
+#: includes\admin\views\tabs\tab-system-status.php:155
+msgid "선택적 파일 %d개가 누락되었습니다. 일부 기능이 제한될 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:167
+#: includes\admin\views\tabs\tab-system-status.php:167
+msgid "진단 중..."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:186
+#: includes\admin\views\tabs\tab-system-status.php:186
+msgid "보안 이벤트 로그"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:189
+#: includes\admin\views\tabs\tab-system-status.php:189
+msgid "최근 보안 관련 이벤트를 확인할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:194
+#: includes\admin\views\tabs\tab-system-status.php:194
+msgid "시간"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:195
+#: includes\admin\views\tabs\tab-system-status.php:195
+msgid "이벤트 타입"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:196
+#: includes\admin\views\tabs\tab-system-status.php:196
+msgid "상세"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:197
+#: includes\admin\views\tabs\tab-system-status.php:197
+msgid "IP"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:281
+#: includes\admin\views\tabs\tab-system-status.php:281
+#: includes\admin\views\tabs\tab-system-status.php:332
+#: includes\admin\views\tabs\tab-system-status.php:332
+msgid "메모리 사용량"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:285
+#: includes\admin\views\tabs\tab-system-status.php:285
+msgid "메모리 제한"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:289
+#: includes\admin\views\tabs\tab-system-status.php:289
+msgid "(낮은 메모리 환경)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:294
+#: includes\admin\views\tabs\tab-system-status.php:294
+msgid "현재 사용량"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:305
+#: includes\admin\views\tabs\tab-system-status.php:305
+msgid "피크 사용량"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:311
+#: includes\admin\views\tabs\tab-system-status.php:311
+msgid "사용 가능"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:322
+#: includes\admin\views\tabs\tab-system-status.php:322
+msgid "옵션 캐시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:326
+#: includes\admin\views\tabs\tab-system-status.php:326
+msgid "캐시된 옵션 수"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:354
+#: includes\admin\views\tabs\tab-system-status.php:354
+msgid "CSS 캐시"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:358
+#: includes\admin\views\tabs\tab-system-status.php:358
+msgid "캐시 항목 수"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:364
+#: includes\admin\views\tabs\tab-system-status.php:364
+msgid "총 크기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:381
+#: includes\admin\views\tabs\tab-system-status.php:381
+msgid "메모리 캐시 항목 수"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:392
+#: includes\admin\views\tabs\tab-system-status.php:392
+msgid "안전 모드"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:425
+#: includes\admin\views\tabs\tab-system-status.php:425
+msgid "활성화 상태"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:429
+#: includes\admin\views\tabs\tab-system-status.php:429
+msgid "활성화 완료"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:432
+#: includes\admin\views\tabs\tab-system-status.php:432
+msgid "예"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:434
+#: includes\admin\views\tabs\tab-system-status.php:434
+msgid "아니오"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:440
+#: includes\admin\views\tabs\tab-system-status.php:440
+msgid "실패한 단계"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-system-status.php:448
+#: includes\admin\views\tabs\tab-system-status.php:448
+msgid "오류 메시지"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-texts.php:8
+#: includes\admin\views\tabs\tab-texts.php:8
+msgid "스타일 센터 텍스트 설정"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-texts.php:10
+#: includes\admin\views\tabs\tab-texts.php:10
+msgid "스타일 센터 UI에 사용되는 텍스트 일부를 여기에서 수정할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:8
+#: includes\admin\views\tabs\tab-tools.php:8
+msgid "도구 (Tools)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:10
+#: includes\admin\views\tabs\tab-tools.php:10
+msgid "플러그인 및 테마 대량 설치 도구입니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:17
+#: includes\admin\views\tabs\tab-tools.php:17
+msgid "ZIP 파일을 여기에 드래그하세요"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:18
+#: includes\admin\views\tabs\tab-tools.php:18
+msgid "또는 클릭하여 파일 선택 (최대 30개)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:26
+#: includes\admin\views\tabs\tab-tools.php:26
+msgid "설치 후 자동 활성화"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:33
+#: includes\admin\views\tabs\tab-tools.php:33
+msgid "설치 시작하기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:40
+#: includes\admin\views\tabs\tab-tools.php:40
+msgid "준비 중..."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:69
+#: includes\admin\views\tabs\tab-tools.php:69
+msgid "최대 30개까지만 가능합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-tools.php:77
+#: includes\admin\views\tabs\tab-tools.php:77
+msgid "설치 시작"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:144
+#: includes\admin\views\tabs\tab-updates.php:144
+msgid "업데이트 개요 (코어 + 애드온)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:145
+#: includes\admin\views\tabs\tab-updates.php:145
+msgid "WordPress 플러그인 목록 UX처럼, 설치/활성/업데이트/자동 업데이트 상태를 한 번에 확인합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:180
+#: includes\admin\views\tabs\tab-updates.php:180
+msgid "Suite 전체 일괄 제어"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:186
+#: includes\admin\views\tabs\tab-updates.php:186
+msgid "전체 자동 업데이트"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:190
+#: includes\admin\views\tabs\tab-updates.php:190
+msgid "전체 ON"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:194
+#: includes\admin\views\tabs\tab-updates.php:194
+msgid "전체 OFF"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:198
+#: includes\admin\views\tabs\tab-updates.php:198
+msgid "설치된 모든 Suite 플러그인의 자동 업데이트를 일괄 제어합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:204
+#: includes\admin\views\tabs\tab-updates.php:204
+msgid "업데이트 확인"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:207
+#: includes\admin\views\tabs\tab-updates.php:207
+msgid "전체 업데이트 체크"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:210
+#: includes\admin\views\tabs\tab-updates.php:210
+msgid "WordPress 업데이트 서버에서 모든 Suite 플러그인의 업데이트를 확인합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:216
+#: includes\admin\views\tabs\tab-updates.php:216
+msgid "업데이트 적용"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:223
+#: includes\admin\views\tabs\tab-updates.php:223
+msgid "%d개 플러그인 업데이트 가능"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:230
+#: includes\admin\views\tabs\tab-updates.php:230
+msgid "업데이트 페이지로 이동"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:236
+#: includes\admin\views\tabs\tab-updates.php:236
+msgid "모든 플러그인이 최신 버전입니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:241
+#: includes\admin\views\tabs\tab-updates.php:241
+msgid "업데이트가 있으면 WordPress 업데이트 페이지에서 일괄 적용할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:251
+#: includes\admin\views\tabs\tab-updates.php:251
+msgid "버전 불일치 감지"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:257
+#: includes\admin\views\tabs\tab-updates.php:257
+msgid "코어 버전(%1$s)과 호환되지 않는 애드온이 %2$d개 발견되었습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:270
+#: includes\admin\views\tabs\tab-updates.php:270
+msgid "현재 %1$s (예상: %2$s.x)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:279
+#: includes\admin\views\tabs\tab-updates.php:279
+msgid "💡 권장 조치: 코어와 애드온을 모두 최신 버전으로 업데이트하거나, 동일한 주 버전으로 맞추세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:290
+#: includes\admin\views\tabs\tab-updates.php:290
+msgid "플러그인 검색…"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:293
+#: includes\admin\views\tabs\tab-updates.php:293
+msgid "미설치 숨기기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:297
+#: includes\admin\views\tabs\tab-updates.php:297
+msgid "업데이트만 보기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:301
+#: includes\admin\views\tabs\tab-updates.php:301
+msgid "전체 업데이트 다시 체크"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:304
+#: includes\admin\views\tabs\tab-updates.php:304
+msgid "보이는 항목 Auto-Update ON"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:307
+#: includes\admin\views\tabs\tab-updates.php:307
+msgid "보이는 항목 Auto-Update OFF"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:311
+#: includes\admin\views\tabs\tab-updates.php:311
+msgid "스위트 리포트 복사"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:314
+#: includes\admin\views\tabs\tab-updates.php:314
+msgid "스위트 리포트 JSON"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:318
+#: includes\admin\views\tabs\tab-updates.php:318
+msgid "불일치만 보기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:325
+#: includes\admin\views\tabs\tab-updates.php:325
+msgid "설치 %1$d/%2$d · 활성 %3$d · 업데이트 %4$d · Auto-Update %5$d"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:338
+#: includes\admin\views\tabs\tab-updates.php:338
+msgid "마지막 체크: %1$s · 다음 체크: %2$s"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:343
+#: includes\admin\views\tabs\tab-updates.php:343
+msgid "워드프레스 업데이트"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:352
+#: includes\admin\views\tabs\tab-updates.php:352
+msgid "플러그인"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:354
+#: includes\admin\views\tabs\tab-updates.php:354
+msgid "버전"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:356
+#: includes\admin\views\tabs\tab-updates.php:356
+#: includes\admin\views\tabs\tab-updates.php:597
+#: includes\admin\views\tabs\tab-updates.php:597
+msgid "자동 업데이트"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:357
+#: includes\admin\views\tabs\tab-updates.php:357
+msgid "채널"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:358
+#: includes\admin\views\tabs\tab-updates.php:358
+msgid "바로가기"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:447
+#: includes\admin\views\tabs\tab-updates.php:447
+msgid "미설치"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:472
+#: includes\admin\views\tabs\tab-updates.php:472
+msgid "ACTIVE"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:472
+#: includes\admin\views\tabs\tab-updates.php:472
+msgid "INACTIVE"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:494
+#: includes\admin\views\tabs\tab-updates.php:494
+msgid "UPDATE AVAILABLE"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:500
+#: includes\admin\views\tabs\tab-updates.php:500
+msgid "새 버전: %s"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:508
+#: includes\admin\views\tabs\tab-updates.php:508
+msgid "지금 업데이트"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:514
+#: includes\admin\views\tabs\tab-updates.php:514
+msgid "최신"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:520
+#: includes\admin\views\tabs\tab-updates.php:520
+#: includes\admin\views\tabs\tab-updates.php:573
+#: includes\admin\views\tabs\tab-updates.php:573
+msgid "AUTO UPDATE: ON"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:520
+#: includes\admin\views\tabs\tab-updates.php:520
+#: includes\admin\views\tabs\tab-updates.php:573
+#: includes\admin\views\tabs\tab-updates.php:573
+msgid "AUTO UPDATE: OFF"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:540
+#: includes\admin\views\tabs\tab-updates.php:540
+msgid "MISMATCH"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:549
+#: includes\admin\views\tabs\tab-updates.php:549
+msgid "플러그인 목록"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:559
+#: includes\admin\views\tabs\tab-updates.php:559
+msgid "자동 업데이트 토글은 WordPress 코어의 설정(플러그인 목록 화면)과 동일하게 동작합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:565
+#: includes\admin\views\tabs\tab-updates.php:565
+msgid "플러그인 업데이트 설정"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:566
+#: includes\admin\views\tabs\tab-updates.php:566
+msgid "플러그인 업데이트 및 로그 전송 설정을 관리합니다. (WordPress 플러그인 목록의 “자동 업데이트 활성/비활성”과 동기화됩니다.)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:583
+#: includes\admin\views\tabs\tab-updates.php:583
+msgid "현재 설치된 빌드 채널: %s"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:590
+#: includes\admin\views\tabs\tab-updates.php:590
+msgid "플러그인 목록에서 확인"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:617
+#: includes\admin\views\tabs\tab-updates.php:617
+msgid "새 버전이 출시되면 자동으로 업데이트됩니다. (자동 업데이트를 꺼도 “업데이트 알림/수동 업데이트”는 유지됩니다.)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:624
+#: includes\admin\views\tabs\tab-updates.php:624
+msgid "업데이트 채널"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:629
+#: includes\admin\views\tabs\tab-updates.php:629
+msgid "정식 (Stable)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:632
+#: includes\admin\views\tabs\tab-updates.php:632
+msgid "베타 (Beta)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:636
+#: includes\admin\views\tabs\tab-updates.php:636
+msgid "스테이징 (Staging)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:641
+#: includes\admin\views\tabs\tab-updates.php:641
+msgid "업데이트를 받을 채널을 선택하세요. 베타/스테이징은 실험적일 수 있으니 운영 사이트에서는 주의가 필요합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:648
+#: includes\admin\views\tabs\tab-updates.php:648
+msgid "베타 업데이트"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:658
+#: includes\admin\views\tabs\tab-updates.php:658
+msgid "베타 업데이트 수신"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:661
+#: includes\admin\views\tabs\tab-updates.php:661
+msgid "베타 버전 업데이트를 받을지 선택합니다. 베타 버전은 불안정할 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:663
+#: includes\admin\views\tabs\tab-updates.php:663
+msgid "Partner/Master는 내부 정책상 로그/업데이트 옵션이 일부 고정될 수 있습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:671
+#: includes\admin\views\tabs\tab-updates.php:671
+msgid "로그 전송"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:682
+#: includes\admin\views\tabs\tab-updates.php:682
+msgid "앱 내 로그 전송"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:685
+#: includes\admin\views\tabs\tab-updates.php:685
+#: includes\admin\views\tabs\tab-updates.php:701
+#: includes\admin\views\tabs\tab-updates.php:701
+msgid "(필수)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:688
+#: includes\admin\views\tabs\tab-updates.php:688
+msgid "플러그인 내부 로그를 개발자에게 전송합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:698
+#: includes\admin\views\tabs\tab-updates.php:698
+msgid "오류 로그 전송"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:704
+#: includes\admin\views\tabs\tab-updates.php:704
+msgid "오류 및 예외 로그를 개발자에게 전송합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:715
+#: includes\admin\views\tabs\tab-updates.php:715
+msgid "설정 저장"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:720
+#: includes\admin\views\tabs\tab-updates.php:720
+msgid "지금 업데이트 확인"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:741
+#: includes\admin\views\tabs\tab-updates.php:741
+msgid "Webhook 자동화"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:742
+#: includes\admin\views\tabs\tab-updates.php:742
+msgid "설정 변경 시 외부 자동화 시스템(CI/CD, Slack, 자체 서버 등)으로 Webhook을 전송합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:747
+#: includes\admin\views\tabs\tab-updates.php:747
+msgid "Webhook 활성화"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:752
+#: includes\admin\views\tabs\tab-updates.php:752
+msgid "전송 활성화"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:754
+#: includes\admin\views\tabs\tab-updates.php:754
+msgid "활성화 시, 아래 이벤트가 발생할 때 등록된 URL로 POST 요청이 전송됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:760
+#: includes\admin\views\tabs\tab-updates.php:760
+msgid "Webhook URL"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:764
+#: includes\admin\views\tabs\tab-updates.php:764
+msgid "한 줄에 하나씩 입력하세요. (여러 개 가능)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:770
+#: includes\admin\views\tabs\tab-updates.php:770
+msgid "서명(Secret)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:776
+#: includes\admin\views\tabs\tab-updates.php:776
+msgid "Secret 초기화"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:778
+#: includes\admin\views\tabs\tab-updates.php:778
+msgid "입력하면 저장되며, 비워두면 기존 Secret을 유지합니다. Secret이 있으면 X-JJ-Signature 헤더(HMAC-SHA256)가 포함됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:784
+#: includes\admin\views\tabs\tab-updates.php:784
+msgid "페이로드"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:789
+#: includes\admin\views\tabs\tab-updates.php:789
+msgid "Minimal (키/메타 중심)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:792
+#: includes\admin\views\tabs\tab-updates.php:792
+msgid "Full (설정 전체 포함)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:795
+#: includes\admin\views\tabs\tab-updates.php:795
+msgid "Full은 데이터가 커질 수 있으므로 자동화 목적에 맞게 선택하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:801
+#: includes\admin\views\tabs\tab-updates.php:801
+msgid "타임아웃(초)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:805
+#: includes\admin\views\tabs\tab-updates.php:805
+msgid "테스트/동기 전송 시 적용됩니다. 실사용 전송은 비동기(blocking=false)로 수행됩니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:810
+#: includes\admin\views\tabs\tab-updates.php:810
+msgid "이벤트"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:814
+#: includes\admin\views\tabs\tab-updates.php:814
+msgid "스타일 센터 설정 저장"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:818
+#: includes\admin\views\tabs\tab-updates.php:818
+msgid "Admin Center(메뉴/상단바/텍스트/업데이트 등) 저장"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-updates.php:826
+#: includes\admin\views\tabs\tab-updates.php:826
+msgid "Webhook 테스트"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:19
+#: includes\admin\views\tabs\tab-visual.php:19
+msgid "비주얼 커맨드 센터"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:21
+#: includes\admin\views\tabs\tab-visual.php:21
+msgid "로그인 화면과 관리자 테마를 시각적으로 커스터마이징합니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:25
+#: includes\admin\views\tabs\tab-visual.php:25
+msgid "🔐 로그인 화면 커스터마이징"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:30
+#: includes\admin\views\tabs\tab-visual.php:30
+msgid "커스텀 로고 URL"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:34
+#: includes\admin\views\tabs\tab-visual.php:34
+msgid "로그인 화면의 워드프레스 로고를 대체할 이미지 URL을 입력하세요."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:39
+#: includes\admin\views\tabs\tab-visual.php:39
+msgid "배경 및 폼 색상"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:44
+#: includes\admin\views\tabs\tab-visual.php:44
+msgid "배경색"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:48
+#: includes\admin\views\tabs\tab-visual.php:48
+msgid "폼 배경색"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:52
+#: includes\admin\views\tabs\tab-visual.php:52
+msgid "버튼색"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:65
+#: includes\admin\views\tabs\tab-visual.php:65
+msgid "🎨 관리자 테마 설정"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:70
+#: includes\admin\views\tabs\tab-visual.php:70
+msgid "테마 모드"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:75
+#: includes\admin\views\tabs\tab-visual.php:75
+msgid "기본 (Light)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:79
+#: includes\admin\views\tabs\tab-visual.php:79
+msgid "다크 모드 (Dark)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:85
+#: includes\admin\views\tabs\tab-visual.php:85
+msgid "강조 색상 (Accent)"
+msgstr ""
+
+#: includes\admin\views\tabs\tab-visual.php:89
+#: includes\admin\views\tabs\tab-visual.php:89
+msgid "관리자 메뉴 및 주요 버튼의 강조 색상을 변경합니다."
+msgstr ""
+
+#: includes\api\class-jj-style-guide-rest-api.php:135
+msgid "settings 파라미터는 배열(JSON Object)이어야 합니다."
+msgstr ""
+
+#: includes\api\class-jj-style-guide-rest-api.php:184
+msgid "설정이 업데이트되었습니다."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:404
+msgid "스타일 가이드 설정"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:450
+#: includes\class-jj-activation-manager.php:450
+msgid "[안내]"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:450
+#: includes\class-jj-activation-manager.php:450
+msgid "이 페이지는 설정 또는 사용자 정의 메뉴에서 변경한 스타일이 실시간으로 반영되는 시각적 프리뷰입니다."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:450
+#: includes\class-jj-activation-manager.php:450
+msgid "실제 스타일 편집은 이 페이지의 내용이 아니라, 아래 버튼을 통해 새 탭으로 열리는 컨트롤 패널에서 진행해 주세요."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:458
+#: includes\class-jj-activation-manager.php:458
+msgid "사용자 정의 패널에서 편집 (새 탭)"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:462
+#: includes\class-jj-activation-manager.php:462
+msgid "플러그인 설정 페이지에서 편집 (새 탭)"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:472
+#: includes\class-jj-activation-manager.php:472
+msgid "Typography"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:476
+#: includes\class-jj-activation-manager.php:476
+msgid "H1 Heading: 다람쥐 헌 쳇바퀴에 타고파."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:480
+#: includes\class-jj-activation-manager.php:480
+msgid "H2 Heading: 다람쥐 헌 쳇바퀴에 타고파."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:484
+#: includes\class-jj-activation-manager.php:484
+msgid "H3 Heading: 다람쥐 헌 쳇바퀴에 타고파."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:488
+#: includes\class-jj-activation-manager.php:488
+msgid "H4 Heading: 다람쥐 헌 쳇바퀴에 타고파."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:492
+#: includes\class-jj-activation-manager.php:492
+msgid "H5 Heading: 다람쥐 헌 쳇바퀴에 타고파."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:496
+#: includes\class-jj-activation-manager.php:496
+msgid "H6 Heading: 다람쥐 헌 쳇바퀴에 타고파."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:500
+#: includes\class-jj-activation-manager.php:500
+msgid "P (Paragraph): 다람쥐 헌 쳇바퀴에 타고파. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:508
+#: includes\class-jj-activation-manager.php:508
+msgid "Color Palette"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:516
+#: includes\class-jj-activation-manager.php:516
+#: includes\editor-views\view-section-colors.php:132
+msgid "Primary"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:524
+#: includes\class-jj-activation-manager.php:524
+msgid "Primary Hover"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:532
+#: includes\class-jj-activation-manager.php:532
+#: includes\editor-views\view-section-colors.php:133
+msgid "Secondary"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:540
+#: includes\class-jj-activation-manager.php:540
+msgid "Secondary Hover"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:552
+#: includes\class-jj-activation-manager.php:552
+msgid "Buttons"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:558
+#: includes\class-jj-activation-manager.php:558
+#: includes\class-jj-admin-center.php:714
+#: includes\editor-views\view-section-buttons.php:86
+msgid "Primary Button"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:562
+#: includes\class-jj-activation-manager.php:562
+#: includes\class-jj-admin-center.php:715
+#: includes\editor-views\view-section-buttons.php:112
+msgid "Secondary Button"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:566
+#: includes\class-jj-activation-manager.php:566
+msgid "Tertiary (Text) Button"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:576
+#: includes\class-jj-activation-manager.php:576
+msgid "Forms & Fields"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:583
+#: includes\class-jj-activation-manager.php:583
+msgid "Text Input"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:584
+#: includes\class-jj-activation-manager.php:584
+msgid "Enter text here..."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:587
+#: includes\class-jj-activation-manager.php:587
+msgid "Textarea"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:588
+#: includes\class-jj-activation-manager.php:588
+msgid "Enter your message..."
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:593
+#: includes\class-jj-activation-manager.php:593
+msgid "I agree to the terms and conditions"
+msgstr ""
+
+#: includes\class-jj-activation-manager.php:596
+#: includes\class-jj-activation-manager.php:596
+msgid "Submit"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:229
+msgid "브라우저에서 스포이드 기능을 지원하지 않습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:230
+msgid "팔레트를 불러오는 중 오류가 발생했습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:231
+msgid "선택한 팔레트에 사용 가능한 색상이 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:232
+msgid "라이센스 키가 저장되었습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:233
+msgid "라이센스 키 저장에 실패했습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:234
+msgid "라이센스 검증이 완료되었습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:235
+msgid "라이센스 검증에 실패했습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:246
+#: includes\class-jj-admin-center.php:247
+#: includes\class-jj-admin-center.php:531
+#: includes\class-jj-admin-center.php:531
+msgid "ACF CSS 관리자 센터"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:288
+#: includes\class-jj-admin-center.php:535
+#: includes\class-jj-admin-center.php:535
+#: includes\class-jj-labs-center.php:391
+msgid "스타일 센터"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:296
+#: includes\class-jj-labs-center.php:396
+msgid "관리자 센터"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:305
+msgid "실험실 (Labs)"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:313
+msgid "Admin Center: Colors"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:320
+msgid "Admin Center: Visual"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:328
+msgid "실시간 편집 (Customizer)"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:348
+#: includes\class-jj-admin-center.php:348
+msgid "관리자 메뉴 / 상단바 색상이 기본값으로 되돌려졌습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:429
+#: includes\class-jj-admin-center.php:429
+#: includes\class-jj-admin-center.php:1738
+msgid "관리자 센터 설정이 저장되었습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:445
+#: includes\class-jj-admin-center.php:445
+msgid "빠른 이동"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:446
+#: includes\class-jj-admin-center.php:446
+msgid "사이드바 토글"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:454
+#: includes\class-jj-admin-center.php:454
+#: includes\class-jj-admin-center.php:586
+#: includes\class-jj-admin-center.php:586
+msgid "General"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:460
+#: includes\class-jj-admin-center.php:460
+#: includes\class-jj-admin-center.php:589
+#: includes\class-jj-admin-center.php:589
+msgid "Admin Menu"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:466
+#: includes\class-jj-admin-center.php:466
+#: includes\class-jj-admin-center.php:592
+#: includes\class-jj-admin-center.php:592
+msgid "Section Layout"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:472
+#: includes\class-jj-admin-center.php:472
+#: includes\class-jj-admin-center.php:595
+#: includes\class-jj-admin-center.php:595
+msgid "Texts"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:490
+#: includes\class-jj-admin-center.php:490
+#: includes\class-jj-admin-center.php:604
+#: includes\class-jj-admin-center.php:604
+msgid "Cloud"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:496
+#: includes\class-jj-admin-center.php:496
+#: includes\class-jj-admin-center.php:607
+#: includes\class-jj-admin-center.php:607
+msgid "백업 관리"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:502
+#: includes\class-jj-admin-center.php:502
+#: includes\class-jj-admin-center.php:613
+#: includes\class-jj-admin-center.php:613
+#: includes\admin\views\tabs\tab-updates.php:355
+#: includes\admin\views\tabs\tab-updates.php:355
+msgid "업데이트"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:508
+#: includes\class-jj-admin-center.php:508
+#: includes\class-jj-admin-center.php:616
+#: includes\class-jj-admin-center.php:616
+msgid "라이센스"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:514
+#: includes\class-jj-admin-center.php:514
+#: includes\class-jj-admin-center.php:619
+#: includes\class-jj-admin-center.php:619
+#: includes\admin\views\tabs\tab-system-status.php:8
+#: includes\admin\views\tabs\tab-system-status.php:8
+msgid "시스템 상태"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:522
+#: includes\class-jj-admin-center.php:522
+#: includes\class-jj-admin-center.php:540
+#: includes\class-jj-admin-center.php:540
+#: includes\class-jj-labs-center.php:307
+msgid "실험실 센터"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:575
+#: includes\class-jj-admin-center.php:575
+#: includes\class-jj-admin-center.php:651
+#: includes\class-jj-admin-center.php:651
+#: includes\class-jj-labs-center.php:422
+#: includes\class-jj-labs-center.php:608
+msgid "내보내기"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:578
+#: includes\class-jj-admin-center.php:578
+#: includes\class-jj-admin-center.php:654
+#: includes\class-jj-admin-center.php:654
+#: includes\class-jj-labs-center.php:425
+#: includes\class-jj-labs-center.php:611
+#: includes\admin\views\tabs\tab-cloud.php:36
+#: includes\admin\views\tabs\tab-cloud.php:36
+msgid "불러오기"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:610
+#: includes\class-jj-admin-center.php:610
+msgid "도구"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:692
+msgid "1. 팔레트 시스템"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:696
+#: includes\class-jj-admin-center.php:1137
+msgid "브랜드 팔레트"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:697
+#: includes\class-jj-admin-center.php:1145
+msgid "시스템 팔레트"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:698
+#: includes\class-jj-admin-center.php:1153
+msgid "얼터너티브 팔레트"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:699
+#: includes\class-jj-admin-center.php:1161
+msgid "어나더 팔레트"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:700
+#: includes\class-jj-admin-center.php:1169
+#: includes\editor-views\view-section-temp-palette.php:19
+msgid "임시 팔레트"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:704
+msgid "2. 타이포그래피"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:710
+msgid "3. 버튼"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:716
+msgid "Text / Outline Button"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:720
+msgid "4. 폼 & 필드"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:724
+msgid "라벨 (Labels)"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:725
+msgid "입력 필드 (Fields)"
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1189
+msgid "라이센스 키를 입력하세요."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1201
+#: includes\class-jj-admin-center.php:1241
+msgid "라이센스 관리자를 로드할 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1341
+msgid "업데이트 설정이 저장되었습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1364
+msgid "플러그인 정보가 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1447
+msgid "업데이트 정보를 갱신했습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1502
+#: includes\class-jj-plugin-updater.php:298
+msgid "새 버전 %s이(가) 사용 가능합니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1507
+#: includes\class-jj-plugin-updater.php:303
+msgid "최신 버전을 사용 중입니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1511
+#: includes\class-jj-plugin-updater.php:307
+msgid "업데이트 정보를 가져올 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1514
+msgid "업데이터 클래스를 로드할 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1517
+msgid "업데이터 파일을 찾을 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1740
+msgid "저장 중 오류가 발생했습니다: "
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1776
+msgid "테스터 클래스를 로드할 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1803
+msgid "파일이 없습니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1824
+msgid "파일 크기가 너무 큽니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1842
+msgid "유효하지 않은 파일 경로입니다."
+msgstr ""
+
+#: includes\class-jj-admin-center.php:1853
+msgid "파일 업로드 실패"
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:113
+#: includes\class-jj-ai-extension-promoter.php:113
+msgid "🤖 AI 스타일 인텔리전스 활용하기"
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:116
+#: includes\class-jj-ai-extension-promoter.php:116
+msgid "AI Extension을 활성화하면 AI 기반 팔레트 자동 생성, 스마트 스타일 추천, 로컬 AI 모델(Gemma 3) 연동 등 고급 기능을 사용할 수 있습니다."
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:123
+#: includes\class-jj-ai-extension-promoter.php:123
+msgid "AI Extension 활성화"
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:129
+#: includes\class-jj-ai-extension-promoter.php:129
+msgid "AI Extension 설치"
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:132
+#: includes\class-jj-ai-extension-promoter.php:132
+msgid "(수동 설치 필요: 플러그인 폴더에 AI Extension 파일이 있어야 합니다)"
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:136
+#: includes\class-jj-ai-extension-promoter.php:136
+msgid "플러그인 설치/활성화 권한이 필요합니다."
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:140
+#: includes\class-jj-ai-extension-promoter.php:140
+msgid "플러그인 페이지로 이동"
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:147
+#: includes\class-jj-ai-extension-promoter.php:147
+msgid "다시 보지 않기"
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:189
+msgid "AI Extension은 수동으로 설치해야 합니다. 플러그인 폴더에 acf-css-ai-extension 폴더가 있는지 확인하세요."
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:234
+msgid "AI Extension이 설치되어 있지 않습니다."
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:240
+msgid "이미 활성화되어 있습니다."
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:250
+msgid "AI Extension이 활성화되었습니다."
+msgstr ""
+
+#: includes\class-jj-ai-extension-promoter.php:258
+msgid "수동 설치가 필요합니다. 플러그인 폴더에 AI Extension 파일이 있는지 확인하세요."
+msgstr ""
+
+#: includes\class-jj-asset-optimizer.php:182
+msgid "탭이 지정되지 않았습니다."
+msgstr ""
+
+#: includes\class-jj-asset-optimizer.php:187
+msgid "이미 로드되었습니다."
+msgstr ""
+
+#: includes\class-jj-asset-optimizer.php:197
+msgid "탭 컨텐츠가 로드되었습니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:78
+msgid "일일 자동 백업"
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:81
+msgid "주간 자동 백업"
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:84
+msgid "월간 자동 백업"
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:102
+msgid "설정 변경 자동 백업"
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:156
+msgid "수동 백업"
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:235
+msgid "복원 전 자동 백업"
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:457
+msgid "백업이 생성되었습니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:461
+#: includes\class-jj-migration-manager.php:300
+msgid "백업 생성에 실패했습니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:477
+#: includes\class-jj-backup-manager.php:503
+msgid "백업 ID가 필요합니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:484
+msgid "백업이 복원되었습니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:487
+msgid "백업 복원에 실패했습니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:510
+msgid "백업이 삭제되었습니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:513
+msgid "백업 삭제에 실패했습니다."
+msgstr ""
+
+#: includes\class-jj-backup-manager.php:548
+msgid "두 백업 ID가 필요합니다."
+msgstr ""
+
+#: includes\class-jj-code-integrity-monitor.php:527
+#: includes\class-jj-code-integrity-monitor.php:527
+msgid "⚠️ 보안 경고: 플러그인 코드 무결성 위반 감지"
+msgstr ""
+
+#: includes\class-jj-code-integrity-monitor.php:530
+#: includes\class-jj-code-integrity-monitor.php:530
+msgid "플러그인 파일이 수정되었거나 무단 변경이 감지되었습니다."
+msgstr ""
+
+#: includes\class-jj-code-integrity-monitor.php:533
+#: includes\class-jj-code-integrity-monitor.php:533
+msgid "보안상의 이유로 플러그인 기능이 일시적으로 잠금되었습니다."
+msgstr ""
+
+#: includes\class-jj-code-integrity-monitor.php:534
+#: includes\class-jj-code-integrity-monitor.php:534
+msgid "플러그인 개발자에게 문의하시거나, 원본 파일로 복원해주세요."
+msgstr ""
+
+#: includes\class-jj-code-integrity-monitor.php:538
+#: includes\class-jj-code-integrity-monitor.php:538
+msgid "잠금 시간: %s"
+msgstr ""
+
+#: includes\class-jj-code-integrity-monitor.php:543
+#: includes\class-jj-code-integrity-monitor.php:543
+msgid "플러그인 목록으로 이동"
+msgstr ""
+
+#: includes\class-jj-code-integrity-monitor.php:555
+#: includes\class-jj-code-integrity-monitor.php:555
+msgid "⚠️ 플러그인 보안 경고: 코드 무결성 위반이 감지되었습니다. 관리자에게 문의하세요."
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:63
+msgid "JJ 스타일 센터"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:64
+msgid "웹사이트 전체 스타일 중앙 관리, 모든 것을 한 번에 편하게 관리하기"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:98
+msgid "%s 부가 옵션"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:100
+msgid "%s 부가 옵션 (%s 차일드 테마)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:108
+msgid "현재 설치된 %s 테마와 연동되는 추가 스타일 옵션입니다. 이 섹션의 설정은 %s 테마의 기본 설정과 함께 작동합니다."
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:128
+msgid "1. 브랜드 팔레트 (Brand)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:134
+#: includes\class-jj-theme-metadata.php:35
+#: includes\editor-views\view-section-colors.php:419
+#: includes\editor-views\view-section-colors.php:565
+#: includes\editor-views\view-section-temp-palette.php:36
+msgid "Primary Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:135
+#: includes\class-jj-theme-metadata.php:47
+#: includes\editor-views\view-section-colors.php:447
+#: includes\editor-views\view-section-colors.php:593
+msgid "Primary Color (Hover)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:136
+#: includes\class-jj-theme-metadata.php:59
+#: includes\editor-views\view-section-colors.php:472
+#: includes\editor-views\view-section-colors.php:618
+#: includes\editor-views\view-section-temp-palette.php:48
+msgid "Secondary Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:137
+#: includes\class-jj-theme-metadata.php:69
+#: includes\editor-views\view-section-colors.php:497
+#: includes\editor-views\view-section-colors.php:643
+msgid "Secondary Color (Hover)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:172
+msgid "2. 시스템 팔레트 (System)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:178
+#: includes\class-jj-theme-metadata.php:83
+#: includes\class-jj-theme-metadata.php:126
+msgid "Background Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:179
+#: includes\class-jj-theme-metadata.php:92
+#: includes\class-jj-theme-metadata.php:136
+msgid "Text Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:180
+#: includes\class-jj-theme-metadata.php:102
+msgid "Link Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:214
+msgid "3. 대안 팔레트 (Alternative)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:220
+msgid "Alternative Primary Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:221
+msgid "Alternative Secondary Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:239
+msgid "대안 팔레트는 브랜드 팔레트와 다른 색상 조합을 시도할 때 사용할 수 있습니다."
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:253
+msgid "4. 임시 팔레트 (Temporary)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:260
+msgid "Temporary Primary Color"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:261
+msgid "Temporary Primary Color (Hover)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:293
+msgid "2. 전역 타이포그래피 (Global)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:328
+msgid "Font Weight"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:333
+msgid "Font Style"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:348
+msgid "Text Transform"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:353
+msgid "Font Size (Desktop)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:365
+msgid "3. 전역 버튼 (Global Buttons)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:371
+msgid "Primary - 배경 색상"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:372
+msgid "Primary - 배경 색상 (Hover)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:373
+msgid "Primary - 텍스트 색상"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:374
+msgid "Primary - 텍스트 색상 (Hover)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:375
+msgid "Primary - 테두리 색상"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:376
+msgid "Primary - 테두리 색상 (Hover)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:410
+msgid "Primary - Border Radius (px)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:415
+msgid "Primary - Padding "
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:453
+msgid "%s 테마의 전역 팔레트 1과 동기화됩니다."
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:456
+msgid "%s 팔레트 1 (Brand Primary와 동기화)"
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:472
+msgid "%s 테마의 전역 팔레트 2와 동기화됩니다."
+msgstr ""
+
+#: includes\class-jj-customizer-manager.php:474
+msgid "%s 팔레트 2 (Brand Primary Hover와 동기화)"
+msgstr ""
+
+#: includes\class-jj-customizer-sync.php:338
+msgid "잘못된 팔레트 타입입니다."
+msgstr ""
+
+#: includes\class-jj-customizer-sync.php:349
+msgid "색상이 성공적으로 불러와졌습니다."
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:49
+msgid "소중한 의견 감사합니다!"
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:50
+msgid "피드백 전송 중 오류가 발생했습니다."
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:77
+msgid "유효하지 않은 평점입니다."
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:109
+msgid "피드백이 성공적으로 전송되었습니다."
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:156
+#: includes\class-jj-feedback-collector.php:156
+#: includes\class-jj-feedback-collector.php:198
+#: includes\class-jj-feedback-collector.php:198
+msgid "피드백 보내기"
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:160
+#: includes\class-jj-feedback-collector.php:160
+msgid "이 플러그인을 사용하면서 느낀 점을 알려주세요."
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:172
+#: includes\class-jj-feedback-collector.php:172
+msgid "일반 의견"
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:173
+#: includes\class-jj-feedback-collector.php:173
+msgid "버그 신고"
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:174
+#: includes\class-jj-feedback-collector.php:174
+msgid "기능 제안"
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:177
+#: includes\class-jj-feedback-collector.php:177
+msgid "여기에 의견을 작성해주세요..."
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:182
+#: includes\class-jj-feedback-collector.php:182
+msgid "시스템 상태 및 에러 로그 포함하기"
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:185
+#: includes\class-jj-feedback-collector.php:185
+msgid "PHP/WP 버전 및 최근 발생한 에러 로그가 전송되어 문제 해결에 도움이 됩니다."
+msgstr ""
+
+#: includes\class-jj-feedback-collector.php:191
+#: includes\class-jj-feedback-collector.php:191
+msgid "보내기"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:68
+msgid "URL을 입력해주세요."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:72
+msgid "유효하지 않은 URL입니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:85
+msgid "서버 통신 오류: "
+msgstr ""
+
+#: includes\class-jj-labs-center.php:90
+msgid "페이지 내용을 가져오지 못했습니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:187
+msgid "색상이 너무 다양합니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:188
+msgid "상위 2~4개 색상만 브랜드/시스템 팔레트로 정리하면 UI 일관성이 좋아집니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:306
+#: includes\class-jj-labs-center.php:387
+msgid "J&J 실험실 센터"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:372
+#: includes\class-jj-labs-center.php:372
+msgid "더 많은 기능을 사용하려면 업그레이드하세요!"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:415
+msgid "실험실은 아직 공식 지원되지 않는 테마나 플러그인의 스타일을 분석하고 조정하기 위한 고급 도구입니다. CSS/HTML/JS 스캐너와 수동 재정의 기능을 제공합니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:434
+msgid "실험실 탭 활성화/비활성화"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:436
+msgid "실험실의 각 탭을 활성화 또는 비활성화할 수 있습니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:440
+msgid "비활성화된 탭은 실험실에서 숨겨지지만 설정 데이터는 보존됩니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:449
+#: includes\admin\views\tabs\tab-section-layout.php:42
+#: includes\admin\views\tabs\tab-section-layout.php:42
+msgid "모두 활성화"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:453
+#: includes\admin\views\tabs\tab-section-layout.php:46
+#: includes\admin\views\tabs\tab-section-layout.php:46
+msgid "모두 비활성화"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:461
+#: includes\class-jj-labs-center.php:461
+msgid "탭 검색..."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:468
+#: includes\admin\views\tabs\tab-section-layout.php:33
+#: includes\admin\views\tabs\tab-section-layout.php:33
+msgid "주의:"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:469
+msgid "탭을 비활성화하면 실험실에서 해당 탭이 표시되지 않습니다. 비활성화된 탭의 설정 데이터는 보존되지만 UI에서 접근할 수 없게 됩니다."
+msgstr ""
+
+#: includes\class-jj-labs-center.php:484
+#: includes\class-jj-labs-center.php:484
+#: includes\admin\views\tabs\tab-section-layout.php:69
+#: includes\admin\views\tabs\tab-section-layout.php:69
+msgid "전체 선택/해제"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:486
+msgid "탭"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:487
+#: includes\class-jj-labs-center.php:523
+#: includes\class-jj-license-issuer.php:329
+#: includes\admin\views\tabs\tab-section-layout.php:206
+#: includes\admin\views\tabs\tab-section-layout.php:206
+#: includes\admin\views\tabs\tab-updates.php:477
+#: includes\admin\views\tabs\tab-updates.php:477
+#: includes\admin\views\tabs\tab-updates.php:528
+#: includes\admin\views\tabs\tab-updates.php:528
+#: includes\admin\views\tabs\tab-updates.php:613
+#: includes\admin\views\tabs\tab-updates.php:613
+msgid "활성화"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:507
+#: includes\class-jj-labs-center.php:507
+#: includes\class-jj-license-issuer.php:279
+#: includes\admin\views\tabs\tab-section-layout.php:95
+#: includes\admin\views\tabs\tab-section-layout.php:95
+#: includes\admin\views\tabs\tab-section-layout.php:189
+#: includes\admin\views\tabs\tab-section-layout.php:189
+#: includes\admin\views\tabs\tab-system-status.php:411
+#: includes\admin\views\tabs\tab-system-status.php:411
+msgid "비활성화됨"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:509
+#: includes\class-jj-labs-center.php:509
+#: includes\class-jj-license-issuer.php:277
+#: includes\admin\views\tabs\tab-section-layout.php:97
+#: includes\admin\views\tabs\tab-section-layout.php:97
+#: includes\admin\views\tabs\tab-section-layout.php:191
+#: includes\admin\views\tabs\tab-section-layout.php:191
+#: includes\admin\views\tabs\tab-system-status.php:399
+#: includes\admin\views\tabs\tab-system-status.php:399
+msgid "활성화됨"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:532
+#: includes\editor-views\view-labs-overrides.php:37
+#: includes\multisite\class-jj-multisite-controller.php:235
+#: includes\multisite\class-jj-multisite-controller.php:235
+msgid "저장"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:556
+#: includes\class-jj-labs-center.php:627
+msgid "스캐너"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:561
+#: includes\class-jj-labs-center.php:631
+msgid "수동 재정의"
+msgstr ""
+
+#: includes\class-jj-labs-center.php:566
+#: includes\class-jj-labs-center.php:635
+msgid "공식 지원 목록"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:71
+#: includes\class-jj-license-issuer.php:72
+#: includes\class-jj-license-issuer.php:130
+msgid "라이센스 발행 관리"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:109
+msgid "정말로 이 라이센스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:110
+msgid "정말로 이 라이센스를 비활성화하시겠습니까?"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:111
+msgid "라이센스 생성 중..."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:112
+msgid "성공"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:113
+msgid "오류"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:132
+msgid "이 기능은 마스터 버전에서만 사용할 수 있습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:142
+msgid "J&J 라이센스 발행 관리"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:145
+msgid "새 라이센스 발행"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:151
+msgid "라이센스 타입"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:155
+msgid "선택하세요"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:156
+#: includes\class-jj-license-manager.php:936
+msgid "Free"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:157
+#: includes\class-jj-license-manager.php:937
+msgid "Basic"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:158
+#: includes\class-jj-license-manager.php:938
+msgid "Premium"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:159
+#: includes\class-jj-license-manager.php:939
+msgid "Unlimited"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:162
+msgid "발행할 라이센스의 타입을 선택하세요."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:168
+#: includes\class-jj-license-issuer.php:232
+msgid "고객명/메모"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:175
+#: includes\class-jj-license-issuer.php:175
+msgid "예: 홍길동, example@email.com"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:177
+msgid "라이센스 구매자 정보나 메모를 입력하세요 (선택사항)."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:183
+#: includes\class-jj-license-issuer.php:236
+msgid "만료일"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:192
+msgid "라이센스 만료일을 설정하세요. 비워두면 1년 후로 설정됩니다. (선택사항)"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:202
+msgid "라이센스 생성"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:210
+msgid "발행된 라이센스 목록"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:212
+msgid "통계:"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:217
+msgid "전체: %d개 | 활성화됨: %d개 | 비활성화됨: %d개 | 사용 중: %d개"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:230
+msgid "라이센스 키"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:231
+msgid "타입"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:233
+#: includes\admin\views\tabs\tab-system-status.php:396
+#: includes\admin\views\tabs\tab-system-status.php:396
+#: includes\admin\views\tabs\tab-updates.php:353
+#: includes\admin\views\tabs\tab-updates.php:353
+msgid "상태"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:234
+msgid "활성화된 사이트"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:235
+msgid "발행일"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:237
+msgid "작업"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:244
+msgid "발행된 라이센스가 없습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:262
+#: includes\editor-views\view-section-colors.php:398
+#: includes\editor-views\view-section-colors.php:410
+#: includes\editor-views\view-section-colors.php:544
+#: includes\editor-views\view-section-colors.php:556
+msgid "복사"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:275
+msgid "만료됨"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:290
+msgid "활성화: %s"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:296
+msgid "없음"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:308
+msgid "만료"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:311
+msgid "무제한"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:322
+#: includes\admin\views\tabs\tab-updates.php:483
+#: includes\admin\views\tabs\tab-updates.php:483
+#: includes\admin\views\tabs\tab-updates.php:528
+#: includes\admin\views\tabs\tab-updates.php:528
+#: includes\admin\views\tabs\tab-updates.php:613
+#: includes\admin\views\tabs\tab-updates.php:613
+msgid "비활성화"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:336
+msgid "상태 확인"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:342
+msgid "삭제"
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:370
+msgid "유효하지 않은 라이센스 타입입니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:408
+msgid "라이센스 키가 생성되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:446
+#: includes\class-jj-license-issuer.php:474
+#: includes\class-jj-license-issuer.php:651
+msgid "라이센스를 찾을 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:457
+#: includes\class-jj-license-manager.php:375
+msgid "라이센스가 활성화되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:458
+msgid "라이센스가 비활성화되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:490
+msgid "라이센스가 삭제되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:585
+msgid "마스터 버전에서만 사용할 수 있습니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:593
+msgid "라이센스 타입을 선택하세요."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:619
+#: includes\class-jj-license-issuer.php:644
+#: includes\class-jj-license-issuer.php:674
+msgid "라이센스 키가 필요합니다."
+msgstr ""
+
+#: includes\class-jj-license-issuer.php:657
+msgid "라이센스 상태를 확인했습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:216
+msgid "Master 에디션이 활성화되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:249
+msgid "플러그인이 잠금되었습니다. 코드 무결성 위반이 감지되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:262
+#: includes\class-jj-license-manager.php:865
+msgid "라이센스 키가 설정되지 않았습니다. Free 버전으로 실행됩니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:274
+msgid "유효하지 않은 라이센스 키입니다. 서버에서 확인할 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:286
+#: includes\class-jj-license-manager.php:447
+#: includes\class-jj-license-manager.php:455
+#: includes\class-jj-license-manager.php:874
+msgid "유효하지 않은 라이센스 키 형식입니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:317
+msgid "이 라이센스는 비활성화되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:327
+#: includes\class-jj-license-manager.php:539
+msgid "이 라이센스는 만료되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:353
+#: includes\class-jj-license-manager.php:563
+msgid "이 라이센스는 다른 사이트에서 사용 중입니다. Premium 버전은 1개 사이트에서만 사용 가능합니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:389
+msgid "Free 버전이 활성화되었습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:466
+msgid "유효하지 않은 사이트 ID입니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:610
+msgid "오프라인 모드로 실행 중입니다. 온라인 검증이 필요할 수 있습니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:861
+msgid "라이센스 키가 제거되었습니다. Free 버전으로 실행됩니다."
+msgstr ""
+
+#: includes\class-jj-license-manager.php:952
+#: includes\class-jj-license-manager.php:957
+msgid "기한 연장하기"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:279
+#: includes\class-jj-migration-manager.php:623
+msgid "WordPress 함수를 사용할 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:291
+msgid "기존 플러그인을 찾을 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:347
+msgid "성공적으로 마이그레이션되었습니다. %d개의 옵션이 마이그레이션되었습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:360
+msgid "마이그레이션 중 오류가 발생했습니다: %s"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:371
+msgid "마이그레이션 중 치명적 오류가 발생했습니다: %s"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:470
+msgid "기존 플러그인"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:489
+#: includes\class-jj-migration-manager.php:489
+#: includes\class-jj-migration-manager.php:520
+#: includes\class-jj-migration-manager.php:520
+#: includes\class-jj-migration-manager.php:526
+#: includes\class-jj-migration-manager.php:526
+msgid "마이그레이션 실행"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:492
+#: includes\class-jj-migration-manager.php:492
+msgid "건너뛰기"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:502
+#: includes\class-jj-migration-manager.php:502
+msgid "마이그레이션 중..."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:514
+#: includes\class-jj-migration-manager.php:514
+msgid "마이그레이션 완료"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:519
+#: includes\class-jj-migration-manager.php:519
+#: includes\class-jj-migration-manager.php:525
+#: includes\class-jj-migration-manager.php:525
+msgid "마이그레이션 중 오류가 발생했습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:560
+#: includes\class-jj-migration-manager.php:590
+msgid "보안 검증에 실패했습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:605
+msgid "마이그레이션이 건너뛰어졌습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:607
+msgid "설정 저장에 실패했습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:633
+msgid "백업 데이터를 찾을 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:642
+msgid "백업 데이터가 유효하지 않습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:661
+msgid "성공적으로 롤백되었습니다. %d개의 옵션이 복원되었습니다."
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:674
+msgid "롤백 중 오류가 발생했습니다: %s"
+msgstr ""
+
+#: includes\class-jj-migration-manager.php:685
+msgid "롤백 중 치명적 오류가 발생했습니다: %s"
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:54
+msgid "공식 사이트"
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:57
+msgid "문서"
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:69
+msgid "필수: "
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:83
+msgid "권장: "
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:91
+#: includes\admin\views\tabs\tab-updates.php:607
+#: includes\admin\views\tabs\tab-updates.php:607
+msgid "자동 업데이트 활성화"
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:96
+#: includes\admin\views\tabs\tab-license.php:165
+#: includes\admin\views\tabs\tab-license.php:165
+msgid "라이센스 키 입력"
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:132
+#: includes\admin\views\tabs\tab-license.php:29
+msgid "업그레이드"
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:139
+msgid "롤백"
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:236
+msgid "유효하지 않은 플러그인입니다."
+msgstr ""
+
+#: includes\class-jj-plugin-list-enhancer.php:241
+msgid "롤백 기능은 곧 제공될 예정입니다."
+msgstr ""
+
+#: includes\class-jj-safe-loader.php:258
+msgid "누락된 필수 파일 복구"
+msgstr ""
+
+#: includes\class-jj-safe-loader.php:260
+msgid "%d개의 필수 파일이 누락되었습니다. 복구를 시도할 수 있습니다."
+msgstr ""
+
+#: includes\class-jj-safe-loader.php:269
+msgid "플러그인 재설치"
+msgstr ""
+
+#: includes\class-jj-safe-loader.php:270
+msgid "플러그인을 비활성화하고 최신 버전으로 재설치하세요."
+msgstr ""
+
+#: includes\class-jj-safe-loader.php:282
+msgid "PHP 문법 오류 확인"
+msgstr ""
+
+#: includes\class-jj-safe-loader.php:283
+msgid "로드 오류가 있는 파일의 PHP 문법을 확인하세요."
+msgstr ""
+
+#: includes\class-jj-safe-mode.php:220
+#: includes\class-jj-safe-mode.php:220
+msgid "JJ Simple Style Guide: 안전 모드가 활성화되어 있습니다."
+msgstr ""
+
+#: includes\class-jj-safe-mode.php:225
+#: includes\admin\views\tabs\tab-system-status.php:407
+msgid "활성화 시간: %s"
+msgstr ""
+
+#: includes\class-jj-safe-mode.php:229
+#: includes\class-jj-safe-mode.php:229
+msgid "안전 모드 비활성화"
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:101
+msgid "인증이 필요합니다."
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:125
+msgid "보안 검증에 실패했습니다. 페이지를 새로고침하고 다시 시도하세요."
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:243
+msgid "유효하지 않은 파일 업로드입니다."
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:249
+msgid "파일 크기가 너무 큽니다. 최대 크기: %s"
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:260
+msgid "허용되지 않은 파일 타입입니다."
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:266
+msgid "파일 타입이 일치하지 않습니다."
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:275
+msgid "허용되지 않은 파일 확장자입니다."
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:297
+msgid "데이터베이스 연결을 사용할 수 없습니다."
+msgstr ""
+
+#: includes\class-jj-security-hardener.php:307
+msgid "안전하지 않은 쿼리가 감지되었습니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:36
+msgid "메인 브랜드 컬러로, 버튼, 링크, 주요 CTA 등에 사용됩니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:44
+msgid "버튼, 링크, 주요 CTA, 헤더 액션"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:48
+msgid "Primary Color의 호버 상태 색상입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:56
+msgid "버튼 호버, 링크 호버"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:60
+msgid "보조 브랜드 컬러로, 보조 버튼이나 강조 요소에 사용됩니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:66
+msgid "보조 버튼, 강조 요소"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:70
+msgid "Secondary Color의 호버 상태 색상입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:76
+msgid "보조 버튼 호버"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:84
+msgid "사이트 배경색입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:89
+msgid "사이트 전체 배경"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:93
+msgid "본문 텍스트 색상입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:99
+msgid "본문 텍스트, 일반 텍스트"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:103
+msgid "일반 링크 색상입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:108
+msgid "일반 링크, 콘텐츠 링크"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:117
+msgid "%s 태그의 폰트 설정입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:119
+msgid "%s 태그"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:127
+msgid "Primary 버튼의 배경색입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:133
+msgid "Primary 버튼 배경"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:137
+msgid "Primary 버튼의 텍스트 색상입니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:143
+msgid "Primary 버튼 텍스트"
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:236
+msgid "현재 설치된 %s 테마의 차일드 테마인 %s에서 "
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:242
+msgid "현재 설치된 %s 테마에서 "
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:252
+msgid "이 색상은 %s에 적용됩니다."
+msgstr ""
+
+#: includes\class-jj-theme-metadata.php:261
+msgid "CSS 선택자: %s"
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:13
+msgid "수동 CSS 재정의 (Overrides)"
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:15
+msgid "스캐너를 통해 발견된 선택자나 직접 지정한 선택자에 전역 스타일 변수를 적용할 수 있습니다. 여기에 입력한 CSS는 사이트 전역에 적용됩니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:21
+msgid "CSS 오버라이드 코드"
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:24
+msgid "아래 텍스트 영역에 CSS 코드를 입력하세요. 스타일 센터에서 정의한 CSS 변수(--jj-*)를 사용하여 일관된 스타일을 적용할 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:30
+msgid "예:\n\n.some-plugin-button {\n    background-color: var(--jj-btn-primary-bg) !important;\n    color: var(--jj-btn-primary-text) !important;\n    border-radius: var(--jj-btn-primary-border-radius) !important;\n}\n\n.some-plugin-input {\n    border-color: var(--jj-form-input-border) !important;\n    border-radius: var(--jj-form-input-border-radius) !important;\n}\n\n"
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:34
+msgid "미리보기"
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:44
+msgid "사용 가능한 CSS 변수"
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:46
+msgid "스타일 센터에서 정의한 주요 CSS 변수 목록입니다:"
+msgstr ""
+
+#: includes\editor-views\view-labs-overrides.php:54
+msgid "... 및 기타 변수들"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:13
+msgid "CSS/HTML/JS 스캐너"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:15
+msgid "분석하고 싶은 페이지의 URL을 입력하거나, 활성 플러그인/테마 목록에서 대상을 선택한 뒤 스캔을 시작하세요. CSS 선택자, HTML 구조, JavaScript 정보를 추출하여 표시합니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:23
+#: includes\editor-views\view-section-labs.php:302
+msgid "URL로 스캔하기"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:33
+#: includes\editor-views\view-labs-scanner.php:65
+#: includes\editor-views\view-section-labs.php:309
+msgid "분석 시작"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:41
+msgid "활성 플러그인/테마로 스캔하기"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:47
+#: includes\editor-views\view-section-labs.php:315
+msgid "-- 대상 선택 --"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:48
+#: includes\editor-views\view-section-labs.php:316
+msgid "현재 활성 테마"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:49
+#: includes\editor-views\view-section-labs.php:317
+msgid "활성 플러그인"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:69
+#: includes\editor-views\view-section-labs.php:332
+msgid "현재 활성 테마 또는 플러그인을 선택하면, 해당 리소스의 스타일 구조를 파악하는 데 도움이 되는 기본 정보를 함께 확인하실 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:76
+#: includes\editor-views\view-section-labs.php:338
+msgid "분석 결과"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:79
+msgid "분석이 완료되면, CSS 선택자 목록, HTML 구조, JavaScript 정보가 이 영역에 표시됩니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:87
+msgid "CSS 선택자"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:90
+msgid "HTML 구조"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:93
+msgid "JavaScript"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:104
+msgid "스캔 인사이트"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:109
+msgid "추출된 색상"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:114
+msgid "상위 색상을 브랜드 팔레트에 적용"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:120
+msgid "추출된 폰트"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:125
+msgid "상위 폰트를 타이포그래피에 적용"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:131
+msgid "감지된 문제점"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:139
+msgid "Class 선택자"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:147
+msgid "ID 선택자"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:155
+msgid "발견된 CSS 스타일 블록"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:167
+msgid "HTML 구조 미리보기"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:168
+msgid "스캔한 페이지의 HTML 구조 일부입니다. (처음 2000자)"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:180
+msgid "JavaScript 정보"
+msgstr ""
+
+#: includes\editor-views\view-labs-scanner.php:181
+msgid "스캔한 페이지에서 발견된 JavaScript 파일 및 인라인 스크립트 정보입니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:157
+#: includes\editor-views\view-section-labs.php:228
+msgid "공식 지원 테마 및 플러그인"
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:159
+msgid "현재 어댑터가 제공되는 공식 지원 테마와 플러그인 목록입니다. 이 목록은 어댑터 설정에 따라 자동으로 갱신되며, 인기 순서에 따라 우선적으로 표시됩니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:166
+#: includes\editor-views\view-labs-supported-list.php:166
+msgid "검색: 테마/플러그인 이름"
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:172
+msgid "총 %1$d개 테마 · %2$d개 플러그인"
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:183
+#: includes\editor-views\view-section-labs.php:235
+msgid "공식 지원 테마"
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:185
+msgid "아래 목록은 현재 개발된 모든 공식 지원 테마입니다."
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:203
+#: includes\editor-views\view-labs-supported-list.php:231
+#: includes\editor-views\view-section-labs.php:253
+#: includes\editor-views\view-section-labs.php:277
+msgid "더 보기"
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:204
+#: includes\editor-views\view-labs-supported-list.php:232
+#: includes\editor-views\view-section-labs.php:254
+#: includes\editor-views\view-section-labs.php:278
+msgid "전체 보기"
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:211
+#: includes\editor-views\view-section-labs.php:259
+msgid "공식 지원 플러그인"
+msgstr ""
+
+#: includes\editor-views\view-labs-supported-list.php:213
+msgid "아래 목록은 현재 개발된 모든 공식 지원 플러그인입니다."
+msgstr ""
+
+#: includes\editor-views\view-section-buttons.php:33
+msgid "버튼 (Buttons)"
+msgstr ""
+
+#: includes\editor-views\view-section-buttons.php:67
+msgid "1. Primary Button"
+msgstr ""
+
+#: includes\editor-views\view-section-buttons.php:72
+msgid "2. Secondary Button"
+msgstr ""
+
+#: includes\editor-views\view-section-buttons.php:77
+msgid "3. Text / Outline Button"
+msgstr ""
+
+#: includes\editor-views\view-section-buttons.php:138
+msgid "Text Button"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:34
+msgid "팔레트 시스템 (Palette System)"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:70
+msgid "1. 브랜드 팔레트"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:75
+msgid "2. 시스템 팔레트"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:80
+msgid "3. 얼터너티브 팔레트"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:85
+msgid "4. 어나더 팔레트"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:90
+msgid "5. 임시 팔레트"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:104
+msgid "새로고침을 눌러 현재 Customizer에서 설정된 브랜드 팔레트 색상을 한꺼번에 불러옵니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:112
+msgid "빠른 시작: 추천 팔레트"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:114
+msgid "텍스트 입력보다 “보이는 팔레트”로 시작하세요. 프리셋을 선택하고 적용하면, 버튼/링크/배경/텍스트 조합이 즉시 정렬됩니다. (언제든 개별 필드에서 미세 조정 가능)"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:119
+#: includes\editor-views\view-section-colors.php:119
+msgid "팔레트 미리보기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:123
+msgid "배경/본문/링크/버튼이 실제로 어떻게 보이는지 이 카드에서 즉시 확인하세요. 링크는 "
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:124
+msgid "이런 느낌"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:125
+msgid "입니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:128
+msgid "Primary 버튼"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:129
+msgid "Secondary 버튼"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:134
+msgid "BG"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:135
+msgid "Text"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:151
+msgid "브랜드의 핵심 색상입니다. 버튼, 링크, 폼 등 주요 구성 요소의 기본 기준이 됩니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:184
+msgid "브랜드 팔레트 일괄 적용"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:186
+msgid "아래 버튼을 사용하면 현재 설정된 브랜드 팔레트 값을 기반으로 버튼, 폼, 링크 색상을 한 번에 맞출 수 있습니다. 적용 후에도 세부 값은 개별 섹션에서 자유롭게 조정하실 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:189
+msgid "브랜드 팔레트 기준으로 버튼/폼/링크 색상 맞추기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:196
+msgid "브랜드 팔레트 내보내기/불러오기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:198
+msgid "브랜드 팔레트 설정만 선택적으로 내보내거나 불러올 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:203
+msgid "브랜드 팔레트 내보내기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:207
+msgid "브랜드 팔레트 불러오기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:232
+msgid "새로고침을 눌러 현재 Customizer에서 설정된 시스템 팔레트 색상을 한꺼번에 불러옵니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:239
+msgid "사이트 배경 (Site Background)"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:257
+msgid "콘텐츠 배경 (Content Background)"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:275
+msgid "본문 텍스트 (Base Text)"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:293
+msgid "링크 (Links Color)"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:314
+msgid "시스템 팔레트 내보내기/불러오기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:316
+msgid "시스템 팔레트 설정만 선택적으로 내보내거나 불러올 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:321
+msgid "시스템 팔레트 내보내기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:325
+msgid "시스템 팔레트 불러오기"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:385
+#: includes\editor-views\view-section-colors.php:531
+msgid "브랜드/시스템 팔레트 참조"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:387
+msgid "현재 설정된 브랜드 및 시스템 팔레트 값을 참고하여 대안 색상을 설정할 수 있습니다. 다크 모드/라이트 모드 색상은 자동 계산되며, 아래 버튼을 클릭하여 적용하거나 수동으로 입력할 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:392
+#: includes\editor-views\view-section-colors.php:538
+msgid "브랜드 Primary"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:404
+#: includes\editor-views\view-section-colors.php:550
+msgid "시스템 Site BG"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:432
+#: includes\editor-views\view-section-colors.php:460
+#: includes\editor-views\view-section-colors.php:485
+#: includes\editor-views\view-section-colors.php:510
+#: includes\editor-views\view-section-colors.php:578
+#: includes\editor-views\view-section-colors.php:606
+#: includes\editor-views\view-section-colors.php:631
+#: includes\editor-views\view-section-colors.php:656
+msgid "다크 모드"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:438
+#: includes\editor-views\view-section-colors.php:466
+#: includes\editor-views\view-section-colors.php:491
+#: includes\editor-views\view-section-colors.php:516
+#: includes\editor-views\view-section-colors.php:584
+#: includes\editor-views\view-section-colors.php:612
+#: includes\editor-views\view-section-colors.php:637
+#: includes\editor-views\view-section-colors.php:662
+msgid "라이트 모드"
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:443
+msgid "브랜드 Primary의 대안 색상입니다. 다크 모드/라이트 모드 또는 특정 페이지용으로 사용할 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:533
+msgid "특정 페이지나 플러그인 전용 색상으로 사용할 수 있는 팔레트입니다. 브랜드/시스템 팔레트 값을 기반으로 대안 색상을 설정하거나 후보군으로 컬러셋을 매핑해 둘 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-colors.php:589
+msgid "특정 페이지나 플러그인용 Primary 색상 후보입니다."
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:38
+msgid "폼 & 필드 (Forms & Fields)"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:71
+msgid "1. 라벨 (Labels)"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:76
+msgid "2. 입력 필드 (Fields)"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:92
+#: includes\editor-views\view-section-forms.php:102
+msgid "기본값 (P)"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:119
+msgid "Size (px)"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:129
+msgid "텍스트 색상"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:147
+msgid "미리보기 라벨"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:148
+msgid "입력 필드 미리보기..."
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:157
+msgid "배경"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:158
+msgid "텍스트"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:159
+msgid "테두리"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:160
+msgid "테두리 (Focus)"
+msgstr ""
+
+#: includes\editor-views\view-section-forms.php:171
+msgid "Border Width (px)"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:222
+msgid "5. 실험실 (Labs)"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:224
+msgid "실험실은 아직 공식 지원되지 않는 테마나 플러그인의 스타일을 분석하고 조정하기 위한 고급 도구입니다. 사이트 환경에 맞추어 점진적으로 개선·확장될 예정입니다."
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:230
+msgid "현재 어댑터가 제공되는 공식 지원 테마와 플러그인 목록입니다. 이 목록은 어댑터 설정에 따라 자동으로 갱신되며, 우선 일부 항목만 먼저 보여줍니다."
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:237
+msgid "아래 목록은 어댑터가 준비된 테마 중 일부만 먼저 보여주며, 더 보기/전체 보기 버튼을 통해 나머지를 확인하실 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:261
+msgid "아래 목록은 어댑터가 준비된 플러그인 중 일부만 먼저 보여주며, 더 보기/전체 보기 버튼을 통해 나머지를 확인하실 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:287
+msgid "1. CSS/HTML 스캐너"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:290
+msgid "2. 수동 재정의 (Overrides)"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:296
+msgid "페이지/플러그인 스캔"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:298
+msgid "분석하고 싶은 페이지의 URL을 입력하거나, 활성 플러그인/테마 목록에서 대상을 선택한 뒤 [분석 시작] 버튼을 눌러 주세요."
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:313
+msgid "활성 플러그인/테마 목록"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:340
+msgid "분석이 완료되면, CSS 선택자 목록과 HTML 일부 구조가 이 영역에 표시됩니다."
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:348
+msgid "CSS 재정의 (Overrides)"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:350
+msgid "스캐너를 통해 발견된 선택자나 직접 지정한 선택자에 전역 스타일 변수를 적용할 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:353
+msgid "수동 CSS 입력"
+msgstr ""
+
+#: includes\editor-views\view-section-labs.php:358
+msgid "예: \n\n.some-plugin-button {\n    background-color: var(--jj-btn-primary-bg) !important;\n    color: var(--jj-btn-primary-text) !important;\n}\n\n.some-plugin-input {\n    border-color: var(--jj-form-input-border) !important;\n}\n\n"
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:21
+msgid "이 영역에는 스타일 가이드 설정 페이지에서 저장된 임시 팔레트 값이 표시됩니다."
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:23
+msgid "아래 버튼을 사용하여 현재 브랜드 팔레트를 임시 팔레트로 저장하거나, 임시 팔레트를 1. 브랜드 팔레트로 적용할 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:26
+msgid "스타일 가이드 설정 페이지 열기 (새 탭)"
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:32
+msgid "임시 브랜드 팔레트"
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:42
+msgid "Primary (Hover)"
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:54
+msgid "Secondary (Hover)"
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:64
+msgid "현재 브랜드 팔레트를 임시 팔레트로 저장"
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:69
+msgid "임시 팔레트를 1. 브랜드 팔레트로 적용"
+msgstr ""
+
+#: includes\editor-views\view-section-temp-palette.php:73
+msgid "임시 저장은 실험용 팔레트를 보관하는 용도로 사용되며, 적용 버튼을 누르기 전까지 기존 브랜드 팔레트 값은 변경되지 않습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:23
+msgid "타이포그래피 (Typography)"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:43
+msgid "한국어 기본 폰트"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:44
+msgid "주로 한국어 텍스트에 사용할 기본 폰트입니다. 본문/제목 설정과 함께 사용하거나, 커스텀 CSS에서 var(--jj-font-ko-family)를 참조할 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:47
+msgid "영문 기본 폰트"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:48
+msgid "주로 영문 텍스트에 사용할 기본 폰트입니다. 커스텀 CSS에서 var(--jj-font-en-family)를 참조할 수 있습니다."
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:51
+msgid "버튼 전용 폰트"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:52
+msgid "버튼에 사용할 전용 폰트입니다. 전역 버튼 스타일에서 var(--jj-font-button-family)를 사용해 적용됩니다."
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:55
+msgid "폼/입력 필드 전용 폰트"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:56
+msgid "폼 라벨 및 입력 필드에 사용할 전용 폰트입니다. 전역 폼 스타일에서 var(--jj-font-form-family)를 사용해 적용됩니다."
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:62
+msgid "커스텀 웹 폰트 및 매핑"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:64
+msgid "아래에서 한국어/영문/버튼/폼에 사용할 웹 폰트를 지정할 수 있습니다. 폰트 파일은 미디어 라이브러리에 업로드한 뒤, 각 역할(Role)에 연결해 주세요."
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:84
+msgid "Font Family 이름"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:108
+#: includes\editor-views\view-section-typography.php:108
+msgid "선택된 폰트 파일 없음"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:112
+msgid "폰트 파일 선택/변경"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:117
+msgid "포맷 (선택 사항)"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:138
+msgid "추가 커스텀 CSS (@font-face 등)"
+msgstr ""
+
+#: includes\editor-views\view-section-typography.php:141
+msgid "필요하다면 @font-face 규칙이나 추가 타이포그래피 CSS를 여기에 직접 입력할 수 있습니다. 위에서 지정한 폰트 변수(var(--jj-font-ko-family), var(--jj-font-en-family) 등)도 함께 사용할 수 있습니다."
+msgstr ""
+
+#: includes\integrations\class-jj-webhook-manager.php:278
+msgid "Webhook이 비활성화 상태입니다."
+msgstr ""
+
+#: includes\integrations\class-jj-webhook-manager.php:281
+msgid "Webhook URL이 설정되어 있지 않습니다."
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:59
+#: includes\modules\partner-hub\class-jj-partner-hub.php:60
+msgid "Partner Hub"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:104
+#: includes\modules\partner-hub\class-jj-partner-hub.php:104
+msgid "Partner Hub - 중앙 관제 대시보드"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:106
+#: includes\modules\partner-hub\class-jj-partner-hub.php:106
+msgid "연결된 모든 고객 사이트를 한 화면에서 관리하고, 스타일을 일괄 적용할 수 있습니다."
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:112
+#: includes\modules\partner-hub\class-jj-partner-hub.php:112
+msgid "연결된 사이트"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:116
+#: includes\modules\partner-hub\class-jj-partner-hub.php:116
+msgid "활성 사이트"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:120
+#: includes\modules\partner-hub\class-jj-partner-hub.php:120
+msgid "오류 사이트"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:126
+#: includes\modules\partner-hub\class-jj-partner-hub.php:126
+msgid "전체 사이트 동기화"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:129
+#: includes\modules\partner-hub\class-jj-partner-hub.php:129
+msgid "사이트 추가"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:132
+#: includes\modules\partner-hub\class-jj-partner-hub.php:132
+msgid "현재 설정을 템플릿으로 저장"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:137
+#: includes\modules\partner-hub\class-jj-partner-hub.php:137
+msgid "연결된 사이트 목록"
+msgstr ""
+
+#: includes\modules\partner-hub\class-jj-partner-hub.php:141
+#: includes\modules\partner-hub\class-jj-partner-hub.php:141
+msgid "사이트 목록을 불러오는 중..."
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:112
+#: includes\multisite\class-jj-multisite-controller.php:113
+msgid "ACF CSS Network"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:147
+msgid "네트워크 기본값 JSON이 올바르지 않습니다."
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:160
+msgid "네트워크 설정이 저장되었습니다."
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:179
+msgid "네트워크 기본값을 %d개 사이트에 적용했습니다. (상한: 200)"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:182
+msgid "멀티사이트 적용에 필요한 WordPress 함수가 로드되지 않았습니다."
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:194
+#: includes\multisite\class-jj-multisite-controller.php:194
+msgid "ACF CSS Network Control"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:195
+#: includes\multisite\class-jj-multisite-controller.php:195
+msgid "멀티사이트 환경에서 네트워크 기본 스타일을 설정하고, 전체 사이트에 일괄 적용할 수 있습니다."
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:206
+#: includes\multisite\class-jj-multisite-controller.php:206
+msgid "네트워크 제어 활성화"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:210
+#: includes\multisite\class-jj-multisite-controller.php:210
+msgid "네트워크 기본값을 사이트에 적용"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:215
+#: includes\multisite\class-jj-multisite-controller.php:215
+msgid "사이트별 오버라이드"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:219
+#: includes\multisite\class-jj-multisite-controller.php:219
+msgid "각 사이트 설정이 네트워크 기본값을 덮어쓸 수 있음"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:221
+#: includes\multisite\class-jj-multisite-controller.php:221
+msgid "끄면 각 사이트의 저장은 제한되며(권장: 네트워크 전용 운영 시), 네트워크 기본값만 적용됩니다."
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:225
+#: includes\multisite\class-jj-multisite-controller.php:225
+msgid "네트워크 기본값(JSON)"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:228
+#: includes\multisite\class-jj-multisite-controller.php:228
+msgid "스타일 옵션을 JSON 형태로 저장합니다. (고급 사용자용)"
+msgstr ""
+
+#: includes\multisite\class-jj-multisite-controller.php:238
+#: includes\multisite\class-jj-multisite-controller.php:238
+msgid "전체 사이트에 적용(덮어쓰기)"
+msgstr ""
+
+#: [Phase 11] Style Guide Exporter
+#: includes\class-jj-style-guide-exporter.php
+msgid "PDF (인쇄)"
+msgstr ""
+
+msgid "PNG 이미지"
+msgstr ""
+
+msgid "HTML 파일"
+msgstr ""
+
+msgid "CSS 변수"
+msgstr ""
+
+msgid "JSON 토큰"
+msgstr ""
+
+msgid "ZIP (전체)"
+msgstr ""
+
+msgid "내보내는 중..."
+msgstr ""
+
+msgid "내보내기 완료!"
+msgstr ""
+
+msgid "내보내기 실패"
+msgstr ""
+
+#: [Phase 12] Font Recommender
+#: includes\class-jj-font-recommender.php
+msgid "한국어 무료 폰트 (Google Fonts)"
+msgstr ""
+
+msgid "원클릭으로 바로 적용 가능한 무료 한국어 폰트입니다. 상업적 이용이 가능합니다."
+msgstr ""
+
+msgid "영문 무료 폰트 (Google Fonts)"
+msgstr ""
+
+msgid "전 세계에서 가장 많이 사용되는 무료 영문 폰트입니다."
+msgstr ""
+
+msgid "유료/프리미엄 폰트 (참조용)"
+msgstr ""
+
+msgid "상업용 라이선스가 필요한 고품질 폰트입니다. 직접 구매 후 사용하세요."
+msgstr ""
+
+msgid "폰트 추천 (원클릭 적용)"
+msgstr ""
+
+msgid "%s 폰트가 적용되었습니다."
+msgstr ""
+
+#: [Phase 13] Figma Connector
+#: includes\class-jj-figma-connector.php
+msgid "Figma API 토큰이 설정되지 않았습니다."
+msgstr ""
+
+msgid "Figma API 오류"
+msgstr ""
+
+msgid "Figma 파일 키가 필요합니다."
+msgstr ""
+
+msgid "설정이 저장되었습니다."
+msgstr ""
+
+#: includes\admin\views\tabs\tab-figma.php
+msgid "Figma 연동"
+msgstr ""
+
+msgid "Figma API를 통해 디자인 토큰(색상, 타이포그래피)을 가져오거나, JJ 스타일 토큰을 Figma Variables 형식으로 내보낼 수 있습니다."
+msgstr ""
+
+msgid "API 설정"
+msgstr ""
+
+msgid "Figma Personal Access Token"
+msgstr ""
+
+msgid "Figma 파일 키"
+msgstr ""
+
+msgid "연결 테스트"
+msgstr ""
+
+msgid "Figma에서 가져오기"
+msgstr ""
+
+msgid "Figma 스타일 가져오기"
+msgstr ""
+
+msgid "Figma로 내보내기"
+msgstr ""
+
+msgid "Figma Variables JSON 다운로드"
+msgstr ""
+
+msgid "사용 가이드"
+msgstr ""

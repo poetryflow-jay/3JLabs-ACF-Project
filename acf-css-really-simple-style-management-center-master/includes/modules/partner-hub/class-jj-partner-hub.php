@@ -56,8 +56,8 @@ class JJ_Partner_Hub {
      */
     public function add_admin_menu() {
         add_menu_page(
-            __( 'Partner Hub', 'jj-style-guide' ),
-            __( 'Partner Hub', 'jj-style-guide' ),
+            __( 'Partner Hub', 'acf-css-really-simple-style-management-center' ),
+            __( 'Partner Hub', 'acf-css-really-simple-style-management-center' ),
             'manage_options',
             $this->page_slug,
             array( $this, 'render_dashboard' ),
@@ -101,44 +101,44 @@ class JJ_Partner_Hub {
     public function render_dashboard() {
         ?>
         <div class="wrap jj-partner-hub-wrap">
-            <h1><?php esc_html_e( 'Partner Hub - 중앙 관제 대시보드', 'jj-style-guide' ); ?></h1>
+            <h1><?php esc_html_e( 'Partner Hub - 중앙 관제 대시보드', 'acf-css-really-simple-style-management-center' ); ?></h1>
             <p class="description">
-                <?php esc_html_e( '연결된 모든 고객 사이트를 한 화면에서 관리하고, 스타일을 일괄 적용할 수 있습니다.', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '연결된 모든 고객 사이트를 한 화면에서 관리하고, 스타일을 일괄 적용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
             </p>
             
             <div class="jj-partner-hub-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
                 <div class="jj-stat-card" style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 4px;">
                     <h3 style="margin: 0; font-size: 32px; color: #2271b1;">0</h3>
-                    <p style="margin: 5px 0 0; color: #666;"><?php esc_html_e( '연결된 사이트', 'jj-style-guide' ); ?></p>
+                    <p style="margin: 5px 0 0; color: #666;"><?php esc_html_e( '연결된 사이트', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </div>
                 <div class="jj-stat-card" style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 4px;">
                     <h3 style="margin: 0; font-size: 32px; color: #00a32a;">0</h3>
-                    <p style="margin: 5px 0 0; color: #666;"><?php esc_html_e( '활성 사이트', 'jj-style-guide' ); ?></p>
+                    <p style="margin: 5px 0 0; color: #666;"><?php esc_html_e( '활성 사이트', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </div>
                 <div class="jj-stat-card" style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 4px;">
                     <h3 style="margin: 0; font-size: 32px; color: #d63638;">0</h3>
-                    <p style="margin: 5px 0 0; color: #666;"><?php esc_html_e( '오류 사이트', 'jj-style-guide' ); ?></p>
+                    <p style="margin: 5px 0 0; color: #666;"><?php esc_html_e( '오류 사이트', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </div>
             </div>
             
             <div class="jj-partner-hub-actions" style="margin: 20px 0;">
                 <button type="button" class="button button-primary" id="jj-partner-hub-sync-all">
-                    <?php esc_html_e( '전체 사이트 동기화', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '전체 사이트 동기화', 'acf-css-really-simple-style-management-center' ); ?>
                 </button>
                 <button type="button" class="button button-secondary" id="jj-partner-hub-add-site">
-                    <?php esc_html_e( '사이트 추가', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '사이트 추가', 'acf-css-really-simple-style-management-center' ); ?>
                 </button>
                 <button type="button" class="button button-secondary" id="jj-partner-hub-export-template">
-                    <?php esc_html_e( '현재 설정을 템플릿으로 저장', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '현재 설정을 템플릿으로 저장', 'acf-css-really-simple-style-management-center' ); ?>
                 </button>
             </div>
             
             <div class="jj-partner-hub-sites-list" style="background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 20px;">
-                <h2><?php esc_html_e( '연결된 사이트 목록', 'jj-style-guide' ); ?></h2>
+                <h2><?php esc_html_e( '연결된 사이트 목록', 'acf-css-really-simple-style-management-center' ); ?></h2>
                 <div id="jj-partner-hub-sites-container" style="margin-top: 20px;">
                     <div class="jj-loading" style="text-align: center; padding: 40px;">
                         <span class="spinner is-active"></span>
-                        <p><?php esc_html_e( '사이트 목록을 불러오는 중...', 'jj-style-guide' ); ?></p>
+                        <p><?php esc_html_e( '사이트 목록을 불러오는 중...', 'acf-css-really-simple-style-management-center' ); ?></p>
                     </div>
                 </div>
             </div>

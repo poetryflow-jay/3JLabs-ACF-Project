@@ -37,6 +37,9 @@ final class JJ_Strategy_1_CSS_Vars {
      */
     public function strategy_1_inject_css_variables() {
         try {
+            // [Phase 12] 활성 폰트 URL 로드 (Google Fonts 등)
+            $this->enqueue_active_fonts();
+
             // [v5.3.7] 치명적 오류 방지: 클래스 존재 확인
             if ( ! class_exists( 'JJ_CSS_Cache' ) || ! method_exists( 'JJ_CSS_Cache', 'instance' ) ) {
                 return;
@@ -95,6 +98,37 @@ final class JJ_Strategy_1_CSS_Vars {
 
         } catch ( Exception $e ) {
             $this->error_handler->handle_css_error( 'Strategy_1_CSS_Vars', $e->getMessage() );
+        }
+    }
+
+    /**
+     * [Phase 12] 활성 폰트 URL 로드 (Google Fonts, CDN 등)
+     */
+    private function enqueue_active_fonts() {
+        if ( ! function_exists( 'wp_enqueue_style' ) ) {
+            return;
+        }
+
+        $key = defined( 'JJ_STYLE_GUIDE_OPTIONS_KEY' ) ? JJ_STYLE_GUIDE_OPTIONS_KEY : 'jj_style_guide_options';
+        $opt = function_exists( 'get_option' ) ? (array) get_option( $key, array() ) : array();
+
+        $font_urls = isset( $opt['active_font_urls'] ) && is_array( $opt['active_font_urls'] ) ? $opt['active_font_urls'] : array();
+        if ( empty( $font_urls ) ) {
+            return;
+        }
+
+        $index = 0;
+        foreach ( $font_urls as $url ) {
+            if ( empty( $url ) || ! is_string( $url ) ) {
+                continue;
+            }
+            $url = esc_url( $url );
+            if ( empty( $url ) ) {
+                continue;
+            }
+            $handle = 'jj-google-font-' . $index;
+            wp_enqueue_style( $handle, $url, array(), null );
+            $index++;
         }
     }
 
@@ -208,7 +242,13 @@ final class JJ_Strategy_1_CSS_Vars {
                 if ( isset( $props['line_height'] ) && $props['line_height'] !== '' ) { $css .= "$tag_var_prefix-line-height: " . esc_attr( $props['line_height'] ) . "em;"; $tag_css .= "line-height: var($tag_var_prefix-line-height);"; }
                 if ( isset( $props['letter_spacing'] ) && $props['letter_spacing'] !== '' ) { $css .= "$tag_var_prefix-letter-spacing: " . esc_attr( $props['letter_spacing'] ) . "px;"; $tag_css .= "letter-spacing: var($tag_var_prefix-letter-spacing);"; }
                 if ( ! empty( $props['text_transform'] ) ) { $css .= "$tag_var_prefix-text-transform: " . esc_attr( $props['text_transform'] ) . ";"; $tag_css .= "text-transform: var($tag_var_prefix-text-transform);"; }
-                if ( ! empty( $props['font_size']['desktop'] ) ) { $css .= "$tag_var_prefix-size: " . esc_attr( $props['font_size']['desktop'] ) . "px;"; $tag_css .= "font-size: var($tag_var_prefix-size);"; }
+                if ( ! empty( $props['font_size']['desktop'] ) ) {
+                    $size_value = $this->format_font_size_value( $props['font_size']['desktop'] );
+                    if ( $size_value ) {
+                        $css .= "$tag_var_prefix-size: " . esc_attr( $size_value ) . ";";
+                        $tag_css .= "font-size: var($tag_var_prefix-size);";
+                    }
+                }
                 // (태블릿/모바일 변수는 반응형 함수로 이동)
                 if ( ! empty( $tag_css ) ) $preview_css .= " $preview_selector { $tag_css }";
             }
@@ -499,35 +539,281 @@ final class JJ_Strategy_1_CSS_Vars {
      * [v3.5.0 '신규'] 반응형 CSS 변수 및 미리보기 생성 로직 분리
      */
     private function append_responsive_css( $css, $preview_css ) {
-        $css_tablet = "";
-        $css_mobile = "";
-        
-        if ( ! empty( $this->options['typography'] ) ) {
-            foreach( $this->options['typography'] as $tag => $props ) {
-                $tag_var_prefix = "--jj-font-" . esc_attr( $tag ); 
-                if ( ! empty( $props['font_size']['tablet'] ) ) $css_tablet .= "$tag_var_prefix-size: " . esc_attr( $props['font_size']['tablet'] ) . "px;";
-                if ( ! empty( $props['font_size']['mobile'] ) ) $css_mobile .= "$tag_var_prefix-size: " . esc_attr( $props['font_size']['mobile'] ) . "px;";
-            }
+        $breakpoints = $this->get_breakpoints();
+        if ( empty( $breakpoints ) ) {
+            // 폴백 (기존 동작)
+            $breakpoints = array(
+                'tablet'  => array( 'max' => 1024 ),
+                'phablet' => array( 'max' => 767 ),
+                'mobile'  => array( 'max' => 479 ),
+            );
         }
-        
-        // 반응형 미디어 쿼리 (v3.3 '유지')
-        if ( ! empty( $css_tablet ) ) {
-            $css .= " @media (max-width: 1024px) { :root { " . $css_tablet . " } }";
-            $preview_css .= " @media (max-width: 1024px) { ";
-            foreach( ($this->options['typography'] ?? array()) as $tag => $props ) {
-                if ( ! empty( $props['font_size']['tablet'] ) ) $preview_css .= ".jj-preview-" . esc_attr( $tag ) . " { font-size: var(--jj-font-" . esc_attr( $tag ) . "-size); }";
+
+        // 미디어쿼리 우선순위:
+        // - max-width는 큰 값 → 작은 값 순서로 (작은 화면이 나중에 덮어씀)
+        // - min-width는 작은 값 → 큰 값 순서로 (큰 화면이 나중에 덮어씀)
+        $ordered = $this->order_breakpoints_for_css( $breakpoints );
+
+        foreach ( $ordered as $bp_key ) {
+            if ( 'desktop' === $bp_key ) {
+                continue;
+            }
+            if ( ! isset( $breakpoints[ $bp_key ] ) || ! is_array( $breakpoints[ $bp_key ] ) ) {
+                continue;
+            }
+
+            $mq = $this->build_media_query( $breakpoints[ $bp_key ] );
+            if ( ! $mq ) {
+                continue;
+            }
+
+            $css_vars = '';
+            if ( ! empty( $this->options['typography'] ) ) {
+                foreach ( $this->options['typography'] as $tag => $props ) {
+                    $tag_var_prefix = "--jj-font-" . esc_attr( $tag );
+
+                    $raw_size = $this->resolve_font_size_for_breakpoint( $props, $bp_key );
+                    if ( '' === $raw_size ) {
+                        continue;
+                    }
+                    $size_value = $this->format_font_size_value( $raw_size );
+                    if ( ! $size_value ) {
+                        continue;
+                    }
+                    $css_vars .= "$tag_var_prefix-size: " . esc_attr( $size_value ) . ";";
+                }
+            }
+
+            if ( '' === $css_vars ) {
+                continue;
+            }
+
+            $css .= " @media " . $mq . " { :root { " . $css_vars . " } }";
+            $preview_css .= " @media " . $mq . " { ";
+            foreach ( ( $this->options['typography'] ?? array() ) as $tag => $props ) {
+                $raw_size = $this->resolve_font_size_for_breakpoint( $props, $bp_key );
+                if ( '' === $raw_size ) {
+                    continue;
+                }
+                $preview_css .= ".jj-preview-" . esc_attr( $tag ) . " { font-size: var(--jj-font-" . esc_attr( $tag ) . "-size); }";
             }
             $preview_css .= " }";
         }
-        if ( ! empty( $css_mobile ) ) {
-            $css .= " @media (max-width: 767px) { :root { " . $css_mobile . " } }";
-            $preview_css .= " @media (max-width: 767px) { ";
-            foreach( ($this->options['typography'] ?? array()) as $tag => $props ) {
-                if ( ! empty( $props['font_size']['mobile'] ) ) $preview_css .= ".jj-preview-" . esc_attr( $tag ) . " { font-size: var(--jj-font-" . esc_attr( $tag ) . "-size); }";
-            }
-            $preview_css .= " }";
-        }
-        
+
         return array( $css, $preview_css );
+    }
+
+    /**
+     * 타이포그래피 출력 단위(px/rem/em) + 기준 px(base) 설정
+     * - 저장값은 기존과 동일하게 "px 숫자"를 유지하고, 출력 시 단위만 변환합니다.
+     *
+     * @return array{unit:string,base:float}
+     */
+    private function get_typography_unit_settings() {
+        $unit = 'px';
+        $base = 16.0;
+
+        $ts = isset( $this->options['typography_settings'] ) && is_array( $this->options['typography_settings'] )
+            ? $this->options['typography_settings']
+            : array();
+
+        if ( isset( $ts['unit'] ) ) {
+            $u = (string) $ts['unit'];
+            if ( in_array( $u, array( 'px', 'rem', 'em' ), true ) ) {
+                $unit = $u;
+            }
+        }
+        if ( isset( $ts['base_px'] ) && is_numeric( $ts['base_px'] ) ) {
+            $b = (float) $ts['base_px'];
+            if ( $b > 0 ) {
+                $base = $b;
+            }
+        }
+
+        return array(
+            'unit' => $unit,
+            'base' => $base,
+        );
+    }
+
+    /**
+     * 폰트 사이즈(px 숫자 문자열)를 설정에 따라 px/rem/em으로 변환하여 반환
+     */
+    private function format_font_size_value( $px_value ) {
+        if ( '' === $px_value || null === $px_value ) {
+            return '';
+        }
+        if ( ! is_numeric( $px_value ) ) {
+            return '';
+        }
+
+        $settings = $this->get_typography_unit_settings();
+        $unit = $settings['unit'];
+        $base = (float) $settings['base'];
+        $px   = (float) $px_value;
+
+        if ( 'rem' === $unit || 'em' === $unit ) {
+            $ratio = $base > 0 ? ( $px / $base ) : 0;
+            // 너무 긴 소수 방지
+            $ratio = round( $ratio, 4 );
+            return (string) $ratio . $unit;
+        }
+
+        // default: px
+        $px = round( $px, 4 );
+        return (string) $px . 'px';
+    }
+
+    /**
+     * 고급 스타일링(브레이크포인트)에서 사용 중인 브레이크포인트를 가져옵니다.
+     */
+    private function get_breakpoints() {
+        if ( class_exists( 'JJ_Advanced_Styling' ) ) {
+            try {
+                $as = JJ_Advanced_Styling::instance();
+                if ( $as && method_exists( $as, 'get_breakpoints' ) ) {
+                    $bps = $as->get_breakpoints();
+                    return is_array( $bps ) ? $bps : array();
+                }
+            } catch ( Exception $e ) {
+                // ignore
+            } catch ( Error $e ) {
+                // ignore
+            }
+        }
+        return array();
+    }
+
+    /**
+     * 브레이크포인트 배열을 CSS 캐스케이드에 유리한 순서로 정렬합니다.
+     *
+     * @param array $breakpoints
+     * @return string[] breakpoint keys
+     */
+    private function order_breakpoints_for_css( $breakpoints ) {
+        $max_only = array();
+        $min_only = array();
+        $range    = array();
+
+        foreach ( (array) $breakpoints as $k => $bp ) {
+            if ( ! is_array( $bp ) ) {
+                continue;
+            }
+            $has_min = isset( $bp['min'] ) && is_numeric( $bp['min'] );
+            $has_max = isset( $bp['max'] ) && is_numeric( $bp['max'] );
+            if ( $has_min && $has_max ) {
+                $range[ $k ] = $bp;
+            } elseif ( $has_max ) {
+                $max_only[ $k ] = $bp;
+            } elseif ( $has_min ) {
+                $min_only[ $k ] = $bp;
+            }
+        }
+
+        // max-only: 큰 max → 작은 max
+        uasort( $max_only, function( $a, $b ) {
+            return (int) ( $b['max'] ?? 0 ) <=> (int) ( $a['max'] ?? 0 );
+        } );
+        // range: 큰 max → 작은 max (겹치는 경우 작은 범위가 뒤에 오도록)
+        uasort( $range, function( $a, $b ) {
+            return (int) ( $b['max'] ?? 0 ) <=> (int) ( $a['max'] ?? 0 );
+        } );
+        // min-only: 작은 min → 큰 min
+        uasort( $min_only, function( $a, $b ) {
+            return (int) ( $a['min'] ?? 0 ) <=> (int) ( $b['min'] ?? 0 );
+        } );
+
+        return array_merge( array_keys( $range ), array_keys( $max_only ), array_keys( $min_only ) );
+    }
+
+    /**
+     * breakpoints 항목(min/max)으로부터 @media 조건 문자열을 생성합니다.
+     */
+    private function build_media_query( $breakpoint ) {
+        if ( ! is_array( $breakpoint ) ) {
+            return '';
+        }
+        $has_min = isset( $breakpoint['min'] ) && is_numeric( $breakpoint['min'] );
+        $has_max = isset( $breakpoint['max'] ) && is_numeric( $breakpoint['max'] );
+
+        if ( $has_min && $has_max ) {
+            return sprintf( '(min-width: %dpx) and (max-width: %dpx)', (int) $breakpoint['min'], (int) $breakpoint['max'] );
+        }
+        if ( $has_min ) {
+            return sprintf( '(min-width: %dpx)', (int) $breakpoint['min'] );
+        }
+        if ( $has_max ) {
+            return sprintf( '(max-width: %dpx)', (int) $breakpoint['max'] );
+        }
+        return '';
+    }
+
+    /**
+     * 특정 브레이크포인트 키에 대한 font_size 값을 찾습니다(하위 호환/폴백 포함).
+     *
+     * @param array $props typography tag props
+     * @param string $bp_key
+     * @return string
+     */
+    private function resolve_font_size_for_breakpoint( $props, $bp_key ) {
+        if ( ! is_array( $props ) ) {
+            return '';
+        }
+        $sizes = isset( $props['font_size'] ) && is_array( $props['font_size'] ) ? $props['font_size'] : array();
+
+        // 1) 명시값 우선
+        if ( isset( $sizes[ $bp_key ] ) && $sizes[ $bp_key ] !== '' ) {
+            return (string) $sizes[ $bp_key ];
+        }
+
+        // 1b) 초고해상도 폴백 체인
+        if ( 'desktop_8k' === $bp_key ) {
+            foreach ( array( 'desktop_5k', 'desktop_uhd', 'desktop_qhd', 'desktop' ) as $k ) {
+                if ( isset( $sizes[ $k ] ) && $sizes[ $k ] !== '' ) {
+                    return (string) $sizes[ $k ];
+                }
+            }
+        }
+        if ( 'desktop_5k' === $bp_key ) {
+            foreach ( array( 'desktop_uhd', 'desktop_qhd', 'desktop' ) as $k ) {
+                if ( isset( $sizes[ $k ] ) && $sizes[ $k ] !== '' ) {
+                    return (string) $sizes[ $k ];
+                }
+            }
+        }
+        if ( 'desktop_uhd' === $bp_key ) {
+            foreach ( array( 'desktop_qhd', 'desktop' ) as $k ) {
+                if ( isset( $sizes[ $k ] ) && $sizes[ $k ] !== '' ) {
+                    return (string) $sizes[ $k ];
+                }
+            }
+        }
+        if ( 'desktop_qhd' === $bp_key ) {
+            if ( isset( $sizes['desktop'] ) && $sizes['desktop'] !== '' ) {
+                return (string) $sizes['desktop'];
+            }
+        }
+
+        // 2) 하위 호환 폴백: phablet은 기존 mobile 값을 기본으로 사용(과거 <=767 구간 유지 목적)
+        if ( 'phablet' === $bp_key && isset( $sizes['mobile'] ) && $sizes['mobile'] !== '' ) {
+            return (string) $sizes['mobile'];
+        }
+
+        // 3) phone_small은 mobile(스마트폰) → phablet 순으로 폴백
+        if ( 'phone_small' === $bp_key ) {
+            if ( isset( $sizes['mobile'] ) && $sizes['mobile'] !== '' ) {
+                return (string) $sizes['mobile'];
+            }
+            if ( isset( $sizes['phablet'] ) && $sizes['phablet'] !== '' ) {
+                return (string) $sizes['phablet'];
+            }
+        }
+
+        // 4) mobile(스마트폰)은 phablet 값이 있으면 폴백 (사용자가 phablet만 입력한 경우)
+        if ( 'mobile' === $bp_key && isset( $sizes['phablet'] ) && $sizes['phablet'] !== '' ) {
+            return (string) $sizes['phablet'];
+        }
+
+        return '';
     }
 }

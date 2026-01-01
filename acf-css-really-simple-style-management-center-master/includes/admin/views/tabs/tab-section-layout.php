@@ -15,23 +15,23 @@ if ( class_exists( 'JJ_Edition_Controller' ) ) {
 if ( ! $has_access ) : ?>
     <div class="jj-feature-locked">
         <div class="jj-lock-icon"><span class="dashicons dashicons-lock"></span></div>
-        <h3><?php esc_html_e( '이 기능은 Premium 버전 이상에서 사용할 수 있습니다.', 'jj-style-guide' ); ?></h3>
-        <p><?php esc_html_e( '섹션 레이아웃을 자유롭게 변경하고 탭을 제어하려면 업그레이드하세요.', 'jj-style-guide' ); ?></p>
-        <a href="https://j-j-labs.com" target="_blank" class="button button-primary"><?php esc_html_e( '업그레이드하기', 'jj-style-guide' ); ?></a>
+        <h3><?php esc_html_e( '이 기능은 Premium 버전 이상에서 사용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?></h3>
+        <p><?php esc_html_e( '섹션 레이아웃을 자유롭게 변경하고 탭을 제어하려면 업그레이드하세요.', 'acf-css-really-simple-style-management-center' ); ?></p>
+        <a href="https://j-j-labs.com" target="_blank" class="button button-primary"><?php esc_html_e( '업그레이드하기', 'acf-css-really-simple-style-management-center' ); ?></a>
     </div>
 <?php else : ?>
 
-    <h3><?php esc_html_e( '스타일 센터 섹션 레이아웃', 'jj-style-guide' ); ?></h3>
+    <h3><?php esc_html_e( '스타일 센터 섹션 레이아웃', 'acf-css-really-simple-style-management-center' ); ?></h3>
 <p class="description jj-section-layout-description" data-tooltip="section-layout-description">
-    <?php esc_html_e( '각 섹션의 표시 여부와 순서를 제어할 수 있습니다. 번호는 표시가 허용된 섹션의 순서에 맞추어 자동으로 계산됩니다. [v5.0.0] 각 섹션 내의 탭도 활성화/비활성화할 수 있습니다.', 'jj-style-guide' ); ?>
-    <span class="dashicons dashicons-editor-help" style="margin-left: 5px; cursor: help;" aria-label="<?php esc_attr_e( '도움말', 'jj-style-guide' ); ?>"></span>
+    <?php esc_html_e( '각 섹션의 표시 여부와 순서를 제어할 수 있습니다. 번호는 표시가 허용된 섹션의 순서에 맞추어 자동으로 계산됩니다. [v5.0.0] 각 섹션 내의 탭도 활성화/비활성화할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
+    <span class="dashicons dashicons-editor-help" style="margin-left: 5px; cursor: help;" aria-label="<?php esc_attr_e( '도움말', 'acf-css-really-simple-style-management-center' ); ?>"></span>
 </p>
 
 <!-- [v5.0.0] 경고 메시지 -->
 <div class="notice notice-warning inline jj-section-disable-warning" style="display: none; margin: 15px 0;">
     <p>
-        <strong><?php esc_html_e( '주의:', 'jj-style-guide' ); ?></strong>
-        <?php esc_html_e( '섹션 또는 탭을 비활성화하면 스타일 센터에서 해당 섹션/탭이 표시되지 않습니다. 비활성화된 섹션/탭의 설정 데이터는 보존되지만 UI에서 접근할 수 없게 됩니다.', 'jj-style-guide' ); ?>
+        <strong><?php esc_html_e( '주의:', 'acf-css-really-simple-style-management-center' ); ?></strong>
+        <?php esc_html_e( '섹션 또는 탭을 비활성화하면 스타일 센터에서 해당 섹션/탭이 표시되지 않습니다. 비활성화된 섹션/탭의 설정 데이터는 보존되지만 UI에서 접근할 수 없게 됩니다.', 'acf-css-really-simple-style-management-center' ); ?>
     </p>
 </div>
 
@@ -39,15 +39,15 @@ if ( ! $has_access ) : ?>
 <div class="jj-bulk-actions" style="margin-bottom: 15px;">
     <button type="button" class="button button-small jj-bulk-enable-all">
         <span class="dashicons dashicons-yes-alt" style="font-size: 16px; margin-top: 3px;"></span>
-        <?php esc_html_e( '모두 활성화', 'jj-style-guide' ); ?>
+        <?php esc_html_e( '모두 활성화', 'acf-css-really-simple-style-management-center' ); ?>
     </button>
     <button type="button" class="button button-small jj-bulk-disable-all">
         <span class="dashicons dashicons-dismiss" style="font-size: 16px; margin-top: 3px;"></span>
-        <?php esc_html_e( '모두 비활성화', 'jj-style-guide' ); ?>
+        <?php esc_html_e( '모두 비활성화', 'acf-css-really-simple-style-management-center' ); ?>
     </button>
     <button type="button" class="button button-small jj-reset-to-defaults" style="margin-left: auto;">
         <span class="dashicons dashicons-undo" style="font-size: 16px; margin-top: 3px;"></span>
-        <?php esc_html_e( '기본값으로 되돌리기', 'jj-style-guide' ); ?>
+        <?php esc_html_e( '기본값으로 되돌리기', 'acf-css-really-simple-style-management-center' ); ?>
     </button>
 </div>
 
@@ -55,7 +55,7 @@ if ( ! $has_access ) : ?>
 <div class="jj-section-filter">
     <input type="search" 
            id="jj-section-search" 
-           placeholder="<?php esc_attr_e( '섹션 또는 탭 검색...', 'jj-style-guide' ); ?>"
+           placeholder="<?php esc_attr_e( '섹션 또는 탭 검색...', 'acf-css-really-simple-style-management-center' ); ?>"
            style="width: 100%; max-width: 400px; padding: 8px 12px; border: 1px solid #8c8f94; border-radius: 3px; font-size: 13px;" />
 </div>
 
@@ -66,11 +66,11 @@ if ( ! $has_access ) : ?>
             <input type="checkbox" 
                    id="jj-select-all-sections" 
                    class="jj-select-all-checkbox" 
-                   title="<?php esc_attr_e( '전체 선택/해제', 'jj-style-guide' ); ?>" />
+                   title="<?php esc_attr_e( '전체 선택/해제', 'acf-css-really-simple-style-management-center' ); ?>" />
         </th>
-        <th><?php esc_html_e( '섹션', 'jj-style-guide' ); ?></th>
-        <th><?php esc_html_e( '표시', 'jj-style-guide' ); ?></th>
-        <th><?php esc_html_e( '순서', 'jj-style-guide' ); ?></th>
+        <th><?php esc_html_e( '섹션', 'acf-css-really-simple-style-management-center' ); ?></th>
+        <th><?php esc_html_e( '표시', 'acf-css-really-simple-style-management-center' ); ?></th>
+        <th><?php esc_html_e( '순서', 'acf-css-really-simple-style-management-center' ); ?></th>
     </tr>
     </thead>
     <tbody>
@@ -92,9 +92,9 @@ if ( ! $has_access ) : ?>
             <th scope="row">
                 <?php echo esc_html( $meta['label'] ); ?>
                 <?php if ( ! $enabled ) : ?>
-                    <span class="jj-disabled-icon" title="<?php esc_attr_e( '비활성화됨', 'jj-style-guide' ); ?>"></span>
+                    <span class="jj-disabled-icon" title="<?php esc_attr_e( '비활성화됨', 'acf-css-really-simple-style-management-center' ); ?>"></span>
                 <?php else : ?>
-                    <span class="jj-enabled-icon" title="<?php esc_attr_e( '활성화됨', 'jj-style-guide' ); ?>"></span>
+                    <span class="jj-enabled-icon" title="<?php esc_attr_e( '활성화됨', 'acf-css-really-simple-style-management-center' ); ?>"></span>
                 <?php endif; ?>
                 <div style="font-size:11px;color:#666;margin-top:4px;">
                     <code><?php echo esc_html( $slug ); ?></code>
@@ -108,7 +108,7 @@ if ( ! $has_access ) : ?>
                            class="jj-section-enabled-checkbox"
                            data-section="<?php echo esc_attr( $slug ); ?>"
                         <?php checked( $enabled ); ?> />
-                    <?php esc_html_e( '표시', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '표시', 'acf-css-really-simple-style-management-center' ); ?>
                 </label>
             </td>
             <td>
@@ -153,7 +153,7 @@ if ( ! $has_access ) : ?>
                 <div style="margin-top: 10px; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                         <h4 style="margin: 0; font-size: 13px;">
-                            <?php esc_html_e( '섹션 내 탭 활성화/비활성화', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '섹션 내 탭 활성화/비활성화', 'acf-css-really-simple-style-management-center' ); ?>
                         </h4>
                         <label style="font-size: 12px; font-weight: normal; cursor: pointer;">
                             <input type="checkbox" 
@@ -171,7 +171,7 @@ if ( ! $has_access ) : ?>
                                    }
                                    checked( $all_tabs_enabled );
                                    ?> />
-                            <?php esc_html_e( '전체 선택', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '전체 선택', 'acf-css-really-simple-style-management-center' ); ?>
                         </label>
                     </div>
                     <table class="form-table" style="margin: 0;">
@@ -186,9 +186,9 @@ if ( ! $has_access ) : ?>
                                 <th scope="row" style="padding: 8px 0; font-weight: normal; width: 200px;">
                                     <?php echo esc_html( $tab_meta['label'] ); ?>
                                     <?php if ( ! $tab_enabled ) : ?>
-                                        <span class="jj-disabled-icon" title="<?php esc_attr_e( '비활성화됨', 'jj-style-guide' ); ?>"></span>
+                                        <span class="jj-disabled-icon" title="<?php esc_attr_e( '비활성화됨', 'acf-css-really-simple-style-management-center' ); ?>"></span>
                                     <?php else : ?>
-                                        <span class="jj-enabled-icon" title="<?php esc_attr_e( '활성화됨', 'jj-style-guide' ); ?>"></span>
+                                        <span class="jj-enabled-icon" title="<?php esc_attr_e( '활성화됨', 'acf-css-really-simple-style-management-center' ); ?>"></span>
                                     <?php endif; ?>
                                     <div style="font-size:10px;color:#999;margin-top:2px;">
                                         <code><?php echo esc_html( $tab_slug ); ?></code>
@@ -203,7 +203,7 @@ if ( ! $has_access ) : ?>
                                                data-section="<?php echo esc_attr( $slug ); ?>"
                                                data-tab="<?php echo esc_attr( $tab_slug ); ?>"
                                             <?php checked( $tab_enabled ); ?> />
-                                        <?php esc_html_e( '활성화', 'jj-style-guide' ); ?>
+                                        <?php esc_html_e( '활성화', 'acf-css-really-simple-style-management-center' ); ?>
                                     </label>
                                 </td>
                             </tr>

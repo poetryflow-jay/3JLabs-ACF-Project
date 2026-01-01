@@ -60,8 +60,8 @@ final class JJ_Customizer_Manager {
     public function register_panels_and_sections( $wp_customize ) {
         // [v3.8.0 신규] 'JJ 스타일 센터' 패널을 최상단에 배치
         $wp_customize->add_panel( 'jj_style_guide_panel', array(
-            'title'       => __( 'JJ 스타일 센터', 'jj-style-guide' ),
-            'description' => __( '웹사이트 전체 스타일 중앙 관리, 모든 것을 한 번에 편하게 관리하기', 'jj-style-guide' ),
+            'title'       => __( 'JJ 스타일 센터', 'acf-css-really-simple-style-management-center' ),
+            'description' => __( '웹사이트 전체 스타일 중앙 관리, 모든 것을 한 번에 편하게 관리하기', 'acf-css-really-simple-style-management-center' ),
             'priority'    => 1, // 최상단에 배치
             'capability'  => 'manage_options',
         ) );
@@ -95,9 +95,9 @@ final class JJ_Customizer_Manager {
         
         // 테마별 섹션 생성
         $section_id = 'jj_theme_' . $active_theme . '_section';
-        $section_title = sprintf( __( '%s 부가 옵션', 'jj-style-guide' ), $theme_name );
+        $section_title = sprintf( __( '%s 부가 옵션', 'acf-css-really-simple-style-management-center' ), $theme_name );
         if ( ! empty( $child_name ) ) {
-            $section_title = sprintf( __( '%s 부가 옵션 (%s 차일드 테마)', 'jj-style-guide' ), $theme_name, $child_name );
+            $section_title = sprintf( __( '%s 부가 옵션 (%s 차일드 테마)', 'acf-css-really-simple-style-management-center' ), $theme_name, $child_name );
         }
         
         $wp_customize->add_section( $section_id, array(
@@ -105,7 +105,7 @@ final class JJ_Customizer_Manager {
             'panel' => 'jj_style_guide_panel',
             'priority' => 100, // 기본 섹션 이후
             'description' => sprintf(
-                __( '현재 설치된 %s 테마와 연동되는 추가 스타일 옵션입니다. 이 섹션의 설정은 %s 테마의 기본 설정과 함께 작동합니다.', 'jj-style-guide' ),
+                __( '현재 설치된 %s 테마와 연동되는 추가 스타일 옵션입니다. 이 섹션의 설정은 %s 테마의 기본 설정과 함께 작동합니다.', 'acf-css-really-simple-style-management-center' ),
                 $theme_name,
                 $theme_name
             ),
@@ -125,16 +125,16 @@ final class JJ_Customizer_Manager {
         // 1. 브랜드 팔레트 섹션
         $brand_section_id = 'jj_colors_brand_section';
         $wp_customize->add_section( $brand_section_id, array( 
-            'title' => __( '1. 브랜드 팔레트 (Brand)', 'jj-style-guide' ), 
+            'title' => __( '1. 브랜드 팔레트 (Brand)', 'acf-css-really-simple-style-management-center' ), 
             'panel' => 'jj_style_guide_panel', 
             'priority' => 10 
         ) );
         
         $brand_colors = array(
-            'primary_color' => __( 'Primary Color', 'jj-style-guide' ),
-            'primary_color_hover' => __( 'Primary Color (Hover)', 'jj-style-guide' ),
-            'secondary_color' => __( 'Secondary Color', 'jj-style-guide' ),
-            'secondary_color_hover' => __( 'Secondary Color (Hover)', 'jj-style-guide' ),
+            'primary_color' => __( 'Primary Color', 'acf-css-really-simple-style-management-center' ),
+            'primary_color_hover' => __( 'Primary Color (Hover)', 'acf-css-really-simple-style-management-center' ),
+            'secondary_color' => __( 'Secondary Color', 'acf-css-really-simple-style-management-center' ),
+            'secondary_color_hover' => __( 'Secondary Color (Hover)', 'acf-css-really-simple-style-management-center' ),
         );
         
         $priority = 10;
@@ -169,15 +169,15 @@ final class JJ_Customizer_Manager {
         // 2. 시스템 팔레트 섹션 (최소 3개 보장)
         $system_section_id = 'jj_colors_system_section';
         $wp_customize->add_section( $system_section_id, array( 
-            'title' => __( '2. 시스템 팔레트 (System)', 'jj-style-guide' ), 
+            'title' => __( '2. 시스템 팔레트 (System)', 'acf-css-really-simple-style-management-center' ), 
             'panel' => 'jj_style_guide_panel', 
             'priority' => 20 
         ) );
         
         $system_colors = array(
-            'background_color' => __( 'Background Color', 'jj-style-guide' ),
-            'text_color' => __( 'Text Color', 'jj-style-guide' ),
-            'link_color' => __( 'Link Color', 'jj-style-guide' ),
+            'background_color' => __( 'Background Color', 'acf-css-really-simple-style-management-center' ),
+            'text_color' => __( 'Text Color', 'acf-css-really-simple-style-management-center' ),
+            'link_color' => __( 'Link Color', 'acf-css-really-simple-style-management-center' ),
         );
         
         $priority = 10;
@@ -211,14 +211,14 @@ final class JJ_Customizer_Manager {
         // 3. 대안 팔레트 섹션 (최소 3개 보장)
         $alt_section_id = 'jj_colors_alternative_section';
         $wp_customize->add_section( $alt_section_id, array( 
-            'title' => __( '3. 대안 팔레트 (Alternative)', 'jj-style-guide' ), 
+            'title' => __( '3. 대안 팔레트 (Alternative)', 'acf-css-really-simple-style-management-center' ), 
             'panel' => 'jj_style_guide_panel', 
             'priority' => 30 
         ) );
         
         $alt_colors = array(
-            'primary_color' => __( 'Alternative Primary Color', 'jj-style-guide' ),
-            'secondary_color' => __( 'Alternative Secondary Color', 'jj-style-guide' ),
+            'primary_color' => __( 'Alternative Primary Color', 'acf-css-really-simple-style-management-center' ),
+            'secondary_color' => __( 'Alternative Secondary Color', 'acf-css-really-simple-style-management-center' ),
         );
         
         $priority = 10;
@@ -236,7 +236,7 @@ final class JJ_Customizer_Manager {
                 'section' => $alt_section_id,
                 'settings' => $setting_id,
                 'priority' => $priority,
-                'description' => __( '대안 팔레트는 브랜드 팔레트와 다른 색상 조합을 시도할 때 사용할 수 있습니다.', 'jj-style-guide' ),
+                'description' => __( '대안 팔레트는 브랜드 팔레트와 다른 색상 조합을 시도할 때 사용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ),
             );
             
             $control = new \WP_Customize_Color_Control( $wp_customize, $setting_id, $control_args );
@@ -250,15 +250,15 @@ final class JJ_Customizer_Manager {
         if ( ! empty( $temp_options['palettes'] ) && ! empty( $temp_options['palettes']['brand'] ) ) {
             $temp_section_id = 'jj_colors_temp_section';
             $wp_customize->add_section( $temp_section_id, array( 
-                'title' => __( '4. 임시 팔레트 (Temporary)', 'jj-style-guide' ), 
+                'title' => __( '4. 임시 팔레트 (Temporary)', 'acf-css-really-simple-style-management-center' ), 
                 'panel' => 'jj_style_guide_panel', 
                 'priority' => 40,
-                'description' => __( '임시 팔레트는 실험적인 색상 조합을 테스트할 때 사용합니다. 적용 후 "스타일 저장"을 눌러야 최종 반영됩니다.', 'jj-style-guide' ),
+                'description' => __( '임시 팔레트는 실험적인 색상 조합을 테스트할 때 사용합니다. 적용 후 "스타일 저장"을 눌러야 최종 반영됩니다.', 'acf-css-really-simple-style-management-center' ),
             ) );
             
             $temp_colors = array(
-                'primary_color' => __( 'Temporary Primary Color', 'jj-style-guide' ),
-                'primary_color_hover' => __( 'Temporary Primary Color (Hover)', 'jj-style-guide' ),
+                'primary_color' => __( 'Temporary Primary Color', 'acf-css-really-simple-style-management-center' ),
+                'primary_color_hover' => __( 'Temporary Primary Color (Hover)', 'acf-css-really-simple-style-management-center' ),
             );
             
             $priority = 10;
@@ -290,7 +290,7 @@ final class JJ_Customizer_Manager {
     private function add_typography_section( $wp_customize ) {
         $section_id = 'jj_typography_section';
         $wp_customize->add_section( $section_id, array( 
-            'title' => __( '2. 전역 타이포그래피 (Global)', 'jj-style-guide' ), 
+            'title' => __( '2. 전역 타이포그래피 (Global)', 'acf-css-really-simple-style-management-center' ), 
             'panel' => 'jj_style_guide_panel', 
             'priority' => 20 
         ) );
@@ -300,6 +300,32 @@ final class JJ_Customizer_Manager {
         $font_styles = array('normal'=>'Normal', 'italic'=>'Italic');
         $text_transforms = array('' => 'Default', 'none' => 'None', 'uppercase' => 'UPPERCASE', 'capitalize' => 'Capitalize', 'lowercase' => 'lowercase');
         
+        // [v10.6.0] 단위(px/rem/em) + 기준 px (rem/em 변환 기준)
+        $priority = 5;
+        $setting_id = $this->options_key . '[typography_settings][base_px]';
+        $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => 16, 'sanitize_callback' => 'absint' ) );
+        $wp_customize->add_control( $setting_id, array(
+            'label' => __( 'Typography Base (px) — 1rem/1em 기준', 'acf-css-really-simple-style-management-center' ),
+            'section' => $section_id,
+            'priority' => $priority++,
+            'type' => 'number',
+            'input_attrs' => array( 'min' => '1', 'step' => '1', 'placeholder' => '16' ),
+        ) );
+
+        $setting_id = $this->options_key . '[typography_settings][unit]';
+        $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => 'px', 'sanitize_callback' => 'sanitize_key' ) );
+        $wp_customize->add_control( $setting_id, array(
+            'label' => __( 'Typography Output Unit', 'acf-css-really-simple-style-management-center' ),
+            'section' => $section_id,
+            'priority' => $priority++,
+            'type' => 'select',
+            'choices' => array(
+                'px'  => __( 'px (기본)', 'acf-css-really-simple-style-management-center' ),
+                'rem' => __( 'rem (권장)', 'acf-css-really-simple-style-management-center' ),
+                'em'  => __( 'em', 'acf-css-really-simple-style-management-center' ),
+            ),
+        ) );
+
         $priority = 10;
         foreach ( $tags as $tag ) {
             $setting_prefix = $this->options_key . '[typography][' . $tag . ']';
@@ -311,7 +337,7 @@ final class JJ_Customizer_Manager {
             $metadata = $this->theme_metadata->get_metadata( 'typography', $tag, 'font_family' );
             $description = $metadata ? $this->theme_metadata->get_combined_description( 'typography', $tag, 'font_family' ) : '';
             $control_args = array(
-                'label' => $label_prefix . __( 'Font Family', 'jj-style-guide' ),
+                'label' => $label_prefix . __( 'Font Family', 'acf-css-really-simple-style-management-center' ),
                 'section' => $section_id,
                 'priority' => $priority++,
                 'type' => 'text',
@@ -325,32 +351,52 @@ final class JJ_Customizer_Manager {
             // Font Weight
             $setting_id = $setting_prefix . '[font_weight]';
             $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => '400', 'sanitize_callback' => 'sanitize_key' ) );
-            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Font Weight', 'jj-style-guide' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'select', 'choices' => $font_weights ) );
+            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Font Weight', 'acf-css-really-simple-style-management-center' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'select', 'choices' => $font_weights ) );
 
             // Font Style
             $setting_id = $setting_prefix . '[font_style]';
             $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => 'normal', 'sanitize_callback' => 'sanitize_key' ) );
-            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Font Style', 'jj-style-guide' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'select', 'choices' => $font_styles ) );
+            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Font Style', 'acf-css-really-simple-style-management-center' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'select', 'choices' => $font_styles ) );
 
             // Line Height
             $setting_id = $setting_prefix . '[line_height]';
             $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
-            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Line Height (em)', 'jj-style-guide' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'step' => '0.1', 'placeholder' => '예: 1.5' ) ) );
+            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Line Height (em)', 'acf-css-really-simple-style-management-center' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'step' => '0.1', 'placeholder' => '예: 1.5' ) ) );
 
             // Letter Spacing
             $setting_id = $setting_prefix . '[letter_spacing]';
             $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
-            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Letter Spacing (px)', 'jj-style-guide' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'step' => '0.1', 'placeholder' => '예: -0.1' ) ) );
+            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Letter Spacing (px)', 'acf-css-really-simple-style-management-center' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'step' => '0.1', 'placeholder' => '예: -0.1' ) ) );
 
             // Text Transform
             $setting_id = $setting_prefix . '[text_transform]';
             $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => '', 'sanitize_callback' => 'sanitize_key' ) );
-            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Text Transform', 'jj-style-guide' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'select', 'choices' => $text_transforms ) );
+            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Text Transform', 'acf-css-really-simple-style-management-center' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'select', 'choices' => $text_transforms ) );
 
             // Font Size
-            $setting_id = $setting_prefix . '[font_size][desktop]';
-            $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'sanitize_callback' => 'absint' ) );
-            $wp_customize->add_control( $setting_id, array( 'label' => $label_prefix . __( 'Font Size (Desktop)', 'jj-style-guide' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'placeholder' => '예: 32' ) ) );
+            $size_labels = array(
+                'desktop_uhd' => __( 'Desktop (UHD+)', 'acf-css-really-simple-style-management-center' ),
+                'desktop_qhd' => __( 'Desktop (QHD+)', 'acf-css-really-simple-style-management-center' ),
+                'desktop_5k'  => __( 'Desktop (5K+)', 'acf-css-really-simple-style-management-center' ),
+                'desktop_8k'  => __( 'Desktop (8K+)', 'acf-css-really-simple-style-management-center' ),
+                'desktop'     => __( 'Desktop', 'acf-css-really-simple-style-management-center' ),
+                'laptop'      => __( 'Laptop', 'acf-css-really-simple-style-management-center' ),
+                'tablet'      => __( 'Tablet', 'acf-css-really-simple-style-management-center' ),
+                'phablet'     => __( 'Phablet', 'acf-css-really-simple-style-management-center' ),
+                'mobile'      => __( 'Mobile', 'acf-css-really-simple-style-management-center' ),
+                'phone_small' => __( 'Small Mobile', 'acf-css-really-simple-style-management-center' ),
+            );
+            foreach ( $size_labels as $size_key => $size_label ) {
+                $setting_id = $setting_prefix . '[font_size][' . $size_key . ']';
+                $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'sanitize_callback' => 'absint' ) );
+                $wp_customize->add_control( $setting_id, array(
+                    'label' => $label_prefix . sprintf( __( 'Font Size (%s)', 'acf-css-really-simple-style-management-center' ), $size_label ),
+                    'section' => $section_id,
+                    'priority' => $priority++,
+                    'type' => 'number',
+                    'input_attrs' => array( 'placeholder' => '예: 32' ),
+                ) );
+            }
             
             $priority += 5;
         }
@@ -362,18 +408,18 @@ final class JJ_Customizer_Manager {
     private function add_buttons_section( $wp_customize ) {
         $section_id = 'jj_buttons_section';
         $wp_customize->add_section( $section_id, array( 
-            'title' => __( '3. 전역 버튼 (Global Buttons)', 'jj-style-guide' ), 
+            'title' => __( '3. 전역 버튼 (Global Buttons)', 'acf-css-really-simple-style-management-center' ), 
             'panel' => 'jj_style_guide_panel', 
             'priority' => 30 
         ) );
         
         $button_colors = array(
-            'background_color' => __( 'Primary - 배경 색상', 'jj-style-guide' ),
-            'background_color_hover' => __( 'Primary - 배경 색상 (Hover)', 'jj-style-guide' ),
-            'text_color' => __( 'Primary - 텍스트 색상', 'jj-style-guide' ),
-            'text_color_hover' => __( 'Primary - 텍스트 색상 (Hover)', 'jj-style-guide' ),
-            'border_color' => __( 'Primary - 테두리 색상', 'jj-style-guide' ),
-            'border_color_hover' => __( 'Primary - 테두리 색상 (Hover)', 'jj-style-guide' ),
+            'background_color' => __( 'Primary - 배경 색상', 'acf-css-really-simple-style-management-center' ),
+            'background_color_hover' => __( 'Primary - 배경 색상 (Hover)', 'acf-css-really-simple-style-management-center' ),
+            'text_color' => __( 'Primary - 텍스트 색상', 'acf-css-really-simple-style-management-center' ),
+            'text_color_hover' => __( 'Primary - 텍스트 색상 (Hover)', 'acf-css-really-simple-style-management-center' ),
+            'border_color' => __( 'Primary - 테두리 색상', 'acf-css-really-simple-style-management-center' ),
+            'border_color_hover' => __( 'Primary - 테두리 색상 (Hover)', 'acf-css-really-simple-style-management-center' ),
         );
         
         $priority = 10;
@@ -407,12 +453,12 @@ final class JJ_Customizer_Manager {
         $priority += 10; 
         $setting_id = $this->options_key . '[buttons][primary][border_radius]';
         $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => '4', 'sanitize_callback' => 'absint' ) );
-        $wp_customize->add_control( $setting_id, array( 'label' => __( 'Primary - Border Radius (px)', 'jj-style-guide' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'min' => '0', 'step' => '1' ) ) );
+        $wp_customize->add_control( $setting_id, array( 'label' => __( 'Primary - Border Radius (px)', 'acf-css-really-simple-style-management-center' ), 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'min' => '0', 'step' => '1' ) ) );
         $padding_keys = array('top' => 'Top', 'right' => 'Right', 'bottom' => 'Bottom', 'left' => 'Left');
         foreach($padding_keys as $key => $label) {
             $setting_id = $this->options_key . '[buttons][primary][padding][' . $key . ']';
             $wp_customize->add_setting( $setting_id, array( 'type' => 'option', 'default' => ($key == 'top' || $key == 'bottom' ? '12' : '24'), 'sanitize_callback' => 'absint' ) );
-            $wp_customize->add_control( $setting_id, array( 'label' => __( 'Primary - Padding ', 'jj-style-guide' ) . $label . ' (px)', 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'min' => '0', 'step' => '1' ) ) );
+            $wp_customize->add_control( $setting_id, array( 'label' => __( 'Primary - Padding ', 'acf-css-really-simple-style-management-center' ) . $label . ' (px)', 'section' => $section_id, 'priority' => $priority++, 'type' => 'number', 'input_attrs' => array( 'min' => '0', 'step' => '1' ) ) );
         }
         $shadow_keys = array(
             'color'  => array('label' => 'Primary - Shadow Color', 'default' => 'rgba(0,0,0,0.1)', 'type' => 'color'),
@@ -450,10 +496,10 @@ final class JJ_Customizer_Manager {
             
             $metadata = $this->theme_metadata->get_metadata( 'palettes', 'brand', 'primary_color', 'kadence' );
             $description = $metadata ? $this->theme_metadata->get_combined_description( 'palettes', 'brand', 'primary_color' ) : '';
-            $description .= ' ' . sprintf( __( '%s 테마의 전역 팔레트 1과 동기화됩니다.', 'jj-style-guide' ), $theme_name );
+            $description .= ' ' . sprintf( __( '%s 테마의 전역 팔레트 1과 동기화됩니다.', 'acf-css-really-simple-style-management-center' ), $theme_name );
             
             $control = new \WP_Customize_Color_Control( $wp_customize, $setting_id . '_kadence_sync', array(
-                'label' => sprintf( __( '%s 팔레트 1 (Brand Primary와 동기화)', 'jj-style-guide' ), $theme_name ),
+                'label' => sprintf( __( '%s 팔레트 1 (Brand Primary와 동기화)', 'acf-css-really-simple-style-management-center' ), $theme_name ),
                 'section' => $section_id,
                 'settings' => $setting_id,
                 'priority' => 10,
@@ -469,9 +515,9 @@ final class JJ_Customizer_Manager {
                 'sanitize_callback' => 'sanitize_hex_color' 
             ) );
             
-            $description = sprintf( __( '%s 테마의 전역 팔레트 2와 동기화됩니다.', 'jj-style-guide' ), $theme_name );
+            $description = sprintf( __( '%s 테마의 전역 팔레트 2와 동기화됩니다.', 'acf-css-really-simple-style-management-center' ), $theme_name );
             $control = new \WP_Customize_Color_Control( $wp_customize, $setting_id . '_kadence_sync', array(
-                'label' => sprintf( __( '%s 팔레트 2 (Brand Primary Hover와 동기화)', 'jj-style-guide' ), $theme_name ),
+                'label' => sprintf( __( '%s 팔레트 2 (Brand Primary Hover와 동기화)', 'acf-css-really-simple-style-management-center' ), $theme_name ),
                 'section' => $section_id,
                 'settings' => $setting_id,
                 'priority' => 20,

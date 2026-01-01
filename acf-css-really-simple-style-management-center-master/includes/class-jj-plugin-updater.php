@@ -280,7 +280,7 @@ class JJ_Plugin_Updater {
         check_ajax_referer( 'jj_plugin_updater_nonce', 'nonce' );
         
         if ( ! current_user_can( 'update_plugins' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         // 캐시 삭제하여 강제로 업데이트 체크
@@ -295,16 +295,16 @@ class JJ_Plugin_Updater {
                     'has_update' => true,
                     'current_version' => $this->current_version,
                     'new_version' => $update_info['new_version'],
-                    'message' => sprintf( __( '새 버전 %s이(가) 사용 가능합니다.', 'jj-style-guide' ), $update_info['new_version'] ),
+                    'message' => sprintf( __( '새 버전 %s이(가) 사용 가능합니다.', 'acf-css-really-simple-style-management-center' ), $update_info['new_version'] ),
                 ) );
             } else {
                 wp_send_json_success( array(
                     'has_update' => false,
-                    'message' => __( '최신 버전을 사용 중입니다.', 'jj-style-guide' ),
+                    'message' => __( '최신 버전을 사용 중입니다.', 'acf-css-really-simple-style-management-center' ),
                 ) );
             }
         } else {
-            wp_send_json_error( array( 'message' => __( '업데이트 정보를 가져올 수 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '업데이트 정보를 가져올 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
     

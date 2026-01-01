@@ -46,8 +46,8 @@ class JJ_Feedback_Collector {
             'nonce' => wp_create_nonce( 'jj_feedback_action' ),
             'ajax_url' => admin_url( 'admin-ajax.php' ),
             'strings' => array(
-                'thank_you' => __( '소중한 의견 감사합니다!', 'jj-style-guide' ),
-                'error' => __( '피드백 전송 중 오류가 발생했습니다.', 'jj-style-guide' ),
+                'thank_you' => __( '소중한 의견 감사합니다!', 'acf-css-really-simple-style-management-center' ),
+                'error' => __( '피드백 전송 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ),
             )
         ));
     }
@@ -64,7 +64,7 @@ class JJ_Feedback_Collector {
         } else {
             check_ajax_referer( 'jj_feedback_action', 'security' );
             if ( ! current_user_can( 'manage_options' ) ) {
-                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
             }
         }
 
@@ -74,7 +74,7 @@ class JJ_Feedback_Collector {
         $include_system_info = isset( $_POST['include_system_info'] ) && $_POST['include_system_info'] === 'true';
 
         if ( $rating < 1 || $rating > 5 ) {
-            wp_send_json_error( array( 'message' => __( '유효하지 않은 평점입니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '유효하지 않은 평점입니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $system_info = null;
@@ -106,7 +106,7 @@ class JJ_Feedback_Collector {
             // $this->send_to_telemetry_server( $feedback_data );
         }
 
-        wp_send_json_success( array( 'message' => __( '피드백이 성공적으로 전송되었습니다.', 'jj-style-guide' ) ) );
+        wp_send_json_success( array( 'message' => __( '피드백이 성공적으로 전송되었습니다.', 'acf-css-really-simple-style-management-center' ) ) );
     }
 
     /**
@@ -153,11 +153,11 @@ class JJ_Feedback_Collector {
             <div class="jj-feedback-overlay"></div>
             <div class="jj-feedback-content">
                 <div class="jj-feedback-header">
-                    <h3><?php esc_html_e( '피드백 보내기', 'jj-style-guide' ); ?></h3>
+                    <h3><?php esc_html_e( '피드백 보내기', 'acf-css-really-simple-style-management-center' ); ?></h3>
                     <button type="button" class="jj-feedback-close">&times;</button>
                 </div>
                 <div class="jj-feedback-body">
-                    <p class="jj-feedback-intro"><?php esc_html_e( '이 플러그인을 사용하면서 느낀 점을 알려주세요.', 'jj-style-guide' ); ?></p>
+                    <p class="jj-feedback-intro"><?php esc_html_e( '이 플러그인을 사용하면서 느낀 점을 알려주세요.', 'acf-css-really-simple-style-management-center' ); ?></p>
                     
                     <div class="jj-feedback-rating">
                         <span class="dashicons dashicons-star-empty" data-value="1"></span>
@@ -169,33 +169,33 @@ class JJ_Feedback_Collector {
                     </div>
 
                     <div class="jj-feedback-type">
-                        <label><input type="radio" name="jj_feedback_type" value="general" checked> <?php esc_html_e( '일반 의견', 'jj-style-guide' ); ?></label>
-                        <label><input type="radio" name="jj_feedback_type" value="bug"> <?php esc_html_e( '버그 신고', 'jj-style-guide' ); ?></label>
-                        <label><input type="radio" name="jj_feedback_type" value="feature"> <?php esc_html_e( '기능 제안', 'jj-style-guide' ); ?></label>
+                        <label><input type="radio" name="jj_feedback_type" value="general" checked> <?php esc_html_e( '일반 의견', 'acf-css-really-simple-style-management-center' ); ?></label>
+                        <label><input type="radio" name="jj_feedback_type" value="bug"> <?php esc_html_e( '버그 신고', 'acf-css-really-simple-style-management-center' ); ?></label>
+                        <label><input type="radio" name="jj_feedback_type" value="feature"> <?php esc_html_e( '기능 제안', 'acf-css-really-simple-style-management-center' ); ?></label>
                     </div>
 
-                    <textarea id="jj-feedback-message" placeholder="<?php esc_attr_e( '여기에 의견을 작성해주세요...', 'jj-style-guide' ); ?>" rows="4"></textarea>
+                    <textarea id="jj-feedback-message" placeholder="<?php esc_attr_e( '여기에 의견을 작성해주세요...', 'acf-css-really-simple-style-management-center' ); ?>" rows="4"></textarea>
 
                     <div class="jj-feedback-system-info" style="margin-top: 10px; font-size: 12px; color: #666;">
                         <label>
                             <input type="checkbox" id="jj-feedback-include-system"> 
-                            <?php esc_html_e( '시스템 상태 및 에러 로그 포함하기', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '시스템 상태 및 에러 로그 포함하기', 'acf-css-really-simple-style-management-center' ); ?>
                         </label>
                         <p class="description" style="font-size: 11px; margin-top: 2px;">
-                            <?php esc_html_e( 'PHP/WP 버전 및 최근 발생한 에러 로그가 전송되어 문제 해결에 도움이 됩니다.', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'PHP/WP 버전 및 최근 발생한 에러 로그가 전송되어 문제 해결에 도움이 됩니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         </p>
                     </div>
                 </div>
                 <div class="jj-feedback-footer">
                     <button type="button" class="button button-primary jj-feedback-submit" disabled>
-                        <?php esc_html_e( '보내기', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '보내기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                 </div>
             </div>
         </div>
         
         <!-- 피드백 플로팅 버튼 -->
-        <button id="jj-feedback-trigger" class="button button-secondary" title="<?php esc_attr_e( '피드백 보내기', 'jj-style-guide' ); ?>">
+        <button id="jj-feedback-trigger" class="button button-secondary" title="<?php esc_attr_e( '피드백 보내기', 'acf-css-really-simple-style-management-center' ); ?>">
             <span class="dashicons dashicons-megaphone"></span>
         </button>
         <?php

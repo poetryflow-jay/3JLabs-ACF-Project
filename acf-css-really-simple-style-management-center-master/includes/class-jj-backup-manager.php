@@ -75,13 +75,13 @@ final class JJ_Backup_Manager {
         $current_hook = current_action();
         if ( 'jj_style_guide_daily_backup' === $current_hook ) {
             $type = 'daily';
-            $label = __( '일일 자동 백업', 'jj-style-guide' );
+            $label = __( '일일 자동 백업', 'acf-css-really-simple-style-management-center' );
         } elseif ( 'jj_style_guide_weekly_backup' === $current_hook ) {
             $type = 'weekly';
-            $label = __( '주간 자동 백업', 'jj-style-guide' );
+            $label = __( '주간 자동 백업', 'acf-css-really-simple-style-management-center' );
         } elseif ( 'jj_style_guide_monthly_backup' === $current_hook ) {
             $type = 'monthly';
-            $label = __( '월간 자동 백업', 'jj-style-guide' );
+            $label = __( '월간 자동 백업', 'acf-css-really-simple-style-management-center' );
         }
         
         $this->create_backup( $type, $label );
@@ -99,7 +99,7 @@ final class JJ_Backup_Manager {
 
         // 변경 사항이 있는 경우에만 백업
         if ( $old_value !== $value ) {
-            $this->create_backup( 'auto', __( '설정 변경 자동 백업', 'jj-style-guide' ) );
+            $this->create_backup( 'auto', __( '설정 변경 자동 백업', 'acf-css-really-simple-style-management-center' ) );
         }
     }
 
@@ -153,7 +153,7 @@ final class JJ_Backup_Manager {
         $backup_data = array(
             'id'          => $backup_id,
             'type'        => $type,
-            'label'       => $label ?: __( '수동 백업', 'jj-style-guide' ),
+            'label'       => $label ?: __( '수동 백업', 'acf-css-really-simple-style-management-center' ),
             'timestamp'   => $timestamp,
             'date'        => date_i18n( 'Y-m-d H:i:s', $timestamp ),
             'user_id'     => get_current_user_id(),
@@ -232,7 +232,7 @@ final class JJ_Backup_Manager {
         $settings = $backup['settings'];
 
         // 복원 전 현재 설정 백업 (롤백을 위해)
-        $this->create_backup( 'auto', __( '복원 전 자동 백업', 'jj-style-guide' ) );
+        $this->create_backup( 'auto', __( '복원 전 자동 백업', 'acf-css-really-simple-style-management-center' ) );
 
         // [v5.3.7] 배치 옵션 설정으로 복원 성능 최적화
         $options_to_restore = array();
@@ -444,7 +444,7 @@ final class JJ_Backup_Manager {
     public function create_backup_ajax() {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $type  = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'manual';
@@ -454,11 +454,11 @@ final class JJ_Backup_Manager {
 
         if ( $backup ) {
             wp_send_json_success( array(
-                'message' => __( '백업이 생성되었습니다.', 'jj-style-guide' ),
+                'message' => __( '백업이 생성되었습니다.', 'acf-css-really-simple-style-management-center' ),
                 'backup'  => $backup,
             ) );
         } else {
-            wp_send_json_error( array( 'message' => __( '백업 생성에 실패했습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '백업 생성에 실패했습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
 
@@ -468,23 +468,23 @@ final class JJ_Backup_Manager {
     public function restore_backup_ajax() {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $backup_id = isset( $_POST['backup_id'] ) ? sanitize_text_field( wp_unslash( $_POST['backup_id'] ) ) : '';
 
         if ( empty( $backup_id ) ) {
-            wp_send_json_error( array( 'message' => __( '백업 ID가 필요합니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '백업 ID가 필요합니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $restored = $this->restore_backup( $backup_id );
 
         if ( $restored ) {
             wp_send_json_success( array(
-                'message' => __( '백업이 복원되었습니다.', 'jj-style-guide' ),
+                'message' => __( '백업이 복원되었습니다.', 'acf-css-really-simple-style-management-center' ),
             ) );
         } else {
-            wp_send_json_error( array( 'message' => __( '백업 복원에 실패했습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '백업 복원에 실패했습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
 
@@ -494,23 +494,23 @@ final class JJ_Backup_Manager {
     public function delete_backup_ajax() {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $backup_id = isset( $_POST['backup_id'] ) ? sanitize_text_field( wp_unslash( $_POST['backup_id'] ) ) : '';
 
         if ( empty( $backup_id ) ) {
-            wp_send_json_error( array( 'message' => __( '백업 ID가 필요합니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '백업 ID가 필요합니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $deleted = $this->delete_backup( $backup_id );
 
         if ( $deleted ) {
             wp_send_json_success( array(
-                'message' => __( '백업이 삭제되었습니다.', 'jj-style-guide' ),
+                'message' => __( '백업이 삭제되었습니다.', 'acf-css-really-simple-style-management-center' ),
             ) );
         } else {
-            wp_send_json_error( array( 'message' => __( '백업 삭제에 실패했습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '백업 삭제에 실패했습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
 
@@ -520,7 +520,7 @@ final class JJ_Backup_Manager {
     public function get_backup_history_ajax() {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $limit = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 50;
@@ -538,14 +538,14 @@ final class JJ_Backup_Manager {
     public function compare_backups_ajax() {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $backup_id_1 = isset( $_POST['backup_id_1'] ) ? sanitize_text_field( wp_unslash( $_POST['backup_id_1'] ) ) : '';
         $backup_id_2 = isset( $_POST['backup_id_2'] ) ? sanitize_text_field( wp_unslash( $_POST['backup_id_2'] ) ) : '';
 
         if ( empty( $backup_id_1 ) || empty( $backup_id_2 ) ) {
-            wp_send_json_error( array( 'message' => __( '두 백업 ID가 필요합니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '두 백업 ID가 필요합니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $differences = $this->compare_backups( $backup_id_1, $backup_id_2 );
@@ -561,7 +561,7 @@ final class JJ_Backup_Manager {
     public function get_backup_list_ajax() {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $limit = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 50;
@@ -580,14 +580,14 @@ final class JJ_Backup_Manager {
     public function save_backup_settings_ajax() {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $auto_backup_on_change = isset( $_POST['auto_backup_on_change'] ) && '1' === $_POST['auto_backup_on_change'];
         update_option( 'jj_style_guide_auto_backup_on_change', $auto_backup_on_change ? 1 : 0 );
 
         wp_send_json_success( array(
-            'message' => __( '설정이 저장되었습니다.', 'jj-style-guide' ),
+            'message' => __( '설정이 저장되었습니다.', 'acf-css-really-simple-style-management-center' ),
         ) );
     }
 }

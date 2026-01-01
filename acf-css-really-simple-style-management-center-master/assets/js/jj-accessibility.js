@@ -17,6 +17,8 @@
             this.enhanceKeyboardNavigation();
             this.enhanceScreenReaderSupport();
             this.manageFocus();
+            this.enhanceSidebarToggle();
+            this.syncTabsA11yState();
         },
 
         /**
@@ -97,14 +99,39 @@
                 
                 $nav.find('a').each(function(index) {
                     const $tab = $(this);
+                    const tabKey = A11yEnhancer.getTabKey($tab);
+                    const isActive = A11yEnhancer.isTabActive($tab);
+
                     if (!$tab.attr('role')) {
                         $tab.attr('role', 'tab');
                     }
                     if (!$tab.attr('aria-selected')) {
-                        $tab.attr('aria-selected', $tab.hasClass('active') ? 'true' : 'false');
+                        $tab.attr('aria-selected', isActive ? 'true' : 'false');
                     }
                     if (!$tab.attr('tabindex')) {
-                        $tab.attr('tabindex', $tab.hasClass('active') ? '0' : '-1');
+                        $tab.attr('tabindex', isActive ? '0' : '-1');
+                    }
+
+                    // tab / tabpanel 연결
+                    if (tabKey) {
+                        if (!$tab.attr('id')) {
+                            $tab.attr('id', 'jj-tab-' + tabKey);
+                        }
+                        const $panel = $wrap.find('.jj-admin-center-tab-content[data-tab="' + tabKey + '"]');
+                        if ($panel.length) {
+                            if (!$panel.attr('id')) {
+                                $panel.attr('id', 'jj-tabpanel-' + tabKey);
+                            }
+                            if (!$panel.attr('role')) {
+                                $panel.attr('role', 'tabpanel');
+                            }
+                            if (!$panel.attr('tabindex')) {
+                                $panel.attr('tabindex', '0');
+                            }
+                            $tab.attr('aria-controls', $panel.attr('id'));
+                            $panel.attr('aria-labelledby', $tab.attr('id'));
+                            $panel.attr('aria-hidden', (isActive || $panel.hasClass('active')) ? 'false' : 'true');
+                        }
                     }
                 });
             });
@@ -125,6 +152,28 @@
                     $modal.attr('aria-labelledby', headerId);
                 }
             });
+        },
+        
+        /**
+         * 현재 탭이 활성 상태인지 판단
+         */
+        isTabActive: function($tab) {
+            if (!$tab || !$tab.length) return false;
+            return $tab.hasClass('active') || $tab.closest('li').hasClass('active');
+        },
+        
+        /**
+         * 탭 키 추출 (data-tab 또는 href 기반)
+         */
+        getTabKey: function($tab) {
+            if (!$tab || !$tab.length) return '';
+            const fromData = $tab.data('tab') || $tab.closest('li').data('tab');
+            if (fromData) return String(fromData);
+            const href = $tab.attr('href') || '';
+            if (href.indexOf('#') === 0 && href.length > 1) {
+                return href.replace('#', '');
+            }
+            return '';
         },
 
         /**
@@ -170,7 +219,7 @@
 
             // 탭 키보드 네비게이션 (화살표 키)
             $wrap.on('keydown', '[role="tab"]', function(e) {
-                const $tabs = $wrap.find('[role="tab"]');
+                const $tabs = $(this).closest('[role="tablist"]').find('[role="tab"]');
                 const currentIndex = $tabs.index(this);
                 let targetIndex = currentIndex;
 
@@ -200,6 +249,7 @@
                     const $target = $tabs.eq(targetIndex);
                     $tabs.attr('aria-selected', 'false').attr('tabindex', '-1');
                     $target.attr('aria-selected', 'true').attr('tabindex', '0').focus().click();
+                    A11yEnhancer.syncTabsA11yState();
                 }
             });
 
@@ -294,6 +344,90 @@
                         $(previousFocus).focus();
                     }, 100);
                 }
+            });
+        }
+        ,
+        /**
+         * 모바일 사이드바 토글 접근성/오버레이
+         */
+        enhanceSidebarToggle: function() {
+            const $wrap = $('.jj-admin-center-wrap');
+            if (!$wrap.length) return;
+
+            const $sidebar = $wrap.find('.jj-admin-center-sidebar');
+            const $toggle = $wrap.find('.jj-sidebar-toggle');
+            if (!$sidebar.length || !$toggle.length) return;
+
+            if (!$sidebar.attr('id')) {
+                $sidebar.attr('id', 'jj-admin-center-sidebar');
+            }
+            $toggle.attr('aria-controls', $sidebar.attr('id'));
+
+            // 오버레이 생성
+            if ($('.jj-admin-center-sidebar-overlay').length === 0) {
+                $('body').append('<div class="jj-admin-center-sidebar-overlay" aria-hidden="true"></div>');
+            }
+            const $overlay = $('.jj-admin-center-sidebar-overlay');
+
+            const closeSidebar = function() {
+                $sidebar.removeClass('jj-sidebar-open');
+                $overlay.removeClass('is-open');
+                $toggle.attr('aria-expanded', 'false');
+            };
+
+            const syncState = function() {
+                const isOpen = $sidebar.hasClass('jj-sidebar-open');
+                $toggle.attr('aria-expanded', isOpen ? 'true' : 'false');
+                $overlay.toggleClass('is-open', isOpen);
+            };
+
+            // 초기 상태 반영
+            syncState();
+
+            // 기존 클릭 핸들러 이후 상태 동기화
+            $wrap.off('click.jjA11ySidebar').on('click.jjA11ySidebar', '.jj-sidebar-toggle', function() {
+                setTimeout(syncState, 0);
+            });
+
+            $overlay.off('click.jjA11ySidebar').on('click.jjA11ySidebar', function() {
+                closeSidebar();
+            });
+
+            $(document).off('keydown.jjA11ySidebar').on('keydown.jjA11ySidebar', function(e) {
+                if (e.key === 'Escape' && $sidebar.hasClass('jj-sidebar-open')) {
+                    closeSidebar();
+                }
+            });
+        },
+
+        /**
+         * 탭 클릭/전환 시 aria-selected / aria-hidden 상태 동기화
+         */
+        syncTabsA11yState: function() {
+            const $wrap = $('.jj-admin-center-wrap');
+            if (!$wrap.length) return;
+
+            const $tabs = $wrap.find('[role="tab"]');
+            $tabs.each(function() {
+                const $tab = $(this);
+                const tabKey = A11yEnhancer.getTabKey($tab);
+                const isActive = A11yEnhancer.isTabActive($tab);
+                $tab.attr('aria-selected', isActive ? 'true' : 'false');
+                $tab.attr('tabindex', isActive ? '0' : '-1');
+
+                if (tabKey) {
+                    const $panel = $wrap.find('.jj-admin-center-tab-content[data-tab="' + tabKey + '"]');
+                    if ($panel.length) {
+                        $panel.attr('aria-hidden', (isActive || $panel.hasClass('active')) ? 'false' : 'true');
+                    }
+                }
+            });
+
+            // 클릭 전환 동기화
+            $wrap.off('click.jjA11yTabs').on('click.jjA11yTabs', '[role="tab"]', function() {
+                setTimeout(function() {
+                    A11yEnhancer.syncTabsA11yState();
+                }, 0);
             });
         }
     };

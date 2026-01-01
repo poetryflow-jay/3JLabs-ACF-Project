@@ -138,39 +138,59 @@ final class JJ_Adapter_Spoke_Bricks {
      * Bricks 전용 CSS 변수 출력
      */
     public function output_bricks_css_vars() {
-        $palettes = isset( $this->options['palettes'] ) ? $this->options['palettes'] : array();
-        $typography = isset( $this->options['typography'] ) ? $this->options['typography'] : array();
+        $palettes   = isset( $this->options['palettes'] ) && is_array( $this->options['palettes'] ) ? $this->options['palettes'] : array();
+        $brand      = isset( $palettes['brand'] ) && is_array( $palettes['brand'] ) ? $palettes['brand'] : array();
+        $system     = isset( $palettes['system'] ) && is_array( $palettes['system'] ) ? $palettes['system'] : array();
+        $typography = isset( $this->options['typography'] ) && is_array( $this->options['typography'] ) ? $this->options['typography'] : array();
 
-        if ( empty( $palettes ) && empty( $typography ) ) {
+        if ( empty( $brand ) && empty( $system ) && empty( $typography ) ) {
             return;
         }
 
         $css = '<style id="jj-bricks-adapter-vars">' . PHP_EOL;
         $css .= ':root {' . PHP_EOL;
 
-        // 색상 변수 - Bricks 컨벤션에 맞춤
-        if ( ! empty( $palettes['brand_primary'] ) ) {
-            $css .= '  --bricks-color-primary: ' . esc_attr( $palettes['brand_primary'] ) . ';' . PHP_EOL;
+        // 색상 변수 - Bricks 컨벤션에 맞춤(허브 옵션 구조 기반)
+        if ( ! empty( $brand['primary_color'] ) ) {
+            $css .= '  --bricks-color-primary: ' . esc_attr( $brand['primary_color'] ) . ';' . PHP_EOL;
         }
-        if ( ! empty( $palettes['brand_secondary'] ) ) {
-            $css .= '  --bricks-color-secondary: ' . esc_attr( $palettes['brand_secondary'] ) . ';' . PHP_EOL;
+        if ( ! empty( $brand['secondary_color'] ) ) {
+            $css .= '  --bricks-color-secondary: ' . esc_attr( $brand['secondary_color'] ) . ';' . PHP_EOL;
         }
-        if ( ! empty( $palettes['brand_accent'] ) ) {
-            $css .= '  --bricks-color-accent: ' . esc_attr( $palettes['brand_accent'] ) . ';' . PHP_EOL;
+        $accent = '';
+        if ( ! empty( $brand['primary_color_hover'] ) ) {
+            $accent = $brand['primary_color_hover'];
+        } elseif ( ! empty( $brand['primary_color'] ) ) {
+            $accent = $brand['primary_color'];
         }
-        if ( ! empty( $palettes['text_primary'] ) ) {
-            $css .= '  --bricks-text-color: ' . esc_attr( $palettes['text_primary'] ) . ';' . PHP_EOL;
+        if ( $accent ) {
+            $css .= '  --bricks-color-accent: ' . esc_attr( $accent ) . ';' . PHP_EOL;
         }
-        if ( ! empty( $palettes['background_primary'] ) ) {
-            $css .= '  --bricks-bg-color: ' . esc_attr( $palettes['background_primary'] ) . ';' . PHP_EOL;
+        if ( ! empty( $system['text_color'] ) ) {
+            $css .= '  --bricks-text-color: ' . esc_attr( $system['text_color'] ) . ';' . PHP_EOL;
+        }
+        $bg = '';
+        if ( ! empty( $system['site_bg'] ) ) {
+            $bg = $system['site_bg'];
+        } elseif ( ! empty( $system['content_bg'] ) ) {
+            $bg = $system['content_bg'];
+        }
+        if ( $bg ) {
+            $css .= '  --bricks-bg-color: ' . esc_attr( $bg ) . ';' . PHP_EOL;
         }
 
         // 타이포그래피 변수
-        if ( ! empty( $typography['heading_font'] ) ) {
-            $css .= '  --bricks-heading-font: ' . esc_attr( $typography['heading_font'] ) . ';' . PHP_EOL;
+        $heading_family = '';
+        if ( isset( $typography['h2']['font_family'] ) && $typography['h2']['font_family'] !== '' ) {
+            $heading_family = (string) $typography['h2']['font_family'];
+        } elseif ( isset( $typography['h1']['font_family'] ) && $typography['h1']['font_family'] !== '' ) {
+            $heading_family = (string) $typography['h1']['font_family'];
         }
-        if ( ! empty( $typography['body_font'] ) ) {
-            $css .= '  --bricks-body-font: ' . esc_attr( $typography['body_font'] ) . ';' . PHP_EOL;
+        if ( $heading_family ) {
+            $css .= '  --bricks-heading-font: ' . esc_attr( $heading_family ) . ';' . PHP_EOL;
+        }
+        if ( isset( $typography['p']['font_family'] ) && $typography['p']['font_family'] !== '' ) {
+            $css .= '  --bricks-body-font: ' . esc_attr( (string) $typography['p']['font_family'] ) . ';' . PHP_EOL;
         }
 
         $css .= '}' . PHP_EOL;

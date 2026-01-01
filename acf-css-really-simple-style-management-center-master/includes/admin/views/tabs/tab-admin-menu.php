@@ -53,7 +53,7 @@ foreach ( $sorted_menu_items as $slug => $item ) {
 <div class="jj-admin-center-tab-content" data-tab="admin-menu">
     <div class="jj-admin-center-2panel">
         <div class="jj-admin-center-left-panel">
-            <h3><?php esc_html_e( '메뉴 목록', 'jj-style-guide' ); ?></h3>
+            <h3><?php esc_html_e( '메뉴 목록', 'acf-css-really-simple-style-management-center' ); ?></h3>
             <ul class="jj-admin-center-menu-list">
                 <?php
                 $first_item = true;
@@ -76,7 +76,7 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                         <?php if ( $has_submenu ) : ?>
                         <span class="dashicons dashicons-arrow-down jj-toggle-submenu" style="float: right; cursor: pointer; color: #8c8f94;"></span>
                         <?php endif; ?>
-                        <span class="jj-admin-center-menu-item-badge"><?php echo $enabled ? esc_html__( '표시', 'jj-style-guide' ) : esc_html__( '숨김', 'jj-style-guide' ); ?></span>
+                        <span class="jj-admin-center-menu-item-badge"><?php echo $enabled ? esc_html__( '표시', 'acf-css-really-simple-style-management-center' ) : esc_html__( '숨김', 'acf-css-really-simple-style-management-center' ); ?></span>
                         <?php if ( $has_submenu ) : ?>
                         <ul class="jj-admin-center-submenu-list" style="display: none; list-style: none; margin: 10px 0 0 30px; padding: 0;">
                             <?php
@@ -112,7 +112,7 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                                 <span class="jj-admin-center-menu-item-handle dashicons dashicons-menu" style="cursor: move; color: #8c8f94; margin-right: 5px;"></span>
                                 <span class="jj-admin-center-menu-item-order" style="display: inline-block; min-width: 25px; text-align: center; font-weight: bold; margin-right: 8px; font-size: 11px;"><?php echo esc_html( $submenu_position ); ?></span>
                                 <span class="jj-admin-center-menu-item-title" data-original-title="<?php echo esc_attr( $submenu_item_data['title'] ); ?>"><?php echo esc_html( $submenu_item_data['label'] ); ?></span>
-                                <span class="jj-admin-center-menu-item-badge" style="font-size: 11px;"><?php echo $submenu_enabled ? esc_html__( '표시', 'jj-style-guide' ) : esc_html__( '숨김', 'jj-style-guide' ); ?></span>
+                                <span class="jj-admin-center-menu-item-badge" style="font-size: 11px;"><?php echo $submenu_enabled ? esc_html__( '표시', 'acf-css-really-simple-style-management-center' ) : esc_html__( '숨김', 'acf-css-really-simple-style-management-center' ); ?></span>
                             </li>
                             <?php
                                 $submenu_position++;
@@ -197,19 +197,19 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                     <table class="form-table" role="presentation">
                         <tbody>
                         <tr>
-                            <th scope="row"><?php esc_html_e( '표시', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '표시', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <label>
                                     <input type="checkbox"
                                            name="jj_admin_menu_layout[<?php echo esc_attr( $slug ); ?>][enabled]"
                                            value="1"
                                         <?php checked( $enabled ); ?> />
-                                    <?php esc_html_e( '이 메뉴 항목 표시', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( '이 메뉴 항목 표시', 'acf-css-really-simple-style-management-center' ); ?>
                                 </label>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( '순서', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '순서', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <div class="jj-order-control" style="display: flex; align-items: center; gap: 10px;">
                                     <button type="button" class="button button-small jj-order-up" 
@@ -230,27 +230,27 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                                         <span class="dashicons dashicons-arrow-down"></span>
                                     </button>
                                     <span class="jj-order-display" style="margin-left: 10px; font-weight: bold; color: #2271b1;">
-                                        <?php esc_html_e( '현재 순서:', 'jj-style-guide' ); ?> <span class="jj-order-number"><?php echo esc_html( $order ); ?></span>
+                                        <?php esc_html_e( '현재 순서:', 'acf-css-really-simple-style-management-center' ); ?> <span class="jj-order-number"><?php echo esc_html( $order ); ?></span>
                                     </span>
                                 </div>
                                 <p class="description" style="margin-top: 8px;">
-                                    <?php esc_html_e( '순서는 1부터 시작하며, 현재 순서는 왼쪽 메뉴 목록에도 표시됩니다. 드래그 앤 드롭 또는 화살표 버튼으로 조정할 수 있습니다.', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( '순서는 1부터 시작하며, 현재 순서는 왼쪽 메뉴 목록에도 표시됩니다. 드래그 앤 드롭 또는 화살표 버튼으로 조정할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                                 </p>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( '레이블', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '레이블', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <input type="text"
                                        name="jj_admin_menu_layout[<?php echo esc_attr( $slug ); ?>][label]"
                                        class="regular-text jj-menu-label-input"
                                        data-item-id="<?php echo esc_attr( $slug ); ?>"
                                        value="<?php echo esc_attr( $label ); ?>" />
-                                <p class="description"><?php esc_html_e( '비워두면 기본 레이블이 사용됩니다. 변경 시 왼쪽 메뉴 목록에 즉시 반영됩니다.', 'jj-style-guide' ); ?></p>
+                                <p class="description"><?php esc_html_e( '비워두면 기본 레이블이 사용됩니다. 변경 시 왼쪽 메뉴 목록에 즉시 반영됩니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( '아이콘', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '아이콘', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <input type="text"
                                        name="jj_admin_menu_layout[<?php echo esc_attr( $slug ); ?>][icon]"
@@ -258,10 +258,10 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                                        class="regular-text jj-menu-icon-input"
                                        placeholder="dashicons-admin-generic" />
                                 <p class="description">
-                                    <?php esc_html_e( 'Dashicons 클래스 이름 (예: dashicons-admin-generic) 또는 이미지 URL을 입력하세요.', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( 'Dashicons 클래스 이름 (예: dashicons-admin-generic) 또는 이미지 URL을 입력하세요.', 'acf-css-really-simple-style-management-center' ); ?>
                                     <br>
-                                    <?php esc_html_e( '기본값:', 'jj-style-guide' ); ?> <code><?php echo esc_html( $original_icon ); ?></code>
-                                    <a href="https://developer.wordpress.org/resource/dashicons/" target="_blank" rel="noopener"><?php esc_html_e( 'Dashicons 목록 보기', 'jj-style-guide' ); ?></a>
+                                    <?php esc_html_e( '기본값:', 'acf-css-really-simple-style-management-center' ); ?> <code><?php echo esc_html( $original_icon ); ?></code>
+                                    <a href="https://developer.wordpress.org/resource/dashicons/" target="_blank" rel="noopener"><?php esc_html_e( 'Dashicons 목록 보기', 'acf-css-really-simple-style-management-center' ); ?></a>
                                 </p>
                                 <div class="jj-menu-icon-preview" style="margin-top: 8px; padding: 8px; background: #f9f9f9; border: 1px solid #ddd; display: inline-block; min-width: 40px; min-height: 40px; text-align: center; vertical-align: middle;">
                                     <?php
@@ -282,31 +282,31 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( '권한', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '권한', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <select name="jj_admin_menu_layout[<?php echo esc_attr( $slug ); ?>][capability]"
                                         class="regular-text">
-                                    <option value=""><?php esc_html_e( '-- 기본값 사용 --', 'jj-style-guide' ); ?></option>
-                                    <option value="manage_options" <?php selected( $capability, 'manage_options' ); ?>><?php esc_html_e( 'manage_options (관리자)', 'jj-style-guide' ); ?></option>
-                                    <option value="edit_posts" <?php selected( $capability, 'edit_posts' ); ?>><?php esc_html_e( 'edit_posts (편집자 이상)', 'jj-style-guide' ); ?></option>
-                                    <option value="publish_posts" <?php selected( $capability, 'publish_posts' ); ?>><?php esc_html_e( 'publish_posts (작성자 이상)', 'jj-style-guide' ); ?></option>
-                                    <option value="edit_published_posts" <?php selected( $capability, 'edit_published_posts' ); ?>><?php esc_html_e( 'edit_published_posts (작성자 이상)', 'jj-style-guide' ); ?></option>
-                                    <option value="read" <?php selected( $capability, 'read' ); ?>><?php esc_html_e( 'read (구독자 이상)', 'jj-style-guide' ); ?></option>
-                                    <option value="manage_network" <?php selected( $capability, 'manage_network' ); ?>><?php esc_html_e( 'manage_network (네트워크 관리자)', 'jj-style-guide' ); ?></option>
+                                    <option value=""><?php esc_html_e( '-- 기본값 사용 --', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                    <option value="manage_options" <?php selected( $capability, 'manage_options' ); ?>><?php esc_html_e( 'manage_options (관리자)', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                    <option value="edit_posts" <?php selected( $capability, 'edit_posts' ); ?>><?php esc_html_e( 'edit_posts (편집자 이상)', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                    <option value="publish_posts" <?php selected( $capability, 'publish_posts' ); ?>><?php esc_html_e( 'publish_posts (작성자 이상)', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                    <option value="edit_published_posts" <?php selected( $capability, 'edit_published_posts' ); ?>><?php esc_html_e( 'edit_published_posts (작성자 이상)', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                    <option value="read" <?php selected( $capability, 'read' ); ?>><?php esc_html_e( 'read (구독자 이상)', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                    <option value="manage_network" <?php selected( $capability, 'manage_network' ); ?>><?php esc_html_e( 'manage_network (네트워크 관리자)', 'acf-css-really-simple-style-management-center' ); ?></option>
                                 </select>
                                 <p class="description">
-                                    <?php esc_html_e( '이 메뉴를 볼 수 있는 최소 권한을 설정합니다.', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( '이 메뉴를 볼 수 있는 최소 권한을 설정합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                                     <br>
-                                    <?php esc_html_e( '기본값:', 'jj-style-guide' ); ?> <code><?php echo esc_html( $original_capability ); ?></code>
+                                    <?php esc_html_e( '기본값:', 'acf-css-really-simple-style-management-center' ); ?> <code><?php echo esc_html( $original_capability ); ?></code>
                                 </p>
                             </td>
                         </tr>
                         <?php if ( ! empty( $submenu_items ) ) : ?>
                         <tr>
                             <th scope="row" colspan="2">
-                                <h4 style="margin-top: 20px; margin-bottom: 10px;"><?php esc_html_e( '서브메뉴', 'jj-style-guide' ); ?></h4>
+                                <h4 style="margin-top: 20px; margin-bottom: 10px;"><?php esc_html_e( '서브메뉴', 'acf-css-really-simple-style-management-center' ); ?></h4>
                                 <p class="description" style="margin-bottom: 15px;">
-                                    <?php esc_html_e( '이 메뉴 항목의 서브메뉴를 편집할 수 있습니다.', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( '이 메뉴 항목의 서브메뉴를 편집할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                                 </p>
                             </th>
                         </tr>
@@ -326,19 +326,19 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                                 <table class="form-table" style="margin: 0;">
                                     <tbody>
                                     <tr>
-                                        <th scope="row" style="width: 120px;"><?php esc_html_e( '표시', 'jj-style-guide' ); ?></th>
+                                        <th scope="row" style="width: 120px;"><?php esc_html_e( '표시', 'acf-css-really-simple-style-management-center' ); ?></th>
                                         <td>
                                             <label>
                                                 <input type="checkbox"
                                                        name="jj_admin_menu_layout[<?php echo esc_attr( $slug ); ?>][submenus][<?php echo esc_attr( $submenu_slug ); ?>][enabled]"
                                                        value="1"
                                                     <?php checked( $submenu_item['enabled'] ); ?> />
-                                                <?php esc_html_e( '이 서브메뉴 표시', 'jj-style-guide' ); ?>
+                                                <?php esc_html_e( '이 서브메뉴 표시', 'acf-css-really-simple-style-management-center' ); ?>
                                             </label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><?php esc_html_e( '레이블', 'jj-style-guide' ); ?></th>
+                                        <th scope="row"><?php esc_html_e( '레이블', 'acf-css-really-simple-style-management-center' ); ?></th>
                                         <td>
                                             <input type="text"
                                                    name="jj_admin_menu_layout[<?php echo esc_attr( $slug ); ?>][submenus][<?php echo esc_attr( $submenu_slug ); ?>][label]"
@@ -347,12 +347,12 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                                                    data-item-id="<?php echo esc_attr( $submenu_slug ); ?>"
                                                    value="<?php echo esc_attr( $submenu_item['label'] ); ?>" />
                                             <p class="description" style="margin-top: 5px; font-size: 12px;">
-                                                <?php esc_html_e( '변경 시 왼쪽 메뉴 목록에 즉시 반영됩니다.', 'jj-style-guide' ); ?>
+                                                <?php esc_html_e( '변경 시 왼쪽 메뉴 목록에 즉시 반영됩니다.', 'acf-css-really-simple-style-management-center' ); ?>
                                             </p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><?php esc_html_e( '순서', 'jj-style-guide' ); ?></th>
+                                        <th scope="row"><?php esc_html_e( '순서', 'acf-css-really-simple-style-management-center' ); ?></th>
                                         <td>
                                             <div class="jj-order-control" style="display: flex; align-items: center; gap: 10px;">
                                                 <button type="button" class="button button-small jj-submenu-order-up" 
@@ -376,27 +376,27 @@ foreach ( $sorted_menu_items as $slug => $item ) {
                                                     <span class="dashicons dashicons-arrow-down"></span>
                                                 </button>
                                                 <span class="jj-order-display" style="margin-left: 10px; font-weight: bold; color: #2271b1; font-size: 12px;">
-                                                    <?php esc_html_e( '현재 순서:', 'jj-style-guide' ); ?> <span class="jj-order-number"><?php echo esc_html( $submenu_item['order'] ); ?></span>
+                                                    <?php esc_html_e( '현재 순서:', 'acf-css-really-simple-style-management-center' ); ?> <span class="jj-order-number"><?php echo esc_html( $submenu_item['order'] ); ?></span>
                                                 </span>
                                             </div>
                                             <p class="description" style="margin-top: 8px; font-size: 12px;">
-                                                <?php esc_html_e( '순서는 1부터 시작하며, 왼쪽 메뉴 목록에도 표시됩니다.', 'jj-style-guide' ); ?>
+                                                <?php esc_html_e( '순서는 1부터 시작하며, 왼쪽 메뉴 목록에도 표시됩니다.', 'acf-css-really-simple-style-management-center' ); ?>
                                             </p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row"><?php esc_html_e( '권한', 'jj-style-guide' ); ?></th>
+                                        <th scope="row"><?php esc_html_e( '권한', 'acf-css-really-simple-style-management-center' ); ?></th>
                                         <td>
                                             <select name="jj_admin_menu_layout[<?php echo esc_attr( $slug ); ?>][submenus][<?php echo esc_attr( $submenu_slug ); ?>][capability]"
                                                     class="regular-text">
-                                                <option value=""><?php esc_html_e( '-- 기본값 사용 --', 'jj-style-guide' ); ?></option>
-                                                <option value="manage_options" <?php selected( $submenu_item['capability'], 'manage_options' ); ?>><?php esc_html_e( 'manage_options', 'jj-style-guide' ); ?></option>
-                                                <option value="edit_posts" <?php selected( $submenu_item['capability'], 'edit_posts' ); ?>><?php esc_html_e( 'edit_posts', 'jj-style-guide' ); ?></option>
-                                                <option value="publish_posts" <?php selected( $submenu_item['capability'], 'publish_posts' ); ?>><?php esc_html_e( 'publish_posts', 'jj-style-guide' ); ?></option>
-                                                <option value="read" <?php selected( $submenu_item['capability'], 'read' ); ?>><?php esc_html_e( 'read', 'jj-style-guide' ); ?></option>
+                                                <option value=""><?php esc_html_e( '-- 기본값 사용 --', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                                <option value="manage_options" <?php selected( $submenu_item['capability'], 'manage_options' ); ?>><?php esc_html_e( 'manage_options', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                                <option value="edit_posts" <?php selected( $submenu_item['capability'], 'edit_posts' ); ?>><?php esc_html_e( 'edit_posts', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                                <option value="publish_posts" <?php selected( $submenu_item['capability'], 'publish_posts' ); ?>><?php esc_html_e( 'publish_posts', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                                <option value="read" <?php selected( $submenu_item['capability'], 'read' ); ?>><?php esc_html_e( 'read', 'acf-css-really-simple-style-management-center' ); ?></option>
                                             </select>
                                             <p class="description" style="margin-top: 5px;">
-                                                <?php esc_html_e( '기본값:', 'jj-style-guide' ); ?> <code><?php echo esc_html( $submenu_item['original_capability'] ); ?></code>
+                                                <?php esc_html_e( '기본값:', 'acf-css-really-simple-style-management-center' ); ?> <code><?php echo esc_html( $submenu_item['original_capability'] ); ?></code>
                                             </p>
                                         </td>
                                     </tr>

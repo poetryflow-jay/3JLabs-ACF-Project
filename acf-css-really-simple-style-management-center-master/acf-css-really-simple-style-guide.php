@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS - Advanced Custom Fonts&Colors&Styles Setting Manager (Master)
  * Plugin URI:        https://3j-labs.com
  * Description:       WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다.
- * Version:           8.5.0
+ * Version:           13.2.0
  * Author:            3J Labs
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -30,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '8.5.0' ); // [v8.5.0] Phase 8.1-8.5 완료: 빌드 시스템, 보안 강화, UX 개선, 피드백 시스템, AI Extension 프로모션, 자동 진단
+    define( 'JJ_STYLE_GUIDE_VERSION', '13.2.0' ); // [v13.2.0] Phase 13.2: Tooltip Enhancement + Nudge System + i18n 22 languages
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
@@ -193,6 +193,50 @@ try {
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-ai-extension-promoter.php', true );
     // [Phase 8.5.2] Self Tester (자가 진단 및 자동 진단)
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'tests/class-jj-self-tester.php', true );
+    // [Phase 9.1] i18n Manager (다국어 지원)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-i18n-manager.php', true );
+    // [Phase 9.1] Localization Helper (현지화)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-localization.php', true );
+    // [Phase 9.2] Dashboard Widgets (대시보드 위젯)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-dashboard-widgets.php', true );
+    // [Phase 9.2] Global Search (전역 검색)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-global-search.php', true );
+    // [Phase 9.3] Style Guide Generator (스타일 가이드 자동 생성)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-style-guide-generator.php', true );
+    // [Phase 10.6] Style Guide Live Page (front-end preview + live edit)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-style-guide-live-page.php', true );
+    // [Phase 10.6] Duplicate page to Style Guide sandbox (Pages list row/bulk action)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-style-guide-page-duplicator.php', true );
+    // [Phase 11] Style Guide Exporter (PDF/이미지/HTML/CSS/JSON 내보내기)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-style-guide-exporter.php', true );
+    // [Phase 12] Font Recommender (폰트 추천 + 원클릭 설치)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-font-recommender.php', true );
+    // [Phase 13] Figma Connector (Figma API 연동)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-figma-connector.php', true );
+    // [Phase 13.2] Nudge System (넛지 및 온보딩 시스템)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-nudge-system.php', true );
+    // [Phase 9.3] Version Control (버전 관리 시스템)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-version-control.php', true );
+    // [Phase 9.3] Advanced Styling (고급 스타일링)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-advanced-styling.php', true );
+    // [Phase 9.4] AI Suggestions (AI 제안 시스템)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-ai-suggestions.php', true );
+    // [Phase 9.4] AI Optimizer (AI 최적화)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-ai-optimizer.php', true );
+    // [Phase 9.4] AI Debugger (AI 디버깅)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-ai-debugger.php', true );
+    // [Phase 9.4] Batch Processor (배치 처리)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-batch-processor.php', true );
+    // [Phase 9.5] Performance Monitor (성능 모니터링)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-performance-monitor.php', true );
+    // [Phase 9.5] Error Tracker (에러 추적)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-error-tracker.php', true );
+    // [Phase 9.5] Code Optimizer (코드 최적화)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-code-optimizer.php', true );
+    // [Phase 10.2] Block Editor Integration (Gutenberg blocks + Builders)
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-block-editor-integration.php', true );
+    // [Phase 10.4] Builder 1-click Sync (Elementor Kit 등) - 안전 백업/롤백 포함
+    $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-builder-sync-manager.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-edition-controller.php', true );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-theme-metadata.php', false );
     $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-strategy-0-customizer.php', false );
@@ -659,6 +703,50 @@ final class JJ_Simple_Style_Guide_Master {
         }
         wp_enqueue_style( 'jj-style-guide-presets', JJ_STYLE_GUIDE_URL . 'assets/css/jj-style-guide-presets.css', array( 'jj-style-guide-editor' ), $presets_css_ver );
         wp_enqueue_script( 'jj-style-guide-presets', JJ_STYLE_GUIDE_URL . 'assets/js/jj-style-guide-presets.js', array( 'jj-style-guide-editor', 'jquery' ), $presets_js_ver, true );
+
+        // [UI/UX] 타이포그래피 프리셋(원클릭)
+        $typo_presets_css_path = JJ_STYLE_GUIDE_PATH . 'assets/css/jj-style-guide-typography-presets.css';
+        $typo_presets_js_path  = JJ_STYLE_GUIDE_PATH . 'assets/js/jj-style-guide-typography-presets.js';
+        if ( file_exists( $typo_presets_css_path ) ) {
+            $typo_presets_css_ver = JJ_STYLE_GUIDE_VERSION . '.' . (string) filemtime( $typo_presets_css_path );
+            wp_enqueue_style(
+                'jj-style-guide-typography-presets',
+                JJ_STYLE_GUIDE_URL . 'assets/css/jj-style-guide-typography-presets.css',
+                array( 'jj-style-guide-editor' ),
+                $typo_presets_css_ver
+            );
+        }
+        if ( file_exists( $typo_presets_js_path ) ) {
+            $typo_presets_js_ver = JJ_STYLE_GUIDE_VERSION . '.' . (string) filemtime( $typo_presets_js_path );
+            wp_enqueue_script(
+                'jj-style-guide-typography-presets',
+                JJ_STYLE_GUIDE_URL . 'assets/js/jj-style-guide-typography-presets.js',
+                array( 'jj-style-guide-editor', 'jquery' ),
+                $typo_presets_js_ver,
+                true
+            );
+        }
+
+        // [Phase 12] Font Recommender (폰트 추천 + 원클릭 적용)
+        $font_recommender_js_path = JJ_STYLE_GUIDE_PATH . 'assets/js/jj-font-recommender.js';
+        if ( file_exists( $font_recommender_js_path ) ) {
+            $font_recommender_js_ver = JJ_STYLE_GUIDE_VERSION . '.' . (string) filemtime( $font_recommender_js_path );
+            wp_enqueue_script(
+                'jj-font-recommender',
+                JJ_STYLE_GUIDE_URL . 'assets/js/jj-font-recommender.js',
+                array( 'jquery' ),
+                $font_recommender_js_ver,
+                true
+            );
+            wp_localize_script(
+                'jj-font-recommender',
+                'jjFontRecommender',
+                array(
+                    'ajax_url' => admin_url( 'admin-ajax.php' ),
+                    'nonce'    => wp_create_nonce( 'jj_font_recommender_action' ),
+                )
+            );
+        }
 
         $preview_page_id = $this->cockpit_page_id;
         $preview_url = $preview_page_id ? get_permalink( $preview_page_id ) : '';
@@ -2024,6 +2112,196 @@ function jj_simple_style_guide_master_run() {
     // WordPress 함수가 로드되었는지 확인
     if ( ! function_exists( 'class_exists' ) || ! function_exists( 'file_exists' ) ) {
         return;
+    }
+
+    // [Phase 9.1] i18n / Localization 초기화
+    if ( class_exists( 'JJ_I18n_Manager' ) ) {
+        try {
+            JJ_I18n_Manager::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_Localization' ) ) {
+        try {
+            JJ_Localization::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+
+    // [Phase 9.2] Dashboard Widgets / Global Search 초기화
+    if ( class_exists( 'JJ_Dashboard_Widgets' ) ) {
+        try {
+            JJ_Dashboard_Widgets::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_Global_Search' ) ) {
+        try {
+            JJ_Global_Search::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+
+    // [Phase 9.3] Style Guide Generator / Version Control / Advanced Styling 초기화
+    if ( class_exists( 'JJ_Style_Guide_Generator' ) ) {
+        try {
+            JJ_Style_Guide_Generator::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    // [Phase 10.6] Style Guide Live Page (front-end preview + live edit)
+    if ( class_exists( 'JJ_Style_Guide_Live_Page' ) ) {
+        try {
+            JJ_Style_Guide_Live_Page::instance()->init();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
+    }
+    // [Phase 10.6] Style Guide Page Duplicator (Pages list row/bulk action)
+    if ( class_exists( 'JJ_Style_Guide_Page_Duplicator' ) ) {
+        try {
+            JJ_Style_Guide_Page_Duplicator::instance()->init();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
+    }
+    // [Phase 11] Style Guide Exporter (PDF/이미지/HTML/CSS/JSON 내보내기)
+    if ( class_exists( 'JJ_Style_Guide_Exporter' ) ) {
+        try {
+            JJ_Style_Guide_Exporter::instance()->init();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
+    }
+    // [Phase 12] Font Recommender (폰트 추천 + 원클릭 설치)
+    if ( class_exists( 'JJ_Font_Recommender' ) ) {
+        try {
+            JJ_Font_Recommender::instance()->init();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
+    }
+    // [Phase 13] Figma Connector (Figma API 연동)
+    if ( class_exists( 'JJ_Figma_Connector' ) ) {
+        try {
+            JJ_Figma_Connector::instance()->init();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
+    }
+    // [Phase 13.2] Nudge System (넛지 및 온보딩 시스템)
+    if ( class_exists( 'JJ_Nudge_System' ) ) {
+        try {
+            JJ_Nudge_System::instance()->init();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_Version_Control' ) ) {
+        try {
+            JJ_Version_Control::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_Advanced_Styling' ) ) {
+        try {
+            JJ_Advanced_Styling::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+
+    // [Phase 9.4] AI 모듈 초기화
+    if ( class_exists( 'JJ_AI_Suggestions' ) ) {
+        try {
+            JJ_AI_Suggestions::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_AI_Optimizer' ) ) {
+        try {
+            JJ_AI_Optimizer::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_AI_Debugger' ) ) {
+        try {
+            JJ_AI_Debugger::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_Batch_Processor' ) ) {
+        try {
+            JJ_Batch_Processor::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+
+    // [Phase 9.5] Performance / Error Tracking / Code Optimizer 초기화
+    if ( class_exists( 'JJ_Performance_Monitor' ) ) {
+        try {
+            JJ_Performance_Monitor::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_Error_Tracker' ) ) {
+        try {
+            JJ_Error_Tracker::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+    if ( class_exists( 'JJ_Code_Optimizer' ) ) {
+        try {
+            JJ_Code_Optimizer::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        }
+    }
+
+    // [Phase 10.2] Block Editor Integration 초기화 (Gutenberg/빌더 토큰 브릿지 + JJ 블록)
+    if ( class_exists( 'JJ_Block_Editor_Integration' ) ) {
+        try {
+            JJ_Block_Editor_Integration::instance();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
+    }
+
+    // [Phase 10.4] Builder 1-click Sync 초기화 (Elementor Kit 글로벌 컬러/타이포 동기화)
+    if ( class_exists( 'JJ_Builder_Sync_Manager' ) ) {
+        try {
+            JJ_Builder_Sync_Manager::instance()->init();
+        } catch ( Exception $e ) {
+            // ignore
+        } catch ( Error $e ) {
+            // ignore
+        }
     }
     
     // [v5.3.9] 코드 무결성 모니터 초기화 (plugins_loaded 시점)

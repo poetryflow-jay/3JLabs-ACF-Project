@@ -98,6 +98,15 @@ class JJ_Asset_Optimizer {
             $version,
             true
         );
+
+        // [Phase 10.1] 접근성(A11y) 개선 스크립트
+        wp_enqueue_script(
+            'jj-accessibility',
+            $base_url . 'assets/js/jj-accessibility.js',
+            array( 'jquery', 'jj-common-utils' ),
+            $version,
+            true
+        );
         
         // AJAX 파라미터 (조건부 로딩에 필요)
         wp_localize_script( 'jj-admin-center-critical', 'jjAdminCenter', array(
@@ -119,6 +128,7 @@ class JJ_Asset_Optimizer {
             'colors' => array( 'jj-style-guide-presets.js' ),
             'labs' => array( 'jj-labs-center.js' ),
             'editor' => array( 'jj-style-guide-editor.js', 'jj-live-preview.js' ),
+            'figma' => array( 'jj-figma-connector.js' ), // [Phase 13] Figma 연동
             'system-status' => array(), // 추가 스크립트 없음
             'updates' => array(), // 추가 스크립트 없음
         );
@@ -145,6 +155,14 @@ class JJ_Asset_Optimizer {
                 array( 'jj-admin-center-critical' ),
                 $version
             );
+        }
+
+        // [Phase 13] Figma 탭 localize_script
+        if ( 'figma' === $tab ) {
+            wp_localize_script( 'jj-figma-connector', 'jjFigmaConnector', array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'nonce'    => wp_create_nonce( 'jj_figma_connector_action' ),
+            ) );
         }
         
         // 키보드 단축키는 항상 로드 (전역 기능)
@@ -173,18 +191,18 @@ class JJ_Asset_Optimizer {
         check_ajax_referer( 'jj_admin_center_ajax', 'nonce' );
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $tab = isset( $_POST['tab'] ) ? sanitize_text_field( $_POST['tab'] ) : '';
         
         if ( empty( $tab ) ) {
-            wp_send_json_error( array( 'message' => __( '탭이 지정되지 않았습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '탭이 지정되지 않았습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         // 이미 로드된 탭이면 스킵
         if ( in_array( $tab, self::$loaded_tabs, true ) ) {
-            wp_send_json_success( array( 'message' => __( '이미 로드되었습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_success( array( 'message' => __( '이미 로드되었습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         // 탭 컨텐츠 로드 (필요한 스크립트/스타일 포함)
@@ -194,7 +212,7 @@ class JJ_Asset_Optimizer {
         self::$loaded_tabs[] = $tab;
         
         wp_send_json_success( array(
-            'message' => __( '탭 컨텐츠가 로드되었습니다.', 'jj-style-guide' ),
+            'message' => __( '탭 컨텐츠가 로드되었습니다.', 'acf-css-really-simple-style-management-center' ),
             'tab' => $tab,
         ) );
     }

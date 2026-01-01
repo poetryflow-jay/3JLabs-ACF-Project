@@ -213,7 +213,7 @@ final class JJ_License_Manager {
             return array(
                 'valid' => true,
                 'type' => 'MASTER',
-                'message' => __( 'Master 에디션이 활성화되었습니다.', 'jj-style-guide' ),
+                'message' => __( 'Master 에디션이 활성화되었습니다.', 'acf-css-really-simple-style-management-center' ),
                 'valid_until' => time() + ( 10 * 365 * 24 * 60 * 60 ), // 10년
             );
         }
@@ -246,7 +246,7 @@ final class JJ_License_Manager {
                 return array(
                     'valid' => false,
                     'type' => self::TYPE_FREE,
-                    'message' => __( '플러그인이 잠금되었습니다. 코드 무결성 위반이 감지되었습니다.', 'jj-style-guide' ),
+                    'message' => __( '플러그인이 잠금되었습니다. 코드 무결성 위반이 감지되었습니다.', 'acf-css-really-simple-style-management-center' ),
                     'activation_required' => true,
                     'locked' => true,
                 );
@@ -259,7 +259,7 @@ final class JJ_License_Manager {
             return array(
                 'valid' => false,
                 'type' => self::TYPE_FREE,
-                'message' => __( '라이센스 키가 설정되지 않았습니다. Free 버전으로 실행됩니다.', 'jj-style-guide' ),
+                'message' => __( '라이센스 키가 설정되지 않았습니다. Free 버전으로 실행됩니다.', 'acf-css-really-simple-style-management-center' ),
                 'activation_required' => true,
             );
         }
@@ -271,7 +271,7 @@ final class JJ_License_Manager {
                 return array(
                     'valid' => false,
                     'type' => self::TYPE_FREE,
-                    'message' => __( '유효하지 않은 라이센스 키입니다. 서버에서 확인할 수 없습니다.', 'jj-style-guide' ),
+                    'message' => __( '유효하지 않은 라이센스 키입니다. 서버에서 확인할 수 없습니다.', 'acf-css-really-simple-style-management-center' ),
                     'activation_required' => true,
                     'fake_key' => true,
                 );
@@ -283,7 +283,7 @@ final class JJ_License_Manager {
             return array(
                 'valid' => false,
                 'type' => self::TYPE_FREE,
-                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'jj-style-guide' ),
+                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'acf-css-really-simple-style-management-center' ),
                 'activation_required' => true,
             );
         }
@@ -314,7 +314,7 @@ final class JJ_License_Manager {
                         return array(
                             'valid' => false,
                             'type' => $license_type,
-                            'message' => __( '이 라이센스는 비활성화되었습니다.', 'jj-style-guide' ),
+                            'message' => __( '이 라이센스는 비활성화되었습니다.', 'acf-css-really-simple-style-management-center' ),
                             'activation_required' => true,
                         );
                     }
@@ -324,7 +324,7 @@ final class JJ_License_Manager {
                         return array(
                             'valid' => false,
                             'type' => $license_type,
-                            'message' => __( '이 라이센스는 만료되었습니다.', 'jj-style-guide' ),
+                            'message' => __( '이 라이센스는 만료되었습니다.', 'acf-css-really-simple-style-management-center' ),
                             'expired' => true,
                             'activation_required' => true,
                         );
@@ -350,7 +350,7 @@ final class JJ_License_Manager {
                                 return array(
                                     'valid' => false,
                                     'type' => $license_type,
-                                    'message' => __( '이 라이센스는 다른 사이트에서 사용 중입니다. Premium 버전은 1개 사이트에서만 사용 가능합니다.', 'jj-style-guide' ),
+                                    'message' => __( '이 라이센스는 다른 사이트에서 사용 중입니다. Premium 버전은 1개 사이트에서만 사용 가능합니다.', 'acf-css-really-simple-style-management-center' ),
                                     'activation_required' => true,
                                 );
                             }
@@ -372,7 +372,7 @@ final class JJ_License_Manager {
                     return array(
                         'valid' => true,
                         'type' => $license_type,
-                        'message' => __( '라이센스가 활성화되었습니다.', 'jj-style-guide' ),
+                        'message' => __( '라이센스가 활성화되었습니다.', 'acf-css-really-simple-style-management-center' ),
                         'valid_until' => $expires_timestamp,
                         'days_until_expiry' => $days_until_expiry,
                         'expiring_soon' => $days_until_expiry <= 14,
@@ -386,7 +386,7 @@ final class JJ_License_Manager {
             return array(
                 'valid' => true,
                 'type' => self::TYPE_FREE,
-                'message' => __( 'Free 버전이 활성화되었습니다.', 'jj-style-guide' ),
+                'message' => __( 'Free 버전이 활성화되었습니다.', 'acf-css-really-simple-style-management-center' ),
                 'valid_until' => time() + ( 365 * 24 * 60 * 60 ), // 1년
             );
         }
@@ -444,7 +444,7 @@ final class JJ_License_Manager {
         if ( empty( $license_key ) || ! is_string( $license_key ) || strlen( $license_key ) > 100 ) {
             return array(
                 'valid' => false,
-                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'jj-style-guide' ),
+                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
         
@@ -452,7 +452,7 @@ final class JJ_License_Manager {
         if ( ! $this->verify_license_key_format( $license_key ) ) {
             return array(
                 'valid' => false,
-                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'jj-style-guide' ),
+                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
         
@@ -463,7 +463,7 @@ final class JJ_License_Manager {
         if ( ! preg_match( '/^[a-f0-9]{32}$/i', $site_id ) ) {
             return array(
                 'valid' => false,
-                'message' => __( '유효하지 않은 사이트 ID입니다.', 'jj-style-guide' ),
+                'message' => __( '유효하지 않은 사이트 ID입니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
         
@@ -536,7 +536,7 @@ final class JJ_License_Manager {
         if ( isset( $result['expires_timestamp'] ) && $result['expires_timestamp'] < time() ) {
             $result['valid'] = false;
             $result['expired'] = true;
-            $result['message'] = __( '이 라이센스는 만료되었습니다.', 'jj-style-guide' );
+            $result['message'] = __( '이 라이센스는 만료되었습니다.', 'acf-css-really-simple-style-management-center' );
             $result['activation_required'] = true;
         }
         
@@ -560,7 +560,7 @@ final class JJ_License_Manager {
                     return array(
                         'valid' => false,
                         'type' => $license_type,
-                        'message' => __( '이 라이센스는 다른 사이트에서 사용 중입니다. Premium 버전은 1개 사이트에서만 사용 가능합니다.', 'jj-style-guide' ),
+                        'message' => __( '이 라이센스는 다른 사이트에서 사용 중입니다. Premium 버전은 1개 사이트에서만 사용 가능합니다.', 'acf-css-really-simple-style-management-center' ),
                         'activation_required' => true,
                     );
                 }
@@ -607,7 +607,7 @@ final class JJ_License_Manager {
         return array(
             'valid' => true,
             'type' => $license_type,
-            'message' => __( '오프라인 모드로 실행 중입니다. 온라인 검증이 필요할 수 있습니다.', 'jj-style-guide' ),
+            'message' => __( '오프라인 모드로 실행 중입니다. 온라인 검증이 필요할 수 있습니다.', 'acf-css-really-simple-style-management-center' ),
             'valid_until' => time() + ( 7 * 24 * 60 * 60 ), // 7일만 유효
             'offline' => true,
         );
@@ -858,11 +858,11 @@ final class JJ_License_Manager {
             
             return array(
                 'success' => true,
-                'message' => __( '라이센스 키가 제거되었습니다. Free 버전으로 실행됩니다.', 'jj-style-guide' ),
+                'message' => __( '라이센스 키가 제거되었습니다. Free 버전으로 실행됩니다.', 'acf-css-really-simple-style-management-center' ),
                 'status' => array(
                     'valid' => false,
                     'type' => self::TYPE_FREE,
-                    'message' => __( '라이센스 키가 설정되지 않았습니다. Free 버전으로 실행됩니다.', 'jj-style-guide' ),
+                    'message' => __( '라이센스 키가 설정되지 않았습니다. Free 버전으로 실행됩니다.', 'acf-css-really-simple-style-management-center' ),
                 ),
             );
         }
@@ -871,7 +871,7 @@ final class JJ_License_Manager {
         if ( ! $this->verify_license_key_format( $license_key ) ) {
             return array(
                 'success' => false,
-                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'jj-style-guide' ),
+                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
         
@@ -933,10 +933,10 @@ final class JJ_License_Manager {
         }
         
         $type_names = array(
-            self::TYPE_FREE => __( 'Free', 'jj-style-guide' ),
-            self::TYPE_BASIC => __( 'Basic', 'jj-style-guide' ),
-            self::TYPE_PREMIUM => __( 'Premium', 'jj-style-guide' ),
-            self::TYPE_UNLIMITED => __( 'Unlimited', 'jj-style-guide' ),
+            self::TYPE_FREE => __( 'Free', 'acf-css-really-simple-style-management-center' ),
+            self::TYPE_BASIC => __( 'Basic', 'acf-css-really-simple-style-management-center' ),
+            self::TYPE_PREMIUM => __( 'Premium', 'acf-css-really-simple-style-management-center' ),
+            self::TYPE_UNLIMITED => __( 'Unlimited', 'acf-css-really-simple-style-management-center' ),
         );
         
         $current_name = isset( $type_names[ $license_type ] ) ? $type_names[ $license_type ] : $license_type;
@@ -945,23 +945,23 @@ final class JJ_License_Manager {
         // 라이센스 상태 확인 (만료 여부)
         $license_status = $this->get_license_status();
         $is_expired = false;
-        $action_text = __( '업그레이드하기', 'jj-style-guide' );
+        $action_text = __( '업그레이드하기', 'acf-css-really-simple-style-management-center' );
         
         if ( isset( $license_status['valid_until'] ) && $license_status['valid_until'] < time() ) {
             $is_expired = true;
-            $action_text = __( '기한 연장하기', 'jj-style-guide' );
+            $action_text = __( '기한 연장하기', 'acf-css-really-simple-style-management-center' );
         } elseif ( ! $license_status['valid'] ) {
             // 라이센스가 유효하지 않은 경우도 기한 연장 고려
             if ( in_array( $license_type, array( self::TYPE_BASIC, self::TYPE_PREMIUM, self::TYPE_UNLIMITED ) ) ) {
                 $is_expired = true;
-                $action_text = __( '기한 연장하기', 'jj-style-guide' );
+                $action_text = __( '기한 연장하기', 'acf-css-really-simple-style-management-center' );
             }
         }
         
         $purchase_url = $this->get_purchase_url( $is_expired ? 'renew' : 'upgrade' );
         
         return sprintf(
-            __( '이 기능은 %s 버전 이상에서 사용할 수 있습니다. 현재 버전: %s. <a href="%s" target="_blank" rel="noopener noreferrer" style="font-weight: 600; color: #2271b1; text-decoration: underline;">%s</a>', 'jj-style-guide' ),
+            __( '이 기능은 %s 버전 이상에서 사용할 수 있습니다. 현재 버전: %s. <a href="%s" target="_blank" rel="noopener noreferrer" style="font-weight: 600; color: #2271b1; text-decoration: underline;">%s</a>', 'acf-css-really-simple-style-management-center' ),
             $required_name,
             $current_name,
             esc_url( $purchase_url ),

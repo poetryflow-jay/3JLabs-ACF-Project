@@ -5,9 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 $stored = (array) get_option( $this->option_key );
 ?>
 <div class="jj-admin-center-tab-content" data-tab="texts">
-    <h3><?php esc_html_e( '스타일 센터 텍스트 설정', 'jj-style-guide' ); ?></h3>
+    <h3><?php esc_html_e( '스타일 센터 텍스트 설정', 'acf-css-really-simple-style-management-center' ); ?></h3>
     <p class="description">
-        <?php esc_html_e( '스타일 센터 UI에 사용되는 텍스트 일부를 여기에서 수정할 수 있습니다.', 'jj-style-guide' ); ?>
+        <?php esc_html_e( '스타일 센터 UI에 사용되는 텍스트 일부를 여기에서 수정할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
     </p>
     <table class="form-table" role="presentation">
         <tbody>

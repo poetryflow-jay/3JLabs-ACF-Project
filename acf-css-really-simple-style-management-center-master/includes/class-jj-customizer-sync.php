@@ -322,7 +322,7 @@ class JJ_Customizer_Sync {
         }
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $palette_type = isset( $_POST['palette_type'] ) ? sanitize_text_field( $_POST['palette_type'] ) : 'brand';
@@ -335,7 +335,7 @@ class JJ_Customizer_Sync {
         } else if ( 'system' === $palette_type ) {
             $colors = $sync->sync_system_palette_from_customizer( $force_update );
         } else {
-            wp_send_json_error( array( 'message' => __( '잘못된 팔레트 타입입니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '잘못된 팔레트 타입입니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         // 옵션에 저장
@@ -346,7 +346,7 @@ class JJ_Customizer_Sync {
         wp_send_json_success( array(
             'palette_type' => $palette_type,
             'colors' => $colors,
-            'message' => __( '색상이 성공적으로 불러와졌습니다.', 'jj-style-guide' ),
+            'message' => __( '색상이 성공적으로 불러와졌습니다.', 'acf-css-really-simple-style-management-center' ),
         ) );
     }
 }

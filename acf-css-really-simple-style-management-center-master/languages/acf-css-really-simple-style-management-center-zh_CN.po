@@ -1,0 +1,236 @@
+# Chinese (Simplified) translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Chinese (Simplified) <zh@3j-labs.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "样式中心"
+
+msgid "관리자 센터"
+msgstr "管理中心"
+
+msgid "실험실"
+msgstr "实验室"
+
+msgid "설정"
+msgstr "设置"
+
+msgid "저장"
+msgstr "保存"
+
+msgid "취소"
+msgstr "取消"
+
+msgid "적용"
+msgstr "应用"
+
+msgid "초기화"
+msgstr "重置"
+
+msgid "내보내기"
+msgstr "导出"
+
+msgid "불러오기"
+msgstr "导入"
+
+msgid "다운로드"
+msgstr "下载"
+
+msgid "업로드"
+msgstr "上传"
+
+# Colors
+msgid "색상"
+msgstr "颜色"
+
+msgid "기본 색상"
+msgstr "主色"
+
+msgid "보조 색상"
+msgstr "辅助色"
+
+msgid "강조 색상"
+msgstr "强调色"
+
+msgid "배경 색상"
+msgstr "背景色"
+
+msgid "텍스트 색상"
+msgstr "文字颜色"
+
+msgid "브랜드 팔레트"
+msgstr "品牌调色板"
+
+msgid "시스템 팔레트"
+msgstr "系统调色板"
+
+# Typography
+msgid "타이포그래피"
+msgstr "排版"
+
+msgid "폰트 패밀리"
+msgstr "字体"
+
+msgid "폰트 크기"
+msgstr "字号"
+
+msgid "폰트 굵기"
+msgstr "字重"
+
+msgid "행간"
+msgstr "行高"
+
+msgid "자간"
+msgstr "字间距"
+
+msgid "제목 1"
+msgstr "标题 1"
+
+msgid "제목 2"
+msgstr "标题 2"
+
+msgid "제목 3"
+msgstr "标题 3"
+
+msgid "본문"
+msgstr "正文"
+
+# Responsive
+msgid "데스크톱"
+msgstr "桌面端"
+
+msgid "랩톱"
+msgstr "笔记本"
+
+msgid "태블릿"
+msgstr "平板"
+
+msgid "모바일"
+msgstr "手机"
+
+# Export
+msgid "PDF (인쇄)"
+msgstr "PDF（打印）"
+
+msgid "PNG 이미지"
+msgstr "PNG 图片"
+
+msgid "HTML 파일"
+msgstr "HTML 文件"
+
+msgid "CSS 변수"
+msgstr "CSS 变量"
+
+msgid "JSON 토큰"
+msgstr "JSON 令牌"
+
+msgid "ZIP (전체)"
+msgstr "ZIP（全部）"
+
+msgid "내보내는 중..."
+msgstr "导出中..."
+
+msgid "내보내기 완료!"
+msgstr "导出完成！"
+
+msgid "내보내기 실패"
+msgstr "导出失败"
+
+# Fonts
+msgid "폰트 추천"
+msgstr "字体推荐"
+
+msgid "한국어 무료 폰트 (Google Fonts)"
+msgstr "韩语免费字体（Google Fonts）"
+
+msgid "영문 무료 폰트 (Google Fonts)"
+msgstr "英文免费字体（Google Fonts）"
+
+msgid "유료/프리미엄 폰트 (참조용)"
+msgstr "付费/高级字体（参考）"
+
+msgid "%s 폰트가 적용되었습니다."
+msgstr "%s 字体已应用。"
+
+# Figma
+msgid "Figma 연동"
+msgstr "Figma 集成"
+
+msgid "Figma Personal Access Token"
+msgstr "Figma 个人访问令牌"
+
+msgid "Figma 파일 키"
+msgstr "Figma 文件密钥"
+
+msgid "연결 테스트"
+msgstr "测试连接"
+
+msgid "Figma에서 가져오기"
+msgstr "从 Figma 导入"
+
+msgid "Figma로 내보내기"
+msgstr "导出到 Figma"
+
+msgid "연결 성공!"
+msgstr "连接成功！"
+
+msgid "연결 실패"
+msgstr "连接失败"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "设置已保存。"
+
+msgid "권한이 없습니다."
+msgstr "权限不足。"
+
+msgid "오류가 발생했습니다."
+msgstr "发生错误。"
+
+msgid "정말 실행하시겠습니까?"
+msgstr "确定要执行吗？"
+
+msgid "성공"
+msgstr "成功"
+
+msgid "오류"
+msgstr "错误"
+
+msgid "경고"
+msgstr "警告"
+
+msgid "정보"
+msgstr "信息"
+
+msgid "저장 중..."
+msgstr "保存中..."
+
+msgid "백업 관리"
+msgstr "备份管理"
+
+msgid "도구"
+msgstr "工具"
+
+msgid "업데이트"
+msgstr "更新"
+
+msgid "라이센스"
+msgstr "许可证"
+
+msgid "시스템 상태"
+msgstr "系统状态"

@@ -260,7 +260,7 @@ if ( ! class_exists( 'JJ_Webhook_Manager' ) ) {
         public function ajax_test_webhook() {
             check_ajax_referer( 'jj_admin_center_save_action', 'security' );
             if ( ! current_user_can( 'manage_options' ) ) {
-                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
             }
 
             $payload = array(
@@ -275,10 +275,10 @@ if ( ! class_exists( 'JJ_Webhook_Manager' ) ) {
             if ( empty( $results ) ) {
                 $cfg = $this->get_config();
                 if ( empty( $cfg['enabled'] ) ) {
-                    wp_send_json_error( array( 'message' => __( 'Webhook이 비활성화 상태입니다.', 'jj-style-guide' ) ) );
+                    wp_send_json_error( array( 'message' => __( 'Webhook이 비활성화 상태입니다.', 'acf-css-really-simple-style-management-center' ) ) );
                 }
                 if ( empty( $cfg['endpoints'] ) ) {
-                    wp_send_json_error( array( 'message' => __( 'Webhook URL이 설정되어 있지 않습니다.', 'jj-style-guide' ) ) );
+                    wp_send_json_error( array( 'message' => __( 'Webhook URL이 설정되어 있지 않습니다.', 'acf-css-really-simple-style-management-center' ) ) );
                 }
 
                 $forced = $this->send_to_endpoints( 'test', $this->build_payload( 'test', $payload, array_merge( $cfg, array( 'payload_mode' => 'minimal' ) ) ), $cfg, true );

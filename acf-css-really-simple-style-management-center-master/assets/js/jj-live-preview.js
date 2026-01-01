@@ -172,11 +172,39 @@
                 
                 // 타이포그래피
                 if (settings.typography) {
+                    // typography_settings: 출력 단위(px/rem/em) + 기준 px(base_px)
+                    const ts = settings.typography_settings || {};
+                    const unit = (ts.unit === 'rem' || ts.unit === 'em' || ts.unit === 'px') ? ts.unit : 'px';
+                    let basePx = parseFloat(ts.base_px || '16');
+                    if (!basePx || basePx <= 0) basePx = 16;
+
+                    // 프리뷰 뷰포트에 맞춰 디바이스 키 선택 (단순 매핑)
+                    const deviceKey = (this.currentViewport === 'tablet') ? 'tablet'
+                                     : (this.currentViewport === 'mobile') ? 'mobile'
+                                     : 'desktop';
+
                     ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p'].forEach(function(tag) {
                         if (settings.typography[tag]) {
                             const typo = settings.typography[tag];
                             vars['--jj-font-' + tag + '-family'] = typo.font_family || '';
-                            vars['--jj-font-' + tag + '-size'] = (typo.font_size && typo.font_size.desktop ? typo.font_size.desktop : '') + 'px';
+
+                            const pxVal = (typo.font_size && typo.font_size[deviceKey] ? typo.font_size[deviceKey]
+                                          : (typo.font_size && typo.font_size.desktop ? typo.font_size.desktop : ''));
+
+                            let sizeOut = '';
+                            if (pxVal !== '' && pxVal !== null && pxVal !== undefined) {
+                                const px = parseFloat(pxVal);
+                                if (!isNaN(px)) {
+                                    if (unit === 'rem' || unit === 'em') {
+                                        const ratio = Math.round((px / basePx) * 10000) / 10000;
+                                        sizeOut = ratio + unit;
+                                    } else {
+                                        sizeOut = px + 'px';
+                                    }
+                                }
+                            }
+
+                            vars['--jj-font-' + tag + '-size'] = sizeOut;
                             vars['--jj-font-' + tag + '-weight'] = typo.font_weight || '';
                             vars['--jj-font-' + tag + '-line-height'] = (typo.line_height || '1.5') + 'em';
                         }

@@ -61,6 +61,8 @@ final class JJ_Admin_Center {
         
         // [v4.0.1 신규] Admin Center 설정 저장 AJAX 핸들러
         add_action( 'wp_ajax_jj_admin_center_save', array( $this, 'ajax_save_admin_center_settings' ) );
+        // [Phase 10.5] Colors 탭: 관리자 메뉴/상단바 색상 기본값 리셋(AJAX)
+        add_action( 'wp_ajax_jj_admin_center_reset_colors', array( $this, 'ajax_reset_admin_colors' ) );
         
         // [v3.8.0 신규] 라이센스 관리 AJAX 핸들러
         add_action( 'wp_ajax_jj_save_license_key', array( $this, 'ajax_save_license_key' ) );
@@ -199,6 +201,23 @@ final class JJ_Admin_Center {
             $js_ver,
             true
         );
+
+        // [Phase 10.1] 접근성(A11y) 개선 스크립트
+        $a11y_url = JJ_STYLE_GUIDE_URL . 'assets/js/jj-accessibility.js';
+        $a11y_ver = $fallback_ver;
+        if ( defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
+            $a11y_path = JJ_STYLE_GUIDE_PATH . 'assets/js/jj-accessibility.js';
+            if ( file_exists( $a11y_path ) ) {
+                $a11y_ver = filemtime( $a11y_path );
+            }
+        }
+        wp_enqueue_script(
+            'jj-accessibility',
+            $a11y_url,
+            array( 'jquery', 'jj-common-utils' ),
+            $a11y_ver,
+            true
+        );
         
         // [v5.0.3] 키보드 단축키 시스템 로드
         wp_enqueue_script( 'jj-keyboard-shortcuts', JJ_STYLE_GUIDE_URL . 'assets/js/jj-keyboard-shortcuts.js', array( 'jquery', 'jj-common-utils' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
@@ -215,6 +234,23 @@ final class JJ_Admin_Center {
             true
         );
 
+        // [Phase 10.4] Builder 1-click Sync (Elementor Kit 등)
+        $bsync_url = JJ_STYLE_GUIDE_URL . 'assets/js/jj-builder-sync.js';
+        $bsync_ver = $fallback_ver;
+        if ( defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
+            $bsync_path = JJ_STYLE_GUIDE_PATH . 'assets/js/jj-builder-sync.js';
+            if ( file_exists( $bsync_path ) ) {
+                $bsync_ver = filemtime( $bsync_path );
+            }
+        }
+        wp_enqueue_script(
+            'jj-builder-sync',
+            $bsync_url,
+            array( 'jquery', 'jj-common-utils' ),
+            $bsync_ver,
+            true
+        );
+
         // AJAX 파라미터 로컬라이즈
         wp_localize_script(
             'jj-admin-center',
@@ -226,13 +262,75 @@ final class JJ_Admin_Center {
                 'backup_nonce'       => wp_create_nonce( 'jj_style_guide_nonce' ), // [v3.7.0] 백업 관리용
                 'locale'             => get_locale(), // [v5.0.3] 다국어 지원을 위한 로케일 전달
                 'i18n'               => array(
-                    'eyedropper_not_supported' => __( '브라우저에서 스포이드 기능을 지원하지 않습니다.', 'jj-style-guide' ),
-                    'palette_load_error'       => __( '팔레트를 불러오는 중 오류가 발생했습니다.', 'jj-style-guide' ),
-                    'no_colors_found'          => __( '선택한 팔레트에 사용 가능한 색상이 없습니다.', 'jj-style-guide' ),
-                    'license_save_success'     => __( '라이센스 키가 저장되었습니다.', 'jj-style-guide' ),
-                    'license_save_error'       => __( '라이센스 키 저장에 실패했습니다.', 'jj-style-guide' ),
-                    'license_verify_success'   => __( '라이센스 검증이 완료되었습니다.', 'jj-style-guide' ),
-                    'license_verify_error'     => __( '라이센스 검증에 실패했습니다.', 'jj-style-guide' ),
+                    'eyedropper_not_supported' => __( '브라우저에서 스포이드 기능을 지원하지 않습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'palette_load_error'       => __( '팔레트를 불러오는 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'no_colors_found'          => __( '선택한 팔레트에 사용 가능한 색상이 없습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'license_save_success'     => __( '라이센스 키가 저장되었습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'license_save_error'       => __( '라이센스 키 저장에 실패했습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'license_verify_success'   => __( '라이센스 검증이 완료되었습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'license_verify_error'     => __( '라이센스 검증에 실패했습니다.', 'acf-css-really-simple-style-management-center' ),
+                ),
+            )
+        );
+
+        // Builder Sync 로컬라이즈 (별도)
+        $typography_keys = array();
+        $opt_key = defined( 'JJ_STYLE_GUIDE_OPTIONS_KEY' ) ? JJ_STYLE_GUIDE_OPTIONS_KEY : 'jj_style_guide_options';
+        $opt = function_exists( 'get_option' ) ? (array) get_option( $opt_key, array() ) : array();
+        if ( isset( $opt['typography'] ) && is_array( $opt['typography'] ) ) {
+            $typography_keys = array_keys( $opt['typography'] );
+        }
+        $typography_keys = array_values( array_filter( array_map( 'sanitize_key', $typography_keys ) ) );
+        if ( empty( $typography_keys ) ) {
+            $typography_keys = array( 'h1', 'h2', 'h3', 'p' );
+        }
+
+        $builders = array(
+            'elementor' => array(
+                'label'  => 'Elementor',
+                'active' => ( defined( 'ELEMENTOR_VERSION' ) || did_action( 'elementor/loaded' ) || class_exists( '\Elementor\Plugin' ) ),
+                'db_sync'=> true,
+            ),
+            'bricks' => array(
+                'label'  => 'Bricks',
+                'active' => defined( 'BRICKS_VERSION' ),
+                'db_sync'=> false,
+            ),
+            'beaver' => array(
+                'label'  => 'Beaver Builder',
+                'active' => ( defined( 'FL_BUILDER_VERSION' ) || class_exists( 'FLBuilder' ) ),
+                'db_sync'=> false,
+            ),
+            'divi' => array(
+                'label'  => 'Divi',
+                'active' => ( defined( 'ET_BUILDER_VERSION' ) || defined( 'ET_BUILDER_PLUGIN' ) ),
+                'db_sync'=> false,
+            ),
+            'wpbakery' => array(
+                'label'  => 'WPBakery',
+                'active' => defined( 'WPB_VC_VERSION' ),
+                'db_sync'=> false,
+            ),
+        );
+
+        wp_localize_script(
+            'jj-builder-sync',
+            'jjBuilderSync',
+            array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'nonce'    => wp_create_nonce( 'jj_builder_sync_action' ),
+                'builders' => $builders,
+                'typography_keys' => $typography_keys,
+                'strings'  => array(
+                    'confirm_run'      => __( '선택한 빌더에 JJ 토큰을 동기화할까요? (동기화 전 자동 백업 생성)', 'acf-css-really-simple-style-management-center' ),
+                    'confirm_rollback' => __( '이 백업으로 롤백할까요? (롤백 전 자동 백업 생성)', 'acf-css-really-simple-style-management-center' ),
+                    'preview_success'  => __( '미리보기가 완료되었습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'preview_error'    => __( '미리보기 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'run_success'      => __( '동기화가 완료되었습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'run_error'        => __( '동기화 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'rollback_success' => __( '롤백이 완료되었습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'rollback_error'   => __( '롤백 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'not_supported'    => __( '이 빌더는 현재 “DB 동기화”를 지원하지 않습니다. (안전형 토큰 브릿지/alias는 계속 적용됩니다)', 'acf-css-really-simple-style-management-center' ),
                 ),
             )
         );
@@ -243,8 +341,8 @@ final class JJ_Admin_Center {
      * - 기본적으로 옵션 페이지 아래에 배치 (향후 라이선스/권한에 따라 노출 제어 가능)
      */
     public function add_admin_menu_page() {
-        $menu_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'menu_title' ) : __( 'ACF CSS 관리자 센터', 'jj-style-guide' ) );
-        $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 관리자 센터', 'jj-style-guide' ) );
+        $menu_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'menu_title' ) : __( 'ACF CSS 관리자 센터', 'acf-css-really-simple-style-management-center' ) );
+        $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 관리자 센터', 'acf-css-really-simple-style-management-center' ) );
 
         add_options_page(
             $page_title,
@@ -285,7 +383,7 @@ final class JJ_Admin_Center {
         $wp_admin_bar->add_node( array(
             'id'     => 'jj-style-guide-style-center',
             'parent' => 'jj-style-guide',
-            'title'  => __( '스타일 센터', 'jj-style-guide' ),
+            'title'  => __( '스타일 센터', 'acf-css-really-simple-style-management-center' ),
             'href'   => admin_url( 'options-general.php?page=acf-css-really-simple-style-guide' ),
         ) );
 
@@ -293,7 +391,7 @@ final class JJ_Admin_Center {
         $wp_admin_bar->add_node( array(
             'id'     => 'jj-style-guide-admin-center',
             'parent' => 'jj-style-guide',
-            'title'  => __( '관리자 센터', 'jj-style-guide' ),
+            'title'  => __( '관리자 센터', 'acf-css-really-simple-style-management-center' ),
             'href'   => admin_url( 'options-general.php?page=jj-admin-center' ),
         ) );
 
@@ -302,7 +400,7 @@ final class JJ_Admin_Center {
             $wp_admin_bar->add_node( array(
                 'id'     => 'jj-style-guide-labs',
                 'parent' => 'jj-style-guide',
-                'title'  => __( '실험실 (Labs)', 'jj-style-guide' ),
+                'title'  => __( '실험실 (Labs)', 'acf-css-really-simple-style-management-center' ),
                 'href'   => admin_url( 'options-general.php?page=jj-labs-center' ),
             ) );
         }
@@ -310,14 +408,14 @@ final class JJ_Admin_Center {
         $wp_admin_bar->add_node( array(
             'id'     => 'jj-style-guide-colors',
             'parent' => 'jj-style-guide',
-            'title'  => __( 'Admin Center: Colors', 'jj-style-guide' ),
+            'title'  => __( 'Admin Center: Colors', 'acf-css-really-simple-style-management-center' ),
             'href'   => admin_url( 'options-general.php?page=jj-admin-center#colors' ),
         ) );
 
         $wp_admin_bar->add_node( array(
             'id'     => 'jj-style-guide-visual',
             'parent' => 'jj-style-guide',
-            'title'  => __( 'Admin Center: Visual', 'jj-style-guide' ),
+            'title'  => __( 'Admin Center: Visual', 'acf-css-really-simple-style-management-center' ),
             'href'   => admin_url( 'options-general.php?page=jj-admin-center#visual' ),
         ) );
 
@@ -325,7 +423,7 @@ final class JJ_Admin_Center {
         $wp_admin_bar->add_node( array(
             'id'     => 'jj-style-guide-customizer',
             'parent' => 'jj-style-guide',
-            'title'  => __( '실시간 편집 (Customizer)', 'jj-style-guide' ),
+            'title'  => __( '실시간 편집 (Customizer)', 'acf-css-really-simple-style-management-center' ),
             'href'   => admin_url( 'customize.php?autofocus[panel]=jj_style_guide_panel' ),
         ) );
     }
@@ -345,7 +443,7 @@ final class JJ_Admin_Center {
         if ( isset( $_POST['jj_admin_center_reset_colors'] ) && check_admin_referer( 'jj_admin_center_save_action', 'jj_admin_center_nonce' ) ) {
             delete_option( $this->colors_option_key );
             ?>
-            <div class="updated notice"><p><?php esc_html_e( '관리자 메뉴 / 상단바 색상이 기본값으로 되돌려졌습니다.', 'jj-style-guide' ); ?></p></div>
+            <div class="updated notice"><p><?php esc_html_e( '관리자 메뉴 / 상단바 색상이 기본값으로 되돌려졌습니다.', 'acf-css-really-simple-style-management-center' ); ?></p></div>
             <?php
         }
 
@@ -426,7 +524,7 @@ final class JJ_Admin_Center {
             }
             update_option( $this->colors_option_key, $clean_colors );
             ?>
-            <div class="updated notice"><p><?php esc_html_e( '관리자 센터 설정이 저장되었습니다.', 'jj-style-guide' ); ?></p></div>
+            <div class="updated notice"><p><?php esc_html_e( '관리자 센터 설정이 저장되었습니다.', 'acf-css-really-simple-style-management-center' ); ?></p></div>
             <?php
         }
 
@@ -442,8 +540,8 @@ final class JJ_Admin_Center {
             <!-- [v6.3.0] 왼쪽 고정 사이드바 네비게이션 -->
             <div class="jj-admin-center-sidebar">
                 <div class="jj-admin-center-sidebar-header">
-                    <h2><?php esc_html_e( '빠른 이동', 'jj-style-guide' ); ?></h2>
-                    <button type="button" class="jj-sidebar-toggle" aria-label="<?php esc_attr_e( '사이드바 토글', 'jj-style-guide' ); ?>">
+                    <h2><?php esc_html_e( '빠른 이동', 'acf-css-really-simple-style-management-center' ); ?></h2>
+                    <button type="button" class="jj-sidebar-toggle" aria-label="<?php esc_attr_e( '사이드바 토글', 'acf-css-really-simple-style-management-center' ); ?>">
                         <span class="dashicons dashicons-menu-alt"></span>
                     </button>
                 </div>
@@ -451,67 +549,67 @@ final class JJ_Admin_Center {
                     <li>
                         <a href="#general" data-tab="general" class="active">
                             <span class="dashicons dashicons-admin-settings"></span>
-                            <?php esc_html_e( 'General', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'General', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#admin-menu" data-tab="admin-menu">
                             <span class="dashicons dashicons-menu"></span>
-                            <?php esc_html_e( 'Admin Menu', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Admin Menu', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#section-layout" data-tab="section-layout">
                             <span class="dashicons dashicons-layout"></span>
-                            <?php esc_html_e( 'Section Layout', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Section Layout', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#texts" data-tab="texts">
                             <span class="dashicons dashicons-text"></span>
-                            <?php esc_html_e( 'Texts', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Texts', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#colors" data-tab="colors">
                             <span class="dashicons dashicons-admin-appearance"></span>
-                            <?php esc_html_e( 'Colors', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Colors', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#visual" data-tab="visual">
                             <span class="dashicons dashicons-visibility"></span>
-                            <?php esc_html_e( 'Visual', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Visual', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#cloud" data-tab="cloud">
                             <span class="dashicons dashicons-cloud"></span>
-                            <?php esc_html_e( 'Cloud', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( 'Cloud', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#backup" data-tab="backup">
                             <span class="dashicons dashicons-backup"></span>
-                            <?php esc_html_e( '백업 관리', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '백업 관리', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#updates" data-tab="updates">
                             <span class="dashicons dashicons-update"></span>
-                            <?php esc_html_e( '업데이트', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '업데이트', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#license" data-tab="license">
                             <span class="dashicons dashicons-admin-network"></span>
-                            <?php esc_html_e( '라이센스', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '라이센스', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <li>
                         <a href="#system-status" data-tab="system-status">
                             <span class="dashicons dashicons-info"></span>
-                            <?php esc_html_e( '시스템 상태', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '시스템 상태', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <?php if ( class_exists( 'JJ_Edition_Controller' ) && JJ_Edition_Controller::instance()->is_at_least( 'basic' ) ) : ?>
@@ -519,7 +617,7 @@ final class JJ_Admin_Center {
                     <li>
                         <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-labs-center' ) ); ?>">
                             <span class="dashicons dashicons-beaker"></span>
-                            <?php esc_html_e( '실험실 센터', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <?php endif; ?>
@@ -528,16 +626,16 @@ final class JJ_Admin_Center {
             
             <div class="jj-admin-center-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <div style="display: flex; align-items: center; gap: 15px;">
-                        <h1 style="margin: 0;"><?php esc_html_e( 'ACF CSS 관리자 센터', 'jj-style-guide' ); ?></h1>
+                        <h1 style="margin: 0;"><?php esc_html_e( 'ACF CSS 관리자 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
                         <a href="<?php echo esc_url( admin_url( 'options-general.php?page=' . JJ_STYLE_GUIDE_PAGE_SLUG ) ); ?>" 
                            class="button button-secondary" 
                            style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                            <?php esc_html_e( '스타일 센터', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '스타일 센터', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-labs-center' ) ); ?>" 
                        class="button button-secondary" 
                        style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                        <?php esc_html_e( '실험실 센터', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
                     </a>
                     <?php
                     // [v5.1.6] 마스터 버전이 아닌 경우 결제 유도 문구 표시
@@ -563,7 +661,7 @@ final class JJ_Admin_Center {
                            rel="noopener noreferrer"
                            class="button button-primary" 
                            style="font-size: 13px; padding: 0 16px; height: 36px; line-height: 34px; font-weight: 600;">
-                            <span class="dashicons dashicons-cart" style="margin-top: 4px;"></span> <?php esc_html_e( '업그레이드하기', 'jj-style-guide' ); ?>
+                            <span class="dashicons dashicons-cart" style="margin-top: 4px;"></span> <?php esc_html_e( '업그레이드하기', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                         <?php
                     }
@@ -572,10 +670,10 @@ final class JJ_Admin_Center {
                 <div class="jj-header-actions">
                     <!-- [v3.7.0 '신규'] 관리자 센터 설정 내보내기/불러오기 (헤더) -->
                     <button type="button" class="button button-secondary jj-export-settings" data-center="admin-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px; margin-right: 8px;">
-                        <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php esc_html_e( '내보내기', 'jj-style-guide' ); ?>
+                        <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php esc_html_e( '내보내기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                     <button type="button" class="button button-secondary jj-import-settings" data-center="admin-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php esc_html_e( '불러오기', 'jj-style-guide' ); ?>
+                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php esc_html_e( '불러오기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                 </div>
             </div>
@@ -583,79 +681,105 @@ final class JJ_Admin_Center {
             <!-- 탭 네비게이션 -->
             <ul class="jj-admin-center-tabs">
                 <li data-tab="general" class="active">
-                    <a href="#general"><?php esc_html_e( 'General', 'jj-style-guide' ); ?></a>
+                    <a href="#general"><?php esc_html_e( 'General', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="admin-menu">
-                    <a href="#admin-menu"><?php esc_html_e( 'Admin Menu', 'jj-style-guide' ); ?></a>
+                    <a href="#admin-menu"><?php esc_html_e( 'Admin Menu', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="section-layout">
-                    <a href="#section-layout"><?php esc_html_e( 'Section Layout', 'jj-style-guide' ); ?></a>
+                    <a href="#section-layout"><?php esc_html_e( 'Section Layout', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="texts">
-                    <a href="#texts"><?php esc_html_e( 'Texts', 'jj-style-guide' ); ?></a>
+                    <a href="#texts"><?php esc_html_e( 'Texts', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="colors">
-                    <a href="#colors"><?php esc_html_e( 'Colors', 'jj-style-guide' ); ?></a>
+                    <a href="#colors"><?php esc_html_e( 'Colors', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="visual">
-                    <a href="#visual"><?php esc_html_e( 'Visual', 'jj-style-guide' ); ?></a>
+                    <a href="#visual"><?php esc_html_e( 'Visual', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="cloud">
-                    <a href="#cloud"><?php esc_html_e( 'Cloud', 'jj-style-guide' ); ?></a>
+                    <a href="#cloud"><?php esc_html_e( 'Cloud', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="backup">
-                    <a href="#backup"><?php esc_html_e( '백업 관리', 'jj-style-guide' ); ?></a>
+                    <a href="#backup"><?php esc_html_e( '백업 관리', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="tools">
-                    <a href="#tools"><?php esc_html_e( '도구', 'jj-style-guide' ); ?></a>
+                    <a href="#tools"><?php esc_html_e( '도구', 'acf-css-really-simple-style-management-center' ); ?></a>
+                </li>
+                <li data-tab="figma">
+                    <a href="#figma"><?php esc_html_e( 'Figma', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="updates">
-                    <a href="#updates"><?php esc_html_e( '업데이트', 'jj-style-guide' ); ?></a>
+                    <a href="#updates"><?php esc_html_e( '업데이트', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="license">
-                    <a href="#license"><?php esc_html_e( '라이센스', 'jj-style-guide' ); ?></a>
+                    <a href="#license"><?php esc_html_e( '라이센스', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
                 <li data-tab="system-status">
-                    <a href="#system-status"><?php esc_html_e( '시스템 상태', 'jj-style-guide' ); ?></a>
+                    <a href="#system-status"><?php esc_html_e( '시스템 상태', 'acf-css-really-simple-style-management-center' ); ?></a>
                 </li>
             </ul>
 
             <form method="post" id="jj-admin-center-form">
                 <?php wp_nonce_field( 'jj_admin_center_save_action', 'jj_admin_center_nonce' ); ?>
 
-                <!-- General 탭 -->
-                <?php include JJ_STYLE_GUIDE_PATH . 'includes/admin/views/tabs/tab-general.php'; ?>
+                <?php
+                // Admin Center 탭 파일 include (누락 방지/안전)
+                $tabs = array(
+                    'tab-general.php',
+                    'tab-admin-menu.php',
+                    'tab-section-layout.php',
+                    'tab-texts.php',
+                    'tab-colors.php',
+                    'tab-visual.php',
+                    'tab-cloud.php',
+                    'tab-backup.php',
+                    'tab-tools.php',
+                    'tab-figma.php', // [Phase 13] Figma 연동
+                    'tab-updates.php',
+                    'tab-system-status.php',
+                );
 
-                                                <!-- Admin Menu 탭 -->
-                <?php 
-                $tab_admin_menu = JJ_STYLE_GUIDE_PATH . 'includes/admin/views/tabs/tab-admin-menu.php';
-                if ( file_exists( $tab_admin_menu ) ) {
-                    include $tab_admin_menu; 
-                } else {
-                    echo '<div class="notice notice-error"><p>탭 파일을 찾을 수 없습니다: tab-admin-menu.php</p></div>';
+                foreach ( $tabs as $tab_file ) {
+                    $tab_path = JJ_STYLE_GUIDE_PATH . 'includes/admin/views/tabs/' . $tab_file;
+                    if ( file_exists( $tab_path ) ) {
+                        include $tab_path;
+                    } else {
+                        echo '<div class="notice notice-error jj-notice"><p>' . esc_html( '탭 파일을 찾을 수 없습니다: ' . $tab_file ) . '</p></div>';
+                    }
                 }
                 ?>
 
-<!-- [v3.7.0 '신규'] 관리자 센터 설정 내보내기/불러오기 (푸터) -->
-            <!-- Tools 탭 -->
-                <?php 
-                $tab_tools = JJ_STYLE_GUIDE_PATH . 'includes/admin/views/tabs/tab-tools.php';
-                if ( file_exists( $tab_tools ) ) {
-                    include $tab_tools;
-                }
-                ?>
-                
-            <div class="jj-admin-center-footer"  style="margin-top: 30px; padding: 15px 25px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <button type="button" class="button button-secondary jj-export-settings" data-center="admin-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px; margin-right: 8px;">
-                        <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php esc_html_e( '내보내기', 'jj-style-guide' ); ?>
-                    </button>
-                    <button type="button" class="button button-secondary jj-import-settings" data-center="admin-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php esc_html_e( '불러오기', 'jj-style-guide' ); ?>
-                    </button>
+                <!-- [v3.7.0+] 관리자 센터 설정 저장/내보내기/불러오기 (푸터) -->
+                <div class="jj-admin-center-footer" style="margin-top: 30px; padding: 15px 25px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <button type="submit" name="jj_admin_center_save" class="button button-primary">
+                            <?php esc_html_e( '저장', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                        <button type="button" class="button button-secondary jj-export-settings" data-center="admin-center">
+                            <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php esc_html_e( '내보내기', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                        <button type="button" class="button button-secondary jj-import-settings" data-center="admin-center">
+                            <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php esc_html_e( '불러오기', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                    </div>
+                    <div style="color:#666; font-size:12px;">
+                        <?php esc_html_e( '변경 후 “저장”을 눌러 적용하세요.', 'acf-css-really-simple-style-management-center' ); ?>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </form>
+
+            <?php
+            // License 탭은 자체 <form>을 포함하므로, 상위 폼 밖에서 별도 렌더(중첩 form 방지)
+            $tab_license = JJ_STYLE_GUIDE_PATH . 'includes/admin/views/tabs/tab-license.php';
+            if ( file_exists( $tab_license ) ) {
+                include $tab_license;
+            } else {
+                echo '<div class="notice notice-error jj-notice"><p>' . esc_html( '탭 파일을 찾을 수 없습니다: tab-license.php' ) . '</p></div>';
+            }
+            ?>
+        </div><!-- /.wrap -->
         <?php
     }
 
@@ -689,40 +813,40 @@ final class JJ_Admin_Center {
         // [v5.0.0] 탭 활성화/비활성화 기능 추가
         $defaults = array(
             'colors'     => array(
-                'label'  => __( '1. 팔레트 시스템', 'jj-style-guide' ),
+                'label'  => __( '1. 팔레트 시스템', 'acf-css-really-simple-style-management-center' ),
                 'order'  => 10,
                 'enabled'=> 1,
                 'tabs'   => array( // [v5.0.0] 탭 활성화/비활성화
-                    'brand'       => array( 'label' => __( '브랜드 팔레트', 'jj-style-guide' ), 'enabled' => 1 ),
-                    'system'      => array( 'label' => __( '시스템 팔레트', 'jj-style-guide' ), 'enabled' => 1 ),
-                    'alternative' => array( 'label' => __( '얼터너티브 팔레트', 'jj-style-guide' ), 'enabled' => 1 ),
-                    'another'     => array( 'label' => __( '어나더 팔레트', 'jj-style-guide' ), 'enabled' => 1 ),
-                    'temp-palette'=> array( 'label' => __( '임시 팔레트', 'jj-style-guide' ), 'enabled' => 1 ),
+                    'brand'       => array( 'label' => __( '브랜드 팔레트', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
+                    'system'      => array( 'label' => __( '시스템 팔레트', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
+                    'alternative' => array( 'label' => __( '얼터너티브 팔레트', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
+                    'another'     => array( 'label' => __( '어나더 팔레트', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
+                    'temp-palette'=> array( 'label' => __( '임시 팔레트', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
                 ),
             ),
             'typography' => array(
-                'label'  => __( '2. 타이포그래피', 'jj-style-guide' ),
+                'label'  => __( '2. 타이포그래피', 'acf-css-really-simple-style-management-center' ),
                 'order'  => 20,
                 'enabled'=> 1,
                 'tabs'   => array(), // 탭 없음
             ),
             'buttons'    => array(
-                'label'  => __( '3. 버튼', 'jj-style-guide' ),
+                'label'  => __( '3. 버튼', 'acf-css-really-simple-style-management-center' ),
                 'order'  => 30,
                 'enabled'=> 1,
                 'tabs'   => array( // [v5.0.0] 탭 활성화/비활성화
-                    'btn-primary'   => array( 'label' => __( 'Primary Button', 'jj-style-guide' ), 'enabled' => 1 ),
-                    'btn-secondary' => array( 'label' => __( 'Secondary Button', 'jj-style-guide' ), 'enabled' => 1 ),
-                    'btn-text'      => array( 'label' => __( 'Text / Outline Button', 'jj-style-guide' ), 'enabled' => 1 ),
+                    'btn-primary'   => array( 'label' => __( 'Primary Button', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
+                    'btn-secondary' => array( 'label' => __( 'Secondary Button', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
+                    'btn-text'      => array( 'label' => __( 'Text / Outline Button', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
                 ),
             ),
             'forms'      => array(
-                'label'  => __( '4. 폼 & 필드', 'jj-style-guide' ),
+                'label'  => __( '4. 폼 & 필드', 'acf-css-really-simple-style-management-center' ),
                 'order'  => 40,
                 'enabled'=> 1,
                 'tabs'   => array( // [v5.0.0] 탭 활성화/비활성화
-                    'form-label' => array( 'label' => __( '라벨 (Labels)', 'jj-style-guide' ), 'enabled' => 1 ),
-                    'form-field' => array( 'label' => __( '입력 필드 (Fields)', 'jj-style-guide' ), 'enabled' => 1 ),
+                    'form-label' => array( 'label' => __( '라벨 (Labels)', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
+                    'form-field' => array( 'label' => __( '입력 필드 (Fields)', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
                 ),
             ),
         );
@@ -1108,7 +1232,7 @@ final class JJ_Admin_Center {
             // 폴백
             check_ajax_referer( $nonce_key, 'security' );
             if ( ! current_user_can( $capability ) ) {
-                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
                 return false;
             }
             return true;
@@ -1134,7 +1258,7 @@ final class JJ_Admin_Center {
         // 브랜드 팔레트
         if ( ! empty( $hub_options['palettes']['brand'] ) ) {
             $palettes['brand'] = array(
-                'name' => __( '브랜드 팔레트', 'jj-style-guide' ),
+                'name' => __( '브랜드 팔레트', 'acf-css-really-simple-style-management-center' ),
                 'colors' => $hub_options['palettes']['brand'],
             );
         }
@@ -1142,7 +1266,7 @@ final class JJ_Admin_Center {
         // 시스템 팔레트
         if ( ! empty( $hub_options['palettes']['system'] ) ) {
             $palettes['system'] = array(
-                'name' => __( '시스템 팔레트', 'jj-style-guide' ),
+                'name' => __( '시스템 팔레트', 'acf-css-really-simple-style-management-center' ),
                 'colors' => $hub_options['palettes']['system'],
             );
         }
@@ -1150,7 +1274,7 @@ final class JJ_Admin_Center {
         // 얼터너티브 팔레트
         if ( ! empty( $hub_options['palettes']['alternative'] ) ) {
             $palettes['alternative'] = array(
-                'name' => __( '얼터너티브 팔레트', 'jj-style-guide' ),
+                'name' => __( '얼터너티브 팔레트', 'acf-css-really-simple-style-management-center' ),
                 'colors' => $hub_options['palettes']['alternative'],
             );
         }
@@ -1158,7 +1282,7 @@ final class JJ_Admin_Center {
         // 어나더 팔레트
         if ( ! empty( $hub_options['palettes']['another'] ) ) {
             $palettes['another'] = array(
-                'name' => __( '어나더 팔레트', 'jj-style-guide' ),
+                'name' => __( '어나더 팔레트', 'acf-css-really-simple-style-management-center' ),
                 'colors' => $hub_options['palettes']['another'],
             );
         }
@@ -1166,7 +1290,7 @@ final class JJ_Admin_Center {
         // 임시 팔레트
         if ( ! empty( $temp_options['palettes']['brand'] ) ) {
             $palettes['temporary'] = array(
-                'name' => __( '임시 팔레트', 'jj-style-guide' ),
+                'name' => __( '임시 팔레트', 'acf-css-really-simple-style-management-center' ),
                 'colors' => $temp_options['palettes']['brand'],
             );
         }
@@ -1186,7 +1310,7 @@ final class JJ_Admin_Center {
         $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
         
         if ( empty( $license_key ) ) {
-            wp_send_json_error( array( 'message' => __( '라이센스 키를 입력하세요.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스 키를 입력하세요.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $license_manager = null;
@@ -1198,7 +1322,7 @@ final class JJ_Admin_Center {
         }
         
         if ( ! $license_manager ) {
-            wp_send_json_error( array( 'message' => __( '라이센스 관리자를 로드할 수 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스 관리자를 로드할 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $result = $license_manager->save_license_key( $license_key );
@@ -1226,7 +1350,7 @@ final class JJ_Admin_Center {
         check_ajax_referer( 'jj_license_save_action', 'nonce' );
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $license_manager = null;
@@ -1238,7 +1362,7 @@ final class JJ_Admin_Center {
         }
         
         if ( ! $license_manager ) {
-            wp_send_json_error( array( 'message' => __( '라이센스 관리자를 로드할 수 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스 관리자를 로드할 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         // 강제 온라인 검증
@@ -1257,7 +1381,7 @@ final class JJ_Admin_Center {
         check_ajax_referer( 'jj_admin_center_save_action', 'security' );
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $raw_update_settings = isset( $_POST['update_settings'] ) && is_array( $_POST['update_settings'] ) ? wp_unslash( $_POST['update_settings'] ) : array();
@@ -1338,7 +1462,7 @@ final class JJ_Admin_Center {
         }
         
         wp_send_json_success( array( 
-            'message' => __( '업데이트 설정이 저장되었습니다.', 'jj-style-guide' ),
+            'message' => __( '업데이트 설정이 저장되었습니다.', 'acf-css-really-simple-style-management-center' ),
             'settings' => $clean_update_settings,
         ) );
     }
@@ -1361,7 +1485,7 @@ final class JJ_Admin_Center {
         $enabled_raw = isset( $_POST['enabled'] ) ? wp_unslash( $_POST['enabled'] ) : null;
 
         if ( '' === $plugin ) {
-            wp_send_json_error( array( 'message' => __( '플러그인 정보가 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '플러그인 정보가 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
@@ -1444,7 +1568,7 @@ final class JJ_Admin_Center {
 
         wp_send_json_success(
             array(
-                'message' => __( '업데이트 정보를 갱신했습니다.', 'jj-style-guide' ),
+                'message' => __( '업데이트 정보를 갱신했습니다.', 'acf-css-really-simple-style-management-center' ),
                 'last_checked' => $last_checked,
                 'next_check' => $next_check,
                 'updates_count' => is_array( $resp ) ? count( $resp ) : 0,
@@ -1466,7 +1590,7 @@ final class JJ_Admin_Center {
         check_ajax_referer( 'jj_admin_center_save_action', 'security' );
         
         if ( ! current_user_can( 'update_plugins' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         // 캐시 삭제하여 강제로 업데이트 체크
@@ -1499,22 +1623,22 @@ final class JJ_Admin_Center {
                             'has_update' => true,
                             'current_version' => $current_version,
                             'new_version' => $update_info['new_version'],
-                            'message' => sprintf( __( '새 버전 %s이(가) 사용 가능합니다.', 'jj-style-guide' ), $update_info['new_version'] ),
+                            'message' => sprintf( __( '새 버전 %s이(가) 사용 가능합니다.', 'acf-css-really-simple-style-management-center' ), $update_info['new_version'] ),
                         ) );
                     } else {
                         wp_send_json_success( array(
                             'has_update' => false,
-                            'message' => __( '최신 버전을 사용 중입니다.', 'jj-style-guide' ),
+                            'message' => __( '최신 버전을 사용 중입니다.', 'acf-css-really-simple-style-management-center' ),
                         ) );
                     }
                 } else {
-                    wp_send_json_error( array( 'message' => __( '업데이트 정보를 가져올 수 없습니다.', 'jj-style-guide' ) ) );
+                    wp_send_json_error( array( 'message' => __( '업데이트 정보를 가져올 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
                 }
             } else {
-                wp_send_json_error( array( 'message' => __( '업데이터 클래스를 로드할 수 없습니다.', 'jj-style-guide' ) ) );
+                wp_send_json_error( array( 'message' => __( '업데이터 클래스를 로드할 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
             }
         } else {
-            wp_send_json_error( array( 'message' => __( '업데이터 파일을 찾을 수 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '업데이터 파일을 찾을 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
 
@@ -1735,9 +1859,42 @@ final class JJ_Admin_Center {
                 do_action( 'jj_style_guide_admin_center_updated', $new_snapshot, $old_snapshot, 'admin_center_ajax' );
             }
 
-            wp_send_json_success( array( 'message' => __( '관리자 센터 설정이 저장되었습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_success( array( 'message' => __( '관리자 센터 설정이 저장되었습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         } catch ( Exception $e ) {
-            wp_send_json_error( array( 'message' => __( '저장 중 오류가 발생했습니다: ', 'jj-style-guide' ) . $e->getMessage() ) );
+            wp_send_json_error( array( 'message' => __( '저장 중 오류가 발생했습니다: ', 'acf-css-really-simple-style-management-center' ) . $e->getMessage() ) );
+        }
+    }
+
+    /**
+     * [Phase 10.5] AJAX: 관리자 메뉴/상단바 색상 기본값 리셋
+     * - 기존 POST 기반 reset 버튼은 AJAX 저장 흐름과 충돌하므로 별도 엔드포인트로 제공
+     */
+    public function ajax_reset_admin_colors() {
+        if ( ! $this->verify_ajax_security( 'jj_admin_center_reset_colors', 'jj_admin_center_save_action', 'manage_options' ) ) {
+            return;
+        }
+
+        try {
+            delete_option( $this->colors_option_key );
+
+            // CSS 캐시 플러시 (있을 때만)
+            if ( class_exists( 'JJ_CSS_Cache' ) ) {
+                try {
+                    JJ_CSS_Cache::instance()->flush();
+                } catch ( Exception $e ) {
+                    // ignore
+                } catch ( Error $e ) {
+                    // ignore
+                }
+            }
+
+            wp_send_json_success( array(
+                'message' => __( '관리자 메뉴 / 상단바 색상이 기본값으로 되돌려졌습니다.', 'acf-css-really-simple-style-management-center' ),
+            ) );
+        } catch ( Exception $e ) {
+            wp_send_json_error( array( 'message' => __( '리셋 중 오류가 발생했습니다: ', 'acf-css-really-simple-style-management-center' ) . $e->getMessage() ) );
+        } catch ( Error $e ) {
+            wp_send_json_error( array( 'message' => __( '리셋 중 치명적 오류가 발생했습니다: ', 'acf-css-really-simple-style-management-center' ) . $e->getMessage() ) );
         }
     }
 
@@ -1755,7 +1912,7 @@ final class JJ_Admin_Center {
             // 폴백: 기존 검증
             check_ajax_referer( 'jj_admin_center_save_action', 'security' );
             if ( ! current_user_can( 'manage_options' ) ) {
-                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
                 return;
             }
         }
@@ -1773,7 +1930,7 @@ final class JJ_Admin_Center {
             $results = JJ_Self_Tester::run_tests();
             wp_send_json_success( array( 'results' => $results ) );
         } else {
-            wp_send_json_error( array( 'message' => __( '테스터 클래스를 로드할 수 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '테스터 클래스를 로드할 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
 
@@ -1800,7 +1957,7 @@ final class JJ_Admin_Center {
         }
         
         if ( empty( $_FILES['file'] ) ) {
-            wp_send_json_error( array( 'message' => __( '파일이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '파일이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
             return;
         }
 
@@ -1821,7 +1978,7 @@ final class JJ_Admin_Center {
             // 기본 검증
             $file = $_FILES['file'];
             if ( isset( $file['size'] ) && $file['size'] > $max_size ) {
-                wp_send_json_error( array( 'message' => __( '파일 크기가 너무 큽니다.', 'jj-style-guide' ) ) );
+                wp_send_json_error( array( 'message' => __( '파일 크기가 너무 큽니다.', 'acf-css-really-simple-style-management-center' ) ) );
                 return;
             }
         }
@@ -1839,7 +1996,7 @@ final class JJ_Admin_Center {
         // 경로 조작 방지 (directory traversal)
         $target_path = realpath( dirname( $target_path ) ) . '/' . basename( $target_path );
         if ( strpos( $target_path, realpath( $temp_dir ) ) !== 0 ) {
-            wp_send_json_error( array( 'message' => __( '유효하지 않은 파일 경로입니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '유효하지 않은 파일 경로입니다.', 'acf-css-really-simple-style-management-center' ) ) );
             return;
         }
         
@@ -1850,7 +2007,7 @@ final class JJ_Admin_Center {
                 'type' => $this->detect_bulk_type( $target_path )
             ) );
         } else {
-            wp_send_json_error( array( 'message' => __( '파일 업로드 실패', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '파일 업로드 실패', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
 

@@ -116,18 +116,18 @@ class JJ_Self_Tester {
             <p>
                 <strong>
                     <span class="dashicons dashicons-warning" style="color: #d63638; vertical-align: middle;"></span>
-                    <?php esc_html_e( '시스템 자가 진단에서 문제가 발견되었습니다.', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '시스템 자가 진단에서 문제가 발견되었습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                 </strong>
             </p>
             <p>
-                <?php esc_html_e( '최근 자동 진단에서 일부 항목이 실패했습니다. System Status 탭에서 자세한 내용을 확인하세요.', 'jj-style-guide' ); ?>
+                <?php esc_html_e( '최근 자동 진단에서 일부 항목이 실패했습니다. System Status 탭에서 자세한 내용을 확인하세요.', 'acf-css-really-simple-style-management-center' ); ?>
             </p>
             <p>
                 <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-admin-center#system-status' ) ); ?>" class="button button-primary">
-                    <?php esc_html_e( 'System Status 확인하기', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( 'System Status 확인하기', 'acf-css-really-simple-style-management-center' ); ?>
                 </a>
                 <button type="button" class="button jj-dismiss-diagnostic-notice" style="margin-left: 5px;">
-                    <?php esc_html_e( '24시간 동안 숨기기', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '24시간 동안 숨기기', 'acf-css-really-simple-style-management-center' ); ?>
                 </button>
             </p>
         </div>
@@ -199,6 +199,10 @@ class JJ_Self_Tester {
             'JJ_Cloud_Manager', // Cloud
             'JJ_Visual_Command_Center', // Visual
             'JJ_Partner_Hub', // Partner (Optional)
+            'JJ_Style_Guide_Live_Page', // [Phase 10.6] 실시간 편집 허브
+            'JJ_Style_Guide_Page_Duplicator', // [Phase 10.6] 페이지 복제
+            'JJ_Block_Editor_Integration', // [Phase 10.2] 블록 에디터 통합
+            'JJ_Builder_Sync_Manager', // [Phase 10.4] 빌더 동기화
         );
 
         foreach ( $core_classes as $class ) {
@@ -371,6 +375,9 @@ class JJ_Self_Tester {
             // Presets assets
             'assets/js/jj-style-guide-presets.js'             => true,
             'assets/css/jj-style-guide-presets.css'           => true,
+            // Typography presets assets (v10.6.1)
+            'assets/js/jj-style-guide-typography-presets.js'  => true,
+            'assets/css/jj-style-guide-typography-presets.css'=> true,
         );
         if ( defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
             foreach ( $manifest as $rel => $required ) {

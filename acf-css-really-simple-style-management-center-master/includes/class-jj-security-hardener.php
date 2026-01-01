@@ -17,6 +17,12 @@ class JJ_Security_Hardener {
     private static $instance = null;
     
     /**
+     * 레이트 리밋 기본값
+     */
+    private const RATE_LIMIT_MAX_REQUESTS = 60;
+    private const RATE_LIMIT_WINDOW_SEC   = 300; // 5분
+    
+    /**
      * 보안 이벤트 로그
      */
     private static $security_logs = array();
@@ -60,6 +66,14 @@ class JJ_Security_Hardener {
             header( 'X-Content-Type-Options: nosniff' );
         }
         
+        // Content-Security-Policy
+        if ( ! headers_sent() ) {
+            $csp = apply_filters( 'jj_security_csp', $this->generate_csp_header() );
+            if ( ! empty( $csp ) ) {
+                header( 'Content-Security-Policy: ' . $csp );
+            }
+        }
+        
         // Referrer-Policy: 리퍼러 정보 제어
         if ( ! headers_sent() ) {
             header( 'Referrer-Policy: strict-origin-when-cross-origin' );
@@ -90,6 +104,11 @@ class JJ_Security_Hardener {
     public function block_public_ajax() {
         $action = isset( $_REQUEST['action'] ) ? sanitize_text_field( $_REQUEST['action'] ) : '';
         
+        // 레이트 리밋 (인증되지 않은 요청)
+        if ( ! self::check_rate_limit( $action ?: 'wp_ajax_nopriv' ) ) {
+            return;
+        }
+        
         // jj_ 접두사를 가진 액션은 인증 필수
         if ( 0 === strpos( $action, 'jj_' ) ) {
             $this->log_security_event( 'unauthorized_ajax_attempt', array(
@@ -98,7 +117,7 @@ class JJ_Security_Hardener {
             ) );
             
             wp_send_json_error( array(
-                'message' => __( '인증이 필요합니다.', 'jj-style-guide' ),
+                'message' => __( '인증이 필요합니다.', 'acf-css-really-simple-style-management-center' ),
             ) );
             exit;
         }
@@ -113,6 +132,11 @@ class JJ_Security_Hardener {
      * @return bool 검증 성공 여부
      */
     public static function verify_ajax_request( $action, $nonce_key, $capability = 'manage_options' ) {
+        // 레이트 리밋
+        if ( ! self::check_rate_limit( $action ) ) {
+            return false;
+        }
+        
         // Nonce 검증
         if ( ! check_ajax_referer( $nonce_key, 'security', false ) ) {
             self::log_security_event( 'invalid_nonce', array(
@@ -122,7 +146,7 @@ class JJ_Security_Hardener {
             ) );
             
             wp_send_json_error( array(
-                'message' => __( '보안 검증에 실패했습니다. 페이지를 새로고침하고 다시 시도하세요.', 'jj-style-guide' ),
+                'message' => __( '보안 검증에 실패했습니다. 페이지를 새로고침하고 다시 시도하세요.', 'acf-css-really-simple-style-management-center' ),
             ) );
             return false;
         }
@@ -137,7 +161,7 @@ class JJ_Security_Hardener {
             ) );
             
             wp_send_json_error( array(
-                'message' => __( '권한이 없습니다.', 'jj-style-guide' ),
+                'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ),
             ) );
             return false;
         }
@@ -240,13 +264,13 @@ class JJ_Security_Hardener {
     public static function validate_upload( $file, $allowed_types = array(), $max_size = 5242880 ) {
         // 파일 존재 확인
         if ( ! isset( $file['tmp_name'] ) || ! is_uploaded_file( $file['tmp_name'] ) ) {
-            return new WP_Error( 'invalid_upload', __( '유효하지 않은 파일 업로드입니다.', 'jj-style-guide' ) );
+            return new WP_Error( 'invalid_upload', __( '유효하지 않은 파일 업로드입니다.', 'acf-css-really-simple-style-management-center' ) );
         }
         
         // 파일 크기 확인
         if ( isset( $file['size'] ) && $file['size'] > $max_size ) {
             return new WP_Error( 'file_too_large', sprintf(
-                __( '파일 크기가 너무 큽니다. 최대 크기: %s', 'jj-style-guide' ),
+                __( '파일 크기가 너무 큽니다. 최대 크기: %s', 'acf-css-really-simple-style-management-center' ),
                 size_format( $max_size )
             ) );
         }
@@ -257,13 +281,13 @@ class JJ_Security_Hardener {
             $mime_type = $file_type['type'];
             
             if ( empty( $mime_type ) || ! in_array( $mime_type, $allowed_types, true ) ) {
-                return new WP_Error( 'invalid_file_type', __( '허용되지 않은 파일 타입입니다.', 'jj-style-guide' ) );
+                return new WP_Error( 'invalid_file_type', __( '허용되지 않은 파일 타입입니다.', 'acf-css-really-simple-style-management-center' ) );
             }
             
             // 실제 파일 내용 확인 (MIME 타입 조작 방지)
             $real_mime = mime_content_type( $file['tmp_name'] );
             if ( $real_mime && ! in_array( $real_mime, $allowed_types, true ) ) {
-                return new WP_Error( 'invalid_file_type', __( '파일 타입이 일치하지 않습니다.', 'jj-style-guide' ) );
+                return new WP_Error( 'invalid_file_type', __( '파일 타입이 일치하지 않습니다.', 'acf-css-really-simple-style-management-center' ) );
             }
         }
         
@@ -272,7 +296,7 @@ class JJ_Security_Hardener {
         $allowed_extensions = array( 'zip', 'json' ); // 기본 허용 확장자
         
         if ( ! in_array( $file_extension, $allowed_extensions, true ) ) {
-            return new WP_Error( 'invalid_extension', __( '허용되지 않은 파일 확장자입니다.', 'jj-style-guide' ) );
+            return new WP_Error( 'invalid_extension', __( '허용되지 않은 파일 확장자입니다.', 'acf-css-really-simple-style-management-center' ) );
         }
         
         return array(
@@ -294,7 +318,7 @@ class JJ_Security_Hardener {
         global $wpdb;
         
         if ( ! $wpdb ) {
-            return new WP_Error( 'db_not_available', __( '데이터베이스 연결을 사용할 수 없습니다.', 'jj-style-guide' ) );
+            return new WP_Error( 'db_not_available', __( '데이터베이스 연결을 사용할 수 없습니다.', 'acf-css-really-simple-style-management-center' ) );
         }
         
         // 직접 쿼리 문자열 조작 감지
@@ -304,7 +328,7 @@ class JJ_Security_Hardener {
                 self::log_security_event( 'dangerous_query_detected', array(
                     'query_preview' => substr( $query, 0, 100 ),
                 ) );
-                return new WP_Error( 'dangerous_query', __( '안전하지 않은 쿼리가 감지되었습니다.', 'jj-style-guide' ) );
+                return new WP_Error( 'dangerous_query', __( '안전하지 않은 쿼리가 감지되었습니다.', 'acf-css-really-simple-style-management-center' ) );
             }
         }
         
@@ -397,17 +421,72 @@ class JJ_Security_Hardener {
      * @return string CSP 헤더 값
      */
     public function generate_csp_header() {
-        $directives = array(
-            "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // WordPress admin은 unsafe-inline 필요
-            "style-src 'self' 'unsafe-inline'",
-            "img-src 'self' data: https:",
-            "font-src 'self' data:",
-            "connect-src 'self'",
-            "frame-ancestors 'self'",
+        $directives = apply_filters(
+            'jj_security_csp_directives',
+            array(
+                "default-src 'self'",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:",
+                "style-src 'self' 'unsafe-inline'",
+                "img-src 'self' data: blob: https:",
+                "font-src 'self' data:",
+                "connect-src 'self' https:",
+                "media-src 'self' data:",
+                "object-src 'none'",
+                "frame-ancestors 'self'",
+            )
         );
         
-        return implode( '; ', $directives );
+        return implode( '; ', array_filter( $directives ) );
+    }
+    
+    /**
+     * 레이트 리밋 체크
+     *
+     * @param string $action 액션 이름
+     * @param int|null $max 최대 요청 수
+     * @param int|null $window_sec 시간 창 (초)
+     * @return bool 제한을 통과하면 true, 차단 시 false
+     */
+    private static function check_rate_limit( $action, $max = null, $window_sec = null ) {
+        $max = $max ? intval( $max ) : self::RATE_LIMIT_MAX_REQUESTS;
+        $window_sec = $window_sec ? intval( $window_sec ) : self::RATE_LIMIT_WINDOW_SEC;
+        
+        $ip  = self::get_client_ip();
+        $key = 'jj_rl_' . md5( $action . '|' . $ip . '|' . $max . '|' . $window_sec );
+        
+        $now  = time();
+        $data = get_transient( $key );
+        
+        if ( empty( $data ) || ! isset( $data['start'] ) || ( $now - intval( $data['start'] ) ) > $window_sec ) {
+            $data = array(
+                'count' => 1,
+                'start' => $now,
+            );
+            set_transient( $key, $data, $window_sec );
+            return true;
+        }
+        
+        $data['count'] = intval( $data['count'] ) + 1;
+        set_transient( $key, $data, $window_sec );
+        
+        if ( $data['count'] > $max ) {
+            self::log_security_event( 'rate_limit_exceeded', array(
+                'action' => $action,
+                'ip'     => $ip,
+                'count'  => $data['count'],
+            ) );
+            
+            status_header( 429 );
+            wp_send_json_error(
+                array(
+                    'message' => __( '요청이 너무 많습니다. 잠시 후 다시 시도하세요.', 'acf-css-really-simple-style-management-center' ),
+                ),
+                429
+            );
+            return false;
+        }
+        
+        return true;
     }
 }
 

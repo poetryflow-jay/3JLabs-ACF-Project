@@ -39,6 +39,23 @@
     $(document).ready(function() {
         const $wrap = $('.jj-admin-center-wrap');
 
+        // ------------------------------------------------------------
+        // Helpers
+        // ------------------------------------------------------------
+        function escapeHtml(str) {
+            if (str === null || str === undefined) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function escapeAttr(str) {
+            return escapeHtml(str);
+        }
+
         // [v5.6.0] 미디어 업로드 버튼 핸들러
         $wrap.on('click', '.jj-upload-btn', function(e) {
             e.preventDefault();
@@ -704,6 +721,303 @@
             e.preventDefault();
             showChangesPreview(collectChanges());
         });
+
+        // ============================================================
+        // Colors Tab: Admin Menu Colors Reset (AJAX)
+        // ============================================================
+        $wrap.on('click', '#jj-admin-center-reset-colors', function(e) {
+            e.preventDefault();
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.nonce) return;
+
+            if (!confirm('관리자 메뉴 / 상단바 색상을 기본값으로 되돌리시겠습니까?')) {
+                return;
+            }
+
+            const $btn = $(this);
+            $btn.prop('disabled', true);
+
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_admin_center_reset_colors',
+                security: jjAdminCenter.nonce
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    const msg = resp.data && resp.data.message ? resp.data.message : '';
+                    if (msg && window.JJUtils && JJUtils.showToast) {
+                        JJUtils.showToast(msg, 'success');
+                    }
+                    location.reload();
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '리셋에 실패했습니다.';
+                    alert(msg);
+                }
+            }).fail(function() {
+                alert('서버 통신 오류가 발생했습니다.');
+            }).always(function() {
+                $btn.prop('disabled', false);
+            });
+        });
+
+        // ============================================================
+        // Backup Tab (AJAX UI)
+        // ============================================================
+        function renderBackupList(backups) {
+            const $list = $('#jj-backup-list');
+            if (!$list.length) return;
+
+            const ids = backups ? Object.keys(backups) : [];
+            if (!ids || ids.length === 0) {
+                $list.html('<p class="description">백업이 없습니다.</p>');
+                return;
+            }
+
+            let html = '<table class="widefat striped" style="margin-top:10px;">';
+            html += '<thead><tr>';
+            html += '<th style="width:170px;">일시</th>';
+            html += '<th style="width:110px;">유형</th>';
+            html += '<th>레이블</th>';
+            html += '<th style="width:140px;">생성자</th>';
+            html += '<th style="width:160px;">작업</th>';
+            html += '</tr></thead><tbody>';
+
+            ids.forEach(function(id) {
+                const b = backups[id] || {};
+                const date = b.date || '';
+                const type = b.type || '';
+                const label = b.label || '';
+                const user = b.user_name || '';
+
+                html += '<tr>';
+                html += '<td><code>' + escapeHtml(date) + '</code></td>';
+                html += '<td>' + escapeHtml(type) + '</td>';
+                html += '<td>' + escapeHtml(label) + '</td>';
+                html += '<td>' + escapeHtml(user) + '</td>';
+                html += '<td>';
+                html += '<button type="button" class="button button-small jj-backup-restore" data-backup-id="' + escapeAttr(id) + '">복원</button> ';
+                html += '<button type="button" class="button button-small button-link-delete jj-backup-delete" data-backup-id="' + escapeAttr(id) + '">삭제</button>';
+                html += '</td>';
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            $list.html(html);
+        }
+
+        function renderBackupHistory(history) {
+            const $history = $('#jj-backup-history');
+            if (!$history.length) return;
+
+            if (!history || history.length === 0) {
+                $history.html('<p class="description">변경 이력이 없습니다.</p>');
+                return;
+            }
+
+            let html = '<table class="widefat striped" style="margin-top:10px;">';
+            html += '<thead><tr>';
+            html += '<th style="width:170px;">일시</th>';
+            html += '<th style="width:120px;">작업</th>';
+            html += '<th style="width:160px;">백업 ID</th>';
+            html += '<th>사용자</th>';
+            html += '</tr></thead><tbody>';
+
+            history.forEach(function(item) {
+                const date = item.date || '';
+                const action = item.action || '';
+                const bid = item.backup_id || '';
+                const user = item.user_name || '';
+                html += '<tr>';
+                html += '<td><code>' + escapeHtml(date) + '</code></td>';
+                html += '<td>' + escapeHtml(action) + '</td>';
+                html += '<td><code>' + escapeHtml(bid) + '</code></td>';
+                html += '<td>' + escapeHtml(user) + '</td>';
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            $history.html(html);
+        }
+
+        function loadBackupList() {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.backup_nonce) return;
+            const $list = $('#jj-backup-list');
+            if (!$list.length) return;
+
+            $list.html('<div style="padding:20px; text-align:center;"><span class="spinner is-active"></span><p>백업 목록을 불러오는 중...</p></div>');
+
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_get_backup_list',
+                security: jjAdminCenter.backup_nonce,
+                limit: 30
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    renderBackupList(resp.data && resp.data.backups ? resp.data.backups : {});
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '백업 목록을 불러오지 못했습니다.';
+                    $list.html('<div class="notice notice-error inline"><p>' + escapeHtml(msg) + '</p></div>');
+                }
+            }).fail(function() {
+                $list.html('<div class="notice notice-error inline"><p>서버 통신 오류가 발생했습니다.</p></div>');
+            });
+        }
+
+        function loadBackupHistory() {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.backup_nonce) return;
+            const $history = $('#jj-backup-history');
+            if (!$history.length) return;
+
+            $history.html('<div style="padding:20px; text-align:center;"><span class="spinner is-active"></span><p>변경 이력을 불러오는 중...</p></div>');
+
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_get_backup_history',
+                security: jjAdminCenter.backup_nonce,
+                limit: 30
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    renderBackupHistory(resp.data && resp.data.history ? resp.data.history : []);
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '변경 이력을 불러오지 못했습니다.';
+                    $history.html('<div class="notice notice-error inline"><p>' + escapeHtml(msg) + '</p></div>');
+                }
+            }).fail(function() {
+                $history.html('<div class="notice notice-error inline"><p>서버 통신 오류가 발생했습니다.</p></div>');
+            });
+        }
+
+        function createBackup() {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.backup_nonce) return;
+            const $btn = $('#jj-create-backup-btn');
+            const $spinner = $('.jj-backup-spinner');
+            const label = ($('#jj-backup-label-input').val() || '').trim();
+
+            $btn.prop('disabled', true);
+            if ($spinner.length) $spinner.show().addClass('is-active');
+
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_create_backup',
+                security: jjAdminCenter.backup_nonce,
+                type: 'manual',
+                label: label
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    const msg = resp.data && resp.data.message ? resp.data.message : '백업이 생성되었습니다.';
+                    if (window.JJUtils && JJUtils.showToast) {
+                        JJUtils.showToast(msg, 'success');
+                    }
+                    $('#jj-backup-label-input').val('');
+                    loadBackupList();
+                    loadBackupHistory();
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '백업 생성에 실패했습니다.';
+                    alert(msg);
+                }
+            }).fail(function() {
+                alert('서버 통신 오류가 발생했습니다.');
+            }).always(function() {
+                $btn.prop('disabled', false);
+                if ($spinner.length) $spinner.hide().removeClass('is-active');
+            });
+        }
+
+        function restoreBackup(backupId) {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.backup_nonce) return;
+            if (!backupId) return;
+
+            if (!confirm('이 백업으로 복원하시겠습니까? 현재 설정은 자동으로 백업되지 않습니다.')) {
+                return;
+            }
+
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_restore_backup',
+                security: jjAdminCenter.backup_nonce,
+                backup_id: backupId
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    const msg = resp.data && resp.data.message ? resp.data.message : '백업이 복원되었습니다.';
+                    if (window.JJUtils && JJUtils.showToast) {
+                        JJUtils.showToast(msg, 'success');
+                    }
+                    setTimeout(function() { location.reload(); }, 600);
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '백업 복원에 실패했습니다.';
+                    alert(msg);
+                }
+            }).fail(function() {
+                alert('서버 통신 오류가 발생했습니다.');
+            });
+        }
+
+        function deleteBackup(backupId) {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.backup_nonce) return;
+            if (!backupId) return;
+
+            if (!confirm('이 백업을 삭제하시겠습니까?')) {
+                return;
+            }
+
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_delete_backup',
+                security: jjAdminCenter.backup_nonce,
+                backup_id: backupId
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    const msg = resp.data && resp.data.message ? resp.data.message : '백업이 삭제되었습니다.';
+                    if (window.JJUtils && JJUtils.showToast) {
+                        JJUtils.showToast(msg, 'success');
+                    }
+                    loadBackupList();
+                    loadBackupHistory();
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '백업 삭제에 실패했습니다.';
+                    alert(msg);
+                }
+            }).fail(function() {
+                alert('서버 통신 오류가 발생했습니다.');
+            });
+        }
+
+        function saveBackupSettings() {
+            if (typeof jjAdminCenter === 'undefined' || !jjAdminCenter.ajax_url || !jjAdminCenter.backup_nonce) return;
+            const enabled = $('#jj-auto-backup-on-change').is(':checked');
+
+            $.post(jjAdminCenter.ajax_url, {
+                action: 'jj_save_backup_settings',
+                security: jjAdminCenter.backup_nonce,
+                auto_backup_on_change: enabled ? '1' : '0'
+            }).done(function(resp) {
+                if (resp && resp.success) {
+                    const msg = resp.data && resp.data.message ? resp.data.message : '설정이 저장되었습니다.';
+                    if (window.JJUtils && JJUtils.showToast) {
+                        JJUtils.showToast(msg, 'success');
+                    }
+                } else {
+                    const msg = resp && resp.data && resp.data.message ? resp.data.message : '설정 저장에 실패했습니다.';
+                    alert(msg);
+                }
+            }).fail(function() {
+                alert('서버 통신 오류가 발생했습니다.');
+            });
+        }
+
+        $wrap.on('click', '#jj-create-backup-btn', function(e) {
+            e.preventDefault();
+            createBackup();
+        });
+        $wrap.on('change', '#jj-auto-backup-on-change', function() {
+            saveBackupSettings();
+        });
+        $wrap.on('click', '.jj-backup-restore', function(e) {
+            e.preventDefault();
+            restoreBackup($(this).attr('data-backup-id') || '');
+        });
+        $wrap.on('click', '.jj-backup-delete', function(e) {
+            e.preventDefault();
+            deleteBackup($(this).attr('data-backup-id') || '');
+        });
+
+        // 초기 로드
+        if ($('#jj-backup-list').length || $('#jj-backup-history').length) {
+            loadBackupList();
+            loadBackupHistory();
+        }
 
         // ============================================================
         // Updates Tab (WP Plugins screen UX-aligned)

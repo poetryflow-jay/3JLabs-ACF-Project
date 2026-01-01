@@ -1,0 +1,218 @@
+# Korean (Korea) translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Korean <ko@3j-labs.com>\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "Style Center"
+msgstr "스타일 센터"
+
+msgid "Admin Center"
+msgstr "관리자 센터"
+
+msgid "Labs"
+msgstr "실험실"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Apply"
+msgstr "적용"
+
+msgid "Reset"
+msgstr "초기화"
+
+msgid "Export"
+msgstr "내보내기"
+
+msgid "Import"
+msgstr "불러오기"
+
+msgid "Download"
+msgstr "다운로드"
+
+msgid "Upload"
+msgstr "업로드"
+
+# Colors
+msgid "Colors"
+msgstr "색상"
+
+msgid "Primary Color"
+msgstr "기본 색상"
+
+msgid "Secondary Color"
+msgstr "보조 색상"
+
+msgid "Accent Color"
+msgstr "강조 색상"
+
+msgid "Background Color"
+msgstr "배경 색상"
+
+msgid "Text Color"
+msgstr "텍스트 색상"
+
+msgid "Brand Palette"
+msgstr "브랜드 팔레트"
+
+msgid "System Palette"
+msgstr "시스템 팔레트"
+
+# Typography
+msgid "Typography"
+msgstr "타이포그래피"
+
+msgid "Font Family"
+msgstr "폰트 패밀리"
+
+msgid "Font Size"
+msgstr "폰트 크기"
+
+msgid "Font Weight"
+msgstr "폰트 굵기"
+
+msgid "Line Height"
+msgstr "행간"
+
+msgid "Letter Spacing"
+msgstr "자간"
+
+msgid "Heading 1"
+msgstr "제목 1"
+
+msgid "Heading 2"
+msgstr "제목 2"
+
+msgid "Heading 3"
+msgstr "제목 3"
+
+msgid "Paragraph"
+msgstr "본문"
+
+# Responsive
+msgid "Desktop"
+msgstr "데스크톱"
+
+msgid "Laptop"
+msgstr "랩톱"
+
+msgid "Tablet"
+msgstr "태블릿"
+
+msgid "Mobile"
+msgstr "모바일"
+
+# Export
+msgid "PDF (Print)"
+msgstr "PDF (인쇄)"
+
+msgid "PNG Image"
+msgstr "PNG 이미지"
+
+msgid "HTML File"
+msgstr "HTML 파일"
+
+msgid "CSS Variables"
+msgstr "CSS 변수"
+
+msgid "JSON Tokens"
+msgstr "JSON 토큰"
+
+msgid "ZIP (All)"
+msgstr "ZIP (전체)"
+
+msgid "Exporting..."
+msgstr "내보내는 중..."
+
+msgid "Export complete!"
+msgstr "내보내기 완료!"
+
+msgid "Export failed"
+msgstr "내보내기 실패"
+
+# Fonts
+msgid "Font Recommendations"
+msgstr "폰트 추천"
+
+msgid "Korean Free Fonts (Google Fonts)"
+msgstr "한국어 무료 폰트 (Google Fonts)"
+
+msgid "English Free Fonts (Google Fonts)"
+msgstr "영문 무료 폰트 (Google Fonts)"
+
+msgid "Premium Fonts (Reference)"
+msgstr "유료/프리미엄 폰트 (참조용)"
+
+msgid "%s font has been applied."
+msgstr "%s 폰트가 적용되었습니다."
+
+# Figma
+msgid "Figma Integration"
+msgstr "Figma 연동"
+
+msgid "Figma Personal Access Token"
+msgstr "Figma Personal Access Token"
+
+msgid "Figma File Key"
+msgstr "Figma 파일 키"
+
+msgid "Test Connection"
+msgstr "연결 테스트"
+
+msgid "Import from Figma"
+msgstr "Figma에서 가져오기"
+
+msgid "Export to Figma"
+msgstr "Figma로 내보내기"
+
+msgid "Connection successful!"
+msgstr "연결 성공!"
+
+msgid "Connection failed"
+msgstr "연결 실패"
+
+# Messages
+msgid "Settings saved."
+msgstr "설정이 저장되었습니다."
+
+msgid "Permission denied."
+msgstr "권한이 없습니다."
+
+msgid "An error occurred."
+msgstr "오류가 발생했습니다."
+
+msgid "Are you sure?"
+msgstr "정말 실행하시겠습니까?"
+
+msgid "Success"
+msgstr "성공"
+
+msgid "Error"
+msgstr "오류"
+
+msgid "Warning"
+msgstr "경고"
+
+msgid "Info"
+msgstr "정보"

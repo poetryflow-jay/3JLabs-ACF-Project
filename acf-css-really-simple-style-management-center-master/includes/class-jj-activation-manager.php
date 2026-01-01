@@ -401,7 +401,7 @@ class JJ_Activation_Manager_Master {
         $page_content = self::get_block_template_content();
 
         $page_data = array(
-            'post_title'   => __( '스타일 가이드 설정', 'jj-style-guide' ), 
+            'post_title'   => __( 'Style Guide', 'acf-css-really-simple-style-management-center' ),
             'post_name'    => $page_slug,
             'post_content' => $page_content,
             'post_status'  => 'private', 
@@ -438,166 +438,13 @@ class JJ_Activation_Manager_Master {
      * @since v2.0.0
      */
     private static function get_block_template_content() {
-        
-        $customizer_url = esc_url( admin_url( 'customize.php?autofocus[panel]=jj_style_guide_panel' ) );
-        $settings_url = esc_url( admin_url( 'options-general.php?page=' . JJ_STYLE_GUIDE_PAGE_SLUG ) );
-        
-        // [v5.0.3] 개선된 프리뷰 페이지 템플릿
+        // 이 페이지는 이제 “실시간 미리보기 + 편집” 허브로 사용합니다.
+        // (QuantumLab 스타일가이드 구조 참고: Colors/Typography/Buttons)
+        // https://quantumlabtemplate.webflow.io/template-pages/style-guide
         $content = '
-<!--wp:group {"style":{"spacing":{"padding":{"top":"1em","right":"1em","bottom":"1em","left":"1em"}}},"backgroundColor":"light-gray-foreground","textColor":"dark-gray"}-->
-<div class="wp-block-group has-dark-gray-color has-light-gray-foreground-background-color has-text-color has-background" style="padding-top:1em;padding-right:1em;padding-bottom:1em;padding-left:1em">
-<!--wp:paragraph {"style":{"typography":{"fontSize":"16px"}},"fontFamily":"system-ui"}-->
-<p style="font-size:16px;font-family:system-ui"><strong>' . esc_html__( '[안내]', 'jj-style-guide' ) . '</strong> ' . esc_html__( '이 페이지는 설정 또는 사용자 정의 메뉴에서 변경한 스타일이 실시간으로 반영되는 시각적 프리뷰입니다.', 'jj-style-guide' ) . '<br>' . esc_html__( '실제 스타일 편집은 이 페이지의 내용이 아니라, 아래 버튼을 통해 새 탭으로 열리는 컨트롤 패널에서 진행해 주세요.', 'jj-style-guide' ) . '</p>
-<!--/wp:paragraph-->
-</div>
-<!--/wp:group-->
-
-<!--wp:buttons {"layout":{"type":"flex","justifyContent":"center"}}-->
-<div class="wp-block-buttons">
-<!--wp:button {"style":{"elements":{"link":{"color":{"text":"var:preset|color|vivid-cyan-blue"}}}},"className":"is-style-outline"}-->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-vivid-cyan-blue-color has-text-color wp-element-button" href="' . esc_url( $customizer_url ) . '" target="_blank" rel="noopener">' . esc_html__( '사용자 정의 패널에서 편집 (새 탭)', 'jj-style-guide' ) . '</a></div>
-<!--/wp:button-->
-
-<!--wp:button {"style":{"elements":{"link":{"color":{"text":"var:preset|color|vivid-cyan-blue"}}}},"className":"is-style-outline"}-->
-<div class="wp-block-button is-style-outline"><a class="wp-block-button__link has-vivid-cyan-blue-color has-text-color wp-element-button" href="' . esc_url( $settings_url ) . '" target="_blank" rel="noopener">' . esc_html__( '플러그인 설정 페이지에서 편집 (새 탭)', 'jj-style-guide' ) . '</a></div>
-<!--/wp:button-->
-</div>
-<!--/wp:buttons-->
-
-<!--wp:separator {"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"className":"is-style-wide"}-->
-<hr class="wp-block-separator has-alpha-channel-opacity has-vivid-cyan-blue-color has-text-color has-link-color is-style-wide" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--40)"/>
-<!--/wp:separator-->
-
-<!--wp:heading {"level":2}-->
-<h2 class="wp-block-heading">' . esc_html__( 'Typography', 'jj-style-guide' ) . '</h2>
-<!--/wp:heading-->
-
-<!--wp:heading {"level":1,"className":"jj-preview-h1"}-->
-<h1 class="wp-block-heading jj-preview-h1">' . esc_html__( 'H1 Heading: 다람쥐 헌 쳇바퀴에 타고파.', 'jj-style-guide' ) . '</h1>
-<!--/wp:heading-->
-
-<!--wp:heading {"level":2,"className":"jj-preview-h2"}-->
-<h2 class="wp-block-heading jj-preview-h2">' . esc_html__( 'H2 Heading: 다람쥐 헌 쳇바퀴에 타고파.', 'jj-style-guide' ) . '</h2>
-<!--/wp:heading-->
-
-<!--wp:heading {"level":3,"className":"jj-preview-h3"}-->
-<h3 class="wp-block-heading jj-preview-h3">' . esc_html__( 'H3 Heading: 다람쥐 헌 쳇바퀴에 타고파.', 'jj-style-guide' ) . '</h3>
-<!--/wp:heading-->
-
-<!--wp:heading {"level":4,"className":"jj-preview-h4"}-->
-<h4 class="wp-block-heading jj-preview-h4">' . esc_html__( 'H4 Heading: 다람쥐 헌 쳇바퀴에 타고파.', 'jj-style-guide' ) . '</h4>
-<!--/wp:heading-->
-
-<!--wp:heading {"level":5,"className":"jj-preview-h5"}-->
-<h5 class="wp-block-heading jj-preview-h5">' . esc_html__( 'H5 Heading: 다람쥐 헌 쳇바퀴에 타고파.', 'jj-style-guide' ) . '</h5>
-<!--/wp:heading-->
-
-<!--wp:heading {"level":6,"className":"jj-preview-h6"}-->
-<h6 class="wp-block-heading jj-preview-h6">' . esc_html__( 'H6 Heading: 다람쥐 헌 쳇바퀴에 타고파.', 'jj-style-guide' ) . '</h6>
-<!--/wp:heading-->
-
-<!--wp:paragraph {"className":"jj-preview-p"}-->
-<p class="jj-preview-p">' . esc_html__( 'P (Paragraph): 다람쥐 헌 쳇바퀴에 타고파. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.', 'jj-style-guide' ) . '</p>
-<!--/wp:paragraph-->
-
-<!--wp:spacer {"height":"40px"}-->
-<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
-<!--/wp:spacer-->
-
-<!--wp:heading {"level":2}-->
-<h2 class="wp-block-heading">' . esc_html__( 'Color Palette', 'jj-style-guide' ) . '</h2>
-<!--/wp:heading-->
-
-<!--wp:columns-->
-<div class="wp-block-columns">
-<!--wp:column-->
-<div class="wp-block-column">
-<!--wp:paragraph {"align":"center","className":"jj-preview-color-box jj-preview-color-primary","style":{"border":{"width":"1px","style":"solid","radius":"4px"},"spacing":{"padding":{"top":"1em","right":"1em","bottom":"1em","left":"1em"}}}}-->
-<p class="has-text-align-center jj-preview-color-box jj-preview-color-primary" style="border-style:solid;border-width:1px;border-radius:4px;padding-top:1em;padding-right:1em;padding-bottom:1em;padding-left:1em"><strong>' . esc_html__( 'Primary', 'jj-style-guide' ) . '</strong><br>var(--jj-primary-color)</p>
-<!--/wp:paragraph-->
-</div>
-<!--/wp:column-->
-
-<!--wp:column-->
-<div class="wp-block-column">
-<!--wp:paragraph {"align":"center","className":"jj-preview-color-box jj-preview-color-primary-hover","style":{"border":{"width":"1px","style":"solid","radius":"4px"},"spacing":{"padding":{"top":"1em","right":"1em","bottom":"1em","left":"1em"}}}}-->
-<p class="has-text-align-center jj-preview-color-box jj-preview-color-primary-hover" style="border-style:solid;border-width:1px;border-radius:4px;padding-top:1em;padding-right:1em;padding-bottom:1em;padding-left:1em"><strong>' . esc_html__( 'Primary Hover', 'jj-style-guide' ) . '</strong><br>var(--jj-primary-color-hover)</p>
-<!--/wp:paragraph-->
-</div>
-<!--/wp:column-->
-
-<!--wp:column-->
-<div class="wp-block-column">
-<!--wp:paragraph {"align":"center","className":"jj-preview-color-box jj-preview-color-secondary","style":{"border":{"width":"1px","style":"solid","radius":"4px"},"spacing":{"padding":{"top":"1em","right":"1em","bottom":"1em","left":"1em"}}}}-->
-<p class="has-text-align-center jj-preview-color-box jj-preview-color-secondary" style="border-style:solid;border-width:1px;border-radius:4px;padding-top:1em;padding-right:1em;padding-bottom:1em;padding-left:1em"><strong>' . esc_html__( 'Secondary', 'jj-style-guide' ) . '</strong><br>var(--jj-secondary-color)</p>
-<!--/wp:paragraph-->
-</div>
-<!--/wp:column-->
-
-<!--wp:column-->
-<div class="wp-block-column">
-<!--wp:paragraph {"align":"center","className":"jj-preview-color-box jj-preview-color-secondary-hover","style":{"border":{"width":"1px","style":"solid","radius":"4px"},"spacing":{"padding":{"top":"1em","right":"1em","bottom":"1em","left":"1em"}}}}-->
-<p class="has-text-align-center jj-preview-color-box jj-preview-color-secondary-hover" style="border-style:solid;border-width:1px;border-radius:4px;padding-top:1em;padding-right:1em;padding-bottom:1em;padding-left:1em"><strong>' . esc_html__( 'Secondary Hover', 'jj-style-guide' ) . '</strong><br>var(--jj-secondary-color-hover)</p>
-<!--/wp:paragraph-->
-</div>
-<!--/wp:column-->
-</div>
-<!--/wp:columns-->
-
-<!--wp:spacer {"height":"40px"}-->
-<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
-<!--/wp:spacer-->
-
-<!--wp:heading {"level":2}-->
-<h2 class="wp-block-heading">' . esc_html__( 'Buttons', 'jj-style-guide' ) . '</h2>
-<!--/wp:heading-->
-
-<!--wp:buttons-->
-<div class="wp-block-buttons">
-<!--wp:button {"className":"jj-preview-button-primary"}-->
-<div class="wp-block-button jj-preview-button-primary"><a class="wp-block-button__link wp-element-button">' . esc_html__( 'Primary Button', 'jj-style-guide' ) . '</a></div>
-<!--/wp:button-->
-
-<!--wp:button {"className":"is-style-outline jj-preview-button-secondary"}-->
-<div class="wp-block-button is-style-outline jj-preview-button-secondary"><a class="wp-block-button__link wp-element-button">' . esc_html__( 'Secondary Button', 'jj-style-guide' ) . '</a></div>
-<!--/wp:button-->
-
-<!--wp:button {"className":"is-style-minimal jj-preview-button-tertiary"}-->
-<div class="wp-block-button is-style-minimal jj-preview-button-tertiary"><a class="wp-block-button__link wp-element-button">' . esc_html__( 'Tertiary (Text) Button', 'jj-style-guide' ) . '</a></div>
-<!--/wp:button-->
-</div>
-<!--/wp:buttons-->
-
-<!--wp:spacer {"height":"40px"}-->
-<div style="height:40px" aria-hidden="true" class="wp-block-spacer"></div>
-<!--/wp:spacer-->
-
-<!--wp:heading {"level":2}-->
-<h2 class="wp-block-heading">' . esc_html__( 'Forms & Fields', 'jj-style-guide' ) . '</h2>
-<!--/wp:heading-->
-
-<!--wp:html-->
-<div class="jj-preview-forms" style="max-width: 600px; margin: 0 auto;">
-<form style="background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-<div style="margin-bottom: 15px;">
-<label for="jj-preview-input-text" style="display: block; margin-bottom: 5px; font-weight: 600; color: var(--jj-form-label-color, #333);">' . esc_html__( 'Text Input', 'jj-style-guide' ) . '</label>
-<input type="text" id="jj-preview-input-text" placeholder="' . esc_attr__( 'Enter text here...', 'jj-style-guide' ) . '" style="width: 100%; padding: var(--jj-form-input-padding, 8px); border: 1px solid var(--jj-form-input-border, #ccc); border-radius: var(--jj-form-input-border-radius, 4px); font-size: 14px;" />
-</div>
-<div style="margin-bottom: 15px;">
-<label for="jj-preview-textarea" style="display: block; margin-bottom: 5px; font-weight: 600; color: var(--jj-form-label-color, #333);">' . esc_html__( 'Textarea', 'jj-style-guide' ) . '</label>
-<textarea id="jj-preview-textarea" rows="4" placeholder="' . esc_attr__( 'Enter your message...', 'jj-style-guide' ) . '" style="width: 100%; padding: var(--jj-form-input-padding, 8px); border: 1px solid var(--jj-form-input-border, #ccc); border-radius: var(--jj-form-input-border-radius, 4px); font-size: 14px; font-family: inherit;"></textarea>
-</div>
-<div style="margin-bottom: 15px;">
-<label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-<input type="checkbox" style="width: 18px; height: 18px; cursor: pointer;" />
-<span style="color: var(--jj-form-label-color, #333);">' . esc_html__( 'I agree to the terms and conditions', 'jj-style-guide' ) . '</span>
-</label>
-</div>
-<button type="submit" class="jj-preview-button-primary" style="background: var(--jj-btn-primary-bg, #0073e6); color: var(--jj-btn-primary-text, #fff); border: 1px solid var(--jj-btn-primary-border, #0073e6); border-radius: var(--jj-btn-primary-border-radius, 4px); padding: var(--jj-btn-primary-padding-top, 12px) var(--jj-btn-primary-padding-right, 24px); cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s ease;">' . esc_html__( 'Submit', 'jj-style-guide' ) . '</button>
-</form>
-</div>
-<!--/wp:html-->
-';
+<!-- wp:shortcode -->
+[jj_style_guide_live]
+<!-- /wp:shortcode -->';
         return $content;
     }
 }

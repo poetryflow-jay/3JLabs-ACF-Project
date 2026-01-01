@@ -68,8 +68,8 @@ final class JJ_License_Issuer {
 
         add_submenu_page(
             'options-general.php',
-            __( '라이센스 발행 관리', 'jj-style-guide' ),
-            __( '라이센스 발행 관리', 'jj-style-guide' ),
+            __( '라이센스 발행 관리', 'acf-css-really-simple-style-management-center' ),
+            __( '라이센스 발행 관리', 'acf-css-really-simple-style-management-center' ),
             'manage_options',
             'jj-license-issuer',
             array( $this, 'render_license_issuer_page' )
@@ -106,11 +106,11 @@ final class JJ_License_Issuer {
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'nonce'    => wp_create_nonce( 'jj_license_issuer_action' ),
                 'i18n'     => array(
-                    'confirm_delete' => __( '정말로 이 라이센스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.', 'jj-style-guide' ),
-                    'confirm_deactivate' => __( '정말로 이 라이센스를 비활성화하시겠습니까?', 'jj-style-guide' ),
-                    'generating' => __( '라이센스 생성 중...', 'jj-style-guide' ),
-                    'success' => __( '성공', 'jj-style-guide' ),
-                    'error' => __( '오류', 'jj-style-guide' ),
+                    'confirm_delete' => __( '정말로 이 라이센스를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.', 'acf-css-really-simple-style-management-center' ),
+                    'confirm_deactivate' => __( '정말로 이 라이센스를 비활성화하시겠습니까?', 'acf-css-really-simple-style-management-center' ),
+                    'generating' => __( '라이센스 생성 중...', 'acf-css-really-simple-style-management-center' ),
+                    'success' => __( '성공', 'acf-css-really-simple-style-management-center' ),
+                    'error' => __( '오류', 'acf-css-really-simple-style-management-center' ),
                 ),
             )
         );
@@ -127,9 +127,9 @@ final class JJ_License_Issuer {
         if ( ! $this->is_master_version() ) {
             ?>
             <div class="wrap">
-                <h1><?php _e( '라이센스 발행 관리', 'jj-style-guide' ); ?></h1>
+                <h1><?php _e( '라이센스 발행 관리', 'acf-css-really-simple-style-management-center' ); ?></h1>
                 <div class="notice notice-error">
-                    <p><?php _e( '이 기능은 마스터 버전에서만 사용할 수 있습니다.', 'jj-style-guide' ); ?></p>
+                    <p><?php _e( '이 기능은 마스터 버전에서만 사용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                 </div>
             </div>
             <?php
@@ -139,48 +139,48 @@ final class JJ_License_Issuer {
         $licenses = $this->get_all_licenses();
         ?>
         <div class="wrap jj-license-issuer-wrap">
-            <h1><?php _e( 'J&J 라이센스 발행 관리', 'jj-style-guide' ); ?></h1>
+            <h1><?php _e( 'J&J 라이센스 발행 관리', 'acf-css-really-simple-style-management-center' ); ?></h1>
             
             <div class="jj-license-issuer-header" style="margin: 20px 0; padding: 20px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px;">
-                <h2 style="margin-top: 0;"><?php _e( '새 라이센스 발행', 'jj-style-guide' ); ?></h2>
+                <h2 style="margin-top: 0;"><?php _e( '새 라이센스 발행', 'acf-css-really-simple-style-management-center' ); ?></h2>
                 <form id="jj-generate-license-form" method="post">
                     <table class="form-table">
                         <tbody>
                             <tr>
                                 <th scope="row">
-                                    <label for="jj-license-type"><?php _e( '라이센스 타입', 'jj-style-guide' ); ?></label>
+                                    <label for="jj-license-type"><?php _e( '라이센스 타입', 'acf-css-really-simple-style-management-center' ); ?></label>
                                 </th>
                                 <td>
                                     <select id="jj-license-type" name="license_type" required style="width: 300px; padding: 8px;">
-                                        <option value=""><?php _e( '선택하세요', 'jj-style-guide' ); ?></option>
-                                        <option value="FREE"><?php _e( 'Free', 'jj-style-guide' ); ?></option>
-                                        <option value="BASIC"><?php _e( 'Basic', 'jj-style-guide' ); ?></option>
-                                        <option value="PREM"><?php _e( 'Premium', 'jj-style-guide' ); ?></option>
-                                        <option value="UNLIM"><?php _e( 'Unlimited', 'jj-style-guide' ); ?></option>
+                                        <option value=""><?php _e( '선택하세요', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                        <option value="FREE"><?php _e( 'Free', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                        <option value="BASIC"><?php _e( 'Basic', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                        <option value="PREM"><?php _e( 'Premium', 'acf-css-really-simple-style-management-center' ); ?></option>
+                                        <option value="UNLIM"><?php _e( 'Unlimited', 'acf-css-really-simple-style-management-center' ); ?></option>
                                     </select>
                                     <p class="description">
-                                        <?php _e( '발행할 라이센스의 타입을 선택하세요.', 'jj-style-guide' ); ?>
+                                        <?php _e( '발행할 라이센스의 타입을 선택하세요.', 'acf-css-really-simple-style-management-center' ); ?>
                                     </p>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="jj-license-customer"><?php _e( '고객명/메모', 'jj-style-guide' ); ?></label>
+                                    <label for="jj-license-customer"><?php _e( '고객명/메모', 'acf-css-really-simple-style-management-center' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="text" 
                                            id="jj-license-customer" 
                                            name="customer" 
                                            class="regular-text" 
-                                           placeholder="<?php esc_attr_e( '예: 홍길동, example@email.com', 'jj-style-guide' ); ?>">
+                                           placeholder="<?php esc_attr_e( '예: 홍길동, example@email.com', 'acf-css-really-simple-style-management-center' ); ?>">
                                     <p class="description">
-                                        <?php _e( '라이센스 구매자 정보나 메모를 입력하세요 (선택사항).', 'jj-style-guide' ); ?>
+                                        <?php _e( '라이센스 구매자 정보나 메모를 입력하세요 (선택사항).', 'acf-css-really-simple-style-management-center' ); ?>
                                     </p>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="jj-license-expires"><?php _e( '만료일', 'jj-style-guide' ); ?></label>
+                                    <label for="jj-license-expires"><?php _e( '만료일', 'acf-css-really-simple-style-management-center' ); ?></label>
                                 </th>
                                 <td>
                                     <input type="date" 
@@ -189,7 +189,7 @@ final class JJ_License_Issuer {
                                            class="regular-text"
                                            min="<?php echo date( 'Y-m-d' ); ?>">
                                     <p class="description">
-                                        <?php _e( '라이센스 만료일을 설정하세요. 비워두면 1년 후로 설정됩니다. (선택사항)', 'jj-style-guide' ); ?>
+                                        <?php _e( '라이센스 만료일을 설정하세요. 비워두면 1년 후로 설정됩니다. (선택사항)', 'acf-css-really-simple-style-management-center' ); ?>
                                     </p>
                                 </td>
                             </tr>
@@ -199,7 +199,7 @@ final class JJ_License_Issuer {
                         <?php wp_nonce_field( 'jj_license_issuer_action', 'jj_license_issuer_nonce' ); ?>
                         <button type="submit" class="button button-primary button-large" id="jj-generate-license-btn">
                             <span class="dashicons dashicons-admin-network" style="margin-top: 4px;"></span>
-                            <?php _e( '라이센스 생성', 'jj-style-guide' ); ?>
+                            <?php _e( '라이센스 생성', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                         <span class="spinner" style="float: none; margin-left: 10px;"></span>
                     </p>
@@ -207,14 +207,14 @@ final class JJ_License_Issuer {
             </div>
 
             <div class="jj-license-issuer-list" style="margin: 20px 0;">
-                <h2><?php _e( '발행된 라이센스 목록', 'jj-style-guide' ); ?></h2>
+                <h2><?php _e( '발행된 라이센스 목록', 'acf-css-really-simple-style-management-center' ); ?></h2>
                 <div class="jj-license-stats" style="margin-bottom: 20px; padding: 15px; background: #f0f6fc; border: 1px solid #c3c4c7; border-radius: 4px;">
-                    <strong><?php _e( '통계:', 'jj-style-guide' ); ?></strong>
+                    <strong><?php _e( '통계:', 'acf-css-really-simple-style-management-center' ); ?></strong>
                     <span style="margin-left: 15px;">
                         <?php
                         $stats = $this->get_license_stats();
                         printf(
-                            __( '전체: %d개 | 활성화됨: %d개 | 비활성화됨: %d개 | 사용 중: %d개', 'jj-style-guide' ),
+                            __( '전체: %d개 | 활성화됨: %d개 | 비활성화됨: %d개 | 사용 중: %d개', 'acf-css-really-simple-style-management-center' ),
                             $stats['total'],
                             $stats['active'],
                             $stats['inactive'],
@@ -227,21 +227,21 @@ final class JJ_License_Issuer {
                 <table class="wp-list-table widefat fixed striped">
                     <thead>
                         <tr>
-                            <th style="width: 200px;"><?php _e( '라이센스 키', 'jj-style-guide' ); ?></th>
-                            <th style="width: 100px;"><?php _e( '타입', 'jj-style-guide' ); ?></th>
-                            <th style="width: 150px;"><?php _e( '고객명/메모', 'jj-style-guide' ); ?></th>
-                            <th style="width: 120px;"><?php _e( '상태', 'jj-style-guide' ); ?></th>
-                            <th style="width: 200px;"><?php _e( '활성화된 사이트', 'jj-style-guide' ); ?></th>
-                            <th style="width: 120px;"><?php _e( '발행일', 'jj-style-guide' ); ?></th>
-                            <th style="width: 120px;"><?php _e( '만료일', 'jj-style-guide' ); ?></th>
-                            <th style="width: 150px;"><?php _e( '작업', 'jj-style-guide' ); ?></th>
+                            <th style="width: 200px;"><?php _e( '라이센스 키', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th style="width: 100px;"><?php _e( '타입', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th style="width: 150px;"><?php _e( '고객명/메모', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th style="width: 120px;"><?php _e( '상태', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th style="width: 200px;"><?php _e( '활성화된 사이트', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th style="width: 120px;"><?php _e( '발행일', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th style="width: 120px;"><?php _e( '만료일', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th style="width: 150px;"><?php _e( '작업', 'acf-css-really-simple-style-management-center' ); ?></th>
                         </tr>
                     </thead>
                     <tbody id="jj-license-list-body">
                         <?php if ( empty( $licenses ) ) : ?>
                         <tr>
                             <td colspan="8" style="text-align: center; padding: 30px;">
-                                <?php _e( '발행된 라이센스가 없습니다.', 'jj-style-guide' ); ?>
+                                <?php _e( '발행된 라이센스가 없습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                             </td>
                         </tr>
                         <?php else : ?>
@@ -259,7 +259,7 @@ final class JJ_License_Issuer {
                                         data-license-key="<?php echo esc_attr( $license_key ); ?>"
                                         style="margin-top: 5px; font-size: 11px; padding: 2px 8px; height: 24px;">
                                     <span class="dashicons dashicons-admin-page" style="font-size: 12px; margin-top: 2px;"></span>
-                                    <?php _e( '복사', 'jj-style-guide' ); ?>
+                                    <?php _e( '복사', 'acf-css-really-simple-style-management-center' ); ?>
                                 </button>
                             </td>
                             <td>
@@ -272,11 +272,11 @@ final class JJ_License_Issuer {
                             </td>
                             <td>
                                 <?php if ( $is_expired ) : ?>
-                                    <span class="jj-status-badge expired"><?php _e( '만료됨', 'jj-style-guide' ); ?></span>
+                                    <span class="jj-status-badge expired"><?php _e( '만료됨', 'acf-css-really-simple-style-management-center' ); ?></span>
                                 <?php elseif ( $is_active ) : ?>
-                                    <span class="jj-status-badge active"><?php _e( '활성화됨', 'jj-style-guide' ); ?></span>
+                                    <span class="jj-status-badge active"><?php _e( '활성화됨', 'acf-css-really-simple-style-management-center' ); ?></span>
                                 <?php else : ?>
-                                    <span class="jj-status-badge inactive"><?php _e( '비활성화됨', 'jj-style-guide' ); ?></span>
+                                    <span class="jj-status-badge inactive"><?php _e( '비활성화됨', 'acf-css-really-simple-style-management-center' ); ?></span>
                                 <?php endif; ?>
                             </td>
                             <td>
@@ -287,13 +287,13 @@ final class JJ_License_Issuer {
                                             <strong><?php echo esc_html( $activation['site_url'] ?? 'Unknown' ); ?></strong>
                                             <br>
                                             <small style="color: #666;">
-                                                <?php printf( __( '활성화: %s', 'jj-style-guide' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $activation['activated_at'] ?? time() ) ); ?>
+                                                <?php printf( __( '활성화: %s', 'acf-css-really-simple-style-management-center' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $activation['activated_at'] ?? time() ) ); ?>
                                             </small>
                                         </div>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php else : ?>
-                                    <span style="color: #999;"><?php _e( '없음', 'jj-style-guide' ); ?></span>
+                                    <span style="color: #999;"><?php _e( '없음', 'acf-css-really-simple-style-management-center' ); ?></span>
                                 <?php endif; ?>
                             </td>
                             <td>
@@ -305,10 +305,10 @@ final class JJ_License_Issuer {
                                     $expires_timestamp = strtotime( $license_data['expires'] );
                                     echo date_i18n( get_option( 'date_format' ), $expires_timestamp );
                                     if ( $is_expired ) {
-                                        echo ' <span style="color: #d63638;">(' . __( '만료', 'jj-style-guide' ) . ')</span>';
+                                        echo ' <span style="color: #d63638;">(' . __( '만료', 'acf-css-really-simple-style-management-center' ) . ')</span>';
                                     }
                                 } else {
-                                    echo __( '무제한', 'jj-style-guide' );
+                                    echo __( '무제한', 'acf-css-really-simple-style-management-center' );
                                 }
                                 ?>
                             </td>
@@ -319,27 +319,27 @@ final class JJ_License_Issuer {
                                             class="button button-small jj-deactivate-license" 
                                             data-license-key="<?php echo esc_attr( $license_key ); ?>"
                                             style="font-size: 11px; padding: 2px 8px; height: 26px;">
-                                        <?php _e( '비활성화', 'jj-style-guide' ); ?>
+                                        <?php _e( '비활성화', 'acf-css-really-simple-style-management-center' ); ?>
                                     </button>
                                     <?php else : ?>
                                     <button type="button" 
                                             class="button button-small jj-activate-license" 
                                             data-license-key="<?php echo esc_attr( $license_key ); ?>"
                                             style="font-size: 11px; padding: 2px 8px; height: 26px;">
-                                        <?php _e( '활성화', 'jj-style-guide' ); ?>
+                                        <?php _e( '활성화', 'acf-css-really-simple-style-management-center' ); ?>
                                     </button>
                                     <?php endif; ?>
                                     <button type="button" 
                                             class="button button-small jj-check-license-status" 
                                             data-license-key="<?php echo esc_attr( $license_key ); ?>"
                                             style="font-size: 11px; padding: 2px 8px; height: 26px;">
-                                        <?php _e( '상태 확인', 'jj-style-guide' ); ?>
+                                        <?php _e( '상태 확인', 'acf-css-really-simple-style-management-center' ); ?>
                                     </button>
                                     <button type="button" 
                                             class="button button-small button-link-delete jj-delete-license" 
                                             data-license-key="<?php echo esc_attr( $license_key ); ?>"
                                             style="font-size: 11px; padding: 2px 8px; height: 26px; color: #b32d2e;">
-                                        <?php _e( '삭제', 'jj-style-guide' ); ?>
+                                        <?php _e( '삭제', 'acf-css-really-simple-style-management-center' ); ?>
                                     </button>
                                 </div>
                             </td>
@@ -367,7 +367,7 @@ final class JJ_License_Issuer {
         if ( ! in_array( $type, $allowed_types ) ) {
             return array(
                 'success' => false,
-                'message' => __( '유효하지 않은 라이센스 타입입니다.', 'jj-style-guide' ),
+                'message' => __( '유효하지 않은 라이센스 타입입니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
 
@@ -405,7 +405,7 @@ final class JJ_License_Issuer {
         return array(
             'success' => true,
             'license_key' => $license_key,
-            'message' => __( '라이센스 키가 생성되었습니다.', 'jj-style-guide' ),
+            'message' => __( '라이센스 키가 생성되었습니다.', 'acf-css-really-simple-style-management-center' ),
             'data' => $licenses[ $license_key ],
         );
     }
@@ -443,7 +443,7 @@ final class JJ_License_Issuer {
         if ( ! isset( $licenses[ $license_key ] ) ) {
             return array(
                 'success' => false,
-                'message' => __( '라이센스를 찾을 수 없습니다.', 'jj-style-guide' ),
+                'message' => __( '라이센스를 찾을 수 없습니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
         
@@ -454,8 +454,8 @@ final class JJ_License_Issuer {
         return array(
             'success' => true,
             'message' => $status === 'active' 
-                ? __( '라이센스가 활성화되었습니다.', 'jj-style-guide' )
-                : __( '라이센스가 비활성화되었습니다.', 'jj-style-guide' ),
+                ? __( '라이센스가 활성화되었습니다.', 'acf-css-really-simple-style-management-center' )
+                : __( '라이센스가 비활성화되었습니다.', 'acf-css-really-simple-style-management-center' ),
         );
     }
 
@@ -471,7 +471,7 @@ final class JJ_License_Issuer {
         if ( ! isset( $licenses[ $license_key ] ) ) {
             return array(
                 'success' => false,
-                'message' => __( '라이센스를 찾을 수 없습니다.', 'jj-style-guide' ),
+                'message' => __( '라이센스를 찾을 수 없습니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
         
@@ -487,7 +487,7 @@ final class JJ_License_Issuer {
         
         return array(
             'success' => true,
-            'message' => __( '라이센스가 삭제되었습니다.', 'jj-style-guide' ),
+            'message' => __( '라이센스가 삭제되었습니다.', 'acf-css-really-simple-style-management-center' ),
         );
     }
 
@@ -578,11 +578,11 @@ final class JJ_License_Issuer {
         check_ajax_referer( 'jj_license_issuer_action', 'nonce' );
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         if ( ! $this->is_master_version() ) {
-            wp_send_json_error( array( 'message' => __( '마스터 버전에서만 사용할 수 있습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '마스터 버전에서만 사용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $type = isset( $_POST['license_type'] ) ? sanitize_text_field( $_POST['license_type'] ) : '';
@@ -590,7 +590,7 @@ final class JJ_License_Issuer {
         $expires = isset( $_POST['expires'] ) ? sanitize_text_field( $_POST['expires'] ) : '';
         
         if ( empty( $type ) ) {
-            wp_send_json_error( array( 'message' => __( '라이센스 타입을 선택하세요.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스 타입을 선택하세요.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $result = $this->generate_license_key( $type, $customer, $expires );
@@ -609,14 +609,14 @@ final class JJ_License_Issuer {
         check_ajax_referer( 'jj_license_issuer_action', 'nonce' );
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
         $status = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : 'inactive';
         
         if ( empty( $license_key ) ) {
-            wp_send_json_error( array( 'message' => __( '라이센스 키가 필요합니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스 키가 필요합니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $result = $this->set_license_status( $license_key, $status );
@@ -635,26 +635,26 @@ final class JJ_License_Issuer {
         check_ajax_referer( 'jj_license_issuer_action', 'nonce' );
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
         
         if ( empty( $license_key ) ) {
-            wp_send_json_error( array( 'message' => __( '라이센스 키가 필요합니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스 키가 필요합니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $license = $this->get_license( $license_key );
         $activations = $this->get_license_activations( $license_key );
         
         if ( ! $license ) {
-            wp_send_json_error( array( 'message' => __( '라이센스를 찾을 수 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스를 찾을 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         wp_send_json_success( array(
             'license' => $license,
             'activations' => $activations,
-            'message' => __( '라이센스 상태를 확인했습니다.', 'jj-style-guide' ),
+            'message' => __( '라이센스 상태를 확인했습니다.', 'acf-css-really-simple-style-management-center' ),
         ) );
     }
 
@@ -665,13 +665,13 @@ final class JJ_License_Issuer {
         check_ajax_referer( 'jj_license_issuer_action', 'nonce' );
         
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
         
         if ( empty( $license_key ) ) {
-            wp_send_json_error( array( 'message' => __( '라이센스 키가 필요합니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '라이센스 키가 필요합니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
         
         $result = $this->delete_license( $license_key );

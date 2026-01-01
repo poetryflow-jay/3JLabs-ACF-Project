@@ -109,8 +109,8 @@ if ( ! class_exists( 'JJ_Multisite_Controller' ) ) {
             }
             add_submenu_page(
                 'settings.php',
-                __( 'ACF CSS Network', 'jj-style-guide' ),
-                __( 'ACF CSS Network', 'jj-style-guide' ),
+                __( 'ACF CSS Network', 'acf-css-really-simple-style-management-center' ),
+                __( 'ACF CSS Network', 'acf-css-really-simple-style-management-center' ),
                 'manage_network_options',
                 'acf-css-network',
                 array( $this, 'render_network_page' )
@@ -144,7 +144,7 @@ if ( ! class_exists( 'JJ_Multisite_Controller' ) ) {
                         $decoded = $tmp;
                     } else {
                         $notice_type = 'error';
-                        $notice = __( '네트워크 기본값 JSON이 올바르지 않습니다.', 'jj-style-guide' );
+                        $notice = __( '네트워크 기본값 JSON이 올바르지 않습니다.', 'acf-css-really-simple-style-management-center' );
                     }
                 }
 
@@ -157,7 +157,7 @@ if ( ! class_exists( 'JJ_Multisite_Controller' ) ) {
                     if ( function_exists( 'update_site_option' ) ) {
                         update_site_option( $this->site_option_key, $new_cfg );
                         $cfg = $this->get_network_config();
-                        $notice = __( '네트워크 설정이 저장되었습니다.', 'jj-style-guide' );
+                        $notice = __( '네트워크 설정이 저장되었습니다.', 'acf-css-really-simple-style-management-center' );
                     }
                 }
             }
@@ -176,10 +176,10 @@ if ( ! class_exists( 'JJ_Multisite_Controller' ) ) {
                         restore_current_blog();
                         $applied++;
                     }
-                    $notice = sprintf( __( '네트워크 기본값을 %d개 사이트에 적용했습니다. (상한: 200)', 'jj-style-guide' ), $applied );
+                    $notice = sprintf( __( '네트워크 기본값을 %d개 사이트에 적용했습니다. (상한: 200)', 'acf-css-really-simple-style-management-center' ), $applied );
                 } else {
                     $notice_type = 'error';
-                    $notice = __( '멀티사이트 적용에 필요한 WordPress 함수가 로드되지 않았습니다.', 'jj-style-guide' );
+                    $notice = __( '멀티사이트 적용에 필요한 WordPress 함수가 로드되지 않았습니다.', 'acf-css-really-simple-style-management-center' );
                 }
             }
 
@@ -191,8 +191,8 @@ if ( ! class_exists( 'JJ_Multisite_Controller' ) ) {
             }
             ?>
             <div class="wrap">
-                <h1><?php esc_html_e( 'ACF CSS Network Control', 'jj-style-guide' ); ?></h1>
-                <p class="description"><?php esc_html_e( '멀티사이트 환경에서 네트워크 기본 스타일을 설정하고, 전체 사이트에 일괄 적용할 수 있습니다.', 'jj-style-guide' ); ?></p>
+                <h1><?php esc_html_e( 'ACF CSS Network Control', 'acf-css-really-simple-style-management-center' ); ?></h1>
+                <p class="description"><?php esc_html_e( '멀티사이트 환경에서 네트워크 기본 스타일을 설정하고, 전체 사이트에 일괄 적용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
 
                 <?php if ( $notice ) : ?>
                     <div class="<?php echo ( 'error' === $notice_type ) ? 'notice notice-error' : 'notice notice-success'; ?>"><p><?php echo esc_html( $notice ); ?></p></div>
@@ -203,39 +203,39 @@ if ( ! class_exists( 'JJ_Multisite_Controller' ) ) {
 
                     <table class="form-table">
                         <tr>
-                            <th scope="row"><?php esc_html_e( '네트워크 제어 활성화', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '네트워크 제어 활성화', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <label>
                                     <input type="checkbox" name="jj_network_enabled" value="1" <?php checked( ! empty( $cfg['enabled'] ), true ); ?> />
-                                    <?php esc_html_e( '네트워크 기본값을 사이트에 적용', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( '네트워크 기본값을 사이트에 적용', 'acf-css-really-simple-style-management-center' ); ?>
                                 </label>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( '사이트별 오버라이드', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '사이트별 오버라이드', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <label>
                                     <input type="checkbox" name="jj_network_allow_override" value="1" <?php checked( ! empty( $cfg['allow_site_override'] ), true ); ?> />
-                                    <?php esc_html_e( '각 사이트 설정이 네트워크 기본값을 덮어쓸 수 있음', 'jj-style-guide' ); ?>
+                                    <?php esc_html_e( '각 사이트 설정이 네트워크 기본값을 덮어쓸 수 있음', 'acf-css-really-simple-style-management-center' ); ?>
                                 </label>
-                                <p class="description"><?php esc_html_e( '끄면 각 사이트의 저장은 제한되며(권장: 네트워크 전용 운영 시), 네트워크 기본값만 적용됩니다.', 'jj-style-guide' ); ?></p>
+                                <p class="description"><?php esc_html_e( '끄면 각 사이트의 저장은 제한되며(권장: 네트워크 전용 운영 시), 네트워크 기본값만 적용됩니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( '네트워크 기본값(JSON)', 'jj-style-guide' ); ?></th>
+                            <th scope="row"><?php esc_html_e( '네트워크 기본값(JSON)', 'acf-css-really-simple-style-management-center' ); ?></th>
                             <td>
                                 <textarea name="jj_network_options_json" rows="14" class="large-text code"><?php echo esc_textarea( $json_value ); ?></textarea>
-                                <p class="description"><?php esc_html_e( '스타일 옵션을 JSON 형태로 저장합니다. (고급 사용자용)', 'jj-style-guide' ); ?></p>
+                                <p class="description"><?php esc_html_e( '스타일 옵션을 JSON 형태로 저장합니다. (고급 사용자용)', 'acf-css-really-simple-style-management-center' ); ?></p>
                             </td>
                         </tr>
                     </table>
 
                     <p class="submit">
                         <button type="submit" name="jj_network_save" class="button button-primary">
-                            <?php esc_html_e( '저장', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '저장', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                         <button type="submit" name="jj_network_apply_all" class="button button-secondary" onclick="return confirm('네트워크 기본값을 최대 200개 사이트에 덮어씁니다. 진행하시겠습니까?');">
-                            <?php esc_html_e( '전체 사이트에 적용(덮어쓰기)', 'jj-style-guide' ); ?>
+                            <?php esc_html_e( '전체 사이트에 적용(덮어쓰기)', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                     </p>
                 </form>

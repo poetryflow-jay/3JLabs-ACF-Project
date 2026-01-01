@@ -25,19 +25,19 @@ $ld_korea = $ld_contexts['korea'] ?? array();
     <div class="jj-tabs-container">
         <div class="jj-tabs-nav">
             <button type="button" class="jj-tab-button is-active" data-tab="ld-dashboard">
-                <?php _e( '코어 / 대시보드', 'jj-style-guide' ); ?>
+                <?php _e( '코어 / 대시보드', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="jj-tab-button" data-tab="ld-propanel">
-                <?php _e( 'ProPanel', 'jj-style-guide' ); ?>
+                <?php _e( 'ProPanel', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="jj-tab-button" data-tab="ld-korea">
-                <?php _e( 'LearnDash K', 'jj-style-guide' ); ?>
+                <?php _e( 'LearnDash K', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
         </div>
 
         <div class="jj-tab-content is-active" data-tab-content="ld-dashboard">
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( 'LearnDash Dashboard 색상', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( 'LearnDash Dashboard 색상', 'acf-css-really-simple-style-management-center' ); ?></legend>
                 <div class="jj-style-guide-grid jj-grid-4-col">
                     
                     <div class="jj-control-group jj-color-card">
@@ -71,11 +71,11 @@ $ld_korea = $ld_contexts['korea'] ?? array();
 
         <div class="jj-tab-content" data-tab-content="ld-propanel">
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( 'LearnDash ProPanel 스타일', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( 'LearnDash ProPanel 스타일', 'acf-css-really-simple-style-management-center' ); ?></legend>
                 <div class="jj-style-guide-grid jj-grid-4-col">
                     
                     <div class="jj-control-group jj-color-card">
-                        <label for="jj-ld-propanel-progress"><?php _e( '진행도 바 색상 (Progress Bar)', 'jj-style-guide' ); ?></label>
+                        <label for="jj-ld-propanel-progress"><?php _e( '진행도 바 색상 (Progress Bar)', 'acf-css-really-simple-style-management-center' ); ?></label>
                         <input type="text" 
                                id="jj-ld-propanel-progress" 
                                class="jj-color-field jj-data-field" 
@@ -93,11 +93,11 @@ $ld_korea = $ld_contexts['korea'] ?? array();
         
         <div class="jj-tab-content" data-tab-content="ld-korea">
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( 'LearnDash K (단비스토어) 스타일', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( 'LearnDash K (단비스토어) 스타일', 'acf-css-really-simple-style-management-center' ); ?></legend>
                  <div class="jj-style-guide-grid jj-grid-4-col">
                     
                     <div class="jj-control-group jj-color-card">
-                        <label for="jj-ld-korea-button"><?php _e( '단비 버튼 색상', 'jj-style-guide' ); ?></label>
+                        <label for="jj-ld-korea-button"><?php _e( '단비 버튼 색상', 'acf-css-really-simple-style-management-center' ); ?></label>
                         <input type="text" 
                                id="jj-ld-korea-button" 
                                class="jj-color-field jj-data-field" 

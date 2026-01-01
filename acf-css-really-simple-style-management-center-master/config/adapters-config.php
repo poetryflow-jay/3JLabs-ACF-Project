@@ -90,6 +90,7 @@ return array(
         'beaver-builder'   => 'beaver-builder-lite-version/fl-builder.php', // [v3.7.0 '신규']
         'bricks'           => 'bricks/bricks.php', // [v6.2.0 Phase 8 '신규']
         'breakdance'       => 'breakdance/plugin.php', // [v6.2.0 Phase 8 '신규']
+        'wpbakery'         => 'js_composer/js_composer.php', // [v10.2.0 Phase 10.2 '신규'] WPBakery Page Builder
 
         // 코어 / 공통 블록 어댑터는 별도 플러그인 감지 없이 항상 동작하도록 설계 (JJ_Adapter_Spoke_Blocks_Core)
 

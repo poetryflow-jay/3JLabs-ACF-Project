@@ -219,22 +219,22 @@ if ( ! function_exists( 'jj_style_guide_get_spoke_label' ) ) {
 ?>
 
 <div class="jj-section-global" id="jj-section-labs">
-    <h2 class="jj-section-title"><?php _e( '5. 실험실 (Labs)', 'jj-style-guide' ); ?></h2>
+    <h2 class="jj-section-title"><?php _e( '5. 실험실 (Labs)', 'acf-css-really-simple-style-management-center' ); ?></h2>
     <p class="description">
-        <?php _e( '실험실은 아직 공식 지원되지 않는 테마나 플러그인의 스타일을 분석하고 조정하기 위한 고급 도구입니다. 사이트 환경에 맞추어 점진적으로 개선·확장될 예정입니다.', 'jj-style-guide' ); ?>
+        <?php _e( '실험실은 아직 공식 지원되지 않는 테마나 플러그인의 스타일을 분석하고 조정하기 위한 고급 도구입니다. 사이트 환경에 맞추어 점진적으로 개선·확장될 예정입니다.', 'acf-css-really-simple-style-management-center' ); ?>
     </p>
 
     <div class="jj-labs-supported-adapters">
-        <h3><?php _e( '공식 지원 테마 및 플러그인', 'jj-style-guide' ); ?></h3>
+        <h3><?php _e( '공식 지원 테마 및 플러그인', 'acf-css-really-simple-style-management-center' ); ?></h3>
         <p class="description">
-            <?php _e( '현재 어댑터가 제공되는 공식 지원 테마와 플러그인 목록입니다. 이 목록은 어댑터 설정에 따라 자동으로 갱신되며, 우선 일부 항목만 먼저 보여줍니다.', 'jj-style-guide' ); ?>
+            <?php _e( '현재 어댑터가 제공되는 공식 지원 테마와 플러그인 목록입니다. 이 목록은 어댑터 설정에 따라 자동으로 갱신되며, 우선 일부 항목만 먼저 보여줍니다.', 'acf-css-really-simple-style-management-center' ); ?>
         </p>
 
         <div class="jj-labs-supported-blocks">
             <div class="jj-labs-supported-item jj-labs-supported-themes" data-type="themes">
-                <strong><?php _e( '공식 지원 테마', 'jj-style-guide' ); ?></strong>
+                <strong><?php _e( '공식 지원 테마', 'acf-css-really-simple-style-management-center' ); ?></strong>
                 <p class="description">
-                    <?php _e( '아래 목록은 어댑터가 준비된 테마 중 일부만 먼저 보여주며, 더 보기/전체 보기 버튼을 통해 나머지를 확인하실 수 있습니다.', 'jj-style-guide' ); ?>
+                    <?php _e( '아래 목록은 어댑터가 준비된 테마 중 일부만 먼저 보여주며, 더 보기/전체 보기 버튼을 통해 나머지를 확인하실 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                 </p>
                 <ul class="jj-labs-supported-list" data-initial-count="<?php echo esc_attr( $initial_theme_count ); ?>">
                     <?php
@@ -250,15 +250,15 @@ if ( ! function_exists( 'jj_style_guide_get_spoke_label' ) ) {
                     <?php endforeach; ?>
                 </ul>
                 <div class="jj-labs-supported-actions">
-                    <button type="button" class="button button-secondary jj-labs-show-more" data-target="themes"><?php _e( '더 보기', 'jj-style-guide' ); ?></button>
-                    <button type="button" class="button button-link jj-labs-show-all" data-target="themes" style="display:none;"><?php _e( '전체 보기', 'jj-style-guide' ); ?></button>
+                    <button type="button" class="button button-secondary jj-labs-show-more" data-target="themes"><?php _e( '더 보기', 'acf-css-really-simple-style-management-center' ); ?></button>
+                    <button type="button" class="button button-link jj-labs-show-all" data-target="themes" style="display:none;"><?php _e( '전체 보기', 'acf-css-really-simple-style-management-center' ); ?></button>
                 </div>
             </div>
 
             <div class="jj-labs-supported-item jj-labs-supported-spokes" data-type="spokes">
-                <strong><?php _e( '공식 지원 플러그인', 'jj-style-guide' ); ?></strong>
+                <strong><?php _e( '공식 지원 플러그인', 'acf-css-really-simple-style-management-center' ); ?></strong>
                 <p class="description">
-                    <?php _e( '아래 목록은 어댑터가 준비된 플러그인 중 일부만 먼저 보여주며, 더 보기/전체 보기 버튼을 통해 나머지를 확인하실 수 있습니다.', 'jj-style-guide' ); ?>
+                    <?php _e( '아래 목록은 어댑터가 준비된 플러그인 중 일부만 먼저 보여주며, 더 보기/전체 보기 버튼을 통해 나머지를 확인하실 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                 </p>
                 <ul class="jj-labs-supported-list" data-initial-count="<?php echo esc_attr( $initial_spoke_count ); ?>">
                     <?php
@@ -274,8 +274,8 @@ if ( ! function_exists( 'jj_style_guide_get_spoke_label' ) ) {
                     <?php endforeach; ?>
                 </ul>
                 <div class="jj-labs-supported-actions">
-                    <button type="button" class="button button-secondary jj-labs-show-more" data-target="spokes"><?php _e( '더 보기', 'jj-style-guide' ); ?></button>
-                    <button type="button" class="button button-link jj-labs-show-all" data-target="spokes" style="display:none;"><?php _e( '전체 보기', 'jj-style-guide' ); ?></button>
+                    <button type="button" class="button button-secondary jj-labs-show-more" data-target="spokes"><?php _e( '더 보기', 'acf-css-really-simple-style-management-center' ); ?></button>
+                    <button type="button" class="button button-link jj-labs-show-all" data-target="spokes" style="display:none;"><?php _e( '전체 보기', 'acf-css-really-simple-style-management-center' ); ?></button>
                 </div>
             </div>
         </div>
@@ -284,37 +284,37 @@ if ( ! function_exists( 'jj_style_guide_get_spoke_label' ) ) {
     <div class="jj-tabs-container">
         <div class="jj-tabs-nav">
             <button type="button" class="jj-tab-button is-active" data-tab="labs-scanner">
-                <?php _e( '1. CSS/HTML 스캐너', 'jj-style-guide' ); ?>
+                <?php _e( '1. CSS/HTML 스캐너', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="jj-tab-button" data-tab="labs-overrides">
-                <?php _e( '2. 수동 재정의 (Overrides)', 'jj-style-guide' ); ?>
+                <?php _e( '2. 수동 재정의 (Overrides)', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
         </div>
 
         <div class="jj-tab-content is-active" data-tab-content="labs-scanner">
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( '페이지/플러그인 스캔', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( '페이지/플러그인 스캔', 'acf-css-really-simple-style-management-center' ); ?></legend>
                 <p class="description" style="margin-bottom: 20px;">
-                    <?php _e( '분석하고 싶은 페이지의 URL을 입력하거나, 활성 플러그인/테마 목록에서 대상을 선택한 뒤 [분석 시작] 버튼을 눌러 주세요.', 'jj-style-guide' ); ?>
+                    <?php _e( '분석하고 싶은 페이지의 URL을 입력하거나, 활성 플러그인/테마 목록에서 대상을 선택한 뒤 [분석 시작] 버튼을 눌러 주세요.', 'acf-css-really-simple-style-management-center' ); ?>
                 </p>
                  <div class="jj-style-guide-grid jj-grid-2-col">
                     <div class="jj-control-group">
-                        <label for="jj-labs-scan-url"><?php _e( 'URL로 스캔하기', 'jj-style-guide' ); ?></label>
+                        <label for="jj-labs-scan-url"><?php _e( 'URL로 스캔하기', 'acf-css-really-simple-style-management-center' ); ?></label>
                         <input type="url" 
                                id="jj-labs-scan-url" 
                                class="jj-data-field" 
                                data-setting-key="labs[scan_url]" 
                                value="<?php echo esc_attr( $labs_options['scan_url'] ?? '' ); ?>"
                                placeholder="https://... 스타일을 분석할 페이지 주소">
-                        <button type="button" class="button" id="jj-labs-start-scan" style="margin-top: 10px;"><?php _e( '분석 시작', 'jj-style-guide' ); ?></button>
+                        <button type="button" class="button" id="jj-labs-start-scan" style="margin-top: 10px;"><?php _e( '분석 시작', 'acf-css-really-simple-style-management-center' ); ?></button>
                         <span class="spinner" style="float:none; margin-top:10px;"></span>
                     </div>
                     <div class="jj-control-group">
-                        <label for="jj-labs-scan-plugin"><?php _e( '활성 플러그인/테마 목록', 'jj-style-guide' ); ?></label>
+                        <label for="jj-labs-scan-plugin"><?php _e( '활성 플러그인/테마 목록', 'acf-css-really-simple-style-management-center' ); ?></label>
                         <select id="jj-labs-scan-plugin" class="jj-data-field" data-setting-key="labs[scan_target]">
-                            <option value=""><?php _e( '-- 대상 선택 --', 'jj-style-guide' ); ?></option>
-                            <option value="theme_active"><?php _e( '현재 활성 테마', 'jj-style-guide' ); ?></option>
-                            <optgroup label="<?php _e( '활성 플러그인', 'jj-style-guide' ); ?>">
+                            <option value=""><?php _e( '-- 대상 선택 --', 'acf-css-really-simple-style-management-center' ); ?></option>
+                            <option value="theme_active"><?php _e( '현재 활성 테마', 'acf-css-really-simple-style-management-center' ); ?></option>
+                            <optgroup label="<?php _e( '활성 플러그인', 'acf-css-really-simple-style-management-center' ); ?>">
                                 <?php
                                 $active_plugins = (array) get_option( 'active_plugins', array() );
                                 foreach ( $active_plugins as $plugin_file ) {
@@ -329,15 +329,15 @@ if ( ! function_exists( 'jj_style_guide_get_spoke_label' ) ) {
                                 ?>
                             </optgroup>
                         </select>
-                        <p class="description"><?php _e( '현재 활성 테마 또는 플러그인을 선택하면, 해당 리소스의 스타일 구조를 파악하는 데 도움이 되는 기본 정보를 함께 확인하실 수 있습니다.', 'jj-style-guide' ); ?></p>
+                        <p class="description"><?php _e( '현재 활성 테마 또는 플러그인을 선택하면, 해당 리소스의 스타일 구조를 파악하는 데 도움이 되는 기본 정보를 함께 확인하실 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                     </div>
                 </div>
             </fieldset>
             
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( '분석 결과', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( '분석 결과', 'acf-css-really-simple-style-management-center' ); ?></legend>
                 <div id="jj-labs-scan-results">
-                    <p class="description"><?php _e( '분석이 완료되면, CSS 선택자 목록과 HTML 일부 구조가 이 영역에 표시됩니다.', 'jj-style-guide' ); ?></p>
+                    <p class="description"><?php _e( '분석이 완료되면, CSS 선택자 목록과 HTML 일부 구조가 이 영역에 표시됩니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                     <textarea style="width: 100%; height: 150px; background: #f9f9f9;" readonly></textarea>
                 </div>
             </fieldset>
@@ -345,17 +345,17 @@ if ( ! function_exists( 'jj_style_guide_get_spoke_label' ) ) {
         
         <div class="jj-tab-content" data-tab-content="labs-overrides">
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( 'CSS 재정의 (Overrides)', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( 'CSS 재정의 (Overrides)', 'acf-css-really-simple-style-management-center' ); ?></legend>
                 <p class="description" style="margin-bottom: 20px;">
-                    <?php _e( '스캐너를 통해 발견된 선택자나 직접 지정한 선택자에 전역 스타일 변수를 적용할 수 있습니다.', 'jj-style-guide' ); ?>
+                    <?php _e( '스캐너를 통해 발견된 선택자나 직접 지정한 선택자에 전역 스타일 변수를 적용할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                 </p>
                 <div class="jj-control-group">
-                    <label for="jj-labs-override-css"><?php _e( '수동 CSS 입력', 'jj-style-guide' ); ?></label>
+                    <label for="jj-labs-override-css"><?php _e( '수동 CSS 입력', 'acf-css-really-simple-style-management-center' ); ?></label>
                     <textarea id="jj-labs-override-css" 
                               class="jj-data-field" 
                               data-setting-key="labs[override_css]"
                               style="width: 100%; height: 250px;"
-                              placeholder="<?php _e( "예: \n\n.some-plugin-button {\n    background-color: var(--jj-btn-primary-bg) !important;\n    color: var(--jj-btn-primary-text) !important;\n}\n\n.some-plugin-input {\n    border-color: var(--jj-form-input-border) !important;\n}\n\n", 'jj-style-guide' ); ?>"><?php echo esc_textarea( $labs_options['override_css'] ?? '' ); ?></textarea>
+                              placeholder="<?php _e( "예: \n\n.some-plugin-button {\n    background-color: var(--jj-btn-primary-bg) !important;\n    color: var(--jj-btn-primary-text) !important;\n}\n\n.some-plugin-input {\n    border-color: var(--jj-form-input-border) !important;\n}\n\n", 'acf-css-really-simple-style-management-center' ); ?>"><?php echo esc_textarea( $labs_options['override_css'] ?? '' ); ?></textarea>
                 </div>
             </fieldset>
         </div>

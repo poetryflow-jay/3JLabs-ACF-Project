@@ -24,19 +24,19 @@ $um_optimize = $um_contexts['optimize'] ?? array();
     <div class="jj-tabs-container">
         <div class="jj-tabs-nav">
             <button type="button" class="jj-tab-button is-active" data-tab="um-core">
-                <?php _e( '코어 / 기본', 'jj-style-guide' ); ?>
+                <?php _e( '코어 / 기본', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="jj-tab-button" data-tab="um-korea">
-                <?php _e( 'UM Korea (단비)', 'jj-style-guide' ); ?>
+                <?php _e( 'UM Korea (단비)', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <button type="button" class="jj-tab-button" data-tab="um-optimize">
-                <?php _e( 'UM Optimize', 'jj-style-guide' ); ?>
+                <?php _e( 'UM Optimize', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
         </div>
 
         <div class="jj-tab-content is-active" data-tab-content="um-core">
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( 'UM 코어 색상', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( 'UM 코어 색상', 'acf-css-really-simple-style-management-center' ); ?></legend>
                 <div class="jj-style-guide-grid jj-grid-4-col">
                     
                     <div class="jj-control-group jj-color-card">
@@ -58,11 +58,11 @@ $um_optimize = $um_contexts['optimize'] ?? array();
 
         <div class="jj-tab-content" data-tab-content="um-korea">
             <fieldset class="jj-fieldset-group">
-                <legend><?php _e( 'UM Korea (단비스토어) 스타일', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( 'UM Korea (단비스토어) 스타일', 'acf-css-really-simple-style-management-center' ); ?></legend>
                 <div class="jj-style-guide-grid jj-grid-4-col">
                     
                     <div class="jj-control-group jj-color-card">
-                        <label for="jj-um-korea-social-bg"><?php _e( '소셜 로그인 버튼 배경', 'jj-style-guide' ); ?></label>
+                        <label for="jj-um-korea-social-bg"><?php _e( '소셜 로그인 버튼 배경', 'acf-css-really-simple-style-management-center' ); ?></label>
                         <input type="text" 
                                id="jj-um-korea-social-bg" 
                                class="jj-color-field jj-data-field" 
@@ -75,7 +75,7 @@ $um_optimize = $um_contexts['optimize'] ?? array();
                     </div>
                     
                     <div class="jj-control-group jj-color-card">
-                        <label for="jj-um-korea-social-text"><?php _e( '소셜 로그인 버튼 텍스트', 'jj-style-guide' ); ?></label>
+                        <label for="jj-um-korea-social-text"><?php _e( '소셜 로그인 버튼 텍스트', 'acf-css-really-simple-style-management-center' ); ?></label>
                         <input type="text" 
                                id="jj-um-korea-social-text" 
                                class="jj-color-field jj-data-field" 
@@ -93,11 +93,11 @@ $um_optimize = $um_contexts['optimize'] ?? array();
         
         <div class="jj-tab-content" data-tab-content="um-optimize">
              <fieldset class="jj-fieldset-group">
-                <legend><?php _e( 'UM Optimize 스타일', 'jj-style-guide' ); ?></legend>
+                <legend><?php _e( 'UM Optimize 스타일', 'acf-css-really-simple-style-management-center' ); ?></legend>
                  <div class="jj-style-guide-grid jj-grid-4-col">
                     
                     <div class="jj-control-group jj-color-card">
-                        <label for="jj-um-optimize-header"><?php _e( '프로필 헤더 배경', 'jj-style-guide' ); ?></label>
+                        <label for="jj-um-optimize-header"><?php _e( '프로필 헤더 배경', 'acf-css-really-simple-style-management-center' ); ?></label>
                         <input type="text" 
                                id="jj-um-optimize-header" 
                                class="jj-color-field jj-data-field" 

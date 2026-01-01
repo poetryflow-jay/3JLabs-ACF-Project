@@ -32,8 +32,8 @@ final class JJ_Theme_Metadata {
         // 브랜드 팔레트 기본 메타데이터
         $this->metadata['palettes']['brand'] = array(
             'primary_color' => array(
-                'name' => __( 'Primary Color', 'jj-style-guide' ),
-                'description' => __( '메인 브랜드 컬러로, 버튼, 링크, 주요 CTA 등에 사용됩니다.', 'jj-style-guide' ),
+                'name' => __( 'Primary Color', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( '메인 브랜드 컬러로, 버튼, 링크, 주요 CTA 등에 사용됩니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     '.button',
                     'button',
@@ -41,11 +41,11 @@ final class JJ_Theme_Metadata {
                     '.wp-block-button__link',
                     '.elementor-button',
                 ),
-                'apply_to' => __( '버튼, 링크, 주요 CTA, 헤더 액션', 'jj-style-guide' ),
+                'apply_to' => __( '버튼, 링크, 주요 CTA, 헤더 액션', 'acf-css-really-simple-style-management-center' ),
             ),
             'primary_color_hover' => array(
-                'name' => __( 'Primary Color (Hover)', 'jj-style-guide' ),
-                'description' => __( 'Primary Color의 호버 상태 색상입니다.', 'jj-style-guide' ),
+                'name' => __( 'Primary Color (Hover)', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( 'Primary Color의 호버 상태 색상입니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     '.button:hover',
                     'button:hover',
@@ -53,59 +53,59 @@ final class JJ_Theme_Metadata {
                     '.wp-block-button__link:hover',
                     '.elementor-button:hover',
                 ),
-                'apply_to' => __( '버튼 호버, 링크 호버', 'jj-style-guide' ),
+                'apply_to' => __( '버튼 호버, 링크 호버', 'acf-css-really-simple-style-management-center' ),
             ),
             'secondary_color' => array(
-                'name' => __( 'Secondary Color', 'jj-style-guide' ),
-                'description' => __( '보조 브랜드 컬러로, 보조 버튼이나 강조 요소에 사용됩니다.', 'jj-style-guide' ),
+                'name' => __( 'Secondary Color', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( '보조 브랜드 컬러로, 보조 버튼이나 강조 요소에 사용됩니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     '.button-secondary',
                     '.button.alt',
                     '.btn-secondary',
                 ),
-                'apply_to' => __( '보조 버튼, 강조 요소', 'jj-style-guide' ),
+                'apply_to' => __( '보조 버튼, 강조 요소', 'acf-css-really-simple-style-management-center' ),
             ),
             'secondary_color_hover' => array(
-                'name' => __( 'Secondary Color (Hover)', 'jj-style-guide' ),
-                'description' => __( 'Secondary Color의 호버 상태 색상입니다.', 'jj-style-guide' ),
+                'name' => __( 'Secondary Color (Hover)', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( 'Secondary Color의 호버 상태 색상입니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     '.button-secondary:hover',
                     '.button.alt:hover',
                     '.btn-secondary:hover',
                 ),
-                'apply_to' => __( '보조 버튼 호버', 'jj-style-guide' ),
+                'apply_to' => __( '보조 버튼 호버', 'acf-css-really-simple-style-management-center' ),
             ),
         );
 
         // 시스템 팔레트 기본 메타데이터
         $this->metadata['palettes']['system'] = array(
             'background_color' => array(
-                'name' => __( 'Background Color', 'jj-style-guide' ),
-                'description' => __( '사이트 배경색입니다.', 'jj-style-guide' ),
+                'name' => __( 'Background Color', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( '사이트 배경색입니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     'body',
                     '.site',
                 ),
-                'apply_to' => __( '사이트 전체 배경', 'jj-style-guide' ),
+                'apply_to' => __( '사이트 전체 배경', 'acf-css-really-simple-style-management-center' ),
             ),
             'text_color' => array(
-                'name' => __( 'Text Color', 'jj-style-guide' ),
-                'description' => __( '본문 텍스트 색상입니다.', 'jj-style-guide' ),
+                'name' => __( 'Text Color', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( '본문 텍스트 색상입니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     'body',
                     'p',
                     '.entry-content',
                 ),
-                'apply_to' => __( '본문 텍스트, 일반 텍스트', 'jj-style-guide' ),
+                'apply_to' => __( '본문 텍스트, 일반 텍스트', 'acf-css-really-simple-style-management-center' ),
             ),
             'link_color' => array(
-                'name' => __( 'Link Color', 'jj-style-guide' ),
-                'description' => __( '일반 링크 색상입니다.', 'jj-style-guide' ),
+                'name' => __( 'Link Color', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( '일반 링크 색상입니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     'a',
                     '.entry-content a',
                 ),
-                'apply_to' => __( '일반 링크, 콘텐츠 링크', 'jj-style-guide' ),
+                'apply_to' => __( '일반 링크, 콘텐츠 링크', 'acf-css-really-simple-style-management-center' ),
             ),
         );
 
@@ -114,33 +114,33 @@ final class JJ_Theme_Metadata {
         foreach ( $tags as $tag ) {
             $this->metadata['typography'][ $tag ] = array(
                 'name' => strtoupper( $tag ),
-                'description' => sprintf( __( '%s 태그의 폰트 설정입니다.', 'jj-style-guide' ), strtoupper( $tag ) ),
+                'description' => sprintf( __( '%s 태그의 폰트 설정입니다.', 'acf-css-really-simple-style-management-center' ), strtoupper( $tag ) ),
                 'selectors' => array( $tag ),
-                'apply_to' => sprintf( __( '%s 태그', 'jj-style-guide' ), strtoupper( $tag ) ),
+                'apply_to' => sprintf( __( '%s 태그', 'acf-css-really-simple-style-management-center' ), strtoupper( $tag ) ),
             );
         }
 
         // 버튼 기본 메타데이터
         $this->metadata['buttons']['primary'] = array(
             'background_color' => array(
-                'name' => __( 'Background Color', 'jj-style-guide' ),
-                'description' => __( 'Primary 버튼의 배경색입니다.', 'jj-style-guide' ),
+                'name' => __( 'Background Color', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( 'Primary 버튼의 배경색입니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     '.button',
                     'button',
                     '.wp-block-button__link',
                 ),
-                'apply_to' => __( 'Primary 버튼 배경', 'jj-style-guide' ),
+                'apply_to' => __( 'Primary 버튼 배경', 'acf-css-really-simple-style-management-center' ),
             ),
             'text_color' => array(
-                'name' => __( 'Text Color', 'jj-style-guide' ),
-                'description' => __( 'Primary 버튼의 텍스트 색상입니다.', 'jj-style-guide' ),
+                'name' => __( 'Text Color', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( 'Primary 버튼의 텍스트 색상입니다.', 'acf-css-really-simple-style-management-center' ),
                 'selectors' => array(
                     '.button',
                     'button',
                     '.wp-block-button__link',
                 ),
-                'apply_to' => __( 'Primary 버튼 텍스트', 'jj-style-guide' ),
+                'apply_to' => __( 'Primary 버튼 텍스트', 'acf-css-really-simple-style-management-center' ),
             ),
         );
     }
@@ -233,13 +233,13 @@ final class JJ_Theme_Metadata {
             if ( $child_theme ) {
                 $parent_name = $child_theme->get( 'Name' );
                 $theme_info = sprintf( 
-                    __( '현재 설치된 %s 테마의 차일드 테마인 %s에서 ', 'jj-style-guide' ),
+                    __( '현재 설치된 %s 테마의 차일드 테마인 %s에서 ', 'acf-css-really-simple-style-management-center' ),
                     $parent_name,
                     $theme_name
                 );
             } else {
                 $theme_info = sprintf( 
-                    __( '현재 설치된 %s 테마에서 ', 'jj-style-guide' ),
+                    __( '현재 설치된 %s 테마에서 ', 'acf-css-really-simple-style-management-center' ),
                     $theme_name
                 );
             }
@@ -249,7 +249,7 @@ final class JJ_Theme_Metadata {
         
         // 적용 위치 정보 추가
         if ( ! empty( $apply_to ) ) {
-            $description .= ' ' . sprintf( __( '이 색상은 %s에 적용됩니다.', 'jj-style-guide' ), $apply_to );
+            $description .= ' ' . sprintf( __( '이 색상은 %s에 적용됩니다.', 'acf-css-really-simple-style-management-center' ), $apply_to );
         }
         
         // 선택자 정보 추가 (기술적 정보)
@@ -258,7 +258,7 @@ final class JJ_Theme_Metadata {
             if ( count( $selectors ) > 3 ) {
                 $selector_text .= ' ...';
             }
-            $description .= ' ' . sprintf( __( 'CSS 선택자: %s', 'jj-style-guide' ), $selector_text );
+            $description .= ' ' . sprintf( __( 'CSS 선택자: %s', 'acf-css-really-simple-style-management-center' ), $selector_text );
         }
         
         return $description;

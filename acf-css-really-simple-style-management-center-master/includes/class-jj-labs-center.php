@@ -60,16 +60,16 @@ final class JJ_Labs_Center {
         check_ajax_referer( 'jj_style_guide_nonce', 'security' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $scan_url = isset( $_POST['scan_url'] ) ? esc_url_raw( wp_unslash( $_POST['scan_url'] ) ) : '';
         if ( empty( $scan_url ) ) {
-            wp_send_json_error( array( 'message' => __( 'URL을 입력해주세요.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( 'URL을 입력해주세요.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         if ( function_exists( 'wp_http_validate_url' ) && ! wp_http_validate_url( $scan_url ) ) {
-            wp_send_json_error( array( 'message' => __( '유효하지 않은 URL입니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '유효하지 않은 URL입니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         $response = wp_remote_get(
@@ -82,12 +82,12 @@ final class JJ_Labs_Center {
         );
 
         if ( is_wp_error( $response ) ) {
-            wp_send_json_error( array( 'message' => __( '서버 통신 오류: ', 'jj-style-guide' ) . $response->get_error_message() ) );
+            wp_send_json_error( array( 'message' => __( '서버 통신 오류: ', 'acf-css-really-simple-style-management-center' ) . $response->get_error_message() ) );
         }
 
         $html = wp_remote_retrieve_body( $response );
         if ( empty( $html ) ) {
-            wp_send_json_error( array( 'message' => __( '페이지 내용을 가져오지 못했습니다.', 'jj-style-guide' ) ) );
+            wp_send_json_error( array( 'message' => __( '페이지 내용을 가져오지 못했습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
 
         // 1) style blocks
@@ -184,8 +184,8 @@ final class JJ_Labs_Center {
         if ( count( $colors ) >= 25 ) {
             $conflicts[] = array(
                 'type' => 'warning',
-                'message' => __( '색상이 너무 다양합니다.', 'jj-style-guide' ),
-                'suggestion' => __( '상위 2~4개 색상만 브랜드/시스템 팔레트로 정리하면 UI 일관성이 좋아집니다.', 'jj-style-guide' ),
+                'message' => __( '색상이 너무 다양합니다.', 'acf-css-really-simple-style-management-center' ),
+                'suggestion' => __( '상위 2~4개 색상만 브랜드/시스템 팔레트로 정리하면 UI 일관성이 좋아집니다.', 'acf-css-really-simple-style-management-center' ),
             );
         }
 
@@ -283,8 +283,8 @@ final class JJ_Labs_Center {
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'locale'   => get_locale(), // [v5.0.3] 다국어 지원을 위한 로케일 전달
                 'i18n'     => array(
-                    'saving' => __( '저장 중...', 'jj-style-guide' ),
-                    'saved'  => __( '스타일 저장됨', 'jj-style-guide' ),
+                    'saving' => __( '저장 중...', 'acf-css-really-simple-style-management-center' ),
+                    'saved'  => __( '스타일 저장됨', 'acf-css-really-simple-style-management-center' ),
                 ),
             )
         );
@@ -303,8 +303,8 @@ final class JJ_Labs_Center {
             }
         }
 
-        $page_title = __( 'J&J 실험실 센터', 'jj-style-guide' );
-        $menu_title = __( '실험실 센터', 'jj-style-guide' );
+        $page_title = __( 'J&J 실험실 센터', 'acf-css-really-simple-style-management-center' );
+        $menu_title = __( '실험실 센터', 'acf-css-really-simple-style-management-center' );
 
         // 1. 설정 메뉴 하단
         add_options_page(
@@ -369,13 +369,13 @@ final class JJ_Labs_Center {
         <?php if ( ! $is_partner_or_higher && $purchase_url ) : ?>
         <div class="notice notice-info" style="margin: 20px 20px 0 0;">
             <p style="display: flex; align-items: center; gap: 10px;">
-                <strong><?php esc_html_e( '더 많은 기능을 사용하려면 업그레이드하세요!', 'jj-style-guide' ); ?></strong>
+                <strong><?php esc_html_e( '더 많은 기능을 사용하려면 업그레이드하세요!', 'acf-css-really-simple-style-management-center' ); ?></strong>
                 <a href="<?php echo esc_url( $purchase_url ); ?>" 
                    target="_blank" 
                    rel="noopener noreferrer"
                    class="button button-primary" 
                    style="font-size: 13px; padding: 0 16px; height: 36px; line-height: 34px; font-weight: 600;">
-                    <span class="dashicons dashicons-cart" style="margin-top: 4px;"></span> <?php esc_html_e( '업그레이드하기', 'jj-style-guide' ); ?>
+                    <span class="dashicons dashicons-cart" style="margin-top: 4px;"></span> <?php esc_html_e( '업그레이드하기', 'acf-css-really-simple-style-management-center' ); ?>
                 </a>
             </p>
         </div>
@@ -384,16 +384,16 @@ final class JJ_Labs_Center {
             <div class="jj-labs-center-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <div style="flex: 1;">
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 8px;">
-                        <h1 style="margin: 0;"><?php _e( 'J&J 실험실 센터', 'jj-style-guide' ); ?> <span class="version">v<?php echo esc_html( defined('JJ_STYLE_GUIDE_VERSION') ? JJ_STYLE_GUIDE_VERSION : '8.0.0' ); ?></span></h1>
+                        <h1 style="margin: 0;"><?php _e( 'J&J 실험실 센터', 'acf-css-really-simple-style-management-center' ); ?> <span class="version">v<?php echo esc_html( defined('JJ_STYLE_GUIDE_VERSION') ? JJ_STYLE_GUIDE_VERSION : '8.0.0' ); ?></span></h1>
                         <a href="<?php echo esc_url( admin_url( 'options-general.php?page=' . JJ_STYLE_GUIDE_PAGE_SLUG ) ); ?>" 
                            class="button button-secondary" 
                            style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                            <?php _e( '스타일 센터', 'jj-style-guide' ); ?>
+                            <?php _e( '스타일 센터', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                         <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-admin-center' ) ); ?>" 
                            class="button button-secondary" 
                            style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                            <?php _e( '관리자 센터', 'jj-style-guide' ); ?>
+                            <?php _e( '관리자 센터', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                         <?php
                         // [v5.1.6] 마스터 버전이 아닌 경우 결제 유도 문구 표시
@@ -404,7 +404,7 @@ final class JJ_Labs_Center {
                                rel="noopener noreferrer"
                                class="button button-primary" 
                                style="font-size: 13px; padding: 0 16px; height: 36px; line-height: 34px; font-weight: 600;">
-                                <span class="dashicons dashicons-cart" style="margin-top: 4px;"></span> <?php _e( '업그레이드하기', 'jj-style-guide' ); ?>
+                                <span class="dashicons dashicons-cart" style="margin-top: 4px;"></span> <?php _e( '업그레이드하기', 'acf-css-really-simple-style-management-center' ); ?>
                             </a>
                             <?php
                         }
@@ -412,17 +412,17 @@ final class JJ_Labs_Center {
                     </div>
                     <p class="description" style="margin: 0;">
                         <span class="jj-labs-tab-description" data-tab-type="scanner" data-tooltip="labs-tab-scanner">
-                            <?php _e( '실험실은 아직 공식 지원되지 않는 테마나 플러그인의 스타일을 분석하고 조정하기 위한 고급 도구입니다. CSS/HTML/JS 스캐너와 수동 재정의 기능을 제공합니다.', 'jj-style-guide' ); ?>
+                            <?php _e( '실험실은 아직 공식 지원되지 않는 테마나 플러그인의 스타일을 분석하고 조정하기 위한 고급 도구입니다. CSS/HTML/JS 스캐너와 수동 재정의 기능을 제공합니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         </span>
                     </p>
                 </div>
                 <div class="jj-header-actions">
                     <!-- [v4.2.2] 실험실 설정 내보내기/불러오기 -->
                     <button type="button" class="button button-secondary jj-export-settings" data-center="labs-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px; margin-right: 8px;">
-                        <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php _e( '내보내기', 'jj-style-guide' ); ?>
+                        <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php _e( '내보내기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                     <button type="button" class="button button-secondary jj-import-settings" data-center="labs-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php _e( '불러오기', 'jj-style-guide' ); ?>
+                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php _e( '불러오기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                 </div>
             </div>
@@ -431,13 +431,13 @@ final class JJ_Labs_Center {
             <form method="post" action="" style="margin-bottom: 20px;">
                 <?php wp_nonce_field( 'jj_labs_tabs_save_action' ); ?>
                 <div style="padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px;">
-                    <h3 style="margin-top: 0;"><?php _e( '실험실 탭 활성화/비활성화', 'jj-style-guide' ); ?></h3>
+                    <h3 style="margin-top: 0;"><?php _e( '실험실 탭 활성화/비활성화', 'acf-css-really-simple-style-management-center' ); ?></h3>
                     <p class="description" style="margin-bottom: 15px;">
-                        <?php _e( '실험실의 각 탭을 활성화 또는 비활성화할 수 있습니다.', 'jj-style-guide' ); ?>
+                        <?php _e( '실험실의 각 탭을 활성화 또는 비활성화할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         <span class="jj-tooltip" style="margin-left: 5px;">
                             <span class="dashicons dashicons-editor-help"></span>
                             <span class="jj-tooltip-content">
-                                <?php _e( '비활성화된 탭은 실험실에서 숨겨지지만 설정 데이터는 보존됩니다.', 'jj-style-guide' ); ?>
+                                <?php _e( '비활성화된 탭은 실험실에서 숨겨지지만 설정 데이터는 보존됩니다.', 'acf-css-really-simple-style-management-center' ); ?>
                             </span>
                         </span>
                     </p>
@@ -446,11 +446,11 @@ final class JJ_Labs_Center {
                     <div class="jj-bulk-actions" style="margin-bottom: 15px;">
                         <button type="button" class="button button-small jj-bulk-enable-all-labs">
                             <span class="dashicons dashicons-yes-alt" style="font-size: 16px; margin-top: 3px;"></span>
-                            <?php _e( '모두 활성화', 'jj-style-guide' ); ?>
+                            <?php _e( '모두 활성화', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                         <button type="button" class="button button-small jj-bulk-disable-all-labs">
                             <span class="dashicons dashicons-dismiss" style="font-size: 16px; margin-top: 3px;"></span>
-                            <?php _e( '모두 비활성화', 'jj-style-guide' ); ?>
+                            <?php _e( '모두 비활성화', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                     </div>
                     
@@ -458,15 +458,15 @@ final class JJ_Labs_Center {
                     <div class="jj-section-filter" style="margin-bottom: 15px;">
                         <input type="search" 
                                id="jj-labs-tabs-search" 
-                               placeholder="<?php esc_attr_e( '탭 검색...', 'jj-style-guide' ); ?>"
+                               placeholder="<?php esc_attr_e( '탭 검색...', 'acf-css-really-simple-style-management-center' ); ?>"
                                style="width: 100%; max-width: 400px; padding: 8px 12px; border: 1px solid #8c8f94; border-radius: 3px; font-size: 13px;" />
                     </div>
 
                     <!-- [v5.0.0] 경고 메시지 -->
                     <div class="notice notice-warning inline jj-labs-tabs-disable-warning" style="display: none; margin: 15px 0;">
                         <p>
-                            <strong><?php _e( '주의:', 'jj-style-guide' ); ?></strong>
-                            <?php _e( '탭을 비활성화하면 실험실에서 해당 탭이 표시되지 않습니다. 비활성화된 탭의 설정 데이터는 보존되지만 UI에서 접근할 수 없게 됩니다.', 'jj-style-guide' ); ?>
+                            <strong><?php _e( '주의:', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                            <?php _e( '탭을 비활성화하면 실험실에서 해당 탭이 표시되지 않습니다. 비활성화된 탭의 설정 데이터는 보존되지만 UI에서 접근할 수 없게 됩니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         </p>
                     </div>
 
@@ -481,10 +481,10 @@ final class JJ_Labs_Center {
                                 <input type="checkbox" 
                                        id="jj-select-all-labs-tabs" 
                                        class="jj-select-all-checkbox" 
-                                       title="<?php esc_attr_e( '전체 선택/해제', 'jj-style-guide' ); ?>" />
+                                       title="<?php esc_attr_e( '전체 선택/해제', 'acf-css-really-simple-style-management-center' ); ?>" />
                             </th>
-                            <th><?php _e( '탭', 'jj-style-guide' ); ?></th>
-                            <th><?php _e( '활성화', 'jj-style-guide' ); ?></th>
+                            <th><?php _e( '탭', 'acf-css-really-simple-style-management-center' ); ?></th>
+                            <th><?php _e( '활성화', 'acf-css-really-simple-style-management-center' ); ?></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -504,9 +504,9 @@ final class JJ_Labs_Center {
                                 <th scope="row" style="padding: 8px 0; font-weight: normal;">
                                     <?php echo esc_html( $tab_meta['label'] ); ?>
                                     <?php if ( ! $tab_enabled ) : ?>
-                                        <span class="jj-disabled-icon" title="<?php esc_attr_e( '비활성화됨', 'jj-style-guide' ); ?>"></span>
+                                        <span class="jj-disabled-icon" title="<?php esc_attr_e( '비활성화됨', 'acf-css-really-simple-style-management-center' ); ?>"></span>
                                     <?php else : ?>
-                                        <span class="jj-enabled-icon" title="<?php esc_attr_e( '활성화됨', 'jj-style-guide' ); ?>"></span>
+                                        <span class="jj-enabled-icon" title="<?php esc_attr_e( '활성화됨', 'acf-css-really-simple-style-management-center' ); ?>"></span>
                                     <?php endif; ?>
                                     <div style="font-size:10px;color:#999;margin-top:2px;">
                                         <code><?php echo esc_html( $tab_slug ); ?></code>
@@ -520,7 +520,7 @@ final class JJ_Labs_Center {
                                                class="jj-labs-tab-enabled-checkbox"
                                                data-tab="<?php echo esc_attr( $tab_slug ); ?>"
                                             <?php checked( $tab_enabled ); ?> />
-                                        <?php _e( '활성화', 'jj-style-guide' ); ?>
+                                        <?php _e( '활성화', 'acf-css-really-simple-style-management-center' ); ?>
                                     </label>
                                 </td>
                             </tr>
@@ -529,7 +529,7 @@ final class JJ_Labs_Center {
                     </table>
                     <p style="margin-top: 15px; margin-bottom: 0;">
                         <button type="submit" class="button button-primary">
-                            <?php _e( '저장', 'jj-style-guide' ); ?>
+                            <?php _e( '저장', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                     </p>
                 </div>
@@ -553,17 +553,17 @@ final class JJ_Labs_Center {
                     ?>
                     <?php if ( $tab_enabled_scanner ) : ?>
                     <li class="<?php echo ( $first_enabled_tab === 'scanner' ) ? 'active' : ''; ?>" data-tab="scanner">
-                        <a href="#scanner"><?php _e( '스캐너', 'jj-style-guide' ); ?></a>
+                        <a href="#scanner"><?php _e( '스캐너', 'acf-css-really-simple-style-management-center' ); ?></a>
                     </li>
                     <?php endif; ?>
                     <?php if ( $tab_enabled_overrides ) : ?>
                     <li class="<?php echo ( $first_enabled_tab === 'overrides' ) ? 'active' : ''; ?>" data-tab="overrides">
-                        <a href="#overrides"><?php _e( '수동 재정의', 'jj-style-guide' ); ?></a>
+                        <a href="#overrides"><?php _e( '수동 재정의', 'acf-css-really-simple-style-management-center' ); ?></a>
                     </li>
                     <?php endif; ?>
                     <?php if ( $tab_enabled_supported ) : ?>
                     <li class="<?php echo ( $first_enabled_tab === 'supported' ) ? 'active' : ''; ?>" data-tab="supported">
-                        <a href="#supported"><?php _e( '공식 지원 목록', 'jj-style-guide' ); ?></a>
+                        <a href="#supported"><?php _e( '공식 지원 목록', 'acf-css-really-simple-style-management-center' ); ?></a>
                     </li>
                     <?php endif; ?>
                 </ul>
@@ -605,10 +605,10 @@ final class JJ_Labs_Center {
             <div class="jj-labs-center-footer" style="margin-top: 30px; padding: 15px 25px; background: #fff; border: 1px solid #c3c4c7; border-radius: 4px; display: flex; justify-content: space-between; align-items: center;">
                 <div>
                     <button type="button" class="button button-secondary jj-export-settings" data-center="labs-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px; margin-right: 8px;">
-                        <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php _e( '내보내기', 'jj-style-guide' ); ?>
+                        <span class="dashicons dashicons-download" style="margin-top: 4px;"></span> <?php _e( '내보내기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                     <button type="button" class="button button-secondary jj-import-settings" data-center="labs-center" style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php _e( '불러오기', 'jj-style-guide' ); ?>
+                        <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span> <?php _e( '불러오기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                 </div>
             </div>
@@ -624,15 +624,15 @@ final class JJ_Labs_Center {
     public function get_default_labs_tabs_layout() {
         return array(
             'scanner'   => array(
-                'label'   => __( '스캐너', 'jj-style-guide' ),
+                'label'   => __( '스캐너', 'acf-css-really-simple-style-management-center' ),
                 'enabled' => 1,
             ),
             'overrides' => array(
-                'label'   => __( '수동 재정의', 'jj-style-guide' ),
+                'label'   => __( '수동 재정의', 'acf-css-really-simple-style-management-center' ),
                 'enabled' => 1,
             ),
             'supported' => array(
-                'label'   => __( '공식 지원 목록', 'jj-style-guide' ),
+                'label'   => __( '공식 지원 목록', 'acf-css-really-simple-style-management-center' ),
                 'enabled' => 1,
             ),
         );

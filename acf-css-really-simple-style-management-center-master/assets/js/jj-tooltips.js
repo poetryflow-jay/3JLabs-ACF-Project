@@ -124,6 +124,88 @@
                 tr_TR: 'Resmi olarak desteklenen temalar ve eklentilerin listesini görüntüleyin. Her adaptörün desteklenen özelliklerini ve uyumluluk seviyesini kontrol edin.',
                 la: 'Vide indicem thematum et additorum publice sustentatorum. Controlla functiones sustentatas et gradum compatibilitatis cuiusque adaptatoris.',
                 he_IL: 'הצג רשימה של תבניות ותוספים הנתמכים רשמית. בדוק את התכונות הנתמכות ורמת התאימות של כל מתאם.'
+            },
+
+            // [Phase 13.2] 색상 관련 툴팁
+            'color-palette-brand': {
+                ko_KR: '브랜드 색상 팔레트입니다. 기본, 보조, 강조 색상을 포함합니다. 사이트 전체에서 일관된 브랜드 이미지를 위해 사용됩니다.',
+                en_US: 'Brand color palette. Includes primary, secondary, and accent colors. Used for consistent brand image across the site.',
+                ja: 'ブランドカラーパレット。プライマリ、セカンダリ、アクセントカラーが含まれます。サイト全体で一貫したブランドイメージのために使用されます。',
+                zh_CN: '品牌色彩调色板。包括主色、辅助色和强调色。用于在整个网站上保持一致的品牌形象。'
+            },
+            'color-palette-system': {
+                ko_KR: '시스템 색상 팔레트입니다. 성공, 경고, 오류, 정보 등 상태 표시에 사용되는 색상입니다.',
+                en_US: 'System color palette. Colors used for status indicators like success, warning, error, and info.',
+                ja: 'システムカラーパレット。成功、警告、エラー、情報などの状態表示に使用される色です。',
+                zh_CN: '系统色彩调色板。用于成功、警告、错误、信息等状态指示的颜色。'
+            },
+            'color-preset': {
+                ko_KR: '프리셋을 선택하면 전문가가 디자인한 색상 조합을 한 번에 적용할 수 있습니다.',
+                en_US: 'Select a preset to apply a professionally designed color combination in one click.',
+                ja: 'プリセットを選択すると、プロがデザインした色の組み合わせを一度に適用できます。',
+                zh_CN: '选择预设可以一键应用专业设计的颜色组合。'
+            },
+
+            // 타이포그래피 관련 툴팁
+            'typography-font-family': {
+                ko_KR: '사이트에서 사용할 기본 폰트 패밀리를 설정합니다. 한국어와 영문 폰트를 각각 지정할 수 있습니다.',
+                en_US: 'Set the default font family for your site. You can specify different fonts for Korean and English.',
+                ja: 'サイトで使用するデフォルトのフォントファミリーを設定します。韓国語と英語のフォントを個別に指定できます。',
+                zh_CN: '设置网站使用的默认字体系列。您可以分别指定韩语和英语字体。'
+            },
+            'typography-base-px': {
+                ko_KR: '기준 픽셀 크기입니다. 이 값을 기준으로 rem/em 단위가 계산됩니다. 일반적으로 16px을 권장합니다.',
+                en_US: 'Base pixel size. rem/em units are calculated based on this value. 16px is generally recommended.',
+                ja: '基準ピクセルサイズです。この値を基準にrem/em単位が計算されます。一般的に16pxが推奨されます。',
+                zh_CN: '基准像素大小。rem/em单位基于此值计算。通常建议使用16px。'
+            },
+            'typography-responsive': {
+                ko_KR: '반응형 타이포그래피 설정입니다. 다양한 기기 크기에 따라 폰트 크기를 자동으로 조정합니다.',
+                en_US: 'Responsive typography settings. Font sizes are automatically adjusted for different device sizes.',
+                ja: 'レスポンシブタイポグラフィ設定です。様々なデバイスサイズに応じてフォントサイズを自動的に調整します。',
+                zh_CN: '响应式排版设置。字体大小根据不同设备尺寸自动调整。'
+            },
+
+            // Figma 관련 툴팁
+            'figma-api-token': {
+                ko_KR: 'Figma Personal Access Token을 입력합니다. Figma 계정 설정에서 생성할 수 있으며, 이 플러그인에 암호화되어 저장됩니다.',
+                en_US: 'Enter your Figma Personal Access Token. It can be generated from Figma account settings and is stored encrypted.',
+                ja: 'Figma Personal Access Tokenを入力します。Figmaアカウント設定で生成でき、暗号化して保存されます。',
+                zh_CN: '输入Figma个人访问令牌。可以从Figma帐户设置中生成，并以加密方式存储。'
+            },
+            'figma-file-key': {
+                ko_KR: 'Figma 파일 URL에서 파일 키를 추출하여 입력합니다. URL의 /file/ 다음에 오는 부분입니다.',
+                en_US: 'Enter the file key extracted from the Figma file URL. It is the part that comes after /file/ in the URL.',
+                ja: 'FigmaファイルURLからファイルキーを抽出して入力します。URLの/file/の後に来る部分です。',
+                zh_CN: '输入从Figma文件URL中提取的文件密钥。它是URL中/file/后面的部分。'
+            },
+
+            // 내보내기 관련 툴팁
+            'export-pdf': {
+                ko_KR: '스타일 가이드를 PDF로 내보냅니다. 브라우저의 인쇄 기능을 사용하여 깔끔한 문서를 생성합니다.',
+                en_US: 'Export style guide as PDF. Creates a clean document using the browser print function.',
+                ja: 'スタイルガイドをPDFとしてエクスポートします。ブラウザの印刷機能を使用してきれいなドキュメントを作成します。',
+                zh_CN: '将样式指南导出为PDF。使用浏览器打印功能创建整洁的文档。'
+            },
+            'export-png': {
+                ko_KR: '스타일 가이드를 PNG 이미지로 캡처합니다. 2배 해상도로 선명한 이미지를 생성합니다.',
+                en_US: 'Capture style guide as PNG image. Creates a sharp image at 2x resolution.',
+                ja: 'スタイルガイドをPNG画像としてキャプチャします。2倍の解像度でシャープな画像を生成します。',
+                zh_CN: '将样式指南捕获为PNG图像。以2倍分辨率创建清晰的图像。'
+            },
+
+            // 백업 관련 툴팁
+            'backup-auto': {
+                ko_KR: '자동 백업을 활성화하면 설정 변경 시 자동으로 백업이 생성됩니다. 최대 10개까지 유지됩니다.',
+                en_US: 'Enable auto-backup to automatically create backups when settings change. Up to 10 backups are retained.',
+                ja: '自動バックアップを有効にすると、設定変更時に自動的にバックアップが作成されます。最大10個まで保持されます。',
+                zh_CN: '启用自动备份后，设置更改时会自动创建备份。最多保留10个备份。'
+            },
+            'backup-restore': {
+                ko_KR: '이 백업으로 복원합니다. 현재 설정은 새 백업으로 저장된 후 복원됩니다.',
+                en_US: 'Restore to this backup. Current settings will be saved as a new backup before restoration.',
+                ja: 'このバックアップに復元します。現在の設定は復元前に新しいバックアップとして保存されます。',
+                zh_CN: '恢复到此备份。当前设置将在恢复前保存为新备份。'
             }
         },
         

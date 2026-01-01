@@ -35,7 +35,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
             ?>
             <span class="jj-section-index"><?php echo intval( $jj_section_index ); ?>.</span>
         <?php endif; ?>
-        <?php echo esc_html( jj_style_guide_text( 'section_forms_title', __( '폼 & 필드 (Forms & Fields)', 'jj-style-guide' ) ) ); ?>
+        <?php echo esc_html( jj_style_guide_text( 'section_forms_title', __( '폼 & 필드 (Forms & Fields)', 'acf-css-really-simple-style-management-center' ) ) ); ?>
     </h2>
     <p class="description">
         <?php
@@ -44,7 +44,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 'section_forms_description',
                 __(
                     '사이트 전역의 폼(Form) 스타일(라벨, 입력 필드)을 정갈하게 맞추는 영역입니다. 여기에서 정한 값은 <strong>Advanced Members</strong>, <strong>ACF Forms</strong>, <strong>FluentForm</strong> 등 폼을 사용하는 스포크에 CSS 변수(--jj-form-...)로 전달되어, 회원가입·문의·결제 화면 등에서도 자연스럽게 같은 톤으로 표현되도록 돕습니다.',
-                    'jj-style-guide'
+                    'acf-css-really-simple-style-management-center'
                 )
             )
         );
@@ -68,12 +68,12 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
             ?>
             <?php if ( $tab_enabled_label ) : ?>
             <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'form-label' ) ? 'is-active' : ''; ?>" data-tab="form-label">
-                <?php _e( '1. 라벨 (Labels)', 'jj-style-guide' ); ?>
+                <?php _e( '1. 라벨 (Labels)', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <?php endif; ?>
             <?php if ( $tab_enabled_field ) : ?>
             <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'form-field' ) ? 'is-active' : ''; ?>" data-tab="form-field">
-                <?php _e( '2. 입력 필드 (Fields)', 'jj-style-guide' ); ?>
+                <?php _e( '2. 입력 필드 (Fields)', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <?php endif; ?>
         </div>
@@ -81,15 +81,15 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         <?php if ( $tab_enabled_label ) : ?>
         <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'form-label' ) ? 'is-active' : ''; ?>" data-tab-content="form-label">
             <p class="description" style="margin-bottom: 25px;">
-                <?php _e( '모든 폼의 <code>&lt;label&gt;</code> 태그 스타일을 제어합니다. (기본값: \'2. 타이포그래피\'의 \'P\' 스타일 일부를 따름)', 'jj-style-guide' ); ?>
+                <?php _e( '모든 폼의 <code>&lt;label&gt;</code> 태그 스타일을 제어합니다. (기본값: \'2. 타이포그래피\'의 \'P\' 스타일 일부를 따름)', 'acf-css-really-simple-style-management-center' ); ?>
             </p>
             
             <div class="jj-contextual-typography-controls" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
                 
                 <div class="jj-control-group">
-                    <label for="jj-form-label-font-weight"><?php _e( 'Weight', 'jj-style-guide' ); ?></label>
+                    <label for="jj-form-label-font-weight"><?php _e( 'Weight', 'acf-css-really-simple-style-management-center' ); ?></label>
                     <select id="jj-form-label-font-weight" class="jj-data-field" data-setting-key="forms[label][font_weight]">
-                        <option value=""><?php _e( '기본값 (P)', 'jj-style-guide' ); ?></option>
+                        <option value=""><?php _e( '기본값 (P)', 'acf-css-really-simple-style-management-center' ); ?></option>
                         <?php foreach ( $font_weights as $weight => $label ) : ?>
                             <option value="<?php echo esc_attr( $weight ); ?>" <?php selected( $label_options['font_weight'] ?? '', $weight ); ?>><?php echo esc_html( $label ); ?></option>
                         <?php endforeach; ?>
@@ -97,9 +97,9 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 </div>
 
                 <div class="jj-control-group">
-                    <label for="jj-form-label-font-style"><?php _e( 'Style', 'jj-style-guide' ); ?></label>
+                    <label for="jj-form-label-font-style"><?php _e( 'Style', 'acf-css-really-simple-style-management-center' ); ?></label>
                     <select id="jj-form-label-font-style" class="jj-data-field" data-setting-key="forms[label][font_style]">
-                        <option value=""><?php _e( '기본값 (P)', 'jj-style-guide' ); ?></option>
+                        <option value=""><?php _e( '기본값 (P)', 'acf-css-really-simple-style-management-center' ); ?></option>
                         <?php foreach ( $font_styles as $style => $label ) : ?>
                             <option value="<?php echo esc_attr( $style ); ?>" <?php selected( $label_options['font_style'] ?? '', $style ); ?>><?php echo esc_html( $label ); ?></option>
                         <?php endforeach; ?>
@@ -107,7 +107,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 </div>
                 
                 <div class="jj-control-group">
-                    <label for="jj-form-label-text-transform"><?php _e( 'Transform', 'jj-style-guide' ); ?></label>
+                    <label for="jj-form-label-text-transform"><?php _e( 'Transform', 'acf-css-really-simple-style-management-center' ); ?></label>
                     <select id="jj-form-label-text-transform" class="jj-data-field" data-setting-key="forms[label][text_transform]">
                         <?php foreach ( $text_transforms as $value => $label ) : ?>
                             <option value="<?php echo esc_attr( $value ); ?>" <?php selected( $label_options['text_transform'] ?? '', $value ); ?>><?php echo esc_html( $label ); ?></option>
@@ -116,7 +116,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 </div>
 
                 <div class="jj-control-group">
-                    <label for="jj-form-label-font-size"><?php _e( 'Size (px)', 'jj-style-guide' ); ?></label>
+                    <label for="jj-form-label-font-size"><?php _e( 'Size (px)', 'acf-css-really-simple-style-management-center' ); ?></label>
                     <input type="number" 
                            id="jj-form-label-font-size" 
                            class="jj-data-field" 
@@ -126,7 +126,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 </div>
 
                 <div class="jj-control-group jj-color-card" style="padding: 10px;">
-                    <label for="jj-form-label-text-color"><?php _e( '텍스트 색상', 'jj-style-guide' ); ?></label>
+                    <label for="jj-form-label-text-color"><?php _e( '텍스트 색상', 'acf-css-really-simple-style-management-center' ); ?></label>
                     <input type="text" 
                            id="jj-form-label-text-color" 
                            class="jj-color-field jj-data-field" 
@@ -144,37 +144,37 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 
                 <div class="jj-button-preview" style="background: #f0f0f1; display: block; padding: 20px;">
                     <style id="jj-form-preview-style"></style> <div class="jj-form-preview-wrap">
-                        <label class="jj-form-preview-label" for="jj-preview-input"><?php _e( '미리보기 라벨', 'jj-style-guide' ); ?></label>
-                        <input class="jj-form-preview-input" type="text" id="jj-preview-input" placeholder="<?php _e( '입력 필드 미리보기...', 'jj-style-guide' ); ?>">
-                        <p class="description" style="margin-top: 10px;"><?php _e( '이 필드는 \'활성화(Focus)\' 상태입니다.', 'jj-style-guide' ); ?></p>
+                        <label class="jj-form-preview-label" for="jj-preview-input"><?php _e( '미리보기 라벨', 'acf-css-really-simple-style-management-center' ); ?></label>
+                        <input class="jj-form-preview-input" type="text" id="jj-preview-input" placeholder="<?php _e( '입력 필드 미리보기...', 'acf-css-really-simple-style-management-center' ); ?>">
+                        <p class="description" style="margin-top: 10px;"><?php _e( '이 필드는 \'활성화(Focus)\' 상태입니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
                     </div>
                 </div>
                 
                 <div class="jj-button-controls">
                     <fieldset class="jj-control-group jj-fieldset-group">
-                        <legend><?php _e( 'Colors', 'jj-style-guide' ); ?></legend>
+                        <legend><?php _e( 'Colors', 'acf-css-really-simple-style-management-center' ); ?></legend>
                         <div class="jj-style-guide-grid jj-grid-4-col" style="gap: 10px;">
-                            <div class="jj-control-group"><label><?php _e( '배경', 'jj-style-guide' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][background_color]" value="<?php echo esc_attr( $field_options['background_color'] ?? '' ); ?>" /></div>
-                            <div class="jj-control-group"><label><?php _e( '텍스트', 'jj-style-guide' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][text_color]" value="<?php echo esc_attr( $field_options['text_color'] ?? '' ); ?>" /></div>
-                            <div class="jj-control-group"><label><?php _e( '테두리', 'jj-style-guide' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][border_color]" value="<?php echo esc_attr( $field_options['border_color'] ?? '' ); ?>" /></div>
-                            <div class="jj-control-group"><label><?php _e( '테두리 (Focus)', 'jj-style-guide' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][border_color_focus]" value="<?php echo esc_attr( $field_options['border_color_focus'] ?? '' ); ?>" /></div>
+                            <div class="jj-control-group"><label><?php _e( '배경', 'acf-css-really-simple-style-management-center' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][background_color]" value="<?php echo esc_attr( $field_options['background_color'] ?? '' ); ?>" /></div>
+                            <div class="jj-control-group"><label><?php _e( '텍스트', 'acf-css-really-simple-style-management-center' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][text_color]" value="<?php echo esc_attr( $field_options['text_color'] ?? '' ); ?>" /></div>
+                            <div class="jj-control-group"><label><?php _e( '테두리', 'acf-css-really-simple-style-management-center' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][border_color]" value="<?php echo esc_attr( $field_options['border_color'] ?? '' ); ?>" /></div>
+                            <div class="jj-control-group"><label><?php _e( '테두리 (Focus)', 'acf-css-really-simple-style-management-center' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][border_color_focus]" value="<?php echo esc_attr( $field_options['border_color_focus'] ?? '' ); ?>" /></div>
                         </div>
                     </fieldset>
                     
                     <fieldset class="jj-control-group jj-fieldset-group jj-grid-2-col">
-                        <legend><?php _e( 'Layout', 'jj-style-guide' ); ?></legend>
+                        <legend><?php _e( 'Layout', 'acf-css-really-simple-style-management-center' ); ?></legend>
                         <div class="jj-control-group">
-                            <label for="jj-form-field-border-radius"><?php _e( 'Border Radius (px)', 'jj-style-guide' ); ?></label>
+                            <label for="jj-form-field-border-radius"><?php _e( 'Border Radius (px)', 'acf-css-really-simple-style-management-center' ); ?></label>
                             <input type="number" id="jj-form-field-border-radius" class="jj-data-field" data-setting-key="forms[field][border_radius]" value="<?php echo esc_attr( $field_options['border_radius'] ?? '' ); ?>" placeholder="예: 4" />
                         </div>
                         <div class="jj-control-group">
-                            <label for="jj-form-field-border-width"><?php _e( 'Border Width (px)', 'jj-style-guide' ); ?></label>
+                            <label for="jj-form-field-border-width"><?php _e( 'Border Width (px)', 'acf-css-really-simple-style-management-center' ); ?></label>
                             <input type="number" id="jj-form-field-border-width" class="jj-data-field" data-setting-key="forms[field][border_width]" value="<?php echo esc_attr( $field_options['border_width'] ?? '' ); ?>" placeholder="예: 1" />
                         </div>
                     </fieldset>
 
                      <fieldset class="jj-control-group jj-fieldset-group">
-                        <legend><?php _e( 'Padding (px)', 'jj-style-guide' ); ?></legend>
+                        <legend><?php _e( 'Padding (px)', 'acf-css-really-simple-style-management-center' ); ?></legend>
                         <div class="jj-dimensions-group">
                             <input type="number" class="jj-data-field" data-setting-key="forms[field][padding][top]" value="<?php echo esc_attr( $field_options['padding']['top'] ?? '' ); ?>" title="Top" placeholder="Top">
                             <input type="number" class="jj-data-field" data-setting-key="forms[field][padding][right]" value="<?php echo esc_attr( $field_options['padding']['right'] ?? '' ); ?>" title="Right" placeholder="Right">

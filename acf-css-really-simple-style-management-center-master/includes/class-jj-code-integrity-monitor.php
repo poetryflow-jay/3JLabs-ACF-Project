@@ -524,23 +524,23 @@ class JJ_Code_Integrity_Monitor {
             ?>
             <div class="notice notice-error jj-security-warning" style="border-left-color: #dc3232; padding: 15px;">
                 <h2 style="margin-top: 0; color: #dc3232;">
-                    <?php esc_html_e( '⚠️ 보안 경고: 플러그인 코드 무결성 위반 감지', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '⚠️ 보안 경고: 플러그인 코드 무결성 위반 감지', 'acf-css-really-simple-style-management-center' ); ?>
                 </h2>
                 <p style="font-size: 14px; line-height: 1.6;">
-                    <strong><?php esc_html_e( '플러그인 파일이 수정되었거나 무단 변경이 감지되었습니다.', 'jj-style-guide' ); ?></strong>
+                    <strong><?php esc_html_e( '플러그인 파일이 수정되었거나 무단 변경이 감지되었습니다.', 'acf-css-really-simple-style-management-center' ); ?></strong>
                 </p>
                 <p>
-                    <?php esc_html_e( '보안상의 이유로 플러그인 기능이 일시적으로 잠금되었습니다.', 'jj-style-guide' ); ?>
-                    <?php esc_html_e( '플러그인 개발자에게 문의하시거나, 원본 파일로 복원해주세요.', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '보안상의 이유로 플러그인 기능이 일시적으로 잠금되었습니다.', 'acf-css-really-simple-style-management-center' ); ?>
+                    <?php esc_html_e( '플러그인 개발자에게 문의하시거나, 원본 파일로 복원해주세요.', 'acf-css-really-simple-style-management-center' ); ?>
                 </p>
                 <?php if ( $lock_time ) : ?>
                     <p style="color: #666; font-size: 12px;">
-                        <?php printf( esc_html__( '잠금 시간: %s', 'jj-style-guide' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $lock_time ) ); ?>
+                        <?php printf( esc_html__( '잠금 시간: %s', 'acf-css-really-simple-style-management-center' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $lock_time ) ); ?>
                     </p>
                 <?php endif; ?>
                 <p>
                     <a href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>" class="button button-primary">
-                        <?php esc_html_e( '플러그인 목록으로 이동', 'jj-style-guide' ); ?>
+                        <?php esc_html_e( '플러그인 목록으로 이동', 'acf-css-really-simple-style-management-center' ); ?>
                     </a>
                 </p>
             </div>
@@ -552,7 +552,7 @@ class JJ_Code_Integrity_Monitor {
             add_action( 'wp_footer', function() {
                 ?>
                 <div style="position: fixed; top: 0; left: 0; right: 0; background: #dc3232; color: white; padding: 10px; text-align: center; z-index: 999999; font-size: 14px;">
-                    <?php esc_html_e( '⚠️ 플러그인 보안 경고: 코드 무결성 위반이 감지되었습니다. 관리자에게 문의하세요.', 'jj-style-guide' ); ?>
+                    <?php esc_html_e( '⚠️ 플러그인 보안 경고: 코드 무결성 위반이 감지되었습니다. 관리자에게 문의하세요.', 'acf-css-really-simple-style-management-center' ); ?>
                 </div>
                 <?php
             } );
