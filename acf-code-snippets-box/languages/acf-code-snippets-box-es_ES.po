@@ -1,0 +1,54 @@
+# Spanish (Spain) translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: es_ES\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF Code Snippets Box - Gestor de Funciones Personalizadas Avanzadas"
+
+msgid "Code Snippets"
+msgstr "Fragmentos de Código"
+
+msgid "모든 스니펫"
+msgstr "Todos los Fragmentos"
+
+msgid "새 스니펫 추가"
+msgstr "Añadir Nuevo Fragmento"
+
+msgid "프리셋 라이브러리"
+msgstr "Biblioteca de Preajustes"
+
+msgid "설정"
+msgstr "Configuración"
+
+msgid "코드 타입"
+msgstr "Tipo de Código"
+
+msgid "활성화"
+msgstr "Activar"
+
+msgid "모든 페이지"
+msgstr "Todas las Páginas"
+
+msgid "프론트엔드만"
+msgstr "Solo Frontend"
+
+msgid "관리자 페이지만"
+msgstr "Solo Admin"
+
+msgid "부드러운 스크롤"
+msgstr "Desplazamiento Suave"
+
+msgid "댓글 비활성화"
+msgstr "Desactivar Comentarios"
+
+msgid "CSS 프리셋"
+msgstr "Preajustes CSS"
+
+msgid "JavaScript 프리셋"
+msgstr "Preajustes JavaScript"
+
+msgid "PHP 프리셋"
+msgstr "Preajustes PHP"

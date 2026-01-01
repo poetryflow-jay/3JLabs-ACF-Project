@@ -1,0 +1,36 @@
+# Vietnamese translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: vi\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF Code Snippets Box - Trình Quản Lý Hàm Tùy Chỉnh Nâng Cao"
+
+msgid "Code Snippets"
+msgstr "Đoạn Mã"
+
+msgid "모든 스니펫"
+msgstr "Tất Cả Đoạn Mã"
+
+msgid "새 스니펫 추가"
+msgstr "Thêm Đoạn Mã Mới"
+
+msgid "프리셋 라이브러리"
+msgstr "Thư Viện Mẫu"
+
+msgid "설정"
+msgstr "Cài Đặt"
+
+msgid "활성화"
+msgstr "Kích Hoạt"
+
+msgid "CSS 프리셋"
+msgstr "Mẫu CSS"
+
+msgid "JavaScript 프리셋"
+msgstr "Mẫu JavaScript"
+
+msgid "PHP 프리셋"
+msgstr "Mẫu PHP"

@@ -1,0 +1,36 @@
+# Thai translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: th\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF Code Snippets Box - ตัวจัดการฟังก์ชันที่กำหนดเองขั้นสูง"
+
+msgid "Code Snippets"
+msgstr "โค้ดส่วนย่อย"
+
+msgid "모든 스니펫"
+msgstr "ทั้งหมด"
+
+msgid "새 스니펫 추가"
+msgstr "เพิ่มใหม่"
+
+msgid "프리셋 라이브러리"
+msgstr "ไลบรารีพรีเซ็ต"
+
+msgid "설정"
+msgstr "ตั้งค่า"
+
+msgid "활성화"
+msgstr "เปิดใช้งาน"
+
+msgid "CSS 프리셋"
+msgstr "พรีเซ็ต CSS"
+
+msgid "JavaScript 프리셋"
+msgstr "พรีเซ็ต JavaScript"
+
+msgid "PHP 프리셋"
+msgstr "พรีเซ็ต PHP"

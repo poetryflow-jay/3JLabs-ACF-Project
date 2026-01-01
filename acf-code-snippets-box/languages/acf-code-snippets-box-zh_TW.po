@@ -1,0 +1,39 @@
+# Chinese (Traditional) translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: zh_TW\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF 程式碼片段盒子 - 進階自訂函數管理器"
+
+msgid "Code Snippets"
+msgstr "程式碼片段"
+
+msgid "모든 스니펫"
+msgstr "所有片段"
+
+msgid "새 스니펫 추가"
+msgstr "新增片段"
+
+msgid "프리셋 라이브러리"
+msgstr "預設庫"
+
+msgid "설정"
+msgstr "設定"
+
+msgid "코드 타입"
+msgstr "程式碼類型"
+
+msgid "활성화"
+msgstr "啟用"
+
+msgid "CSS 프리셋"
+msgstr "CSS 預設"
+
+msgid "JavaScript 프리셋"
+msgstr "JavaScript 預設"
+
+msgid "PHP 프리셋"
+msgstr "PHP 預設"

@@ -1,0 +1,631 @@
+# Copyright (C) 2026 3J Labs (제이x제니x제이슨 연구소)
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com\n"
+"POT-Creation-Date: 2026-01-02 17:00+0900\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2026-01-02 17:00+0900\n"
+"Last-Translator: 3J Labs <contact@3j-labs.com>\n"
+"Language-Team: 3J Labs <contact@3j-labs.com>\n"
+"X-Generator: Cursor AI\n"
+"X-Domain: acf-code-snippets-box\n"
+
+#. Plugin Name of the plugin
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://3j-labs.com"
+msgstr ""
+
+#. Description of the plugin
+msgid "ACF Code Snippets Box (Advanced Custom Function) - WordPress 코어를 수정하지 않고 JS, CSS, PHP, HTML 코드 스니펫을 저장하고 조건에 따라 실행하는 강력한 코드 관리 플러그인입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, 스타일 변수와 디자인 토큰을 쉽게 참조할 수 있습니다."
+msgstr ""
+
+#. Author of the plugin
+msgid "3J Labs (제이x제니x제이슨 연구소)"
+msgstr ""
+
+#: acf-code-snippets-box.php
+msgid "Code Snippets"
+msgstr ""
+
+#: acf-code-snippets-box.php
+msgid "모든 스니펫"
+msgstr ""
+
+#: acf-code-snippets-box.php
+msgid "새 스니펫 추가"
+msgstr ""
+
+#: acf-code-snippets-box.php
+msgid "프리셋 라이브러리"
+msgstr ""
+
+#: acf-code-snippets-box.php
+msgid "설정"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "코드 스니펫"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "새 코드 스니펫 추가"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "코드 스니펫 편집"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "새 코드 스니펫"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "코드 스니펫 보기"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "코드 스니펫 검색"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "스니펫을 찾을 수 없습니다."
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "휴지통에 스니펫이 없습니다."
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "스니펫 카테고리"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "카테고리"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "카테고리 검색"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "모든 카테고리"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "카테고리 편집"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "카테고리 업데이트"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "새 카테고리 추가"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "새 카테고리 이름"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "코드 에디터"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "스니펫 설정"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "실행 조건 (트리거)"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "ACF CSS 연동"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "PHP 코드는 <?php ?> 태그 없이 작성하세요. 보안상 PHP 실행은 설정에서 활성화해야 합니다."
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "코드 타입"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "활성화"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "우선순위"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "숫자가 낮을수록 먼저 실행됩니다."
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "설명"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "실행 위치"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "모든 페이지"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "프론트엔드만"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "관리자 페이지만"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "특정 페이지"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "특정 포스트"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "특정 포스트 타입"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "페이지 ID (쉼표 구분)"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "포스트 ID (쉼표 구분)"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "사용자 역할"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "선택하지 않으면 모든 사용자에게 적용됩니다."
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "디바이스"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "모든 디바이스"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "데스크탑만"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "모바일만"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "ACF CSS 변수 사용"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "CSS 코드에서 var(--jj-*) 변수를 자동완성합니다."
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "사용 가능한 변수:"
+msgstr ""
+
+#: includes/class-acf-csb-post-type.php
+msgid "... 더 많은 변수"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "일반 설정"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "코드 스니펫 실행과 관련된 설정입니다."
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "에디터 설정"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "코드 에디터 관련 설정입니다."
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "PHP 코드 실행"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "PHP 코드 실행 허용"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "⚠️ 보안 경고:"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "PHP 코드 실행을 활성화하면 보안 위험이 있습니다. 신뢰할 수 있는 코드만 실행하세요."
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "에러 로깅"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "에러 로그 기록"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "에러 로그 파일: %s"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "문법 하이라이팅"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "문법 하이라이팅 활성화"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "자동 완성"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "자동 완성 활성화"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "CSS 속성, JavaScript 함수, PHP 함수 등의 자동 완성을 제공합니다."
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "⚠️ PHP 실행이 활성화되어 있습니다."
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "신뢰할 수 있는 코드만 실행하세요."
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "💡 ACF CSS 연동 활성화"
+msgstr ""
+
+#: includes/class-acf-csb-admin.php
+msgid "CSS 코드에서 ACF CSS 스타일 변수(--jj-*)를 사용할 수 있습니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "부드러운 스크롤"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "페이지 스크롤을 부드럽게 만듭니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "스크롤바 숨기기"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "스크롤바를 숨기면서 스크롤은 유지합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "텍스트 선택 스타일"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "텍스트 선택 시 색상을 변경합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "접근성 포커스 스타일"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "키보드 포커스 시 명확한 아웃라인을 표시합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "버튼 호버 효과"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "버튼에 부드러운 호버 전환 효과를 추가합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "이미지 호버 줌"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "이미지에 마우스를 올리면 확대됩니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "맨 위로 버튼"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "스크롤 시 나타나는 맨 위로 버튼을 추가합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "코드 복사 버튼"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "코드 블록에 복사 버튼을 추가합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "외부 링크 새 탭에서 열기"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "외부 링크를 자동으로 새 탭에서 엽니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "이미지 지연 로딩"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "뷰포트에 들어올 때 이미지를 로드합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "댓글 비활성화"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "사이트 전체에서 댓글을 비활성화합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "WordPress 버전 숨기기"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "보안을 위해 WordPress 버전을 숨깁니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "로그인 로고 변경"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "로그인 페이지의 WordPress 로고를 사이트 로고로 변경합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "XML-RPC 비활성화"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "보안을 위해 XML-RPC를 비활성화합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "관리자 푸터 텍스트"
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "관리자 페이지 하단 텍스트를 변경합니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "권한이 없습니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "잘못된 요청입니다."
+msgstr ""
+
+#: includes/class-acf-csb-presets.php
+msgid "프리셋을 찾을 수 없습니다."
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "총 스니펫"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "활성화됨"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "CSS 스니펫"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "JS 스니펫"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "CSS, JS, PHP, HTML 코드를 추가하세요"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "스니펫을 관리하고 편집하세요"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "미리 준비된 유용한 코드 스니펫"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "플러그인 설정을 관리하세요"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "최근 스니펫"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "제목"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "타입"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "상태"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "수정일"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "활성"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "비활성"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "아직 스니펫이 없습니다. 첫 번째 스니펫을 추가해보세요!"
+msgstr ""
+
+#: admin/views/main-page.php
+msgid "ACF Code Snippets Box v%s | Made with ❤️ by %s"
+msgstr ""
+
+#: admin/views/settings-page.php
+msgid "Code Snippets 설정"
+msgstr ""
+
+#: admin/views/settings-page.php
+msgid "시스템 정보"
+msgstr ""
+
+#: admin/views/settings-page.php
+msgid "플러그인 버전"
+msgstr ""
+
+#: admin/views/settings-page.php
+msgid "WordPress 버전"
+msgstr ""
+
+#: admin/views/settings-page.php
+msgid "PHP 버전"
+msgstr ""
+
+#: admin/views/settings-page.php
+msgid "비활성화"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "자주 사용되는 유용한 코드 스니펫을 원클릭으로 추가하세요."
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "CSS 프리셋"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "JavaScript 프리셋"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "PHP 프리셋"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "스니펫으로 추가"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "코드 복사"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "복사됨!"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "⚠️ 주의:"
+msgstr ""
+
+#: admin/views/presets-page.php
+msgid "PHP 코드를 실행하려면 설정에서 \"PHP 코드 실행\"을 활성화해야 합니다."
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "특정 택소노미"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "홈페이지만"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "아카이브 페이지만"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "검색 결과 페이지만"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "404 페이지만"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "태블릿만"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "로그인 상태"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "모든 사용자"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "로그인한 사용자만"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "비로그인 사용자만"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "시간 기반"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "항상"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "특정 기간"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "특정 시간대"
+msgstr ""
+
+#: includes/class-acf-csb-triggers.php
+msgid "특정 요일"
+msgstr ""

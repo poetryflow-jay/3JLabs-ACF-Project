@@ -1,0 +1,36 @@
+# Hindi (India) translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: hi_IN\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF कोड स्निपेट बॉक्स - उन्नत कस्टम फ़ंक्शन प्रबंधक"
+
+msgid "Code Snippets"
+msgstr "कोड स्निपेट"
+
+msgid "모든 스니펫"
+msgstr "सभी स्निपेट"
+
+msgid "새 스니펫 추가"
+msgstr "नया स्निपेट जोड़ें"
+
+msgid "프리셋 라이브러리"
+msgstr "प्रीसेट लाइब्रेरी"
+
+msgid "설정"
+msgstr "सेटिंग्स"
+
+msgid "활성화"
+msgstr "सक्रिय करें"
+
+msgid "CSS 프리셋"
+msgstr "CSS प्रीसेट"
+
+msgid "JavaScript 프리셋"
+msgstr "JavaScript प्रीसेट"
+
+msgid "PHP 프리셋"
+msgstr "PHP प्रीसेट"

@@ -1,0 +1,36 @@
+# Russian translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: ru_RU\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF Code Snippets Box - Менеджер Расширенных Пользовательских Функций"
+
+msgid "Code Snippets"
+msgstr "Фрагменты Кода"
+
+msgid "모든 스니펫"
+msgstr "Все Фрагменты"
+
+msgid "새 스니펫 추가"
+msgstr "Добавить Новый Фрагмент"
+
+msgid "프리셋 라이브러리"
+msgstr "Библиотека Шаблонов"
+
+msgid "설정"
+msgstr "Настройки"
+
+msgid "활성화"
+msgstr "Включить"
+
+msgid "CSS 프리셋"
+msgstr "CSS Шаблоны"
+
+msgid "JavaScript 프리셋"
+msgstr "JavaScript Шаблоны"
+
+msgid "PHP 프리셋"
+msgstr "PHP Шаблоны"

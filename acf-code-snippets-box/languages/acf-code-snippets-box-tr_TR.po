@@ -1,0 +1,36 @@
+# Turkish translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: tr_TR\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF Kod Parçacıkları Kutusu - Gelişmiş Özel Fonksiyon Yöneticisi"
+
+msgid "Code Snippets"
+msgstr "Kod Parçacıkları"
+
+msgid "모든 스니펫"
+msgstr "Tüm Parçacıklar"
+
+msgid "새 스니펫 추가"
+msgstr "Yeni Parçacık Ekle"
+
+msgid "프리셋 라이브러리"
+msgstr "Hazır Şablonlar"
+
+msgid "설정"
+msgstr "Ayarlar"
+
+msgid "활성화"
+msgstr "Etkinleştir"
+
+msgid "CSS 프리셋"
+msgstr "CSS Şablonları"
+
+msgid "JavaScript 프리셋"
+msgstr "JavaScript Şablonları"
+
+msgid "PHP 프리셋"
+msgstr "PHP Şablonları"

@@ -62,6 +62,8 @@ services:
       - ./config/php/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
       # ACF CSS 개발 플러그인 마운트
       - ../acf-css-really-simple-style-management-center-master:/var/www/html/wp-content/plugins/acf-css-dev:rw
+      # ACF Code Snippets Box 플러그인 마운트
+      - ../acf-code-snippets-box:/var/www/html/wp-content/plugins/acf-code-snippets-box:rw
       - ./logs/php:/var/log/php:rw
     networks:
       - 3j_network

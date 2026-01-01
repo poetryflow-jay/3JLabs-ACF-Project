@@ -1,0 +1,36 @@
+# German (Switzerland) translation for ACF Code Snippets Box
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF Code Snippets Box 1.0.0\n"
+"Language: de_CH\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "ACF Code Snippets Box - Advanced Custom Function Manager"
+msgstr "ACF Code Snippets Box - Erweiterter Benutzerdefinierter Funktionsmanager"
+
+msgid "Code Snippets"
+msgstr "Code-Snippets"
+
+msgid "모든 스니펫"
+msgstr "Alle Snippets"
+
+msgid "새 스니펫 추가"
+msgstr "Neues Snippet Hinzufügen"
+
+msgid "프리셋 라이브러리"
+msgstr "Vorlagen-Bibliothek"
+
+msgid "설정"
+msgstr "Einstellungen"
+
+msgid "활성화"
+msgstr "Aktivieren"
+
+msgid "CSS 프리셋"
+msgstr "CSS-Vorlagen"
+
+msgid "JavaScript 프리셋"
+msgstr "JavaScript-Vorlagen"
+
+msgid "PHP 프리셋"
+msgstr "PHP-Vorlagen"
