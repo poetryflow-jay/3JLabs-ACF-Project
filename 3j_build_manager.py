@@ -392,15 +392,17 @@ class BuildEngine:
 # GUI 애플리케이션
 # ═══════════════════════════════════════════════════════════════════════════════
 class JJBuildManager(tk.Tk):
-    """3J Labs Build Manager GUI"""
+    """3J Labs Build Manager GUI - macOS Style Light Theme"""
     
     def __init__(self):
         super().__init__()
         
-        self.title("3J Labs ACF CSS Build Manager v3.0")
+        self.title("3J Labs ACF CSS Build Manager")
         self.geometry("1300x900")
         self.minsize(1000, 700)
-        self.configure(bg="#0d1117")
+        
+        # macOS 스타일 베이지/크림색 배경
+        self.configure(bg="#F5F5F0")
         
         self.config_data = load_config()
         self.is_building = False
@@ -414,71 +416,163 @@ class JJBuildManager(tk.Tk):
         self.after(500, self.check_shortcut)
     
     def setup_styles(self):
-        """스타일 설정"""
+        """macOS 스타일 라이트 테마 설정"""
         style = ttk.Style()
         style.theme_use('clam')
         
-        # 색상 정의
+        # macOS 스타일 색상 팔레트 (베이지/크림 라이트 테마)
         self.colors = {
-            'bg_dark': '#0d1117',
-            'bg_card': '#161b22',
-            'bg_input': '#21262d',
-            'text': '#c9d1d9',
-            'text_dim': '#8b949e',
-            'accent': '#58a6ff',
-            'accent_hover': '#79c0ff',
-            'success': '#3fb950',
-            'warning': '#d29922',
-            'error': '#f85149',
-            'border': '#30363d'
+            # 배경색 (베이지/크림 계열)
+            'bg_window': '#F5F5F0',      # 윈도우 배경 (웜 화이트)
+            'bg_card': '#FFFFFF',         # 카드 배경 (순수 화이트)
+            'bg_sidebar': '#ECEAE5',      # 사이드바 배경
+            'bg_input': '#FFFFFF',        # 입력 필드 배경
+            'bg_hover': '#E8E6E1',        # 호버 배경
+            
+            # 텍스트 색상
+            'text_primary': '#1D1D1F',    # 주요 텍스트 (거의 검정)
+            'text_secondary': '#6E6E73',  # 보조 텍스트 (회색)
+            'text_tertiary': '#8E8E93',   # 3차 텍스트
+            
+            # 강조색 (macOS 블루)
+            'accent': '#007AFF',          # macOS 블루
+            'accent_light': '#5AC8FA',    # 밝은 블루
+            'accent_dark': '#0051A8',     # 어두운 블루
+            
+            # 상태 색상
+            'success': '#34C759',         # macOS 그린
+            'warning': '#FF9500',         # macOS 오렌지
+            'error': '#FF3B30',           # macOS 레드
+            'info': '#5856D6',            # macOS 퍼플
+            
+            # 테두리
+            'border': '#D1D1D6',          # 테두리 색상
+            'border_light': '#E5E5EA',    # 밝은 테두리
+            
+            # 그림자 효과용
+            'shadow': '#00000010'
         }
         
-        # 기본 스타일
-        style.configure("TFrame", background=self.colors['bg_dark'])
-        style.configure("TLabel", background=self.colors['bg_dark'], foreground=self.colors['text'], font=("Segoe UI", 10))
-        style.configure("TLabelframe", background=self.colors['bg_card'], foreground=self.colors['text'])
-        style.configure("TLabelframe.Label", background=self.colors['bg_card'], foreground=self.colors['accent'], font=("Segoe UI", 11, "bold"))
+        # macOS 시스템 폰트 (Windows에서는 Segoe UI, Mac에서는 SF Pro)
+        self.fonts = {
+            'title': ('SF Pro Display', 28, 'bold') if sys.platform == 'darwin' else ('Segoe UI', 26, 'bold'),
+            'subtitle': ('SF Pro Text', 14) if sys.platform == 'darwin' else ('Segoe UI', 12),
+            'heading': ('SF Pro Display', 13, 'bold') if sys.platform == 'darwin' else ('Segoe UI', 11, 'bold'),
+            'body': ('SF Pro Text', 12) if sys.platform == 'darwin' else ('Segoe UI', 10),
+            'caption': ('SF Pro Text', 11) if sys.platform == 'darwin' else ('Segoe UI', 9),
+            'mono': ('SF Mono', 11) if sys.platform == 'darwin' else ('Consolas', 10)
+        }
+        
+        # 기본 프레임 스타일
+        style.configure("TFrame", background=self.colors['bg_window'])
+        
+        # 카드 프레임 스타일
+        style.configure("Card.TFrame", background=self.colors['bg_card'])
+        
+        # 레이블 스타일
+        style.configure("TLabel", 
+                       background=self.colors['bg_window'], 
+                       foreground=self.colors['text_primary'], 
+                       font=self.fonts['body'])
+        
+        # 레이블프레임 스타일 (macOS 그룹박스 스타일)
+        style.configure("TLabelframe", 
+                       background=self.colors['bg_card'], 
+                       foreground=self.colors['text_primary'],
+                       borderwidth=1,
+                       relief="solid")
+        style.configure("TLabelframe.Label", 
+                       background=self.colors['bg_card'], 
+                       foreground=self.colors['text_primary'], 
+                       font=self.fonts['heading'])
         
         # 헤더 스타일
-        style.configure("Header.TLabel", font=("Segoe UI", 28, "bold"), foreground=self.colors['accent'], background=self.colors['bg_dark'])
-        style.configure("SubHeader.TLabel", font=("Segoe UI", 12), foreground=self.colors['text_dim'], background=self.colors['bg_dark'])
+        style.configure("Header.TLabel", 
+                       font=self.fonts['title'], 
+                       foreground=self.colors['text_primary'], 
+                       background=self.colors['bg_window'])
+        style.configure("SubHeader.TLabel", 
+                       font=self.fonts['subtitle'], 
+                       foreground=self.colors['text_secondary'], 
+                       background=self.colors['bg_window'])
         
-        # 버튼 스타일
-        style.configure("TButton", font=("Segoe UI", 10), padding=10, background=self.colors['bg_input'])
-        style.map("TButton", background=[('active', self.colors['accent'])])
+        # 버튼 스타일 (macOS 스타일 둥근 버튼)
+        style.configure("TButton", 
+                       font=self.fonts['body'], 
+                       padding=(16, 8),
+                       background=self.colors['bg_card'],
+                       foreground=self.colors['text_primary'],
+                       borderwidth=1,
+                       relief="solid")
+        style.map("TButton", 
+                 background=[('active', self.colors['bg_hover']), ('pressed', self.colors['border'])],
+                 relief=[('pressed', 'sunken')])
         
-        style.configure("Primary.TButton", font=("Segoe UI", 11, "bold"), padding=12)
-        style.configure("Success.TButton", font=("Segoe UI", 10, "bold"))
-        style.configure("Danger.TButton", font=("Segoe UI", 10, "bold"))
+        # Primary 버튼 (macOS 블루 버튼)
+        style.configure("Primary.TButton", 
+                       font=self.fonts['heading'], 
+                       padding=(20, 10),
+                       background=self.colors['accent'],
+                       foreground='#FFFFFF')
+        style.map("Primary.TButton", 
+                 background=[('active', self.colors['accent_dark'])])
         
-        # 노트북 (탭) 스타일
-        style.configure("TNotebook", background=self.colors['bg_dark'], borderwidth=0)
+        # Success 버튼
+        style.configure("Success.TButton", 
+                       font=self.fonts['body'],
+                       background=self.colors['success'],
+                       foreground='#FFFFFF')
+        
+        # 노트북 (탭) 스타일 - macOS 세그먼트 컨트롤 스타일
+        style.configure("TNotebook", 
+                       background=self.colors['bg_window'], 
+                       borderwidth=0,
+                       tabmargins=[0, 0, 0, 0])
         style.configure("TNotebook.Tab", 
-                       background=self.colors['bg_input'], 
-                       foreground=self.colors['text'], 
-                       padding=[16, 8], 
-                       font=("Segoe UI", 10, "bold"))
+                       background=self.colors['bg_sidebar'], 
+                       foreground=self.colors['text_primary'], 
+                       padding=[20, 10], 
+                       font=self.fonts['body'])
         style.map("TNotebook.Tab", 
-                 background=[("selected", self.colors['accent'])], 
-                 foreground=[("selected", "#ffffff")])
+                 background=[("selected", self.colors['bg_card'])], 
+                 foreground=[("selected", self.colors['accent'])])
         
         # 체크박스 스타일
-        style.configure("TCheckbutton", background=self.colors['bg_dark'], foreground=self.colors['text'])
+        style.configure("TCheckbutton", 
+                       background=self.colors['bg_window'], 
+                       foreground=self.colors['text_primary'],
+                       font=self.fonts['body'])
         
-        # 진행바 스타일
-        style.configure("TProgressbar", background=self.colors['accent'], troughcolor=self.colors['bg_input'])
+        # 진행바 스타일 (macOS 스타일)
+        style.configure("TProgressbar", 
+                       background=self.colors['accent'], 
+                       troughcolor=self.colors['border_light'],
+                       borderwidth=0,
+                       thickness=6)
         
-        # Treeview 스타일
+        # Treeview 스타일 (macOS 테이블 스타일)
         style.configure("Treeview", 
                        background=self.colors['bg_card'],
-                       foreground=self.colors['text'],
+                       foreground=self.colors['text_primary'],
                        fieldbackground=self.colors['bg_card'],
-                       font=("Segoe UI", 10))
+                       font=self.fonts['body'],
+                       rowheight=28)
         style.configure("Treeview.Heading", 
-                       background=self.colors['bg_input'],
-                       foreground=self.colors['text'],
-                       font=("Segoe UI", 10, "bold"))
-        style.map("Treeview", background=[("selected", self.colors['accent'])])
+                       background=self.colors['bg_sidebar'],
+                       foreground=self.colors['text_primary'],
+                       font=self.fonts['heading'],
+                       relief="flat")
+        style.map("Treeview", 
+                 background=[("selected", self.colors['accent'])],
+                 foreground=[("selected", "#FFFFFF")])
+        
+        # Entry 스타일
+        style.configure("TEntry",
+                       fieldbackground=self.colors['bg_input'],
+                       foreground=self.colors['text_primary'],
+                       borderwidth=1,
+                       relief="solid",
+                       padding=8)
     
     def create_widgets(self):
         """위젯 생성"""
@@ -513,59 +607,101 @@ class JJBuildManager(tk.Tk):
         self.create_statusbar(main_frame)
     
     def create_header(self, parent):
-        """헤더 생성"""
+        """macOS 스타일 헤더 생성"""
         header = ttk.Frame(parent)
-        header.pack(fill="x")
+        header.pack(fill="x", pady=(0, 10))
         
-        # 로고 및 제목
+        # 로고 및 제목 (왼쪽)
         title_frame = ttk.Frame(header)
         title_frame.pack(side="left")
         
-        ttk.Label(title_frame, text="3J Labs Build Manager", style="Header.TLabel").pack(anchor="w")
-        ttk.Label(title_frame, text="ACF CSS Plugin Family Build & Version Management System", style="SubHeader.TLabel").pack(anchor="w")
+        # 앱 아이콘 + 제목
+        title_row = ttk.Frame(title_frame)
+        title_row.pack(anchor="w")
         
-        # 버전 및 상태
+        # 앱 아이콘 (이모지 사용)
+        icon_label = tk.Label(title_row, text="🔧", font=("Segoe UI", 32), bg=self.colors['bg_window'])
+        icon_label.pack(side="left", padx=(0, 12))
+        
+        title_text_frame = ttk.Frame(title_row)
+        title_text_frame.pack(side="left")
+        
+        ttk.Label(title_text_frame, text="3J Labs Build Manager", style="Header.TLabel").pack(anchor="w")
+        ttk.Label(title_text_frame, text="ACF CSS Plugin Family • Build & Version Management", style="SubHeader.TLabel").pack(anchor="w")
+        
+        # 버전 및 상태 (오른쪽)
         status_frame = ttk.Frame(header)
         status_frame.pack(side="right")
         
-        ttk.Label(status_frame, text="v3.0.0", font=("Consolas", 14), foreground=self.colors['success']).pack(anchor="e")
+        # 버전 배지 (macOS 스타일 pill 배지)
+        version_badge = tk.Frame(status_frame, bg=self.colors['accent'], padx=12, pady=4)
+        version_badge.pack(anchor="e", pady=(0, 4))
+        tk.Label(version_badge, text="v3.1.0", font=self.fonts['caption'], fg="#FFFFFF", bg=self.colors['accent']).pack()
         
+        # 상태 표시
         if HAS_PYWIN32:
-            ttk.Label(status_frame, text="✅ 숏컷 생성 가능", font=("Segoe UI", 9), foreground=self.colors['success']).pack(anchor="e")
+            status_indicator = tk.Frame(status_frame, bg=self.colors['bg_window'])
+            status_indicator.pack(anchor="e")
+            tk.Label(status_indicator, text="●", font=("Segoe UI", 8), fg=self.colors['success'], bg=self.colors['bg_window']).pack(side="left")
+            tk.Label(status_indicator, text=" 숏컷 생성 가능", font=self.fonts['caption'], fg=self.colors['text_secondary'], bg=self.colors['bg_window']).pack(side="left")
         else:
-            ttk.Label(status_frame, text="⚠️ pywin32 미설치", font=("Segoe UI", 9), foreground=self.colors['warning']).pack(anchor="e")
+            status_indicator = tk.Frame(status_frame, bg=self.colors['bg_window'])
+            status_indicator.pack(anchor="e")
+            tk.Label(status_indicator, text="●", font=("Segoe UI", 8), fg=self.colors['warning'], bg=self.colors['bg_window']).pack(side="left")
+            tk.Label(status_indicator, text=" pywin32 미설치", font=self.fonts['caption'], fg=self.colors['text_secondary'], bg=self.colors['bg_window']).pack(side="left")
     
     def create_statusbar(self, parent):
-        """상태바 생성"""
-        status_frame = ttk.Frame(parent)
-        status_frame.pack(fill="x", pady=(10, 0))
+        """macOS 스타일 상태바 생성"""
+        # 구분선
+        separator = tk.Frame(parent, height=1, bg=self.colors['border_light'])
+        separator.pack(fill="x", pady=(15, 0))
         
-        self.status_label = ttk.Label(status_frame, text="준비 완료", font=("Consolas", 10), foreground=self.colors['text_dim'])
+        status_frame = ttk.Frame(parent)
+        status_frame.pack(fill="x", pady=(8, 0))
+        
+        # 상태 텍스트
+        self.status_label = tk.Label(status_frame, 
+                                     text="● 준비 완료", 
+                                     font=self.fonts['caption'], 
+                                     fg=self.colors['text_secondary'],
+                                     bg=self.colors['bg_window'])
         self.status_label.pack(side="left")
         
+        # 진행바 (macOS 스타일)
         self.progress_bar = ttk.Progressbar(status_frame, mode='determinate', length=200)
         self.progress_bar.pack(side="right")
     
     def create_dashboard_tab(self):
-        """대시보드 탭"""
-        # 상단 요약 카드
+        """macOS 스타일 대시보드 탭"""
+        # 상단 요약 카드 (macOS 스타일)
         summary_frame = ttk.Frame(self.tab_dashboard)
-        summary_frame.pack(fill="x", padx=10, pady=10)
+        summary_frame.pack(fill="x", padx=10, pady=15)
         
-        # 카드 생성
+        # 카드 데이터
         cards_data = [
-            ("전체 플러그인", len(PLUGINS), "개", self.colors['accent']),
-            ("Core 플러그인", sum(1 for p in PLUGINS.values() if p['is_core']), "개", self.colors['success']),
-            ("Family 플러그인", sum(1 for p in PLUGINS.values() if not p['is_core']), "개", self.colors['warning']),
-            ("마지막 빌드", self.config_data.get('last_build_time', '없음')[:10] if self.config_data.get('last_build_time') else "없음", "", self.colors['text_dim'])
+            ("📦", "전체 플러그인", len(PLUGINS), "개", self.colors['accent']),
+            ("⭐", "Core 플러그인", sum(1 for p in PLUGINS.values() if p['is_core']), "개", self.colors['success']),
+            ("🧩", "Family 플러그인", sum(1 for p in PLUGINS.values() if not p['is_core']), "개", self.colors['info']),
+            ("🕐", "마지막 빌드", self.config_data.get('last_build_time', '없음')[:10] if self.config_data.get('last_build_time') else "없음", "", self.colors['text_secondary'])
         ]
         
-        for i, (title, value, suffix, color) in enumerate(cards_data):
-            card = tk.Frame(summary_frame, bg=self.colors['bg_card'], padx=20, pady=15)
-            card.pack(side="left", fill="x", expand=True, padx=5)
+        for i, (icon, title, value, suffix, color) in enumerate(cards_data):
+            # macOS 스타일 카드 (그림자 효과)
+            card_outer = tk.Frame(summary_frame, bg=self.colors['border_light'], padx=1, pady=1)
+            card_outer.pack(side="left", fill="x", expand=True, padx=6)
             
-            tk.Label(card, text=title, bg=self.colors['bg_card'], fg=self.colors['text_dim'], font=("Segoe UI", 10)).pack(anchor="w")
-            tk.Label(card, text=f"{value}{suffix}", bg=self.colors['bg_card'], fg=color, font=("Segoe UI", 24, "bold")).pack(anchor="w")
+            card = tk.Frame(card_outer, bg=self.colors['bg_card'], padx=20, pady=16)
+            card.pack(fill="both", expand=True)
+            
+            # 아이콘 + 제목
+            header_row = tk.Frame(card, bg=self.colors['bg_card'])
+            header_row.pack(anchor="w", fill="x")
+            
+            tk.Label(header_row, text=icon, font=("Segoe UI", 16), bg=self.colors['bg_card']).pack(side="left")
+            tk.Label(header_row, text=f"  {title}", bg=self.colors['bg_card'], fg=self.colors['text_secondary'], font=self.fonts['caption']).pack(side="left")
+            
+            # 값
+            tk.Label(card, text=f"{value}{suffix}", bg=self.colors['bg_card'], fg=color, font=(self.fonts['title'][0], 28, 'bold')).pack(anchor="w", pady=(8, 0))
         
         # 플러그인 목록
         list_frame = ttk.LabelFrame(self.tab_dashboard, text=" 플러그인 목록 ", padding=10)
@@ -644,32 +780,40 @@ class JJBuildManager(tk.Tk):
         ttk.Button(build_btn_frame, text="전체 해제", command=lambda: self.toggle_all_plugins(False)).pack(side="left", padx=5)
         ttk.Button(build_btn_frame, text="Core만 선택", command=self.select_core_only).pack(side="left", padx=5)
         
-        # 빌드 로그
+        # 빌드 로그 (macOS 터미널 스타일 - 라이트 버전)
         log_frame = ttk.LabelFrame(self.tab_build, text=" 빌드 로그 ", padding=10)
         log_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
         self.log_text = scrolledtext.ScrolledText(
             log_frame, 
-            bg=self.colors['bg_card'], 
-            fg=self.colors['success'], 
-            font=("Consolas", 10),
-            relief="flat",
-            insertbackground=self.colors['text']
+            bg='#FAFAF8',                           # 밝은 베이지 배경
+            fg=self.colors['text_primary'],          # 어두운 텍스트
+            font=self.fonts['mono'],
+            relief="solid",
+            borderwidth=1,
+            insertbackground=self.colors['text_primary'],
+            selectbackground=self.colors['accent'],
+            selectforeground='#FFFFFF',
+            padx=12,
+            pady=8
         )
         self.log_text.pack(fill="both", expand=True)
     
     def create_version_tab(self):
         """버전 관리 탭"""
-        # 버전 정보
+        # 버전 정보 (macOS 스타일)
         version_frame = ttk.LabelFrame(self.tab_version, text=" 플러그인 버전 정보 ", padding=10)
         version_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
         self.version_text = scrolledtext.ScrolledText(
             version_frame,
-            bg=self.colors['bg_card'],
-            fg=self.colors['text'],
-            font=("Consolas", 11),
-            relief="flat"
+            bg='#FAFAF8',                           # 밝은 베이지 배경
+            fg=self.colors['text_primary'],          # 어두운 텍스트
+            font=self.fonts['mono'],
+            relief="solid",
+            borderwidth=1,
+            padx=12,
+            pady=8
         )
         self.version_text.pack(fill="both", expand=True)
         
@@ -848,7 +992,21 @@ class JJBuildManager(tk.Tk):
     
     def set_status(self, message):
         """상태바 업데이트"""
-        self.status_label.config(text=message)
+        # 상태에 따라 색상 변경
+        if "완료" in message or "✅" in message:
+            color = self.colors['success']
+            prefix = "●"
+        elif "오류" in message or "❌" in message or "실패" in message:
+            color = self.colors['error']
+            prefix = "●"
+        elif "중" in message or "진행" in message:
+            color = self.colors['accent']
+            prefix = "◐"
+        else:
+            color = self.colors['text_secondary']
+            prefix = "●"
+        
+        self.status_label.config(text=f"{prefix} {message}", fg=color)
     
     def open_dist_folder(self):
         """dist 폴더 열기"""
