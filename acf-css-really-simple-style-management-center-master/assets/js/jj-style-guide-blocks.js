@@ -363,5 +363,27 @@
             return null; // dynamic
         },
     } );
+
+    // ===== Live Page Block (v13.4.2) =====
+    registerBlockType( 'jj-style-guide/live-page', {
+        apiVersion: 3,
+        title: 'JJ 스타일 가이드 라이브',
+        icon: 'book-alt',
+        category: ( JJ && JJ.category ) ? JJ.category : 'design',
+        description: '전체 스타일 가이드 라이브 페이지를 표시합니다. (숏코드 [jj_style_guide_live] 대체)',
+        keywords: [ 'styleguide', 'live', 'jj', 'style', 'center' ],
+        attributes: {},
+        example: {},
+        edit: function ( props ) {
+            return el(
+                'div',
+                { className: props.className },
+                el( ServerPreview, { block: 'jj-style-guide/live-page', attributes: {} } )
+            );
+        },
+        save: function () {
+            return null; // dynamic server-side render
+        },
+    } );
 } )( window.wp );
 

@@ -2,33 +2,101 @@
 
 ## 📋 Roadmap (다음 Phase 계획)
 
-### Phase 15: 로컬 WordPress 테스트 환경 구축
-- Kinsta 호스팅과 동일한 사양의 로컬 개발/테스트 환경
-- Docker + nginx + PHP-FPM 기반
-- 플러그인 자동 업데이트/재설치 시스템
-- Kinsta 백업 파일 복원 기능
+### Phase 19: Figma 통합 심화 및 AI 고도화
+- Figma 디자인 → WordPress 자동 변환
+- WordPress 디자인 → Figma 내보내기
+- AI 기반 폰트 추천 고도화
+- 성능 최적화 및 코드 리팩토링
 
-### Phase 16: ACF Code Snippets (코드 스니펫 플러그인)
-- WP CODEBOX 2, Code Snippets와 유사한 기능
-- JS, CSS, PHP, HTML 코드 스니펫 관리
-- 조건부 트리거 시스템
-- 프리셋 코드 라이브러리
-- ACF CSS 패밀리/애드온으로 연동
+### Phase 20: 테스트 자동화 및 CI/CD
+- 로컬 WordPress 테스트 자동화
+- GitHub Actions 기반 CI/CD 파이프라인
+- 자동 배포 시스템 구축
 
 ---
 
 ## 🔜 Next Phase Preview (Coming Soon)
 
-### Phase 15: 로컬 WordPress 테스트 환경 구축
-- Kinsta 호스팅과 동일한 PHP/nginx 사양
-- 플러그인 자동 업데이트/재설치 시스템
-- 로컬 및 브라우저에서 실시간 테스트
+### Phase 19: Figma 통합 심화
+- W Design Kit 스타일 통합
+- 양방향 디자인 동기화
+- AI 폰트 추천 강화
 
-### Phase 16: ACF Code Snippets (코드 스니펫 플러그인)
-- WP CODEBOX 2, Code Snippets와 유사한 코드 관리 플러그인
-- JS, CSS, PHP, HTML 코드 스니펫 저장 및 조건부 실행
-- 다국어 툴팁, 문법 제안, 프리셋 코드 라이브러리
-- ACF CSS 패밀리 플러그인 및 애드온
+---
+
+## Version 13.4.2 (2026-01-02) - Hotfix: 블록 에디터 & Nexter 테마 지원
+
+### 🎨 블록 에디터 개선
+- **스타일 가이드 라이브 블록**: 블록 에디터에서 `jj-style-guide/live-page` 블록 추가
+- **에디터 미리보기**: 블록 에디터에서 스타일 가이드 라이브 페이지 미리보기 표시 (숏코드만 보이던 문제 해결)
+- **서버 사이드 렌더링**: 프론트엔드에서 전체 스타일 가이드 정상 표시
+
+### 🔄 Nexter 테마 동기화 지원
+- **Nexter 테마 브랜드 팔레트**: `nexter_theme_options` 및 `nexter_blocks_settings`에서 색상 동기화
+- **Nexter 테마 시스템 팔레트**: 사이트 배경, 텍스트, 링크 색상 자동 감지
+- **Posimyth 테마 호환**: Nexter Theme 4.x 시리즈와 완전 호환
+
+### 💬 UX 개선
+- **색상 새로고침 에러 메시지 개선**: Customizer에서 색상을 찾을 수 없을 때 친절한 안내 메시지 표시
+- **대안 제안**: 직접 입력 또는 추천 팔레트 사용 안내 추가
+
+---
+
+## Version 13.4.1 (2026-01-02) - Hotfix: 권한 오류 및 넛지 시스템 수정
+
+### 🔧 버그 수정
+- **레거시 슬러그 리다이렉트**: 구 슬러그(`jj-style-guide`, `jj-simple-style-guide`)에서 신 슬러그로 자동 리다이렉트
+- **권한 오류 해결**: Master 버전에서 "권한이 없습니다" 오류 수정
+- **넛지 시스템 URL 수정**: 스타일 가이드 페이지 링크가 올바른 URL로 연결되도록 수정
+
+### ✨ 넛지 시스템 개선
+- **스크롤-투-타겟**: 넛지가 특정 요소를 가리킬 때 자동 스크롤
+- **하이라이트 효과**: 펄스, 글로우, 바운스 등 다양한 하이라이트 애니메이션
+- **스포트라이트 오버레이**: 특정 UI 요소에 집중할 수 있는 스포트라이트 효과
+- **URL 기반 스포트라이트**: URL 파라미터로 가이드 투어 실행 가능
+
+---
+
+## Version 13.4.0 (2026-01-02) - Phase 18: 전체 로드맵 구현 및 에디션 빌드 시스템
+
+### 🎯 Phase 18: 로드맵 완료
+- **조건 빌더 UI 완전 구현**: AND/OR 논리 조합, 13가지 조건 타입
+- **넛지 마케팅 시스템**: Toast, Banner, Modal, Tooltip, Spotlight, Walkthrough 6가지 타입
+- **내보내기/가져오기**: JSON, ZIP 형식 지원, 드래그 앤 드롭 UI
+- **클라우드 동기화**: 3J Labs API 기반 스니펫 동기화 구조
+
+### 🔧 개발 도구
+- **Python 개발 툴킷 CLI 모드**: 커맨드라인 빌드 지원
+- **에디션 빌드 시스템**: Free/Basic/Premium/Unlimited × Standard/Partner/Master
+- **번들 패키지 생성**: 전체 에디션 일괄 패키징
+
+### 🌐 다국어 지원
+- 22개 언어 번역 파일 완료 (ACF Code Snippets Box, ACF CSS WooCommerce Toolkit)
+
+### 📦 새 플러그인 버전
+- ACF Code Snippets Box v1.1.0: 조건 빌더, 넛지 시스템, 내보내기/가져오기 JavaScript 구현
+- ACF CSS WooCommerce Toolkit v1.1.0: 상품 Q&A 시스템, 22개 언어 지원
+
+---
+
+## Version 13.3.0 (2026-01-01) - Phase 15: 로컬 WordPress 환경 구축
+
+### 🐳 Docker 기반 로컬 개발 환경
+- Kinsta 호스팅과 동일한 사양 (PHP 8.5, Nginx 1.27, MariaDB 11.7)
+- Docker Compose 기반 원클릭 환경 구축
+- Kinsta 백업 파일 복원 지원
+
+### 📦 ACF Code Snippets Box v1.0.0 (신규)
+- WordPress 코어 비수정 코드 스니펫 관리
+- WPCODEBOX2 스타일 조건부 실행
+- 15+ 프리셋 코드 라이브러리
+- ACF CSS 스타일 변수 연동
+
+### 🛒 ACF CSS WooCommerce Toolkit v1.0.0 (신규)
+- 가격 엔진 (할인율, 할부 표시)
+- 할인 계산기 UI
+- 빠른 편집 필드 확장
+- 장바구니 UI 개선
 
 ---
 

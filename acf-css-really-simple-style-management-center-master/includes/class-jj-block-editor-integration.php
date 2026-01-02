@@ -433,6 +433,57 @@ class JJ_Block_Editor_Integration {
                 ),
             ),
         ) );
+
+        // [v13.4.2] 스타일 가이드 라이브 페이지 블록 (숏코드 대체)
+        register_block_type( 'jj-style-guide/live-page', array(
+            'api_version'     => 3,
+            'editor_script'   => 'jj-style-guide-blocks',
+            'style'           => 'jj-style-guide-blocks',
+            'render_callback' => array( $this, 'render_live_page_block' ),
+            'attributes'      => array(),
+        ) );
+    }
+
+    /**
+     * 스타일 가이드 라이브 페이지 블록 렌더
+     * @since 13.4.2
+     */
+    public function render_live_page_block( $attributes, $content, $block ) {
+        // 블록 에디터에서 미리보기 렌더링 (REST API 컨텍스트)
+        if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+            // 에디터에서는 간략한 미리보기 표시
+            $preview_html = '<div class="jj-live-page-editor-preview" style="'
+                . 'padding: 40px 20px; '
+                . 'background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); '
+                . 'border-radius: 12px; '
+                . 'text-align: center; '
+                . 'color: #fff; '
+                . 'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', sans-serif;'
+                . '">';
+            $preview_html .= '<div style="font-size: 48px; margin-bottom: 16px;">📘</div>';
+            $preview_html .= '<h3 style="margin: 0 0 12px; font-size: 20px; font-weight: 600; color: #fff;">'
+                . esc_html__( 'ACF CSS 스타일 가이드 라이브', 'acf-css-really-simple-style-management-center' )
+                . '</h3>';
+            $preview_html .= '<p style="margin: 0 0 16px; opacity: 0.9; font-size: 14px;">'
+                . esc_html__( '이 블록은 프론트엔드에서 전체 스타일 가이드를 표시합니다.', 'acf-css-really-simple-style-management-center' )
+                . '</p>';
+            $preview_html .= '<p style="margin: 0; font-size: 12px; opacity: 0.75;">'
+                . esc_html__( '💡 페이지를 게시/저장 후 "미리보기" 또는 실제 페이지에서 확인하세요.', 'acf-css-really-simple-style-management-center' )
+                . '</p>';
+            $preview_html .= '</div>';
+            return $preview_html;
+        }
+
+        // 프론트엔드에서는 실제 숏코드 실행
+        if ( class_exists( 'JJ_Style_Guide_Live_Page' ) ) {
+            $live_page = JJ_Style_Guide_Live_Page::instance();
+            if ( method_exists( $live_page, 'render_shortcode' ) ) {
+                return $live_page->render_shortcode();
+            }
+        }
+
+        // Fallback: 숏코드 직접 호출
+        return do_shortcode( '[jj_style_guide_live]' );
     }
 
     /**

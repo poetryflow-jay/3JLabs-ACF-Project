@@ -46,6 +46,8 @@ class JJ_Customizer_Sync {
             $synced = $this->sync_kadence_brand_palette( $force_update );
         } else if ( 'astra' === $this->theme_slug ) {
             $synced = $this->sync_astra_brand_palette( $force_update );
+        } else if ( 'nexter' === $this->theme_slug ) {
+            $synced = $this->sync_nexter_brand_palette( $force_update );
         } else {
             // 기본 WordPress Customizer 색상 사용
             $synced = $this->sync_default_brand_palette( $force_update );
@@ -72,6 +74,8 @@ class JJ_Customizer_Sync {
             $synced = $this->sync_kadence_system_palette( $force_update );
         } else if ( 'astra' === $this->theme_slug ) {
             $synced = $this->sync_astra_system_palette( $force_update );
+        } else if ( 'nexter' === $this->theme_slug ) {
+            $synced = $this->sync_nexter_system_palette( $force_update );
         } else {
             // 기본 WordPress Customizer 색상 사용
             $synced = $this->sync_default_system_palette( $force_update );
@@ -211,6 +215,109 @@ class JJ_Customizer_Sync {
         }
         
         return $colors;
+    }
+    
+    /**
+     * Nexter 테마 브랜드 팔레트 동기화
+     * @since 13.4.2
+     */
+    private function sync_nexter_brand_palette( $force_update = false ) {
+        $synced = array();
+        
+        // Nexter 테마는 Posimyth에서 개발, nxt_ 접두어 옵션 사용
+        $nexter_options = get_option( 'nexter_theme_options', array() );
+        
+        // Global 팔레트에서 가져오기
+        if ( is_array( $nexter_options ) ) {
+            if ( ! empty( $nexter_options['global_palette']['color1'] ) ) {
+                $synced['primary_color'] = $nexter_options['global_palette']['color1'];
+            }
+            if ( ! empty( $nexter_options['global_palette']['color2'] ) ) {
+                $synced['primary_color_hover'] = $nexter_options['global_palette']['color2'];
+            }
+            if ( ! empty( $nexter_options['global_palette']['color3'] ) ) {
+                $synced['secondary_color'] = $nexter_options['global_palette']['color3'];
+            }
+            if ( ! empty( $nexter_options['global_palette']['color4'] ) ) {
+                $synced['secondary_color_hover'] = $nexter_options['global_palette']['color4'];
+            }
+        }
+        
+        // Nexter Blocks Pro의 palette도 시도
+        $nxt_blocks_options = get_option( 'nexter_blocks_settings', array() );
+        if ( is_array( $nxt_blocks_options ) && ! empty( $nxt_blocks_options['global_palette'] ) ) {
+            $palette = $nxt_blocks_options['global_palette'];
+            if ( $force_update || empty( $synced['primary_color'] ) ) {
+                if ( ! empty( $palette['color1'] ) ) {
+                    $synced['primary_color'] = $palette['color1'];
+                }
+            }
+            if ( $force_update || empty( $synced['secondary_color'] ) ) {
+                if ( ! empty( $palette['color3'] ) ) {
+                    $synced['secondary_color'] = $palette['color3'];
+                }
+            }
+        }
+        
+        // theme_mod로도 시도 (일부 테마는 이 방식 사용)
+        $theme_primary = get_theme_mod( 'nxt_global_color_1', '' );
+        $theme_secondary = get_theme_mod( 'nxt_global_color_3', '' );
+        
+        if ( ( $force_update || empty( $synced['primary_color'] ) ) && $theme_primary ) {
+            $synced['primary_color'] = $theme_primary;
+        }
+        if ( ( $force_update || empty( $synced['secondary_color'] ) ) && $theme_secondary ) {
+            $synced['secondary_color'] = $theme_secondary;
+        }
+        
+        return $synced;
+    }
+    
+    /**
+     * Nexter 테마 시스템 팔레트 동기화
+     * @since 13.4.2
+     */
+    private function sync_nexter_system_palette( $force_update = false ) {
+        $synced = array();
+        
+        $nexter_options = get_option( 'nexter_theme_options', array() );
+        
+        if ( is_array( $nexter_options ) ) {
+            // 사이트 배경색
+            if ( ! empty( $nexter_options['site_background'] ) ) {
+                $synced['site_bg'] = $nexter_options['site_background'];
+            } else if ( ! empty( $nexter_options['global_palette']['color7'] ) ) {
+                $synced['site_bg'] = $nexter_options['global_palette']['color7'];
+            }
+            
+            // 콘텐츠 배경색
+            if ( ! empty( $nexter_options['content_background'] ) ) {
+                $synced['content_bg'] = $nexter_options['content_background'];
+            } else if ( ! empty( $nexter_options['global_palette']['color8'] ) ) {
+                $synced['content_bg'] = $nexter_options['global_palette']['color8'];
+            }
+            
+            // 텍스트 색상
+            if ( ! empty( $nexter_options['global_palette']['color5'] ) ) {
+                $synced['text_color'] = $nexter_options['global_palette']['color5'];
+            }
+            if ( ! empty( $nexter_options['global_palette']['color6'] ) ) {
+                $synced['heading_color'] = $nexter_options['global_palette']['color6'];
+            }
+            
+            // 링크 색상 - 보통 primary와 같음
+            if ( ! empty( $nexter_options['link_color'] ) ) {
+                $synced['link_color'] = $nexter_options['link_color'];
+            }
+        }
+        
+        // WordPress 기본값 폴백
+        $background_color = get_theme_mod( 'background_color', '' );
+        if ( ( $force_update || empty( $synced['site_bg'] ) ) && $background_color ) {
+            $synced['site_bg'] = '#' . $background_color;
+        }
+        
+        return $synced;
     }
     
     /**

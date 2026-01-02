@@ -687,7 +687,13 @@ jQuery(document).ready(function($) {
                     // 페이지 새로고침 없이 옵션 저장 (선택 사항)
                     // $('#jj-style-guide-form').submit();
                 } else {
-                    alert('불러온 색상이 없거나 해당 필드를 찾을 수 없습니다.');
+                    // 색상은 성공적으로 불러왔지만 필드에 적용할 수 없는 경우
+                    var infoMsg = '현재 테마의 Customizer에서 불러올 색상이 없습니다.\n\n';
+                    infoMsg += '다음 방법을 시도해보세요:\n';
+                    infoMsg += '• 테마 Customizer에서 색상을 먼저 설정하세요\n';
+                    infoMsg += '• 또는 아래 필드에 직접 색상을 입력하세요\n';
+                    infoMsg += '• 추천 팔레트에서 원하는 프리셋을 선택할 수도 있습니다';
+                    alert(infoMsg);
                 }
             } else {
                 var errorMsg = response.data && response.data.message ? response.data.message : '색상을 불러오는데 실패했습니다.';
