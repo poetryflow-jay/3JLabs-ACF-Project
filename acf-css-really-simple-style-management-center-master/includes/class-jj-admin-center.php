@@ -46,10 +46,17 @@ final class JJ_Admin_Center {
      * 초기화: 메뉴 등록 훅 연결
      */
     public function init() {
-        add_action( 'admin_menu', array( $this, 'add_admin_menu_page' ) );
+        // [v20.2.0] admin_menu 훅 우선순위를 1로 설정하여 먼저 등록
+        add_action( 'admin_menu', array( $this, 'add_admin_menu_page' ), 1 );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_center_assets' ) );
         // [Phase 4.5] 상단바(Admin Bar) 어디서나 접근 가능한 진입점 추가
         add_action( 'admin_bar_menu', array( $this, 'add_admin_bar_menu' ), 100 );
+        
+        // [v20.2.0] 스타일 센터 메뉴 강조 스타일 (앰버/오렌지 계열)
+        add_action( 'admin_head', array( $this, 'output_style_center_menu_highlight' ) );
+        
+        // [v20.2.0] 메뉴 순서 강제 지정 (알림판 > 벌크 매니저 > 스타일 센터)
+        add_filter( 'menu_order', array( $this, 'force_style_center_menu_order' ), 1000 );
 
         // 관리자 메뉴 커스터마이징 적용
         add_action( 'admin_menu', array( $this, 'apply_admin_menu_customizations' ), 999 );
@@ -248,15 +255,218 @@ final class JJ_Admin_Center {
     }
 
     /**
+     * [v20.2.0] 3J Labs 패밀리 플러그인 메뉴 강조 스타일 (통합 관리)
+     * - ACF 스타일 센터: 앰버/오렌지 (#f59e0b)
+     * - WP Bulk Manager: 에메랄드 그린 (#10b981) - WP Bulk Manager에서 자체 관리
+     * - Code Snippets Box: 퍼플/바이올렛 (#8b5cf6)
+     * - WooCommerce Toolkit: 핑크/마젠타 (#ec4899)
+     * - AI Extension: 시안/청록 (#06b6d4)
+     * - MBA Nudge Flow: 레드/코랄 (#ef4444)
+     * - Admin Menu Editor Pro: 인디고 (#6366f1)
+     */
+    public function output_style_center_menu_highlight() {
+        ?>
+        <style>
+            /* ═══════════════════════════════════════════════════════════════ */
+            /* 3J Labs 패밀리 플러그인 메뉴 강조 스타일 */
+            /* ═══════════════════════════════════════════════════════════════ */
+            
+            /* ACF 스타일 센터 - 앰버/오렌지 */
+            #adminmenu li.toplevel_page_jj-admin-center > a {
+                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                margin: 2px 8px;
+                transition: all 0.2s ease;
+            }
+            #adminmenu li.toplevel_page_jj-admin-center > a:hover {
+                background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+            }
+            #adminmenu li.toplevel_page_jj-admin-center > a .wp-menu-image:before {
+                color: #fff !important;
+            }
+            #adminmenu li.toplevel_page_jj-admin-center.current > a,
+            #adminmenu li.toplevel_page_jj-admin-center.wp-has-current-submenu > a {
+                background: linear-gradient(135deg, #b45309 0%, #92400e 100%) !important;
+            }
+            
+            /* ACF Code Snippets Box - 퍼플/바이올렛 */
+            #adminmenu li.toplevel_page_acf-code-snippets > a,
+            #adminmenu li.menu-top[class*="acf-code-snippets"] > a {
+                background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%) !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                margin: 2px 8px;
+                transition: all 0.2s ease;
+            }
+            #adminmenu li.toplevel_page_acf-code-snippets > a:hover,
+            #adminmenu li.menu-top[class*="acf-code-snippets"] > a:hover {
+                background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%) !important;
+            }
+            #adminmenu li.toplevel_page_acf-code-snippets > a .wp-menu-image:before,
+            #adminmenu li.menu-top[class*="acf-code-snippets"] > a .wp-menu-image:before {
+                color: #fff !important;
+            }
+            
+            /* ACF CSS WooCommerce Toolkit - 핑크/마젠타 */
+            #adminmenu li.toplevel_page_acf-css-woocommerce-toolkit > a,
+            #adminmenu li.menu-top[class*="acf-css-woo"] > a {
+                background: linear-gradient(135deg, #ec4899 0%, #db2777 100%) !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                margin: 2px 8px;
+                transition: all 0.2s ease;
+            }
+            #adminmenu li.toplevel_page_acf-css-woocommerce-toolkit > a:hover,
+            #adminmenu li.menu-top[class*="acf-css-woo"] > a:hover {
+                background: linear-gradient(135deg, #db2777 0%, #be185d 100%) !important;
+            }
+            #adminmenu li.toplevel_page_acf-css-woocommerce-toolkit > a .wp-menu-image:before,
+            #adminmenu li.menu-top[class*="acf-css-woo"] > a .wp-menu-image:before {
+                color: #fff !important;
+            }
+            
+            /* ACF CSS AI Extension - 시안/청록 */
+            #adminmenu li.toplevel_page_acf-css-ai-extension > a,
+            #adminmenu li.menu-top[class*="acf-css-ai"] > a {
+                background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                margin: 2px 8px;
+                transition: all 0.2s ease;
+            }
+            #adminmenu li.toplevel_page_acf-css-ai-extension > a:hover,
+            #adminmenu li.menu-top[class*="acf-css-ai"] > a:hover {
+                background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%) !important;
+            }
+            #adminmenu li.toplevel_page_acf-css-ai-extension > a .wp-menu-image:before,
+            #adminmenu li.menu-top[class*="acf-css-ai"] > a .wp-menu-image:before {
+                color: #fff !important;
+            }
+            
+            /* ACF MBA Nudge Flow - 레드/코랄 */
+            #adminmenu li.toplevel_page_acf-nudge-flow > a,
+            #adminmenu li.toplevel_page_acf-mba > a,
+            #adminmenu li.menu-top[class*="nudge-flow"] > a {
+                background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                margin: 2px 8px;
+                transition: all 0.2s ease;
+            }
+            #adminmenu li.toplevel_page_acf-nudge-flow > a:hover,
+            #adminmenu li.toplevel_page_acf-mba > a:hover,
+            #adminmenu li.menu-top[class*="nudge-flow"] > a:hover {
+                background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+            }
+            #adminmenu li.toplevel_page_acf-nudge-flow > a .wp-menu-image:before,
+            #adminmenu li.toplevel_page_acf-mba > a .wp-menu-image:before,
+            #adminmenu li.menu-top[class*="nudge-flow"] > a .wp-menu-image:before {
+                color: #fff !important;
+            }
+            
+            /* Admin Menu Editor Pro - 인디고 */
+            #adminmenu li.toplevel_page_admin-menu-editor-pro > a,
+            #adminmenu li.menu-top[class*="admin-menu-editor"] > a {
+                background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%) !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                margin: 2px 8px;
+                transition: all 0.2s ease;
+            }
+            #adminmenu li.toplevel_page_admin-menu-editor-pro > a:hover,
+            #adminmenu li.menu-top[class*="admin-menu-editor"] > a:hover {
+                background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%) !important;
+            }
+            #adminmenu li.toplevel_page_admin-menu-editor-pro > a .wp-menu-image:before,
+            #adminmenu li.menu-top[class*="admin-menu-editor"] > a .wp-menu-image:before {
+                color: #fff !important;
+            }
+            
+            /* 공통: 모든 3J Labs 메뉴 선택 상태 */
+            #adminmenu li[class*="jj-"].current > a,
+            #adminmenu li[class*="jj-"].wp-has-current-submenu > a,
+            #adminmenu li[class*="acf-"].current > a,
+            #adminmenu li[class*="acf-"].wp-has-current-submenu > a {
+                opacity: 0.95;
+            }
+        </style>
+        <?php
+    }
+
+    /**
+     * [v20.2.0] 스타일 센터 메뉴 순서 강제 지정
+     * 알림판 > 벌크 매니저 > 스타일 센터 순서
+     */
+    public function force_style_center_menu_order( $menu_order ) {
+        if ( ! is_array( $menu_order ) ) {
+            return $menu_order;
+        }
+        
+        $our_slug = 'jj-admin-center';
+        $bulk_manager_slug = 'jj-bulk-installer-main';
+        
+        // 우리 메뉴 위치 찾기
+        $our_position = array_search( $our_slug, $menu_order );
+        
+        if ( $our_position !== false ) {
+            // 우리 메뉴를 제거
+            unset( $menu_order[ $our_position ] );
+            $menu_order = array_values( $menu_order );
+        }
+        
+        // 벌크 매니저 바로 뒤에 삽입
+        $bulk_position = array_search( $bulk_manager_slug, $menu_order );
+        if ( $bulk_position !== false ) {
+            array_splice( $menu_order, $bulk_position + 1, 0, $our_slug );
+        } else {
+            // 벌크 매니저가 없으면 Dashboard 바로 뒤에
+            $dashboard_position = array_search( 'index.php', $menu_order );
+            if ( $dashboard_position !== false ) {
+                array_splice( $menu_order, $dashboard_position + 1, 0, $our_slug );
+            } else {
+                array_unshift( $menu_order, $our_slug );
+            }
+        }
+        
+        return $menu_order;
+    }
+
+    /**
      * 메뉴 페이지 등록
+     * [v20.2.0] 최상위 메뉴로 변경 - 알림판 > 벌크 매니저 바로 아래에 "ACF 스타일 센터" 배치
      */
     public function add_admin_menu_page() {
-        $menu_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'menu_title' ) : __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ) );
-        $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ) );
+        $menu_title = __( '🎨 스타일 센터', 'acf-css-really-simple-style-management-center' );
+        $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ) );
 
-        add_options_page(
+        // [v20.2.0] 최상위 메뉴로 추가 (알림판 > 벌크 매니저 다음)
+        add_menu_page(
             $page_title,
             $menu_title,
+            'manage_options',
+            'jj-admin-center',
+            array( $this, 'render_admin_center_page' ),
+            'dashicons-art',
+            2.6 // Dashboard(2) > 벌크 매니저(2.5) 바로 아래
+        );
+
+        // 기존 설정 메뉴도 유지 (호환성)
+        add_options_page(
+            $page_title,
+            __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ),
             'manage_options',
             'jj-admin-center',
             array( $this, 'render_admin_center_page' )
@@ -264,8 +474,8 @@ final class JJ_Admin_Center {
         
         // [Phase 4.5] 모양(Appearance) 및 도구(Tools) 메뉴 추가
         // 중요: 동일한 slug(jj-admin-center)로 등록해야 hook_suffix가 일관되고, CSS/JS가 정상 로드됩니다.
-        add_theme_page( $page_title, $menu_title, 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
-        add_management_page( $page_title, $menu_title, 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
+        add_theme_page( $page_title, __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ), 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
+        add_management_page( $page_title, __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ), 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
 
     }
 

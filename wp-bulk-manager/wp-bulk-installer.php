@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           2.3.7
+ * Version:           2.4.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.3.7' ); // [v2.3.7] 메뉴 표시 문제 완전 수정: custom_menu_order 필터로 강제 순서 지정
+define( 'WP_BULK_MANAGER_VERSION', '2.4.0' ); // [v2.4.0] 메뉴 강조 표시: 배경색, 볼드, 아이콘 개선, 알림판 바로 아래 배치
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -34,13 +34,16 @@ class JJ_Bulk_Installer {
     }
 
     private function __construct() {
-        // [v2.3.7] admin_menu 훅 우선순위를 1로 설정 + 메뉴 순서 강제 지정
+        // [v2.4.0] admin_menu 훅 우선순위를 1로 설정 + 메뉴 순서 강제 지정
         add_action( 'admin_menu', array( $this, 'add_menu_pages' ), 1 );
         add_action( 'admin_notices', array( $this, 'add_install_page_notice' ) );
         
-        // [v2.3.7] 메뉴 순서 강제 지정 (다른 플러그인에 의해 밀리지 않도록)
+        // [v2.4.0] 메뉴 순서 강제 지정 (다른 플러그인에 의해 밀리지 않도록)
         add_filter( 'custom_menu_order', '__return_true' );
         add_filter( 'menu_order', array( $this, 'force_menu_order' ), 999 );
+        
+        // [v2.4.0] 메뉴 강조 스타일 (배경색, 볼드, 아이콘)
+        add_action( 'admin_head', array( $this, 'add_menu_highlight_styles' ) );
         
         add_action( 'wp_ajax_jj_bulk_install_upload', array( $this, 'ajax_handle_upload' ) );
         add_action( 'wp_ajax_jj_bulk_install_process', array( $this, 'ajax_handle_install' ) );
@@ -107,7 +110,49 @@ class JJ_Bulk_Installer {
     }
 
     /**
-     * [v2.3.7] 메뉴 순서 강제 지정
+     * [v2.4.0] 메뉴 강조 스타일 추가
+     * - 에메랄드 그린 배경색 (#10b981)
+     * - 볼드 텍스트
+     * - 호버 시 더 진한 색상
+     */
+    public function add_menu_highlight_styles() {
+        $menu_slug = $this->page_slug . '-main';
+        ?>
+        <style>
+            /* WP Bulk Manager 메뉴 강조 - 에메랄드 그린 */
+            #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"] > a,
+            #adminmenu li.toplevel_page_<?php echo esc_attr( $menu_slug ); ?> > a {
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+                color: #fff !important;
+                font-weight: 700 !important;
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                margin: 2px 8px;
+                transition: all 0.2s ease;
+            }
+            #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"] > a:hover,
+            #adminmenu li.toplevel_page_<?php echo esc_attr( $menu_slug ); ?> > a:hover {
+                background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+                color: #fff !important;
+            }
+            #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"] > a .wp-menu-image:before,
+            #adminmenu li.toplevel_page_<?php echo esc_attr( $menu_slug ); ?> > a .wp-menu-image:before {
+                color: #fff !important;
+            }
+            /* 현재 선택된 상태 */
+            #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"].current > a,
+            #adminmenu li.toplevel_page_<?php echo esc_attr( $menu_slug ); ?>.current > a,
+            #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"].wp-has-current-submenu > a,
+            #adminmenu li.toplevel_page_<?php echo esc_attr( $menu_slug ); ?>.wp-has-current-submenu > a {
+                background: linear-gradient(135deg, #047857 0%, #065f46 100%) !important;
+                color: #fff !important;
+            }
+        </style>
+        <?php
+    }
+
+    /**
+     * [v2.4.0] 메뉴 순서 강제 지정
      * 다른 플러그인(Admin Menu Editor, Kinsta 등)에 의해 메뉴가 숨겨지거나 밀리지 않도록
      */
     public function force_menu_order( $menu_order ) {
