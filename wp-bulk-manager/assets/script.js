@@ -152,6 +152,10 @@ jQuery(document).ready(function($) {
             if (index >= filesQueue.length) {
                 isProcessing = false;
                 $('#jj-start-install').hide(); // 설치 버튼 숨김
+                
+                // 프로그레스 바 100% 완료 보장
+                $('.jj-progress-fill').css('width', '100%');
+                $('.jj-status-text').text('모든 작업 완료 (' + filesQueue.length + '/' + filesQueue.length + ')');
 
                 // 설치된 플러그인이 있으면 활성화 버튼 표시
                 if (installedPlugins.length > 0) {
@@ -173,7 +177,7 @@ jQuery(document).ready(function($) {
             var autoActivate = (jjBulk && jjBulk.limits && jjBulk.limits.can_auto_activate) && $('#jj-auto-activate-all').is(':checked');
 
             item.addClass('uploading').find('.status').text('업로드 중...');
-            updateProgress(index, filesQueue.length, '업로드 중: ' + file.name);
+            updateProgress(index, filesQueue.length, '업로드 중: ' + file.name, false);
 
             var formData = new FormData();
             formData.append('action', 'jj_bulk_install_upload');
@@ -192,18 +196,22 @@ jQuery(document).ready(function($) {
                         installPlugin(response.data, item, index, autoActivate);
                     } else {
                         item.addClass('error').find('.status').text('업로드 실패: ' + response.data);
+                        // 업로드 실패 시에도 프로그레스 업데이트
+                        updateProgress(index, filesQueue.length, '업로드 실패', true);
                         processQueue(index + 1);
                     }
                 },
                 error: function() {
                     item.addClass('error').find('.status').text('서버 오류');
+                    // 서버 오류 시에도 프로그레스 업데이트
+                    updateProgress(index, filesQueue.length, '서버 오류', true);
                     processQueue(index + 1);
                 }
             });
         }
 
         function installPlugin(data, item, index, autoActivate) {
-            updateProgress(index, filesQueue.length, '설치 중: ' + data.name);
+            updateProgress(index, filesQueue.length, '설치 중: ' + data.name, false);
 
             $.ajax({
                 url: jjBulk.ajax_url,
@@ -230,19 +238,41 @@ jQuery(document).ready(function($) {
                     } else {
                         item.removeClass('uploading').addClass('error').find('.status').text('실패: ' + response.data);
                     }
+                    
+                    // 설치 완료 시 프로그레스 업데이트 (isComplete = true)
+                    updateProgress(index, filesQueue.length, statusText || '처리 완료', true);
+                    
                     processQueue(index + 1);
                 },
                 error: function() {
                     item.removeClass('uploading').addClass('error').find('.status').text('통신 오류');
+                    
+                    // 에러 시에도 프로그레스 업데이트 (isComplete = true)
+                    updateProgress(index, filesQueue.length, '오류 발생', true);
+                    
                     processQueue(index + 1);
                 }
             });
         }
 
-        function updateProgress(current, total, text) {
-            var percent = Math.round((current / total) * 100);
+        function updateProgress(current, total, text, isComplete) {
+            // current: 현재 처리 중인 인덱스 (0-based)
+            // isComplete: 해당 파일 처리가 완료되었는지 여부
+            var completedCount = isComplete ? (current + 1) : current;
+            var percent = Math.round((completedCount / total) * 100);
+            
+            // 최소 표시 (시작 시 0%가 아닌 작은 값으로 시작)
+            if (percent === 0 && current === 0 && !isComplete) {
+                percent = 2; // 시작 시 최소 2%
+            }
+            
+            // 100% 보장
+            if (completedCount >= total) {
+                percent = 100;
+            }
+            
             $('.jj-progress-fill').css('width', percent + '%');
-            $('.jj-status-text').text(text + ' (' + (current + 1) + '/' + total + ')');
+            $('.jj-status-text').text(text + ' (' + completedCount + '/' + total + ')');
         }
 
         // 선택한 플러그인 활성화 (2단계)
