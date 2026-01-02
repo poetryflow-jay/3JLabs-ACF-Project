@@ -167,6 +167,15 @@ class JJ_Master_Integrator {
                 'required' => false,
                 'standalone_check' => 'WP_Bulk_Installer',
             ),
+            // Admin Menu Editor 기능
+            'menu_editor' => array(
+                'name' => 'Admin Menu Editor',
+                'description' => '관리자 메뉴 순서, 이름, 아이콘, 권한 편집',
+                'class' => 'JJ_Master_Menu_Editor',
+                'file' => $base_path . 'includes/master-modules/class-jj-master-menu-editor.php',
+                'required' => false,
+                'standalone_check' => 'JJ_Admin_Menu_Editor_Lite',
+            ),
         );
     }
 

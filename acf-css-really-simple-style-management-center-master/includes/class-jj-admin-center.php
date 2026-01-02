@@ -341,8 +341,8 @@ final class JJ_Admin_Center {
      * - 기본적으로 옵션 페이지 아래에 배치 (향후 라이선스/권한에 따라 노출 제어 가능)
      */
     public function add_admin_menu_page() {
-        $menu_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'menu_title' ) : __( 'ACF CSS 관리자 센터', 'acf-css-really-simple-style-management-center' ) );
-        $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 관리자 센터', 'acf-css-really-simple-style-management-center' ) );
+        $menu_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'menu_title' ) : __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ) );
+        $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ) );
 
         add_options_page(
             $page_title,

@@ -38,6 +38,16 @@
 
     $(document).ready(function() {
         const $wrap = $('.jj-admin-center-wrap');
+        
+        // [v13.4.5] JavaScript 로드 완료 표시 - CSS 폴백 스타일 비활성화
+        $wrap.addClass('js-loaded');
+        
+        // [v13.4.5] 초기 탭 활성화 보장
+        if (!$wrap.find('.jj-admin-center-tab-content.active').length) {
+            $wrap.find('.jj-admin-center-tab-content[data-tab="general"]').addClass('active');
+            $wrap.find('.jj-admin-center-tabs li[data-tab="general"]').addClass('active');
+            $wrap.find('.jj-admin-center-sidebar-nav a[data-tab="general"]').addClass('active');
+        }
 
         // ------------------------------------------------------------
         // Helpers

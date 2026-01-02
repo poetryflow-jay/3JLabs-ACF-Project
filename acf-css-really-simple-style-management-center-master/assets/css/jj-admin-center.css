@@ -234,6 +234,20 @@
     display: block;
 }
 
+/* [v13.4.5] JavaScript 로드 실패 시 폴백: 첫 번째 탭 표시 */
+.jj-admin-center-tab-content[data-tab="general"] {
+    display: block; /* 기본값으로 general 탭 표시 */
+}
+
+/* JavaScript가 로드되면 .js-loaded 클래스로 정상 동작 */
+.jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content[data-tab="general"] {
+    display: none;
+}
+
+.jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content.active {
+    display: block;
+}
+
 /* 2패널 레이아웃 (Admin Menu, Meta Boxes 등) */
 .jj-admin-center-2panel {
     display: grid;
