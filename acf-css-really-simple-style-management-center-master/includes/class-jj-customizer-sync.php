@@ -220,15 +220,36 @@ class JJ_Customizer_Sync {
     /**
      * Nexter 테마 브랜드 팔레트 동기화
      * @since 13.4.2
+     * @updated 13.4.3 - Nexter Extension Pro 글로벌 컬러 지원 강화
      */
     private function sync_nexter_brand_palette( $force_update = false ) {
         $synced = array();
         
-        // Nexter 테마는 Posimyth에서 개발, nxt_ 접두어 옵션 사용
-        $nexter_options = get_option( 'nexter_theme_options', array() );
+        // 1. Nexter Extension Pro의 Global Colors 옵션 (최우선)
+        $nxt_ext_options = get_option( 'nxt_ext_settings', array() );
+        if ( is_array( $nxt_ext_options ) && ! empty( $nxt_ext_options['global_colors'] ) ) {
+            $global_colors = $nxt_ext_options['global_colors'];
+            if ( is_array( $global_colors ) ) {
+                // 첫 번째 색상 세트를 primary로 사용
+                $color_keys = array_keys( $global_colors );
+                if ( isset( $color_keys[0] ) && ! empty( $global_colors[ $color_keys[0] ] ) ) {
+                    $synced['primary_color'] = $global_colors[ $color_keys[0] ];
+                }
+                if ( isset( $color_keys[1] ) && ! empty( $global_colors[ $color_keys[1] ] ) ) {
+                    $synced['primary_color_hover'] = $global_colors[ $color_keys[1] ];
+                }
+                if ( isset( $color_keys[2] ) && ! empty( $global_colors[ $color_keys[2] ] ) ) {
+                    $synced['secondary_color'] = $global_colors[ $color_keys[2] ];
+                }
+                if ( isset( $color_keys[3] ) && ! empty( $global_colors[ $color_keys[3] ] ) ) {
+                    $synced['secondary_color_hover'] = $global_colors[ $color_keys[3] ];
+                }
+            }
+        }
         
-        // Global 팔레트에서 가져오기
-        if ( is_array( $nexter_options ) ) {
+        // 2. Nexter 테마 옵션
+        $nexter_options = get_option( 'nexter_theme_options', array() );
+        if ( is_array( $nexter_options ) && ( $force_update || empty( $synced['primary_color'] ) ) ) {
             if ( ! empty( $nexter_options['global_palette']['color1'] ) ) {
                 $synced['primary_color'] = $nexter_options['global_palette']['color1'];
             }
@@ -243,7 +264,7 @@ class JJ_Customizer_Sync {
             }
         }
         
-        // Nexter Blocks Pro의 palette도 시도
+        // 3. Nexter Blocks Pro 설정
         $nxt_blocks_options = get_option( 'nexter_blocks_settings', array() );
         if ( is_array( $nxt_blocks_options ) && ! empty( $nxt_blocks_options['global_palette'] ) ) {
             $palette = $nxt_blocks_options['global_palette'];
@@ -259,7 +280,18 @@ class JJ_Customizer_Sync {
             }
         }
         
-        // theme_mod로도 시도 (일부 테마는 이 방식 사용)
+        // 4. Nexter Pro 설정 (nxt_pro_options)
+        $nxt_pro_options = get_option( 'nxt_pro_options', array() );
+        if ( is_array( $nxt_pro_options ) && ( $force_update || empty( $synced['primary_color'] ) ) ) {
+            if ( ! empty( $nxt_pro_options['primary_color'] ) ) {
+                $synced['primary_color'] = $nxt_pro_options['primary_color'];
+            }
+            if ( ! empty( $nxt_pro_options['secondary_color'] ) ) {
+                $synced['secondary_color'] = $nxt_pro_options['secondary_color'];
+            }
+        }
+        
+        // 5. theme_mod 폴백
         $theme_primary = get_theme_mod( 'nxt_global_color_1', '' );
         $theme_secondary = get_theme_mod( 'nxt_global_color_3', '' );
         
@@ -268,6 +300,13 @@ class JJ_Customizer_Sync {
         }
         if ( ( $force_update || empty( $synced['secondary_color'] ) ) && $theme_secondary ) {
             $synced['secondary_color'] = $theme_secondary;
+        }
+        
+        // 6. 최종 폴백: WordPress 기본 Customizer
+        $background_color = get_theme_mod( 'background_color', '' );
+        if ( ( $force_update || empty( $synced['primary_color'] ) ) && $background_color ) {
+            // 배경색 기반으로 대비 색상 생성
+            $synced['site_bg'] = '#' . ltrim( $background_color, '#' );
         }
         
         return $synced;

@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       ACF Nudge Flow - Marketing Automation
+ * Plugin Name:       ACF MBA - Marketing Booster Accelerator (Advanced Custom Funnel)
  * Plugin URI:        https://3j-labs.com
- * Description:       ACF Nudge Flow (Advanced Custom Flow) - 트리거 기반 넛지 마케팅 자동화 플러그인입니다. IF-DO 방식의 시각적 워크플로우 빌더로 방문자 행동에 따른 팝업, 알림, 할인, 업셀링을 자동화합니다. WooCommerce와 완벽 연동됩니다.
- * Version:           1.0.0
+ * Description:       ACF MBA (Advanced Custom Funnel Marketing Booster Accelerator) - 트리거 기반 넛지 마케팅 자동화 플러그인입니다. IF-DO 방식의 시각적 워크플로우 빌더로 방문자 행동에 따른 팝업, 알림, 할인, 업셀링을 자동화합니다. WooCommerce와 완벽 연동됩니다.
+ * Version:           1.1.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -14,7 +14,7 @@
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  *
- * @package ACF_Nudge_Flow
+ * @package ACF_MBA
  */
 
 // 직접 접근 방지
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_NUDGE_FLOW_VERSION', '1.0.0' );
+define( 'ACF_NUDGE_FLOW_VERSION', '1.1.0' ); // [v1.1.0] ACF MBA 명칭 확정
 define( 'ACF_NUDGE_FLOW_PLUGIN_FILE', __FILE__ );
 define( 'ACF_NUDGE_FLOW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_NUDGE_FLOW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
