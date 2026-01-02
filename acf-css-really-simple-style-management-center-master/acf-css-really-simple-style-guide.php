@@ -2123,13 +2123,7 @@ function jj_simple_style_guide_master_run() {
             // ignore
         }
     }
-    if ( class_exists( 'JJ_Localization' ) ) {
-        try {
-            JJ_Localization::instance();
-        } catch ( Exception $e ) {
-            // ignore
-        }
-    }
+    // JJ_Localization은 정적 유틸리티 클래스로 인스턴스화 불필요
 
     // [Phase 9.2] Dashboard Widgets / Global Search 초기화
     if ( class_exists( 'JJ_Dashboard_Widgets' ) ) {
