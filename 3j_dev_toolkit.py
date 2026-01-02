@@ -196,6 +196,34 @@ class PluginInfo:
 class EditionBuilder:
     """에디션별 플러그인 빌더"""
     
+    # 에디션 빌드를 지원하는 플러그인 목록
+    EDITION_PLUGINS = {
+        'acf-css-manager': {
+            'source_dir': 'acf-css-really-simple-style-management-center-master',
+            'main_file': 'acf-css-really-simple-style-guide.php',
+            'version_constant': 'JJ_STYLE_GUIDE_VERSION',
+            'license_constant': 'JJ_STYLE_GUIDE_LICENSE_TYPE',
+            'edition_constant': 'JJ_STYLE_GUIDE_EDITION',
+            'user_type_constant': 'JJ_STYLE_GUIDE_USER_TYPE',
+        },
+        'acf-code-snippets-box': {
+            'source_dir': 'acf-code-snippets-box',
+            'main_file': 'acf-code-snippets-box.php',
+            'version_constant': 'ACF_CSB_VERSION',
+            'license_constant': 'ACF_CSB_LICENSE_TYPE',
+            'edition_constant': 'ACF_CSB_EDITION',
+            'user_type_constant': 'ACF_CSB_USER_TYPE',
+        },
+        'acf-css-woocommerce-toolkit': {
+            'source_dir': 'acf-css-woocommerce-toolkit',
+            'main_file': 'acf-css-woocommerce-toolkit.php',
+            'version_constant': 'ACF_CSS_WC_VERSION',
+            'license_constant': 'ACF_CSS_WC_LICENSE_TYPE',
+            'edition_constant': 'ACF_CSS_WC_EDITION',
+            'user_type_constant': 'ACF_CSS_WC_USER_TYPE',
+        },
+    }
+    
     def __init__(self, base_path: Path, log_callback=None):
         self.base_path = base_path
         self.source_dir = base_path / 'acf-css-really-simple-style-management-center-master'
@@ -402,6 +430,105 @@ class EditionBuilder:
         
         self.log(f"📦 번들 생성 완료: {bundle_name}")
         return bundle_path
+    
+    def build_plugin_edition(self, plugin_key: str, edition: str, user_type: str, 
+                            versions: Dict[str, str]) -> Optional[Path]:
+        """특정 플러그인을 에디션별로 빌드"""
+        
+        plugin_config = self.EDITION_PLUGINS.get(plugin_key)
+        if not plugin_config:
+            self.log(f"❌ 알 수 없는 플러그인: {plugin_key}")
+            return None
+        
+        edition_config = EditionConfig.EDITIONS.get(edition)
+        user_config = EditionConfig.USER_TYPES.get(user_type)
+        
+        if not edition_config or not user_config:
+            return None
+        
+        source_dir = self.base_path / plugin_config['source_dir']
+        if not source_dir.exists():
+            self.log(f"⚠️ 소스 폴더 없음: {source_dir}")
+            return None
+        
+        version = versions.get(plugin_key, '1.0.0')
+        self.log(f"🔨 [{plugin_key}] 빌드: {edition_config['display_name']} ({user_config['display_name']})")
+        
+        # 출력 폴더명 생성
+        base_name = plugin_config['source_dir']
+        if user_type == 'standard':
+            folder_name = f"{base_name}-{edition}"
+        else:
+            folder_name = f"{base_name}-{edition}-{user_type}"
+        
+        work_dir = self.output_dir / folder_name
+        self._safe_copy(source_dir, work_dir)
+        
+        # 메인 파일 수정 (에디션/사용자 상수 추가)
+        main_file = work_dir / plugin_config['main_file']
+        if main_file.exists():
+            self._inject_edition_constants(main_file, plugin_config, edition, user_type, 
+                                          version, edition_config, user_config)
+        
+        # ZIP 생성
+        zip_name = f"{folder_name}-v{version}.zip"
+        zip_path = self.output_dir / zip_name
+        self._create_zip(work_dir, zip_path)
+        
+        self.log(f"✅ [{plugin_key}] 완료: {zip_name}")
+        return zip_path
+    
+    def _inject_edition_constants(self, main_file: Path, plugin_config: dict,
+                                   edition: str, user_type: str, version: str,
+                                   edition_config: dict, user_config: dict):
+        """플러그인 파일에 에디션/사용자 상수 주입"""
+        with open(main_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # 버전 상수 업데이트
+        version_const = plugin_config['version_constant']
+        content = re.sub(
+            rf"define\(\s*'{version_const}',\s*'[^']+'\s*\);",
+            f"define( '{version_const}', '{version}' );",
+            content
+        )
+        
+        # 라이선스 상수 추가/업데이트
+        license_const = plugin_config['license_constant']
+        if license_const in content:
+            content = re.sub(
+                rf"define\(\s*'{license_const}',\s*'[^']+'\s*\);",
+                f"define( '{license_const}', '{edition_config['license_type']}' );",
+                content
+            )
+        else:
+            # 상수가 없으면 버전 상수 다음에 추가
+            insert_text = f"\ndefine( '{license_const}', '{edition_config['license_type']}' );"
+            insert_text += f"\ndefine( '{plugin_config['edition_constant']}', '{edition}' );"
+            insert_text += f"\ndefine( '{plugin_config['user_type_constant']}', '{user_type.upper()}' );"
+            content = re.sub(
+                rf"(define\(\s*'{version_const}',\s*'{version}'\s*\);)",
+                f"\\1{insert_text}",
+                content
+            )
+        
+        with open(main_file, 'w', encoding='utf-8') as f:
+            f.write(content)
+    
+    def build_all_plugins_all_editions(self, versions: Dict[str, str]) -> List[Path]:
+        """모든 플러그인을 모든 에디션으로 빌드"""
+        results = []
+        
+        for plugin_key in self.EDITION_PLUGINS.keys():
+            for edition, user_type in EditionConfig.BUILD_MATRIX:
+                try:
+                    zip_path = self.build_plugin_edition(plugin_key, edition, user_type, versions)
+                    if zip_path:
+                        results.append(zip_path)
+                except Exception as e:
+                    self.log(f"❌ 빌드 실패: {plugin_key}/{edition}/{user_type} - {e}")
+        
+        return results
 
 
 class DevToolkit(tk.Tk):
