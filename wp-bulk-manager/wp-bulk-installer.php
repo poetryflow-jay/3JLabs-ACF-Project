@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           2.3.5
+ * Version:           2.3.6
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.3.5' ); // [v2.3.5] 메뉴 위치 수정: 알림판 바로 아래 올바르게 표시되도록 position 값 조정
+define( 'WP_BULK_MANAGER_VERSION', '2.3.6' ); // [v2.3.6] 메뉴 표시 문제 수정: admin_menu 훅 priority 5, position 2.5, manage_options 권한 사용
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -34,7 +34,8 @@ class JJ_Bulk_Installer {
     }
 
     private function __construct() {
-        add_action( 'admin_menu', array( $this, 'add_menu_pages' ) );
+        // [v2.3.6] admin_menu 훅 우선순위를 5로 설정하여 다른 플러그인보다 먼저 메뉴 등록
+        add_action( 'admin_menu', array( $this, 'add_menu_pages' ), 5 );
         add_action( 'admin_notices', array( $this, 'add_install_page_notice' ) );
         
         add_action( 'wp_ajax_jj_bulk_install_upload', array( $this, 'ajax_handle_upload' ) );
@@ -103,15 +104,16 @@ class JJ_Bulk_Installer {
 
     public function add_menu_pages() {
         // 1. 알림판 아래 최상위 메뉴 (접근성 강화) - 우선순위 높음
-        // [v2.3.5] position 2 → 3 변경 (Dashboard와의 충돌 방지, WordPress 메뉴 순서: Dashboard=2, Posts=5)
+        // [v2.3.6] position 2.5 설정 (Dashboard=2, Posts=5 사이에 정확히 위치)
+        // capability를 manage_options로 변경하여 관리자에게 확실히 표시
         add_menu_page(
             __( 'WP 벌크 매니저', 'wp-bulk-manager' ),
-            __( '벌크 매니저', 'wp-bulk-manager' ),
-            'install_plugins',
+            __( '🚀 벌크 매니저', 'wp-bulk-manager' ), // 이모지 추가로 눈에 띄게
+            'manage_options', // install_plugins → manage_options (관리자 권한)
             $this->page_slug . '-main',
             array( $this, 'render_page' ),
             'dashicons-cloud-upload',
-            3 // Dashboard(index.php=2) 바로 아래, Posts(=5) 바로 위
+            2.5 // Dashboard(index.php=2) 바로 아래 (소수점 사용으로 정확한 위치 보장)
         );
 
         // 2. 도구 하위 메뉴 (명확한 이름으로 표기)
