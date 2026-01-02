@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager (Master)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS (Advanced Custom Fonts & Colors & Styles) - WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다.
- * Version:           13.4.0
+ * Version:           13.4.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -31,7 +31,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '13.4.0' ); // [v13.4.0] Phase 18: Full Roadmap Implementation + Edition Build System
+    define( 'JJ_STYLE_GUIDE_VERSION', '13.4.1' ); // [v13.4.1] Legacy slug redirect + Nudge system URL fix
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
@@ -448,6 +448,9 @@ final class JJ_Simple_Style_Guide_Master {
             add_action( 'init', array( $this, 'load_options_and_init_strategies' ), 5 );
             add_action( 'init', array( $this, 'init_sync_manager' ), 10 );
             
+            // [v13.4.1] 구 슬러그 → 신 슬러그 리다이렉트 (호환성)
+            add_action( 'admin_init', array( $this, 'redirect_legacy_slugs' ) );
+            
             
             if ( JJ_STYLE_GUIDE_DEBUG ) {
                 add_action( 'wp_footer', array( $this, 'render_debug_info' ), 999 );
@@ -565,11 +568,47 @@ final class JJ_Simple_Style_Guide_Master {
     }
 
     /**
-     * [v4.2.2] 플러그인 목록 화면에 링크 추가
-     * Free 버전: 스타일 센터만 표시
-     * [v5.1.9] 안전성 강화 - try-catch 추가
+     * [v13.4.1] 구 슬러그에서 신 슬러그로 리다이렉트
+     * 이전 버전에서 사용하던 'jj-style-guide' 슬러그를 
+     * 현재 슬러그 'acf-css-really-simple-style-guide'로 리다이렉트합니다.
+     * 
+     * @since 13.4.1
      */
-            /**
+    public function redirect_legacy_slugs() {
+        if ( ! is_admin() ) {
+            return;
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+
+        // 구 슬러그 → 신 슬러그 매핑
+        $legacy_slugs = array(
+            'jj-style-guide'       => 'acf-css-really-simple-style-guide',
+            'jj-simple-style-guide' => 'acf-css-really-simple-style-guide',
+        );
+
+        if ( isset( $legacy_slugs[ $page ] ) ) {
+            // 쿼리 문자열 유지하면서 리다이렉트
+            $new_page = $legacy_slugs[ $page ];
+            
+            // 현재 URL에서 page 파라미터만 교체
+            $redirect_url = add_query_arg( 'page', $new_page, admin_url( 'tools.php' ) );
+            
+            // 다른 쿼리 파라미터 유지
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            foreach ( $_GET as $key => $value ) {
+                if ( 'page' !== $key ) {
+                    $redirect_url = add_query_arg( $key, sanitize_text_field( wp_unslash( $value ) ), $redirect_url );
+                }
+            }
+            
+            wp_safe_redirect( $redirect_url );
+            exit;
+        }
+    }
+
+    /**
      * [v4.2.2] 플러그인 목록 화면에 링크 추가
      * [Phase 4.99] 퀵 링크 확장: 설정 | 스타일 | 메뉴 | 비주얼
      */

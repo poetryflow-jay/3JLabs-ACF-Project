@@ -32,6 +32,7 @@
             this.createContainers();
             this.bindEvents();
             this.showActiveNudges();
+            this.checkUrlSpotlight(); // URL 파라미터로 스포트라이트 실행
         },
 
         /**
@@ -161,6 +162,7 @@
          * 넛지 표시
          */
         showNudge: function(nudge) {
+            const self = this;
             const position = nudge.position || 'bottom-right';
             const $container = $('.jj-nudge-container.' + position);
 
@@ -171,9 +173,230 @@
             const $nudge = this.createNudgeElement(nudge);
             $container.append($nudge);
 
-            // 하이라이트 타겟이 있으면 강조
+            // 타겟 요소가 있으면 스크롤 + 하이라이트 + 스포트라이트
             if (nudge.target) {
-                $(nudge.target).addClass('jj-nudge-highlight');
+                const $target = $(nudge.target);
+                if ($target.length) {
+                    // 스크롤 후 하이라이트
+                    self.scrollToTarget($target, function() {
+                        if (nudge.spotlight) {
+                            self.showSpotlight($target, nudge);
+                        } else {
+                            self.highlightTarget($target, nudge.highlight_effect || 'pulse');
+                        }
+                    });
+                }
+            }
+        },
+
+        /**
+         * 타겟 요소로 부드럽게 스크롤
+         */
+        scrollToTarget: function($target, callback) {
+            if (!$target || !$target.length) {
+                if (callback) callback();
+                return;
+            }
+
+            const offset = $target.offset().top - 100; // 상단 여백
+            const currentScroll = $(window).scrollTop();
+            const distance = Math.abs(currentScroll - offset);
+
+            // 이미 보이는 영역이면 스크롤하지 않음
+            const windowHeight = $(window).height();
+            const targetTop = $target.offset().top;
+            const targetBottom = targetTop + $target.outerHeight();
+            const viewportTop = currentScroll + 100;
+            const viewportBottom = currentScroll + windowHeight - 100;
+
+            if (targetTop >= viewportTop && targetBottom <= viewportBottom) {
+                if (callback) callback();
+                return;
+            }
+
+            $('html, body').animate({
+                scrollTop: offset
+            }, Math.min(800, Math.max(300, distance / 2)), 'swing', function() {
+                if (callback) callback();
+            });
+        },
+
+        /**
+         * 타겟 요소 하이라이트 효과
+         */
+        highlightTarget: function($target, effect) {
+            if (!$target || !$target.length) return;
+
+            // 기존 하이라이트 제거
+            $('.jj-nudge-highlight, .jj-nudge-pulse, .jj-nudge-glow, .jj-nudge-bounce')
+                .removeClass('jj-nudge-highlight jj-nudge-pulse jj-nudge-glow jj-nudge-bounce');
+
+            // 효과 적용
+            switch (effect) {
+                case 'pulse':
+                    $target.addClass('jj-nudge-highlight jj-nudge-pulse');
+                    break;
+                case 'glow':
+                    $target.addClass('jj-nudge-highlight jj-nudge-glow');
+                    break;
+                case 'bounce':
+                    $target.addClass('jj-nudge-highlight jj-nudge-bounce');
+                    break;
+                case 'border':
+                    $target.addClass('jj-nudge-highlight');
+                    break;
+                default:
+                    $target.addClass('jj-nudge-highlight jj-nudge-pulse');
+            }
+
+            // 일정 시간 후 자동 제거 (선택적)
+            // setTimeout(function() {
+            //     $target.removeClass('jj-nudge-highlight jj-nudge-pulse jj-nudge-glow jj-nudge-bounce');
+            // }, 5000);
+        },
+
+        /**
+         * 스포트라이트 효과 (다른 영역 어둡게)
+         */
+        showSpotlight: function($target, nudge) {
+            const self = this;
+
+            if (!$target || !$target.length) return;
+
+            // 기존 스포트라이트 제거
+            this.hideSpotlight();
+
+            // 스포트라이트 오버레이 생성
+            const $spotlight = $('<div class="jj-spotlight-overlay"></div>');
+            const $spotlightHole = $('<div class="jj-spotlight-hole"></div>');
+            const $spotlightTooltip = $('<div class="jj-spotlight-tooltip"></div>');
+
+            // 타겟 위치 및 크기 계산
+            const targetOffset = $target.offset();
+            const targetWidth = $target.outerWidth();
+            const targetHeight = $target.outerHeight();
+            const padding = 10;
+
+            // 스포트라이트 홀 위치 설정
+            $spotlightHole.css({
+                top: targetOffset.top - padding,
+                left: targetOffset.left - padding,
+                width: targetWidth + (padding * 2),
+                height: targetHeight + (padding * 2)
+            });
+
+            // 툴팁 내용 설정
+            let tooltipContent = '';
+            if (nudge.tooltip_title) {
+                tooltipContent += '<h4 class="jj-spotlight-title">' + this.escapeHtml(nudge.tooltip_title) + '</h4>';
+            }
+            if (nudge.tooltip_message || nudge.message) {
+                tooltipContent += '<p class="jj-spotlight-message">' + this.escapeHtml(nudge.tooltip_message || nudge.message) + '</p>';
+            }
+            if (nudge.tooltip_actions && nudge.tooltip_actions.length) {
+                tooltipContent += '<div class="jj-spotlight-actions">';
+                nudge.tooltip_actions.forEach(function(action) {
+                    tooltipContent += '<button type="button" class="jj-spotlight-btn" data-action="' + (action.action || 'close') + '"';
+                    if (action.url) tooltipContent += ' data-url="' + action.url + '"';
+                    tooltipContent += '>' + action.label + '</button>';
+                });
+                tooltipContent += '</div>';
+            } else {
+                tooltipContent += '<div class="jj-spotlight-actions">';
+                tooltipContent += '<button type="button" class="jj-spotlight-btn jj-spotlight-btn-primary" data-action="close">확인</button>';
+                tooltipContent += '</div>';
+            }
+
+            $spotlightTooltip.html(tooltipContent);
+
+            // 툴팁 위치 결정 (타겟 아래 또는 위)
+            const windowHeight = $(window).height();
+            const tooltipPosition = (targetOffset.top + targetHeight + 200 < windowHeight + $(window).scrollTop()) ? 'bottom' : 'top';
+
+            if (tooltipPosition === 'bottom') {
+                $spotlightTooltip.css({
+                    top: targetOffset.top + targetHeight + padding + 15,
+                    left: targetOffset.left + (targetWidth / 2)
+                }).addClass('position-bottom');
+            } else {
+                $spotlightTooltip.css({
+                    bottom: $(document).height() - targetOffset.top + padding + 15,
+                    left: targetOffset.left + (targetWidth / 2)
+                }).addClass('position-top');
+            }
+
+            // DOM에 추가
+            $('body').append($spotlight).append($spotlightHole).append($spotlightTooltip);
+
+            // 페이드 인
+            setTimeout(function() {
+                $spotlight.addClass('active');
+                $spotlightHole.addClass('active');
+                $spotlightTooltip.addClass('active');
+            }, 50);
+
+            // 이벤트 바인딩
+            $spotlight.on('click', function(e) {
+                if ($(e.target).is('.jj-spotlight-overlay')) {
+                    self.hideSpotlight();
+                }
+            });
+
+            $spotlightTooltip.on('click', '.jj-spotlight-btn', function() {
+                const action = $(this).data('action');
+                const url = $(this).data('url');
+
+                if (action === 'navigate' && url) {
+                    window.location.href = url;
+                } else if (action === 'next' && nudge.next_spotlight) {
+                    self.hideSpotlight();
+                    self.showSpotlightById(nudge.next_spotlight);
+                } else {
+                    self.hideSpotlight();
+                }
+            });
+
+            // ESC 키로 닫기
+            $(document).on('keydown.spotlight', function(e) {
+                if (e.key === 'Escape') {
+                    self.hideSpotlight();
+                }
+            });
+        },
+
+        /**
+         * 스포트라이트 숨기기
+         */
+        hideSpotlight: function() {
+            $('.jj-spotlight-overlay, .jj-spotlight-hole, .jj-spotlight-tooltip')
+                .removeClass('active')
+                .remove();
+            $(document).off('keydown.spotlight');
+            $('.jj-nudge-highlight').removeClass('jj-nudge-highlight jj-nudge-pulse jj-nudge-glow jj-nudge-bounce');
+        },
+
+        /**
+         * URL 파라미터로 스포트라이트 실행 (페이지 로드 시)
+         */
+        checkUrlSpotlight: function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const spotlightTarget = urlParams.get('jj_spotlight');
+            const spotlightMessage = urlParams.get('jj_spotlight_msg');
+
+            if (spotlightTarget) {
+                const $target = $(spotlightTarget);
+                if ($target.length) {
+                    const self = this;
+                    setTimeout(function() {
+                        self.scrollToTarget($target, function() {
+                            self.showSpotlight($target, {
+                                tooltip_title: '안내',
+                                tooltip_message: spotlightMessage || '이 부분을 확인해주세요.',
+                                spotlight: true
+                            });
+                        });
+                    }, 500);
+                }
             }
         },
 
@@ -438,7 +661,7 @@
                     {
                         label: '스타일 가이드 보기',
                         action: 'navigate',
-                        url: this.config.style_guide_url || (window.location.origin + '/wp-admin/admin.php?page=jj-style-guide'),
+                        url: this.config.style_guide_url || (window.location.origin + '/wp-admin/tools.php?page=acf-css-really-simple-style-guide'),
                         style: 'primary'
                     }
                 ]

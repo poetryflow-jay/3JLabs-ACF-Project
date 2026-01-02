@@ -230,7 +230,7 @@ class JJ_Nudge_System {
                 'description' => __( '설정한 스타일로 자동 생성되는 스타일 가이드 페이지를 확인하세요.', 'acf-css-really-simple-style-management-center' ),
                 'icon'        => 'dashicons-book',
                 'target'      => null,
-                'action_url'  => admin_url( 'admin.php?page=jj-style-guide' ),
+                'action_url'  => admin_url( 'tools.php?page=acf-css-really-simple-style-guide' ),
             ),
             array(
                 'id'          => 'complete',
@@ -365,7 +365,7 @@ class JJ_Nudge_System {
                     array(
                         'label'  => __( '자세히 보기', 'acf-css-really-simple-style-management-center' ),
                         'action' => 'navigate',
-                        'url'    => admin_url( 'admin.php?page=jj-style-guide' ),
+                        'url'    => admin_url( 'tools.php?page=acf-css-really-simple-style-guide' ),
                         'style'  => 'primary',
                     ),
                 ),

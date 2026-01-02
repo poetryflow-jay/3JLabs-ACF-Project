@@ -385,38 +385,230 @@
     bottom: -4px;
     border: 2px solid #667eea;
     border-radius: 8px;
-    animation: jjNudgeHighlightPulse 2s ease-in-out infinite;
     pointer-events: none;
+}
+
+/* 펄스 효과 */
+.jj-nudge-pulse::before {
+    animation: jjNudgeHighlightPulse 2s ease-in-out infinite;
 }
 
 @keyframes jjNudgeHighlightPulse {
     0%, 100% {
         box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+        border-color: #667eea;
     }
     50% {
         box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+        border-color: #764ba2;
     }
 }
 
+/* 글로우 효과 */
+.jj-nudge-glow::before {
+    animation: jjNudgeHighlightGlow 1.5s ease-in-out infinite;
+    border: none;
+}
+
+@keyframes jjNudgeHighlightGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px 4px rgba(102, 126, 234, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 25px 8px rgba(118, 75, 162, 0.8);
+    }
+}
+
+/* 바운스 효과 */
+.jj-nudge-bounce {
+    animation: jjNudgeBounce 0.6s ease-in-out 3;
+}
+
+@keyframes jjNudgeBounce {
+    0%, 100% { transform: translateY(0); }
+    25% { transform: translateY(-10px); }
+    50% { transform: translateY(0); }
+    75% { transform: translateY(-5px); }
+}
+
 /* ============================================
-   스팟라이트 효과 (온보딩 시)
+   스포트라이트 효과 (향상된 버전)
    ============================================ */
-.jj-spotlight {
+.jj-spotlight-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    pointer-events: none;
-    z-index: 99997;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+}
+
+.jj-spotlight-overlay.active {
+    opacity: 1;
 }
 
 .jj-spotlight-hole {
-    position: absolute;
+    position: fixed;
     background: transparent;
     border-radius: 8px;
-    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+    box-shadow: 
+        0 0 0 9999px rgba(0, 0, 0, 0.7),
+        0 0 15px 5px rgba(102, 126, 234, 0.5);
+    z-index: 100002;
+    opacity: 0;
     transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.jj-spotlight-hole.active {
+    opacity: 1;
+    animation: jjSpotlightPulse 2s ease-in-out infinite;
+}
+
+@keyframes jjSpotlightPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 0 9999px rgba(0, 0, 0, 0.7),
+            0 0 15px 5px rgba(102, 126, 234, 0.5);
+    }
+    50% {
+        box-shadow: 
+            0 0 0 9999px rgba(0, 0, 0, 0.7),
+            0 0 25px 10px rgba(118, 75, 162, 0.7);
+    }
+}
+
+/* 스포트라이트 툴팁 */
+.jj-spotlight-tooltip {
+    position: fixed;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 360px;
+    min-width: 280px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    z-index: 100003;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.jj-spotlight-tooltip.active {
+    opacity: 1;
+}
+
+.jj-spotlight-tooltip.position-bottom {
+    transform: translateX(-50%) translateY(0);
+}
+
+.jj-spotlight-tooltip.position-bottom.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.jj-spotlight-tooltip.position-top {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* 툴팁 화살표 */
+.jj-spotlight-tooltip.position-bottom::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+}
+
+.jj-spotlight-tooltip.position-top::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #fff;
+}
+
+.jj-spotlight-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d2327;
+    margin: 0 0 8px 0;
+}
+
+.jj-spotlight-message {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #50575e;
+    margin: 0 0 16px 0;
+}
+
+.jj-spotlight-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.jj-spotlight-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #c3c4c7;
+    background: #fff;
+    color: #50575e;
+}
+
+.jj-spotlight-btn:hover {
+    background: #f0f0f1;
+    color: #1d2327;
+}
+
+.jj-spotlight-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+}
+
+.jj-spotlight-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* 스포트라이트 단계 표시 */
+.jj-spotlight-steps {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.jj-spotlight-step-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #c3c4c7;
+    transition: all 0.2s ease;
+}
+
+.jj-spotlight-step-dot.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scale(1.2);
+}
+
+.jj-spotlight-step-dot.completed {
+    background: #11998e;
 }
 
 /* ============================================

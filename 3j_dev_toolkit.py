@@ -222,6 +222,22 @@ class EditionBuilder:
             'edition_constant': 'ACF_CSS_WC_EDITION',
             'user_type_constant': 'ACF_CSS_WC_USER_TYPE',
         },
+        'wp-bulk-manager': {
+            'source_dir': 'wp-bulk-manager',
+            'main_file': 'wp-bulk-installer.php',
+            'version_constant': 'WP_BULK_MANAGER_VERSION',
+            'license_constant': 'JJ_BULK_INSTALLER_LICENSE',
+            'edition_constant': 'WP_BULK_MANAGER_EDITION',
+            'user_type_constant': 'WP_BULK_MANAGER_USER_TYPE',
+        },
+        'acf-nudge-flow': {
+            'source_dir': 'acf-nudge-flow',
+            'main_file': 'acf-nudge-flow.php',
+            'version_constant': 'ACF_NUDGE_FLOW_VERSION',
+            'license_constant': 'ACF_NUDGE_FLOW_LICENSE_TYPE',
+            'edition_constant': 'ACF_NUDGE_FLOW_EDITION',
+            'user_type_constant': 'ACF_NUDGE_FLOW_USER_TYPE',
+        },
     }
     
     def __init__(self, base_path: Path, log_callback=None):
@@ -995,6 +1011,8 @@ class DevToolkit(tk.Tk):
             'acf-css-neural-link',
             'acf-code-snippets-box',
             'acf-css-woocommerce-toolkit',
+            'wp-bulk-manager',
+            'acf-nudge-flow',
         ]
         
         for dir_name in plugin_dirs:
@@ -1312,6 +1330,8 @@ def cli_build(args):
             'acf-css-neural-link',
             'acf-code-snippets-box',
             'acf-css-woocommerce-toolkit',
+            'wp-bulk-manager',
+            'acf-nudge-flow',
         ]
         for d in plugin_dirs:
             path = base_path / d
@@ -1336,6 +1356,8 @@ def cli_build(args):
             'acf-css-neural-link',
             'acf-code-snippets-box',
             'acf-css-woocommerce-toolkit',
+            'wp-bulk-manager',
+            'acf-nudge-flow',
         ]
         
         for d in plugin_dirs:

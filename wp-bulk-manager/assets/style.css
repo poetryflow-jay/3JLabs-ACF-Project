@@ -1,0 +1,224 @@
+.jj-bulk-wrap {
+    max_width: 900px;
+    margin: 20px auto;
+}
+.jj-bulk-container {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.jj-dropzone {
+    border: 3px dashed #c3c4c7;
+    background: #f9f9f9;
+    padding: 60px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.jj-dropzone:hover, .jj-dropzone.dragover {
+    border-color: #2271b1;
+    background: #f0f6fc;
+}
+.jj-dropzone h3 { margin: 10px 0 5px; color: #3c434a; }
+.jj-dropzone p { margin: 0; color: #646970; }
+
+.jj-file-list {
+    margin: 20px 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.jj-file-item {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+.jj-file-item .file-info { display: flex; align-items: center; gap: 10px; }
+.jj-file-item .name { font-weight: 600; color: #3c434a; }
+.jj-file-item .size { color: #8c8f94; font-size: 12px; }
+.jj-file-item .status { font-size: 13px; font-weight: 500; color: #646970; }
+
+.jj-file-item.success { border-left: 4px solid #46b450; background: #edfaef; }
+.jj-file-item.success .status { color: #46b450; }
+.jj-file-item.error { border-left: 4px solid #dc3232; background: #fbeaea; }
+.jj-file-item.error .status { color: #dc3232; }
+.jj-file-item.uploading { border-left: 4px solid #2271b1; background: #f0f6fc; }
+.jj-file-item.uploading .status { color: #2271b1; }
+
+.jj-progress-area {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f0f0f1;
+    border-radius: 4px;
+}
+.jj-progress-bar {
+    height: 10px;
+    background: #dcdcde;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+.jj-progress-fill {
+    height: 100%;
+    background: #2271b1;
+    width: 0%;
+    transition: width 0.3s;
+}
+.jj-status-text {
+    font-size: 13px;
+    text-align: right;
+    color: #646970;
+}
+
+.jj-options {
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.jj-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.jj-promo-banner {
+    background: linear-gradient(135deg, #1e1e1e 0%, #3a3a3a 100%);
+    color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 40px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.jj-promo-banner h3 { color: #fff; margin: 0 0 10px; font-size: 1.2em; }
+.jj-promo-banner p { margin: 0 0 15px; color: #dcdcde; }
+
+/* ==============================
+ * Bulk Manager Tabs / Editor UI
+ * ============================== */
+.jj-bulk-tabs {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0 16px;
+}
+.jj-bulk-tab {
+    border: 1px solid #c3c4c7;
+    background: #f6f7f7;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #1d2327;
+}
+.jj-bulk-tab.is-active {
+    background: #fff;
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1 inset;
+}
+
+.jj-bulk-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.jj-bulk-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.jj-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid #dcdcde;
+    background: #f6f7f7;
+    border-radius: 999px;
+    font-size: 12px;
+    color: #3c434a;
+}
+.jj-bulk-editor-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.jj-bulk-subtabs {
+    display: flex;
+    gap: 8px;
+    margin: 10px 0 12px;
+}
+.jj-subtab.is-active {
+    border-color: #2271b1 !important;
+    box-shadow: 0 0 0 1px #2271b1 inset;
+}
+
+.jj-bulk-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 6px 0 10px;
+}
+.jj-bulk-toolbar-right {
+    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.button.button-danger {
+    background: #b32d2e;
+    border-color: #b32d2e;
+    color: #fff;
+}
+.button.button-danger:hover,
+.button.button-danger:focus {
+    background: #8a2424;
+    border-color: #8a2424;
+    color: #fff;
+}
+
+.jj-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid transparent;
+}
+.jj-pill-good { background: #edfaef; color: #1d6b2f; border-color: #b7e1c2; }
+.jj-pill-muted { background: #f6f7f7; color: #646970; border-color: #dcdcde; }
+.jj-pill-warn { background: #fcf9e8; color: #8a6d00; border-color: #f0e6a6; }
+.jj-pill-neutral { background: #f0f6fc; color: #1d5e93; border-color: #b6d1ea; }
+
+.jj-inline-tags {
+    margin-top: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.jj-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    border: 1px solid #dcdcde;
+    background: #fff;
+    color: #3c434a;
+}
