@@ -538,6 +538,7 @@ jQuery(document).ready(function($) {
 
             // action buttons toggle
             if (subtab === 'themes') {
+                $('#jj-bulk-action-activate').hide();
                 $('#jj-bulk-action-deactivate').hide();
                 $('#jj-bulk-action-delete').hide();
                 $('#jj-bulk-action-deactivate-delete').hide();
@@ -545,6 +546,7 @@ jQuery(document).ready(function($) {
                 $('#jj-bulk-action-auto-update-disable').hide();
                 $('#jj-bulk-action-theme-delete').show();
             } else {
+                $('#jj-bulk-action-activate').show();
                 $('#jj-bulk-action-deactivate').show();
                 $('#jj-bulk-action-delete').show();
                 $('#jj-bulk-action-deactivate-delete').show();
@@ -608,7 +610,7 @@ jQuery(document).ready(function($) {
         });
 
         // Actions (plugins / themes)
-        $('#jj-bulk-action-deactivate, #jj-bulk-action-delete, #jj-bulk-action-deactivate-delete, #jj-bulk-action-theme-delete').on('click', function() {
+        $('#jj-bulk-action-activate, #jj-bulk-action-deactivate, #jj-bulk-action-delete, #jj-bulk-action-deactivate-delete, #jj-bulk-action-auto-update-enable, #jj-bulk-action-auto-update-disable, #jj-bulk-action-theme-delete').on('click', function() {
             var op = $(this).data('op');
             var type = $(this).data('type');
             runBulkOperation(type, op);
@@ -830,12 +832,18 @@ jQuery(document).ready(function($) {
         }
 
         var confirmText = '';
-        if (operation === 'deactivate') {
+        if (operation === 'activate') {
+            confirmText = '선택한 ' + ids.length + '개를 활성화할까요?';
+        } else if (operation === 'deactivate') {
             confirmText = '선택한 ' + ids.length + '개를 비활성화할까요?';
         } else if (operation === 'delete') {
             confirmText = '정말로 선택한 ' + ids.length + '개를 삭제할까요?\n삭제는 되돌릴 수 없습니다.';
         } else if (operation === 'deactivate_delete') {
             confirmText = '선택한 ' + ids.length + '개를 비활성화한 뒤 즉시 삭제할까요?\n삭제는 되돌릴 수 없습니다.';
+        } else if (operation === 'auto_update_enable') {
+            confirmText = '선택한 ' + ids.length + '개의 자동 업데이트를 허용할까요?';
+        } else if (operation === 'auto_update_disable') {
+            confirmText = '선택한 ' + ids.length + '개의 자동 업데이트를 비허용할까요?';
         }
 
         if (confirmText && !window.confirm(confirmText)) {

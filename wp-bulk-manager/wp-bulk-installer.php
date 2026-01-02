@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           2.4.0
+ * Version:           2.5.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.4.0' ); // [v2.4.0] 메뉴 강조 표시: 배경색, 볼드, 아이콘 개선, 알림판 바로 아래 배치
+define( 'WP_BULK_MANAGER_VERSION', '2.5.0' ); // [v2.5.0] 벌크 에디터 '선택 활성화' 버튼 추가, 자동 업데이트 관리 기능 추가, 메뉴 이름 개선
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -191,7 +191,7 @@ class JJ_Bulk_Installer {
         // [v2.3.7] 더 눈에 띄는 메뉴 등록 + 고유한 슬러그
         add_menu_page(
             __( 'WP 벌크 매니저', 'wp-bulk-manager' ),
-            __( '🚀 벌크 매니저', 'wp-bulk-manager' ), // 이모지 추가로 눈에 띄게
+            __( '벌크 매니저 🚀', 'wp-bulk-manager' ), // 업로드 아이콘 + 이모지 로켓
             'manage_options', // 관리자 권한
             $this->page_slug . '-main',
             array( $this, 'render_page' ),
@@ -563,6 +563,7 @@ class JJ_Bulk_Installer {
                         </select>
 
                         <div class="jj-bulk-toolbar-right">
+                            <button type="button" class="button button-primary" id="jj-bulk-action-activate" data-op="activate" data-type="plugin">선택 활성화</button>
                             <button type="button" class="button" id="jj-bulk-action-deactivate" data-op="deactivate" data-type="plugin">선택 비활성화</button>
                             <button type="button" class="button button-secondary" id="jj-bulk-action-delete" data-op="delete" data-type="plugin" <?php echo ( ! $limits['can_bulk_delete'] ) ? 'disabled' : ''; ?>>선택 삭제</button>
                             <button type="button" class="button button-danger" id="jj-bulk-action-deactivate-delete" data-op="deactivate_delete" data-type="plugin" <?php echo ( ! $limits['can_deactivate_then_delete'] ) ? 'disabled' : ''; ?>>비활성화 후 삭제</button>
@@ -774,11 +775,11 @@ class JJ_Bulk_Installer {
         if ( ! in_array( $item_type, array( 'plugin', 'theme' ), true ) ) {
             wp_send_json_error( '잘못된 item_type 입니다.' );
         }
-        if ( ! in_array( $operation, array( 'deactivate', 'delete', 'deactivate_delete' ), true ) ) {
+        if ( ! in_array( $operation, array( 'activate', 'deactivate', 'delete', 'deactivate_delete', 'auto_update_enable', 'auto_update_disable' ), true ) ) {
             wp_send_json_error( '잘못된 operation 입니다.' );
         }
-        if ( 'theme' === $item_type && 'delete' !== $operation ) {
-            wp_send_json_error( '테마는 삭제만 지원합니다.' );
+        if ( 'theme' === $item_type && ! in_array( $operation, array( 'delete', 'auto_update_enable', 'auto_update_disable' ), true ) ) {
+            wp_send_json_error( '테마는 삭제와 자동 업데이트 관리만 지원합니다.' );
         }
         if ( ! is_array( $items ) ) {
             wp_send_json_error( 'items 형식이 올바르지 않습니다.' );
@@ -807,11 +808,14 @@ class JJ_Bulk_Installer {
 
         if ( 'plugin' === $item_type ) {
             // Capabilities
-            if ( in_array( $operation, array( 'deactivate', 'deactivate_delete' ), true ) && ! current_user_can( 'activate_plugins' ) ) {
+            if ( in_array( $operation, array( 'activate', 'deactivate', 'deactivate_delete' ), true ) && ! current_user_can( 'activate_plugins' ) ) {
                 wp_send_json_error( '권한이 없습니다. (activate_plugins 필요)' );
             }
             if ( in_array( $operation, array( 'delete', 'deactivate_delete' ), true ) && ! current_user_can( 'delete_plugins' ) ) {
                 wp_send_json_error( '권한이 없습니다. (delete_plugins 필요)' );
+            }
+            if ( in_array( $operation, array( 'auto_update_enable', 'auto_update_disable' ), true ) && ! current_user_can( 'update_plugins' ) ) {
+                wp_send_json_error( '권한이 없습니다. (update_plugins 필요)' );
             }
 
             include_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -826,13 +830,27 @@ class JJ_Bulk_Installer {
                     $results[] = array( 'id' => $plugin_file, 'ok' => false, 'message' => '존재하지 않는 플러그인입니다.' );
                     continue;
                 }
-                if ( $plugin_file === $self_plugin_file ) {
+                if ( $plugin_file === $self_plugin_file && in_array( $operation, array( 'delete', 'deactivate_delete' ), true ) ) {
                     $results[] = array( 'id' => $plugin_file, 'ok' => false, 'message' => '안전상 이 도구로 자기 자신을 삭제할 수 없습니다.' );
                     continue;
                 }
 
                 $network_active = is_multisite() ? is_plugin_active_for_network( $plugin_file ) : false;
                 $active = is_plugin_active( $plugin_file ) || $network_active;
+
+                // 0) activate if needed
+                if ( 'activate' === $operation && ! $active ) {
+                    $result = activate_plugin( $plugin_file, '', false, false );
+                    if ( is_wp_error( $result ) ) {
+                        $results[] = array( 'id' => $plugin_file, 'ok' => false, 'message' => '활성화 실패: ' . $result->get_error_message() );
+                        continue;
+                    }
+                    $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '활성화 완료' );
+                    continue;
+                } elseif ( 'activate' === $operation ) {
+                    $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '이미 활성 상태' );
+                    continue;
+                }
 
                 // 1) deactivate if needed
                 if ( in_array( $operation, array( 'deactivate', 'deactivate_delete' ), true ) && $active ) {
@@ -876,6 +894,28 @@ class JJ_Bulk_Installer {
                     $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => ( 'deactivate_delete' === $operation ) ? '비활성화 후 삭제 완료' : '삭제 완료' );
                     continue;
                 }
+
+                // 3) auto_update_enable / auto_update_disable
+                if ( in_array( $operation, array( 'auto_update_enable', 'auto_update_disable' ), true ) ) {
+                    $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
+                    $key = array_search( $plugin_file, $auto_updates, true );
+                    
+                    if ( 'auto_update_enable' === $operation ) {
+                        if ( false === $key ) {
+                            $auto_updates[] = $plugin_file;
+                            update_site_option( 'auto_update_plugins', $auto_updates );
+                        }
+                        $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '자동 업데이트 허용' );
+                    } else {
+                        if ( false !== $key ) {
+                            unset( $auto_updates[ $key ] );
+                            $auto_updates = array_values( $auto_updates );
+                            update_site_option( 'auto_update_plugins', $auto_updates );
+                        }
+                        $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '자동 업데이트 비허용' );
+                    }
+                    continue;
+                }
             }
 
             wp_send_json_success( array(
@@ -886,9 +926,13 @@ class JJ_Bulk_Installer {
         }
 
         // theme
-        if ( ! current_user_can( 'delete_themes' ) ) {
+        if ( 'delete' === $operation && ! current_user_can( 'delete_themes' ) ) {
             wp_send_json_error( '권한이 없습니다. (delete_themes 필요)' );
         }
+        if ( in_array( $operation, array( 'auto_update_enable', 'auto_update_disable' ), true ) && ! current_user_can( 'update_themes' ) ) {
+            wp_send_json_error( '권한이 없습니다. (update_themes 필요)' );
+        }
+        
         include_once ABSPATH . 'wp-admin/includes/theme.php';
         include_once ABSPATH . 'wp-admin/includes/file.php';
 
@@ -901,21 +945,48 @@ class JJ_Bulk_Installer {
                 $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => '존재하지 않는 테마입니다.' );
                 continue;
             }
-            if ( $stylesheet === $active_stylesheet ) {
-                $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => '현재 사용 중인(활성) 테마는 삭제할 수 없습니다.' );
+
+            // delete operation
+            if ( 'delete' === $operation ) {
+                if ( $stylesheet === $active_stylesheet ) {
+                    $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => '현재 사용 중인(활성) 테마는 삭제할 수 없습니다.' );
+                    continue;
+                }
+
+                $del = delete_theme( $stylesheet );
+                if ( is_wp_error( $del ) ) {
+                    $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => $del->get_error_message() );
+                    continue;
+                }
+                if ( true !== $del ) {
+                    $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => '삭제에 실패했습니다. (파일시스템 권한/FTP 인증이 필요할 수 있습니다)' );
+                    continue;
+                }
+                $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '삭제 완료' );
                 continue;
             }
 
-            $del = delete_theme( $stylesheet );
-            if ( is_wp_error( $del ) ) {
-                $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => $del->get_error_message() );
+            // auto_update_enable / auto_update_disable
+            if ( in_array( $operation, array( 'auto_update_enable', 'auto_update_disable' ), true ) ) {
+                $auto_updates = (array) get_site_option( 'auto_update_themes', array() );
+                $key = array_search( $stylesheet, $auto_updates, true );
+                
+                if ( 'auto_update_enable' === $operation ) {
+                    if ( false === $key ) {
+                        $auto_updates[] = $stylesheet;
+                        update_site_option( 'auto_update_themes', $auto_updates );
+                    }
+                    $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '자동 업데이트 허용' );
+                } else {
+                    if ( false !== $key ) {
+                        unset( $auto_updates[ $key ] );
+                        $auto_updates = array_values( $auto_updates );
+                        update_site_option( 'auto_update_themes', $auto_updates );
+                    }
+                    $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '자동 업데이트 비허용' );
+                }
                 continue;
             }
-            if ( true !== $del ) {
-                $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => '삭제에 실패했습니다. (파일시스템 권한/FTP 인증이 필요할 수 있습니다)' );
-                continue;
-            }
-            $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '삭제 완료' );
         }
 
         wp_send_json_success( array(
