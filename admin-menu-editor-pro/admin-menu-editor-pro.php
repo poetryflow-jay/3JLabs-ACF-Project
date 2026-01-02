@@ -143,6 +143,30 @@ final class Admin_Menu_Editor_Pro {
         
         // 플러그인 목록 페이지 링크
         add_filter( 'plugin_action_links_' . AME_PRO_BASENAME, array( $this, 'add_plugin_links' ) );
+        
+        // [Phase 19.1] 플러그인 목록 페이지 UI/UX 개선
+        $this->init_plugin_list_enhancer();
+    }
+    
+    /**
+     * [Phase 19.1] 플러그인 목록 페이지 향상 초기화
+     */
+    private function init_plugin_list_enhancer() {
+        // ACF CSS Manager의 Plugin List Enhancer 클래스 사용
+        if ( class_exists( 'JJ_Plugin_List_Enhancer' ) ) {
+            $enhancer = new JJ_Plugin_List_Enhancer();
+            $enhancer->init( array(
+                'plugin_file' => __FILE__,
+                'plugin_name' => 'Admin Menu Editor Pro',
+                'settings_url' => admin_url( 'options-general.php?page=ame-pro' ),
+                'text_domain' => 'admin-menu-editor-pro',
+                'version_constant' => 'AME_PRO_VERSION',
+                'license_constant' => 'JJ_ADMIN_MENU_EDITOR_LICENSE',
+                'upgrade_url' => 'https://3j-labs.com',
+                'docs_url' => admin_url( 'options-general.php?page=ame-pro' ),
+                'support_url' => 'https://3j-labs.com/support',
+            ) );
+        }
     }
 
     /**

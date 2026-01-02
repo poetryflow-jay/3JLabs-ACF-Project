@@ -57,6 +57,30 @@ final class ACF_Code_Snippets_Box {
     private function __construct() {
         $this->load_dependencies();
         $this->init_hooks();
+        
+        // [Phase 19.1] 플러그인 목록 페이지 UI/UX 개선
+        $this->init_plugin_list_enhancer();
+    }
+    
+    /**
+     * [Phase 19.1] 플러그인 목록 페이지 향상 초기화
+     */
+    private function init_plugin_list_enhancer() {
+        // ACF CSS Manager의 Plugin List Enhancer 클래스 사용
+        if ( class_exists( 'JJ_Plugin_List_Enhancer' ) ) {
+            $enhancer = new JJ_Plugin_List_Enhancer();
+            $enhancer->init( array(
+                'plugin_file' => __FILE__,
+                'plugin_name' => 'ACF Code Snippets Box',
+                'settings_url' => admin_url( 'admin.php?page=acf-code-snippets' ),
+                'text_domain' => 'acf-code-snippets-box',
+                'version_constant' => 'ACF_CSB_VERSION',
+                'license_constant' => 'ACF_CSB_LICENSE_TYPE',
+                'upgrade_url' => 'https://3j-labs.com',
+                'docs_url' => admin_url( 'admin.php?page=acf-code-snippets' ),
+                'support_url' => 'https://3j-labs.com/support',
+            ) );
+        }
     }
 
     /**
