@@ -948,6 +948,7 @@ class DevToolkit(tk.Tk):
         
         ttk.Button(btn_git, text="커밋", command=self._git_commit).pack(side='left', padx=5)
         ttk.Button(btn_git, text="푸시", command=self._git_push).pack(side='left', padx=5)
+        ttk.Button(btn_git, text="📊 대시보드 업데이트", command=self._update_dashboard).pack(side='left', padx=20)
     
     def _create_log_tab(self):
         """로그 탭"""
@@ -1249,6 +1250,18 @@ class DevToolkit(tk.Tk):
         except subprocess.CalledProcessError as e:
             self._log(f"푸시 실패: {e}")
             messagebox.showerror("오류", f"푸시 실패: {e}")
+    
+    def _update_dashboard(self):
+        """외부 대시보드 업데이트"""
+        self._log("📊 대시보드 업데이트 시작...")
+        
+        try:
+            update_external_dashboard()
+            self._log("✅ 대시보드 업데이트 완료!")
+            messagebox.showinfo("성공", "대시보드가 업데이트되었습니다.\n\n경로: C:/Users/computer/Desktop/JJ_Distributions_v8.0.0_Master_Control/dashboard.html")
+        except Exception as e:
+            self._log(f"❌ 대시보드 업데이트 실패: {e}")
+            messagebox.showerror("오류", f"대시보드 업데이트 실패: {e}")
 
 
 # simpledialog 임포트
@@ -1277,10 +1290,17 @@ def cli_build(args):
     parser.add_argument('--bundle', '-b', action='store_true', help='번들 패키지 생성')
     parser.add_argument('--list', '-l', action='store_true', help='플러그인 목록 출력')
     parser.add_argument('--simple', '-s', action='store_true', help='간단 빌드 (모든 플러그인 ZIP)')
+    parser.add_argument('--dashboard', '-d', action='store_true', help='대시보드 HTML 업데이트')
     
     parsed = parser.parse_args(args)
     
     base_path = Path(__file__).parent
+    
+    # 대시보드 업데이트
+    if parsed.dashboard:
+        print("\n📊 대시보드 업데이트 중...")
+        update_external_dashboard()
+        return
     
     # 플러그인 목록 출력
     if parsed.list:
@@ -1374,6 +1394,186 @@ def cli_build(args):
             print(f"📦 번들 생성: {bundle_path}")
     
     print(f"\n📂 출력 위치: {builder.output_dir}")
+
+
+def generate_dashboard(output_path: Path, plugins: dict, build_info: dict):
+    """배포 대시보드 HTML 생성"""
+    
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    build_date = datetime.now().strftime("%Y-%m-%d")
+    
+    html = f'''<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3J Labs Deployment Center - v{build_info.get("version", "13.4.0")}</title>
+    <style>
+        :root {{ --primary: #667eea; --success: #48bb78; --warning: #ed8936; --danger: #f56565; --info: #4299e1; }}
+        * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+        body {{ font-family: 'Pretendard', -apple-system, sans-serif; background: linear-gradient(135deg, #1a1a2e, #16213e); min-height: 100vh; color: #e2e8f0; }}
+        .container {{ max-width: 1400px; margin: 0 auto; padding: 40px 20px; }}
+        h1 {{ font-size: 2.5em; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; text-align: center; }}
+        .subtitle {{ color: #a0aec0; text-align: center; margin-bottom: 30px; }}
+        .meta-bar {{ display: flex; justify-content: center; gap: 30px; margin: 20px 0 40px; flex-wrap: wrap; }}
+        .meta-item {{ background: rgba(255,255,255,0.05); padding: 12px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); }}
+        .meta-label {{ color: #718096; font-size: 0.85em; }}
+        .meta-value {{ color: #fff; font-weight: 600; margin-top: 4px; }}
+        .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; margin-bottom: 40px; }}
+        .card {{ background: rgba(255,255,255,0.03); border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); overflow: hidden; }}
+        .card-header {{ padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }}
+        .card-title {{ font-size: 1.25em; font-weight: 600; }}
+        .badge {{ font-size: 0.7em; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; font-weight: 600; }}
+        .badge-stable {{ background: var(--success); color: #1a202c; }}
+        .badge-new {{ background: var(--info); color: white; }}
+        table {{ width: 100%; border-collapse: collapse; }}
+        th, td {{ text-align: left; padding: 14px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); }}
+        th {{ background: rgba(255,255,255,0.02); color: #a0aec0; font-weight: 500; font-size: 0.85em; text-transform: uppercase; }}
+        .file-link {{ color: var(--primary); text-decoration: none; font-weight: 500; }}
+        .file-link:hover {{ text-decoration: underline; }}
+        .version {{ font-family: monospace; color: var(--success); font-weight: 600; }}
+        .footer {{ text-align: center; padding: 40px 0; color: #718096; border-top: 1px solid rgba(255,255,255,0.05); }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 3J Labs Deployment Center</h1>
+        <p class="subtitle">제이x제니x제이슨 연구소 - 플러그인 배포 관리</p>
+        
+        <div class="meta-bar">
+            <div class="meta-item">
+                <div class="meta-label">빌드 버전</div>
+                <div class="meta-value">v{build_info.get("version", "13.4.0")}</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">빌드 날짜</div>
+                <div class="meta-value">{build_date}</div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">생성 시간</div>
+                <div class="meta-value">{timestamp}</div>
+            </div>
+        </div>
+        
+        <div class="grid">
+'''
+    
+    # 플러그인 카드 생성
+    for plugin_key, plugin_info in plugins.items():
+        is_new = plugin_info.get('is_new', False)
+        badge_class = 'badge-new' if is_new else 'badge-stable'
+        badge_text = 'New' if is_new else 'Stable'
+        
+        html += f'''
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">{plugin_info.get("icon", "📦")} {plugin_info.get("name", plugin_key)}</div>
+                    <span class="badge {badge_class}">{badge_text}</span>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr><th>에디션</th><th>버전</th><th>파일</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Standard</td>
+                                <td class="version">{plugin_info.get("version", "1.0.0")}</td>
+                                <td><a href="{plugin_info.get("file", "#")}" class="file-link">📥 다운로드</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+'''
+    
+    html += '''
+        </div>
+        
+        <footer class="footer">
+            <p>© 2026 3J Labs (제이x제니x제이슨 연구소). All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+'''
+    
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(html)
+    
+    print(f"📊 대시보드 생성: {output_path}")
+    return output_path
+
+
+def update_external_dashboard(dashboard_path: str = None):
+    """외부 대시보드 업데이트"""
+    
+    if dashboard_path is None:
+        dashboard_path = Path("C:/Users/computer/Desktop/JJ_Distributions_v8.0.0_Master_Control/dashboard.html")
+    else:
+        dashboard_path = Path(dashboard_path)
+    
+    base_path = Path(__file__).parent
+    
+    # 플러그인 정보 수집
+    plugins = {
+        'acf-css-manager': {
+            'name': 'ACF CSS Manager',
+            'icon': '🎨',
+            'version': '13.4.0',
+            'file': 'builds/v13.4.0-release/acf-css-really-simple-style-management-center-master-v13.4.0.zip',
+            'is_new': False
+        },
+        'acf-code-snippets-box': {
+            'name': 'ACF Code Snippets Box',
+            'icon': '⚡',
+            'version': '1.1.0',
+            'file': 'builds/v13.4.0-release/acf-code-snippets-box-v1.1.0.zip',
+            'is_new': True
+        },
+        'acf-css-woocommerce-toolkit': {
+            'name': 'ACF CSS WooCommerce Toolkit',
+            'icon': '🛒',
+            'version': '1.1.0',
+            'file': 'builds/v13.4.0-release/acf-css-woocommerce-toolkit-v1.1.0.zip',
+            'is_new': True
+        },
+        'acf-css-ai-extension': {
+            'name': 'ACF CSS AI Extension',
+            'icon': '🤖',
+            'version': '2.1.0',
+            'file': 'builds/v13.4.0-release/acf-css-ai-extension-v2.1.0.zip',
+            'is_new': False
+        },
+        'acf-css-neural-link': {
+            'name': 'ACF CSS Neural Link',
+            'icon': '🔗',
+            'version': '4.1.0',
+            'file': 'builds/v13.4.0-release/acf-css-neural-link-v4.1.0.zip',
+            'is_new': False
+        },
+    }
+    
+    # 실제 플러그인 버전 읽기
+    for key in plugins:
+        dir_map = {
+            'acf-css-manager': 'acf-css-really-simple-style-management-center-master',
+            'acf-code-snippets-box': 'acf-code-snippets-box',
+            'acf-css-woocommerce-toolkit': 'acf-css-woocommerce-toolkit',
+            'acf-css-ai-extension': 'acf-css-ai-extension',
+            'acf-css-neural-link': 'acf-css-neural-link',
+        }
+        plugin_path = base_path / dir_map.get(key, key)
+        if plugin_path.exists():
+            info = PluginInfo(plugin_path)
+            if info.version:
+                plugins[key]['version'] = info.version
+                plugins[key]['file'] = f"builds/v{info.version}-release/{dir_map.get(key, key)}-v{info.version}.zip"
+    
+    build_info = {'version': plugins.get('acf-css-manager', {}).get('version', '13.4.0')}
+    
+    generate_dashboard(dashboard_path, plugins, build_info)
+    print(f"✅ 외부 대시보드 업데이트 완료: {dashboard_path}")
 
 
 if __name__ == '__main__':
