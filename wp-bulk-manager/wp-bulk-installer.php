@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           2.3.6
+ * Version:           2.3.7
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.3.6' ); // [v2.3.6] 메뉴 표시 문제 수정: admin_menu 훅 priority 5, position 2.5, manage_options 권한 사용
+define( 'WP_BULK_MANAGER_VERSION', '2.3.7' ); // [v2.3.7] 메뉴 표시 문제 완전 수정: custom_menu_order 필터로 강제 순서 지정
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -34,9 +34,13 @@ class JJ_Bulk_Installer {
     }
 
     private function __construct() {
-        // [v2.3.6] admin_menu 훅 우선순위를 5로 설정하여 다른 플러그인보다 먼저 메뉴 등록
-        add_action( 'admin_menu', array( $this, 'add_menu_pages' ), 5 );
+        // [v2.3.7] admin_menu 훅 우선순위를 1로 설정 + 메뉴 순서 강제 지정
+        add_action( 'admin_menu', array( $this, 'add_menu_pages' ), 1 );
         add_action( 'admin_notices', array( $this, 'add_install_page_notice' ) );
+        
+        // [v2.3.7] 메뉴 순서 강제 지정 (다른 플러그인에 의해 밀리지 않도록)
+        add_filter( 'custom_menu_order', '__return_true' );
+        add_filter( 'menu_order', array( $this, 'force_menu_order' ), 999 );
         
         add_action( 'wp_ajax_jj_bulk_install_upload', array( $this, 'ajax_handle_upload' ) );
         add_action( 'wp_ajax_jj_bulk_install_process', array( $this, 'ajax_handle_install' ) );
@@ -102,18 +106,52 @@ class JJ_Bulk_Installer {
         return array_merge( $plugin_meta, $new_meta );
     }
 
+    /**
+     * [v2.3.7] 메뉴 순서 강제 지정
+     * 다른 플러그인(Admin Menu Editor, Kinsta 등)에 의해 메뉴가 숨겨지거나 밀리지 않도록
+     */
+    public function force_menu_order( $menu_order ) {
+        global $menu;
+        
+        if ( ! is_array( $menu_order ) ) {
+            return $menu_order;
+        }
+        
+        // 우리 메뉴 슬러그
+        $our_slug = $this->page_slug . '-main';
+        
+        // 현재 메뉴 순서에서 우리 메뉴 위치 찾기
+        $our_position = array_search( $our_slug, $menu_order );
+        
+        if ( $our_position !== false ) {
+            // 우리 메뉴를 제거
+            unset( $menu_order[ $our_position ] );
+            $menu_order = array_values( $menu_order );
+        }
+        
+        // Dashboard(index.php) 바로 뒤에 우리 메뉴 삽입
+        $dashboard_position = array_search( 'index.php', $menu_order );
+        if ( $dashboard_position !== false ) {
+            array_splice( $menu_order, $dashboard_position + 1, 0, $our_slug );
+        } else {
+            // Dashboard를 찾지 못하면 맨 앞에 삽입
+            array_unshift( $menu_order, $our_slug );
+        }
+        
+        return $menu_order;
+    }
+
     public function add_menu_pages() {
         // 1. 알림판 아래 최상위 메뉴 (접근성 강화) - 우선순위 높음
-        // [v2.3.6] position 2.5 설정 (Dashboard=2, Posts=5 사이에 정확히 위치)
-        // capability를 manage_options로 변경하여 관리자에게 확실히 표시
+        // [v2.3.7] 더 눈에 띄는 메뉴 등록 + 고유한 슬러그
         add_menu_page(
             __( 'WP 벌크 매니저', 'wp-bulk-manager' ),
             __( '🚀 벌크 매니저', 'wp-bulk-manager' ), // 이모지 추가로 눈에 띄게
-            'manage_options', // install_plugins → manage_options (관리자 권한)
+            'manage_options', // 관리자 권한
             $this->page_slug . '-main',
             array( $this, 'render_page' ),
             'dashicons-cloud-upload',
-            2.5 // Dashboard(index.php=2) 바로 아래 (소수점 사용으로 정확한 위치 보장)
+            2 // Dashboard와 동일한 position (force_menu_order에서 순서 재조정)
         );
 
         // 2. 도구 하위 메뉴 (명확한 이름으로 표기)
