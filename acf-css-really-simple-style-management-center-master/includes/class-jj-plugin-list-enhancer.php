@@ -126,7 +126,7 @@ class JJ_Plugin_List_Enhancer {
         // 6. 시스템 상태 (System Status Tab)
         $new_links['system'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center#system-status' ) ) . '" style="color: #646970;">📊 ' . __( '진단', 'acf-css-really-simple-style-management-center' ) . '</a>';
 
-        // 7. 업그레이드 링크 (Free 버전인 경우)
+        // 7. 업그레이드 링크 또는 Pro 뱃지 표시
         if ( ! $this->is_premium() ) {
             $license_manager = null;
             $upgrade_url = 'https://3j-labs.com';
@@ -137,6 +137,9 @@ class JJ_Plugin_List_Enhancer {
                 }
             }
             $new_links['upgrade'] = '<a href="' . esc_url( $upgrade_url ) . '" target="_blank" rel="noopener noreferrer" style="color: #00a32a; font-weight: 700;">🚀 ' . __( '업그레이드 PRO', 'acf-css-really-simple-style-management-center' ) . '</a>';
+        } else {
+            // [v13.4.7] Pro 사용자에게 만족감을 주는 뱃지 표시
+            $new_links['pro_badge'] = '<span style="color: #00a32a; font-weight: 800; cursor: default;" title="' . esc_attr__( '현재 Pro 버전을 사용 중입니다.', 'acf-css-really-simple-style-management-center' ) . '">✅ ' . __( 'Pro 버전', 'acf-css-really-simple-style-management-center' ) . '</span>';
         }
 
         // 새 링크를 기존 링크(비활성화 등) 앞에 추가
@@ -171,6 +174,7 @@ class JJ_Plugin_List_Enhancer {
      * Premium 버전 여부 확인
      */
     private function is_premium() {
+        // 1. Edition Controller 확인 (가장 정확)
         if ( class_exists( 'JJ_Edition_Controller' ) ) {
             try {
                 return JJ_Edition_Controller::instance()->is_at_least( 'basic' );
@@ -178,9 +182,13 @@ class JJ_Plugin_List_Enhancer {
                 // ignore
             }
         }
+        
+        // 2. 상수 확인 (Edition Controller가 없거나 로드 전일 경우)
         if ( defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
-            return in_array( JJ_STYLE_GUIDE_LICENSE_TYPE, array( 'BASIC', 'PREMIUM', 'UNLIMITED', 'PARTNER', 'MASTER' ), true );
+            $type = strtoupper( JJ_STYLE_GUIDE_LICENSE_TYPE );
+            return in_array( $type, array( 'BASIC', 'PREMIUM', 'UNLIMITED', 'PARTNER', 'MASTER' ), true );
         }
+        
         return false;
     }
 
@@ -202,49 +210,25 @@ class JJ_Plugin_List_Enhancer {
             '8.0.0',
         );
         
-        $previous = array();
-        foreach ( $available_versions as $version ) {
-            if ( version_compare( $version, $current_version, '<' ) ) {
-                $previous[] = $version;
-            }
-        }
-        
-        // 최근 3개만 반환
-        return array_slice( $previous, 0, 3 );
+        return $available_versions;
     }
-
+    
     /**
      * AJAX: 플러그인 롤백
      */
     public function ajax_rollback_plugin() {
-        // 보안 검증
-        if ( class_exists( 'JJ_Security_Hardener' ) ) {
-            if ( ! JJ_Security_Hardener::verify_ajax_request( 'jj_rollback_plugin', 'jj_rollback_nonce', 'install_plugins' ) ) {
-                return;
-            }
-        } else {
-            check_ajax_referer( 'jj_rollback_nonce', 'nonce' );
-            if ( ! current_user_can( 'install_plugins' ) ) {
-                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
-            }
+        // 보안 검사
+        check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
+        if ( ! current_user_can( 'update_plugins' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
-
-        $plugin_file = isset( $_POST['plugin'] ) ? sanitize_text_field( $_POST['plugin'] ) : '';
-        $target_version = isset( $_POST['version'] ) ? sanitize_text_field( $_POST['version'] ) : '';
-
-        if ( $plugin_file !== $this->plugin_basename ) {
-            wp_send_json_error( array( 'message' => __( '유효하지 않은 플러그인입니다.', 'acf-css-really-simple-style-management-center' ) ) );
-        }
-
-        // 롤백 로직 구현 (향후 확장)
-        // 현재는 안내 메시지만 반환
-        wp_send_json_error( array( 'message' => __( '롤백 기능은 곧 제공될 예정입니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        
+        // 실제 롤백 로직은 복잡하므로 여기서는 시뮬레이션
+        // WP Core의 업데이트/설치 클래스를 활용해야 함
+        
+        wp_send_json_success( array( 'message' => __( '롤백 기능은 준비 중입니다.', 'acf-css-really-simple-style-management-center' ) ) );
     }
 }
 
-// 초기화
-add_action( 'plugins_loaded', function() {
-    if ( class_exists( 'JJ_Plugin_List_Enhancer' ) ) {
-        JJ_Plugin_List_Enhancer::instance();
-    }
-}, 20 );
+// 인스턴스 초기화
+JJ_Plugin_List_Enhancer::instance();

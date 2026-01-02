@@ -240,13 +240,15 @@ final class JJ_Edition_Controller {
     public function get_branding( $key ) {
         // 기본값 설정
         $defaults = array(
-            'name'        => 'ACF CSS Manager',
-            'full_name'   => 'ACF CSS: Advanced Custom Fonts&Colors&Styles Setting',
-            'menu_title'  => 'ACF CSS Manager',
+            // [v13.4.7] 브랜딩 기본값 최신화 (요청: "ACF CSS 설정 관리자"로 표기)
+            // - Partner White Labeling 권한이 없는 경우에도, 기본 표기가 최신 명칭을 따르도록 함
+            'name'        => 'ACF CSS 설정 관리자',
+            'full_name'   => 'ACF CSS 설정 관리자: Advanced Custom Fonts & Colors & Styles Setting Manager',
+            'menu_title'  => 'ACF CSS 설정 관리자',
             'logo_url'    => '', // 추후 기본 로고 URL 설정
-            'footer_text' => 'Ultimate Design System by Jay & Jenny Labs',
-            'author'      => 'Jay & Jenny Labs',
-            'author_url'  => 'https://j-j-labs.com',
+            'footer_text' => '3J Labs (제이×제니×제이슨 연구소)',
+            'author'      => '3J Labs (제이×제니×제이슨 연구소)',
+            'author_url'  => 'https://3j-labs.com',
         );
 
         $value = isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';

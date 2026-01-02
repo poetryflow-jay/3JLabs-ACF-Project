@@ -7,7 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 ?>
 
-<div class="jj-admin-tab-content" data-tab="figma">
+<div class="jj-admin-center-tab-content" data-tab="figma">
     <div class="jj-tab-header">
         <h2><?php esc_html_e( 'Figma 연동', 'acf-css-really-simple-style-management-center' ); ?></h2>
         <p class="description">
