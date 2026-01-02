@@ -25,7 +25,7 @@ Updated: 2026-01-02 - Admin Menu Editor Pro 추가, AI Extension, Neural Link �
 
 3. ZIP 빌드 주의사항:
    - WordPress 플러그인 ZIP은 플러그인 폴더가 포함되어야 함
-   - Compress-Archive -Path $folder (not $folder\*)
+   - Compress-Archive -Path $folder (not $folder\\*)
    - 이렇게 해야 WordPress 업로드 설치 시 올바르게 인식됨
 
 ===============================================================================
@@ -476,6 +476,13 @@ class EditionBuilder:
             except Exception as e:
                 self.log(f"❌ 빌드 실패: {edition}/{user_type} - {e}")
         
+        # 빌드 완료 후 대시보드 자동 업데이트
+        try:
+            update_dashboard_html()
+            self.log("✅ 대시보드 자동 업데이트 완료")
+        except Exception as e:
+            self.log(f"⚠️ 대시보드 업데이트 실패: {e}")
+        
         return results
     
     def build_selected_editions(self, selections: List[Tuple[str, str]], version: str) -> List[Path]:
@@ -489,6 +496,13 @@ class EditionBuilder:
                     results.append(zip_path)
             except Exception as e:
                 self.log(f"❌ 빌드 실패: {edition}/{user_type} - {e}")
+        
+        # 빌드 완료 후 대시보드 자동 업데이트
+        try:
+            update_dashboard_html()
+            self.log("✅ 대시보드 자동 업데이트 완료")
+        except Exception as e:
+            self.log(f"⚠️ 대시보드 업데이트 실패: {e}")
         
         return results
     
@@ -603,6 +617,13 @@ class EditionBuilder:
                         results.append(zip_path)
                 except Exception as e:
                     self.log(f"❌ 빌드 실패: {plugin_key}/{edition}/{user_type} - {e}")
+        
+        # 빌드 완료 후 대시보드 자동 업데이트
+        try:
+            update_dashboard_html()
+            self.log("✅ 대시보드 자동 업데이트 완료")
+        except Exception as e:
+            self.log(f"⚠️ 대시보드 업데이트 실패: {e}")
         
         return results
 
@@ -1372,12 +1393,27 @@ def cli_build(args):
     
     parsed = parser.parse_args(args)
     
+    # 대시보드만 업데이트하는 경우
+    if parsed.dashboard:
+        print("📊 대시보드 업데이트 중...")
+        try:
+            update_dashboard_html()
+            print("✅ 대시보드 업데이트 완료!")
+            return
+        except Exception as e:
+            print(f"❌ 대시보드 업데이트 실패: {e}")
+            return
+    
     base_path = Path(__file__).parent
     
     # 대시보드 업데이트
     if parsed.dashboard:
         print("\n📊 대시보드 업데이트 중...")
-        update_external_dashboard()
+        try:
+            update_dashboard_html()
+            print("✅ 대시보드 업데이트 완료!")
+        except Exception as e:
+            print(f"❌ 대시보드 업데이트 실패: {e}")
         return
     
     # 플러그인 목록 출력
@@ -1474,6 +1510,13 @@ def cli_build(args):
         bundle_path = builder.create_bundle(results, bundle_name)
         if bundle_path:
             print(f"📦 번들 생성: {bundle_path}")
+    
+    # 대시보드 자동 업데이트
+    try:
+        update_dashboard_html()
+        print("✅ 대시보드 자동 업데이트 완료")
+    except Exception as e:
+        print(f"⚠️ 대시보드 업데이트 실패: {e}")
     
     print(f"\n📂 출력 위치: {builder.output_dir}")
 
@@ -1587,75 +1630,468 @@ def generate_dashboard(output_path: Path, plugins: dict, build_info: dict):
     return output_path
 
 
-def update_external_dashboard(dashboard_path: str = None):
-    """외부 대시보드 업데이트"""
+def update_dashboard_html(dashboard_path: Path = None, auto_detect_versions: bool = True):
+    """
+    대시보드 HTML 파일을 자동으로 업데이트합니다.
     
+    Args:
+        dashboard_path: 대시보드 HTML 파일 경로 (None이면 프로젝트 루트의 dashboard.html 사용)
+        auto_detect_versions: True면 실제 플러그인 파일에서 버전을 읽어옴
+    """
     if dashboard_path is None:
-        dashboard_path = Path("C:/Users/computer/Desktop/JJ_Distributions_v8.0.0_Master_Control/dashboard.html")
+        dashboard_path = Path(__file__).parent / 'dashboard.html'
     else:
         dashboard_path = Path(dashboard_path)
     
     base_path = Path(__file__).parent
+    builder = EditionBuilder(base_path)
     
-    # 플러그인 정보 수집
-    plugins = {
-        'acf-css-manager': {
-            'name': 'ACF CSS Manager',
-            'icon': '🎨',
-            'version': '13.4.0',
-            'file': 'builds/v13.4.0-release/acf-css-really-simple-style-management-center-master-v13.4.0.zip',
-            'is_new': False
-        },
-        'acf-code-snippets-box': {
-            'name': 'ACF Code Snippets Box',
-            'icon': '⚡',
-            'version': '1.1.0',
-            'file': 'builds/v13.4.0-release/acf-code-snippets-box-v1.1.0.zip',
-            'is_new': True
-        },
-        'acf-css-woocommerce-toolkit': {
-            'name': 'ACF CSS WooCommerce Toolkit',
-            'icon': '🛒',
-            'version': '1.1.0',
-            'file': 'builds/v13.4.0-release/acf-css-woocommerce-toolkit-v1.1.0.zip',
-            'is_new': True
-        },
-        'acf-css-ai-extension': {
-            'name': 'ACF CSS AI Extension',
-            'icon': '🤖',
-            'version': '2.1.0',
-            'file': 'builds/v13.4.0-release/acf-css-ai-extension-v2.1.0.zip',
-            'is_new': False
-        },
-        'acf-css-neural-link': {
-            'name': 'ACF CSS Neural Link',
-            'icon': '🔗',
-            'version': '4.1.0',
-            'file': 'builds/v13.4.0-release/acf-css-neural-link-v4.1.0.zip',
-            'is_new': False
-        },
+    # 플러그인 정보 정의 (EDITION_PLUGINS 기반)
+    plugin_icons = {
+        'acf-css-manager': '🎨',
+        'admin-menu-editor-pro': '📋',
+        'acf-code-snippets-box': '📝',
+        'acf-css-woocommerce-toolkit': '🛒',
+        'acf-css-ai-extension': '🤖',
+        'acf-css-neural-link': '🔗',
+        'acf-nudge-flow': '📣',
+        'wp-bulk-manager': '📦',
+    }
+    
+    plugin_fullnames = {
+        'acf-css-manager': 'Advanced Custom Fonts & Colors & Styles Setting Manager',
+        'admin-menu-editor-pro': 'Advanced WordPress Menu Management',
+        'acf-code-snippets-box': 'Advanced Custom Function Manager',
+        'acf-css-woocommerce-toolkit': 'Advanced Commerce Styling',
+        'acf-css-ai-extension': 'AI-Powered Style Intelligence',
+        'acf-css-neural-link': 'License & Update Manager',
+        'acf-nudge-flow': 'Advanced Custom Funnel Marketing Boosting Accelerator',
+        'wp-bulk-manager': 'Plugin & Theme Bulk Installer and Editor',
+    }
+    
+    plugin_editions = {
+        'acf-css-manager': ['Free', 'Basic', 'Premium', 'Unlimited', 'Partner', 'Master'],
+        'admin-menu-editor-pro': ['Free (Lite)', 'Pro', 'Master 통합'],
+        'acf-code-snippets-box': ['Free', 'Premium', 'Master 통합'],
+        'acf-css-woocommerce-toolkit': ['Premium', 'Unlimited', 'Master 통합'],
+        'acf-css-ai-extension': ['Premium', 'Unlimited', 'Master 통합'],
+        'acf-css-neural-link': ['Basic', 'Premium', 'Master 통합'],
+        'acf-nudge-flow': ['Premium', 'Unlimited', 'Master 통합'],
+        'wp-bulk-manager': ['Free', 'Unlimited', 'Master 통합'],
     }
     
     # 실제 플러그인 버전 읽기
-    for key in plugins:
-        dir_map = {
-            'acf-css-manager': 'acf-css-really-simple-style-management-center-master',
-            'acf-code-snippets-box': 'acf-code-snippets-box',
-            'acf-css-woocommerce-toolkit': 'acf-css-woocommerce-toolkit',
-            'acf-css-ai-extension': 'acf-css-ai-extension',
-            'acf-css-neural-link': 'acf-css-neural-link',
-        }
-        plugin_path = base_path / dir_map.get(key, key)
+    plugins_data = []
+    total_plugins = 0
+    
+    for plugin_key, plugin_config in builder.EDITION_PLUGINS.items():
+        plugin_path = base_path / plugin_config['source_dir']
+        version = 'N/A'
+        status = '❌ 없음'
+        status_color = 'var(--accent-red)'
+        
         if plugin_path.exists():
-            info = PluginInfo(plugin_path)
-            if info.version:
-                plugins[key]['version'] = info.version
-                plugins[key]['file'] = f"builds/v{info.version}-release/{dir_map.get(key, key)}-v{info.version}.zip"
+            total_plugins += 1
+            if auto_detect_versions:
+                info = PluginInfo(str(plugin_path))
+                version = info.version or 'N/A'
+            
+            # 버전이 있으면 안정 상태
+            if version != 'N/A':
+                status = '✅ 안정'
+                status_color = 'var(--accent-green)'
+            else:
+                status = '🔄 개발중'
+                status_color = 'var(--accent-orange)'
+        
+        plugins_data.append({
+            'key': plugin_key,
+            'name': plugin_config['display_name'],
+            'fullname': plugin_fullnames.get(plugin_key, plugin_config['description']),
+            'icon': plugin_icons.get(plugin_key, '📦'),
+            'version': version,
+            'status': status,
+            'status_color': status_color,
+            'editions': plugin_editions.get(plugin_key, []),
+            'description': plugin_config['description'],
+        })
     
-    build_info = {'version': plugins.get('acf-css-manager', {}).get('version', '13.4.0')}
+    # 대시보드 HTML 생성
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    build_date = datetime.now().strftime("%Y-%m-%d")
+    main_version = next((p['version'] for p in plugins_data if p['key'] == 'acf-css-manager'), '13.4.7')
     
-    generate_dashboard(dashboard_path, plugins, build_info)
-    print(f"✅ 외부 대시보드 업데이트 완료: {dashboard_path}")
+    html_content = f'''<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3J Labs - ACF CSS Plugin Distribution Dashboard</title>
+    <style>
+        :root {{
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #c9d1d9;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-purple: #a371f7;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --accent-pink: #db61a2;
+            --border-color: #30363d;
+            --shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }}
+        
+        * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+        
+        body {{
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }}
+        
+        .container {{
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }}
+        
+        header {{
+            text-align: center;
+            margin-bottom: 60px;
+        }}
+        
+        .logo {{
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }}
+        
+        .subtitle {{
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }}
+        
+        .version-badge {{
+            display: inline-block;
+            background: var(--bg-tertiary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+        }}
+        
+        .version-badge span {{
+            color: var(--accent-green);
+            font-weight: 600;
+        }}
+        
+        .plugins-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }}
+        
+        .plugin-card {{
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }}
+        
+        .plugin-card:hover {{
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }}
+        
+        .plugin-header {{
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }}
+        
+        .plugin-icon {{
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }}
+        
+        .plugin-name {{
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }}
+        
+        .plugin-fullname {{
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }}
+        
+        .plugin-version {{
+            display: inline-block;
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }}
+        
+        .plugin-version.master {{ color: var(--accent-purple); border: 1px solid var(--accent-purple); }}
+        .plugin-version.pro {{ color: var(--accent-blue); border: 1px solid var(--accent-blue); }}
+        .plugin-version.free {{ color: var(--accent-green); border: 1px solid var(--accent-green); }}
+        
+        .plugin-body {{
+            padding: 20px 24px;
+        }}
+        
+        .plugin-description {{
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }}
+        
+        .editions-list {{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }}
+        
+        .edition-tag {{
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }}
+        
+        .edition-tag.free {{ background: rgba(63, 185, 80, 0.2); color: var(--accent-green); }}
+        .edition-tag.basic {{ background: rgba(88, 166, 255, 0.2); color: var(--accent-blue); }}
+        .edition-tag.premium {{ background: rgba(163, 113, 247, 0.2); color: var(--accent-purple); }}
+        .edition-tag.unlimited {{ background: rgba(210, 153, 34, 0.2); color: var(--accent-orange); }}
+        .edition-tag.partner {{ background: rgba(219, 97, 162, 0.2); color: var(--accent-pink); }}
+        .edition-tag.master {{ background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }}
+        
+        .stats-section {{
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            margin-bottom: 40px;
+        }}
+        
+        .stats-title {{
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }}
+        
+        .stats-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }}
+        
+        .stat-item {{
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+        }}
+        
+        .stat-number {{
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-blue);
+        }}
+        
+        .stat-label {{
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }}
+        
+        .build-info {{
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 30px;
+        }}
+        
+        .build-info h2 {{
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }}
+        
+        .build-table {{
+            width: 100%;
+            border-collapse: collapse;
+        }}
+        
+        .build-table th, .build-table td {{
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }}
+        
+        .build-table th {{
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+        }}
+        
+        footer {{
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }}
+        
+        footer a {{
+            color: var(--accent-blue);
+            text-decoration: none;
+        }}
+        
+        footer a:hover {{
+            text-decoration: underline;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">3J Labs</div>
+            <p class="subtitle">제이 × 제니 × 제이슨 연구소 | ACF CSS Plugin Suite</p>
+            <div class="version-badge">
+                Dashboard Version <span>v9.1.0</span> | Last Updated: <span id="last-updated">{build_date}</span>
+            </div>
+        </header>
+        
+        <!-- 플러그인 카드 그리드 -->
+        <section class="plugins-grid">
+'''
+    
+    # 플러그인 카드 생성
+    for plugin in plugins_data:
+        version_class = 'master' if 'Master' in plugin['name'] or plugin['key'] == 'acf-css-manager' else 'pro' if 'Pro' in plugin['name'] else 'free'
+        
+        html_content += f'''
+            <!-- {plugin['name']} -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <div class="plugin-icon">{plugin['icon']}</div>
+                    <div class="plugin-name">{plugin['name']}</div>
+                    <div class="plugin-fullname">{plugin['fullname']}</div>
+                    <span class="plugin-version {version_class}">v{plugin['version']}</span>
+                </div>
+                <div class="plugin-body">
+                    <p class="plugin-description">
+                        {plugin['description']}
+                    </p>
+                    <div class="editions-list">
+'''
+        for edition in plugin['editions']:
+            edition_class = edition.lower().replace(' ', '-').replace('(', '').replace(')', '').split('-')[0]
+            html_content += f'                        <span class="edition-tag {edition_class}">{edition}</span>\n'
+        
+        html_content += '''                    </div>
+                </div>
+            </div>
+'''
+    
+    html_content += f'''        </section>
+        
+        <!-- 통계 섹션 -->
+        <section class="stats-section">
+            <h2 class="stats-title">📊 플러그인 통계</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">{total_plugins}</div>
+                    <div class="stat-label">총 플러그인</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">에디션 종류</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">22</div>
+                    <div class="stat-label">지원 언어</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">PHP 8.5</div>
+                    <div class="stat-label">최소 PHP</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">WP 6.0+</div>
+                    <div class="stat-label">최소 WordPress</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 빌드 정보 -->
+        <section class="build-info">
+            <h2>🔧 최신 빌드 정보</h2>
+            <table class="build-table">
+                <thead>
+                    <tr>
+                        <th>플러그인</th>
+                        <th>버전</th>
+                        <th>빌드 날짜</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+'''
+    
+    for plugin in plugins_data:
+        html_content += f'''                    <tr>
+                        <td>{plugin['name']}</td>
+                        <td>v{plugin['version']}</td>
+                        <td>{build_date}</td>
+                        <td style="color: {plugin['status_color']};">{plugin['status']}</td>
+                    </tr>
+'''
+    
+    html_content += f'''                </tbody>
+            </table>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2026 <a href="https://3j-labs.com" target="_blank">3J Labs (제이×제니×제이슨 연구소)</a></p>
+        <p>Made with ❤️ by Jay, Jenny & Jason</p>
+        <p style="margin-top: 10px; font-size: 0.8rem; color: var(--text-secondary);">
+            자동 업데이트: {timestamp} | 메인 버전: v{main_version}
+        </p>
+    </footer>
+    
+    <script>
+        // 현재 날짜로 업데이트
+        document.getElementById('last-updated').textContent = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>
+'''
+    
+    # 파일 저장
+    dashboard_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(dashboard_path, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    
+    print(f"✅ 대시보드 업데이트 완료: {dashboard_path}")
+    print(f"   - 총 {total_plugins}개 플러그인 반영")
+    print(f"   - 메인 버전: v{main_version}")
+    return dashboard_path
 
 
 if __name__ == '__main__':

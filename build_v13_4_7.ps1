@@ -32,3 +32,12 @@ if (Test-Path $amePath) {
 
 # 결과 확인
 Get-ChildItem $buildDir -Filter "*.zip" | Select-Object Name, Length, LastWriteTime
+
+# 대시보드 자동 업데이트
+Write-Output "📊 대시보드 업데이트 중..."
+python 3j_dev_toolkit.py --dashboard
+if ($LASTEXITCODE -eq 0) {
+    Write-Output "✅ 대시보드 업데이트 완료"
+} else {
+    Write-Output "⚠️ 대시보드 업데이트 실패 (계속 진행)"
+}
