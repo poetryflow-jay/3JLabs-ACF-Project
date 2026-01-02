@@ -73,7 +73,7 @@ class JJ_Transient_Cache {
      * @param string $option_name 옵션 이름
      * @return bool 캐싱 여부
      */
-    private static function should_cache( $option_name ) {
+    public static function should_cache( $option_name ) {
         // 자주 읽히지만 자주 변경되지 않는 옵션 목록
         $cacheable_options = array(
             'jj_style_guide_options',
