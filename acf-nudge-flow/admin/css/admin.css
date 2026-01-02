@@ -1,0 +1,165 @@
+/**
+ * ACF Nudge Flow - Admin Styles
+ * 
+ * @package ACF_Nudge_Flow
+ */
+
+/* === Variables === */
+:root {
+    --acf-admin-primary: #667eea;
+    --acf-admin-primary-dark: #5a67d8;
+    --acf-admin-success: #48bb78;
+    --acf-admin-warning: #ed8936;
+    --acf-admin-danger: #f56565;
+    --acf-admin-dark: #1a202c;
+    --acf-admin-light: #f7fafc;
+    --acf-admin-border: #e2e8f0;
+}
+
+/* === Dashboard === */
+.acf-nudge-flow-admin {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.acf-nudge-dashboard {
+    max-width: 1200px;
+}
+
+/* === Stats Grid === */
+.acf-nudge-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.acf-nudge-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--acf-admin-border);
+}
+
+.acf-nudge-stat-card .stat-icon {
+    font-size: 2.5em;
+}
+
+.acf-nudge-stat-card .stat-value {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--acf-admin-dark);
+}
+
+.acf-nudge-stat-card .stat-label {
+    color: #718096;
+    font-size: 0.9em;
+}
+
+/* === Quick Actions === */
+.acf-nudge-quick-actions h2 {
+    margin-bottom: 20px;
+    color: var(--acf-admin-dark);
+}
+
+.quick-action-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.quick-action-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    background: #fff;
+    border: 2px solid var(--acf-admin-border);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.quick-action-card:hover {
+    border-color: var(--acf-admin-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.quick-action-card .icon {
+    font-size: 2em;
+    margin-bottom: 12px;
+}
+
+.quick-action-card .title {
+    font-weight: 600;
+    color: var(--acf-admin-dark);
+    margin-bottom: 4px;
+}
+
+.quick-action-card .desc {
+    font-size: 0.85em;
+    color: #718096;
+    text-align: center;
+}
+
+/* === Status Badge === */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.status-active {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.status-inactive {
+    background: #fed7d7;
+    color: #822727;
+}
+
+/* === Builder Loading === */
+.acf-nudge-builder-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    background: #f7fafc;
+    border-radius: 8px;
+}
+
+/* === Workflow Builder === */
+#acf-nudge-workflow-builder {
+    min-height: 600px;
+    background: #f7fafc;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* === Form Table Override === */
+.acf-nudge-flow-admin .form-table th {
+    padding: 20px 10px 20px 0;
+    width: 200px;
+}
+
+.acf-nudge-flow-admin .form-table td {
+    padding: 15px 10px;
+}
+
+/* === Responsive === */
+@media (max-width: 782px) {
+    .acf-nudge-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .quick-action-cards {
+        grid-template-columns: 1fr;
+    }
+}

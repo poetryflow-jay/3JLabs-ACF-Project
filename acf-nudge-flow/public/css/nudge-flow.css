@@ -1,0 +1,419 @@
+/**
+ * ACF Nudge Flow - Frontend Styles
+ * 
+ * @package ACF_Nudge_Flow
+ */
+
+/* === Variables === */
+:root {
+    --acf-nudge-primary: #667eea;
+    --acf-nudge-primary-dark: #5a67d8;
+    --acf-nudge-success: #48bb78;
+    --acf-nudge-warning: #ed8936;
+    --acf-nudge-danger: #f56565;
+    --acf-nudge-info: #4299e1;
+    --acf-nudge-dark: #1a202c;
+    --acf-nudge-light: #f7fafc;
+    --acf-nudge-overlay: rgba(0, 0, 0, 0.6);
+    --acf-nudge-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    --acf-nudge-radius: 16px;
+    --acf-nudge-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Modal Overlay === */
+.acf-nudge-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--acf-nudge-overlay);
+    z-index: 999998;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--acf-nudge-transition);
+}
+
+.acf-nudge-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* === Modal === */
+.acf-nudge-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    max-width: 500px;
+    width: 90%;
+    background: #fff;
+    border-radius: var(--acf-nudge-radius);
+    box-shadow: var(--acf-nudge-shadow);
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--acf-nudge-transition);
+}
+
+.acf-nudge-modal.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.acf-nudge-modal-inner {
+    overflow: hidden;
+    border-radius: var(--acf-nudge-radius);
+}
+
+.acf-nudge-modal-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.acf-nudge-modal-body {
+    padding: 32px;
+    text-align: center;
+}
+
+.acf-nudge-modal-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--acf-nudge-dark);
+    margin: 0 0 16px;
+}
+
+.acf-nudge-modal-text {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* === Close Button === */
+.acf-nudge-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--acf-nudge-transition);
+    color: #666;
+}
+
+.acf-nudge-close:hover {
+    background: rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+/* === CTA Button === */
+.acf-nudge-cta-button {
+    display: inline-block;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--acf-nudge-primary), var(--acf-nudge-primary-dark));
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1em;
+    transition: var(--acf-nudge-transition);
+    border: none;
+    cursor: pointer;
+}
+
+.acf-nudge-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.acf-nudge-dismiss-link {
+    display: block;
+    margin-top: 16px;
+    background: none;
+    border: none;
+    color: #718096;
+    cursor: pointer;
+    font-size: 0.9em;
+    text-decoration: underline;
+}
+
+.acf-nudge-dismiss-link:hover {
+    color: #4a5568;
+}
+
+/* === Slide-in Popup === */
+.acf-nudge-slide-in {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    max-width: 380px;
+    width: calc(100% - 48px);
+    background: #fff;
+    border-radius: var(--acf-nudge-radius);
+    box-shadow: var(--acf-nudge-shadow);
+    z-index: 999997;
+    transform: translateX(120%);
+    transition: var(--acf-nudge-transition);
+}
+
+.acf-nudge-slide-in.active {
+    transform: translateX(0);
+}
+
+.acf-nudge-slide-in.position-bottom-left {
+    right: auto;
+    left: 24px;
+    transform: translateX(-120%);
+}
+
+.acf-nudge-slide-in.position-bottom-left.active {
+    transform: translateX(0);
+}
+
+.acf-nudge-slide-in-content {
+    padding: 24px;
+}
+
+/* === Top/Bottom Bar === */
+.acf-nudge-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 999996;
+    transform: translateY(-100%);
+    transition: var(--acf-nudge-transition);
+}
+
+.acf-nudge-bar.active {
+    transform: translateY(0);
+}
+
+.acf-nudge-bar-top {
+    top: 0;
+    background: linear-gradient(135deg, var(--acf-nudge-primary), var(--acf-nudge-primary-dark));
+    color: #fff;
+}
+
+.acf-nudge-bar-bottom {
+    top: auto;
+    bottom: 0;
+    transform: translateY(100%);
+    background: var(--acf-nudge-dark);
+    color: #fff;
+}
+
+.acf-nudge-bar-bottom.active {
+    transform: translateY(0);
+}
+
+.acf-nudge-bar-text {
+    font-weight: 500;
+}
+
+.acf-nudge-bar-cta {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: var(--acf-nudge-transition);
+}
+
+.acf-nudge-bar-cta:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.acf-nudge-bar .acf-nudge-close {
+    position: static;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+}
+
+/* === Toast === */
+.acf-nudge-toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 999995;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.acf-nudge-toast-container.position-bottom-right {
+    top: auto;
+    bottom: 24px;
+}
+
+.acf-nudge-toast-container.position-top-left {
+    right: auto;
+    left: 24px;
+}
+
+.acf-nudge-toast-container.position-bottom-left {
+    top: auto;
+    bottom: 24px;
+    right: auto;
+    left: 24px;
+}
+
+.acf-nudge-toast {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 360px;
+    animation: acf-nudge-slide-in-right 0.3s ease-out;
+}
+
+.acf-nudge-toast-info {
+    border-left: 4px solid var(--acf-nudge-info);
+}
+
+.acf-nudge-toast-success {
+    border-left: 4px solid var(--acf-nudge-success);
+}
+
+.acf-nudge-toast-warning {
+    border-left: 4px solid var(--acf-nudge-warning);
+}
+
+.acf-nudge-toast-promo {
+    border-left: 4px solid var(--acf-nudge-primary);
+    background: linear-gradient(135deg, #f6f8ff, #fff);
+}
+
+.acf-nudge-toast-message {
+    flex: 1;
+    color: var(--acf-nudge-dark);
+    font-size: 0.95em;
+}
+
+.acf-nudge-toast-close {
+    background: none;
+    border: none;
+    color: #a0aec0;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    line-height: 1;
+}
+
+/* === Animations === */
+@keyframes acf-nudge-slide-in-right {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes acf-nudge-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes acf-nudge-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* === Style Variants === */
+.acf-nudge-modal-inner.style-minimal {
+    background: #fff;
+}
+
+.acf-nudge-modal-inner.style-minimal .acf-nudge-modal-title {
+    font-size: 1.25em;
+}
+
+.acf-nudge-modal-inner.style-bold {
+    background: linear-gradient(135deg, var(--acf-nudge-primary), var(--acf-nudge-primary-dark));
+}
+
+.acf-nudge-modal-inner.style-bold .acf-nudge-modal-title,
+.acf-nudge-modal-inner.style-bold .acf-nudge-modal-text {
+    color: #fff;
+}
+
+.acf-nudge-modal-inner.style-bold .acf-nudge-cta-button {
+    background: #fff;
+    color: var(--acf-nudge-primary) !important;
+}
+
+.acf-nudge-modal-inner.style-festive {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+}
+
+.acf-nudge-modal-inner.style-festive .acf-nudge-modal-title,
+.acf-nudge-modal-inner.style-festive .acf-nudge-modal-text {
+    color: #fff;
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+    .acf-nudge-modal {
+        max-width: 95%;
+        width: 95%;
+    }
+    
+    .acf-nudge-modal-body {
+        padding: 24px;
+    }
+    
+    .acf-nudge-slide-in {
+        right: 12px;
+        left: 12px;
+        bottom: 12px;
+        max-width: none;
+        width: auto;
+    }
+    
+    .acf-nudge-bar {
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 16px;
+    }
+    
+    .acf-nudge-toast-container {
+        right: 12px;
+        left: 12px;
+    }
+    
+    .acf-nudge-toast {
+        max-width: none;
+    }
+}
