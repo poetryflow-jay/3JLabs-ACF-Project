@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
 
 # Core UI
 msgid "스타일 센터"
@@ -203,3 +203,52 @@ msgstr "Лицензия"
 
 msgid "시스템 상태"
 msgstr "Состояние системы"
+
+msgid "일반 설정"
+msgstr "Общие Настройки"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr ""
+"Настройте основные параметры отображения для интерфейса администратора."
+
+msgid "관리자 메뉴 표시"
+msgstr "Показать Меню Администратора"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "Показать левое меню администратора"
+
+msgid "관리자 툴바 표시"
+msgstr "Показать Панель Инструментов"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "Показать верхнюю панель инструментов"
+
+msgid "설정 열기"
+msgstr "Открыть Настройки"
+
+msgid "스타일 관리"
+msgstr "Управление Стилями"
+
+msgid "이전 버전으로 롤백"
+msgstr "Откат к Предыдущей Версии"
+
+msgid "시스템 진단"
+msgstr "Диагностика Системы"
+
+msgid "PRO로 업그레이드"
+msgstr "Обновить до PRO"
+
+msgid "Pro 버전"
+msgstr "Pro Версия"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "Перейти на страницу настроек плагина"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "Посетить официальный сайт 3J Labs"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "Документация и руководство пользователя плагина"
+
+msgid "기술 지원 및 문의"
+msgstr "Техническая поддержка и запросы"

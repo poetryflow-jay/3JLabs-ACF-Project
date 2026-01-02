@@ -634,6 +634,28 @@ final class JJ_Admin_Center {
                 <?php wp_nonce_field( 'jj_admin_center_save_action', 'jj_admin_center_nonce' ); ?>
 
                 <?php
+                // [Phase 19.1] Figma 클래스 로드 (탭 파일 include 전에 로드)
+                if ( ! class_exists( 'JJ_Figma_Connector' ) ) {
+                    $figma_connector_path = JJ_STYLE_GUIDE_PATH . 'includes/class-jj-figma-connector.php';
+                    if ( file_exists( $figma_connector_path ) ) {
+                        require_once $figma_connector_path;
+                        if ( class_exists( 'JJ_Figma_Connector' ) ) {
+                            JJ_Figma_Connector::instance()->init();
+                        }
+                    }
+                }
+                
+                // [Phase 19.1] Figma Advanced Integration 클래스 로드
+                if ( ! class_exists( 'JJ_Figma_Advanced_Integration' ) ) {
+                    $figma_advanced_path = JJ_STYLE_GUIDE_PATH . 'includes/class-jj-figma-advanced-integration.php';
+                    if ( file_exists( $figma_advanced_path ) ) {
+                        require_once $figma_advanced_path;
+                        if ( class_exists( 'JJ_Figma_Advanced_Integration' ) ) {
+                            JJ_Figma_Advanced_Integration::instance()->init();
+                        }
+                    }
+                }
+                
                 // Admin Center 탭 파일 include (누락 방지/안전)
                 $tabs = array(
                     'tab-general.php',
@@ -645,7 +667,7 @@ final class JJ_Admin_Center {
                     'tab-cloud.php',
                     'tab-backup.php',
                     'tab-tools.php',
-                    'tab-figma.php', // [Phase 13] Figma 연동
+                    'tab-figma.php', // [Phase 13] Figma 연동, [Phase 19.1] 고급 기능 추가
                     'tab-updates.php',
                     'tab-system-status.php',
                 );

@@ -14,20 +14,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
 
 #. Plugin Name of the plugin
 msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
-msgstr "ACF CSS - Gestionnaire de Configuration de Polices, Couleurs et Styles Personnalisés Avancés"
+msgstr ""
+"ACF CSS - Gestionnaire Avancé de Polices, Couleurs et Styles Personnalisés"
 
 #. Description of the plugin
-msgid "A comprehensive style management plugin that centrally and consistently manages all style elements of your WordPress website, including color palettes, typography, buttons, and forms. The Free version provides basic style management features for maintaining brand consistency and efficient design system operation. Install the Pro version plugin alongside to access Basic, Premium, and Unlimited features. Fully integrated with WordPress Customizer for intuitive style management with real-time preview."
-msgstr "Un plugin de gestion de styles complet qui gère de manière centralisée et cohérente tous les éléments de style de votre site WordPress, y compris les palettes de couleurs, la typographie, les boutons et les formulaires. La version gratuite fournit des fonctionnalités de gestion de styles de base pour maintenir la cohérence de la marque et l'exploitation efficace du système de design. Installez le plugin Pro en parallèle pour accéder aux fonctionnalités Basic, Premium et Unlimited. Entièrement intégré avec WordPress Customizer pour une gestion intuitive des styles avec aperçu en temps réel."
+msgid ""
+"A comprehensive style management plugin that centrally and consistently "
+"manages all style elements of your WordPress website, including color "
+"palettes, typography, buttons, and forms. The Free version provides basic "
+"style management features for maintaining brand consistency and efficient "
+"design system operation. Install the Pro version plugin alongside to access "
+"Basic, Premium, and Unlimited features. Fully integrated with WordPress "
+"Customizer for intuitive style management with real-time preview."
+msgstr ""
+"Un plugin complet de gestion de styles qui gère de manière centralisée et "
+"cohérente tous les éléments de style de votre site WordPress, y compris les "
+"palettes de couleurs, la typographie, les boutons et les formulaires. La "
+"version gratuite fournit des fonctionnalités de base de gestion de styles "
+"pour maintenir la cohérence de la marque et exploiter efficacement le "
+"système de conception. Installez le plugin de la version Pro en même temps "
+"pour accéder aux fonctionnalités Basic, Premium et Unlimited. Entièrement "
+"intégré avec WordPress Customizer pour une gestion intuitive des styles avec"
+" aperçu en temps réel."
 
 #. Author of the plugin
 msgid "3J Labs"
-msgstr "3J Labs"
+msgstr "3J Labs (Laboratoire de Recherche Jay × Jenny × Jason)"
 
 # Core UI
 msgid "스타일 센터"
@@ -215,3 +232,52 @@ msgstr "Licence"
 
 msgid "시스템 상태"
 msgstr "État du Système"
+
+msgid "일반 설정"
+msgstr "Paramètres Généraux"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr ""
+"Configurez les options d'affichage de base de l'interface d'administration."
+
+msgid "관리자 메뉴 표시"
+msgstr "Afficher le Menu d'Administration"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "Afficher le menu d'administration gauche"
+
+msgid "관리자 툴바 표시"
+msgstr "Afficher la Barre d'Outils"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "Afficher la barre d'outils supérieure"
+
+msgid "설정 열기"
+msgstr "Ouvrir les Paramètres"
+
+msgid "스타일 관리"
+msgstr "Gestion des Styles"
+
+msgid "이전 버전으로 롤백"
+msgstr "Revenir à la Version Précédente"
+
+msgid "시스템 진단"
+msgstr "Diagnostic du Système"
+
+msgid "PRO로 업그레이드"
+msgstr "Mettre à Niveau vers PRO"
+
+msgid "Pro 버전"
+msgstr "Version Pro"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "Aller à la page de paramètres du plugin"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "Visiter le site web officiel de 3J Labs"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "Documentation et guide utilisateur du plugin"
+
+msgid "기술 지원 및 문의"
+msgstr "Support technique et demandes"

@@ -11,6 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// [v20.0.1] 클래스 중복 선언 방지
+if ( ! class_exists( 'JJ_Plugin_Updater' ) ) {
+
 class JJ_Plugin_Updater {
     
     private $plugin_file;
@@ -538,3 +541,4 @@ class JJ_Plugin_Updater {
     }
 }
 
+} // [v20.0.1] class_exists 체크 종료

@@ -14,20 +14,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
 
 #. Plugin Name of the plugin
 msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
-msgstr "ACF CSS - 高度なカスタムフォント＆カラー＆スタイル設定マネージャー"
+msgstr "ACF CSS - 高度なカスタムフォント・カラー・スタイル設定マネージャー"
 
 #. Description of the plugin
-msgid "A comprehensive style management plugin that centrally and consistently manages all style elements of your WordPress website, including color palettes, typography, buttons, and forms. The Free version provides basic style management features for maintaining brand consistency and efficient design system operation. Install the Pro version plugin alongside to access Basic, Premium, and Unlimited features. Fully integrated with WordPress Customizer for intuitive style management with real-time preview."
-msgstr "WordPressウェブサイトのすべてのスタイル要素（カラーパレット、タイポグラフィ、ボタン、フォーム）を中央で一貫して管理する統合スタイル管理プラグインです。Free版は基本的なスタイル管理機能を提供し、ブランドの一貫性を維持し、デザインシステムを効率的に運用できます。Pro版プラグインを一緒にインストールすると、Basic、Premium、Unlimited機能を使用できます。WordPress Customizerと完全に統合され、リアルタイムプレビューで直感的なスタイル管理が可能です。"
+msgid ""
+"A comprehensive style management plugin that centrally and consistently "
+"manages all style elements of your WordPress website, including color "
+"palettes, typography, buttons, and forms. The Free version provides basic "
+"style management features for maintaining brand consistency and efficient "
+"design system operation. Install the Pro version plugin alongside to access "
+"Basic, Premium, and Unlimited features. Fully integrated with WordPress "
+"Customizer for intuitive style management with real-time preview."
+msgstr ""
+"WordPressウェブサイトのすべてのスタイル要素（カラーパレット、タイポグラフィ、ボタン、フォーム）を中央で一貫して管理する包括的なスタイル管理プラグインです。無料版は基本的なスタイル管理機能を提供し、ブランドの一貫性を維持し、デザインシステムを効率的に運用できます。Pro版プラグインを併用すると、Basic、Premium、Unlimited機能にアクセスできます。WordPress"
+" Customizerと完全に統合され、リアルタイムプレビューとともに直感的なスタイル管理が可能です。"
 
 #. Author of the plugin
 msgid "3J Labs"
-msgstr "3J Labs"
+msgstr "3Jラボ (ジェイ×ジェニー×ジェイソン研究所)"
 
 # Core UI
 msgid "스타일 센터"
@@ -246,3 +255,51 @@ msgstr "ライセンス"
 
 msgid "시스템 상태"
 msgstr "システム状態"
+
+msgid "일반 설정"
+msgstr "一般設定"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr "管理インターフェースの基本表示オプションを設定します。"
+
+msgid "관리자 메뉴 표시"
+msgstr "管理メニュー表示"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "左側管理メニューを表示"
+
+msgid "관리자 툴바 표시"
+msgstr "管理ツールバー表示"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "上部管理ツールバーを表示"
+
+msgid "설정 열기"
+msgstr "設定を開く"
+
+msgid "스타일 관리"
+msgstr "スタイル管理"
+
+msgid "이전 버전으로 롤백"
+msgstr "以前のバージョンにロールバック"
+
+msgid "시스템 진단"
+msgstr "システム診断"
+
+msgid "PRO로 업그레이드"
+msgstr "PROにアップグ레이ド"
+
+msgid "Pro 버전"
+msgstr "Proバージョン"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "プラグイン設定ページに移動"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "3J Labs公式ウェブサイトを訪問"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "プラグインのドキュメントとユーザーガイド"
+
+msgid "기술 지원 및 문의"
+msgstr "技術サポートとお問い合わせ"

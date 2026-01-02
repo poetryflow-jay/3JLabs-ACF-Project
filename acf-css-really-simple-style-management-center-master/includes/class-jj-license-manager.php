@@ -45,7 +45,7 @@ final class JJ_License_Manager {
         // 라이센스 타입 상수 정의 (이미 정의되어 있지 않은 경우)
         if ( ! defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
             // 라이센스 키에서 타입 읽기
-            $license_key = get_option( $this->license_key_option, '' );
+            $license_key = $this->get_license_key(); // [Phase 20] 암호화된 키 복호화
             if ( $license_key ) {
                 $license_type = $this->parse_license_type( $license_key );
                 
@@ -94,7 +94,7 @@ final class JJ_License_Manager {
             return $local_type;
         }
         
-        $license_key = get_option( $this->license_key_option, '' );
+        $license_key = $this->get_license_key(); // [Phase 20] 암호화된 키 복호화
         if ( empty( $license_key ) ) {
             return self::TYPE_FREE;
         }
@@ -253,7 +253,7 @@ final class JJ_License_Manager {
             }
         }
         
-        $license_key = get_option( $this->license_key_option, '' );
+        $license_key = $this->get_license_key(); // [Phase 20] 암호화된 키 복호화
         
         if ( empty( $license_key ) ) {
             return array(
@@ -697,8 +697,31 @@ final class JJ_License_Manager {
             return $this->verify_license_type_with_server( JJ_STYLE_GUIDE_LICENSE_TYPE );
         }
         
-        $license_key = get_option( $this->license_key_option, '' );
+        $license_key = $this->get_license_key(); // [Phase 20] 암호화된 키 복호화
         return $this->parse_license_type( $license_key );
+    }
+
+    /**
+     * [Phase 20] 라이센스 키 가져오기 (암호화된 키 복호화)
+     * 
+     * @return string 복호화된 라이센스 키
+     */
+    private function get_license_key() {
+        $encrypted_key = get_option( $this->license_key_option, '' );
+        
+        if ( empty( $encrypted_key ) ) {
+            return '';
+        }
+        
+        // [Phase 20] 암호화된 키 복호화
+        if ( class_exists( 'JJ_Security_Enhancer' ) ) {
+            $decrypted_key = apply_filters( 'jj_license_key_decrypt', $encrypted_key );
+            // 복호화 실패 시 원본 반환 (마이그레이션 중일 수 있음)
+            return ! empty( $decrypted_key ) ? $decrypted_key : $encrypted_key;
+        }
+        
+        // 보안 강화 모듈이 없으면 평문 반환
+        return $encrypted_key;
     }
 
     /**
@@ -875,8 +898,16 @@ final class JJ_License_Manager {
             );
         }
         
-        // 라이센스 키 저장
-        update_option( $this->license_key_option, $license_key );
+        // [Phase 20] 라이센스 키 암호화 저장
+        if ( class_exists( 'JJ_Security_Enhancer' ) ) {
+            $encrypted_key = apply_filters( 'jj_license_key_encrypt', $license_key );
+            update_option( $this->license_key_option, $encrypted_key );
+            // 원본 키는 별도 옵션에 저장 (검증용, 선택적)
+            // update_option( $this->license_key_option . '_plain', $license_key );
+        } else {
+            // 보안 강화 모듈이 없으면 평문 저장
+            update_option( $this->license_key_option, $license_key );
+        }
         
         // 라이센스 타입 업데이트
         $license_type = $this->parse_license_type( $license_key );

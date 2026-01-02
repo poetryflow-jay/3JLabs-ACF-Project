@@ -26,6 +26,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// [v4.2.1] 클래스 중복 선언 방지
+if ( ! class_exists( 'JJ_Plugin_Updater' ) ) {
+
 class JJ_Plugin_Updater {
 
     /**
@@ -325,3 +328,5 @@ class JJ_Plugin_Updater {
         delete_option( $this->cache_key );
     }
 }
+
+} // [v4.2.1] class_exists 체크 종료

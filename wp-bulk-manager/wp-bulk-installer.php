@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.3.1' );
+define( 'WP_BULK_MANAGER_VERSION', '2.3.3' ); // [v2.3.3] UX 개선: 선택 기능 강화, 완료 목록 구분, 새로고침 없이 추가 설치 가능
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -44,21 +44,65 @@ class JJ_Bulk_Installer {
         // Bulk Editor (관리)
         add_action( 'wp_ajax_jj_bulk_manage_get_items', array( $this, 'ajax_get_installed_items' ) );
         add_action( 'wp_ajax_jj_bulk_manage_action', array( $this, 'ajax_bulk_manage_action' ) );
+        add_action( 'wp_ajax_jj_bulk_auto_update_toggle', array( $this, 'ajax_bulk_auto_update_toggle' ) );
         
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+        
+        // [Phase 19.1] 플러그인 목록 페이지 UI/UX 개선
+        $this->init_plugin_list_enhancer();
+    }
+    
+    /**
+     * [Phase 19.1] 플러그인 목록 페이지 향상 초기화
+     */
+    private function init_plugin_list_enhancer() {
+        // ACF CSS Manager의 Plugin List Enhancer 클래스 사용
+        if ( class_exists( 'JJ_Plugin_List_Enhancer' ) ) {
+            $enhancer = new JJ_Plugin_List_Enhancer();
+            $enhancer->init( array(
+                'plugin_file' => __FILE__,
+                'plugin_name' => 'WP Bulk Manager',
+                'settings_url' => admin_url( 'tools.php?page=jj-bulk-installer' ),
+                'text_domain' => 'wp-bulk-manager',
+                'version_constant' => 'WP_BULK_MANAGER_VERSION',
+                'license_constant' => 'JJ_BULK_INSTALLER_LICENSE',
+                'upgrade_url' => 'https://3j-labs.com',
+                'docs_url' => admin_url( 'tools.php?page=jj-bulk-installer' ),
+                'support_url' => 'https://3j-labs.com/support',
+            ) );
+        } else {
+            // ACF CSS Manager가 없을 경우 기본 링크만 추가
+            add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_plugin_action_links' ) );
+            add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ), 10, 2 );
+        }
+    }
+    
+    /**
+     * [Phase 19.1] 기본 플러그인 액션 링크 (ACF CSS Manager가 없을 경우)
+     */
+    public function add_plugin_action_links( $links ) {
+        $new_links = array();
+        $new_links['settings'] = '<a href="' . esc_url( admin_url( 'tools.php?page=jj-bulk-installer' ) ) . '" style="font-weight: 800; color: #2271b1; text-decoration: none;">⚙️ <strong>' . __( '설정 열기', 'wp-bulk-manager' ) . '</strong></a>';
+        return array_merge( $new_links, $links );
+    }
+    
+    /**
+     * [Phase 19.1] 기본 플러그인 행 메타 (ACF CSS Manager가 없을 경우)
+     */
+    public function add_plugin_row_meta( $plugin_meta, $plugin_file ) {
+        if ( $plugin_file !== plugin_basename( __FILE__ ) ) {
+            return $plugin_meta;
+        }
+        
+        $new_meta = array();
+        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com' ) . '" target="_blank" rel="noopener noreferrer" style="color: #2271b1; font-weight: 600;">🌐 ' . __( '공식 사이트', 'wp-bulk-manager' ) . '</a>';
+        $new_meta[] = '<a href="' . esc_url( admin_url( 'tools.php?page=jj-bulk-installer' ) ) . '" style="color: #135e96; font-weight: 600;">📚 ' . __( '문서', 'wp-bulk-manager' ) . '</a>';
+        
+        return array_merge( $plugin_meta, $new_meta );
     }
 
     public function add_menu_pages() {
-        // 1. 도구 하위 메뉴 (기본)
-        add_management_page(
-            'WP Bulk Manager',
-            'Bulk Manager',
-            'install_plugins',
-            $this->page_slug,
-            array( $this, 'render_page' )
-        );
-
-        // 2. 알림판 아래 최상위 메뉴 (접근성 강화)
+        // 1. 알림판 아래 최상위 메뉴 (접근성 강화) - 우선순위 높음
         add_menu_page(
             'WP Bulk Manager',
             'Bulk Manager',
@@ -67,6 +111,15 @@ class JJ_Bulk_Installer {
             array( $this, 'render_page' ),
             'dashicons-cloud-upload',
             2 // Dashboard(index.php) 바로 아래
+        );
+
+        // 2. 도구 하위 메뉴 (명확한 이름으로 표기)
+        add_management_page(
+            '플러그인&테마 Bulk Manager',
+            '플러그인&테마 Bulk Manager',
+            'install_plugins',
+            $this->page_slug,
+            array( $this, 'render_page' )
         );
     }
 
@@ -98,6 +151,9 @@ class JJ_Bulk_Installer {
         // PHP 설정값 가져오기
         $max_upload = wp_max_upload_size();
         $max_upload_formatted = size_format( $max_upload );
+        
+        // [Phase 19.1] 서버 사양 정보 가져오기
+        $server_info = $this->get_server_upload_info();
         
         // [v2.2.0] ACF CSS 라이센스 연동 제한 설정
         $limits = $this->get_license_limits();
@@ -133,7 +189,8 @@ class JJ_Bulk_Installer {
      * [v2.2.0] ACF CSS 라이센스 등급에 따른 제한 설정 조회
      */
     private function get_license_limits() {
-        // [v2.2.1] Master Edition 독립 실행 모드 (Core 없이도 무제한)
+        // [v2.3.2] Master Edition 감지 강화
+        // 1. 상수로 정의된 경우
         if ( defined( 'JJ_BULK_INSTALLER_LICENSE' ) && 'MASTER' === JJ_BULK_INSTALLER_LICENSE ) {
             return array(
                 'max_files' => 999,
@@ -141,6 +198,20 @@ class JJ_Bulk_Installer {
                 'max_manage_items' => 999,
                 'can_bulk_delete' => true,
                 'can_deactivate_then_delete' => true,
+                'is_master' => true, // [v2.3.2] 마스터 버전 플래그 추가
+            );
+        }
+        
+        // 2. 플러그인 폴더명에 'master'가 포함된 경우 (마스터 빌드)
+        $plugin_dir = dirname( plugin_basename( __FILE__ ) );
+        if ( false !== strpos( strtolower( $plugin_dir ), 'master' ) ) {
+            return array(
+                'max_files' => 999,
+                'can_auto_activate' => true,
+                'max_manage_items' => 999,
+                'can_bulk_delete' => true,
+                'can_deactivate_then_delete' => true,
+                'is_master' => true, // [v2.3.2] 마스터 버전 플래그 추가
             );
         }
 
@@ -150,6 +221,7 @@ class JJ_Bulk_Installer {
             'max_manage_items' => 3,
             'can_bulk_delete' => false,
             'can_deactivate_then_delete' => false,
+            'is_master' => false, // [v2.3.1] 마스터 버전 플래그 추가
         );
         
         // ACF CSS Manager가 설치되어 있고 클래스가 존재할 때
@@ -179,16 +251,71 @@ class JJ_Bulk_Installer {
                 $limits['max_manage_items'] = 999;
                 $limits['can_bulk_delete'] = true;
                 $limits['can_deactivate_then_delete'] = true;
+                $limits['is_master'] = true; // [v2.3.2] 마스터 버전 플래그 추가
             }
         }
         
         return $limits;
     }
 
+    /**
+     * [Phase 19.1] 서버 업로드 사양 정보 조회
+     */
+    private function get_server_upload_info() {
+        $max_upload = wp_max_upload_size();
+        $max_upload_fmt = size_format( $max_upload );
+        
+        // PHP 설정값들
+        $upload_max_filesize = ini_get( 'upload_max_filesize' );
+        $post_max_size = ini_get( 'post_max_size' );
+        $max_file_uploads = ini_get( 'max_file_uploads' );
+        $memory_limit = ini_get( 'memory_limit' );
+        
+        // 바이트로 변환
+        $upload_max_bytes = $this->convert_to_bytes( $upload_max_filesize );
+        $post_max_bytes = $this->convert_to_bytes( $post_max_size );
+        
+        // 실제 제한값은 가장 작은 값
+        $effective_max = min( $max_upload, $upload_max_bytes, $post_max_bytes );
+        $effective_max_fmt = size_format( $effective_max );
+        
+        return array(
+            'max_file_size' => $effective_max,
+            'max_file_size_fmt' => $effective_max_fmt,
+            'upload_max_filesize' => $upload_max_filesize,
+            'post_max_size' => $post_max_size,
+            'max_file_uploads' => $max_file_uploads,
+            'memory_limit' => $memory_limit,
+            'wp_max_upload_size' => $max_upload,
+            'wp_max_upload_size_fmt' => $max_upload_fmt,
+        );
+    }
+    
+    /**
+     * [Phase 19.1] PHP 설정값 문자열을 바이트로 변환
+     */
+    private function convert_to_bytes( $val ) {
+        $val = trim( $val );
+        $last = strtolower( $val[ strlen( $val ) - 1 ] );
+        $val = (int) $val;
+        
+        switch ( $last ) {
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+        
+        return $val;
+    }
+
     public function render_page() {
         $max_upload = wp_max_upload_size();
         $max_upload_fmt = size_format( $max_upload );
         $limits = $this->get_license_limits(); // 현재 제한 상태 조회
+        $server_info = $this->get_server_upload_info(); // [Phase 19.1] 서버 사양 정보
 
         $plan_label = 'PREMIUM+';
         if ( (int) $limits['max_files'] <= 3 ) {
@@ -202,7 +329,12 @@ class JJ_Bulk_Installer {
 
             <div id="jj-bulk-notices"></div>
             
-            <?php if ( (int) $limits['max_files'] < 999 || ! $limits['can_auto_activate'] || ! $limits['can_bulk_delete'] || ! $limits['can_deactivate_then_delete'] ) : ?>
+            <?php 
+            // [v2.3.2] 마스터 버전일 때는 업그레이드 메시지 표시 안 함
+            $is_master = isset( $limits['is_master'] ) && $limits['is_master'];
+            $show_upgrade_notice = ! $is_master && ( (int) $limits['max_files'] < 999 || ! $limits['can_auto_activate'] || ! $limits['can_bulk_delete'] || ! $limits['can_deactivate_then_delete'] );
+            
+            if ( $show_upgrade_notice ) : ?>
                 <div class="notice notice-warning inline">
                     <p style="margin: 0.6em 0;">
                         <strong><?php echo esc_html( $plan_label ); ?>:</strong>
@@ -215,6 +347,12 @@ class JJ_Bulk_Installer {
                         <li>대량 삭제: <strong><?php echo $limits['can_bulk_delete'] ? '사용 가능' : '잠김'; ?></strong></li>
                         <li>비활성화 후 삭제: <strong><?php echo $limits['can_deactivate_then_delete'] ? '사용 가능' : '잠김'; ?></strong></li>
                     </ul>
+                </div>
+            <?php elseif ( $is_master ) : ?>
+                <div class="notice notice-success inline">
+                    <p style="margin: 0.6em 0;">
+                        <strong>⭐ Master 버전:</strong> 모든 기능이 무제한으로 사용 가능합니다.
+                    </p>
                 </div>
             <?php endif; ?>
 
@@ -232,29 +370,63 @@ class JJ_Bulk_Installer {
                             <h3>ZIP 파일을 여기에 드래그하세요</h3>
                             <p>또는 <strong>여기를 클릭</strong>하여 파일 선택</p>
                             <p class="description">
-                                최대 <?php echo (int) $limits['max_files']; ?>개 | 파일당 최대 <?php echo esc_html( $max_upload_fmt ); ?> | 전체 용량 2GB 권장
+                                최대 <?php echo (int) $limits['max_files']; ?>개 | 파일당 최대 1GB (서버 설정에 따라 파일당 최대 <?php echo esc_html( $server_info['max_file_size_fmt'] ); ?>입니다. 더 높은 용량을 사용하려면 서버 설정을 변경하세요) | 전체 용량 최대 10GB (가급적 2GB 이하 첨부 권장)
                             </p>
+                            <?php if ( $server_info['max_file_size'] < 1073741824 ) : // 1GB 미만인 경우 ?>
+                                <p class="description" style="color: #d63638; margin-top: 0.5em;">
+                                    <strong>⚠️ 주의:</strong> 현재 서버 설정으로는 파일당 최대 <?php echo esc_html( $server_info['max_file_size_fmt'] ); ?>까지만 업로드 가능합니다. 
+                                    더 큰 파일을 업로드하려면 서버의 <code>upload_max_filesize</code> (현재: <?php echo esc_html( $server_info['upload_max_filesize'] ); ?>) 
+                                    및 <code>post_max_size</code> (현재: <?php echo esc_html( $server_info['post_max_size'] ); ?>) 설정을 변경해야 합니다.
+                                </p>
+                            <?php endif; ?>
                             <!-- label로 감싸서 클릭 영역 확보 -->
                             <label for="jj-file-input" class="screen-reader-text">파일 선택</label>
                             <input type="file" id="jj-file-input" multiple accept=".zip">
                         </div>
                     </div>
 
-                    <!-- 옵션 -->
-                    <div class="jj-options">
-                        <label style="<?php echo ( ! $limits['can_auto_activate'] ) ? 'opacity: 0.6; cursor: not-allowed;' : ''; ?>">
-                            <input type="checkbox" id="jj-auto-activate-all" value="1" <?php echo ( ! $limits['can_auto_activate'] ) ? 'disabled' : ''; ?>>
-                            <strong>설치 후 전체 자동 활성화</strong>
-                        </label>
-                        <?php if ( ! $limits['can_auto_activate'] ) : ?>
-                            <span class="description" style="color: #d63638; margin-left: 10px;">(Premium 버전 이상 필요)</span>
-                        <?php else : ?>
-                            <span class="description" style="margin-left: 10px;">(체크 해제 시, 설치 완료 후 선택하여 활성화 가능)</span>
-                        <?php endif; ?>
-                    </div>
-
                     <!-- 파일 목록 -->
-                    <div class="jj-file-list" id="jj-file-list"></div>
+                    <div class="jj-file-list-container">
+                        <!-- 대기 목록 (설치 전 업로드 목록) -->
+                        <div class="jj-file-list-section" id="jj-file-list-pending">
+                            <h3 class="jj-section-title">
+                                📦 설치 전 업로드 목록
+                                <span class="jj-section-count" id="jj-pending-count">0개</span>
+                            </h3>
+                            <div class="jj-file-list" id="jj-file-list"></div>
+                        </div>
+                        
+                        <!-- 완료 목록 (설치 완료된 항목) -->
+                        <div class="jj-file-list-section" id="jj-file-list-completed" style="display: none;">
+                            <h3 class="jj-section-title">
+                                ✅ 완료 목록
+                                <span class="jj-section-count" id="jj-completed-count">0개</span>
+                            </h3>
+                            <div class="jj-file-list" id="jj-file-list-completed-items"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 선택 제어 버튼 (파일 목록 위) -->
+                    <div class="jj-selection-controls" id="jj-selection-controls" style="display: none; margin-bottom: 15px;">
+                        <div class="jj-selection-buttons">
+                            <button type="button" class="button button-small" id="jj-select-all">
+                                전체 선택
+                            </button>
+                            <button type="button" class="button button-small" id="jj-select-none">
+                                전체 선택 해제
+                            </button>
+                            <span class="jj-selection-info" id="jj-selection-info">0개 선택됨</span>
+                        </div>
+                        <div class="jj-activate-controls" style="margin-top: 10px;">
+                            <button type="button" class="button button-primary" id="jj-activate-selected-plugins" style="display: none;">
+                                선택한 플러그인 자동 활성화
+                            </button>
+                            <span class="description" style="margin-left: 10px; color: #646970;">
+                                💡 <strong>팁:</strong> Ctrl 키를 누른 채로 클릭하면 여러 개 선택, Shift 키를 누른 채로 클릭하면 범위 선택이 가능합니다.
+                                <a href="#" class="jj-show-tooltip" data-tooltip="selection-help" style="text-decoration: underline; margin-left: 5px;">자세히 보기</a>
+                            </span>
+                        </div>
+                    </div>
 
                     <!-- 액션 버튼 -->
                     <div class="jj-actions" style="margin-top: 20px; display: none;" id="jj-actions-area">
@@ -308,6 +480,8 @@ class JJ_Bulk_Installer {
                             <button type="button" class="button" id="jj-bulk-action-deactivate" data-op="deactivate" data-type="plugin">선택 비활성화</button>
                             <button type="button" class="button button-secondary" id="jj-bulk-action-delete" data-op="delete" data-type="plugin" <?php echo ( ! $limits['can_bulk_delete'] ) ? 'disabled' : ''; ?>>선택 삭제</button>
                             <button type="button" class="button button-danger" id="jj-bulk-action-deactivate-delete" data-op="deactivate_delete" data-type="plugin" <?php echo ( ! $limits['can_deactivate_then_delete'] ) ? 'disabled' : ''; ?>>비활성화 후 삭제</button>
+                            <button type="button" class="button" id="jj-bulk-action-auto-update-enable" data-op="auto_update_enable" data-type="plugin">자동 업데이트 허용</button>
+                            <button type="button" class="button" id="jj-bulk-action-auto-update-disable" data-op="auto_update_disable" data-type="plugin">자동 업데이트 비허용</button>
                             <button type="button" class="button button-danger" id="jj-bulk-action-theme-delete" data-op="delete" data-type="theme" style="display:none;" <?php echo ( ! $limits['can_bulk_delete'] ) ? 'disabled' : ''; ?>>선택 삭제</button>
                         </div>
                     </div>
@@ -660,6 +834,98 @@ class JJ_Bulk_Installer {
 
         wp_send_json_success( array(
             'item_type' => 'theme',
+            'operation' => $operation,
+            'results' => $results,
+        ) );
+    }
+
+    /**
+     * [Phase 19.1] 자동 업데이트 일괄 변경
+     */
+    public function ajax_bulk_auto_update_toggle() {
+        check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        if ( ! current_user_can( 'update_plugins' ) && ! current_user_can( 'update_themes' ) ) {
+            wp_send_json_error( '권한이 없습니다.' );
+        }
+
+        $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( wp_unslash( $_POST['item_type'] ) ) : '';
+        $operation = isset( $_POST['operation'] ) ? sanitize_text_field( wp_unslash( $_POST['operation'] ) ) : ''; // 'enable' or 'disable'
+        $items = isset( $_POST['items'] ) ? $_POST['items'] : array();
+
+        if ( ! in_array( $item_type, array( 'plugin', 'theme' ), true ) ) {
+            wp_send_json_error( '잘못된 item_type 입니다.' );
+        }
+        if ( ! in_array( $operation, array( 'enable', 'disable' ), true ) ) {
+            wp_send_json_error( '잘못된 operation 입니다.' );
+        }
+        if ( ! is_array( $items ) || empty( $items ) ) {
+            wp_send_json_error( '선택된 항목이 없습니다.' );
+        }
+
+        $items = array_values( array_filter( array_map( 'sanitize_text_field', $items ) ) );
+        $results = array();
+
+        if ( 'plugin' === $item_type ) {
+            if ( ! current_user_can( 'update_plugins' ) ) {
+                wp_send_json_error( '권한이 없습니다. (update_plugins 필요)' );
+            }
+
+            $auto_update_plugins = (array) get_site_option( 'auto_update_plugins', array() );
+
+            foreach ( $items as $plugin_file ) {
+                if ( 'enable' === $operation ) {
+                    if ( ! in_array( $plugin_file, $auto_update_plugins, true ) ) {
+                        $auto_update_plugins[] = $plugin_file;
+                        $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '자동 업데이트 활성화됨' );
+                    } else {
+                        $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '이미 자동 업데이트 활성화됨' );
+                    }
+                } else {
+                    $key = array_search( $plugin_file, $auto_update_plugins, true );
+                    if ( false !== $key ) {
+                        unset( $auto_update_plugins[ $key ] );
+                        $auto_update_plugins = array_values( $auto_update_plugins );
+                        $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '자동 업데이트 비활성화됨' );
+                    } else {
+                        $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '이미 자동 업데이트 비활성화됨' );
+                    }
+                }
+            }
+
+            update_site_option( 'auto_update_plugins', $auto_update_plugins );
+        } else {
+            // theme
+            if ( ! current_user_can( 'update_themes' ) ) {
+                wp_send_json_error( '권한이 없습니다. (update_themes 필요)' );
+            }
+
+            $auto_update_themes = (array) get_site_option( 'auto_update_themes', array() );
+
+            foreach ( $items as $stylesheet ) {
+                if ( 'enable' === $operation ) {
+                    if ( ! in_array( $stylesheet, $auto_update_themes, true ) ) {
+                        $auto_update_themes[] = $stylesheet;
+                        $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '자동 업데이트 활성화됨' );
+                    } else {
+                        $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '이미 자동 업데이트 활성화됨' );
+                    }
+                } else {
+                    $key = array_search( $stylesheet, $auto_update_themes, true );
+                    if ( false !== $key ) {
+                        unset( $auto_update_themes[ $key ] );
+                        $auto_update_themes = array_values( $auto_update_themes );
+                        $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '자동 업데이트 비활성화됨' );
+                    } else {
+                        $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '이미 자동 업데이트 비활성화됨' );
+                    }
+                }
+            }
+
+            update_site_option( 'auto_update_themes', $auto_update_themes );
+        }
+
+        wp_send_json_success( array(
+            'item_type' => $item_type,
             'operation' => $operation,
             'results' => $results,
         ) );

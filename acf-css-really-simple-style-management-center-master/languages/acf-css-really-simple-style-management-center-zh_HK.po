@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
 
 # Core UI
 msgid "스타일 센터"
@@ -111,3 +111,51 @@ msgstr "警告"
 
 msgid "정보"
 msgstr "資訊"
+
+msgid "일반 설정"
+msgstr "一般設定"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr "設定管理介面的基本顯示選項。"
+
+msgid "관리자 메뉴 표시"
+msgstr "管理選單顯示"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "顯示左側管理選單"
+
+msgid "관리자 툴바 표시"
+msgstr "管理工具列顯示"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "顯示頂部管理工具列"
+
+msgid "설정 열기"
+msgstr "開啟設定"
+
+msgid "스타일 관리"
+msgstr "樣式管理"
+
+msgid "이전 버전으로 롤백"
+msgstr "回退到上一版本"
+
+msgid "시스템 진단"
+msgstr "系統診斷"
+
+msgid "PRO로 업그레이드"
+msgstr "升級到PRO"
+
+msgid "Pro 버전"
+msgstr "Pro版本"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "前往外掛設定頁面"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "造訪3J Labs官方網站"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "外掛文件和使用指南"
+
+msgid "기술 지원 및 문의"
+msgstr "技術支援與諮詢"

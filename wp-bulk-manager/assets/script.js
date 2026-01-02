@@ -127,15 +127,34 @@ jQuery(document).ready(function($) {
 
         function addFileToList(file, index) {
             var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-            var html = '<div class="jj-file-item" id="file-' + index + '" data-index="' + index + '">' +
+            var html = '<div class="jj-file-item jj-file-item-pending" id="file-' + index + '" data-index="' + index + '" data-file-name="' + escapeHtml(file.name) + '">' +
                        '<div class="file-info">' +
-                       '<input type="checkbox" class="jj-activate-check" disabled> ' +
+                       '<input type="checkbox" class="jj-file-checkbox" data-index="' + index + '"> ' +
                        '<span class="name">' + escapeHtml(file.name) + '</span> ' +
                        '<span class="size">(' + sizeMB + ' MB)</span>' +
                        '</div>' +
                        '<span class="status">대기 중</span>' +
                        '</div>';
             $('#jj-file-list').append(html);
+            updatePendingCount();
+        }
+        
+        // 대기 목록 개수 업데이트
+        function updatePendingCount() {
+            var count = $('.jj-file-item-pending').length;
+            $('#jj-pending-count').text(count + '개');
+            if (count > 0) {
+                $('#jj-selection-controls').show();
+            }
+        }
+        
+        // 완료 목록 개수 업데이트
+        function updateCompletedCount() {
+            var count = $('.jj-file-item-completed').length;
+            $('#jj-completed-count').text(count + '개');
+            if (count > 0) {
+                $('#jj-file-list-completed').show();
+            }
         }
 
         // 설치 시작
@@ -151,24 +170,23 @@ jQuery(document).ready(function($) {
         function processQueue(index) {
             if (index >= filesQueue.length) {
                 isProcessing = false;
-                $('#jj-start-install').hide(); // 설치 버튼 숨김
+                $('#jj-start-install').prop('disabled', false).text('설치 시작 (' + filesQueue.length + '개)');
                 
                 // 프로그레스 바 100% 완료 보장
                 $('.jj-progress-fill').css('width', '100%');
                 $('.jj-status-text').text('모든 작업 완료 (' + filesQueue.length + '/' + filesQueue.length + ')');
 
-                // 설치된 플러그인이 있으면 활성화 버튼 표시
+                // 추가 파일 선택 버튼 표시
+                $('#jj-add-more-files').show();
+                
+                // 설치된 플러그인이 있으면 선택 제어 표시
                 if (installedPlugins.length > 0) {
-                    $('#jj-activate-selected').show().text('선택한 플러그인 활성화 (' + installedPlugins.length + '개)');
-                    // 체크박스 활성화
-                    $('.jj-activate-check').each(function() {
-                        if ($(this).closest('.jj-file-item').hasClass('success')) {
-                            $(this).prop('disabled', false).prop('checked', true);
-                        }
-                    });
+                    $('#jj-selection-controls').show();
+                    updateSelectionInfo();
                 }
 
-                alert('모든 파일 처리가 완료되었습니다.');
+                // 완료 알림 (인웹 레이어 팝업)
+                showCompletionNotice();
                 return;
             }
 
@@ -228,13 +246,23 @@ jQuery(document).ready(function($) {
                         var statusText = '설치 완료';
                         if (response.data.activated) statusText += ' (활성)';
 
-                        item.removeClass('uploading').addClass('success').find('.status').text(statusText);
-
-                        // 설치 성공한 플러그인 정보 저장 (수동 활성화를 위해)
+                        // 완료 목록으로 이동
+                        item.removeClass('uploading jj-file-item-pending').addClass('success jj-file-item-completed');
+                        item.find('.status').text(statusText);
+                        
+                        // 체크박스 활성화 (플러그인인 경우)
                         if (data.type === 'plugin' && response.data.slug) {
                             item.data('slug', response.data.slug);
+                            item.find('.jj-file-checkbox').prop('disabled', false);
                             installedPlugins.push(response.data.slug);
+                        } else {
+                            item.find('.jj-file-checkbox').prop('disabled', true);
                         }
+                        
+                        // 완료 목록으로 이동
+                        $('#jj-file-list-completed-items').append(item);
+                        updatePendingCount();
+                        updateCompletedCount();
                     } else {
                         item.removeClass('uploading').addClass('error').find('.status').text('실패: ' + response.data);
                     }
@@ -275,31 +303,16 @@ jQuery(document).ready(function($) {
             $('.jj-status-text').text(text + ' (' + completedCount + '/' + total + ')');
         }
 
-        // 선택한 플러그인 활성화 (2단계)
-        $('#jj-activate-selected').on('click', function() {
-            var btn = $(this);
-            btn.prop('disabled', true).text('활성화 중...');
-
-            var toActivate = [];
-            $('.jj-activate-check:checked').each(function() {
-                var item = $(this).closest('.jj-file-item');
-                var slug = item.data('slug');
-                if (slug) toActivate.push({ slug: slug, item: item });
-            });
-
-            if (toActivate.length === 0) {
-                alert('선택된 항목이 없습니다.');
-                btn.prop('disabled', false).text('선택한 플러그인 활성화');
-                return;
-            }
-
-            processActivation(toActivate, 0);
-        });
-
-        function processActivation(list, index) {
+        function processActivation(list, index, btn) {
             if (index >= list.length) {
-                alert('활성화 작업 완료!');
-                $('#jj-activate-selected').prop('disabled', false).text('선택한 플러그인 활성화');
+                showNotice('success', '활성화 작업 완료! (' + list.length + '개)');
+                if (btn) {
+                    btn.prop('disabled', false);
+                    updateSelectionInfo();
+                }
+                // 체크박스 해제
+                $('.jj-file-checkbox:checked').prop('checked', false);
+                updateSelectionInfo();
                 return;
             }
 
@@ -318,9 +331,13 @@ jQuery(document).ready(function($) {
                     if (response.success) {
                         target.item.find('.status').text('설치 완료 (활성)');
                     } else {
-                        target.item.find('.status').text('활성화 실패');
+                        target.item.find('.status').text('활성화 실패: ' + (response.data || '알 수 없는 오류'));
                     }
-                    processActivation(list, index + 1);
+                    processActivation(list, index + 1, btn);
+                },
+                error: function() {
+                    target.item.find('.status').text('활성화 오류');
+                    processActivation(list, index + 1, btn);
                 }
             });
         }
@@ -349,11 +366,15 @@ jQuery(document).ready(function($) {
                 $('#jj-bulk-action-deactivate').hide();
                 $('#jj-bulk-action-delete').hide();
                 $('#jj-bulk-action-deactivate-delete').hide();
+                $('#jj-bulk-action-auto-update-enable').hide();
+                $('#jj-bulk-action-auto-update-disable').hide();
                 $('#jj-bulk-action-theme-delete').show();
             } else {
                 $('#jj-bulk-action-deactivate').show();
                 $('#jj-bulk-action-delete').show();
                 $('#jj-bulk-action-deactivate-delete').show();
+                $('#jj-bulk-action-auto-update-enable').show();
+                $('#jj-bulk-action-auto-update-disable').show();
                 $('#jj-bulk-action-theme-delete').hide();
             }
 
@@ -377,11 +398,38 @@ jQuery(document).ready(function($) {
         // Select all
         $('#jj-bulk-select-all-plugins').on('change', function() {
             var checked = $(this).is(':checked');
-            $('#jj-bulk-table-plugins tbody tr.jj-bulk-row:visible .jj-bulk-row-check').prop('checked', checked);
+            $('#jj-bulk-table-plugins tbody tr.jj-bulk-row:visible .jj-bulk-row-check:not(:disabled)').prop('checked', checked);
         });
         $('#jj-bulk-select-all-themes').on('change', function() {
             var checked = $(this).is(':checked');
-            $('#jj-bulk-table-themes tbody tr.jj-bulk-row:visible .jj-bulk-row-check').prop('checked', checked);
+            $('#jj-bulk-table-themes tbody tr.jj-bulk-row:visible .jj-bulk-row-check:not(:disabled)').prop('checked', checked);
+        });
+        
+        // Ctrl/Shift 키 선택 기능 (벌크 에디터)
+        var lastCheckedRow = null;
+        $(document).on('click', '.jj-bulk-row-check', function(e) {
+            var $checkbox = $(this);
+            var $row = $checkbox.closest('tr');
+            
+            // Ctrl 키: 여러 개 선택
+            if (e.ctrlKey || e.metaKey) {
+                $checkbox.prop('checked', !$checkbox.prop('checked'));
+                lastCheckedRow = $row;
+            }
+            // Shift 키: 범위 선택
+            else if (e.shiftKey && lastCheckedRow !== null) {
+                var $rows = $checkbox.closest('tbody').find('tr.jj-bulk-row');
+                var startIdx = $rows.index(lastCheckedRow);
+                var endIdx = $rows.index($row);
+                var start = Math.min(startIdx, endIdx);
+                var end = Math.max(startIdx, endIdx);
+                
+                $rows.slice(start, end + 1).find('.jj-bulk-row-check:not(:disabled)').prop('checked', true);
+            }
+            // 일반 클릭: 단일 선택
+            else {
+                lastCheckedRow = $row;
+            }
         });
 
         // Actions (plugins / themes)

@@ -14,8 +14,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
 
 # Core UI
 msgid "스타일 센터"
@@ -163,3 +163,53 @@ msgstr "Avviso"
 
 msgid "정보"
 msgstr "Informazione"
+
+msgid "일반 설정"
+msgstr "Impostazioni Generali"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr ""
+"Configura le opzioni di visualizzazione di base dell'interfaccia di "
+"amministrazione."
+
+msgid "관리자 메뉴 표시"
+msgstr "Mostra Menu Amministrazione"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "Mostra menu amministrazione sinistro"
+
+msgid "관리자 툴바 표시"
+msgstr "Mostra Barra degli Strumenti"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "Mostra barra degli strumenti superiore"
+
+msgid "설정 열기"
+msgstr "Apri Impostazioni"
+
+msgid "스타일 관리"
+msgstr "Gestione Stili"
+
+msgid "이전 버전으로 롤백"
+msgstr "Ripristina Versione Precedente"
+
+msgid "시스템 진단"
+msgstr "Diagnostica del Sistema"
+
+msgid "PRO로 업그레이드"
+msgstr "Aggiorna a PRO"
+
+msgid "Pro 버전"
+msgstr "Versione Pro"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "Vai alla pagina delle impostazioni del plugin"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "Visita il sito web ufficiale di 3J Labs"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "Documentazione e guida utente del plugin"
+
+msgid "기술 지원 및 문의"
+msgstr "Supporto tecnico e richieste"

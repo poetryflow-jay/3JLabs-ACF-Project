@@ -14,20 +14,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
 
 #. Plugin Name of the plugin
 msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
-msgstr "ACF CSS - 高级自定义字体和颜色和样式设置管理器"
+msgstr "ACF CSS - 高级自定义字体、颜色和样式设置管理器"
 
 #. Description of the plugin
-msgid "A comprehensive style management plugin that centrally and consistently manages all style elements of your WordPress website, including color palettes, typography, buttons, and forms. The Free version provides basic style management features for maintaining brand consistency and efficient design system operation. Install the Pro version plugin alongside to access Basic, Premium, and Unlimited features. Fully integrated with WordPress Customizer for intuitive style management with real-time preview."
-msgstr "一个综合性的样式管理插件，可以集中一致地管理WordPress网站的所有样式元素，包括调色板、排版、按钮和表单。Free版本提供基本的样式管理功能，用于维护品牌一致性和高效的设计系统运营。安装Pro版本插件可以访问Basic、Premium和Unlimited功能。与WordPress自定义器完全集成，可以通过实时预览进行直观的样式管理。"
+msgid ""
+"A comprehensive style management plugin that centrally and consistently "
+"manages all style elements of your WordPress website, including color "
+"palettes, typography, buttons, and forms. The Free version provides basic "
+"style management features for maintaining brand consistency and efficient "
+"design system operation. Install the Pro version plugin alongside to access "
+"Basic, Premium, and Unlimited features. Fully integrated with WordPress "
+"Customizer for intuitive style management with real-time preview."
+msgstr ""
+"一个全面的样式管理插件，可集中一致地管理WordPress网站的所有样式元素，包括调色板、排版、按钮和表单。免费版本提供基本的样式管理功能，用于维护品牌一致性和高效的设计系统运营。同时安装Pro版本插件可访问Basic、Premium和Unlimited功能。与WordPress"
+" Customizer完全集成，提供实时预览的直观样式管理。"
 
 #. Author of the plugin
 msgid "3J Labs"
-msgstr "3J Labs"
+msgstr "3J实验室 (杰伊×珍妮×杰森研究实验室)"
 
 # Core UI
 msgid "스타일 센터"
@@ -246,3 +255,51 @@ msgstr "许可证"
 
 msgid "시스템 상태"
 msgstr "系统状态"
+
+msgid "일반 설정"
+msgstr "常规设置"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr "配置管理界面的基本显示选项。"
+
+msgid "관리자 메뉴 표시"
+msgstr "管理菜单显示"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "显示左侧管理菜单"
+
+msgid "관리자 툴바 표시"
+msgstr "管理工具栏显示"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "显示顶部管理工具栏"
+
+msgid "설정 열기"
+msgstr "打开设置"
+
+msgid "스타일 관리"
+msgstr "样式管理"
+
+msgid "이전 버전으로 롤백"
+msgstr "回退到上一版本"
+
+msgid "시스템 진단"
+msgstr "系统诊断"
+
+msgid "PRO로 업그레이드"
+msgstr "升级到PRO"
+
+msgid "Pro 버전"
+msgstr "Pro版本"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "转到插件设置页面"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "访问3J Labs官方网站"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "插件文档和使用指南"
+
+msgid "기술 지원 및 문의"
+msgstr "技术支持与咨询"

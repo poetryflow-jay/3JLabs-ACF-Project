@@ -14,20 +14,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: 3J Labs i18n Generator\n"
 "X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
 
 #. Plugin Name of the plugin
 msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
 msgstr "ACF CSS - 고급 커스텀 폰트 & 색상 & 스타일 설정 관리자"
 
 #. Description of the plugin
-msgid "A comprehensive style management plugin that centrally and consistently manages all style elements of your WordPress website, including color palettes, typography, buttons, and forms. The Free version provides basic style management features for maintaining brand consistency and efficient design system operation. Install the Pro version plugin alongside to access Basic, Premium, and Unlimited features. Fully integrated with WordPress Customizer for intuitive style management with real-time preview."
-msgstr "WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다."
+msgid ""
+"A comprehensive style management plugin that centrally and consistently "
+"manages all style elements of your WordPress website, including color "
+"palettes, typography, buttons, and forms. The Free version provides basic "
+"style management features for maintaining brand consistency and efficient "
+"design system operation. Install the Pro version plugin alongside to access "
+"Basic, Premium, and Unlimited features. Fully integrated with WordPress "
+"Customizer for intuitive style management with real-time preview."
+msgstr ""
+"WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 "
+"플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 "
+"있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. "
+"WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다."
 
 #. Author of the plugin
 msgid "3J Labs"
-msgstr "3J 랩스"
+msgstr "3J 랩스 (제이×제니×제이슨 연구소)"
 
 # Core UI
 msgid "Style Center"
@@ -228,3 +239,51 @@ msgstr "경고"
 
 msgid "Info"
 msgstr "정보"
+
+msgid "일반 설정"
+msgstr "일반 설정"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+
+msgid "관리자 메뉴 표시"
+msgstr "관리자 메뉴 표시"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "좌측 관리자 메뉴 표시"
+
+msgid "관리자 툴바 표시"
+msgstr "관리자 툴바 표시"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "상단 관리자 툴바 표시"
+
+msgid "설정 열기"
+msgstr "설정 열기"
+
+msgid "스타일 관리"
+msgstr "스타일 관리"
+
+msgid "이전 버전으로 롤백"
+msgstr "이전 버전으로 롤백"
+
+msgid "시스템 진단"
+msgstr "시스템 진단"
+
+msgid "PRO로 업그레이드"
+msgstr "PRO로 업그레이드"
+
+msgid "Pro 버전"
+msgstr "Pro 버전"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "플러그인 설정 페이지로 이동"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "3J Labs 공식 웹사이트 방문"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "플러그인 문서 및 사용 가이드"
+
+msgid "기술 지원 및 문의"
+msgstr "기술 지원 및 문의"

@@ -26,11 +26,43 @@
 .jj-dropzone h3 { margin: 10px 0 5px; color: #3c434a; }
 .jj-dropzone p { margin: 0; color: #646970; }
 
-.jj-file-list {
+/* 파일 목록 컨테이너 */
+.jj-file-list-container {
     margin: 20px 0;
+}
+
+.jj-file-list-section {
+    margin-bottom: 30px;
+}
+
+.jj-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1d2327;
+    margin: 0 0 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.jj-section-count {
+    font-size: 14px;
+    font-weight: 400;
+    color: #646970;
+    background: #f0f0f1;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.jj-file-list {
     max-height: 400px;
     overflow-y: auto;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 8px;
+    background: #f9f9f9;
 }
+
 .jj-file-item {
     background: #fff;
     border: 1px solid #c3c4c7;
@@ -41,11 +73,45 @@
     align-items: center;
     border-radius: 4px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    transition: all 0.2s;
+    cursor: pointer;
 }
-.jj-file-item .file-info { display: flex; align-items: center; gap: 10px; }
-.jj-file-item .name { font-weight: 600; color: #3c434a; }
-.jj-file-item .size { color: #8c8f94; font-size: 12px; }
-.jj-file-item .status { font-size: 13px; font-weight: 500; color: #646970; }
+
+.jj-file-item:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-color: #2271b1;
+}
+
+.jj-file-item .file-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    flex: 1;
+}
+
+.jj-file-item .file-info input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+.jj-file-item .name { 
+    font-weight: 600; 
+    color: #3c434a; 
+    flex: 1;
+}
+
+.jj-file-item .size { 
+    color: #8c8f94; 
+    font-size: 12px; 
+}
+
+.jj-file-item .status { 
+    font-size: 13px; 
+    font-weight: 500; 
+    color: #646970; 
+    min-width: 120px;
+    text-align: right;
+}
 
 .jj-file-item.success { border-left: 4px solid #46b450; background: #edfaef; }
 .jj-file-item.success .status { color: #46b450; }
@@ -79,12 +145,46 @@
     color: #646970;
 }
 
-.jj-options {
-    background: #fff;
+/* 선택 제어 영역 */
+.jj-selection-controls {
+    background: #f0f6fc;
     padding: 15px;
-    border: 1px solid #c3c4c7;
+    border: 1px solid #b6d1ea;
     border-radius: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
+}
+
+.jj-selection-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.jj-selection-info {
+    margin-left: auto;
+    font-size: 13px;
+    color: #646970;
+    font-weight: 600;
+}
+
+.jj-activate-controls {
+    padding-top: 10px;
+    border-top: 1px solid #dcdcde;
+}
+
+.jj-activate-controls .description {
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.jj-show-tooltip {
+    color: #2271b1;
+    cursor: pointer;
+}
+
+.jj-show-tooltip:hover {
+    text-decoration: underline;
 }
 
 .jj-actions {
@@ -221,4 +321,99 @@
     border: 1px solid #dcdcde;
     background: #fff;
     color: #3c434a;
+}
+
+/* 인웹 레이어 팝업 */
+.jj-inweb-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.jj-inweb-popup {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.jj-inweb-popup-header {
+    padding: 20px 20px 15px;
+    border-bottom: 1px solid #dcdcde;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.jj-inweb-popup-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.jj-inweb-popup-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #646970;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.jj-inweb-popup-close:hover {
+    background: #f0f0f1;
+    color: #1d2327;
+}
+
+.jj-inweb-popup-body {
+    padding: 20px;
+}
+
+.jj-inweb-popup-body p {
+    margin: 0;
+    line-height: 1.6;
+    color: #3c434a;
+}
+
+.jj-inweb-popup-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #dcdcde;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #f6f7f7;
 }
