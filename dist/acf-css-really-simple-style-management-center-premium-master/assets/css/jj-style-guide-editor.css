@@ -1,0 +1,945 @@
+/*
+ * J&J's Style Control Tower - 조종석(Cockpit) UI 스타일
+ * [v3.3 '제련'] '버튼' 섹션 '확장'에 따라 'Secondary', 'Text' 미리보기 '스타일' '신설'
+ * [v2.0.0 'UAT-1' '수정'] '버튼' '미리보기' '스타일' '수정'
+ * [v3.5.0-dev10 '최적화'] 관리자 테마/플러그인에 관계없이 일관된 UI를 유지하기 위한 리셋/스코핑
+ * [v5.0.3] 반응형 디자인 개선 및 애니메이션 추가
+ */
+
+/* --- 0. 전역 스코프 & 리셋 (wp-admin / 다른 플러그인 영향 최소화) --- */
+/* 모든 규칙은 #jj-style-guide-wrapper 하위에서만 동작하도록 스코프를 고정합니다. */
+
+#jj-style-guide-wrapper {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: #1d2327;
+}
+
+#jj-style-guide-wrapper * {
+    box-sizing: border-box;
+}
+
+/* 주요 컨테이너 폭을 고정해 사이트마다 레이아웃이 달라지지 않도록 */
+#jj-style-guide-wrapper .jj-style-guide-content {
+    max-width: 1280px;
+    margin: 20px auto !important;
+}
+
+/* [v5.0.3] 반응형 디자인 개선 */
+@media screen and (max-width: 1024px) {
+    #jj-style-guide-wrapper .jj-style-guide-content {
+        max-width: 100%;
+        margin: 10px !important;
+        padding: 10px;
+    }
+    
+    #jj-style-guide-wrapper .jj-style-guide-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    #jj-style-guide-wrapper .jj-header-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #jj-style-guide-wrapper .jj-style-guide-content {
+        margin: 5px !important;
+        padding: 5px;
+    }
+    
+    #jj-style-guide-wrapper .jj-section-wrapper {
+        margin-bottom: 15px;
+        padding: 15px;
+    }
+    
+    #jj-style-guide-wrapper .jj-control-group {
+        flex-direction: column;
+    }
+    
+    #jj-style-guide-wrapper .jj-control-group label {
+        margin-bottom: 5px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #jj-style-guide-wrapper .jj-style-guide-header h1 {
+        font-size: 18px;
+    }
+    
+    #jj-style-guide-wrapper .button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    #jj-style-guide-wrapper .jj-section-wrapper {
+        padding: 10px;
+    }
+}
+
+/* 입력 필드/셀렉트 기본값을 통일 */
+#jj-style-guide-wrapper input[type="text"],
+#jj-style-guide-wrapper input[type="number"],
+#jj-style-guide-wrapper select,
+#jj-style-guide-wrapper textarea {
+    font-size: 13px;
+    line-height: 1.4;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    box-shadow: none;
+    background-color: #fff;
+}
+
+#jj-style-guide-wrapper input[type="text"]:focus,
+#jj-style-guide-wrapper input[type="number"]:focus,
+#jj-style-guide-wrapper select:focus,
+#jj-style-guide-wrapper textarea:focus {
+    outline: none;
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px rgba(34, 113, 177, 0.2);
+}
+
+/* 버튼 스타일을 워드프레스/테마와 무관하게 통일 */
+#jj-style-guide-wrapper .button.button-primary,
+#jj-style-guide-wrapper .button-primary {
+    background: #ff6400;
+    border-color: #ff6400;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 4px;
+    padding: 0 20px;
+    height: 44px;
+    line-height: 42px;
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#jj-style-guide-wrapper .button.button-primary:hover,
+#jj-style-guide-wrapper .button-primary:hover {
+    background: #e65a00;
+    border-color: #e65a00;
+    color: #ffffff;
+}
+
+#jj-style-guide-wrapper .button {
+    font-size: 13px;
+}
+
+/* 카드/필드셋 등의 기본 배경/테두리를 통일 */
+#jj-style-guide-wrapper .jj-fieldset-group,
+#jj-style-guide-wrapper .jj-color-card,
+#jj-style-guide-wrapper .jj-button-preview,
+#jj-style-guide-wrapper .jj-temp-palette-preview {
+    background-color: #ffffff;
+}
+
+
+/* [v1.8.0-beta 신규] 탭 컨테이너 스타일 */
+#jj-style-guide-wrapper .jj-tabs-container {
+    margin-top: 20px;
+}
+#jj-style-guide-wrapper .jj-tabs-nav {
+    display: flex;
+    border-bottom: 1px solid #c3c4c7;
+    margin-bottom: -1px; /* 활성 탭의 border와 겹치도록 */
+    flex-wrap: wrap; /* [v3.5.0-dev10 '모바일 최적화'] 작은 화면에서 줄바꿈 */
+    overflow-x: auto; /* [v3.5.0-dev10 '모바일 최적화'] 가로 스크롤 허용 */
+    -webkit-overflow-scrolling: touch; /* [v3.5.0-dev10 '모바일 최적화'] iOS 부드러운 스크롤 */
+}
+#jj-style-guide-wrapper .jj-tab-button {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background: #f0f0f1;
+    color: #50575e;
+    cursor: pointer;
+    margin-right: 5px;
+    border-radius: 4px 4px 0 0;
+    opacity: 0.7;
+    touch-action: manipulation; /* [v3.5.0-dev10 '모바일 최적화'] 터치 지연 제거 */
+    -webkit-tap-highlight-color: transparent; /* [v3.5.0-dev10 '모바일 최적화'] 터치 하이라이트 제거 */
+    min-width: 44px; /* [v3.5.0-dev10 '모바일 최적화'] 최소 터치 영역 확보 */
+    min-height: 44px; /* [v3.5.0-dev10 '모바일 최적화'] 최소 터치 영역 확보 */
+}
+#jj-style-guide-wrapper .jj-tab-button:hover,
+#jj-style-guide-wrapper .jj-tab-button:active { /* [v3.5.0-dev10 '모바일 최적화'] active 상태 추가 */
+    background: #e0e0e0;
+    opacity: 1;
+}
+#jj-style-guide-wrapper .jj-tab-button.is-active {
+    background: #fff;
+    border-color: #c3c4c7;
+    border-bottom-color: #fff;
+    opacity: 1;
+    position: relative;
+    top: 1px; /* 아래 .jj-tab-content의 border-top과 겹치도록 */
+}
+#jj-style-guide-wrapper .jj-tab-content {
+    display: none;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    padding: 25px;
+    border-radius: 0 4px 4px 4px;
+}
+#jj-style-guide-wrapper .jj-tab-content.is-active {
+    display: block;
+}
+
+/* [v1.8.0-beta] '스포크' 섹션의 탭 UI */
+#jj-style-guide-wrapper .jj-section-spoke .jj-tabs-nav {
+    border-bottom: 1px solid #ddd;
+}
+#jj-style-guide-wrapper .jj-section-spoke .jj-tab-button {
+    background: #ececec;
+}
+#jj-style-guide-wrapper .jj-section-spoke .jj-tab-button.is-active {
+    background: #f9f9f9; /* .jj-section-spoke의 배경색 */
+    border-color: #ddd;
+    border-bottom-color: #f9f9f9;
+}
+#jj-style-guide-wrapper .jj-section-spoke .jj-tab-content {
+    background: #f9f9f9; /* .jj-section-spoke의 배경색 */
+    border: 1px solid #ddd;
+    border-top: none; /* 상단 네비게이션과 연결 */
+    border-radius: 0 0 4px 4px;
+}
+
+/* ... (기존의 .jj-section-global, .jj-section-spoke 등 모든 CSS 유지) ... */
+
+/* [v1.7.2 신규] '스포크' 섹션 스타일 */
+#jj-style-guide-wrapper .jj-section-spoke {
+    padding: 25px;
+    border-bottom: 1px solid #ddd;
+    background: #f9f9f9; /* 전역 섹션과 구분 */
+}
+#jj-style-guide-wrapper .jj-section-spoke h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#jj-style-guide-wrapper .jj-section-spoke h2 img {
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+}
+/* [v1.9.0-beta1 '신규'] '스포크' '텍스트' '아이콘' */
+#jj-style-guide-wrapper .jj-spoke-icon-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background: #777;
+    padding: 4px 8px;
+    border-radius: 4px;
+    line-height: 1;
+}
+#jj-style-guide-wrapper #jj-section-spoke-wc .jj-spoke-icon-text { background: #96588a; } /* WooCommerce */
+#jj-style-guide-wrapper #jj-section-spoke-ld .jj-spoke-icon-text { background: #f07e13; } /* LearnDash */
+#jj-style-guide-wrapper #jj-section-spoke-um .jj-spoke-icon-text { background: #3ba1da; } /* Ultimate Member */
+
+#jj-style-guide-wrapper .jj-section-spoke .description {
+    font-size: 14px;
+    color: #50575e;
+    margin-bottom: 25px;
+}
+
+
+/* 공용 컨트롤 그룹 (v1.5.2 계승) */
+.jj-control-group { margin-bottom: 15px; }
+.jj-control-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #2c3338;
+}
+.jj-control-group input[type="text"],
+.jj-control-group input[type="number"],
+.jj-control-group select {
+    width: 100%;
+    box-sizing: border-box;
+}
+.jj-color-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.jj-fieldset-group {
+    border: 1px solid #ddd;
+    padding: 15px 20px 5px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+.jj-fieldset-group legend {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 5px;
+    margin-left: -5px;
+}
+.jj-grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.jj-grid-4-col {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+
+/* 색상 카드 (v1.5.2 계승) */
+.jj-color-card {
+    border: 1px solid #c3c4c7;
+    padding: 15px;
+    border-radius: 4px;
+    background: #fff; /* [v1.7.2] 스포크 섹션 내에서 흰색 배경 유지 */
+}
+.jj-color-card label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+}
+.jj-color-preview {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+.jj-color-card .wp-picker-container { width: 100%; }
+.jj-color-card .wp-color-result.button { width: 100%; height: 30px; margin: 0; }
+
+/* 타이포그래피 그리드 (v1.5.3 계승) */
+.jj-typography-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 20px;
+    align-items: flex-start;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+}
+.jj-typography-row:last-child { border-bottom: none; }
+.jj-typography-row .tag {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2c3338;
+    padding-top: 25px; 
+    transition: all 0.2s ease-in-out;
+}
+.jj-typography-row .controls.jj-typography-controls {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr 1.5fr;
+    gap: 12px;
+}
+.jj-typography-row .jj-control-group label {
+    font-size: 11px;
+    text-transform: uppercase;
+    white-space: nowrap; 
+}
+
+/* 반응형 탭 (v1.5.2 계승) */
+.jj-responsive-control {
+    position: relative;
+    padding-top: 25px; 
+}
+.jj-responsive-tabs {
+    position: absolute;
+    top: -1px;
+    right: 10px;
+    display: flex;
+    gap: 0;
+}
+.jj-responsive-tab-button {
+    background: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    border-bottom: none;
+    padding: 3px 7px;
+    cursor: pointer;
+    border-radius: 3px 3px 0 0;
+    opacity: 0.6;
+    line-height: 1;
+}
+.jj-responsive-tab-button.is-active {
+    background: #fff;
+    border-bottom: 1px solid #fff;
+    opacity: 1;
+    margin-bottom: -1px; 
+}
+.jj-responsive-tab-content {
+    display: none;
+    border: 1px solid #c3c4c7;
+    padding: 10px;
+    border-radius: 0 4px 4px 4px;
+}
+.jj-responsive-tab-content.is-active {
+    display: block;
+}
+.jj-responsive-tab-content input {
+    width: 100% !important;
+    margin: 0;
+    padding: 5px;
+}
+
+/*
+ * J&J's Style Control Tower - 조종석(Cockpit) UI 스타일
+ * [v3.3 '제련'] '폼 & 필드' '미리보기' '뼈대' '스타일' '신설'
+ * [v3.3 '제련'] '버튼' 섹션 '확장'에 따라 'Secondary', 'Text' 미리보기 '스타일' '신설'
+ */
+
+/* ... (v1.7.2의 모든 CSS 코드는 여기에 그대로 유지됩니다) ... */
+/* ... (.jj-tabs-container, .jj-section-spoke 등 모든 CSS 유지) ... */
+
+/* 버튼 섹션 (v1.5.2 계승) */
+.jj-button-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.jj-button-preview {
+    border: 1px dashed #c3c4c7;
+    border-radius: 4px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 15px; 
+    background: #f9f9f9;
+}
+
+/* --- [v3.3 '제련'] 버튼 미리보기 '재설계' --- */
+.jj-button-preview-btn {
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 2px;
+    transition: all 0.2s ease-in-out;
+}
+.jj-button-preview-btn.jj-preview-primary {
+    padding: var(--jj-btn-primary-padding-top, 12px) var(--jj-btn-primary-padding-right, 24px) var(--jj-btn-primary-padding-bottom, 12px) var(--jj-btn-primary-padding-left, 24px);
+    border-radius: var(--jj-btn-primary-border-radius, 4px);
+    box-shadow: var(--jj-btn-primary-shadow, 0 10px 15px -5px rgba(0,0,0,0.1));
+    color: var(--jj-btn-primary-text, #fff);
+    background-color: var(--jj-btn-primary-bg, #0073e6);
+    border-color: var(--jj-btn-primary-border, #0073e6);
+}
+.jj-button-preview-btn.jj-preview-primary:hover {
+    color: var(--jj-btn-primary-text-hover, #fff);
+    background-color: var(--jj-btn-primary-bg-hover, #0051a3);
+    border-color: var(--jj-btn-primary-border-hover, #0051a3);
+    box-shadow: none;
+}
+.jj-button-preview-btn.jj-preview-secondary {
+    padding: var(--jj-btn-secondary-padding-top, 10px) var(--jj-btn-secondary-padding-right, 20px) var(--jj-btn-secondary-padding-bottom, 10px) var(--jj-btn-secondary-padding-left, 20px);
+    border-radius: var(--jj-btn-secondary-border-radius, 4px);
+    box-shadow: var(--jj-btn-secondary-shadow, none);
+    color: var(--jj-btn-secondary-text, #333);
+    background-color: var(--jj-btn-secondary-bg, #fff);
+    border-color: var(--jj-btn-secondary-border, #ccc);
+}
+.jj-button-preview-btn.jj-preview-secondary:hover {
+    color: var(--jj-btn-secondary-text-hover, #333);
+    background-color: var(--jj-btn-secondary-bg-hover, #f0f0f0);
+    border-color: var(--jj-btn-secondary-border-hover, #aaa);
+    box-shadow: none;
+}
+.jj-button-preview-btn.jj-preview-text {
+    padding: var(--jj-btn-text-padding-top, 8px) var(--jj-btn-text-padding-right, 16px) var(--jj-btn-text-padding-bottom, 8px) var(--jj-btn-text-padding-left, 16px);
+    border-radius: var(--jj-btn-text-border-radius, 4px);
+    box-shadow: var(--jj-btn-text-shadow, none);
+    color: var(--jj-btn-text-text, #0073e6);
+    background-color: var(--jj-btn-text-bg, transparent);
+    border-color: var(--jj-btn-text-border, transparent);
+}
+.jj-button-preview-btn.jj-preview-text:hover {
+    color: var(--jj-btn-text-text-hover, #0051a3);
+    background-color: var(--jj-btn-text-bg-hover, transparent);
+    border-color: var(--jj-btn-text-border-hover, transparent);
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+/* --- [v3.3 '신설'] 폼 & 필드 '미리보기' '뼈대' --- */
+.jj-form-preview-wrap {
+    width: 100%;
+}
+.jj-form-preview-label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px; /* JS가 갱신하기 전 '기본' 폰트 */
+    font-weight: 600; /* JS가 갱신하기 전 '기본' 폰트 */
+    color: #333; /* JS가 갱신하기 전 '기본' 폰트 */
+}
+.jj-form-preview-input {
+    width: 100%;
+    box-sizing: border-box; /* 너비 계산 '통일' */
+    font-size: 16px; /* JS가 갱신하기 전 '기본' 폰트 */
+    border: 1px solid #ccc; /* JS가 갱신하기 전 '기본' 테두리 */
+    padding: 10px 12px; /* JS가 갱신하기 전 '기본' 패딩 */
+    border-radius: 4px; /* JS가 갱신하기 전 '기본' 둥근 모서리 */
+    transition: border-color 0.2s ease-in-out;
+}
+/* JS가 '실시간'으로 이 스타일 태그의 '내용'을 '갱신'합니다. */
+#jj-form-preview-style {
+    display: none;
+}
+
+
+/* ... (파일의 나머지 .jj-dimensions-group, .jj-shadow-group 등 모든 CSS는 '그대로 유지') ... */
+
+
+/* [v2.0.0 'UAT-1' '신규'] 'Tertiary' '버튼' '미리보기' '스타일' ('조종석' '미리보기'와 '동기화') */
+/* (v3.3 '제련': 이 '하드코딩'된 스타일을 'jj-preview-text'의 '변수' 기반으로 '대체'합니다.) */
+/*
+.jj-preview-button-tertiary .wp-block-button__link {
+    background-color: transparent !important;
+    color: var(--jj-btn-primary-bg, #FF6400) !important;
+    ...
+}
+*/
+
+.jj-dimensions-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
+.jj-dimensions-group input {
+    text-align: center;
+    padding: 5px;
+}
+.jj-shadow-group {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    align-items: flex-end;
+}
+.jj-shadow-group .jj-control-group {
+    margin-bottom: 0; 
+}
+
+
+/*
+ * [v1.8.0-beta2 신규] 컨텍스트 제어 UI 스타일
+ */
+
+/* '재정의' 토글 스위치 */
+.jj-control-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fdfdfd;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+.jj-control-toggle label {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: #2c3338;
+}
+.jj-control-toggle .description {
+    margin-bottom: 0;
+    font-style: italic;
+    color: #50575e;
+    margin-left: auto; /* 설명 텍스트를 오른쪽으로 밀어냄 */
+}
+.jj-toggle-switch {
+    width: 36px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #c3c4c7;
+    border-radius: 10px;
+    transition: background 0.2s ease-in-out;
+}
+.jj-toggle-switch:before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s ease-in-out;
+}
+.jj-toggle-switch:checked {
+    background: #2271b1;
+}
+.jj-toggle-switch:checked:before {
+    transform: translateX(16px);
+}
+
+/* '재정의' 하위 제어판 (토글로 열림) */
+.jj-toggled-controls {
+    display: none; /* JS에 의해 제어됨 */
+    padding: 20px 20px 5px 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    margin-top: -1px; /* 토글 UI와 겹치도록 */
+    background: #fff;
+}
+
+/* '컨텍스트' 내부의 타이포그래피 그리드 (전역 그리드보다 단순하게) */
+.jj-contextual-typography-controls {
+    display: grid;
+    /* 7열 대신 3열 기반 자동 채우기 */
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
+    gap: 12px;
+}
+.jj-contextual-typography-controls .jj-control-group label {
+    font-size: 11px;
+    text-transform: uppercase;
+    white-space: nowrap; 
+}
+.jj-contextual-typography-controls .jj-control-group:first-child {
+    /* 폰트 패밀리는 넓게 */
+    grid-column: 1 / -1; 
+}
+.jj-contextual-typography-controls .jj-responsive-control {
+    /* 반응형 크기 제어는 넓게 */
+    grid-column: 1 / -1; 
+}
+
+/* --- [v1.8.0-beta4 신규] --- */
+
+/* '컨텍스트' 내부의 하위 토글 (예: 색상 재정의) */
+.jj-control-toggle.jj-toggle-sub {
+    background: #f7f7f7;
+    margin-top: 15px;
+    /* 상위 토글보다 안쪽으로 들어가 보이게 */
+    margin-left: 10px; 
+    margin-right: 10px;
+    width: auto; 
+}
+.jj-toggled-controls .jj-color-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* '컨텍스트' 내부의 '버튼 스타일' 제어판 (이식된 UI) */
+.jj-toggled-controls .jj-fieldset-group {
+    border: 1px solid #e0e0e0;
+    background: #fdfdfd;
+}
+.jj-toggled-controls .jj-fieldset-group legend {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+.jj-toggled-controls .jj-shadow-group {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    align-items: flex-end;
+}
+.jj-toggled-controls .jj-shadow-group .jj-control-group {
+    margin-bottom: 0;
+}
+
+/* --- [v1.9.0-beta4 신규] --- */
+
+/* '4. 임시 팔레트' 탭 */
+.jj-tab-button-temp {
+    background: #fff8e1; /* '임시'임을 알리는 노란색 계열 */
+    color: #c09000;
+    font-weight: 700;
+}
+.jj-tab-button-temp.is-active {
+    background: #fff;
+    border-color: #c3c4c7;
+    border-bottom-color: #fff;
+}
+.jj-temp-palette-header {
+    padding: 15px 20px;
+    background: #fff8e1;
+    border: 1px solid #ffe5b0;
+    border-radius: 4px;
+    margin-bottom: 25px;
+}
+.jj-temp-palette-header h3 {
+    margin-top: 0;
+    color: #9a6a00;
+}
+.jj-temp-palette-header .description {
+    font-size: 14px;
+    color: #795548;
+}
+
+/* '임시' 값 미리보기 상자 */
+.jj-temp-palette-preview {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+    background: #f9f9f9;
+}
+.jj-temp-palette-preview label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+.jj-color-preview-box {
+    width: 100%;
+    height: 60px;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+.jj-temp-palette-preview code {
+    display: block;
+    width: 100%;
+    padding: 5px 8px;
+    background: #eee;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 13px;
+    word-break: break-all;
+}
+
+/* '임시' 팔레트 '적용' 버튼 */
+.jj-apply-palette-actions {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.jj-apply-palette-button {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    padding: 0 16px !important;
+    height: 40px !important;
+    line-height: 38px !important;
+}
+.jj-apply-palette-actions .spinner {
+    float: none;
+    margin: 0;
+}
+.jj-apply-palette-actions .description {
+    margin-bottom: 0;
+    font-style: italic;
+    color: #777;
+}
+
+/* [v3.5.0-dev10 '모바일 최적화'] 반응형 미디어 쿼리 */
+@media screen and (max-width: 782px) {
+    /* 모바일/태블릿: 탭 버튼 크기 조정 */
+    .jj-tabs-nav {
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+    .jj-tab-button {
+        font-size: 13px;
+        padding: 8px 14px;
+        margin-right: 3px;
+        flex: 1 1 auto; /* 작은 화면에서 균등 분배 */
+        min-width: auto;
+    }
+    
+    /* 모바일: 섹션 패딩 감소 */
+    .jj-section-global,
+    .jj-section-spoke {
+        padding: 15px !important;
+    }
+    
+    /* 모바일: 그리드 레이아웃 조정 */
+    .jj-style-guide-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+        gap: 15px !important;
+    }
+    
+    /* 모바일: 컨트롤 그룹 간격 조정 */
+    .jj-control-group {
+        margin-bottom: 15px;
+    }
+    
+    /* 모바일: 헤더 버튼 크기 조정 */
+    .jj-header-actions button,
+    .jj-style-guide-footer button {
+        font-size: 13px !important;
+        padding: 0 12px !important;
+        height: 36px !important;
+        line-height: 34px !important;
+    }
+    
+    /* 모바일: 탭 콘텐츠 패딩 감소 */
+    .jj-tab-content {
+        padding: 15px !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* 작은 모바일: 더 작은 폰트와 패딩 */
+    .jj-tab-button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    
+    .jj-section-title {
+        font-size: 20px !important;
+    }
+    
+    .jj-style-guide-grid {
+        grid-template-columns: 1fr !important; /* 단일 컬럼 */
+    }
+}
+
+/* [v3.7.0] 드래그 앤 드롭 섹션 재정렬 스타일 */
+#jj-style-guide-wrapper .jj-sections-sortable {
+    position: relative;
+}
+
+#jj-style-guide-wrapper .jj-section-wrapper {
+    position: relative;
+}
+
+#jj-style-guide-wrapper .jj-section-drag-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    cursor: move;
+    color: #8c8f94;
+    vertical-align: middle;
+    transition: color 0.2s;
+}
+
+#jj-style-guide-wrapper .jj-section-drag-handle:hover {
+    color: #2271b1;
+}
+
+#jj-style-guide-wrapper .jj-section-drag-handle .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+#jj-style-guide-wrapper .jj-section-drag-handle:active {
+    cursor: grabbing;
+}
+
+#jj-style-guide-wrapper .jj-section-global.ui-sortable-helper {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: 2px solid #2271b1;
+    opacity: 0.95;
+}
+
+#jj-style-guide-wrapper .jj-section-placeholder {
+    height: auto !important;
+    background-color: #f0f0f1 !important;
+    border: 2px dashed #c3c4c7 !important;
+    border-radius: 4px !important;
+    margin: 10px 0 !important;
+    min-height: 100px;
+}
+
+/* [v3.7.0] 색상 피커 개선 스타일 */
+#jj-style-guide-wrapper .wp-picker-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#jj-style-guide-wrapper .wp-picker-container .wp-color-result {
+    height: 30px;
+    border-radius: 3px;
+    margin: 0;
+}
+
+#jj-style-guide-wrapper .wp-picker-container .wp-color-result-text {
+    border: 1px solid #c3c4c7;
+    border-left: none;
+    border-radius: 0 3px 3px 0;
+    padding: 0 8px;
+    line-height: 28px;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* [v3.7.0] 키보드 단축키 안내 툴팁 스타일 */
+.jj-shortcuts-hint {
+    max-width: 300px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+}
+
+.jj-shortcuts-hint strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #1d2327;
+}
+
+.jj-shortcuts-hint .dashicons-no-alt {
+    margin-top: 2px;
+}
+
+.jj-shortcuts-hint .dashicons-no-alt:hover {
+    color: #d63638;
+}
+
+/* [v3.7.0] 실시간 미리보기 버튼 스타일 */
+#jj-style-guide-wrapper #jj-preview-button.active {
+    background-color: #2271b1;
+    color: #fff;
+    border-color: #2271b1;
+}
+
+#jj-style-guide-wrapper #jj-preview-button.active:hover {
+    background-color: #135e96;
+    border-color: #135e96;
+}
+
+/* [v3.7.0] 프리뷰 뷰포트 전환 버튼 스타일 */
+#jj-preview-viewport-controls {
+    display: inline-flex;
+    gap: 5px;
+    margin-left: 10px;
+    align-items: center;
+}
+
+#jj-preview-viewport-controls .jj-preview-viewport-btn {
+    padding: 4px 8px;
+    height: 28px;
+    line-height: 20px;
+    min-width: 32px;
+}
+
+#jj-preview-viewport-controls .jj-preview-viewport-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+#jj-preview-viewport-controls .jj-preview-viewport-btn.active {
+    background-color: #2271b1;
+    color: #fff;
+    border-color: #2271b1;
+}
+
+#jj-preview-viewport-controls .jj-preview-viewport-btn.active:hover {
+    background-color: #135e96;
+    border-color: #135e96;
+}

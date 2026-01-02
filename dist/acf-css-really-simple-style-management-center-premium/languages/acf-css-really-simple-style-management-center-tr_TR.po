@@ -1,0 +1,131 @@
+# Turkish translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Turkish <tr@3j-labs.com>\n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Stil Merkezi"
+
+msgid "관리자 센터"
+msgstr "Yönetici Merkezi"
+
+msgid "실험실"
+msgstr "Laboratuvar"
+
+msgid "설정"
+msgstr "Ayarlar"
+
+msgid "저장"
+msgstr "Kaydet"
+
+msgid "취소"
+msgstr "İptal"
+
+msgid "적용"
+msgstr "Uygula"
+
+msgid "초기화"
+msgstr "Sıfırla"
+
+msgid "내보내기"
+msgstr "Dışa Aktar"
+
+msgid "불러오기"
+msgstr "İçe Aktar"
+
+msgid "다운로드"
+msgstr "İndir"
+
+msgid "업로드"
+msgstr "Yükle"
+
+# Colors
+msgid "색상"
+msgstr "Renkler"
+
+msgid "기본 색상"
+msgstr "Birincil Renk"
+
+msgid "보조 색상"
+msgstr "İkincil Renk"
+
+msgid "강조 색상"
+msgstr "Vurgu Rengi"
+
+msgid "배경 색상"
+msgstr "Arka Plan Rengi"
+
+msgid "텍스트 색상"
+msgstr "Metin Rengi"
+
+msgid "브랜드 팔레트"
+msgstr "Marka Paleti"
+
+msgid "시스템 팔레트"
+msgstr "Sistem Paleti"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Tipografi"
+
+msgid "폰트 패밀리"
+msgstr "Yazı Tipi Ailesi"
+
+msgid "폰트 크기"
+msgstr "Yazı Tipi Boyutu"
+
+msgid "폰트 굵기"
+msgstr "Yazı Tipi Kalınlığı"
+
+msgid "행간"
+msgstr "Satır Yüksekliği"
+
+msgid "자간"
+msgstr "Harf Aralığı"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Masaüstü"
+
+msgid "태블릿"
+msgstr "Tablet"
+
+msgid "모바일"
+msgstr "Mobil"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Ayarlar kaydedildi."
+
+msgid "권한이 없습니다."
+msgstr "Erişim reddedildi."
+
+msgid "오류가 발생했습니다."
+msgstr "Bir hata oluştu."
+
+msgid "성공"
+msgstr "Başarılı"
+
+msgid "오류"
+msgstr "Hata"
+
+msgid "경고"
+msgstr "Uyarı"
+
+msgid "정보"
+msgstr "Bilgi"

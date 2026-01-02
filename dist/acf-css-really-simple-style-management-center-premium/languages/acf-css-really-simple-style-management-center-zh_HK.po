@@ -1,0 +1,113 @@
+# Chinese (Hong Kong) translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Chinese (Hong Kong) <zh-HK@3j-labs.com>\n"
+"Language: zh_HK\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "樣式中心"
+
+msgid "관리자 센터"
+msgstr "管理中心"
+
+msgid "실험실"
+msgstr "實驗室"
+
+msgid "설정"
+msgstr "設定"
+
+msgid "저장"
+msgstr "儲存"
+
+msgid "취소"
+msgstr "取消"
+
+msgid "적용"
+msgstr "套用"
+
+msgid "초기화"
+msgstr "重設"
+
+msgid "내보내기"
+msgstr "匯出"
+
+msgid "불러오기"
+msgstr "匯入"
+
+# Colors
+msgid "색상"
+msgstr "顏色"
+
+msgid "기본 색상"
+msgstr "主色"
+
+msgid "보조 색상"
+msgstr "副色"
+
+msgid "브랜드 팔레트"
+msgstr "品牌調色盤"
+
+msgid "시스템 팔레트"
+msgstr "系統調色盤"
+
+# Typography
+msgid "타이포그래피"
+msgstr "排版"
+
+msgid "폰트 패밀리"
+msgstr "字體"
+
+msgid "폰트 크기"
+msgstr "字號"
+
+msgid "행간"
+msgstr "行距"
+
+msgid "자간"
+msgstr "字距"
+
+# Responsive
+msgid "데스크톱"
+msgstr "桌面"
+
+msgid "태블릿"
+msgstr "平板"
+
+msgid "모바일"
+msgstr "手機"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "設定已儲存。"
+
+msgid "권한이 없습니다."
+msgstr "權限不足。"
+
+msgid "오류가 발생했습니다."
+msgstr "發生錯誤。"
+
+msgid "성공"
+msgstr "成功"
+
+msgid "오류"
+msgstr "錯誤"
+
+msgid "경고"
+msgstr "警告"
+
+msgid "정보"
+msgstr "資訊"

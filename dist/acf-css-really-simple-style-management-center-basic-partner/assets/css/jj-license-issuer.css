@@ -1,0 +1,170 @@
+/**
+ * J&J 라이센스 발행 관리 스타일
+ * 
+ * @version 3.8.0
+ */
+
+.jj-license-issuer-wrap {
+    margin: 20px 20px 0 0;
+}
+
+.jj-license-issuer-header {
+    margin-bottom: 30px;
+}
+
+.jj-license-issuer-header h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.jj-license-issuer-list h2 {
+    margin-top: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c3c4c7;
+}
+
+.jj-license-stats {
+    background: #f0f6fc;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.jj-license-stats strong {
+    color: #2271b1;
+    font-size: 14px;
+}
+
+.jj-license-stats span {
+    color: #50575e;
+    font-size: 13px;
+}
+
+/* 라이센스 타입 뱃지 */
+.jj-license-type-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.jj-license-type-badge.jj-license-type-free {
+    background: #e5e5e5;
+    color: #50575e;
+}
+
+.jj-license-type-badge.jj-license-type-basic {
+    background: #2271b1;
+    color: #fff;
+}
+
+.jj-license-type-badge.jj-license-type-prem {
+    background: #0073aa;
+    color: #fff;
+}
+
+.jj-license-type-badge.jj-license-type-unlim {
+    background: #8b5cf6;
+    color: #fff;
+}
+
+/* 상태 뱃지 */
+.jj-status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.jj-status-badge.active {
+    background: #00a32a;
+    color: #fff;
+}
+
+.jj-status-badge.inactive {
+    background: #dba617;
+    color: #fff;
+}
+
+.jj-status-badge.expired {
+    background: #d63638;
+    color: #fff;
+}
+
+/* 활성화된 사이트 목록 */
+.jj-activations-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.jj-activation-item {
+    margin-bottom: 5px;
+    padding: 8px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.jj-activation-item strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #2271b1;
+    word-break: break-all;
+}
+
+.jj-activation-item small {
+    color: #666;
+}
+
+/* 만료된 라이센스 행 */
+.wp-list-table tbody tr.expired {
+    background-color: #fcf0f1;
+}
+
+.wp-list-table tbody tr.expired td {
+    opacity: 0.7;
+}
+
+/* 라이센스 키 복사 버튼 */
+.jj-copy-license-key {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* AJAX 로딩 상태 */
+.jj-license-issuer-wrap .spinner {
+    float: none;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+/* 성공/오류 메시지 */
+.jj-license-message {
+    margin: 10px 0;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: none;
+}
+
+.jj-license-message.success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.jj-license-message.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+

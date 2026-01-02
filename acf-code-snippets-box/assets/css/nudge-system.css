@@ -1,0 +1,543 @@
+/**
+ * ACF Code Snippets Box - Nudge System Styles
+ *
+ * @package ACF_Code_Snippets_Box
+ */
+
+/* ================================================
+   공통 넛지 스타일
+   ================================================ */
+.acf-csb-nudge {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    z-index: 100000;
+}
+
+.acf-csb-nudge-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+}
+
+/* ================================================
+   토스트 알림
+   ================================================ */
+.acf-csb-nudge-toast {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: acf-csb-slide-in 0.3s ease;
+    border-left: 4px solid #0073aa;
+}
+
+.acf-csb-nudge-toast.tip {
+    border-left-color: #00a32a;
+}
+
+.acf-csb-nudge-toast.upgrade {
+    border-left-color: #dba617;
+}
+
+.acf-csb-nudge-toast.warning {
+    border-left-color: #d63638;
+}
+
+.acf-csb-nudge-toast-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.acf-csb-nudge-toast-content {
+    flex: 1;
+}
+
+.acf-csb-nudge-toast-title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1e1e1e;
+}
+
+.acf-csb-nudge-toast-message {
+    color: #666;
+    font-size: 13px;
+}
+
+.acf-csb-nudge-toast-close {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    line-height: 1;
+}
+
+.acf-csb-nudge-toast-close:hover {
+    color: #d63638;
+}
+
+@keyframes acf-csb-slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ================================================
+   배너
+   ================================================ */
+.acf-csb-nudge-banner {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: -20px -20px 20px -20px;
+    border-radius: 0;
+}
+
+.acf-csb-nudge-banner.promo {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.acf-csb-nudge-banner.feature {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.acf-csb-nudge-banner-content {
+    flex: 1;
+}
+
+.acf-csb-nudge-banner-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.acf-csb-nudge-banner-message {
+    opacity: 0.9;
+    font-size: 13px;
+}
+
+.acf-csb-nudge-banner-cta {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.acf-csb-nudge-banner-cta:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+.acf-csb-nudge-banner-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.acf-csb-nudge-banner-close:hover {
+    color: #fff;
+}
+
+/* ================================================
+   모달
+   ================================================ */
+.acf-csb-nudge-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100001;
+    animation: acf-csb-fade-in 0.2s ease;
+}
+
+.acf-csb-nudge-modal {
+    background: #fff;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 90%;
+    max-height: 90vh;
+    overflow: auto;
+    animation: acf-csb-scale-in 0.3s ease;
+}
+
+.acf-csb-nudge-modal-header {
+    padding: 24px 24px 0;
+    text-align: center;
+}
+
+.acf-csb-nudge-modal-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.acf-csb-nudge-modal-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #1e1e1e;
+}
+
+.acf-csb-nudge-modal-body {
+    padding: 20px 24px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.acf-csb-nudge-modal-footer {
+    padding: 0 24px 24px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.acf-csb-nudge-modal-btn {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    text-align: center;
+}
+
+.acf-csb-nudge-modal-btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+}
+
+.acf-csb-nudge-modal-btn-primary:hover {
+    opacity: 0.9;
+    color: #fff;
+}
+
+.acf-csb-nudge-modal-btn-secondary {
+    background: #f0f0f0;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.acf-csb-nudge-modal-btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+@keyframes acf-csb-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes acf-csb-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ================================================
+   툴팁
+   ================================================ */
+.acf-csb-nudge-tooltip {
+    position: absolute;
+    background: #1e1e1e;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 6px;
+    max-width: 280px;
+    z-index: 100002;
+    animation: acf-csb-fade-in 0.2s ease;
+}
+
+.acf-csb-nudge-tooltip::before {
+    content: '';
+    position: absolute;
+    border: 8px solid transparent;
+}
+
+.acf-csb-nudge-tooltip.bottom::before {
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: #1e1e1e;
+}
+
+.acf-csb-nudge-tooltip.top::before {
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: #1e1e1e;
+}
+
+.acf-csb-nudge-tooltip.left::before {
+    right: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: #1e1e1e;
+}
+
+.acf-csb-nudge-tooltip.right::before {
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: #1e1e1e;
+}
+
+.acf-csb-nudge-tooltip-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.acf-csb-nudge-tooltip-message {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.acf-csb-nudge-tooltip-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.acf-csb-nudge-tooltip-close:hover {
+    color: #fff;
+}
+
+/* ================================================
+   스포트라이트
+   ================================================ */
+.acf-csb-nudge-spotlight-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+.acf-csb-nudge-spotlight-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.acf-csb-nudge-spotlight-target {
+    position: relative;
+    z-index: 100000;
+    box-shadow: 0 0 0 4px #0073aa, 0 0 20px rgba(0, 115, 170, 0.5);
+    border-radius: 4px;
+    animation: acf-csb-pulse 2s infinite;
+}
+
+@keyframes acf-csb-pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 4px #0073aa, 0 0 20px rgba(0, 115, 170, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 0 8px #0073aa, 0 0 30px rgba(0, 115, 170, 0.7);
+    }
+}
+
+/* ================================================
+   인라인 메시지
+   ================================================ */
+.acf-csb-nudge-inline {
+    background: #f0f6fc;
+    border: 1px solid #c3d6e8;
+    border-left: 4px solid #0073aa;
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 15px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.acf-csb-nudge-inline.upgrade {
+    background: #fff8e5;
+    border-color: #f0c33c;
+    border-left-color: #dba617;
+}
+
+.acf-csb-nudge-inline-icon {
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.acf-csb-nudge-inline-content {
+    flex: 1;
+}
+
+.acf-csb-nudge-inline-title {
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: #1e1e1e;
+}
+
+.acf-csb-nudge-inline-message {
+    color: #555;
+    font-size: 13px;
+}
+
+.acf-csb-nudge-inline-cta {
+    margin-top: 8px;
+}
+
+.acf-csb-nudge-inline-cta a {
+    color: #0073aa;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.acf-csb-nudge-inline-cta a:hover {
+    text-decoration: underline;
+}
+
+/* ================================================
+   워크스루 (온보딩 가이드)
+   ================================================ */
+.acf-csb-nudge-walkthrough {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 360px;
+    z-index: 100001;
+    overflow: hidden;
+}
+
+.acf-csb-nudge-walkthrough-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 20px;
+}
+
+.acf-csb-nudge-walkthrough-progress {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.acf-csb-nudge-walkthrough-progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.acf-csb-nudge-walkthrough-progress-dot.active {
+    background: #fff;
+}
+
+.acf-csb-nudge-walkthrough-progress-dot.completed {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.acf-csb-nudge-walkthrough-title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.acf-csb-nudge-walkthrough-body {
+    padding: 20px;
+}
+
+.acf-csb-nudge-walkthrough-message {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.acf-csb-nudge-walkthrough-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+.acf-csb-nudge-walkthrough-skip {
+    background: none;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.acf-csb-nudge-walkthrough-skip:hover {
+    color: #666;
+}
+
+.acf-csb-nudge-walkthrough-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.acf-csb-nudge-walkthrough-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.acf-csb-nudge-walkthrough-btn-prev {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.acf-csb-nudge-walkthrough-btn-next {
+    background: #0073aa;
+    border: none;
+    color: #fff;
+}
+
+.acf-csb-nudge-walkthrough-btn-next:hover {
+    background: #005a87;
+}

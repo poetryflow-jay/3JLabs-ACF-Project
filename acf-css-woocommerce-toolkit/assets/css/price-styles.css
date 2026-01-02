@@ -1,0 +1,130 @@
+/**
+ * ACF CSS WooCommerce Toolkit - Price Styles
+ * 
+ * 가격 표시 스타일
+ *
+ * @package ACF_CSS_WooCommerce_Toolkit
+ * @version 1.0.0
+ */
+
+/* ================================================
+   가격 래퍼
+   ================================================ */
+.acf-wc-price-wrapper {
+    line-height: 1.5;
+}
+
+/* ================================================
+   할인 배지
+   ================================================ */
+.acf-wc-discount-badge,
+.realdeal-discount-badge {
+    display: inline-block !important;
+    padding: 6px 12px !important;
+    background-color: var(--acf-accent-red, #FF0033) !important;
+    color: white !important;
+    font-size: 0.9em !important;
+    font-weight: 700 !important;
+    border-radius: 4px !important;
+}
+
+/* 상품 목록에서의 할인 배지 위치 */
+.products .product .acf-wc-discount-badge,
+.products .product .realdeal-discount-badge,
+.products .product .onsale {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    z-index: 999 !important;
+}
+
+/* ================================================
+   가격 취소선 & 강조
+   ================================================ */
+.acf-wc-price-wrapper del,
+.realdeal-price-wrapper del,
+.price del {
+    opacity: 0.8;
+    font-size: 0.9em;
+    margin-right: 5px;
+}
+
+.acf-wc-price-wrapper ins,
+.realdeal-price-wrapper ins,
+.price ins {
+    font-weight: bold;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+/* ================================================
+   할부 가격
+   ================================================ */
+.acf-wc-installment-price,
+.realdeal-installment-price {
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 4px;
+    color: var(--acf-text-secondary, #666);
+}
+
+/* ================================================
+   절약 금액 표시
+   ================================================ */
+.acf-wc-discount-summary,
+.realdeal-discount-summary {
+    font-size: 14px;
+    font-weight: 500;
+    background-color: rgba(3, 131, 254, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin: 5px 0;
+    display: inline-block;
+    color: var(--acf-primary-color, #0383fe);
+}
+
+/* ================================================
+   상품 목록 디자인 개선
+   ================================================ */
+
+/* 상품 상세 정보 컨테이너 배경색: 목록에서만 투명 유지 */
+body:not(.single-product) .products .product .product-details,
+body:not(.single-product) .products .product .product-details.content-bg {
+    background-color: transparent !important;
+}
+
+/* 별점 정렬 수정: 목록에만 적용 */
+body:not(.single-product) .products .product .glsr {
+    text-align: left !important;
+    margin: 0 auto 0 0 !important;
+}
+
+/* 장바구니 버튼 수정: 목록에만 적용 */
+.products .product .add_to_cart_button {
+    background-color: var(--acf-accent-orange, #FF6400) !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 15px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease;
+}
+
+.products .product .add_to_cart_button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* 장바구니 버튼 내부 아이콘 색상도 흰색으로 통일 */
+.products .product .add_to_cart_button .kadence-svg-iconset svg {
+    fill: white !important;
+}
+
+/* ================================================
+   LearnDash 호환성
+   ================================================ */
+
+/* LearnDash 가격 숨김 로직 (상세 페이지에서만 작동) */
+.single-product.post-type-course .summary > .price:not(.acf-wc-price-wrapper):not(.realdeal-price-wrapper) {
+    display: none !important;
+}

@@ -1,0 +1,205 @@
+# Russian translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Russian <ru@3j-labs.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Центр стилей"
+
+msgid "관리자 센터"
+msgstr "Центр администратора"
+
+msgid "실험실"
+msgstr "Лаборатория"
+
+msgid "설정"
+msgstr "Настройки"
+
+msgid "저장"
+msgstr "Сохранить"
+
+msgid "취소"
+msgstr "Отмена"
+
+msgid "적용"
+msgstr "Применить"
+
+msgid "초기화"
+msgstr "Сбросить"
+
+msgid "내보내기"
+msgstr "Экспорт"
+
+msgid "불러오기"
+msgstr "Импорт"
+
+msgid "다운로드"
+msgstr "Скачать"
+
+msgid "업로드"
+msgstr "Загрузить"
+
+# Colors
+msgid "색상"
+msgstr "Цвета"
+
+msgid "기본 색상"
+msgstr "Основной цвет"
+
+msgid "보조 색상"
+msgstr "Дополнительный цвет"
+
+msgid "강조 색상"
+msgstr "Акцентный цвет"
+
+msgid "배경 색상"
+msgstr "Цвет фона"
+
+msgid "텍스트 색상"
+msgstr "Цвет текста"
+
+msgid "브랜드 팔레트"
+msgstr "Палитра бренда"
+
+msgid "시스템 팔레트"
+msgstr "Системная палитра"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Типографика"
+
+msgid "폰트 패밀리"
+msgstr "Семейство шрифтов"
+
+msgid "폰트 크기"
+msgstr "Размер шрифта"
+
+msgid "폰트 굵기"
+msgstr "Насыщенность шрифта"
+
+msgid "행간"
+msgstr "Межстрочный интервал"
+
+msgid "자간"
+msgstr "Межбуквенный интервал"
+
+msgid "제목 1"
+msgstr "Заголовок 1"
+
+msgid "제목 2"
+msgstr "Заголовок 2"
+
+msgid "제목 3"
+msgstr "Заголовок 3"
+
+msgid "본문"
+msgstr "Параграф"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Десктоп"
+
+msgid "랩톱"
+msgstr "Ноутбук"
+
+msgid "태블릿"
+msgstr "Планшет"
+
+msgid "모바일"
+msgstr "Мобильный"
+
+# Export
+msgid "PDF (인쇄)"
+msgstr "PDF (Печать)"
+
+msgid "PNG 이미지"
+msgstr "Изображение PNG"
+
+msgid "HTML 파일"
+msgstr "Файл HTML"
+
+msgid "CSS 변수"
+msgstr "CSS переменные"
+
+msgid "JSON 토큰"
+msgstr "JSON токены"
+
+msgid "ZIP (전체)"
+msgstr "ZIP (Всё)"
+
+msgid "내보내는 중..."
+msgstr "Экспорт..."
+
+msgid "내보내기 완료!"
+msgstr "Экспорт завершён!"
+
+msgid "내보내기 실패"
+msgstr "Ошибка экспорта"
+
+# Figma
+msgid "Figma 연동"
+msgstr "Интеграция с Figma"
+
+msgid "연결 테스트"
+msgstr "Тест соединения"
+
+msgid "연결 성공!"
+msgstr "Соединение успешно!"
+
+msgid "연결 실패"
+msgstr "Ошибка соединения"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Настройки сохранены."
+
+msgid "권한이 없습니다."
+msgstr "Доступ запрещён."
+
+msgid "오류가 발생했습니다."
+msgstr "Произошла ошибка."
+
+msgid "정말 실행하시겠습니까?"
+msgstr "Вы уверены?"
+
+msgid "성공"
+msgstr "Успех"
+
+msgid "오류"
+msgstr "Ошибка"
+
+msgid "경고"
+msgstr "Предупреждение"
+
+msgid "정보"
+msgstr "Информация"
+
+msgid "백업 관리"
+msgstr "Управление резервными копиями"
+
+msgid "도구"
+msgstr "Инструменты"
+
+msgid "업데이트"
+msgstr "Обновления"
+
+msgid "라이센스"
+msgstr "Лицензия"
+
+msgid "시스템 상태"
+msgstr "Состояние системы"

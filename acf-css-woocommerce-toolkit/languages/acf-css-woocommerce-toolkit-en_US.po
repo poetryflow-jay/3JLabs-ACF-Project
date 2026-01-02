@@ -1,0 +1,326 @@
+# Korean translation for ACF CSS WooCommerce Toolkit
+# Copyright (C) 2026 3J Labs (제이x제니x제이슨 연구소)
+# This file is distributed under the same license as the ACF CSS WooCommerce Toolkit plugin.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS WooCommerce Toolkit 1.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-02T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-01-02 00:00+0900\n"
+"Last-Translator: 3J Labs <hello@3j-labs.com>\n"
+"Language-Team: Korean <ko@li.org>\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0\n"
+
+#. Plugin Name
+msgid "ACF CSS WooCommerce Toolkit - Advanced Commerce Styling"
+msgstr "ACF CSS 우커머스 툴킷 - 고급 쇼핑몰 스타일링"
+
+#. Plugin Description
+msgid "ACF CSS 플러그인의 WooCommerce 특화 확장입니다. 가격 표시 강화, 할인 계산기, 할부 표시, 장바구니 UI 개선 등 우커머스 스타일링과 기능을 제공합니다. ACF CSS Pro 버전 이상의 사용자를 위한 프리미엄 기능입니다."
+msgstr "ACF CSS 플러그인의 WooCommerce 특화 확장입니다. 가격 표시 강화, 할인 계산기, 할부 표시, 장바구니 UI 개선 등 우커머스 스타일링과 기능을 제공합니다. ACF CSS Pro 버전 이상의 사용자를 위한 프리미엄 기능입니다."
+
+#: includes/class-product-qa.php
+msgid "상품 Q&A"
+msgstr "상품 Q&A"
+
+#: includes/class-product-qa.php
+msgid "질문"
+msgstr "질문"
+
+#: includes/class-product-qa.php
+msgid "새 질문 추가"
+msgstr "새 질문 추가"
+
+#: includes/class-product-qa.php
+msgid "질문 편집"
+msgstr "질문 편집"
+
+#: includes/class-product-qa.php
+msgid "새 질문"
+msgstr "새 질문"
+
+#: includes/class-product-qa.php
+msgid "질문 보기"
+msgstr "질문 보기"
+
+#: includes/class-product-qa.php
+msgid "질문 검색"
+msgstr "질문 검색"
+
+#: includes/class-product-qa.php
+msgid "질문을 찾을 수 없습니다"
+msgstr "질문을 찾을 수 없습니다"
+
+#: includes/class-product-qa.php
+msgid "휴지통에 질문이 없습니다"
+msgstr "휴지통에 질문이 없습니다"
+
+#: includes/class-product-qa.php
+msgid "답변완료"
+msgstr "답변완료"
+
+#: includes/class-product-qa.php
+msgid "답변대기"
+msgstr "답변대기"
+
+#: includes/class-product-qa.php
+msgid "Q&A (%d)"
+msgstr "Q&A (%d)"
+
+#: includes/class-product-qa.php
+msgid "질문하기"
+msgstr "질문하기"
+
+#: includes/class-product-qa.php
+msgid "질문 내용"
+msgstr "질문 내용"
+
+#: includes/class-product-qa.php
+msgid "상품에 대해 궁금한 점을 작성해주세요."
+msgstr "상품에 대해 궁금한 점을 작성해주세요."
+
+#: includes/class-product-qa.php
+msgid "이름"
+msgstr "이름"
+
+#: includes/class-product-qa.php
+msgid "이메일"
+msgstr "이메일"
+
+#: includes/class-product-qa.php
+msgid "답변 알림을 받을 이메일"
+msgstr "답변 알림을 받을 이메일"
+
+#: includes/class-product-qa.php
+msgid "비공개 질문 (판매자만 볼 수 있음)"
+msgstr "비공개 질문 (판매자만 볼 수 있음)"
+
+#: includes/class-product-qa.php
+msgid "질문 등록"
+msgstr "질문 등록"
+
+#: includes/class-product-qa.php
+msgid "질문을 작성하려면 로그인이 필요합니다."
+msgstr "질문을 작성하려면 로그인이 필요합니다."
+
+#: includes/class-product-qa.php
+msgid "로그인"
+msgstr "로그인"
+
+#: includes/class-product-qa.php
+msgid "비공개"
+msgstr "비공개"
+
+#: includes/class-product-qa.php
+msgid "도움이 됐어요"
+msgstr "도움이 됐어요"
+
+#: includes/class-product-qa.php
+msgid "아직 등록된 질문이 없습니다."
+msgstr "아직 등록된 질문이 없습니다."
+
+#: includes/class-product-qa.php
+msgid "첫 번째 질문을 등록해보세요!"
+msgstr "첫 번째 질문을 등록해보세요!"
+
+#: includes/class-product-qa.php
+msgid "익명"
+msgstr "익명"
+
+#: includes/class-product-qa.php
+msgid "필수 항목을 입력해주세요."
+msgstr "필수 항목을 입력해주세요."
+
+#: includes/class-product-qa.php
+msgid "상품을 찾을 수 없습니다."
+msgstr "상품을 찾을 수 없습니다."
+
+#: includes/class-product-qa.php
+msgid "잠시 후 다시 시도해주세요."
+msgstr "잠시 후 다시 시도해주세요."
+
+#: includes/class-product-qa.php
+msgid "질문이 등록되었습니다."
+msgstr "질문이 등록되었습니다."
+
+#: includes/class-product-qa.php
+msgid "권한이 없습니다."
+msgstr "권한이 없습니다."
+
+#: includes/class-product-qa.php
+msgid "답변이 등록되었습니다."
+msgstr "답변이 등록되었습니다."
+
+#: includes/class-product-qa.php
+msgid "이미 평가하셨습니다."
+msgstr "이미 평가하셨습니다."
+
+#: includes/class-product-qa.php
+msgid "[%s] 새로운 상품 Q&A 질문"
+msgstr "[%s] 새로운 상품 Q&A 질문"
+
+#: includes/class-product-qa.php
+msgid "새로운 질문이 등록되었습니다.\n\n상품: %s\n질문: %s\n\n답변하기: %s"
+msgstr "새로운 질문이 등록되었습니다.\n\n상품: %s\n질문: %s\n\n답변하기: %s"
+
+#: includes/class-product-qa.php
+msgid "[%s] 질문에 답변이 등록되었습니다"
+msgstr "[%s] 질문에 답변이 등록되었습니다"
+
+#: includes/class-product-qa.php
+msgid "안녕하세요,\n\n%s 상품에 대한 질문에 답변이 등록되었습니다.\n\n질문: %s\n\n답변: %s\n\n상품 보기: %s"
+msgstr "안녕하세요,\n\n%s 상품에 대한 질문에 답변이 등록되었습니다.\n\n질문: %s\n\n답변: %s\n\n상품 보기: %s"
+
+#: includes/class-product-qa.php
+msgid "Q&A 상세 정보"
+msgstr "Q&A 상세 정보"
+
+#: includes/class-product-qa.php
+msgid "답변 작성"
+msgstr "답변 작성"
+
+#: includes/class-product-qa.php
+msgid "상품:"
+msgstr "상품:"
+
+#: includes/class-product-qa.php
+msgid "삭제된 상품"
+msgstr "삭제된 상품"
+
+#: includes/class-product-qa.php
+msgid "공개 설정:"
+msgstr "공개 설정:"
+
+#: includes/class-product-qa.php
+msgid "🔒 비공개"
+msgstr "🔒 비공개"
+
+#: includes/class-product-qa.php
+msgid "🌐 공개"
+msgstr "🌐 공개"
+
+#: includes/class-product-qa.php
+msgid "마지막 답변: %s"
+msgstr "마지막 답변: %s"
+
+#: acf-css-woocommerce-toolkit.php
+msgid "을 사용하려면 WooCommerce가 설치되고 활성화되어야 합니다."
+msgstr "을 사용하려면 WooCommerce가 설치되고 활성화되어야 합니다."
+
+#: acf-css-woocommerce-toolkit.php
+msgid "ACF CSS 메인 플러그인과 함께 사용하면 스타일 변수를 활용한 더욱 강력한 기능을 사용할 수 있습니다."
+msgstr "ACF CSS 메인 플러그인과 함께 사용하면 스타일 변수를 활용한 더욱 강력한 기능을 사용할 수 있습니다."
+
+#: assets/js/discount-calculator.js
+msgid "계산 중..."
+msgstr "계산 중..."
+
+#: assets/js/discount-calculator.js
+msgid "할인"
+msgstr "할인"
+
+#: assets/js/discount-calculator.js
+msgid "절약"
+msgstr "절약"
+
+#: assets/js/discount-calculator.js
+msgid "월"
+msgstr "월"
+
+#: assets/js/discount-calculator.js
+msgid "개월"
+msgstr "개월"
+
+#: assets/js/discount-calculator.js
+msgid "정가"
+msgstr "정가"
+
+#: assets/js/discount-calculator.js
+msgid "할인가"
+msgstr "할인가"
+
+#: assets/js/product-qa.js
+msgid "등록 중..."
+msgstr "등록 중..."
+
+#: assets/js/product-qa.js
+msgid "질문이 등록되었습니다. 빠른 시일 내에 답변드리겠습니다."
+msgstr "질문이 등록되었습니다. 빠른 시일 내에 답변드리겠습니다."
+
+#: assets/js/product-qa.js
+msgid "오류가 발생했습니다. 다시 시도해주세요."
+msgstr "오류가 발생했습니다. 다시 시도해주세요."
+
+#: assets/js/product-qa.js
+msgid "감사합니다!"
+msgstr "감사합니다!"
+
+#: includes/class-price-engine.php
+msgid "할부 개월 수"
+msgstr "할부 개월 수"
+
+#: includes/class-price-engine.php
+msgid "일시불"
+msgstr "일시불"
+
+#: includes/class-price-engine.php
+msgid "3개월"
+msgstr "3개월"
+
+#: includes/class-price-engine.php
+msgid "6개월"
+msgstr "6개월"
+
+#: includes/class-price-engine.php
+msgid "12개월"
+msgstr "12개월"
+
+#: includes/class-price-engine.php
+msgid "24개월"
+msgstr "24개월"
+
+#: includes/class-price-engine.php
+msgid "정가와 할인가 모두에 적용됩니다"
+msgstr "정가와 할인가 모두에 적용됩니다"
+
+#: includes/class-discount-calculator.php
+msgid "할인 계산기"
+msgstr "할인 계산기"
+
+#: includes/class-discount-calculator.php
+msgid "할인 적용:"
+msgstr "할인 적용:"
+
+#: includes/class-discount-calculator.php
+msgid "% 적용"
+msgstr "% 적용"
+
+#: includes/class-discount-calculator.php
+msgid "금액 차감"
+msgstr "금액 차감"
+
+#: includes/class-discount-calculator.php
+msgid "계산 결과:"
+msgstr "계산 결과:"
+
+#: includes/class-quick-edit-fields.php
+msgid "가격 상세 설정"
+msgstr "가격 상세 설정"
+
+#: includes/class-quick-edit-fields.php
+msgid "할인 가격"
+msgstr "할인 가격"
+
+#: includes/class-quick-edit-fields.php
+msgid "개월 수 (숫자만)"
+msgstr "개월 수 (숫자만)"
+
+#: includes/class-shortcodes.php
+msgid "% OFF"
+msgstr "% 할인"

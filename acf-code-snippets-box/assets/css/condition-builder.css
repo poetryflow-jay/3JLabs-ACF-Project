@@ -1,0 +1,418 @@
+/**
+ * ACF Code Snippets Box - Condition Builder UI Styles
+ *
+ * @package ACF_Code_Snippets_Box
+ */
+
+/* ================================================
+   조건 빌더 컨테이너
+   ================================================ */
+.acf-csb-condition-builder {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+}
+
+.acf-csb-condition-builder-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.acf-csb-condition-builder-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #23282d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.acf-csb-condition-builder-header h3 .dashicons {
+    color: #0073aa;
+}
+
+.acf-csb-condition-builder-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ================================================
+   조건 그룹
+   ================================================ */
+.acf-csb-condition-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.acf-csb-condition-group {
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 15px;
+    position: relative;
+}
+
+.acf-csb-condition-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.acf-csb-condition-group-title {
+    font-weight: 600;
+    color: #444;
+    font-size: 13px;
+}
+
+.acf-csb-condition-group-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.acf-csb-condition-group-actions button {
+    background: transparent;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+
+.acf-csb-condition-group-actions button:hover {
+    color: #d63638;
+}
+
+/* ================================================
+   개별 조건
+   ================================================ */
+.acf-csb-conditions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.acf-csb-condition-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.acf-csb-condition-row select,
+.acf-csb-condition-row input {
+    padding: 6px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.acf-csb-condition-row select:focus,
+.acf-csb-condition-row input:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+.acf-csb-condition-type {
+    min-width: 180px;
+}
+
+.acf-csb-condition-operator {
+    min-width: 100px;
+}
+
+.acf-csb-condition-value {
+    flex: 1;
+    min-width: 150px;
+}
+
+.acf-csb-condition-remove {
+    background: #f1f1f1;
+    border: 1px solid #ddd;
+    color: #d63638;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.acf-csb-condition-remove:hover {
+    background: #d63638;
+    color: #fff;
+    border-color: #d63638;
+}
+
+/* ================================================
+   AND/OR 구분선
+   ================================================ */
+.acf-csb-condition-logic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+.acf-csb-condition-logic-label {
+    background: #e1e1e1;
+    color: #666;
+    padding: 2px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.acf-csb-condition-logic-label.and {
+    background: #d4edda;
+    color: #155724;
+}
+
+.acf-csb-condition-logic-label.or {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* ================================================
+   버튼들
+   ================================================ */
+.acf-csb-condition-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.acf-csb-add-condition,
+.acf-csb-add-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.acf-csb-add-condition {
+    background: #f0f6fc;
+    border: 1px solid #0073aa;
+    color: #0073aa;
+}
+
+.acf-csb-add-condition:hover {
+    background: #0073aa;
+    color: #fff;
+}
+
+.acf-csb-add-group {
+    background: #fff;
+    border: 1px dashed #999;
+    color: #666;
+}
+
+.acf-csb-add-group:hover {
+    border-color: #0073aa;
+    color: #0073aa;
+}
+
+/* ================================================
+   Pro 잠금 표시
+   ================================================ */
+.acf-csb-condition-locked {
+    position: relative;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.acf-csb-condition-locked::after {
+    content: '🔒';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.acf-csb-pro-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 5px;
+    text-transform: uppercase;
+}
+
+/* ================================================
+   카테고리 그룹
+   ================================================ */
+.acf-csb-condition-category {
+    margin-bottom: 15px;
+}
+
+.acf-csb-condition-category-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+/* ================================================
+   조건 타입 선택 드롭다운
+   ================================================ */
+.acf-csb-condition-type-dropdown {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.acf-csb-condition-type-dropdown-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.acf-csb-condition-type-dropdown-item:hover {
+    background: #f0f6fc;
+}
+
+.acf-csb-condition-type-dropdown-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.acf-csb-condition-type-dropdown-item .name {
+    font-weight: 500;
+    color: #23282d;
+}
+
+.acf-csb-condition-type-dropdown-item .description {
+    font-size: 12px;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* ================================================
+   미리보기
+   ================================================ */
+.acf-csb-condition-preview {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f0f6fc;
+    border-radius: 6px;
+    border-left: 4px solid #0073aa;
+}
+
+.acf-csb-condition-preview-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #0073aa;
+}
+
+.acf-csb-condition-preview-content {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.acf-csb-condition-preview-code {
+    font-family: monospace;
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+/* ================================================
+   테스트 결과
+   ================================================ */
+.acf-csb-condition-test {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.acf-csb-condition-test-btn {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.acf-csb-condition-test-btn:hover {
+    background: #e0e0e0;
+}
+
+.acf-csb-condition-test-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.acf-csb-condition-test-result.pass {
+    background: #d4edda;
+    color: #155724;
+}
+
+.acf-csb-condition-test-result.fail {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ================================================
+   반응형
+   ================================================ */
+@media (max-width: 782px) {
+    .acf-csb-condition-row {
+        flex-wrap: wrap;
+    }
+
+    .acf-csb-condition-type,
+    .acf-csb-condition-operator,
+    .acf-csb-condition-value {
+        min-width: 100%;
+    }
+
+    .acf-csb-condition-actions {
+        flex-wrap: wrap;
+    }
+}
+
+/* ================================================
+   다크 모드 지원 (추후)
+   ================================================ */
+@media (prefers-color-scheme: dark) {
+    /* 다크 모드 스타일 예약 */
+}

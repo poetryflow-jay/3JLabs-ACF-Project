@@ -1,0 +1,343 @@
+/**
+ * ACF CSS WooCommerce Toolkit - Product Q&A Styles
+ *
+ * @package ACF_CSS_WooCommerce_Toolkit
+ */
+
+/* ================================================
+   Q&A 컨테이너
+   ================================================ */
+.acf-wc-product-qa {
+    padding: 20px 0;
+}
+
+.acf-wc-product-qa h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+/* ================================================
+   질문 작성 폼
+   ================================================ */
+.acf-wc-qa-form-wrapper {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.acf-wc-qa-form-wrapper h3 {
+    font-size: 1.2em;
+    margin: 0 0 20px;
+}
+
+.acf-wc-qa-form .form-row {
+    margin-bottom: 15px;
+}
+
+.acf-wc-qa-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.acf-wc-qa-form label .required {
+    color: #e74c3c;
+}
+
+.acf-wc-qa-form textarea,
+.acf-wc-qa-form input[type="text"],
+.acf-wc-qa-form input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.acf-wc-qa-form textarea:focus,
+.acf-wc-qa-form input:focus {
+    border-color: #0073aa;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 115, 170, 0.1);
+}
+
+.acf-wc-qa-form .form-row-wide {
+    display: flex;
+    gap: 15px;
+}
+
+.acf-wc-qa-form .form-row-half {
+    flex: 1;
+}
+
+.acf-wc-qa-form button[type="submit"] {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.acf-wc-qa-form button[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+.acf-wc-qa-form button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ================================================
+   로그인 안내
+   ================================================ */
+.acf-wc-qa-login-notice {
+    background: #fff3cd;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.acf-wc-qa-login-notice a {
+    color: #0073aa;
+    font-weight: 600;
+}
+
+/* ================================================
+   질문 목록
+   ================================================ */
+.acf-wc-qa-list {
+    margin-top: 20px;
+}
+
+.acf-wc-qa-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.acf-wc-qa-item.answered {
+    border-color: #28a745;
+}
+
+.acf-wc-qa-item.private {
+    border-style: dashed;
+}
+
+/* 질문 헤더 */
+.qa-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.qa-status .status-answered {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.qa-status .status-waiting {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+.qa-private {
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.qa-date {
+    margin-left: auto;
+    color: #999;
+}
+
+/* 질문/답변 내용 */
+.qa-question,
+.qa-answer {
+    padding: 15px 20px;
+}
+
+.qa-answer {
+    background: #f0fff4;
+    border-top: 1px solid #c3e6cb;
+}
+
+.qa-content {
+    display: flex;
+    gap: 15px;
+}
+
+.qa-label {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.qa-question .qa-label {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.qa-answer .qa-label {
+    background: #28a745;
+    color: #fff;
+}
+
+.qa-text {
+    flex: 1;
+    line-height: 1.6;
+}
+
+.qa-text p:last-child {
+    margin-bottom: 0;
+}
+
+.qa-author {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: #888;
+}
+
+/* 도움이 됨 버튼 */
+.qa-helpful {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+
+.qa-helpful-btn {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.qa-helpful-btn:hover {
+    background: #f0f0f0;
+    border-color: #ccc;
+}
+
+.qa-helpful-btn.clicked {
+    background: #28a745;
+    color: #fff;
+    border-color: #28a745;
+}
+
+.helpful-count {
+    color: #666;
+    margin-left: 5px;
+}
+
+/* ================================================
+   빈 상태
+   ================================================ */
+.acf-wc-qa-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+}
+
+.acf-wc-qa-empty p:first-child {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+/* ================================================
+   페이지네이션
+   ================================================ */
+.acf-wc-qa-pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.acf-wc-qa-pagination .page-numbers {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 3px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+}
+
+.acf-wc-qa-pagination .page-numbers.current {
+    background: #0073aa;
+    color: #fff;
+    border-color: #0073aa;
+}
+
+.acf-wc-qa-pagination .page-numbers:hover:not(.current) {
+    background: #f0f0f0;
+}
+
+/* ================================================
+   알림 메시지
+   ================================================ */
+.acf-wc-qa-message {
+    padding: 12px 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.acf-wc-qa-message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.acf-wc-qa-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================================================
+   반응형
+   ================================================ */
+@media (max-width: 768px) {
+    .acf-wc-qa-form .form-row-wide {
+        flex-direction: column;
+    }
+
+    .qa-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .qa-label {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,1372 @@
+/**
+ * J&J Admin Center Styles - v8.3.2
+ * 
+ * 탭 기반 인터페이스와 2패널 레이아웃 구현
+ * - 탭 네비게이션 스타일
+ * - 2패널 레이아웃 (왼쪽: 메뉴 목록, 오른쪽: 상세 설정)
+ * - 사이드바 액션 버튼 스타일
+ * - 반응형 디자인 (모바일/태블릿 최적화)
+ * - 색상 입력 필드 및 미리보기 스타일
+ * - [v3.8.0 신규] 라이센스 관리 스타일
+ * - [v5.0.3] 애니메이션 개선 및 부드러운 전환 효과
+ * - [v6.3.0 신규] 왼쪽 고정 사이드바 네비게이션 추가
+ * - [v8.3.2] 폼 UX 개선 스타일
+ * 
+ * @since 3.7.0
+ * @updated 8.3.2
+ */
+
+/* 컨테이너 */
+.jj-admin-center-wrap {
+    margin: 20px auto 0;
+    max-width: 1600px;
+    background: #fff;
+    position: relative;
+}
+
+/* [v6.3.0] 왼쪽 고정 사이드바 네비게이션 */
+.jj-admin-center-sidebar {
+    position: fixed;
+    left: 160px; /* WordPress 관리자 사이드바 너비 */
+    top: 32px; /* WordPress 상단바 높이 */
+    width: 240px;
+    height: calc(100vh - 32px);
+    background: #f6f7f7;
+    border-right: 1px solid #c3c4c7;
+    overflow-y: auto;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+/* [Phase 10.1] 모바일 사이드바 오버레이 */
+.jj-admin-center-sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 100000;
+}
+
+.jj-admin-center-sidebar-overlay.is-open {
+    display: block;
+}
+
+/* WordPress 관리자 사이드바 접힘 상태 대응 */
+.folded .jj-admin-center-sidebar {
+    left: 36px;
+}
+
+/* 모바일/태블릿에서 사이드바 숨김 */
+@media screen and (max-width: 960px) {
+    .jj-admin-center-sidebar {
+        transform: translateX(-100%);
+        left: 0;
+        top: 0;
+        height: 100vh;
+        z-index: 100001;
+    }
+    
+    .jj-admin-center-sidebar.jj-sidebar-open {
+        transform: translateX(0);
+    }
+
+    body.admin-bar .jj-admin-center-sidebar {
+        top: 32px;
+        height: calc(100vh - 32px);
+    }
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar .jj-admin-center-sidebar {
+        top: 46px;
+        height: calc(100vh - 46px);
+    }
+}
+
+.jj-admin-center-sidebar-header {
+    padding: 15px 20px;
+    background: #fff;
+    border-bottom: 1px solid #c3c4c7;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.jj-admin-center-sidebar-header h2 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.jj-sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: #50575e;
+}
+
+@media screen and (max-width: 960px) {
+    .jj-sidebar-toggle {
+        display: block;
+    }
+}
+
+.jj-admin-center-sidebar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+}
+
+.jj-admin-center-sidebar-nav li {
+    margin: 0;
+    padding: 0;
+}
+
+.jj-admin-center-sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #50575e;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.jj-admin-center-sidebar-nav a:hover {
+    background: #fff;
+    color: #2271b1;
+    border-left-color: #2271b1;
+}
+
+.jj-admin-center-sidebar-nav a.active {
+    background: #fff;
+    color: #2271b1;
+    border-left-color: #2271b1;
+    font-weight: 600;
+}
+
+.jj-admin-center-sidebar-nav .dashicons {
+    margin-right: 10px;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* 사이드바가 있을 때 메인 컨텐츠 오프셋 */
+.jj-admin-center-wrap.jj-has-sidebar {
+    margin-left: 240px;
+}
+
+@media screen and (max-width: 960px) {
+    .jj-admin-center-wrap.jj-has-sidebar {
+        margin-left: 0;
+    }
+}
+
+/* 헤더 */
+.jj-admin-center-header {
+    background: #fff;
+    border-bottom: 1px solid #c3c4c7;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.jj-admin-center-header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* 탭 네비게이션 */
+.jj-admin-center-tabs {
+    display: flex;
+    background: #f6f7f7;
+    border-bottom: 1px solid #c3c4c7;
+    padding: 0 20px;
+    margin: 0;
+}
+
+.jj-admin-center-tabs li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jj-admin-center-tabs li a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #50575e;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.jj-admin-center-tabs li a:hover {
+    color: #2271b1;
+    background: #fff;
+}
+
+.jj-admin-center-tabs li.active a {
+    color: #2271b1;
+    border-bottom-color: #2271b1;
+    background: #fff;
+}
+
+/* 탭 컨텐츠 */
+.jj-admin-center-tab-content {
+    display: none;
+    padding: 25px;
+    position: relative;
+}
+
+.jj-admin-center-tab-content.active {
+    display: block;
+}
+
+/* 2패널 레이아웃 (Admin Menu, Meta Boxes 등) */
+.jj-admin-center-2panel {
+    display: grid;
+    grid-template-columns: 350px 1fr 220px;
+    gap: 25px;
+    height: calc(100vh - 250px);
+    min-height: 600px;
+    position: relative;
+}
+
+/* 왼쪽 패널: 메뉴 목록 */
+.jj-admin-center-left-panel {
+    background: #f9f9f9;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.jj-admin-center-left-panel h3 {
+    margin: 0 0 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d2327;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.jj-admin-center-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jj-admin-center-menu-item {
+    padding: 10px 12px;
+    margin-bottom: 5px;
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.jj-admin-center-menu-item.ui-sortable-helper {
+    cursor: move !important;
+    z-index: 99999 !important;
+}
+
+.jj-admin-center-menu-item.ui-sortable-helper * {
+    pointer-events: none;
+}
+
+.jj-admin-center-menu-item.jj-dragging {
+    opacity: 0.8;
+}
+
+.jj-admin-center-menu-item.jj-dragging * {
+    pointer-events: none;
+}
+
+.jj-admin-center-menu-item:hover {
+    border-color: #2271b1;
+    background: #f0f6fc;
+}
+
+.jj-admin-center-menu-item.active {
+    border-color: #2271b1;
+    background: #e8f4f8;
+    font-weight: 600;
+}
+
+.jj-admin-center-menu-item-title {
+    flex: 1;
+    font-size: 13px;
+    color: #1d2327;
+}
+
+.jj-admin-center-menu-item-badge {
+    font-size: 11px;
+    color: #646970;
+    background: #f0f0f1;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-left: 8px;
+}
+
+.jj-admin-center-menu-item.active .jj-admin-center-menu-item-badge {
+    background: #2271b1;
+    color: #fff;
+}
+
+/* 오른쪽 패널: 상세 설정 */
+.jj-admin-center-right-panel {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    overflow-y: auto;
+    padding: 25px;
+}
+
+.jj-admin-center-right-panel h3 {
+    margin: 0 0 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1d2327;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #dcdcde;
+}
+
+.jj-admin-center-right-panel .description {
+    margin: 0 0 20px;
+    color: #646970;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* [v3.7.0] 메뉴 아이콘 미리보기 스타일 */
+.jj-menu-icon-preview {
+    margin-top: 8px;
+    padding: 8px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    display: inline-block;
+    min-width: 40px;
+    min-height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 3px;
+}
+
+.jj-menu-icon-preview .dashicons,
+.jj-menu-icon-preview img {
+    vertical-align: middle;
+}
+
+.jj-menu-icon-preview img {
+    max-width: 24px;
+    max-height: 24px;
+}
+
+/* 서브메뉴 편집 영역 스타일 */
+.jj-admin-center-item-details table table {
+    margin: 0;
+    background: transparent;
+}
+
+.jj-admin-center-item-details tr[colspan="2"] td {
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.jj-admin-center-item-details tr[colspan="2"] td h5 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* 사이드바 (오른쪽) */
+.jj-admin-center-action-sidebar {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 200px;
+    background: #f9f9f9;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 20px;
+    z-index: 100;
+}
+
+.jj-admin-center-action-sidebar h4 {
+    margin: 0 0 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d2327;
+}
+
+.jj-admin-center-sidebar-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.jj-admin-center-sidebar-actions .button {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+.jj-admin-center-sidebar-actions .button-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+    font-weight: 600;
+}
+
+.jj-admin-center-sidebar-actions .button-secondary {
+    background: #f6f7f7;
+    border-color: #dcdcde;
+    color: #50575e;
+}
+
+/* General 탭 (단일 패널) */
+.jj-admin-center-general-form {
+    max-width: 800px;
+}
+
+.jj-admin-center-general-form .form-table {
+    margin-top: 20px;
+}
+
+.jj-admin-center-general-form .form-table th {
+    width: 200px;
+    font-weight: 600;
+}
+
+/* 테이블 스타일 개선 */
+.jj-admin-center-form-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.jj-admin-center-form-table thead th {
+    background: #f6f7f7;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1d2327;
+    border-bottom: 2px solid #dcdcde;
+}
+
+.jj-admin-center-form-table tbody td,
+.jj-admin-center-form-table tbody th {
+    padding: 12px;
+    border-bottom: 1px solid #dcdcde;
+    vertical-align: middle;
+}
+
+.jj-admin-center-form-table tbody tr:hover {
+    background: #f9f9f9;
+}
+
+/* 반응형 */
+@media screen and (max-width: 1400px) {
+    .jj-admin-center-2panel {
+        grid-template-columns: 300px 1fr;
+    }
+
+    .jj-admin-center-action-sidebar {
+        position: relative;
+        top: auto;
+        right: auto;
+        width: 100%;
+        margin-top: 25px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .jj-admin-center-2panel {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .jj-admin-center-left-panel {
+        max-height: 300px;
+    }
+}
+
+/* 로딩 상태 */
+.jj-admin-center-loading {
+    text-align: center;
+    padding: 40px;
+    color: #646970;
+}
+
+.jj-admin-center-loading .spinner {
+    float: none;
+    margin: 0 auto;
+}
+
+/* 빈 상태 */
+.jj-admin-center-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #646970;
+}
+
+.jj-admin-center-empty-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.jj-admin-center-empty-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1d2327;
+}
+
+.jj-admin-center-empty-desc {
+    font-size: 13px;
+    color: #646970;
+}
+
+/* 색상 입력 필드 */
+.jj-admin-center-color-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.jj-admin-center-color-input input[type="text"] {
+    width: 100px;
+}
+
+.jj-admin-center-color-preview {
+    width: 40px;
+    height: 30px;
+    border: 1px solid #dcdcde;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.jj-admin-center-color-preview:hover {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.2);
+}
+
+/* [v6.3.0] 색상 히스토리 */
+.jj-color-history-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.jj-color-history-chip {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #c3c4c7;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.jj-color-history-chip:hover {
+    border-color: #2271b1;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+}
+
+.jj-color-history-chip.active {
+    border-color: #2271b1;
+    border-width: 3px;
+    box-shadow: 0 0 0 2px rgba(34, 113, 177, 0.2);
+}
+
+.jj-color-history-chip[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1d2327;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    white-space: nowrap;
+    margin-bottom: 5px;
+    z-index: 1000;
+}
+
+.jj-color-history-chip[title]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: #1d2327;
+    margin-bottom: 1px;
+    z-index: 1000;
+}
+
+/* [v6.3.0] 변경사항 미리보기 모달 */
+.jj-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.jj-modal-content {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.jj-modal-header {
+    padding: 20px 25px;
+    border-bottom: 1px solid #c3c4c7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.jj-modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.jj-modal-close {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: #50575e;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.jj-modal-close:hover {
+    color: #1d2327;
+}
+
+.jj-modal-body {
+    padding: 25px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.jj-changes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.jj-change-item {
+    padding: 15px;
+    background: #f6f7f7;
+    border-left: 4px solid #2271b1;
+    border-radius: 4px;
+}
+
+.jj-change-item-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1d2327;
+}
+
+.jj-change-item-detail {
+    font-size: 13px;
+    color: #646970;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.jj-change-item-detail strong {
+    color: #1d2327;
+}
+
+.jj-change-old-value {
+    color: #d63638;
+    text-decoration: line-through;
+}
+
+.jj-change-new-value {
+    color: #00a32a;
+    font-weight: 600;
+}
+
+.jj-modal-footer {
+    padding: 20px 25px;
+    border-top: 1px solid #c3c4c7;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* [v6.3.0] 모바일 최적화 강화 */
+@media screen and (max-width: 960px) {
+    .jj-admin-center-wrap {
+        margin: 10px 0;
+        padding: 0 10px;
+    }
+    
+    .jj-admin-center-header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .jj-admin-center-header h1 {
+        font-size: 20px;
+    }
+    
+    .jj-admin-center-tabs {
+        flex-wrap: wrap;
+        padding: 0 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .jj-admin-center-tabs li a {
+        padding: 10px 15px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    
+    .jj-admin-center-tab-content {
+        padding: 15px;
+    }
+    
+    .jj-admin-center-2panel {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        height: auto;
+        min-height: auto;
+    }
+    
+    .jj-admin-center-left-panel,
+    .jj-admin-center-right-panel {
+        max-height: 400px;
+    }
+    
+    .jj-admin-center-sidebar {
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .jj-admin-center-sidebar.jj-sidebar-open {
+        transform: translateX(0);
+    }
+    
+    /* 터치 친화적 버튼 크기 */
+    .button {
+        min-height: 44px;
+        padding: 0 20px;
+        font-size: 14px;
+    }
+    
+    .jj-admin-center-color-preview {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .jj-color-history-chip {
+        width: 40px;
+        height: 40px;
+    }
+    
+    /* 모달 모바일 최적화 */
+    .jj-modal-content {
+        margin: 10px;
+        max-width: calc(100% - 20px);
+        max-height: calc(100vh - 20px);
+    }
+    
+    .jj-modal-header,
+    .jj-modal-body,
+    .jj-modal-footer {
+        padding: 15px;
+    }
+    
+    .jj-modal-footer {
+        flex-direction: column;
+    }
+    
+    .jj-modal-footer .button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* [v6.3.0] 터치 제스처 지원 */
+.jj-admin-center-menu-item,
+.jj-admin-center-submenu-item {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.jj-admin-center-tabs a {
+    -webkit-tap-highlight-color: rgba(34, 113, 177, 0.1);
+    touch-action: manipulation;
+}
+
+.jj-admin-center-sidebar-nav a {
+    -webkit-tap-highlight-color: rgba(34, 113, 177, 0.1);
+    touch-action: manipulation;
+    min-height: 44px;
+}
+
+/* [v6.3.0] 스와이프 제스처 힌트 */
+@media (hover: none) and (pointer: coarse) {
+    .jj-admin-center-sidebar {
+        touch-action: pan-y;
+    }
+    
+    .jj-admin-center-tabs {
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* 드래그 앤 드롭 스타일 */
+.jj-admin-center-menu-item.ui-sortable-helper {
+    background: #e8f4f8;
+    border-color: #2271b1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    opacity: 0.9;
+    cursor: move;
+}
+
+.jj-admin-center-submenu-item.ui-sortable-helper {
+    background: #f0f6fc;
+    border-color: #2271b1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0.9;
+    cursor: move;
+}
+
+.jj-sortable-placeholder {
+    background: #e8f4f8;
+    border: 2px dashed #2271b1;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    min-height: 40px;
+    visibility: visible !important;
+}
+
+.jj-admin-center-menu-item-handle {
+    cursor: move !important;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    pointer-events: auto !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    touch-action: none !important;
+}
+
+.jj-admin-center-menu-item:hover .jj-admin-center-menu-item-handle,
+.jj-admin-center-submenu-item:hover .jj-admin-center-menu-item-handle {
+    opacity: 1;
+}
+
+/* 서브메뉴 스타일 */
+.jj-admin-center-submenu-list {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.jj-admin-center-submenu-item {
+    padding: 8px 10px;
+    margin-bottom: 3px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.jj-admin-center-submenu-item.ui-sortable-helper {
+    cursor: move !important;
+    z-index: 99999 !important;
+}
+
+.jj-admin-center-submenu-item.ui-sortable-helper * {
+    pointer-events: none;
+}
+
+.jj-admin-center-submenu-item.jj-dragging {
+    opacity: 0.8;
+}
+
+.jj-admin-center-submenu-item.jj-dragging * {
+    pointer-events: none;
+}
+
+.jj-admin-center-submenu-item:hover {
+    background: #f0f6fc;
+    border-color: #2271b1;
+}
+
+/* 순서 번호 스타일 */
+.jj-admin-center-menu-item-order {
+    display: inline-block;
+    min-width: 25px;
+    text-align: center;
+    font-weight: bold;
+    color: #2271b1;
+    background: #e8f4f8;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-right: 8px;
+    font-size: 12px;
+}
+
+/* 순서 컨트롤 스타일 */
+.jj-order-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.jj-order-display {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #2271b1;
+}
+
+.jj-order-number {
+    font-size: 14px;
+}
+
+/* [v3.8.0 신규] 라이센스 관리 스타일 */
+.jj-license-settings {
+    max-width: 900px;
+}
+
+.jj-license-current-status {
+    margin-bottom: 30px;
+}
+
+.jj-license-current-status h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.jj-license-input-form {
+    margin-bottom: 30px;
+}
+
+.jj-license-input-form h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.jj-license-actions h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#jj-license-key-input {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+#jj-license-message {
+    margin-top: 15px;
+    padding: 12px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.6;
+    display: none;
+}
+
+#jj-license-message.success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+#jj-license-message.error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.jj-license-type-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+
+.jj-license-type-badge.jj-license-type-free {
+    background: #e5e5e5;
+    color: #50575e;
+}
+
+.jj-license-type-badge.jj-license-type-basic {
+    background: #2271b1;
+}
+
+.jj-license-type-badge.jj-license-type-prem {
+    background: #0073aa;
+}
+
+.jj-license-type-badge.jj-license-type-unlim {
+    background: #8b5cf6;
+}
+
+.jj-status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+}
+
+.jj-status-badge.active {
+    background: #00a32a;
+}
+
+.jj-status-badge.inactive {
+    background: #d63638;
+}
+
+.jj-license-spinner {
+    float: none;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.jj-copy-license-key-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* [v5.0.0] 섹션/탭 활성화/비활성화 UI 개선 */
+.jj-section-disable-warning {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 비활성화된 섹션 행 스타일 */
+.jj-section-row-disabled {
+    opacity: 0.6;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+.jj-section-row-disabled::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #d63638;
+}
+
+.jj-section-row-disabled th,
+.jj-section-row-disabled td {
+    color: #646970;
+}
+
+.jj-section-row-disabled code {
+    background-color: #e5e5e5;
+    color: #8c8f94;
+}
+
+/* 비활성화된 탭 행 스타일 */
+.jj-tab-row-disabled {
+    opacity: 0.6;
+    background-color: #f5f5f5;
+}
+
+.jj-tab-row-disabled th,
+.jj-tab-row-disabled td {
+    color: #8c8f94;
+}
+
+.jj-tab-row-disabled code {
+    background-color: #e5e5e5;
+    color: #8c8f94;
+}
+
+/* 비활성화 아이콘 */
+.jj-disabled-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+    vertical-align: middle;
+    opacity: 0.6;
+}
+
+.jj-disabled-icon::before {
+    content: '🚫';
+    font-size: 12px;
+}
+
+/* 활성화 아이콘 */
+.jj-enabled-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+    vertical-align: middle;
+    opacity: 0.8;
+}
+
+.jj-enabled-icon::before {
+    content: '✓';
+    color: #00a32a;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* 일괄 작업 버튼 그룹 */
+.jj-bulk-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+.jj-bulk-actions .button {
+    font-size: 12px;
+    padding: 4px 10px;
+    height: 28px;
+    line-height: 20px;
+}
+
+/* 검색/필터 영역 */
+.jj-section-filter {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f6f7f7;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+}
+
+.jj-section-filter input[type="search"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px 12px;
+    border: 1px solid #8c8f94;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+.jj-section-filter input[type="search"]:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+/* 필터링된 항목 숨김 */
+.jj-section-row-filtered {
+    display: none;
+}
+
+/* 변경사항 감지 표시 */
+.jj-has-changes {
+    position: relative;
+}
+
+.jj-has-changes::after {
+    content: '●';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #f0b849;
+    font-size: 8px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* 저장 버튼 상태 */
+.jj-save-button.has-changes {
+    background: #f0b849;
+    border-color: #f0b849;
+    color: #1d2327;
+    font-weight: 600;
+    animation: pulse-button 2s infinite;
+}
+
+.jj-save-button.has-changes:hover {
+    background: #dba617;
+    border-color: #dba617;
+}
+
+@keyframes pulse-button {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(240, 184, 73, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 4px rgba(240, 184, 73, 0);
+    }
+}
+
+/* 툴팁 스타일 */
+.jj-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.jj-tooltip .dashicons {
+    font-size: 16px;
+    color: #646970;
+    vertical-align: middle;
+}
+
+.jj-tooltip:hover .dashicons {
+    color: #2271b1;
+}
+
+.jj-tooltip-content {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: #1d2327;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.5;
+    white-space: nowrap;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 1000;
+    max-width: 250px;
+    white-space: normal;
+}
+
+.jj-tooltip-content::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #1d2327;
+}
+
+.jj-tooltip:hover .jj-tooltip-content {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 되돌리기 버튼 */
+.jj-undo-button {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: all 0.2s;
+}
+
+.jj-undo-button.has-history {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.jj-undo-button.has-history:hover {
+    opacity: 0.8;
+}
+
+
+
+
+/* [Phase 8.3.2] 폼 UX 개선 스타일 */
+.jj-autosaved { border-left: 3px solid #72aee6 !important; background-color: #f0f6fc !important; }
+.jj-field-error { border-color: #d63638 !important; }
+.jj-help-icon:hover { color: #135e96 !important; }
+.screen-reader-text { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

@@ -80,6 +80,49 @@ class ACF_CSB_Presets {
                 'category'    => 'design',
                 'code'        => ".image-zoom {\n    overflow: hidden;\n}\n\n.image-zoom img {\n    transition: transform 0.5s ease;\n}\n\n.image-zoom:hover img {\n    transform: scale(1.1);\n}",
             ),
+            // 스크린샷에서 발견한 추가 프리셋
+            'korean-word-break' => array(
+                'name'        => __( '한글 단어 단위 줄바꿈', 'acf-code-snippets-box' ),
+                'description' => __( '한글 텍스트가 단어 단위로 줄바꿈됩니다.', 'acf-code-snippets-box' ),
+                'category'    => 'typography',
+                'code'        => "/* 한글 단어 단위 줄바꿈 */\np, li, td, th, span, div, h1, h2, h3, h4, h5, h6 {\n    word-break: keep-all;\n    overflow-wrap: break-word;\n    word-wrap: break-word;\n}",
+            ),
+            'slider-visibility' => array(
+                'name'        => __( '슬라이더 가시성 설정', 'acf-code-snippets-box' ),
+                'description' => __( '슬라이더 초기 로딩 시 깜빡임을 방지합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'ux',
+                'code'        => "/* 슬라이더 FOUC 방지 */\n.slider-container {\n    opacity: 0;\n    transition: opacity 0.3s ease;\n}\n\n.slider-container.initialized,\n.slider-container.slick-initialized,\n.slider-container.swiper-initialized {\n    opacity: 1;\n}",
+            ),
+            'menu-icon-size' => array(
+                'name'        => __( '메뉴 아이콘 크기 설정', 'acf-code-snippets-box' ),
+                'description' => __( '메뉴 아이콘의 크기를 CSS 변수로 제어합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'design',
+                'code'        => "/* 메뉴 아이콘 크기 설정 */\n:root {\n    --menu-icon-size: 20px;\n}\n\n.menu-item .menu-icon,\n.kadence-svg-iconset,\n.wp-block-navigation-item__icon {\n    width: var(--menu-icon-size) !important;\n    height: var(--menu-icon-size) !important;\n}\n\n.menu-item svg {\n    width: var(--menu-icon-size);\n    height: var(--menu-icon-size);\n}",
+            ),
+            'review-star-style' => array(
+                'name'        => __( '리뷰 별점 스타일', 'acf-code-snippets-box' ),
+                'description' => __( '사이트 리뷰 별점의 색상과 크기를 설정합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'design',
+                'code'        => "/* 리뷰 별점 스타일 */\n:root {\n    --star-color: #FFB900;\n    --star-size: 16px;\n    --star-empty-color: #ddd;\n}\n\n.star-rating,\n.woocommerce-product-rating .star-rating {\n    color: var(--star-color);\n    font-size: var(--star-size);\n}\n\n.star-rating::before {\n    color: var(--star-empty-color);\n}\n\n/* Site Reviews 플러그인 호환 */\n.glsr-review .glsr-star {\n    font-size: var(--star-size);\n    color: var(--star-color);\n}\n\n.glsr-review .glsr-star-empty {\n    color: var(--star-empty-color);\n}",
+            ),
+            'card-hover-lift' => array(
+                'name'        => __( '카드 호버 부상 효과', 'acf-code-snippets-box' ),
+                'description' => __( '카드 요소에 마우스를 올리면 위로 떠오릅니다.', 'acf-code-snippets-box' ),
+                'category'    => 'design',
+                'code'        => "/* 카드 호버 부상 효과 */\n.card, .product, .post-card, .entry {\n    transition: transform 0.3s ease, box-shadow 0.3s ease;\n}\n\n.card:hover, .product:hover, .post-card:hover, .entry:hover {\n    transform: translateY(-5px);\n    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);\n}",
+            ),
+            'gradient-text' => array(
+                'name'        => __( '그라데이션 텍스트', 'acf-code-snippets-box' ),
+                'description' => __( '텍스트에 그라데이션 효과를 적용합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'design',
+                'code'        => "/* 그라데이션 텍스트 */\n.gradient-text {\n    background: linear-gradient(135deg, var(--jj-primary-color, #667eea) 0%, var(--jj-secondary-color, #764ba2) 100%);\n    -webkit-background-clip: text;\n    -webkit-text-fill-color: transparent;\n    background-clip: text;\n}",
+            ),
+            'mobile-tap-highlight' => array(
+                'name'        => __( '모바일 탭 하이라이트 제거', 'acf-code-snippets-box' ),
+                'description' => __( '모바일에서 터치 시 나타나는 하이라이트를 제거합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'ux',
+                'code'        => "/* 모바일 탭 하이라이트 제거 */\n* {\n    -webkit-tap-highlight-color: transparent;\n}\n\na, button, input, select, textarea {\n    -webkit-tap-highlight-color: transparent;\n    outline: none;\n}",
+            ),
         );
     }
 
@@ -154,14 +197,139 @@ class ACF_CSB_Presets {
     }
 
     /**
+     * WooCommerce 전용 PHP 프리셋 목록
+     * Pro 버전 이상 사용자 전용
+     */
+    public static function get_woocommerce_php_presets() {
+        return array(
+            'wc-discount-calculator' => array(
+                'name'        => __( '상품 할인율 자동 계산기', 'acf-code-snippets-box' ),
+                'description' => __( '상품 편집 화면에서 퍼센트/금액 기반 할인을 실시간으로 계산합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => true,
+                'code'        => "<?php\n// 상품 편집 메타박스에 할인 계산기 추가\nadd_action('woocommerce_product_options_pricing', 'acf_csb_add_discount_calculator');\nfunction acf_csb_add_discount_calculator() {\n    ?>\n    <div class=\"options_group pricing show_if_simple\">\n        <?php\n        // 할부 개월 수 설정\n        woocommerce_wp_select([\n            'id' => '_installment_months',\n            'label' => __('할부 개월 수', 'acf-code-snippets-box'),\n            'options' => [\n                '1' => '일시불',\n                '3' => '3개월',\n                '6' => '6개월',\n                '12' => '12개월',\n                '24' => '24개월'\n            ],\n            'desc_tip' => true,\n            'description' => __('정가와 할인가 모두에 적용됩니다', 'acf-code-snippets-box')\n        ]);\n        ?>\n        \n        <!-- 할인 계산기 섹션 -->\n        <div class=\"discount-calculator\" style=\"border: 1px solid #ddd; padding: 10px; margin: 10px 0;\">\n            <h4><?php esc_html_e('할인 계산기', 'acf-code-snippets-box'); ?></h4>\n            <p>\n                <label><?php esc_html_e('할인 적용:', 'acf-code-snippets-box'); ?></label>\n                <input type=\"number\" id=\"discount_percent\" placeholder=\"%\" style=\"width: 60px;\">\n                <button type=\"button\" class=\"button apply-percent-discount\"><?php esc_html_e('% 적용', 'acf-code-snippets-box'); ?></button>\n                <span style=\"margin: 0 10px;\"><?php esc_html_e('또는', 'acf-code-snippets-box'); ?></span>\n                <input type=\"number\" id=\"discount_amount\" placeholder=\"<?php esc_attr_e('원', 'acf-code-snippets-box'); ?>\" style=\"width: 100px;\">\n                <button type=\"button\" class=\"button apply-amount-discount\"><?php esc_html_e('금액 차감', 'acf-code-snippets-box'); ?></button>\n            </p>\n            <div id=\"discount-preview\" style=\"background: #f5f5f5; padding: 8px; margin-top: 10px; display: none;\">\n                <strong><?php esc_html_e('계산 결과:', 'acf-code-snippets-box'); ?></strong>\n                <span id=\"preview-text\"></span>\n            </div>\n        </div>\n    </div>\n    <?php\n}",
+            ),
+            'wc-price-engine' => array(
+                'name'        => __( '가격 계산 엔진 & 숏코드', 'acf-code-snippets-box' ),
+                'description' => __( '할인율, 절약금액, 할부가격을 계산하는 핵심 엔진과 모듈형 숏코드를 제공합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => true,
+                'code'        => "<?php\n/**\n * 가격 계산 엔진 & 숏코드\n * [realdeal_price] - 통합 가격 표시\n * [rd_badge] - 할인 배지\n * [rd_summary] - 절약 금액\n * [rd_installments] - 할부 정보\n */\n\n// 핵심 계산 엔진\nif ( ! function_exists( 'acf_csb_get_price_data' ) ) {\n    function acf_csb_get_price_data( \$product ) {\n        if ( ! is_a( \$product, 'WC_Product' ) ) return null;\n        \$data = [\n            'regular_price'       => (float) \$product->get_regular_price(),\n            'sale_price'          => (float) \$product->get_sale_price(),\n            'is_on_sale'          => \$product->is_on_sale(),\n            'saved_amount'        => 0,\n            'discount_percentage' => 0,\n            'installment_months'  => (int) get_post_meta( \$product->get_id(), 'installment_months', true ),\n            'installment_price'   => 0,\n        ];\n        if ( \$data['is_on_sale'] && ! empty( \$data['sale_price'] ) && \$data['regular_price'] > \$data['sale_price'] ) {\n            \$data['saved_amount'] = \$data['regular_price'] - \$data['sale_price'];\n            if (\$data['regular_price'] > 0) {\n                \$data['discount_percentage'] = round( ( \$data['saved_amount'] / \$data['regular_price'] ) * 100 );\n            }\n        }\n        if ( \$data['installment_months'] > 0 ) {\n            \$price_for_installment = \$data['is_on_sale'] && !empty(\$data['sale_price']) ? \$data['sale_price'] : \$data['regular_price'];\n            if ( \$price_for_installment > 0 ) {\n                \$data['installment_price'] = round( ( \$price_for_installment / \$data['installment_months'] ), -2 );\n            }\n        }\n        return \$data;\n    }\n}\n\n// 통합 숏코드 [realdeal_price]\nif ( ! shortcode_exists( 'realdeal_price' ) ) {\n    add_shortcode( 'realdeal_price', function() {\n        global \$product;\n        if ( ! \$product ) \$product = wc_get_product( get_the_ID() );\n        if ( ! \$product ) return '';\n        \$data = acf_csb_get_price_data( \$product );\n        if ( !\$data ) return '';\n        \$badge_html = \$data['discount_percentage'] > 0 ? '<span class=\"realdeal-discount-badge\">' . \$data['discount_percentage'] . '% OFF</span>' : '';\n        \$summary_html = \$data['saved_amount'] > 0 ? '<div class=\"realdeal-discount-summary\">✨ ' . wp_strip_all_tags( wc_price( \$data['saved_amount'] ) ) . ' 절약</div>' : '';\n        \$installments_html = \$data['installment_price'] > 0 ? '<br><small class=\"realdeal-installment-price\">(월 ' . number_format_i18n( \$data['installment_price'] ) . '원 / ' . \$data['installment_months'] . '개월)</small>' : '';\n        if ( \$data['is_on_sale'] ) {\n            \$price_html = '<del>' . wc_price( \$data['regular_price'] ) . '</del> <ins>' . wc_price( \$data['sale_price'] ) . '</ins>';\n        } else {\n            \$price_html = '<ins>' . wc_price( \$data['regular_price'] ) . '</ins>';\n        }\n        return sprintf('<div class=\"realdeal-price-wrapper price\">%s%s%s%s</div>', \$badge_html, \$summary_html, \$price_html, \$installments_html);\n    });\n}",
+            ),
+            'wc-quick-edit-fields' => array(
+                'name'        => __( '빠른 편집 필드 확장', 'acf-code-snippets-box' ),
+                'description' => __( '상품 목록의 빠른 편집에 할인가격과 할부 개월 수 필드를 추가합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => true,
+                'code'        => "<?php\n// '빠른 편집' 클릭 시 보일 필드들 추가\nadd_action( 'woocommerce_product_quick_edit_end', 'acf_csb_add_quick_edit_fields' );\nfunction acf_csb_add_quick_edit_fields() {\n    wp_nonce_field( 'acf_csb_quick_edit_nonce', 'acf_csb_quick_edit_nonce_field' );\n    ?>\n    <div class=\"quick-edit-custom-fields\">\n        <h4><?php esc_html_e('가격 상세 설정', 'acf-code-snippets-box'); ?></h4>\n        <label>\n            <span class=\"title\"><?php esc_html_e('할인 가격', 'acf-code-snippets-box'); ?></span>\n            <span class=\"input-text-wrap\">\n                <input type=\"text\" name=\"_sale_price\" class=\"wc_input_price\" placeholder=\"<?php esc_attr_e('할인 가격', 'acf-code-snippets-box'); ?>\">\n            </span>\n        </label>\n        <label>\n            <span class=\"title\"><?php esc_html_e('할부 개월 수', 'acf-code-snippets-box'); ?></span>\n            <span class=\"input-text-wrap\">\n                <input type=\"number\" name=\"installment_months\" placeholder=\"<?php esc_attr_e('개월 수 (숫자만)', 'acf-code-snippets-box'); ?>\">\n            </span>\n        </label>\n    </div>\n    <?php\n}\n\n// '빠른 편집' 저장 시 데이터 처리\nadd_action( 'woocommerce_product_quick_edit_save', 'acf_csb_save_quick_edit_fields' );\nfunction acf_csb_save_quick_edit_fields( \$product ) {\n    if ( ! isset( \$_POST['acf_csb_quick_edit_nonce_field'] ) || ! wp_verify_nonce( \$_POST['acf_csb_quick_edit_nonce_field'], 'acf_csb_quick_edit_nonce' ) ) return;\n    if ( isset( \$_POST['_sale_price'] ) ) {\n        \$product->set_sale_price( wc_clean( \$_POST['_sale_price'] ) );\n    }\n    if ( isset( \$_POST['installment_months'] ) ) {\n        \$product->update_meta_data( 'installment_months', absint( \$_POST['installment_months'] ) );\n    }\n    \$product->save();\n}",
+            ),
+            'wc-cart-cleanup' => array(
+                'name'        => __( '장바구니 UI 정리', 'acf-code-snippets-box' ),
+                'description' => __( '장바구니/미니카트의 상품명 영역에서 불필요한 요소를 제거합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => true,
+                'code'        => "<?php\n// 장바구니 UI 정리 필터\nadd_filter( 'woocommerce_cart_item_name', 'acf_csb_cleanup_cart_item_name', 100, 3 );\nfunction acf_csb_cleanup_cart_item_name( \$product_name, \$cart_item, \$cart_item_key ) {\n    if ( is_cart() || is_checkout() || ( defined('WOOCOMMERCE_CART') && WOOCOMMERCE_CART ) ) {\n        \$_product = apply_filters( 'woocommerce_cart_item_product', \$cart_item['data'], \$cart_item, \$cart_item_key );\n        \$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', \$_product->is_visible() ? \$_product->get_permalink( \$cart_item ) : '', \$cart_item, \$cart_item_key );\n        if ( \$product_permalink ) {\n            return sprintf( '<a href=\"%s\">%s</a>', esc_url( \$product_permalink ), \$_product->get_name() );\n        } else {\n            return \$_product->get_name();\n        }\n    }\n    return \$product_name;\n}",
+            ),
+            'wc-translation-fix' => array(
+                'name'        => __( '번역 오류 수정 (저장→절약)', 'acf-code-snippets-box' ),
+                'description' => __( 'Saved가 저장으로 잘못 번역된 것을 절약으로 교정합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => false,
+                'code'        => "<?php\n// 번역 오류 수정\nadd_filter( 'gettext', 'acf_csb_fix_weird_translation', 20, 3 );\nfunction acf_csb_fix_weird_translation( \$translated_text, \$text, \$domain ) {\n    if ( 'Saved' === \$text && '저장' === \$translated_text ) {\n        \$translated_text = '절약';\n    }\n    return \$translated_text;\n}",
+            ),
+        );
+    }
+
+    /**
+     * WooCommerce 전용 CSS 프리셋 목록
+     * Pro 버전 이상 사용자 전용
+     */
+    public static function get_woocommerce_css_presets() {
+        return array(
+            'wc-price-installment-style' => array(
+                'name'        => __( '할부 가격 표시 스타일', 'acf-code-snippets-box' ),
+                'description' => __( '상품 목록에서 할부 가격과 할인 배지를 스타일링합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => true,
+                'code'        => "/* RealDeal 가격 표시 스타일 */\n.realdeal-price-wrapper {\n  line-height: 1.5;\n}\n\n.realdeal-discount-badge,\n.onsale {\n    display: inline-block !important;\n    padding: 6px 12px !important;\n    background-color: var(--accent-red, #FF0033) !important;\n    color: white !important;\n    font-size: 0.9em !important;\n    font-weight: 700 !important;\n    border-radius: 4px !important;\n    position: absolute !important;\n    top: 10px !important;\n    right: 10px !important;\n    z-index: 999 !important;\n}\n\n.price del {\n  opacity: 0.8;\n  font-size: 0.9em;\n  margin-right: 5px;\n}\n\n.price ins {\n  font-weight: bold;\n  font-size: 1em;\n  text-decoration: none;\n}\n\n.realdeal-installment-price {\n  display: block;\n  font-size: 15px;\n  font-weight: 400;\n  margin-top: 4px;\n}\n\n.realdeal-discount-summary {\n  font-size: 14px;\n  font-weight: 500;\n  background-color: rgba(3, 131, 254, 0.1);\n  padding: 4px 8px;\n  border-radius: 4px;\n  margin: 5px 0;\n  display: inline-block;\n}",
+            ),
+            'wc-button-style' => array(
+                'name'        => __( 'WooCommerce 버튼 스타일', 'acf-code-snippets-box' ),
+                'description' => __( '장바구니, 체크아웃, 미니카트 버튼 스타일을 통일합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => true,
+                'code'        => "/* WooCommerce 버튼 스타일 */\n\n/* 박스쉐도우 아웃라인 제거 */\nbody:not(.woocommerce-block-theme-has-button-styles)\n    .wc-block-components-button:not(.is-link):focus {\n    box-shadow: none !important;\n    outline: none !important;\n}\n\n/* 미니카트 스타일 */\n.wc-block-mini-cart__footer-cart {\n    background-color: var(--base-3);\n    color: currentColor;\n    display: inline-flex;\n    font-size: 0.875rem;\n    line-height: 0.875rem;\n    text-decoration: none;\n    border: 1px solid var(--contrast-3);\n    border-radius: 0.375rem;\n    padding: 0.5rem 0;\n}\n\n.wc-block-mini-cart__footer-cart:hover {\n    color: currentColor;\n    background-color: var(--base-2);\n}\n\n.wc-block-mini-cart__footer-checkout,\n.wc-block-cart__submit-button {\n    background-color: var(--contrast);\n    color: var(--base-3);\n    font-size: 0.875rem;\n    font-weight: 500;\n    line-height: 0.875rem;\n    border: 1px solid var(--contrast);\n    border-radius: 0.375rem;\n    padding: 0.5rem 0;\n}\n\n.wc-block-mini-cart__footer-checkout:hover,\n.wc-block-cart__submit-button:hover {\n    color: var(--base-3);\n    opacity: 0.95;\n}",
+            ),
+            'wc-product-list-style' => array(
+                'name'        => __( '상품 목록 디자인 개선', 'acf-code-snippets-box' ),
+                'description' => __( '상품 목록의 배경, 별점 정렬, 장바구니 버튼을 개선합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => true,
+                'code'        => "/* 상품 목록 디자인 개선 */\n\n/* 상품 상세 정보 컨테이너 배경색: 목록에서만 투명 유지 */\nbody:not(.single-product) .products .product .product-details,\nbody:not(.single-product) .products .product .product-details.content-bg {\n    background-color: transparent !important;\n}\n\n/* 별점 정렬 수정: 목록에만 적용 */\nbody:not(.single-product) .products .product .glsr {\n    text-align: left !important;\n    margin: 0 auto 0 0 !important;\n}\n\n/* 할인 배지 위치 수정: 목록에서만 적용 */\nbody:not(.single-product) .realdeal-discount-badge,\nbody:not(.single-product) .onsale {\n    position: absolute !important;\n    top: 10px !important;\n    right: 10px !important;\n    z-index: 999 !important;\n}\n\n/* 장바구니 버튼 수정: 목록에만 적용 */\n.products .product .add_to_cart_button {\n    background-color: var(--accent-orange, #FF6400) !important;\n    color: white !important;\n    border: none !important;\n    padding: 10px 15px !important;\n    font-weight: 600 !important;\n}\n\n/* 장바구니 버튼 내부 아이콘 색상도 흰색으로 통일 */\n.products .product .add_to_cart_button .kadence-svg-iconset svg {\n    fill: white !important;\n}",
+            ),
+        );
+    }
+
+    /**
+     * 유틸리티/디버깅 프리셋 목록
+     */
+    public static function get_utility_presets() {
+        return array(
+            'plugin-deactivation-logger' => array(
+                'name'        => __( '플러그인 비활성화 로그 기록기', 'acf-code-snippets-box' ),
+                'description' => __( '플러그인이 비활성화될 때 상세 로그를 기록합니다 (디버깅용).', 'acf-code-snippets-box' ),
+                'category'    => 'debug',
+                'pro_only'    => false,
+                'code'        => "<?php\nfunction acf_csb_log_plugin_deactivation(\$plugin_name, \$is_network_wide) {\n    \$log_file = WP_CONTENT_DIR . '/plugin_deactivation.log';\n    \$timestamp = current_time('mysql');\n    \$request_uri = \$_SERVER['REQUEST_URI'];\n    \$referrer = isset(\$_SERVER['HTTP_REFERER']) ? \$_SERVER['HTTP_REFERER'] : 'N/A';\n    \$backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);\n    \$call_stack = '';\n    foreach (\$backtrace as \$key => \$trace) {\n        \$file = isset(\$trace['file']) ? str_replace(ABSPATH, '', \$trace['file']) : 'N/A';\n        \$line = isset(\$trace['line']) ? \$trace['line'] : 'N/A';\n        \$function = isset(\$trace['function']) ? \$trace['function'] : 'N/A';\n        \$call_stack .= sprintf(\"  - [%d] %s() in %s:%s\\n\", \$key, \$function, \$file, \$line);\n    }\n    \$message = sprintf(\n        \"[%s] Plugin '%s' deactivated.\\n  - Request URI: %s\\n  - Referrer: %s\\n  - Call Stack:\\n%s\\n\",\n        \$timestamp, \$plugin_name, \$request_uri, \$referrer, \$call_stack\n    );\n    file_put_contents(\$log_file, \$message, FILE_APPEND);\n}\nadd_action('deactivated_plugin', 'acf_csb_log_plugin_deactivation', 10, 2);",
+            ),
+            'search-form-customizer' => array(
+                'name'        => __( '검색 폼 URL 커스터마이저', 'acf-code-snippets-box' ),
+                'description' => __( '검색 폼의 action URL과 파라미터명을 커스터마이즈합니다.', 'acf-code-snippets-box' ),
+                'category'    => 'utility',
+                'pro_only'    => false,
+                'code'        => "<?php\n// 검색 폼 커스터마이저 (특정 페이지로 리다이렉트)\nadd_action( 'wp_footer', 'acf_csb_customize_search_form' );\nfunction acf_csb_customize_search_form() {\n    \$search_page_id = get_option('acf_csb_search_page_id', 0);\n    if (empty(\$search_page_id)) return;\n    \$search_page_url = get_permalink(\$search_page_id);\n    if (!\$search_page_url) return;\n    ?>\n    <script type=\"text/javascript\">\n    (function(\$) {\n        \$(document).ready(function() {\n            const searchForms = \$('form.wp-block-search');\n            searchForms.each(function(index, form) {\n                const searchInput = \$(form).find('input[name=\"s\"]');\n                if (searchInput.length) {\n                    searchInput.attr('name', 'searchstr');\n                }\n                form.action = '<?php echo esc_url(\$search_page_url); ?>';\n            });\n        });\n    })(jQuery);\n    </script>\n    <?php\n}",
+            ),
+        );
+    }
+
+    /**
      * 모든 프리셋 가져오기
      */
     public static function get_all_presets() {
         return array(
-            'css' => self::get_css_presets(),
-            'js'  => self::get_js_presets(),
-            'php' => self::get_php_presets(),
+            'css'           => self::get_css_presets(),
+            'js'            => self::get_js_presets(),
+            'php'           => self::get_php_presets(),
+            'woocommerce_php' => self::get_woocommerce_php_presets(),
+            'woocommerce_css' => self::get_woocommerce_css_presets(),
+            'utility'       => self::get_utility_presets(),
         );
+    }
+
+    /**
+     * Pro 전용 프리셋 여부 확인
+     */
+    public static function is_pro_preset( $preset_id, $type ) {
+        $presets = array();
+        switch ( $type ) {
+            case 'woocommerce_php':
+                $presets = self::get_woocommerce_php_presets();
+                break;
+            case 'woocommerce_css':
+                $presets = self::get_woocommerce_css_presets();
+                break;
+            case 'utility':
+                $presets = self::get_utility_presets();
+                break;
+            default:
+                return false;
+        }
+        
+        if ( isset( $presets[ $preset_id ] ) && isset( $presets[ $preset_id ]['pro_only'] ) ) {
+            return $presets[ $preset_id ]['pro_only'];
+        }
+        
+        return false;
     }
 
     /**
@@ -190,6 +358,15 @@ class ACF_CSB_Presets {
                 break;
             case 'php':
                 $presets = self::get_php_presets();
+                break;
+            case 'woocommerce_php':
+                $presets = self::get_woocommerce_php_presets();
+                break;
+            case 'woocommerce_css':
+                $presets = self::get_woocommerce_css_presets();
+                break;
+            case 'utility':
+                $presets = self::get_utility_presets();
                 break;
         }
 
@@ -224,15 +401,68 @@ class ACF_CSB_Presets {
             case 'php':
                 $presets = self::get_php_presets();
                 break;
+            case 'woocommerce_php':
+                $presets = self::get_woocommerce_php_presets();
+                break;
+            case 'woocommerce_css':
+                $presets = self::get_woocommerce_css_presets();
+                break;
+            case 'utility':
+                $presets = self::get_utility_presets();
+                break;
         }
 
         if ( ! isset( $presets[ $preset_id ] ) ) {
             wp_send_json_error( __( '프리셋을 찾을 수 없습니다.', 'acf-code-snippets-box' ) );
         }
 
+        // Pro 전용 프리셋 체크
+        if ( self::is_pro_preset( $preset_id, $type ) && ! self::is_pro_user() ) {
+            wp_send_json_error( __( '이 프리셋은 Pro 버전 이상의 사용자만 사용할 수 있습니다.', 'acf-code-snippets-box' ) );
+        }
+
         wp_send_json_success( array(
-            'code' => $presets[ $preset_id ]['code'],
-            'name' => $presets[ $preset_id ]['name'],
+            'code'     => $presets[ $preset_id ]['code'],
+            'name'     => $presets[ $preset_id ]['name'],
+            'pro_only' => isset( $presets[ $preset_id ]['pro_only'] ) ? $presets[ $preset_id ]['pro_only'] : false,
         ) );
+    }
+
+    /**
+     * Pro 사용자 여부 확인
+     */
+    public static function is_pro_user() {
+        // ACF CSS 메인 플러그인의 라이선스 타입 확인
+        if ( defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
+            $license_type = JJ_STYLE_GUIDE_LICENSE_TYPE;
+            return in_array( $license_type, array( 'BASIC', 'PREMIUM', 'UNLIMITED', 'PARTNER', 'MASTER' ), true );
+        }
+        
+        // 사용자 타입 확인
+        if ( defined( 'JJ_STYLE_GUIDE_USER_TYPE' ) ) {
+            $user_type = JJ_STYLE_GUIDE_USER_TYPE;
+            return in_array( $user_type, array( 'PARTNER', 'MASTER' ), true );
+        }
+        
+        // 기본값: Free 사용자
+        return false;
+    }
+
+    /**
+     * 카테고리별 프리셋 목록 가져오기
+     */
+    public static function get_presets_by_category( $category ) {
+        $all_presets = self::get_all_presets();
+        $result = array();
+        
+        foreach ( $all_presets as $type => $presets ) {
+            foreach ( $presets as $id => $preset ) {
+                if ( isset( $preset['category'] ) && $preset['category'] === $category ) {
+                    $result[ $type ][ $id ] = $preset;
+                }
+            }
+        }
+        
+        return $result;
     }
 }

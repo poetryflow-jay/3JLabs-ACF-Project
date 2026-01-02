@@ -7,7 +7,7 @@
 AI 런처와 별도로 동작하는 인터랙티브 개발 도구입니다.
 플러그인 빌드, 배포, 버전 관리를 GUI로 수행할 수 있습니다.
 
-Version: 1.0.0
+Version: 2.0.0
 Author: 3J Labs (Jay & Jason & Jenny)
 """
 
@@ -18,8 +18,10 @@ import shutil
 import zipfile
 import subprocess
 import re
+import time
 from datetime import datetime
 from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
 # Tkinter GUI
 try:
@@ -28,6 +30,93 @@ try:
 except ImportError:
     print("Tkinter가 설치되어 있지 않습니다.")
     sys.exit(1)
+
+
+# ============================================================
+# 에디션 및 사용자 타입 설정
+# ============================================================
+
+class EditionConfig:
+    """플러그인 에디션 설정"""
+    
+    # 버전별 에디션 (요금제)
+    EDITIONS = {
+        'free': {
+            'name': 'Free',
+            'display_name': 'Free',
+            'license_type': 'FREE',
+            'features': ['basic_colors', 'basic_typography', 'css_variables'],
+            'folder_suffix': 'free',
+            'remove_pro_features': True,
+        },
+        'basic': {
+            'name': 'Pro Basic',
+            'display_name': 'Pro Basic',
+            'license_type': 'BASIC',
+            'features': ['all_free', 'presets', 'export_css', 'custom_fonts'],
+            'folder_suffix': 'basic',
+            'remove_pro_features': False,
+        },
+        'premium': {
+            'name': 'Pro Premium',
+            'display_name': 'Pro Premium',
+            'license_type': 'PREMIUM',
+            'features': ['all_basic', 'figma_export', 'pdf_export', 'ai_suggestions'],
+            'folder_suffix': 'premium',
+            'remove_pro_features': False,
+        },
+        'unlimited': {
+            'name': 'Pro Unlimited',
+            'display_name': 'Pro Unlimited',
+            'license_type': 'UNLIMITED',
+            'features': ['all_premium', 'white_label', 'multisite', 'priority_support'],
+            'folder_suffix': 'unlimited',
+            'remove_pro_features': False,
+        },
+    }
+    
+    # 사용자 타입별 설정
+    USER_TYPES = {
+        'standard': {
+            'name': '일반 사용자',
+            'display_name': 'Standard',
+            'branding': True,
+            'update_channel': 'stable',
+            'debug_mode': False,
+        },
+        'partner': {
+            'name': '파트너',
+            'display_name': 'Partner',
+            'branding': True,  # 파트너 브랜딩 가능
+            'update_channel': 'beta',
+            'debug_mode': True,
+            'special_features': ['partner_dashboard', 'client_management'],
+        },
+        'master': {
+            'name': '마스터 (개발용)',
+            'display_name': 'Master',
+            'branding': False,  # 3J Labs 브랜딩 유지
+            'update_channel': 'alpha',
+            'debug_mode': True,
+            'special_features': ['all_features', 'dev_tools', 'testing_mode'],
+        },
+    }
+    
+    # 빌드 매트릭스 (생성할 조합)
+    BUILD_MATRIX = [
+        # (에디션, 사용자타입)
+        ('free', 'standard'),
+        ('basic', 'standard'),
+        ('premium', 'standard'),
+        ('unlimited', 'standard'),
+        ('basic', 'partner'),
+        ('premium', 'partner'),
+        ('unlimited', 'partner'),
+        ('free', 'master'),  # 마스터는 모든 에디션 접근 가능
+        ('basic', 'master'),
+        ('premium', 'master'),
+        ('unlimited', 'master'),
+    ]
 
 
 class PluginInfo:
@@ -104,13 +193,224 @@ class PluginInfo:
         return False
 
 
+class EditionBuilder:
+    """에디션별 플러그인 빌더"""
+    
+    def __init__(self, base_path: Path, log_callback=None):
+        self.base_path = base_path
+        self.source_dir = base_path / 'acf-css-really-simple-style-management-center-master'
+        self.output_dir = base_path / 'dist'
+        self.log = log_callback or print
+    
+    def build_edition(self, edition: str, user_type: str, version: str) -> Optional[Path]:
+        """특정 에디션과 사용자 타입으로 플러그인 빌드"""
+        
+        edition_config = EditionConfig.EDITIONS.get(edition)
+        user_config = EditionConfig.USER_TYPES.get(user_type)
+        
+        if not edition_config or not user_config:
+            self.log(f"❌ 잘못된 설정: edition={edition}, user_type={user_type}")
+            return None
+        
+        self.log(f"🔨 빌드 시작: {edition_config['display_name']} ({user_config['display_name']})")
+        
+        # 출력 디렉토리 생성
+        self.output_dir.mkdir(exist_ok=True)
+        
+        # 폴더명 생성
+        if user_type == 'standard':
+            folder_name = f"acf-css-really-simple-style-management-center-{edition}"
+        else:
+            folder_name = f"acf-css-really-simple-style-management-center-{edition}-{user_type}"
+        
+        work_dir = self.output_dir / folder_name
+        
+        # 기존 폴더 삭제 후 복사
+        self._safe_copy(self.source_dir, work_dir)
+        
+        # 메인 파일 수정
+        self._modify_main_file(work_dir, edition, user_type, version, edition_config, user_config)
+        
+        # ZIP 생성
+        zip_name = f"{folder_name}-v{version}.zip"
+        zip_path = self.output_dir / zip_name
+        
+        self._create_zip(work_dir, zip_path)
+        
+        # 작업 디렉토리 삭제 (선택적)
+        # shutil.rmtree(work_dir, ignore_errors=True)
+        
+        self.log(f"✅ 빌드 완료: {zip_name}")
+        return zip_path
+    
+    def _safe_copy(self, src: Path, dst: Path):
+        """안전하게 디렉토리 복사"""
+        for _ in range(3):
+            try:
+                if dst.exists():
+                    shutil.rmtree(dst, ignore_errors=True)
+                    time.sleep(0.5)
+                
+                # 제외할 파일/폴더
+                def ignore_patterns(directory, files):
+                    ignore = {'.git', '__pycache__', 'node_modules', '.DS_Store', 
+                              'Thumbs.db', '.github', 'tests', '.vscode'}
+                    return [f for f in files if f in ignore or f.endswith('.pyc')]
+                
+                shutil.copytree(src, dst, ignore=ignore_patterns)
+                return
+            except Exception as e:
+                self.log(f"⚠️ 복사 재시도... {e}")
+                time.sleep(1)
+    
+    def _modify_main_file(self, work_dir: Path, edition: str, user_type: str, 
+                         version: str, edition_config: dict, user_config: dict):
+        """메인 플러그인 파일 수정"""
+        main_file = work_dir / 'acf-css-really-simple-style-guide.php'
+        
+        if not main_file.exists():
+            self.log(f"⚠️ 메인 파일을 찾을 수 없음: {main_file}")
+            return
+        
+        with open(main_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # 1. 라이센스 타입 변경
+        content = re.sub(
+            r"define\(\s*'JJ_STYLE_GUIDE_LICENSE_TYPE',\s*'[^']+'\s*\);",
+            f"define( 'JJ_STYLE_GUIDE_LICENSE_TYPE', '{edition_config['license_type']}' );",
+            content
+        )
+        
+        # 2. 에디션 상수 변경
+        content = re.sub(
+            r"define\(\s*'JJ_STYLE_GUIDE_EDITION',\s*'[^']+'\s*\);",
+            f"define( 'JJ_STYLE_GUIDE_EDITION', '{edition}' );",
+            content
+        )
+        
+        # 3. 사용자 타입 상수 추가/변경
+        if "JJ_STYLE_GUIDE_USER_TYPE" in content:
+            content = re.sub(
+                r"define\(\s*'JJ_STYLE_GUIDE_USER_TYPE',\s*'[^']+'\s*\);",
+                f"define( 'JJ_STYLE_GUIDE_USER_TYPE', '{user_type.upper()}' );",
+                content
+            )
+        else:
+            # 상수가 없으면 추가
+            insert_after = "define( 'JJ_STYLE_GUIDE_EDITION'"
+            insert_text = f"\ndefine( 'JJ_STYLE_GUIDE_USER_TYPE', '{user_type.upper()}' );"
+            content = content.replace(
+                f"define( 'JJ_STYLE_GUIDE_EDITION', '{edition}' );",
+                f"define( 'JJ_STYLE_GUIDE_EDITION', '{edition}' );{insert_text}"
+            )
+        
+        # 4. 버전 업데이트
+        content = re.sub(
+            r"(Version:\s*)[\d.]+",
+            f"\\g<1>{version}",
+            content
+        )
+        content = re.sub(
+            r"(define\(\s*'JJ_STYLE_GUIDE_VERSION',\s*')[\d.]+'",
+            f"\\g<1>{version}'",
+            content
+        )
+        
+        # 5. 플러그인 이름 수정
+        if edition != 'master' and user_type != 'master':
+            content = content.replace(' (Master)', '')
+        
+        if user_type == 'partner':
+            content = re.sub(
+                r"(Plugin Name:\s*.+?)(\s*\*)",
+                f"\\g<1> - Partner Edition\\g<2>",
+                content
+            )
+        
+        # 6. 디버그 모드 설정
+        if user_config.get('debug_mode', False):
+            content = re.sub(
+                r"define\(\s*'JJ_STYLE_GUIDE_DEBUG',\s*(true|false)\s*\);",
+                "define( 'JJ_STYLE_GUIDE_DEBUG', true );",
+                content
+            )
+        else:
+            content = re.sub(
+                r"define\(\s*'JJ_STYLE_GUIDE_DEBUG',\s*(true|false)\s*\);",
+                "define( 'JJ_STYLE_GUIDE_DEBUG', false );",
+                content
+            )
+        
+        with open(main_file, 'w', encoding='utf-8') as f:
+            f.write(content)
+    
+    def _create_zip(self, source_dir: Path, zip_path: Path):
+        """ZIP 파일 생성"""
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for root, dirs, files in os.walk(source_dir):
+                # .git 등 제외
+                dirs[:] = [d for d in dirs if not d.startswith('.')]
+                
+                for file in files:
+                    if file.startswith('.'):
+                        continue
+                    
+                    file_path = Path(root) / file
+                    arcname = file_path.relative_to(source_dir.parent)
+                    zf.write(file_path, arcname)
+    
+    def build_all_editions(self, version: str) -> List[Path]:
+        """모든 에디션 빌드 (빌드 매트릭스 기반)"""
+        results = []
+        
+        for edition, user_type in EditionConfig.BUILD_MATRIX:
+            try:
+                zip_path = self.build_edition(edition, user_type, version)
+                if zip_path:
+                    results.append(zip_path)
+            except Exception as e:
+                self.log(f"❌ 빌드 실패: {edition}/{user_type} - {e}")
+        
+        return results
+    
+    def build_selected_editions(self, selections: List[Tuple[str, str]], version: str) -> List[Path]:
+        """선택한 에디션만 빌드"""
+        results = []
+        
+        for edition, user_type in selections:
+            try:
+                zip_path = self.build_edition(edition, user_type, version)
+                if zip_path:
+                    results.append(zip_path)
+            except Exception as e:
+                self.log(f"❌ 빌드 실패: {edition}/{user_type} - {e}")
+        
+        return results
+    
+    def create_bundle(self, zip_files: List[Path], bundle_name: str) -> Optional[Path]:
+        """번들 패키지 생성"""
+        if not zip_files:
+            return None
+        
+        bundle_path = self.output_dir / bundle_name
+        
+        with zipfile.ZipFile(bundle_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+            for zip_file in zip_files:
+                if zip_file.exists():
+                    zf.write(zip_file, zip_file.name)
+        
+        self.log(f"📦 번들 생성 완료: {bundle_name}")
+        return bundle_path
+
+
 class DevToolkit(tk.Tk):
     """메인 GUI 애플리케이션"""
     
     def __init__(self):
         super().__init__()
         
-        self.title("3J Labs Development Toolkit v1.0.0")
+        self.title("3J Labs Development Toolkit v2.0.0")
         self.geometry("1000x700")
         self.configure(bg='#1a1a2e')
         
@@ -193,17 +493,22 @@ class DevToolkit(tk.Tk):
         self.notebook.add(self.plugin_tab, text="📦 플러그인 관리")
         self._create_plugin_tab()
         
-        # 탭 2: 빌드 도구
+        # 탭 2: 에디션 빌드 (버전별/사용자별)
+        self.edition_tab = ttk.Frame(self.notebook)
+        self.notebook.add(self.edition_tab, text="🏷️ 에디션 빌드")
+        self._create_edition_tab()
+        
+        # 탭 3: 빌드 도구
         self.build_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.build_tab, text="🔨 빌드 도구")
         self._create_build_tab()
         
-        # 탭 3: 배포
+        # 탭 4: 배포
         self.deploy_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.deploy_tab, text="🚀 배포")
         self._create_deploy_tab()
         
-        # 탭 4: 로그
+        # 탭 5: 로그
         self.log_tab = ttk.Frame(self.notebook)
         self.notebook.add(self.log_tab, text="📋 로그")
         self._create_log_tab()
@@ -241,6 +546,217 @@ class DevToolkit(tk.Tk):
         ttk.Button(btn_frame, text="ZIP 생성", command=self._create_zip).pack(side='left', padx=5)
         ttk.Button(btn_frame, text="문법 검사", command=self._check_syntax).pack(side='left', padx=5)
         ttk.Button(btn_frame, text="폴더 열기", command=self._open_folder).pack(side='left', padx=5)
+    
+    def _create_edition_tab(self):
+        """에디션 빌드 탭 (버전별/사용자별)"""
+        # 메인 프레임
+        main_frame = ttk.Frame(self.edition_tab)
+        main_frame.pack(fill='both', expand=True, padx=10, pady=10)
+        
+        # 상단: 버전 입력
+        version_frame = ttk.LabelFrame(main_frame, text="📌 빌드 버전")
+        version_frame.pack(fill='x', pady=5)
+        
+        ttk.Label(version_frame, text="버전:").pack(side='left', padx=10, pady=10)
+        self.edition_version = ttk.Entry(version_frame, width=20)
+        self.edition_version.insert(0, "13.3.0")
+        self.edition_version.pack(side='left', padx=5, pady=10)
+        
+        ttk.Label(version_frame, text="(예: 13.3.0, 14.0.0-beta)").pack(side='left', padx=5)
+        
+        # 중앙: 에디션 선택
+        selection_frame = ttk.Frame(main_frame)
+        selection_frame.pack(fill='both', expand=True, pady=10)
+        
+        # 왼쪽: 요금제 (에디션) 선택
+        edition_frame = ttk.LabelFrame(selection_frame, text="💰 요금제 (에디션)")
+        edition_frame.pack(side='left', fill='both', expand=True, padx=5)
+        
+        self.edition_vars = {}
+        for edition, config in EditionConfig.EDITIONS.items():
+            var = tk.BooleanVar(value=True)
+            self.edition_vars[edition] = var
+            
+            frame = ttk.Frame(edition_frame)
+            frame.pack(fill='x', padx=10, pady=3)
+            
+            ttk.Checkbutton(frame, text=config['display_name'], variable=var).pack(side='left')
+            ttk.Label(frame, text=f"  ({config['license_type']})", 
+                     foreground='#888888').pack(side='left')
+        
+        # 오른쪽: 사용자 타입 선택
+        user_frame = ttk.LabelFrame(selection_frame, text="👤 사용자 타입")
+        user_frame.pack(side='left', fill='both', expand=True, padx=5)
+        
+        self.user_type_vars = {}
+        for user_type, config in EditionConfig.USER_TYPES.items():
+            var = tk.BooleanVar(value=(user_type == 'standard'))
+            self.user_type_vars[user_type] = var
+            
+            frame = ttk.Frame(user_frame)
+            frame.pack(fill='x', padx=10, pady=3)
+            
+            ttk.Checkbutton(frame, text=config['name'], variable=var).pack(side='left')
+            ttk.Label(frame, text=f"  ({config['display_name']})", 
+                     foreground='#888888').pack(side='left')
+        
+        # 빌드 매트릭스 미리보기
+        preview_frame = ttk.LabelFrame(main_frame, text="📋 빌드 매트릭스 (생성될 패키지)")
+        preview_frame.pack(fill='both', expand=True, pady=5)
+        
+        # 트리뷰로 빌드 목록 표시
+        columns = ('edition', 'user_type', 'filename')
+        self.matrix_tree = ttk.Treeview(preview_frame, columns=columns, show='headings', height=8)
+        
+        self.matrix_tree.heading('edition', text='요금제')
+        self.matrix_tree.heading('user_type', text='사용자 타입')
+        self.matrix_tree.heading('filename', text='파일명')
+        
+        self.matrix_tree.column('edition', width=120)
+        self.matrix_tree.column('user_type', width=120)
+        self.matrix_tree.column('filename', width=400)
+        
+        scrollbar = ttk.Scrollbar(preview_frame, orient='vertical', command=self.matrix_tree.yview)
+        self.matrix_tree.configure(yscrollcommand=scrollbar.set)
+        
+        self.matrix_tree.pack(side='left', fill='both', expand=True, padx=5, pady=5)
+        scrollbar.pack(side='right', fill='y', pady=5)
+        
+        # 미리보기 업데이트 버튼
+        ttk.Button(preview_frame, text="🔄 미리보기 갱신", 
+                  command=self._update_build_matrix_preview).pack(pady=5)
+        
+        # 하단: 빌드 버튼
+        btn_frame = ttk.Frame(main_frame)
+        btn_frame.pack(fill='x', pady=10)
+        
+        ttk.Button(btn_frame, text="🏷️ 선택 에디션 빌드", 
+                  command=self._build_selected_editions).pack(side='left', padx=5)
+        ttk.Button(btn_frame, text="📦 전체 에디션 빌드 (매트릭스)", 
+                  command=self._build_all_editions).pack(side='left', padx=5)
+        ttk.Button(btn_frame, text="🎁 번들 패키지 생성", 
+                  command=self._create_bundle_package).pack(side='left', padx=5)
+        ttk.Button(btn_frame, text="📂 출력 폴더 열기", 
+                  command=self._open_dist_folder).pack(side='left', padx=5)
+        
+        # 초기 미리보기 업데이트
+        self.after(100, self._update_build_matrix_preview)
+    
+    def _update_build_matrix_preview(self):
+        """빌드 매트릭스 미리보기 업데이트"""
+        self.matrix_tree.delete(*self.matrix_tree.get_children())
+        
+        version = self.edition_version.get() or "13.3.0"
+        
+        selected_editions = [e for e, v in self.edition_vars.items() if v.get()]
+        selected_users = [u for u, v in self.user_type_vars.items() if v.get()]
+        
+        for edition in selected_editions:
+            for user_type in selected_users:
+                edition_config = EditionConfig.EDITIONS.get(edition, {})
+                user_config = EditionConfig.USER_TYPES.get(user_type, {})
+                
+                if user_type == 'standard':
+                    filename = f"acf-css-really-simple-style-management-center-{edition}-v{version}.zip"
+                else:
+                    filename = f"acf-css-really-simple-style-management-center-{edition}-{user_type}-v{version}.zip"
+                
+                self.matrix_tree.insert('', 'end', values=(
+                    edition_config.get('display_name', edition),
+                    user_config.get('name', user_type),
+                    filename
+                ))
+    
+    def _build_selected_editions(self):
+        """선택한 에디션 빌드"""
+        version = self.edition_version.get()
+        if not version:
+            messagebox.showwarning("경고", "빌드 버전을 입력해주세요.")
+            return
+        
+        selected_editions = [e for e, v in self.edition_vars.items() if v.get()]
+        selected_users = [u for u, v in self.user_type_vars.items() if v.get()]
+        
+        if not selected_editions or not selected_users:
+            messagebox.showwarning("경고", "최소 하나의 에디션과 사용자 타입을 선택해주세요.")
+            return
+        
+        # 빌드 조합 생성
+        selections = [(e, u) for e in selected_editions for u in selected_users]
+        
+        self._log(f"🚀 에디션 빌드 시작: {len(selections)}개 패키지")
+        
+        # EditionBuilder 사용
+        builder = EditionBuilder(self.base_path, self._log)
+        results = builder.build_selected_editions(selections, version)
+        
+        self._log(f"✅ 빌드 완료: {len(results)}/{len(selections)}개 성공")
+        
+        if results:
+            messagebox.showinfo("빌드 완료", 
+                f"{len(results)}개 패키지가 생성되었습니다.\n\n출력 위치: {builder.output_dir}")
+    
+    def _build_all_editions(self):
+        """전체 에디션 빌드 (빌드 매트릭스 기반)"""
+        version = self.edition_version.get()
+        if not version:
+            messagebox.showwarning("경고", "빌드 버전을 입력해주세요.")
+            return
+        
+        if not messagebox.askyesno("확인", 
+            f"빌드 매트릭스 기반으로 {len(EditionConfig.BUILD_MATRIX)}개 패키지를 생성합니다.\n계속하시겠습니까?"):
+            return
+        
+        self._log(f"🚀 전체 에디션 빌드 시작 (매트릭스: {len(EditionConfig.BUILD_MATRIX)}개)")
+        
+        builder = EditionBuilder(self.base_path, self._log)
+        results = builder.build_all_editions(version)
+        
+        self._log(f"✅ 전체 빌드 완료: {len(results)}/{len(EditionConfig.BUILD_MATRIX)}개 성공")
+        
+        if results:
+            # 번들 생성 제안
+            if messagebox.askyesno("번들 생성", "번들 패키지도 생성하시겠습니까?"):
+                bundle_name = f"3J-Labs-ACF-CSS-All-Editions-v{version}.zip"
+                builder.create_bundle(results, bundle_name)
+            
+            messagebox.showinfo("빌드 완료", 
+                f"{len(results)}개 패키지가 생성되었습니다.\n\n출력 위치: {builder.output_dir}")
+    
+    def _create_bundle_package(self):
+        """번들 패키지 생성"""
+        version = self.edition_version.get() or "13.3.0"
+        dist_dir = self.base_path / 'dist'
+        
+        if not dist_dir.exists():
+            messagebox.showwarning("경고", "dist 폴더가 없습니다. 먼저 빌드를 수행해주세요.")
+            return
+        
+        zip_files = list(dist_dir.glob("acf-css-*.zip"))
+        if not zip_files:
+            messagebox.showwarning("경고", "빌드된 ZIP 파일이 없습니다.")
+            return
+        
+        bundle_name = f"3J-Labs-ACF-CSS-Bundle-v{version}.zip"
+        
+        builder = EditionBuilder(self.base_path, self._log)
+        bundle_path = builder.create_bundle(zip_files, bundle_name)
+        
+        if bundle_path:
+            messagebox.showinfo("번들 생성 완료", 
+                f"번들 패키지가 생성되었습니다.\n\n{bundle_path}")
+    
+    def _open_dist_folder(self):
+        """dist 폴더 열기"""
+        dist_dir = self.base_path / 'dist'
+        dist_dir.mkdir(exist_ok=True)
+        
+        if sys.platform == 'win32':
+            os.startfile(dist_dir)
+        elif sys.platform == 'darwin':
+            subprocess.run(['open', dist_dir])
+        else:
+            subprocess.run(['xdg-open', dist_dir])
     
     def _create_build_tab(self):
         """빌드 도구 탭"""
@@ -350,6 +866,7 @@ class DevToolkit(tk.Tk):
             'acf-css-ai-extension',
             'acf-css-neural-link',
             'acf-code-snippets-box',
+            'acf-css-woocommerce-toolkit',
         ]
         
         for dir_name in plugin_dirs:
@@ -506,9 +1023,17 @@ class DevToolkit(tk.Tk):
             subprocess.run(['xdg-open', plugin_path])
     
     def _build_all(self):
-        """전체 빌드"""
+        """전체 빌드 (모든 플러그인 + 모든 에디션)"""
+        # 일반 플러그인 빌드
         for key, info in self.plugins.items():
             self._log(f"빌드 중: {key}")
+            self._create_zip_for_plugin(key)
+        
+        # 에디션 빌드 제안
+        if messagebox.askyesno("에디션 빌드", "에디션별 빌드도 수행하시겠습니까?"):
+            version = self.edition_version.get() if hasattr(self, 'edition_version') else "13.3.0"
+            builder = EditionBuilder(self.base_path, self._log)
+            builder.build_all_editions(version)
         
         messagebox.showinfo("완료", "전체 빌드가 완료되었습니다.")
     

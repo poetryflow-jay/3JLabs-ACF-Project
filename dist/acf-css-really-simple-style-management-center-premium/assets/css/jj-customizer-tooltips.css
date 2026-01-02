@@ -1,0 +1,80 @@
+/**
+ * J&J Customizer Tooltips Styles
+ * 
+ * @since v3.8.0
+ */
+
+/* 툴팁 아이콘 스타일 */
+.jj-tooltip-icon {
+    display: inline-block;
+    margin-left: 5px;
+    color: #666;
+    cursor: help;
+    font-size: 16px;
+    vertical-align: middle;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.jj-tooltip-icon:hover {
+    opacity: 1;
+    color: #2271b1;
+}
+
+/* 툴팁 컨테이너 스타일 */
+.jj-tooltip {
+    position: absolute;
+    z-index: 999999;
+    max-width: 350px;
+    padding: 12px 16px;
+    background: #1d2327;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.jj-tooltip.jj-tooltip-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 툴팁 화살표 (선택적) */
+.jj-tooltip::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid #1d2327;
+}
+
+/* Customizer 컨트롤 내 툴팁 아이콘 위치 조정 */
+.customize-control .jj-tooltip-icon {
+    margin-left: 8px;
+}
+
+.customize-control-color .jj-tooltip-icon {
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+/* 반응형 조정 */
+@media (max-width: 782px) {
+    .jj-tooltip {
+        max-width: 280px;
+        font-size: 12px;
+        padding: 10px 14px;
+    }
+}

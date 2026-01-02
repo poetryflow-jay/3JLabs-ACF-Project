@@ -1,0 +1,203 @@
+/**
+ * JJ Style Guide Blocks Styles
+ *
+ * @since 10.2.0
+ */
+
+.jj-block {
+    box-sizing: border-box;
+}
+
+/* ===== Palette Block ===== */
+.jj-block-palette {
+    border: 1px solid #dcdcde;
+    border-radius: 6px;
+    padding: 14px;
+    background: #fff;
+}
+
+.jj-block__header {
+    margin-bottom: 10px;
+    color: #1d2327;
+}
+
+.jj-block-palette__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.jj-block-palette--fixed-cols .jj-block-palette__grid {
+    grid-template-columns: repeat(var(--jj-palette-cols, 4), minmax(0, 1fr));
+}
+
+.jj-block-palette__item {
+    border: 1px solid #e2e4e7;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fafafa;
+}
+
+.jj-block-palette__swatch {
+    height: var(--jj-palette-swatch-height, 54px);
+    border-bottom: 1px solid #e2e4e7;
+}
+
+.jj-block-palette__meta {
+    padding: 10px 10px 12px;
+}
+
+.jj-block-palette--compact .jj-block-palette__grid {
+    grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+    gap: 10px;
+}
+
+.jj-block-palette--compact .jj-block-palette__meta {
+    padding: 8px 8px 10px;
+}
+
+.jj-block-palette--compact .jj-block-palette__label {
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.jj-block-palette--compact .jj-block-palette__value {
+    font-size: 10px;
+}
+
+.jj-block-palette__label {
+    font-size: 12px;
+    color: #1d2327;
+    margin-bottom: 6px;
+}
+
+.jj-block-palette__value {
+    font-size: 11px;
+    color: #50575e;
+    background: transparent;
+    padding: 0;
+}
+
+/* ===== Typography Block ===== */
+.jj-block-typography {
+    padding: 8px 0;
+}
+
+/* ===== Mini Guide Block ===== */
+.jj-block-mini-guide {
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+}
+
+.jj-block-mini-guide__title {
+    margin-bottom: 12px;
+    color: #1d2327;
+}
+
+.jj-block-mini-guide__section {
+    margin-top: 14px;
+}
+
+.jj-block-mini-guide__subtitle {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: #50575e;
+}
+
+.jj-block-mini-guide__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.jj-block-mini-guide--compact {
+    padding: 12px;
+}
+
+.jj-block-mini-guide--compact .jj-block-mini-guide__section {
+    margin-top: 10px;
+}
+
+.jj-block-editor-fallback,
+.jj-block-editor-loading,
+.jj-block-editor-empty,
+.jj-block-editor-error {
+    padding: 10px 12px;
+    border: 1px dashed #c3c4c7;
+    border-radius: 6px;
+    background: #f6f7f7;
+    color: #50575e;
+    font-size: 12px;
+}
+
+.jj-block-editor-error {
+    border-color: #d63638;
+    background: rgba(214, 54, 56, 0.06);
+    color: #d63638;
+}
+
+.jj-block-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1;
+    padding: 10px 14px;
+    border-radius: var(--jj-btn-primary-border-radius, 6px);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.jj-block-button--primary {
+    background: var(--jj-btn-primary-bg, var(--jj-primary-color, #2271b1));
+    color: var(--jj-btn-primary-text, #fff);
+    border-color: var(--jj-btn-primary-border, transparent);
+}
+
+.jj-block-button--primary:hover {
+    background: var(--jj-btn-primary-bg-hover, var(--jj-primary-color-hover, #135e96));
+    color: var(--jj-btn-primary-text-hover, #fff);
+    border-color: var(--jj-btn-primary-border-hover, transparent);
+}
+
+.jj-block-button--secondary {
+    background: var(--jj-btn-secondary-bg, #f6f7f7);
+    color: var(--jj-btn-secondary-text, #1d2327);
+    border-color: var(--jj-btn-secondary-border, #c3c4c7);
+}
+
+.jj-block-button--secondary:hover {
+    background: var(--jj-btn-secondary-bg-hover, #eef0f1);
+    color: var(--jj-btn-secondary-text-hover, #1d2327);
+    border-color: var(--jj-btn-secondary-border-hover, #8c8f94);
+}
+
+.jj-block-button--text {
+    background: var(--jj-btn-text-bg, transparent);
+    color: var(--jj-btn-text-text, var(--jj-sys-link, #2271b1));
+    border-color: var(--jj-btn-text-border, transparent);
+}
+
+.jj-block-button--text:hover {
+    background: var(--jj-btn-text-bg-hover, rgba(34, 113, 177, 0.08));
+    color: var(--jj-btn-text-text-hover, var(--jj-sys-link, #135e96));
+    border-color: var(--jj-btn-text-border-hover, transparent);
+}
+
+@media (max-width: 600px) {
+    .jj-block-palette__grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .jj-block-mini-guide__buttons {
+        flex-direction: column;
+    }
+    .jj-block-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+

@@ -70,6 +70,24 @@ final class ACF_Code_Snippets_Box {
         require_once ACF_CSB_PATH . 'includes/class-acf-csb-admin.php';
         require_once ACF_CSB_PATH . 'includes/class-acf-csb-presets.php';
         require_once ACF_CSB_PATH . 'includes/class-acf-csb-acf-css-bridge.php';
+        
+        // 고급 조건 빌더 (WPCODEBOX2 스타일)
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-condition-builder.php';
+        
+        // 라이선스 & 기능 접근 제어
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-license.php';
+        
+        // 넛지 마케팅 시스템
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-nudge-system.php';
+        
+        // 서드파티 연동 (FacetWP, Perfmatters, ACF, WooCommerce 등)
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-integrations.php';
+        
+        // 내보내기/가져오기
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-export-import.php';
+        
+        // 클라우드 동기화 (Pro Premium+)
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-cloud-sync.php';
     }
 
     /**

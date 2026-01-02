@@ -1,0 +1,165 @@
+# Dutch (Netherlands) translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Dutch <nl@3j-labs.com>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Stijlcentrum"
+
+msgid "관리자 센터"
+msgstr "Beheercentrum"
+
+msgid "실험실"
+msgstr "Laboratorium"
+
+msgid "설정"
+msgstr "Instellingen"
+
+msgid "저장"
+msgstr "Opslaan"
+
+msgid "취소"
+msgstr "Annuleren"
+
+msgid "적용"
+msgstr "Toepassen"
+
+msgid "초기화"
+msgstr "Resetten"
+
+msgid "내보내기"
+msgstr "Exporteren"
+
+msgid "불러오기"
+msgstr "Importeren"
+
+msgid "다운로드"
+msgstr "Downloaden"
+
+msgid "업로드"
+msgstr "Uploaden"
+
+# Colors
+msgid "색상"
+msgstr "Kleuren"
+
+msgid "기본 색상"
+msgstr "Primaire Kleur"
+
+msgid "보조 색상"
+msgstr "Secundaire Kleur"
+
+msgid "강조 색상"
+msgstr "Accentkleur"
+
+msgid "배경 색상"
+msgstr "Achtergrondkleur"
+
+msgid "텍스트 색상"
+msgstr "Tekstkleur"
+
+msgid "브랜드 팔레트"
+msgstr "Merkpalet"
+
+msgid "시스템 팔레트"
+msgstr "Systeempalet"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Typografie"
+
+msgid "폰트 패밀리"
+msgstr "Lettertypefamilie"
+
+msgid "폰트 크기"
+msgstr "Lettergrootte"
+
+msgid "폰트 굵기"
+msgstr "Lettergewicht"
+
+msgid "행간"
+msgstr "Regelhoogte"
+
+msgid "자간"
+msgstr "Letterafstand"
+
+msgid "제목 1"
+msgstr "Kop 1"
+
+msgid "제목 2"
+msgstr "Kop 2"
+
+msgid "제목 3"
+msgstr "Kop 3"
+
+msgid "본문"
+msgstr "Paragraaf"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Desktop"
+
+msgid "랩톱"
+msgstr "Laptop"
+
+msgid "태블릿"
+msgstr "Tablet"
+
+msgid "모바일"
+msgstr "Mobiel"
+
+# Export
+msgid "PDF (인쇄)"
+msgstr "PDF (Afdrukken)"
+
+msgid "PNG 이미지"
+msgstr "PNG-afbeelding"
+
+msgid "HTML 파일"
+msgstr "HTML-bestand"
+
+msgid "CSS 변수"
+msgstr "CSS-variabelen"
+
+msgid "JSON 토큰"
+msgstr "JSON-tokens"
+
+msgid "ZIP (전체)"
+msgstr "ZIP (Alles)"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Instellingen opgeslagen."
+
+msgid "권한이 없습니다."
+msgstr "Toegang geweigerd."
+
+msgid "오류가 발생했습니다."
+msgstr "Er is een fout opgetreden."
+
+msgid "성공"
+msgstr "Succes"
+
+msgid "오류"
+msgstr "Fout"
+
+msgid "경고"
+msgstr "Waarschuwing"
+
+msgid "정보"
+msgstr "Informatie"

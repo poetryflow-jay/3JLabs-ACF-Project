@@ -1,0 +1,165 @@
+# Italian translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Italian <it@3j-labs.com>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Centro Stili"
+
+msgid "관리자 센터"
+msgstr "Centro Amministrazione"
+
+msgid "실험실"
+msgstr "Laboratorio"
+
+msgid "설정"
+msgstr "Impostazioni"
+
+msgid "저장"
+msgstr "Salva"
+
+msgid "취소"
+msgstr "Annulla"
+
+msgid "적용"
+msgstr "Applica"
+
+msgid "초기화"
+msgstr "Reimposta"
+
+msgid "내보내기"
+msgstr "Esporta"
+
+msgid "불러오기"
+msgstr "Importa"
+
+msgid "다운로드"
+msgstr "Scarica"
+
+msgid "업로드"
+msgstr "Carica"
+
+# Colors
+msgid "색상"
+msgstr "Colori"
+
+msgid "기본 색상"
+msgstr "Colore Primario"
+
+msgid "보조 색상"
+msgstr "Colore Secondario"
+
+msgid "강조 색상"
+msgstr "Colore Accento"
+
+msgid "배경 색상"
+msgstr "Colore di Sfondo"
+
+msgid "텍스트 색상"
+msgstr "Colore del Testo"
+
+msgid "브랜드 팔레트"
+msgstr "Palette del Brand"
+
+msgid "시스템 팔레트"
+msgstr "Palette di Sistema"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Tipografia"
+
+msgid "폰트 패밀리"
+msgstr "Famiglia di Font"
+
+msgid "폰트 크기"
+msgstr "Dimensione Font"
+
+msgid "폰트 굵기"
+msgstr "Peso del Font"
+
+msgid "행간"
+msgstr "Altezza Riga"
+
+msgid "자간"
+msgstr "Spaziatura Lettere"
+
+msgid "제목 1"
+msgstr "Titolo 1"
+
+msgid "제목 2"
+msgstr "Titolo 2"
+
+msgid "제목 3"
+msgstr "Titolo 3"
+
+msgid "본문"
+msgstr "Paragrafo"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Desktop"
+
+msgid "랩톱"
+msgstr "Laptop"
+
+msgid "태블릿"
+msgstr "Tablet"
+
+msgid "모바일"
+msgstr "Mobile"
+
+# Export
+msgid "PDF (인쇄)"
+msgstr "PDF (Stampa)"
+
+msgid "PNG 이미지"
+msgstr "Immagine PNG"
+
+msgid "HTML 파일"
+msgstr "File HTML"
+
+msgid "CSS 변수"
+msgstr "Variabili CSS"
+
+msgid "JSON 토큰"
+msgstr "Token JSON"
+
+msgid "ZIP (전체)"
+msgstr "ZIP (Tutto)"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Impostazioni salvate."
+
+msgid "권한이 없습니다."
+msgstr "Accesso negato."
+
+msgid "오류가 발생했습니다."
+msgstr "Si è verificato un errore."
+
+msgid "성공"
+msgstr "Successo"
+
+msgid "오류"
+msgstr "Errore"
+
+msgid "경고"
+msgstr "Avviso"
+
+msgid "정보"
+msgstr "Informazione"

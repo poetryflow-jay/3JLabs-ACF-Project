@@ -1,0 +1,131 @@
+# French (Canada) translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: French (Canada) <fr-CA@3j-labs.com>\n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: 3J Labs i18n Generator\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Centre de styles"
+
+msgid "관리자 센터"
+msgstr "Centre d'administration"
+
+msgid "실험실"
+msgstr "Labo"
+
+msgid "설정"
+msgstr "Paramètres"
+
+msgid "저장"
+msgstr "Sauvegarder"
+
+msgid "취소"
+msgstr "Annuler"
+
+msgid "적용"
+msgstr "Appliquer"
+
+msgid "초기화"
+msgstr "Réinitialiser"
+
+msgid "내보내기"
+msgstr "Exporter"
+
+msgid "불러오기"
+msgstr "Importer"
+
+msgid "다운로드"
+msgstr "Télécharger"
+
+msgid "업로드"
+msgstr "Téléverser"
+
+# Colors (Quebec French)
+msgid "색상"
+msgstr "Couleurs"
+
+msgid "기본 색상"
+msgstr "Couleur primaire"
+
+msgid "보조 색상"
+msgstr "Couleur secondaire"
+
+msgid "강조 색상"
+msgstr "Couleur d'accent"
+
+msgid "배경 색상"
+msgstr "Couleur d'arrière-plan"
+
+msgid "텍스트 색상"
+msgstr "Couleur du texte"
+
+msgid "브랜드 팔레트"
+msgstr "Palette de marque"
+
+msgid "시스템 팔레트"
+msgstr "Palette système"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Typographie"
+
+msgid "폰트 패밀리"
+msgstr "Famille de police"
+
+msgid "폰트 크기"
+msgstr "Taille de police"
+
+msgid "폰트 굵기"
+msgstr "Graisse de police"
+
+msgid "행간"
+msgstr "Hauteur de ligne"
+
+msgid "자간"
+msgstr "Espacement des lettres"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Ordinateur"
+
+msgid "태블릿"
+msgstr "Tablette"
+
+msgid "모바일"
+msgstr "Cellulaire"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Paramètres sauvegardés."
+
+msgid "권한이 없습니다."
+msgstr "Accès refusé."
+
+msgid "오류가 발생했습니다."
+msgstr "Une erreur est survenue."
+
+msgid "성공"
+msgstr "Succès"
+
+msgid "오류"
+msgstr "Erreur"
+
+msgid "경고"
+msgstr "Avertissement"
+
+msgid "정보"
+msgstr "Information"
