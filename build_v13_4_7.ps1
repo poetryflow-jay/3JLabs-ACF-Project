@@ -1,3 +1,14 @@
+# ==============================================================================
+# 3J Labs ACF CSS - v13.4.7 빌드 스크립트
+# ==============================================================================
+# 작업 원칙 (Development Principles):
+# 1. ZIP 빌드 시 플러그인 폴더가 포함되도록 주의
+#    - Compress-Archive -Path $folder (not $folder\*)
+#    - WordPress 업로드 설치 시 올바른 폴더 구조 유지
+# 2. 터미널이 Python REPL(>>>) 상태면 exit() 후 재시도
+# 3. 40초 이상 응답 없으면 중지 후 다른 방법으로 재시도
+# ==============================================================================
+
 $buildDir = "builds\3J-Labs-Release-v13.4.7"
 if (!(Test-Path $buildDir)) { New-Item -ItemType Directory -Path $buildDir -Force }
 

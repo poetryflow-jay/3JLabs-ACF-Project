@@ -26,6 +26,37 @@ if ( ! defined( 'ABSPATH' ) ) {
  * - 자세한 내용은 DEVELOPMENT_PRINCIPLES.md의 "Git 및 로컬 경로 관리 원칙" 섹션 참조
  */
 
+/**
+ * ==============================================================================
+ * 작업 원칙 (Development Principles) - v13.4.7
+ * ==============================================================================
+ * 
+ * 1. 터미널 Python REPL 상태 감지:
+ *    - 프롬프트가 ">>>"로 표시되면 exit() 후 재시도
+ *    - 모든 명령이 Python 코드로 해석되어 SyntaxError 발생 가능
+ * 
+ * 2. 타임아웃 및 재시도:
+ *    - 40초 이상 응답 없거나 유의미한 진행 없으면 중지 후 다른 방법으로 재시도
+ *    - 복잡한 PowerShell 명령은 .ps1 스크립트 파일로 분리
+ * 
+ * 3. ZIP 빌드 주의사항:
+ *    - WordPress 플러그인 ZIP은 플러그인 폴더가 포함되어야 함
+ *    - Compress-Archive -Path $folder (not $folder\*)
+ *    - 이렇게 해야 WordPress 업로드 설치 시 올바르게 인식됨
+ * 
+ * 4. 문법/참조 오류 방지:
+ *    - 모든 PHP 클래스/함수 호출 전 class_exists(), function_exists(), method_exists() 검증
+ *    - private → public 메서드 변경 시 모든 호출 지점 확인
+ *    - static 클래스에는 instance() 호출 금지
+ * 
+ * 5. 파일명/경로 검증:
+ *    - 파일 수정 전 file_exists() 확인
+ *    - 플러그인별 메인 파일명 정확히 사용
+ *    - 상대 경로 대신 JJ_STYLE_GUIDE_PATH, plugin_dir_path() 상수 활용
+ * 
+ * ==============================================================================
+ */
+
 // 플러그인 상수 정의
 // [v5.1.6] 전면 재검토 및 오류 방지: 안전한 파일 로더 추가, 모든 버전의 require_once 안전 처리, 결제 유도 문구 추가, 플러그인 목록 페이지 바로가기 링크 추가
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
