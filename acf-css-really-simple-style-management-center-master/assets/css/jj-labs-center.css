@@ -217,6 +217,52 @@
     margin-top: 15px;
 }
 
+/* [v13.4.3] 버튼 정렬 및 높이 통일 */
+.jj-labs-center-wrap .jj-bulk-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.jj-labs-center-wrap .jj-bulk-actions .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    line-height: 30px;
+    padding: 0 12px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.jj-labs-center-wrap .jj-bulk-actions .button .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+/* 탭 설정 테이블 버튼 정렬 */
+.jj-labs-center-wrap table.widefat .button {
+    height: 28px;
+    line-height: 26px;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+
+/* 헤더 버튼 정렬 통일 */
+.jj-labs-center-header .button {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.jj-labs-center-header .button .dashicons {
+    margin-right: 4px;
+}
+
 /* 반응형 디자인 */
 @media screen and (max-width: 782px) {
     .jj-labs-center-tabs {
@@ -230,6 +276,11 @@
     
     .jj-labs-center-tab-content {
         padding: 15px;
+    }
+    
+    .jj-labs-center-wrap .jj-bulk-actions {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 

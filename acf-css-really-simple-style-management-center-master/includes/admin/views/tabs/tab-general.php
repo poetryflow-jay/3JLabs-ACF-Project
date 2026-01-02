@@ -3,7 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<div class="jj-admin-center-tab-content" data-tab="general">
+<div class="jj-admin-center-tab-content active" data-tab="general">
     <div class="jj-admin-center-general-form">
         <h3><?php esc_html_e( '일반 설정', 'acf-css-really-simple-style-management-center' ); ?></h3>
         <p class="description">

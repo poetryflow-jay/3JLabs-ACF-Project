@@ -303,8 +303,8 @@ final class JJ_Labs_Center {
             }
         }
 
-        $page_title = __( 'J&J 실험실 센터', 'acf-css-really-simple-style-management-center' );
-        $menu_title = __( '실험실 센터', 'acf-css-really-simple-style-management-center' );
+        $page_title = __( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' );
+        $menu_title = __( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' );
 
         // 1. 설정 메뉴 하단
         add_options_page(
@@ -384,7 +384,7 @@ final class JJ_Labs_Center {
             <div class="jj-labs-center-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <div style="flex: 1;">
                     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 8px;">
-                        <h1 style="margin: 0;"><?php _e( 'J&J 실험실 센터', 'acf-css-really-simple-style-management-center' ); ?> <span class="version">v<?php echo esc_html( defined('JJ_STYLE_GUIDE_VERSION') ? JJ_STYLE_GUIDE_VERSION : '8.0.0' ); ?></span></h1>
+                        <h1 style="margin: 0;"><?php _e( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' ); ?> <span class="version">v<?php echo esc_html( defined('JJ_STYLE_GUIDE_VERSION') ? JJ_STYLE_GUIDE_VERSION : '8.0.0' ); ?></span></h1>
                         <a href="<?php echo esc_url( admin_url( 'options-general.php?page=' . JJ_STYLE_GUIDE_PAGE_SLUG ) ); ?>" 
                            class="button button-secondary" 
                            style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
@@ -410,9 +410,17 @@ final class JJ_Labs_Center {
                         }
                         ?>
                     </div>
-                    <p class="description" style="margin: 0;">
+                    <p class="description" style="margin: 0; line-height: 1.6;">
                         <span class="jj-labs-tab-description" data-tab-type="scanner" data-tooltip="labs-tab-scanner">
-                            <?php _e( '실험실은 아직 공식 지원되지 않는 테마나 플러그인의 스타일을 분석하고 조정하기 위한 고급 도구입니다. CSS/HTML/JS 스캐너와 수동 재정의 기능을 제공합니다.', 'acf-css-really-simple-style-management-center' ); ?>
+                            <?php _e( 'ACF CSS 실험실 센터는 아직 공식적으로 지원되지 않는 테마나 플러그인의 스타일을 분석하고 세밀하게 조정하기 위한 고급 개발자 도구입니다.', 'acf-css-really-simple-style-management-center' ); ?>
+                        </span>
+                        <br>
+                        <span style="color: #666;">
+                            <?php _e( '• <strong>CSS/HTML/JS 스캐너</strong>: 분석하고 싶은 페이지의 URL을 입력하거나, 활성 플러그인/테마에서 대상을 선택한 뒤 스캔을 시작하세요. CSS 선택자, HTML 구조, JavaScript 정보를 추출하여 표시합니다.', 'acf-css-really-simple-style-management-center' ); ?>
+                            <br>
+                            <?php _e( '• <strong>수동 재정의</strong>: 해당 리소스의 스타일 구조를 파악하는 데 도움이 되는 기본 정보를 함께 확인하실 수 있습니다. 직접 CSS를 작성하여 특정 스타일을 재정의할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
+                            <br>
+                            <?php _e( '• <strong>공식 지원 목록</strong>: ACF CSS가 공식적으로 지원하는 테마와 플러그인 목록을 확인할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                         </span>
                     </p>
                 </div>

@@ -1707,5 +1707,20 @@
         $wrap.on('click', '.jj-sidebar-toggle', function() {
             $('.jj-admin-center-sidebar').toggleClass('jj-sidebar-open');
         });
+
+        // [v13.4.3] 초기 탭 활성화 - URL 해시 또는 기본 탭
+        (function initActiveTab() {
+            var hash = window.location.hash ? window.location.hash.substring(1) : '';
+            var validTabs = ['general', 'admin-menu', 'section-layout', 'texts', 'colors', 'visual', 'cloud', 'backup', 'tools', 'figma', 'updates', 'license', 'system-status'];
+            
+            // 현재 활성화된 탭이 없는 경우에만 초기화
+            if (!$wrap.find('.jj-admin-center-tab-content.active').length) {
+                var targetTab = (hash && validTabs.indexOf(hash) !== -1) ? hash : 'general';
+                switchTab(targetTab);
+            } else if (hash && validTabs.indexOf(hash) !== -1) {
+                // URL 해시가 있으면 해당 탭으로 전환
+                switchTab(hash);
+            }
+        })();
     });
 })(jQuery);

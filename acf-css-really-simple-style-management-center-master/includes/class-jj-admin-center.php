@@ -617,7 +617,7 @@ final class JJ_Admin_Center {
                     <li>
                         <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-labs-center' ) ); ?>">
                             <span class="dashicons dashicons-beaker"></span>
-                            <?php esc_html_e( '실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
+                            <?php esc_html_e( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
                     </li>
                     <?php endif; ?>
@@ -626,7 +626,7 @@ final class JJ_Admin_Center {
             
             <div class="jj-admin-center-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <div style="display: flex; align-items: center; gap: 15px;">
-                        <h1 style="margin: 0;"><?php esc_html_e( 'ACF CSS 관리자 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
+                        <h1 style="margin: 0;"><?php esc_html_e( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ); ?></h1>
                         <a href="<?php echo esc_url( admin_url( 'options-general.php?page=' . JJ_STYLE_GUIDE_PAGE_SLUG ) ); ?>" 
                            class="button button-secondary" 
                            style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
@@ -635,7 +635,7 @@ final class JJ_Admin_Center {
                     <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-labs-center' ) ); ?>" 
                        class="button button-secondary" 
                        style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
-                        <?php esc_html_e( '실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
+                        <?php esc_html_e( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
                     </a>
                     <?php
                     // [v5.1.6] 마스터 버전이 아닌 경우 결제 유도 문구 표시

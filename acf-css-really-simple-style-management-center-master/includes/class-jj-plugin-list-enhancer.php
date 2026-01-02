@@ -103,23 +103,30 @@ class JJ_Plugin_List_Enhancer {
      * 플러그인 동작 링크 향상
      * 
      * 기존 add_plugin_settings_link 메소드의 기능을 포함하여 모든 링크를 통합 관리합니다.
+     * [v13.4.3] 링크 스타일 개선: 색상, 굵기, 아이콘 추가
      */
     public function enhance_plugin_action_links( $links ) {
         $new_links = array();
 
-        // 1. 설정 (Admin Center 메인)
-        $new_links['settings'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center' ) ) . '" style="font-weight: 600;">' . __( 'Settings', 'acf-css-really-simple-style-management-center' ) . '</a>';
+        // 1. 설정 (Admin Center 메인) - 주요 링크이므로 강조
+        $new_links['settings'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center' ) ) . '" style="font-weight: 700; color: #2271b1;">⚙️ ' . __( 'Settings', 'acf-css-really-simple-style-management-center' ) . '</a>';
 
-        // 2. 스타일 (Style Guide)
-        $new_links['styles'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=acf-css-really-simple-style-guide' ) ) . '">' . __( 'Styles', 'acf-css-really-simple-style-management-center' ) . '</a>';
+        // 2. 스타일 (Style Guide) - 색상 적용
+        $new_links['styles'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=acf-css-really-simple-style-guide' ) ) . '" style="color: #135e96; font-weight: 600;">🎨 ' . __( 'Styles', 'acf-css-really-simple-style-management-center' ) . '</a>';
 
         // 3. 어드민 메뉴 (Admin Menu Tab)
-        $new_links['menu'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center#admin-menu' ) ) . '">' . __( 'Menu', 'acf-css-really-simple-style-management-center' ) . '</a>';
+        $new_links['menu'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center#admin-menu' ) ) . '" style="color: #50575e;">📋 ' . __( 'Menu', 'acf-css-really-simple-style-management-center' ) . '</a>';
 
         // 4. 비주얼 (Visual Tab)
-        $new_links['visual'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center#visual' ) ) . '">' . __( 'Visual', 'acf-css-really-simple-style-management-center' ) . '</a>';
+        $new_links['visual'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center#visual' ) ) . '" style="color: #50575e;">👁️ ' . __( 'Visual', 'acf-css-really-simple-style-management-center' ) . '</a>';
 
-        // 5. 업그레이드 링크 (Free 버전인 경우)
+        // 5. 백업/롤백 링크 (Admin Center > Backup Tab)
+        $new_links['backup'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center#backup' ) ) . '" style="color: #856404;">🔄 ' . __( '백업/롤백', 'acf-css-really-simple-style-management-center' ) . '</a>';
+
+        // 6. 시스템 상태 (System Status Tab)
+        $new_links['system'] = '<a href="' . esc_url( admin_url( 'options-general.php?page=jj-admin-center#system-status' ) ) . '" style="color: #646970;">📊 ' . __( '진단', 'acf-css-really-simple-style-management-center' ) . '</a>';
+
+        // 7. 업그레이드 링크 (Free 버전인 경우)
         if ( ! $this->is_premium() ) {
             $license_manager = null;
             $upgrade_url = 'https://3j-labs.com';
@@ -129,15 +136,8 @@ class JJ_Plugin_List_Enhancer {
                     $upgrade_url = $license_manager->get_purchase_url( 'upgrade' );
                 }
             }
-            $new_links['upgrade'] = '<a href="' . esc_url( $upgrade_url ) . '" target="_blank" rel="noopener noreferrer" style="color: #2271b1; font-weight: 600;">' . __( '업그레이드', 'acf-css-really-simple-style-management-center' ) . '</a>';
+            $new_links['upgrade'] = '<a href="' . esc_url( $upgrade_url ) . '" target="_blank" rel="noopener noreferrer" style="color: #00a32a; font-weight: 700;">🚀 ' . __( '업그레이드 PRO', 'acf-css-really-simple-style-management-center' ) . '</a>';
         }
-
-        // 6. 롤백 링크 (이전 버전이 있는 경우) - 향후 확장용
-        // 현재는 구현 준비 중이므로 주석 처리
-        // $previous_versions = $this->get_previous_versions();
-        // if ( ! empty( $previous_versions ) ) {
-        //     $new_links['rollback'] = '<a href="#" class="jj-rollback-plugin" data-plugin="' . esc_attr( $this->plugin_basename ) . '" data-versions="' . esc_attr( json_encode( $previous_versions ) ) . '" style="color: #d63638;">' . __( '롤백', 'acf-css-really-simple-style-management-center' ) . '</a>';
-        // }
 
         // 새 링크를 기존 링크(비활성화 등) 앞에 추가
         return array_merge( $new_links, $links );
