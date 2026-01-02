@@ -68,11 +68,186 @@ jQuery(document).ready(function($) {
     // ==============================
     // Installer (기존 기능 유지)
     // ==============================
+    // ==============================
+    // 툴팁/팝업 시스템
+    // ==============================
+    function initTooltipSystem() {
+        // 자세히 보기 링크 클릭 시 팝업 표시
+        $(document).on('click', '.jj-show-tooltip', function(e) {
+            e.preventDefault();
+            var tooltipId = $(this).data('tooltip');
+            showTooltipPopup(tooltipId);
+        });
+        
+        // 팝업 닫기
+        $(document).on('click', '.jj-popup-close, .jj-popup-overlay', function() {
+            closeTooltipPopup();
+        });
+        
+        // ESC 키로 닫기
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeTooltipPopup();
+            }
+        });
+    }
+    
+    function showTooltipPopup(tooltipId) {
+        var content = '';
+        
+        if (tooltipId === 'selection-help') {
+            content = '<h3>🖱️ 선택 방법 안내</h3>' +
+                '<div class="jj-popup-section">' +
+                '<h4>Ctrl (⌘) + 클릭</h4>' +
+                '<p>여러 개의 항목을 개별적으로 선택할 수 있습니다.<br>이미 선택된 항목을 Ctrl+클릭하면 선택이 해제됩니다.</p>' +
+                '</div>' +
+                '<div class="jj-popup-section">' +
+                '<h4>Shift + 클릭</h4>' +
+                '<p>마지막으로 클릭한 항목부터 현재 클릭한 항목까지의 범위를 한 번에 선택합니다.</p>' +
+                '</div>' +
+                '<div class="jj-popup-section">' +
+                '<h4>전체 선택 / 선택 해제</h4>' +
+                '<p>버튼을 클릭하면 모든 항목을 한 번에 선택하거나 해제할 수 있습니다.</p>' +
+                '</div>' +
+                '<div class="jj-popup-footer">' +
+                '<label><input type="checkbox" class="jj-dont-show-again" data-key="selection-help-3days"> 3일간 보지 않기</label>' +
+                '<label><input type="checkbox" class="jj-dont-show-again" data-key="selection-help-forever"> 다시 보지 않기</label>' +
+                '</div>';
+        }
+        
+        // 다시 보지 않기 체크 확인
+        var dontShowKey = 'jj_tooltip_' + tooltipId;
+        try {
+            var dontShow = localStorage.getItem(dontShowKey);
+            if (dontShow) {
+                var dontShowData = JSON.parse(dontShow);
+                if (dontShowData.forever) return;
+                if (dontShowData.until && new Date(dontShowData.until) > new Date()) return;
+            }
+        } catch (e) {}
+        
+        // 팝업 생성
+        var popup = '<div class="jj-popup-overlay"></div>' +
+            '<div class="jj-popup-container">' +
+            '<button type="button" class="jj-popup-close" aria-label="닫기">&times;</button>' +
+            '<div class="jj-popup-content">' + content + '</div>' +
+            '</div>';
+        
+        $('body').append(popup);
+        
+        // 다시 보지 않기 체크박스 이벤트
+        $('.jj-dont-show-again').on('change', function() {
+            var key = $(this).data('key');
+            var parts = key.split('-');
+            var baseKey = parts.slice(0, -1).join('-');
+            var duration = parts[parts.length - 1];
+            
+            var storageKey = 'jj_tooltip_' + baseKey.replace('-3days', '').replace('-forever', '');
+            storageKey = 'jj_tooltip_selection-help';
+            
+            try {
+                if (duration === '3days') {
+                    var until = new Date();
+                    until.setDate(until.getDate() + 3);
+                    localStorage.setItem(storageKey, JSON.stringify({ until: until.toISOString() }));
+                } else if (duration === 'forever') {
+                    localStorage.setItem(storageKey, JSON.stringify({ forever: true }));
+                }
+            } catch (e) {}
+            
+            closeTooltipPopup();
+        });
+    }
+    
+    function closeTooltipPopup() {
+        $('.jj-popup-overlay, .jj-popup-container').remove();
+    }
+    
+    // 선택 정보 업데이트
+    function updateSelectionInfo() {
+        var checkedCount = $('.jj-file-item-completed .jj-file-checkbox:checked').length;
+        var totalCount = $('.jj-file-item-completed .jj-file-checkbox:not(:disabled)').length;
+        
+        $('#jj-selection-info').text(checkedCount + '개 선택됨');
+        
+        if (checkedCount > 0) {
+            $('#jj-activate-selected-plugins').show().text('선택한 플러그인 자동 활성화 (' + checkedCount + '개)');
+        } else {
+            $('#jj-activate-selected-plugins').hide();
+        }
+    }
+    
+    // 완료 알림 표시
+    function showCompletionNotice() {
+        showNotice('success', '모든 설치가 완료되었습니다! 🎉');
+    }
+
     function initInstaller() {
         var dropzone = $('#jj-dropzone');
         var fileInput = $('#jj-file-input');
 
         if (dropzone.length === 0 || fileInput.length === 0) return;
+        
+        // ==============================
+        // 전체 선택 / 선택 해제 버튼 이벤트
+        // ==============================
+        $('#jj-select-all').on('click', function() {
+            $('.jj-file-checkbox:not(:disabled)').prop('checked', true);
+            updateSelectionInfo();
+        });
+        
+        $('#jj-select-none').on('click', function() {
+            $('.jj-file-checkbox').prop('checked', false);
+            updateSelectionInfo();
+        });
+        
+        // 체크박스 변경 시 선택 정보 업데이트
+        $(document).on('change', '.jj-file-checkbox', function() {
+            updateSelectionInfo();
+        });
+        
+        // 선택한 플러그인 활성화 버튼
+        $('#jj-activate-selected-plugins').on('click', function() {
+            var $btn = $(this);
+            var selectedItems = [];
+            
+            $('.jj-file-item-completed .jj-file-checkbox:checked').each(function() {
+                var $item = $(this).closest('.jj-file-item');
+                var slug = $item.data('slug');
+                if (slug) {
+                    selectedItems.push({ slug: slug, item: $item });
+                }
+            });
+            
+            if (selectedItems.length === 0) {
+                alert('활성화할 플러그인을 선택해주세요.');
+                return;
+            }
+            
+            $btn.prop('disabled', true).text('활성화 중...');
+            processActivation(selectedItems, 0, $btn);
+        });
+        
+        // Ctrl/Shift 키 선택 기능 (인스톨러)
+        var lastCheckedFile = null;
+        $(document).on('click', '.jj-file-checkbox', function(e) {
+            var $checkbox = $(this);
+            var $item = $checkbox.closest('.jj-file-item');
+            
+            // Shift 키: 범위 선택
+            if (e.shiftKey && lastCheckedFile !== null) {
+                var $items = $('.jj-file-item');
+                var startIdx = $items.index(lastCheckedFile);
+                var endIdx = $items.index($item);
+                var start = Math.min(startIdx, endIdx);
+                var end = Math.max(startIdx, endIdx);
+                
+                $items.slice(start, end + 1).find('.jj-file-checkbox:not(:disabled)').prop('checked', true);
+                updateSelectionInfo();
+            }
+            
+            lastCheckedFile = $item;
+        });
 
         // 1. 파일 선택 트리거 수정 (클릭 이벤트 버블링 방지)
         dropzone.on('click', function(e) {
@@ -714,4 +889,5 @@ jQuery(document).ready(function($) {
 
     initTabs();
     initInstaller();
+    initTooltipSystem();
 });

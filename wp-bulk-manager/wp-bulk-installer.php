@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.3.3' ); // [v2.3.3] UX 개선: 선택 기능 강화, 완료 목록 구분, 새로고침 없이 추가 설치 가능
+define( 'WP_BULK_MANAGER_VERSION', '2.3.4' ); // [v2.3.4] UX 개선: 메뉴 한글화, 전체선택/선택해제 버튼 작동, 툴팁 팝업 구현
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -104,8 +104,8 @@ class JJ_Bulk_Installer {
     public function add_menu_pages() {
         // 1. 알림판 아래 최상위 메뉴 (접근성 강화) - 우선순위 높음
         add_menu_page(
-            'WP Bulk Manager',
-            'Bulk Manager',
+            __( 'WP 벌크 매니저', 'wp-bulk-manager' ),
+            __( '벌크 매니저', 'wp-bulk-manager' ),
             'install_plugins',
             $this->page_slug . '-main',
             array( $this, 'render_page' ),
@@ -115,8 +115,8 @@ class JJ_Bulk_Installer {
 
         // 2. 도구 하위 메뉴 (명확한 이름으로 표기)
         add_management_page(
-            '플러그인&테마 Bulk Manager',
-            '플러그인&테마 Bulk Manager',
+            __( '플러그인&테마 벌크 매니저', 'wp-bulk-manager' ),
+            __( '플러그인&테마 벌크 매니저', 'wp-bulk-manager' ),
             'install_plugins',
             $this->page_slug,
             array( $this, 'render_page' )
@@ -410,10 +410,10 @@ class JJ_Bulk_Installer {
                     <div class="jj-selection-controls" id="jj-selection-controls" style="display: none; margin-bottom: 15px;">
                         <div class="jj-selection-buttons">
                             <button type="button" class="button button-small" id="jj-select-all">
-                                전체 선택
+                                ☑️ 전체 선택
                             </button>
                             <button type="button" class="button button-small" id="jj-select-none">
-                                전체 선택 해제
+                                ☐ 선택 해제
                             </button>
                             <span class="jj-selection-info" id="jj-selection-info">0개 선택됨</span>
                         </div>
