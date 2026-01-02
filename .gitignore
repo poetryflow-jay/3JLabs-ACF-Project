@@ -28,3 +28,9 @@ build_state.json
 *.log
 
 
+
+dist/old/
+wordpress/
+.3j_build_config.json
+__pycache__/
+

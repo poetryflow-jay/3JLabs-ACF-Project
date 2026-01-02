@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name: ACF CSS License Bridge for WooCommerce
- * Plugin URI: https://j-j-labs.com/acf-css-manager
- * Description: WooCommerce 결제 완료 시 Neural Link 서버에 라이센스 발행 요청을 전송합니다.
+ * Plugin URI: https://3j-labs.com
+ * Description: WooCommerce 결제 완료 시 Neural Link 서버에 라이센스 발행 요청을 전송합니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, 개발사 내부에서만 사용하는 라이센스 및 업데이트 관리 플러그인입니다.
  * Version:           2.0.0
- * Author:            3J Labs
+ * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
- * Author URI: https://j-j-labs.com
+ * Author URI: https://3j-labs.com
  * License: GPL-2.0+
  * Text Domain: acf-css-woo-license
  * Requires at least: 5.8
@@ -18,6 +18,13 @@
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
+}
+
+/**
+ * 플러그인 상수 정의
+ */
+if ( ! defined( 'ACF_CSS_WOO_LICENSE_VERSION' ) ) {
+    define( 'ACF_CSS_WOO_LICENSE_VERSION', '2.0.0' );
 }
 
 // WooCommerce 활성화 확인
