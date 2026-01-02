@@ -1137,5 +1137,122 @@ def main():
     app.mainloop()
 
 
+def cli_build(args):
+    """CLI 빌드 모드"""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='3J Labs Plugin Builder CLI')
+    parser.add_argument('--version', '-v', default='13.3.0', help='빌드 버전 (기본: 13.3.0)')
+    parser.add_argument('--edition', '-e', choices=['free', 'basic', 'premium', 'unlimited', 'all'], 
+                       default='all', help='에디션 선택')
+    parser.add_argument('--user-type', '-u', choices=['standard', 'partner', 'master', 'all'],
+                       default='standard', help='사용자 타입 선택')
+    parser.add_argument('--bundle', '-b', action='store_true', help='번들 패키지 생성')
+    parser.add_argument('--list', '-l', action='store_true', help='플러그인 목록 출력')
+    parser.add_argument('--simple', '-s', action='store_true', help='간단 빌드 (모든 플러그인 ZIP)')
+    
+    parsed = parser.parse_args(args)
+    
+    base_path = Path(__file__).parent
+    
+    # 플러그인 목록 출력
+    if parsed.list:
+        print("\n📦 3J Labs 플러그인 목록:")
+        print("-" * 50)
+        plugin_dirs = [
+            'acf-css-really-simple-style-management-center-master',
+            'acf-css-ai-extension',
+            'acf-css-neural-link',
+            'acf-code-snippets-box',
+            'acf-css-woocommerce-toolkit',
+        ]
+        for d in plugin_dirs:
+            path = base_path / d
+            if path.exists():
+                info = PluginInfo(path)
+                print(f"  ✅ {info.name or d} v{info.version or 'N/A'}")
+            else:
+                print(f"  ❌ {d} (없음)")
+        return
+    
+    # 간단 빌드 모드
+    if parsed.simple:
+        print(f"\n🔨 간단 빌드 모드 - 버전: {parsed.version}")
+        print("-" * 50)
+        
+        output_dir = base_path / 'builds' / f'cli-{datetime.now().strftime("%Y%m%d-%H%M%S")}'
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        plugin_dirs = [
+            'acf-css-really-simple-style-management-center-master',
+            'acf-css-ai-extension',
+            'acf-css-neural-link',
+            'acf-code-snippets-box',
+            'acf-css-woocommerce-toolkit',
+        ]
+        
+        for d in plugin_dirs:
+            path = base_path / d
+            if path.exists():
+                info = PluginInfo(path)
+                zip_name = f"{d}-v{info.version or parsed.version}.zip"
+                zip_path = output_dir / zip_name
+                
+                with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zf:
+                    for root, dirs, files in os.walk(path):
+                        dirs[:] = [x for x in dirs if not x.startswith('.') and x not in {'node_modules', '__pycache__', 'tests'}]
+                        for file in files:
+                            if not file.startswith('.'):
+                                fp = Path(root) / file
+                                zf.write(fp, fp.relative_to(path.parent))
+                
+                size_kb = zip_path.stat().st_size / 1024
+                print(f"  ✅ {zip_name} ({size_kb:.1f} KB)")
+        
+        print(f"\n📂 출력 위치: {output_dir}")
+        return
+    
+    # 에디션 빌드 모드
+    print(f"\n🏷️ 에디션 빌드 모드")
+    print(f"  버전: {parsed.version}")
+    print(f"  에디션: {parsed.edition}")
+    print(f"  사용자 타입: {parsed.user_type}")
+    print("-" * 50)
+    
+    builder = EditionBuilder(base_path, print)
+    
+    # 빌드 조합 결정
+    if parsed.edition == 'all':
+        editions = list(EditionConfig.EDITIONS.keys())
+    else:
+        editions = [parsed.edition]
+    
+    if parsed.user_type == 'all':
+        user_types = list(EditionConfig.USER_TYPES.keys())
+    else:
+        user_types = [parsed.user_type]
+    
+    selections = [(e, u) for e in editions for u in user_types]
+    
+    print(f"\n🔨 {len(selections)}개 패키지 빌드 중...")
+    results = builder.build_selected_editions(selections, parsed.version)
+    
+    print(f"\n✅ 빌드 완료: {len(results)}/{len(selections)}개 성공")
+    
+    # 번들 생성
+    if parsed.bundle and results:
+        bundle_name = f"3J-Labs-ACF-CSS-Bundle-v{parsed.version}.zip"
+        bundle_path = builder.create_bundle(results, bundle_name)
+        if bundle_path:
+            print(f"📦 번들 생성: {bundle_path}")
+    
+    print(f"\n📂 출력 위치: {builder.output_dir}")
+
+
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1:
+        # CLI 모드
+        cli_build(sys.argv[1:])
+    else:
+        # GUI 모드
+        main()
