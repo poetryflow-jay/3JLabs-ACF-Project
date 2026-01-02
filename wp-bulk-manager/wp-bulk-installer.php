@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           2.3.1
+ * Version:           2.3.5
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.3.4' ); // [v2.3.4] UX 개선: 메뉴 한글화, 전체선택/선택해제 버튼 작동, 툴팁 팝업 구현
+define( 'WP_BULK_MANAGER_VERSION', '2.3.5' ); // [v2.3.5] 메뉴 위치 수정: 알림판 바로 아래 올바르게 표시되도록 position 값 조정
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -103,6 +103,7 @@ class JJ_Bulk_Installer {
 
     public function add_menu_pages() {
         // 1. 알림판 아래 최상위 메뉴 (접근성 강화) - 우선순위 높음
+        // [v2.3.5] position 2 → 3 변경 (Dashboard와의 충돌 방지, WordPress 메뉴 순서: Dashboard=2, Posts=5)
         add_menu_page(
             __( 'WP 벌크 매니저', 'wp-bulk-manager' ),
             __( '벌크 매니저', 'wp-bulk-manager' ),
@@ -110,7 +111,7 @@ class JJ_Bulk_Installer {
             $this->page_slug . '-main',
             array( $this, 'render_page' ),
             'dashicons-cloud-upload',
-            2 // Dashboard(index.php) 바로 아래
+            3 // Dashboard(index.php=2) 바로 아래, Posts(=5) 바로 위
         );
 
         // 2. 도구 하위 메뉴 (명확한 이름으로 표기)

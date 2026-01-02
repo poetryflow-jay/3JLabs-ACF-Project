@@ -6,8 +6,28 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit; // 직접 접근 차단
 
-// [v3.1 '신규'] '시스템' 팔레트 옵션 로드
-$system_palettes = $options['palettes']['system'] ?? array();
+// [v20.0.1] 팔레트 배열 안전 초기화 (로딩 오류 방지)
+if ( ! isset( $options['palettes'] ) || ! is_array( $options['palettes'] ) ) {
+    $options['palettes'] = array();
+}
+if ( ! isset( $options['palettes']['brand'] ) || ! is_array( $options['palettes']['brand'] ) ) {
+    $options['palettes']['brand'] = array();
+}
+if ( ! isset( $options['palettes']['system'] ) || ! is_array( $options['palettes']['system'] ) ) {
+    $options['palettes']['system'] = array();
+}
+if ( ! isset( $options['palettes']['alternative'] ) || ! is_array( $options['palettes']['alternative'] ) ) {
+    $options['palettes']['alternative'] = array();
+}
+if ( ! isset( $options['palettes']['another'] ) || ! is_array( $options['palettes']['another'] ) ) {
+    $options['palettes']['another'] = array();
+}
+
+// [v3.1 '신규'] 팔레트 옵션 로드
+$system_palettes = $options['palettes']['system'];
+$brand_palettes = $options['palettes']['brand'];
+$alternative_palettes = $options['palettes']['alternative'];
+$another_palettes = $options['palettes']['another'];
 
 // [v3.8.0] 버전별 기능 제한 체크
 $version_features = class_exists( 'JJ_Version_Features' ) ? JJ_Version_Features::instance() : null;

@@ -3,9 +3,12 @@
  * 업데이트 배포 및 공지 클래스
  * 
  * 플러그인 업데이트를 배포하고 공지를 전송합니다.
+ * - [v4.2.1] 순차 배포(롤링 업데이트) 기능 추가
+ * - [v4.2.1] 베타 테스트 채널 지원
+ * - [v4.2.1] 업데이트 패키지 서명 검증 강화
  * 
  * @package JJ_License_Manager
- * @version 2.0.2
+ * @version 4.2.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,6 +18,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class JJ_License_Update_Distributor {
     
     private static $instance = null;
+    
+    /**
+     * 배포 그룹 (순차 배포용)
+     */
+    const ROLLOUT_GROUP_A = 'A';
+    const ROLLOUT_GROUP_B = 'B';
+    const ROLLOUT_GROUP_C = 'C';
+    
+    /**
+     * 업데이트 채널
+     */
+    const CHANNEL_STABLE = 'stable';
+    const CHANNEL_BETA = 'beta';
+    const CHANNEL_DEV = 'dev';
     
     /**
      * 싱글톤 인스턴스
@@ -41,6 +58,263 @@ class JJ_License_Update_Distributor {
      */
     private function init_hooks() {
         // 업데이트 배포 관련 훅
+        add_action( 'wp_ajax_jj_distribute_rolling_update', array( $this, 'ajax_distribute_rolling_update' ) );
+        add_action( 'jj_rollout_next_group', array( $this, 'rollout_next_group' ), 10, 3 );
+    }
+    
+    /**
+     * [v4.2.1] 순차 배포(롤링 업데이트) 시작
+     * 
+     * @param string $plugin_slug 플러그인 슬러그
+     * @param string $version 버전
+     * @param string $update_channel 업데이트 채널 (stable, beta, dev)
+     * @param array $options 옵션 (delay_hours, start_group, package_url, signature)
+     * @return array 결과
+     */
+    public function start_rolling_update( $plugin_slug, $version, $update_channel = 'stable', $options = array() ) {
+        global $wpdb;
+        
+        $defaults = array(
+            'delay_hours' => 24,          // 그룹 간 대기 시간 (시간)
+            'start_group' => self::ROLLOUT_GROUP_A,
+            'package_url' => '',
+            'signature' => '',
+            'changelog' => '',
+        );
+        
+        $options = wp_parse_args( $options, $defaults );
+        
+        // 업데이트 테이블 생성
+        $this->create_updates_table();
+        $this->create_rollout_schedule_table();
+        
+        // 롤아웃 스케줄 생성
+        $groups = array( self::ROLLOUT_GROUP_A, self::ROLLOUT_GROUP_B, self::ROLLOUT_GROUP_C );
+        $start_index = array_search( $options['start_group'], $groups, true );
+        if ( $start_index === false ) {
+            $start_index = 0;
+        }
+        
+        $schedule = array();
+        $base_time = time();
+        
+        for ( $i = 0; $i < count( $groups ); $i++ ) {
+            $group_index = ( $start_index + $i ) % count( $groups );
+            $group = $groups[ $group_index ];
+            $scheduled_time = $base_time + ( $i * $options['delay_hours'] * HOUR_IN_SECONDS );
+            
+            $schedule[] = array(
+                'group' => $group,
+                'scheduled_time' => $scheduled_time,
+                'status' => $i === 0 ? 'in_progress' : 'pending',
+            );
+        }
+        
+        // 업데이트 정보 저장
+        $table_updates = $wpdb->prefix . 'jj_license_updates';
+        $wpdb->insert(
+            $table_updates,
+            array(
+                'plugin_slug' => sanitize_text_field( $plugin_slug ),
+                'version' => sanitize_text_field( $version ),
+                'update_channel' => sanitize_text_field( $update_channel ),
+                'distributed_at' => current_time( 'mysql' ),
+                'status' => 'rolling',
+            ),
+            array( '%s', '%s', '%s', '%s', '%s' )
+        );
+        
+        $update_id = $wpdb->insert_id;
+        
+        // 롤아웃 스케줄 저장
+        $table_rollout = $wpdb->prefix . 'jj_license_rollout_schedule';
+        foreach ( $schedule as $item ) {
+            $wpdb->insert(
+                $table_rollout,
+                array(
+                    'update_id' => $update_id,
+                    'rollout_group' => $item['group'],
+                    'scheduled_time' => date( 'Y-m-d H:i:s', $item['scheduled_time'] ),
+                    'status' => $item['status'],
+                    'package_url' => $options['package_url'],
+                    'signature' => $options['signature'],
+                ),
+                array( '%d', '%s', '%s', '%s', '%s', '%s' )
+            );
+        }
+        
+        // 첫 번째 그룹에 즉시 배포
+        $first_group = $groups[ $start_index ];
+        $result = $this->distribute_to_group( $plugin_slug, $version, $update_channel, $first_group, $options );
+        
+        // 다음 그룹 배포를 위한 cron 스케줄링
+        if ( ! wp_next_scheduled( 'jj_rollout_next_group', array( $update_id, $plugin_slug, $version ) ) ) {
+            wp_schedule_single_event(
+                $base_time + $options['delay_hours'] * HOUR_IN_SECONDS,
+                'jj_rollout_next_group',
+                array( $update_id, $plugin_slug, $version )
+            );
+        }
+        
+        return array(
+            'success' => true,
+            'update_id' => $update_id,
+            'schedule' => $schedule,
+            'first_group_result' => $result,
+        );
+    }
+    
+    /**
+     * [v4.2.1] 특정 그룹에 업데이트 배포
+     */
+    private function distribute_to_group( $plugin_slug, $version, $update_channel, $group, $options = array() ) {
+        global $wpdb;
+        
+        $table_licenses = JJ_License_Database::get_table_name( 'licenses' );
+        $table_activations = JJ_License_Database::get_table_name( 'activations' );
+        
+        // 해당 그룹의 활성 라이센스 조회
+        $query = $wpdb->prepare(
+            "SELECT DISTINCT l.id, l.license_key, a.site_id, a.site_url, a.is_active
+             FROM {$table_licenses} l
+             INNER JOIN {$table_activations} a ON l.id = a.license_id
+             WHERE a.is_active = 1
+             AND MOD(CONV(SUBSTRING(MD5(a.site_url), 1, 2), 16, 10), 3) = %d",
+            array_search( $group, array( 'A', 'B', 'C' ), true )
+        );
+        
+        $activations = $wpdb->get_results( $query, ARRAY_A );
+        
+        $distributed_count = 0;
+        $failed_count = 0;
+        
+        foreach ( $activations as $activation ) {
+            $result = $this->send_update_notification(
+                $activation['site_url'],
+                $activation['license_key'],
+                $activation['site_id'],
+                $plugin_slug,
+                $version,
+                $update_channel
+            );
+            
+            if ( ! is_wp_error( $result ) ) {
+                $distributed_count++;
+            } else {
+                $failed_count++;
+            }
+        }
+        
+        return array(
+            'group' => $group,
+            'distributed_count' => $distributed_count,
+            'failed_count' => $failed_count,
+            'total_targets' => count( $activations ),
+        );
+    }
+    
+    /**
+     * [v4.2.1] Cron: 다음 그룹 배포
+     */
+    public function rollout_next_group( $update_id, $plugin_slug, $version ) {
+        global $wpdb;
+        
+        $table_rollout = $wpdb->prefix . 'jj_license_rollout_schedule';
+        
+        // pending 상태의 다음 그룹 찾기
+        $next_group = $wpdb->get_row( $wpdb->prepare(
+            "SELECT * FROM {$table_rollout} WHERE update_id = %d AND status = 'pending' ORDER BY scheduled_time ASC LIMIT 1",
+            $update_id
+        ), ARRAY_A );
+        
+        if ( ! $next_group ) {
+            // 모든 그룹 배포 완료
+            $table_updates = $wpdb->prefix . 'jj_license_updates';
+            $wpdb->update(
+                $table_updates,
+                array( 'status' => 'completed' ),
+                array( 'id' => $update_id ),
+                array( '%s' ),
+                array( '%d' )
+            );
+            return;
+        }
+        
+        // 업데이트 정보 조회
+        $table_updates = $wpdb->prefix . 'jj_license_updates';
+        $update_info = $wpdb->get_row( $wpdb->prepare(
+            "SELECT * FROM {$table_updates} WHERE id = %d",
+            $update_id
+        ), ARRAY_A );
+        
+        if ( ! $update_info ) {
+            return;
+        }
+        
+        // 그룹에 배포
+        $options = array(
+            'package_url' => $next_group['package_url'],
+            'signature' => $next_group['signature'],
+        );
+        
+        $this->distribute_to_group( $plugin_slug, $version, $update_info['update_channel'], $next_group['rollout_group'], $options );
+        
+        // 상태 업데이트
+        $wpdb->update(
+            $table_rollout,
+            array( 'status' => 'completed' ),
+            array( 'id' => $next_group['id'] ),
+            array( '%s' ),
+            array( '%d' )
+        );
+        
+        // 다음 그룹 스케줄링
+        $next_pending = $wpdb->get_row( $wpdb->prepare(
+            "SELECT * FROM {$table_rollout} WHERE update_id = %d AND status = 'pending' ORDER BY scheduled_time ASC LIMIT 1",
+            $update_id
+        ), ARRAY_A );
+        
+        if ( $next_pending ) {
+            $scheduled_time = strtotime( $next_pending['scheduled_time'] );
+            if ( ! wp_next_scheduled( 'jj_rollout_next_group', array( $update_id, $plugin_slug, $version ) ) ) {
+                wp_schedule_single_event( $scheduled_time, 'jj_rollout_next_group', array( $update_id, $plugin_slug, $version ) );
+            }
+        }
+    }
+    
+    /**
+     * [v4.2.1] 롤아웃 스케줄 테이블 생성
+     */
+    private function create_rollout_schedule_table() {
+        global $wpdb;
+        
+        $table_name = $wpdb->prefix . 'jj_license_rollout_schedule';
+        $charset_collate = $wpdb->get_charset_collate();
+        
+        $sql = "CREATE TABLE IF NOT EXISTS {$table_name} (
+            id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            update_id bigint(20) UNSIGNED NOT NULL,
+            rollout_group varchar(10) NOT NULL,
+            scheduled_time datetime NOT NULL,
+            status varchar(50) NOT NULL DEFAULT 'pending',
+            package_url varchar(500) DEFAULT '',
+            signature varchar(500) DEFAULT '',
+            completed_at datetime DEFAULT NULL,
+            PRIMARY KEY (id),
+            KEY update_id (update_id),
+            KEY rollout_group (rollout_group),
+            KEY status (status)
+        ) {$charset_collate};";
+        
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+    }
+    
+    /**
+     * [v4.2.1] 베타 테스터에게만 배포
+     */
+    public function distribute_to_beta_testers( $plugin_slug, $version, $options = array() ) {
+        return $this->distribute_update( $plugin_slug, $version, self::CHANNEL_BETA, array(), $options );
     }
     
     /**

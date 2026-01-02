@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════════
-  3J Labs ACF CSS Plugin Build Manager v3.0
+  3J Labs ACF CSS Plugin Build Manager v3.2.0
   플러그인 빌드, 버전 관리, 에디션 관리를 위한 통합 관리 프로그램
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -12,10 +12,11 @@ Features:
 - 버전 관리 및 자동 업데이트
 - 에디션별 빌드 관리 (Master, Partner, Free)
 - Windows 숏컷 생성
-- 현대적인 다크 테마 GUI
+- 현대적인 macOS 스타일 라이트 테마 GUI (베이지/크림색)
+- 외부 대시보드 연동 및 업데이트
 
 @author: 3J Labs (Jay & Jason & Jenny)
-@version: 3.1.0
+@version: 3.2.0
 @date: 2026-01-02
 """
 
@@ -636,7 +637,7 @@ class JJBuildManager(tk.Tk):
         # 버전 배지 (macOS 스타일 pill 배지)
         version_badge = tk.Frame(status_frame, bg=self.colors['accent'], padx=12, pady=4)
         version_badge.pack(anchor="e", pady=(0, 4))
-        tk.Label(version_badge, text="v3.1.0", font=self.fonts['caption'], fg="#FFFFFF", bg=self.colors['accent']).pack()
+        tk.Label(version_badge, text="v3.2.0", font=self.fonts['caption'], fg="#FFFFFF", bg=self.colors['accent']).pack()
         
         # 상태 표시
         if HAS_PYWIN32:
@@ -837,6 +838,16 @@ class JJBuildManager(tk.Tk):
         ttk.Entry(dir_frame, textvariable=self.output_dir_var, width=60).pack(side="left", padx=5, fill="x", expand=True)
         ttk.Button(dir_frame, text="찾아보기", command=self.browse_output_dir).pack(side="left", padx=5)
         
+        # 외부 대시보드 경로
+        dashboard_frame = ttk.Frame(settings_frame)
+        dashboard_frame.pack(fill="x", pady=10)
+        
+        ttk.Label(dashboard_frame, text="대시보드 경로:", width=15).pack(side="left")
+        self.dashboard_path_var = tk.StringVar(value=self.config_data.get('dashboard_path', 
+            str(Path.home() / 'Desktop' / 'JJ_Distributions_v8.0.0_Master_Control' / 'dashboard.html')))
+        ttk.Entry(dashboard_frame, textvariable=self.dashboard_path_var, width=60).pack(side="left", padx=5, fill="x", expand=True)
+        ttk.Button(dashboard_frame, text="찾아보기", command=self.browse_dashboard_path).pack(side="left", padx=5)
+        
         # 옵션
         options_frame = ttk.Frame(settings_frame)
         options_frame.pack(fill="x", pady=10)
@@ -847,16 +858,22 @@ class JJBuildManager(tk.Tk):
         self.auto_shortcut_var = tk.BooleanVar(value=self.config_data.get('auto_shortcut', True))
         ttk.Checkbutton(options_frame, text="데스크톱 숏컷 자동 생성", variable=self.auto_shortcut_var).pack(anchor="w", pady=5)
         
+        self.auto_dashboard_var = tk.BooleanVar(value=self.config_data.get('auto_dashboard_update', True))
+        ttk.Checkbutton(options_frame, text="빌드 완료 시 외부 대시보드 자동 업데이트", variable=self.auto_dashboard_var).pack(anchor="w", pady=5)
+        
         # 저장 버튼
         ttk.Button(settings_frame, text="💾 설정 저장", command=self.save_settings_action).pack(anchor="e", pady=20)
         
-        # 숏컷 생성 버튼
-        shortcut_frame = ttk.LabelFrame(self.tab_settings, text=" 숏컷 관리 ", padding=20)
+        # 숏컷 및 대시보드 관리
+        shortcut_frame = ttk.LabelFrame(self.tab_settings, text=" 숏컷 및 대시보드 관리 ", padding=20)
         shortcut_frame.pack(fill="x", padx=10, pady=10)
         
         ttk.Button(shortcut_frame, text="🔗 데스크톱 숏컷 생성", command=self.create_desktop_shortcut).pack(side="left", padx=5)
         ttk.Label(shortcut_frame, text="pywin32 필요" if not HAS_PYWIN32 else "✅ 준비됨", 
                  foreground=self.colors['warning'] if not HAS_PYWIN32 else self.colors['success']).pack(side="left", padx=10)
+        
+        # 대시보드 업데이트 버튼
+        ttk.Button(shortcut_frame, text="📊 대시보드 업데이트", command=self.update_external_dashboard).pack(side="left", padx=20)
     
     # ───────────────────────────────────────────────────────────────────────
     # 기능 메서드
@@ -980,6 +997,10 @@ class JJBuildManager(tk.Tk):
                 
                 if self.auto_open_var.get():
                     self.after(0, self.open_dist_folder)
+                
+                # 자동 대시보드 업데이트
+                if self.auto_dashboard_var.get():
+                    self.after(100, self._auto_update_dashboard)
             else:
                 self.after(0, lambda: self.set_status("⚠️ 일부 빌드 실패"))
                 
@@ -989,6 +1010,37 @@ class JJBuildManager(tk.Tk):
         finally:
             self.is_building = False
             self.after(0, lambda: self.build_btn.config(state="normal"))
+    
+    def _auto_update_dashboard(self):
+        """빌드 완료 후 자동 대시보드 업데이트 (조용히)"""
+        dashboard_path = Path(self.dashboard_path_var.get())
+        
+        if not dashboard_path.parent.exists():
+            return  # 조용히 실패
+        
+        try:
+            # 플러그인 정보 수집
+            plugins_info = {}
+            for plugin_id, plugin_data in PLUGINS.items():
+                source_path = BASE_DIR / plugin_data['folder']
+                main_file = source_path / plugin_data['main_file']
+                version = get_version_from_file(main_file) if main_file.exists() else "N/A"
+                
+                plugins_info[plugin_id] = {
+                    'name': plugin_data['name'],
+                    'full_name': plugin_data['full_name'],
+                    'version': version,
+                    'editions': plugin_data['editions'],
+                    'description': plugin_data['description'],
+                    'folder': plugin_data['folder'],
+                    'exists': source_path.exists()
+                }
+            
+            self._generate_dashboard_html(dashboard_path, plugins_info)
+            self.log_text.insert(tk.END, f"\n📊 대시보드 자동 업데이트 완료: {dashboard_path}\n")
+            self.log_text.see(tk.END)
+        except Exception as e:
+            self.log_text.insert(tk.END, f"\n⚠️ 대시보드 업데이트 실패: {e}\n")
     
     def set_status(self, message):
         """상태바 업데이트"""
@@ -1027,11 +1079,168 @@ class JJBuildManager(tk.Tk):
         if dir_path:
             self.output_dir_var.set(dir_path)
     
+    def browse_dashboard_path(self):
+        """대시보드 파일 선택"""
+        file_path = filedialog.askopenfilename(
+            initialdir=str(Path(self.dashboard_path_var.get()).parent) if Path(self.dashboard_path_var.get()).parent.exists() else str(Path.home() / 'Desktop'),
+            filetypes=[("HTML 파일", "*.html"), ("모든 파일", "*.*")]
+        )
+        if file_path:
+            self.dashboard_path_var.set(file_path)
+    
+    def update_external_dashboard(self):
+        """외부 대시보드 업데이트"""
+        dashboard_path = Path(self.dashboard_path_var.get())
+        
+        if not dashboard_path.parent.exists():
+            messagebox.showwarning("경고", f"대시보드 폴더가 존재하지 않습니다:\n{dashboard_path.parent}")
+            return
+        
+        try:
+            # 플러그인 정보 수집
+            plugins_info = {}
+            for plugin_id, plugin_data in PLUGINS.items():
+                source_path = BASE_DIR / plugin_data['folder']
+                main_file = source_path / plugin_data['main_file']
+                version = get_version_from_file(main_file) if main_file.exists() else "N/A"
+                
+                plugins_info[plugin_id] = {
+                    'name': plugin_data['name'],
+                    'full_name': plugin_data['full_name'],
+                    'version': version,
+                    'editions': plugin_data['editions'],
+                    'description': plugin_data['description'],
+                    'folder': plugin_data['folder'],
+                    'exists': source_path.exists()
+                }
+            
+            # 대시보드 HTML 생성
+            self._generate_dashboard_html(dashboard_path, plugins_info)
+            
+            self.set_status("✅ 대시보드 업데이트 완료!")
+            messagebox.showinfo("성공", f"대시보드가 업데이트되었습니다.\n\n경로: {dashboard_path}")
+            
+        except Exception as e:
+            self.set_status(f"❌ 대시보드 업데이트 실패: {e}")
+            messagebox.showerror("오류", f"대시보드 업데이트 실패:\n{e}")
+    
+    def _generate_dashboard_html(self, output_path, plugins_info):
+        """대시보드 HTML 생성"""
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # 플러그인 카드 생성
+        plugin_cards = ""
+        for plugin_id, info in plugins_info.items():
+            status_class = "success" if info['exists'] else "error"
+            status_text = "✅ Ready" if info['exists'] else "❌ Missing"
+            editions_html = " ".join([f'<span class="edition">{e}</span>' for e in info['editions']])
+            
+            plugin_cards += f'''
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <h3>{info['name']}</h3>
+                    <span class="version">v{info['version']}</span>
+                </div>
+                <p class="description">{info['description']}</p>
+                <div class="editions">{editions_html}</div>
+                <div class="status {status_class}">{status_text}</div>
+                <div class="folder">{info['folder']}</div>
+            </div>
+            '''
+        
+        html_content = f'''<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3J Labs ACF CSS - Distribution Dashboard</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #F5F5F0 0%, #E8E6E1 100%);
+            min-height: 100vh;
+            padding: 40px;
+        }}
+        .container {{ max-width: 1400px; margin: 0 auto; }}
+        header {{
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }}
+        header h1 {{ color: #1D1D1F; font-size: 2.5rem; margin-bottom: 8px; }}
+        header p {{ color: #6E6E73; font-size: 1.1rem; }}
+        .meta {{ display: flex; gap: 20px; margin-top: 15px; color: #8E8E93; font-size: 0.9rem; }}
+        .meta span {{ background: #F5F5F0; padding: 6px 12px; border-radius: 6px; }}
+        .plugins-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }}
+        .plugin-card {{
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }}
+        .plugin-card:hover {{
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }}
+        .plugin-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }}
+        .plugin-header h3 {{ color: #1D1D1F; font-size: 1.2rem; }}
+        .version {{ background: #007AFF; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }}
+        .description {{ color: #6E6E73; font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5; }}
+        .editions {{ display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }}
+        .edition {{ background: #F5F5F0; color: #1D1D1F; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }}
+        .status {{ font-weight: 600; margin-bottom: 8px; }}
+        .status.success {{ color: #34C759; }}
+        .status.error {{ color: #FF3B30; }}
+        .folder {{ color: #8E8E93; font-size: 0.85rem; font-family: 'SF Mono', Consolas, monospace; }}
+        footer {{
+            margin-top: 40px;
+            text-align: center;
+            color: #8E8E93;
+            font-size: 0.9rem;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 3J Labs ACF CSS Distribution Dashboard</h1>
+            <p>ACF CSS Plugin Family • Build & Distribution Management</p>
+            <div class="meta">
+                <span>📅 Updated: {timestamp}</span>
+                <span>📦 Plugins: {len(plugins_info)}</span>
+                <span>🏭 Build Manager v3.2.0</span>
+            </div>
+        </header>
+        
+        <div class="plugins-grid">
+            {plugin_cards}
+        </div>
+        
+        <footer>
+            <p>© 2026 3J Labs (제이×제니×제이슨 연구소). All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>'''
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+    
     def save_settings_action(self):
         """설정 저장"""
         self.config_data['output_dir'] = self.output_dir_var.get()
         self.config_data['auto_open_folder'] = self.auto_open_var.get()
         self.config_data['auto_shortcut'] = self.auto_shortcut_var.get()
+        self.config_data['dashboard_path'] = self.dashboard_path_var.get()
+        self.config_data['auto_dashboard_update'] = self.auto_dashboard_var.get()
         save_config(self.config_data)
         messagebox.showinfo("성공", "설정이 저장되었습니다.")
     
@@ -1067,7 +1276,7 @@ class JJBuildManager(tk.Tk):
 def cli_build(plugins=None, editions=None):
     """CLI에서 빌드 실행"""
     print("=" * 70)
-    print("  3J Labs ACF CSS Plugin Build Manager v3.1 - CLI Mode")
+    print("  3J Labs ACF CSS Plugin Build Manager v3.2 - CLI Mode")
     print("=" * 70)
     
     if editions is None:
