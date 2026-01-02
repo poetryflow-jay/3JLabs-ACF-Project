@@ -230,22 +230,24 @@
     position: relative;
 }
 
+/* [v13.4.6] 우선순위 수정: active 클래스가 항상 우선 적용되도록 */
 .jj-admin-center-tab-content.active {
+    display: block !important;
+}
+
+/* [v13.4.6] JavaScript 로드 실패 시 폴백: general 탭 기본 표시 */
+/* active 클래스가 없을 때만 적용되도록 :not(.active) 제외 */
+.jj-admin-center-wrap:not(.js-loaded) .jj-admin-center-tab-content:not(.active)[data-tab="general"] {
     display: block;
 }
 
-/* [v13.4.5] JavaScript 로드 실패 시 폴백: 첫 번째 탭 표시 */
-.jj-admin-center-tab-content[data-tab="general"] {
-    display: block; /* 기본값으로 general 탭 표시 */
-}
-
-/* JavaScript가 로드되면 .js-loaded 클래스로 정상 동작 */
-.jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content[data-tab="general"] {
+/* [v13.4.6] JS가 정상 로드되었을 때는 일반 동작 */
+.jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content {
     display: none;
 }
 
 .jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content.active {
-    display: block;
+    display: block !important;
 }
 
 /* 2패널 레이아웃 (Admin Menu, Meta Boxes 등) */

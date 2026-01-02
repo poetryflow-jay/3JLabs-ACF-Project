@@ -7,8 +7,9 @@
 AI 런처와 별도로 동작하는 인터랙티브 개발 도구입니다.
 플러그인 빌드, 배포, 버전 관리를 GUI로 수행할 수 있습니다.
 
-Version: 2.0.0
+Version: 3.0.0
 Author: 3J Labs (Jay & Jason & Jenny)
+Updated: 2026-01-02 - Admin Menu Editor Pro 추가, AI Extension, Neural Link 반영
 """
 
 import os
@@ -196,7 +197,7 @@ class PluginInfo:
 class EditionBuilder:
     """에디션별 플러그인 빌더"""
     
-    # 에디션 빌드를 지원하는 플러그인 목록
+    # 에디션 빌드를 지원하는 플러그인 목록 (2026-01-02 최신 업데이트)
     EDITION_PLUGINS = {
         'acf-css-manager': {
             'source_dir': 'acf-css-really-simple-style-management-center-master',
@@ -205,6 +206,18 @@ class EditionBuilder:
             'license_constant': 'JJ_STYLE_GUIDE_LICENSE_TYPE',
             'edition_constant': 'JJ_STYLE_GUIDE_EDITION',
             'user_type_constant': 'JJ_STYLE_GUIDE_USER_TYPE',
+            'display_name': 'ACF CSS 설정 관리자',
+            'description': 'Advanced Custom Fonts & Colors & Styles Setting Manager',
+        },
+        'admin-menu-editor-pro': {
+            'source_dir': 'admin-menu-editor-pro',
+            'main_file': 'admin-menu-editor-pro.php',
+            'version_constant': 'JJ_ADMIN_MENU_EDITOR_VERSION',
+            'license_constant': 'JJ_ADMIN_MENU_EDITOR_LICENSE',
+            'edition_constant': 'JJ_ADMIN_MENU_EDITOR_EDITION',
+            'user_type_constant': 'JJ_ADMIN_MENU_EDITOR_USER_TYPE',
+            'display_name': 'Admin Menu Editor Pro',
+            'description': 'Advanced WordPress Menu Management',
         },
         'acf-code-snippets-box': {
             'source_dir': 'acf-code-snippets-box',
@@ -213,6 +226,8 @@ class EditionBuilder:
             'license_constant': 'ACF_CSB_LICENSE_TYPE',
             'edition_constant': 'ACF_CSB_EDITION',
             'user_type_constant': 'ACF_CSB_USER_TYPE',
+            'display_name': 'ACF Code Snippets Box',
+            'description': 'Advanced Custom Function Manager',
         },
         'acf-css-woocommerce-toolkit': {
             'source_dir': 'acf-css-woocommerce-toolkit',
@@ -221,14 +236,28 @@ class EditionBuilder:
             'license_constant': 'ACF_CSS_WC_LICENSE_TYPE',
             'edition_constant': 'ACF_CSS_WC_EDITION',
             'user_type_constant': 'ACF_CSS_WC_USER_TYPE',
+            'display_name': 'ACF CSS WooCommerce Toolkit',
+            'description': 'Advanced Commerce Styling',
         },
-        'wp-bulk-manager': {
-            'source_dir': 'wp-bulk-manager',
-            'main_file': 'wp-bulk-installer.php',
-            'version_constant': 'WP_BULK_MANAGER_VERSION',
-            'license_constant': 'JJ_BULK_INSTALLER_LICENSE',
-            'edition_constant': 'WP_BULK_MANAGER_EDITION',
-            'user_type_constant': 'WP_BULK_MANAGER_USER_TYPE',
+        'acf-css-ai-extension': {
+            'source_dir': 'acf-css-ai-extension',
+            'main_file': 'acf-css-ai-extension.php',
+            'version_constant': 'ACF_CSS_AI_VERSION',
+            'license_constant': 'ACF_CSS_AI_LICENSE_TYPE',
+            'edition_constant': 'ACF_CSS_AI_EDITION',
+            'user_type_constant': 'ACF_CSS_AI_USER_TYPE',
+            'display_name': 'ACF CSS AI Extension',
+            'description': 'AI-Powered Style Intelligence',
+        },
+        'acf-css-neural-link': {
+            'source_dir': 'acf-css-neural-link',
+            'main_file': 'acf-css-neural-link.php',
+            'version_constant': 'ACF_CSS_NL_VERSION',
+            'license_constant': 'ACF_CSS_NL_LICENSE_TYPE',
+            'edition_constant': 'ACF_CSS_NL_EDITION',
+            'user_type_constant': 'ACF_CSS_NL_USER_TYPE',
+            'display_name': 'ACF CSS Neural Link',
+            'description': 'License & Update Manager',
         },
         'acf-nudge-flow': {
             'source_dir': 'acf-nudge-flow',
@@ -237,6 +266,18 @@ class EditionBuilder:
             'license_constant': 'ACF_NUDGE_FLOW_LICENSE_TYPE',
             'edition_constant': 'ACF_NUDGE_FLOW_EDITION',
             'user_type_constant': 'ACF_NUDGE_FLOW_USER_TYPE',
+            'display_name': 'ACF MBA (Nudge Flow)',
+            'description': 'Advanced Custom Funnel Marketing Boosting Accelerator',
+        },
+        'wp-bulk-manager': {
+            'source_dir': 'wp-bulk-manager',
+            'main_file': 'wp-bulk-installer.php',
+            'version_constant': 'WP_BULK_MANAGER_VERSION',
+            'license_constant': 'JJ_BULK_INSTALLER_LICENSE',
+            'edition_constant': 'WP_BULK_MANAGER_EDITION',
+            'user_type_constant': 'WP_BULK_MANAGER_USER_TYPE',
+            'display_name': 'WP Bulk Manager',
+            'description': 'Plugin & Theme Bulk Installer and Editor',
         },
     }
     
