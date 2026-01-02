@@ -34,10 +34,19 @@ if (Test-Path $amePath) {
 Get-ChildItem $buildDir -Filter "*.zip" | Select-Object Name, Length, LastWriteTime
 
 # 대시보드 자동 업데이트
-Write-Output "📊 대시보드 업데이트 중..."
+Write-Output "`n📊 대시보드 업데이트 중..."
 python 3j_dev_toolkit.py --dashboard
 if ($LASTEXITCODE -eq 0) {
     Write-Output "✅ 대시보드 업데이트 완료"
 } else {
     Write-Output "⚠️ 대시보드 업데이트 실패 (계속 진행)"
+}
+
+# dist 폴더 자동 정리
+Write-Output "`n🧹 dist 폴더 자동 정리 중..."
+python cleanup_dist_folder.py
+if ($LASTEXITCODE -eq 0) {
+    Write-Output "✅ 자동 정리 완료"
+} else {
+    Write-Output "⚠️ 자동 정리 실패 (무시 가능)"
 }
