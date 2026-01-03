@@ -475,16 +475,6 @@ class JJ_Bulk_Installer {
                                 <br><span style="color: #d63638; font-weight: 600;">(⚠️ 주의: 서버 설정이나 워드프레스 설정에 따른 용량 제한을 이 플러그인의 설정이 무시할 수는 없으므로 유의하여 설정을 변경하시기 바랍니다. <a href="https://wordpress.org/documentation/article/increasing-the-maximum-upload-file-size/" target="_blank" style="color: #d63638; text-decoration: underline;">공식 문서 확인</a>)</span>
                             </p>
 
-                            <div style="margin: 15px 0; background: #f0f6fb; padding: 10px; border-radius: 6px; border: 1px solid #c3d9e8;">
-                                <label style="font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                                    <input type="checkbox" id="jj-auto-activate-all" <?php checked( $limits['can_auto_activate'] ); ?> <?php disabled( ! $limits['can_auto_activate'] ); ?>> 
-                                    설치 완료 후 즉시 활성화 (Plugins Only)
-                                </label>
-                                <?php if ( ! $limits['can_auto_activate'] ) : ?>
-                                    <div style="font-size: 11px; color: #d63638; margin-top: 4px;">🔒 이 기능은 Premium 이상에서 사용할 수 있습니다.</div>
-                                <?php endif; ?>
-                            </div>
-
                             <!-- label로 감싸서 클릭 영역 확보 -->
                             <label for="jj-file-input" class="screen-reader-text">파일 선택</label>
                             <input type="file" id="jj-file-input" multiple accept=".zip">

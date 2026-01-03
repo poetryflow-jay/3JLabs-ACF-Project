@@ -469,6 +469,19 @@ final class JJ_Admin_Center {
 
         // [v22.0.0] 중복 메뉴 제거: Settings, Appearance, Tools 하위의 중복 메뉴를 제거하고 
         // 오직 최상위 메뉴 하나만 남기도록 합니다. (사용자 요청 반영)
+
+        // [v20.2.5] 실험실 센터(Labs Center) 서브메뉴 등록
+        if ( class_exists( 'JJ_Labs_Center' ) ) {
+            $labs_title = __( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' );
+            add_submenu_page(
+                'jj-admin-center',
+                $labs_title,
+                $labs_title,
+                'manage_options',
+                'jj-labs-center',
+                array( JJ_Labs_Center::instance(), 'render_labs_center_page' )
+            );
+        }
     }
 
     /**
