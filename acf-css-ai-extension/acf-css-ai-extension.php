@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS AI Extension - Intelligent Style Generator (Advanced Custom Fonts & Colors & Styles)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS (Advanced Custom Fonts & Colors & Styles) Manager의 강력한 확장 플러그인입니다. AI를 활용하여 웹사이트의 스타일을 자동으로 제안하고 생성하며, 로컬 AI 모델(Gemma 3)과의 연동을 지원합니다.
- * Version:           2.1.0
+ * Version:           3.1.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com

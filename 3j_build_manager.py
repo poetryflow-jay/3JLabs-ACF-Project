@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════════
-  3J Labs ACF CSS Plugin Build Manager v21.0.0
+  3J Labs ACF CSS Plugin Build Manager v22.0.0
   플러그인 빌드, 버전 관리, 에디션 관리를 위한 통합 관리 프로그램
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -10,13 +10,13 @@ Features:
 - 모든 ACF CSS 패밀리 플러그인 관리
 - 플러그인 빌드 및 ZIP 패키징
 - 버전 관리 및 자동 업데이트
-- 에디션별 빌드 관리 (Master, Partner, Free)
+- 에디션별 빌드 관리 (Master Only 클린 빌드 지원)
 - Windows 숏컷 생성
 - 현대적인 macOS 스타일 라이트 테마 GUI (베이지/크림색)
 - 외부 대시보드 연동 및 업데이트
 
 @author: 3J Labs (Jay & Jason & Jenny)
-@version: 21.0.1
+@version: 22.0.0 (Master Clean)
 @date: 2026-01-03
 """
 
@@ -184,7 +184,7 @@ def load_config():
         'auto_open_folder': True,
         'include_source_map': False,
         'last_build_time': None,
-        'default_editions': ['master', 'partner']
+        'default_editions': ['master']
     }
     if CONFIG_FILE.exists():
         try:
@@ -1287,11 +1287,11 @@ class JJBuildManager(tk.Tk):
 def cli_build(plugins=None, editions=None):
     """CLI에서 빌드 실행"""
     print("=" * 70)
-    print("  3J Labs ACF CSS Plugin Build Manager v3.2 - CLI Mode")
+    print("  3J Labs ACF CSS Plugin Build Manager v22.0 - CLI Mode")
     print("=" * 70)
     
     if editions is None:
-        editions = ['master', 'partner']
+        editions = ['master']
     
     engine = BuildEngine(log_callback=lambda msg: print(msg, end=''))
     success = engine.build_all(plugins, editions)
@@ -1308,7 +1308,7 @@ if __name__ == "__main__":
     parser.add_argument('--cli', action='store_true', help='CLI 모드로 실행 (GUI 없이)')
     parser.add_argument('--all', action='store_true', help='모든 플러그인 빌드')
     parser.add_argument('--plugins', nargs='+', help='빌드할 플러그인 ID 목록')
-    parser.add_argument('--editions', nargs='+', default=['master', 'partner'], help='빌드할 에디션 목록')
+    parser.add_argument('--editions', nargs='+', default=['master'], help='빌드할 에디션 목록')
     
     args = parser.parse_args()
     
