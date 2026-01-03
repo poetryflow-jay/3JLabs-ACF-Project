@@ -660,6 +660,19 @@ class ACF_Nudge_Flow_Admin {
                     </tr>
                     
                     <tr>
+                        <th scope="row"><?php esc_html_e( 'MAB 자동 최적화', 'acf-nudge-flow' ); ?></th>
+                        <td>
+                            <label>
+                                <input type="checkbox" name="mab_enabled" value="1" <?php checked( $settings['mab_enabled'] ?? false ); ?>>
+                                <?php esc_html_e( '넛지 성과 자동 학습 및 최적화 (Multi-Armed Bandit)', 'acf-nudge-flow' ); ?>
+                            </label>
+                            <p class="description">
+                                <?php esc_html_e( '활성화 시, Thompson Sampling 알고리즘이 전환율이 높은 넛지를 자동으로 학습하고 더 자주 표시합니다.', 'acf-nudge-flow' ); ?>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <tr>
                         <th scope="row"><?php esc_html_e( '제외 역할', 'acf-nudge-flow' ); ?></th>
                         <td>
                             <?php
@@ -692,6 +705,7 @@ class ACF_Nudge_Flow_Admin {
             'max_nudges_per_visit' => intval( $_POST['max_nudges_per_visit'] ?? 3 ),
             'delay_between_nudges' => intval( $_POST['delay_between_nudges'] ?? 60 ),
             'excluded_roles'       => isset( $_POST['excluded_roles'] ) ? array_map( 'sanitize_text_field', $_POST['excluded_roles'] ) : array(),
+            'mab_enabled'          => isset( $_POST['mab_enabled'] ),
         );
 
         update_option( 'acf_nudge_flow_settings', $settings );

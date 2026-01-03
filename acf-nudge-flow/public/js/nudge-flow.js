@@ -74,10 +74,16 @@
             // CTA 클릭 추적
             $(document).on('click', '.acf-nudge-cta-button, .acf-nudge-bar-cta', function() {
                 const $nudge = $(this).closest('[data-nudge-type]');
+                const workflowId = $nudge.data('workflow-id');
+                
+                // 일반 이벤트 추적
                 self.trackEvent('conversion', {
                     nudge_type: $nudge.data('nudge-type'),
-                    workflow_id: $nudge.data('workflow-id')
+                    workflow_id: workflowId
                 });
+                
+                // MAB 최적화 엔진에 전환 기록
+                self.recordConversion(workflowId, true);
             });
         },
 
@@ -408,6 +414,27 @@
                     nonce: this.config.nonce,
                     event_type: eventType,
                     event_data: eventData
+                }
+            });
+        },
+
+        /**
+         * MAB 최적화 엔진에 전환 기록
+         */
+        recordConversion: function(nudgeId, success) {
+            $.ajax({
+                url: this.config.ajaxUrl,
+                method: 'POST',
+                data: {
+                    action: 'acf_nudge_conversion',
+                    nonce: this.config.nonce,
+                    nudge_id: nudgeId,
+                    success: success ? 'true' : 'false'
+                },
+                success: function(response) {
+                    if (response.success && window.console) {
+                        console.log('MAB: 전환 기록됨', response.data);
+                    }
                 }
             });
         }

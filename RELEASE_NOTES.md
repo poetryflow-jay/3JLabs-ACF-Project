@@ -3,8 +3,8 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 3일  
-**릴리즈 버전**: Phase 30 GUI Recovery & Security Enhancement (v22.1.1)  
-**개발팀**: 3J Labs (제이x제니x제이슨 연구소)
+**릴리즈 버전**: Phase 32 Deep Innovation & Intelligence (v22.2.0)  
+**개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
 
 ---
 
@@ -12,10 +12,31 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 22.1.0 | **22.1.1** | Security/UI |
-| ACF MBA Nudge Flow | 22.0.1 | **22.1.0** | Security |
-| WP Bulk Manager | 5.0.3 | **22.1.0** | Sync |
+| ACF CSS Manager (Master) | 22.1.1 | **22.1.2** | Marketing/UI |
+| ACF MBA Nudge Flow | 22.1.0 | **22.2.0** | AI/Intelligence |
+| WP Bulk Manager | 22.1.0 | **22.1.1** | Activation Fix |
 | ACF CSS Neural Link | 6.0.1 | **6.0.1** | - |
+
+---
+
+## 🚀 주요 변경사항 (Phase 32 - Deep Innovation)
+
+### ACF MBA Nudge Flow v22.2.0 (Mikael x Jason x Jenny Edition)
+- ✅ **Multi-Armed Bandit (MAB) Auto-Optimization**:
+    - Thompson Sampling 알고리즘으로 전환율이 높은 넛지를 자동 학습
+    - Beta 분포 기반 확률적 선택으로 탐색(Exploration)과 활용(Exploitation) 균형
+    - 실시간 성과 추적 및 자동 최적화
+- ✅ **MAB 최적화 엔진** (`class-mab-optimizer.php`):
+    - Thompson Sampling 구현 (Beta/Gamma 분포)
+    - 넛지별 성공/실패 카운팅
+    - 전환율 자동 계산 및 대시보드 제공
+- ✅ **관리자 설정**:
+    - "MAB 자동 최적화" 토글 추가 (설정 페이지)
+    - 활성화 시 성과가 좋은 넛지를 더 자주 노출
+- ✅ **프론트엔드 통합**:
+    - CTA 클릭 시 자동 전환 추적
+    - `acf_nudge_conversion` AJAX 엔드포인트
+    - 실시간 MAB 학습 데이터 수집
 
 ---
 

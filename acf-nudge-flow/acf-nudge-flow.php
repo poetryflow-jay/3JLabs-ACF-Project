@@ -3,7 +3,7 @@
  * Plugin Name:       ACF MBA - Marketing Booster Accelerator (Advanced Custom Funnel)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF MBA (Advanced Custom Funnel Marketing Booster Accelerator) - 트리거 기반 넛지 마케팅 자동화 플러그인입니다. IF-DO 방식의 시각적 워크플로우 빌더로 방문자 행동에 따른 팝업, 알림, 할인, 업셀링을 자동화합니다. WooCommerce와 완벽 연동됩니다.
- * Version:           22.1.0
+ * Version:           22.2.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_NUDGE_FLOW_VERSION', '22.1.0' ); // [v22.1.0] Personalization Campaign Presets Injection
+define( 'ACF_NUDGE_FLOW_VERSION', '22.2.0' ); // [v22.2.0] Multi-Armed Bandit (MAB) Auto-Optimization with Thompson Sampling
 define( 'ACF_NUDGE_FLOW_PLUGIN_FILE', __FILE__ );
 define( 'ACF_NUDGE_FLOW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_NUDGE_FLOW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -84,6 +84,7 @@ final class ACF_Nudge_Flow {
         require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-workflow-manager.php';
         require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-visitor-tracker.php';
         require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-condition-evaluator.php';
+        require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-mab-optimizer.php';
 
         // Admin
         if ( is_admin() ) {
@@ -115,6 +116,8 @@ final class ACF_Nudge_Flow {
         add_action( 'wp_ajax_nopriv_acf_nudge_track', array( $this, 'ajax_track_event' ) );
         add_action( 'wp_ajax_acf_nudge_dismiss', array( $this, 'ajax_dismiss_nudge' ) );
         add_action( 'wp_ajax_nopriv_acf_nudge_dismiss', array( $this, 'ajax_dismiss_nudge' ) );
+        add_action( 'wp_ajax_acf_nudge_conversion', array( $this, 'ajax_record_conversion' ) );
+        add_action( 'wp_ajax_nopriv_acf_nudge_conversion', array( $this, 'ajax_record_conversion' ) );
     }
 
     /**
@@ -253,7 +256,39 @@ final class ACF_Nudge_Flow {
         if ( ! $this->workflows ) {
             return array();
         }
-        return $this->workflows->get_active();
+        
+        $workflows = $this->workflows->get_active();
+        
+        // MAB 자동 최적화가 활성화된 경우, Thompson Sampling으로 넛지 선택
+        $settings = get_option( 'acf_nudge_flow_settings', array() );
+        $mab_enabled = isset( $settings['mab_enabled'] ) && $settings['mab_enabled'];
+        
+        if ( $mab_enabled && ! empty( $workflows ) ) {
+            $mab = JJ_MAB_Optimizer::instance();
+            $stats = get_option( 'jj_nudge_mab_stats', array() );
+            
+            // 워크플로우별 통계 포함
+            foreach ( $workflows as &$workflow ) {
+                $workflow_id = $workflow['id'];
+                if ( isset( $stats[ $workflow_id ] ) ) {
+                    $workflow['successes'] = $stats[ $workflow_id ]['successes'];
+                    $workflow['failures'] = $stats[ $workflow_id ]['failures'];
+                } else {
+                    $workflow['successes'] = 0;
+                    $workflow['failures'] = 0;
+                }
+            }
+            
+            // Thompson Sampling으로 최적 넛지 선택
+            $selected_id = $mab->select_nudge( $workflows );
+            
+            // 선택된 넛지만 반환 (나머지는 필터링)
+            $workflows = array_filter( $workflows, function( $w ) use ( $selected_id ) {
+                return $w['id'] === $selected_id;
+            } );
+        }
+        
+        return $workflows;
     }
 
     /**
@@ -286,6 +321,29 @@ final class ACF_Nudge_Flow {
         $tracker->dismiss_nudge( $nudge_id, $dismiss_type );
 
         wp_send_json_success();
+    }
+
+    /**
+     * 전환 추적 AJAX (MAB 학습용)
+     */
+    public function ajax_record_conversion() {
+        check_ajax_referer( 'acf_nudge_flow_nonce', 'nonce' );
+
+        $nudge_id = isset( $_POST['nudge_id'] ) ? sanitize_text_field( $_POST['nudge_id'] ) : '';
+        $success = isset( $_POST['success'] ) && $_POST['success'] === 'true';
+
+        if ( empty( $nudge_id ) ) {
+            wp_send_json_error( array( 'message' => __( '넛지 ID가 필요합니다.', 'acf-nudge-flow' ) ) );
+        }
+
+        // MAB 최적화 엔진에 결과 기록
+        $mab = JJ_MAB_Optimizer::instance();
+        $mab->record_outcome( $nudge_id, $success );
+
+        wp_send_json_success( array( 
+            'message' => __( '전환이 기록되었습니다.', 'acf-nudge-flow' ),
+            'conversion_rates' => $mab->get_conversion_rates()
+        ) );
     }
 
     /**
@@ -367,6 +425,7 @@ final class ACF_Nudge_Flow {
             'delay_between_nudges' => 60, // seconds
             'excluded_pages'       => array(),
             'excluded_roles'       => array( 'administrator' ),
+            'mab_enabled'          => false, // MAB 자동 최적화 비활성화 (기본값)
         );
 
         if ( ! get_option( 'acf_nudge_flow_settings' ) ) {
