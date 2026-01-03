@@ -288,6 +288,18 @@ class ACF_CSS_WC_Admin_Settings {
         $styler = JJ_WC_Product_Page_Styler::instance();
         $templates = $styler->get_templates();
         $applied = $styler->get_applied_styles();
+        
+        // [v2.3.0] Load Enhanced UI System 2026
+        if ( defined( 'ACF_CSS_WC_PLUGIN_URL' ) && defined( 'ACF_CSS_WC_PLUGIN_DIR' ) ) {
+            $enhanced_css_url = ACF_CSS_WC_PLUGIN_URL . 'assets/css/jj-wc-toolkit-enhanced-2026.css';
+            $enhanced_css_path = ACF_CSS_WC_PLUGIN_DIR . 'assets/css/jj-wc-toolkit-enhanced-2026.css';
+            
+            if ( file_exists( $enhanced_css_path ) ) {
+                $version = defined( 'ACF_CSS_WC_VERSION' ) ? ACF_CSS_WC_VERSION : '2.2.0';
+                $css_version = $version . '.' . filemtime( $enhanced_css_path );
+                wp_enqueue_style( 'jj-wc-toolkit-enhanced-2026', $enhanced_css_url, array(), $css_version );
+            }
+        }
         ?>
         <div class="wrap acf-css-wc-styler">
             <h1><?php esc_html_e( 'WooCommerce Page Styler', 'acf-css-woocommerce-toolkit' ); ?></h1>

@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS WooCommerce Toolkit - Advanced Commerce Styling
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS 플러그인의 WooCommerce 특화 확장입니다. 가격 표시 강화, 할인 계산기, 할부 표시, 장바구니 UI 개선 등 우커머스 스타일링과 기능을 제공합니다. ACF CSS Pro 버전 이상의 사용자를 위한 프리미엄 기능입니다.
- * Version:           2.2.0
+ * Version:           2.3.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSS_WC_VERSION', '2.2.0' );
+define( 'ACF_CSS_WC_VERSION', '2.3.0' );
 define( 'ACF_CSS_WC_PLUGIN_FILE', __FILE__ );
 define( 'ACF_CSS_WC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSS_WC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

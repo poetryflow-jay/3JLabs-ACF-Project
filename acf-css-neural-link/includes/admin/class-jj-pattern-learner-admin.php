@@ -40,6 +40,18 @@ class JJ_Pattern_Learner_Admin {
             return;
         }
 
+        // [v6.2.0] Enhanced UI System 2026
+        if ( defined( 'JJ_NEURAL_LINK_URL' ) && defined( 'JJ_NEURAL_LINK_PATH' ) ) {
+            $enhanced_css_url = JJ_NEURAL_LINK_URL . 'assets/css/jj-pattern-learner-enhanced.css';
+            $enhanced_css_path = JJ_NEURAL_LINK_PATH . 'assets/css/jj-pattern-learner-enhanced.css';
+            $version = defined( 'JJ_NEURAL_LINK_VERSION' ) ? JJ_NEURAL_LINK_VERSION : '6.1.0';
+            
+            if ( file_exists( $enhanced_css_path ) ) {
+                $css_version = $version . '.' . filemtime( $enhanced_css_path );
+                wp_enqueue_style( 'jj-pattern-learner-enhanced', $enhanced_css_url, array(), $css_version );
+            }
+        }
+
         wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js', array(), '4.4.0', true );
     }
 

@@ -1,0 +1,226 @@
+/**
+ * WooCommerce Toolkit Enhanced UI - 2026 Edition
+ * Integrates with 3J Labs UI System 2026
+ * 
+ * @version 1.0.0
+ * @author Jenny x Jason
+ * @created 2026-01-03
+ */
+
+:root {
+    --jj-primary: #FF6B35;
+    --jj-primary-dark: #E85A2A;
+    --jj-accent-green: #10B981;
+    --jj-accent-blue: #3B82F6;
+    --jj-gray-50: #FAFAFA;
+    --jj-gray-200: #E5E5E5;
+    --jj-gray-800: #262626;
+    --jj-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --jj-radius-lg: 12px;
+    --jj-transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Page Header Enhancement */
+.acf-css-wc-styler h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--jj-gray-800);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.acf-css-wc-styler h1::before {
+    content: "🎨";
+    font-size: 36px;
+}
+
+/* Template Grid - Enhanced */
+.jj-template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 24px !important;
+    margin-top: 32px !important;
+}
+
+/* Template Cards - Stunning Visual */
+.jj-template-card {
+    background: white !important;
+    border: 1px solid var(--jj-gray-200) !important;
+    border-radius: var(--jj-radius-lg) !important;
+    padding: 0 !important;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    transition: all var(--jj-transition-base) !important;
+}
+
+.jj-template-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: var(--jj-shadow-lg) !important;
+    border-color: var(--jj-primary) !important;
+}
+
+/* Template Thumbnail - Add visual preview area */
+.jj-template-card::before {
+    content: "";
+    display: block;
+    height: 160px;
+    background: linear-gradient(135deg, #FF6B35 0%, #E85A2A 100%);
+    opacity: 0.1;
+}
+
+.jj-template-card[data-template="modern"]::before {
+    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+}
+
+.jj-template-card[data-template="luxury"]::before {
+    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+}
+
+.jj-template-card[data-template="minimal"]::before {
+    background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+}
+
+.jj-template-card[data-template="clean"]::before {
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+}
+
+/* Template Content */
+.jj-template-card > div {
+    padding: 24px !important;
+}
+
+.jj-template-card h3 {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    color: var(--jj-gray-800) !important;
+    margin: 0 0 8px 0 !important;
+}
+
+.jj-template-card .template-description {
+    font-size: 14px !important;
+    color: #6B7280 !important;
+    line-height: 1.6 !important;
+    margin-bottom: 16px !important;
+}
+
+.jj-template-card .template-target {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    background: var(--jj-gray-50);
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6B7280;
+    margin-bottom: 16px;
+}
+
+/* Template Buttons - Modernized */
+.jj-template-card .apply-template-btn,
+.jj-template-card .remove-template-btn {
+    width: 100%;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    cursor: pointer;
+    transition: all var(--jj-transition-base) !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.jj-template-card .apply-template-btn {
+    background: var(--jj-primary) !important;
+    color: white !important;
+}
+
+.jj-template-card .apply-template-btn:hover {
+    background: var(--jj-primary-dark) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3) !important;
+}
+
+.jj-template-card .remove-template-btn {
+    background: #EF4444 !important;
+    color: white !important;
+}
+
+.jj-template-card .remove-template-btn:hover {
+    background: #DC2626 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Applied State Badge */
+.jj-template-card.applied {
+    border-color: var(--jj-accent-green) !important;
+    background: linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 0%, white 100%) !important;
+}
+
+.jj-template-card.applied::after {
+    content: "✓ Applied";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--jj-accent-green);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.jj-template-card {
+    position: relative;
+}
+
+/* Loading State */
+.jj-template-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.jj-template-card.loading::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    border: 4px solid var(--jj-gray-200);
+    border-top-color: var(--jj-primary);
+    border-radius: 50%;
+    animation: jj-spin 0.8s linear infinite;
+    z-index: 10;
+}
+
+@keyframes jj-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .jj-template-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .acf-css-wc-styler h1 {
+        font-size: 24px;
+    }
+}
+
+/* Success Message Enhancement */
+.notice.notice-success {
+    border-left-color: var(--jj-accent-green) !important;
+    background: #D1FAE5 !important;
+}
+
+.notice.notice-error {
+    border-left-color: #EF4444 !important;
+    background: #FEE2E2 !important;
+}
