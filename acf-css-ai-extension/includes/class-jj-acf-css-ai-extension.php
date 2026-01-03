@@ -113,6 +113,18 @@ final class JJ_ACF_CSS_AI_Extension {
             JJ_ACF_CSS_AI_EXT_VERSION,
             true
         );
+        
+        // [v3.2.0] UI System 2026 Enhancement
+        $enhanced_css_path = JJ_ACF_CSS_AI_EXT_PATH . 'assets/css/jj-ai-extension-enhanced-2026.css';
+        if ( file_exists( $enhanced_css_path ) ) {
+            $css_version = JJ_ACF_CSS_AI_EXT_VERSION . '.' . filemtime( $enhanced_css_path );
+            wp_enqueue_style(
+                'jj-ai-extension-enhanced-2026',
+                JJ_ACF_CSS_AI_EXT_URL . 'assets/css/jj-ai-extension-enhanced-2026.css',
+                array( 'jj-acf-css-ai-ext' ),
+                $css_version
+            );
+        }
 
         // [Phase 7.3] Diff Lib
         wp_enqueue_script(

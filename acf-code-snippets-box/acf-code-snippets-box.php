@@ -3,7 +3,7 @@
  * Plugin Name:       ACF Code Snippets Box - Advanced Custom Function Manager
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF Code Snippets Box (Advanced Custom Function) - WordPress 코어를 수정하지 않고 JS, CSS, PHP, HTML 코드 스니펫을 저장하고 조건에 따라 실행하는 강력한 코드 관리 플러그인입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, 스타일 변수와 디자인 토큰을 쉽게 참조할 수 있습니다.
- * Version:           2.1.1
+ * Version:           2.2.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSB_VERSION', '2.0.0' ); // [v2.0.0] 메이저 버전 동기화
+define( 'ACF_CSB_VERSION', '2.2.0' ); // [v2.2.0] UI System 2026 Enhancement
 define( 'ACF_CSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSB_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACF_CSB_BASENAME', plugin_basename( __FILE__ ) );
@@ -128,6 +128,9 @@ final class ACF_Code_Snippets_Box {
 
         // 관리자 메뉴
         add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+        
+        // 관리자 에셋
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
 
         // 플러그인 링크
         add_filter( 'plugin_action_links_' . ACF_CSB_BASENAME, array( $this, 'plugin_action_links' ) );
@@ -194,6 +197,29 @@ final class ACF_Code_Snippets_Box {
         ACF_CSB_ACF_CSS_Bridge::instance()->init();
     }
 
+    /**
+     * 관리자 에셋 로드
+     * [v2.2.0] UI System 2026 Enhancement
+     */
+    public function enqueue_admin_assets( $hook ) {
+        // ACF Code Snippets 페이지에서만 로드
+        if ( strpos( $hook, 'acf-code-snippets' ) === false && strpos( $hook, 'acf_code_snippet' ) === false ) {
+            return;
+        }
+        
+        // [v2.2.0] UI System 2026 Enhancement
+        $enhanced_css_path = ACF_CSB_PATH . 'assets/css/jj-code-snippets-enhanced-2026.css';
+        if ( file_exists( $enhanced_css_path ) ) {
+            $css_version = ACF_CSB_VERSION . '.' . filemtime( $enhanced_css_path );
+            wp_enqueue_style(
+                'acf-csb-enhanced-2026',
+                ACF_CSB_URL . 'assets/css/jj-code-snippets-enhanced-2026.css',
+                array(),
+                $css_version
+            );
+        }
+    }
+    
     /**
      * 관리자 메뉴
      */
