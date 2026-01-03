@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           5.0.2-master
+ * Version:           5.0.3-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '5.0.2-master' ); // [v5.0.2] UI/UX 긴급 패치 및 마스터 권한 최적화
+define( 'WP_BULK_MANAGER_VERSION', '5.0.3-master' ); // [v5.0.3] 그랜드 업그레이드 - 멀티/원격 관리 완성
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -49,6 +49,14 @@ class JJ_Bulk_Installer {
         add_action( 'wp_ajax_jj_bulk_install_process', array( $this, 'ajax_handle_install' ) );
         add_action( 'wp_ajax_jj_bulk_activate_plugin', array( $this, 'ajax_handle_activate' ) );
         add_action( 'wp_ajax_jj_bulk_remote_connect', array( $this, 'ajax_remote_connect' ) );
+        add_action( 'wp_ajax_jj_bulk_remote_disconnect', array( $this, 'ajax_remote_disconnect' ) );
+        add_action( 'wp_ajax_jj_bulk_remote_get_items', array( $this, 'ajax_remote_get_items_proxy' ) );
+
+        // [v5.0.0] Multisite & Remote Bulk Actions
+        add_action( 'wp_ajax_jj_bulk_multisite_install', array( $this, 'ajax_multisite_install' ) );
+        add_action( 'wp_ajax_jj_bulk_multisite_bulk_action', array( $this, 'ajax_multisite_bulk_action' ) );
+        add_action( 'wp_ajax_jj_bulk_remote_install_proxy', array( $this, 'ajax_remote_install_proxy' ) );
+        add_action( 'wp_ajax_jj_bulk_remote_bulk_action', array( $this, 'ajax_remote_bulk_action' ) );
 
         // Bulk Editor (관리)
         add_action( 'wp_ajax_jj_bulk_manage_get_items', array( $this, 'ajax_get_installed_items' ) );
@@ -310,12 +318,14 @@ class JJ_Bulk_Installer {
 
         if ( $is_master ) {
             return array(
-                'max_files' => 999,
+                'max_files' => 9999, // [Grand Upgrade] 대폭 상향
                 'can_auto_activate' => true,
-                'max_manage_items' => 999,
+                'max_manage_items' => 9999,
                 'can_bulk_delete' => true,
                 'can_deactivate_then_delete' => true,
                 'is_master' => true,
+                'multisite_support' => true,
+                'remote_support' => true,
             );
         }
 
@@ -326,6 +336,8 @@ class JJ_Bulk_Installer {
             'can_bulk_delete' => false,
             'can_deactivate_then_delete' => false,
             'is_master' => false,
+            'multisite_support' => false,
+            'remote_support' => false,
         );
         
         // ACF CSS Manager가 설치되어 있고 클래스가 존재할 때 (Basic/Premium 등 체크)
@@ -339,11 +351,13 @@ class JJ_Bulk_Installer {
             }
             
             if ( $edition_ctrl->is_at_least( 'premium' ) ) {
-                $limits['max_files'] = 999;
+                $limits['max_files'] = 9999;
                 $limits['can_auto_activate'] = true;
-                $limits['max_manage_items'] = 999;
+                $limits['max_manage_items'] = 9999;
                 $limits['can_bulk_delete'] = true;
                 $limits['can_deactivate_then_delete'] = true;
+                $limits['multisite_support'] = true;
+                $limits['remote_support'] = true;
             }
         }
         
@@ -656,18 +670,31 @@ class JJ_Bulk_Installer {
                         <p class="description">네트워크 내의 여러 사이트를 선택하여 플러그인/테마를 한 번에 설치합니다.</p>
                         <div class="jj-multisite-selector" style="margin-bottom: 20px; padding: 15px; background: #f0f0f1; border-radius: 5px;">
                             <h4>대상 사이트 선택</h4>
-                            <div class="jj-multisite-list" style="max-height: 200px; overflow-y: auto; background: #fff; padding: 10px; border: 1px solid #ccd0d4;">
+                            <div class="jj-multisite-list" style="max-height: 200px; overflow-y: auto; background: #fff; padding: 10px; border: 1px solid #ccd0d4; border-radius: 4px;">
                                 <?php
-                                $sites = get_sites( array( 'number' => 100 ) );
+                                $sites = get_sites( array( 'number' => 500 ) ); // 대규모 사이트 지원
                                 foreach ( $sites as $site ) {
-                                    echo '<label style="display: block; margin-bottom: 5px;"><input type="checkbox" name="multisite_target[]" value="' . esc_attr( $site->blog_id ) . '"> ' . esc_html( $site->blogname ) . ' (' . esc_html( $site->domain . $site->path ) . ')</label>';
+                                    $site_details = get_blog_details( $site->blog_id );
+                                    echo '<label style="display: block; margin-bottom: 5px; padding: 5px; border-bottom: 1px solid #f0f0f1;">';
+                                    echo '<input type="checkbox" name="multisite_target[]" value="' . esc_attr( $site->blog_id ) . '"> ';
+                                    echo '<strong>' . esc_html( $site_details->blogname ) . '</strong>';
+                                    echo ' <small style="color: #8c8f94;">(' . esc_html( $site->domain . $site->path ) . ')</small>';
+                                    echo '</label>';
                                 }
                                 ?>
                             </div>
+                            <div style="margin-top: 10px;">
+                                <button type="button" class="button button-small" id="jj-multisite-select-all">전체 선택</button>
+                                <button type="button" class="button button-small" id="jj-multisite-select-none">선택 해제</button>
+                            </div>
                         </div>
-                        <!-- 공유 인스톨러 UI (드롭존 등은 JS에서 동적 처리하거나 installer 탭과 공유) -->
+                        <!-- 공유 인스톨러 UI -->
                         <div id="jj-multisite-installer-content">
                             <p>위에서 사이트를 선택한 후, '설치(Installer)' 탭의 기능을 동일하게 사용하실 수 있습니다.</p>
+                            <p class="description" style="color: #d63638; font-weight: 600;">
+                                (⚠️ 주의: 서버 설정이나 워드프레스 설정에 따른 용량 제한을 이 플러그인의 설정이 무시할 수는 없으므로 유의하여 설정을 변경하시기 바랍니다. 
+                                <a href="https://wordpress.org/documentation/article/increasing-the-maximum-upload-file-size/" target="_blank" style="color: #d63638; text-decoration: underline;">공식 문서 확인</a>)
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -690,11 +717,15 @@ class JJ_Bulk_Installer {
                     <h2>📡 싱글 사이트 벌크 인스톨러 (원격 연결)</h2>
                     <p class="description">연결된 다른 워드프레스 사이트들에 대량으로 설치를 진행합니다.</p>
                     
-                    <div class="jj-remote-connection-settings" style="margin-bottom: 20px; padding: 15px; background: #f0f6fb; border: 1px solid #c3d9e8; border-radius: 5px;">
+                        <div class="jj-remote-connection-settings" style="margin-bottom: 20px; padding: 15px; background: #f0f6fb; border: 1px solid #c3d9e8; border-radius: 5px;">
                         <h4>🔗 원격 사이트 연결 설정</h4>
-                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                            <input type="url" id="jj-remote-url" placeholder="대상 사이트 URL (예: https://example.com)" class="regular-text">
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; align-items: center;">
+                            <input type="url" id="jj-remote-url" placeholder="대상 사이트 URL (예: https://example.com)" class="regular-text" style="flex: 1;">
                             <input type="text" id="jj-remote-key" placeholder="시크릿 키" class="regular-text">
+                            <label style="display: flex; align-items: center; gap: 5px; font-size: 13px;">
+                                <input type="checkbox" id="jj-remote-one-way" value="1">
+                                🛡️ 일방향 관리 (최상위 관리자 권한 수락)
+                            </label>
                             <button type="button" id="jj-remote-connect" class="button button-primary">연결하기</button>
                         </div>
                         <p class="description">
@@ -703,9 +734,32 @@ class JJ_Bulk_Installer {
                         </p>
                     </div>
 
-                    <div id="jj-remote-installer-content">
-                        <!-- 원격 사이트 선택 및 인스톨러 UI -->
-                        <p>원격 사이트를 먼저 연결해주세요.</p>
+                    <div id="jj-remote-sites-list-wrap" style="margin-bottom: 25px;">
+                        <h4>📋 연결된 원격 사이트 목록</h4>
+                        <div class="jj-remote-sites-list" style="background: #fff; border: 1px solid #ccd0d4; border-radius: 4px; padding: 10px; max-height: 250px; overflow-y: auto;">
+                            <?php
+                            $remote_sites = (array) get_option( 'jj_bulk_connected_sites', array() );
+                            if ( empty( $remote_sites ) ) {
+                                echo '<p class="description">연결된 사이트가 없습니다.</p>';
+                            } else {
+                                foreach ( $remote_sites as $url => $data ) {
+                                    $is_one_way = ! empty( $data['one_way'] );
+                                    echo '<div class="jj-remote-site-item" style="display: flex; justify-content: space-between; align-items: center; padding: 8px; border-bottom: 1px solid #f0f0f1;">';
+                                    echo '<div>';
+                                    echo '<label style="font-weight: 600;"><input type="checkbox" name="remote_target[]" value="' . esc_attr( $url ) . '"> ' . esc_html( $url ) . '</label>';
+                                    if ( $is_one_way ) echo ' <span class="jj-badge" style="background: #e7f3ff; color: #2271b1; font-size: 10px; padding: 2px 6px;">🛡️ 일방향</span>';
+                                    echo '<div style="font-size: 11px; color: #8c8f94;">최근 연결: ' . esc_html( $data['last_connected'] ) . '</div>';
+                                    echo '</div>';
+                                    echo '<button type="button" class="button button-small jj-remote-disconnect" data-url="' . esc_attr( $url ) . '">삭제</button>';
+                                    echo '</div>';
+                                }
+                            }
+                            ?>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <button type="button" class="button button-small" id="jj-remote-select-all">전체 선택</button>
+                            <button type="button" class="button button-small" id="jj-remote-select-none">선택 해제</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -716,6 +770,10 @@ class JJ_Bulk_Installer {
                     <p class="description">연결된 원격 사이트들의 플러그인/테마를 한 곳에서 관리합니다.</p>
                     <div id="jj-remote-editor-content">
                         <p>원격 사이트를 먼저 연결해주세요.</p>
+                        <p class="description" style="color: #d63638; font-weight: 600;">
+                            (⚠️ 주의: 서버 설정이나 워드프레스 설정에 따른 용량 제한을 이 플러그인의 설정이 무시할 수는 없으므로 유의하여 설정을 변경하시기 바랍니다. 
+                            <a href="https://wordpress.org/documentation/article/increasing-the-maximum-upload-file-size/" target="_blank" style="color: #d63638; text-decoration: underline;">공식 문서 확인</a>)
+                        </p>
                     </div>
                 </div>
             </div>
@@ -739,6 +797,11 @@ class JJ_Bulk_Installer {
         check_ajax_referer( 'jj_bulk_install', 'nonce' );
         if ( ! current_user_can( 'install_plugins' ) ) {
             wp_send_json_error( '권한이 없습니다.' );
+        }
+
+        $site_id = isset( $_POST['site_id'] ) ? (int) $_POST['site_id'] : 0;
+        if ( $site_id && is_multisite() ) {
+            switch_to_blog( $site_id );
         }
 
         $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( $_POST['item_type'] ) : 'plugin';
@@ -1330,17 +1393,177 @@ class JJ_Bulk_Installer {
     }
 
     // 3. 활성화 핸들러 (수동 활성화용)
-    public function ajax_handle_activate() {
+    /**
+     * [v5.0.0] Multisite: 사이트별 대량 관리 액션
+     */
+    /**
+     * [v5.0.0] Multisite: 사이트별 대량 관리 액션
+     */
+    public function ajax_multisite_bulk_action() {
         check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        $slug = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
-        
-        if ( ! $slug ) wp_send_json_error( '플러그인 정보가 없습니다.' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( '권한이 없습니다.' );
+        }
 
-        $result = activate_plugin( $slug );
+        $site_ids = isset( $_POST['site_ids'] ) ? (array) $_POST['site_ids'] : array();
+        $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( $_POST['item_type'] ) : '';
+        $operation = isset( $_POST['operation'] ) ? sanitize_text_field( $_POST['operation'] ) : '';
+        $items = isset( $_POST['items'] ) ? (array) $_POST['items'] : array();
+
+        if ( empty( $site_ids ) || empty( $operation ) || empty( $items ) ) {
+            wp_send_json_error( '필수 파라미터가 누락되었습니다.' );
+        }
+
+        $results = array();
+        foreach ( $site_ids as $site_id ) {
+            switch_to_blog( $site_id );
+            
+            $site_res = $this->internal_bulk_manage_action( $item_type, $operation, $items );
+            $results[ $site_id ] = $site_res;
+
+            restore_current_blog();
+        }
+
+        wp_send_json_success( array( 'results' => $results ) );
+    }
+
+    /**
+     * [v5.0.0] Multisite: 파일 설치 (Ajax Proxy)
+     */
+    public function ajax_multisite_install() {
+        check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( '권한이 없습니다.' );
+        }
+
+        $site_id = isset( $_POST['site_id'] ) ? (int) $_POST['site_id'] : 0;
+        $file_path = isset( $_POST['path'] ) ? sanitize_text_field( $_POST['path'] ) : '';
+        $type = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'plugin';
+        $activate = isset( $_POST['activate'] ) && 'true' === $_POST['activate'];
+
+        if ( ! $site_id || ! $file_path || ! file_exists( $file_path ) ) {
+            wp_send_json_error( '정보가 부족합니다.' );
+        }
+
+        switch_to_blog( $site_id );
+
+        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/file.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        include_once ABSPATH . 'wp-admin/includes/theme.php';
+
+        $skin = new WP_Ajax_Upgrader_Skin();
+        $upgrader = ( 'theme' === $type ) ? new Theme_Upgrader( $skin ) : new Plugin_Upgrader( $skin );
+        
+        $temp_copy = $file_path . '.tmp.' . $site_id . '.zip';
+        copy( $file_path, $temp_copy );
+
+        $result = $upgrader->install( $temp_copy );
+        @unlink( $temp_copy );
+
         if ( is_wp_error( $result ) ) {
+            restore_current_blog();
             wp_send_json_error( $result->get_error_message() );
         }
-        wp_send_json_success( '활성화됨' );
+
+        $slug = ( 'plugin' === $type ) ? $upgrader->plugin_info() : $upgrader->theme_info();
+        if ( $activate && 'plugin' === $type && $slug ) {
+            activate_plugin( $slug );
+        }
+
+        restore_current_blog();
+        wp_send_json_success( array( 'slug' => $slug, 'message' => '멀티 사이트 설치 완료' ) );
+    }
+
+    /**
+     * [v5.0.0] Remote: 파일 설치 Proxy (Main -> Remote)
+     */
+    public function ajax_remote_install_proxy() {
+        check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( '권한이 없습니다.' );
+        }
+
+        $remote_url = isset( $_POST['remote_url'] ) ? esc_url_raw( $_POST['remote_url'] ) : '';
+        $path = isset( $_POST['path'] ) ? sanitize_text_field( $_POST['path'] ) : '';
+        $type = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'plugin';
+        $activate = isset( $_POST['activate'] ) && 'true' === $_POST['activate'];
+
+        if ( ! $remote_url || ! $path || ! file_exists( $path ) ) {
+            wp_send_json_error( '정보가 부족합니다.' );
+        }
+
+        $connected_sites = (array) get_option( 'jj_bulk_connected_sites', array() );
+        if ( ! isset( $connected_sites[ $remote_url ] ) ) {
+            wp_send_json_error( '연결되지 않은 원격 사이트입니다.' );
+        }
+
+        $site_data = $connected_sites[ $remote_url ];
+        $api_url = trailingslashit( $remote_url ) . 'index.php?rest_route=/jj-bulk/v1/remote-install';
+
+        // cURL을 직접 사용하여 멀티파트 요청 수행 (wp_remote_post는 멀티파트 파일 전송이 까다로움)
+        $ch = curl_init();
+        curl_setopt( $ch, CURLOPT_URL, $api_url );
+        curl_setopt( $ch, CURLOPT_POST, true );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array(
+            'X-JJ-Bulk-Secret: ' . $site_data['key'],
+        ) );
+
+        $post_fields = array(
+            'file'     => new CURLFile( $path ),
+            'type'     => $type,
+            'activate' => $activate ? '1' : '0'
+        );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_fields );
+        curl_setopt( $ch, CURLOPT_TIMEOUT, 60 );
+
+        $response = curl_exec( $ch );
+        $http_code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
+        curl_close( $ch );
+
+        if ( false === $response ) {
+            wp_send_json_error( '원격 서버 통신 실패' );
+        }
+
+        $data = json_decode( $response, true );
+        if ( 200 === $http_code && $data && ! empty( $data['success'] ) ) {
+            wp_send_json_success( $data );
+        } else {
+            wp_send_json_error( '원격 설치 실패: ' . ( isset( $data['message'] ) ? $data['message'] : 'HTTP ' . $http_code ) );
+        }
+    }
+
+    /**
+     * 내부 관리 액션 (Multisite에서 사용)
+     */
+    private function internal_bulk_manage_action( $item_type, $operation, $items ) {
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        include_once ABSPATH . 'wp-admin/includes/theme.php';
+        
+        $results = array();
+        foreach ( $items as $id ) {
+            $ok = false;
+            $msg = '';
+            
+            if ( 'plugin' === $item_type ) {
+                if ( 'activate' === $operation ) {
+                    $res = activate_plugin( $id );
+                    $ok = ! is_wp_error( $res );
+                    $msg = $ok ? '활성화됨' : $res->get_error_message();
+                } elseif ( 'deactivate' === $operation ) {
+                    deactivate_plugins( $id );
+                    $ok = true;
+                    $msg = '비활성화됨';
+                } elseif ( 'delete' === $operation ) {
+                    $res = delete_plugins( array( $id ) );
+                    $ok = ! is_wp_error( $res );
+                    $msg = $ok ? '삭제됨' : $res->get_error_message();
+                }
+            }
+            $results[] = array( 'id' => $id, 'ok' => $ok, 'message' => $msg );
+        }
+        return $results;
     }
 
     /**
@@ -1394,6 +1617,7 @@ class JJ_Bulk_Installer {
         $connected_sites[ $remote_url ] = array(
             'url' => $remote_url,
             'key' => $remote_key,
+            'one_way' => isset( $_POST['one_way'] ) && 'true' === $_POST['one_way'],
             'last_connected' => current_time( 'mysql' )
         );
         update_option( 'jj_bulk_connected_sites', $connected_sites );
@@ -1402,6 +1626,59 @@ class JJ_Bulk_Installer {
             'message' => '성공적으로 연결되었습니다.',
             'sites'   => $connected_sites
         ) );
+    }
+
+    /**
+     * [v5.0.0] 원격 사이트 연결 해제 (AJAX)
+     */
+    /**
+     * [v5.0.0] Remote: 목록 조회 Proxy
+     */
+    public function ajax_remote_get_items_proxy() {
+        check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( '권한이 없습니다.' );
+        }
+
+        $remote_url = isset( $_POST['remote_url'] ) ? esc_url_raw( $_POST['remote_url'] ) : '';
+        $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( $_POST['item_type'] ) : 'plugin';
+
+        if ( ! $remote_url ) {
+            wp_send_json_error( 'URL 정보가 없습니다.' );
+        }
+
+        $connected_sites = (array) get_option( 'jj_bulk_connected_sites', array() );
+        if ( ! isset( $connected_sites[ $remote_url ] ) ) {
+            wp_send_json_error( '연결되지 않은 사이트입니다.' );
+        }
+
+        $site_data = $connected_sites[ $remote_url ];
+        $api_url = trailingslashit( $remote_url ) . 'index.php?rest_route=/jj-bulk/v1/remote-manage';
+
+        $response = wp_remote_post( $api_url, array(
+            'headers' => array(
+                'X-JJ-Bulk-Secret' => $site_data['key'],
+                'Content-Type'    => 'application/json',
+            ),
+            'body' => wp_json_encode( array(
+                'operation' => 'get_items',
+                'item_type' => $item_type
+            ) ),
+            'timeout' => 30,
+        ) );
+
+        if ( is_wp_error( $response ) ) {
+            wp_send_json_error( $response->get_error_message() );
+        }
+
+        $body = wp_remote_retrieve_body( $response );
+        $data = json_decode( $body, true );
+        
+        if ( $data ) {
+            wp_send_json_success( $data );
+        } else {
+            wp_send_json_error( '원격 서버 응답 해석 실패: ' . $body );
+        }
     }
 
     /**
@@ -1425,6 +1702,61 @@ class JJ_Bulk_Installer {
             'callback' => array( $this, 'handle_remote_request' ),
             'permission_callback' => array( $this, 'verify_remote_request' ),
         ) );
+
+        // [v5.0.0] 원격 파일 설치를 위한 엔드포인트
+        register_rest_route( 'jj-bulk/v1', '/remote-install', array(
+            'methods'  => 'POST',
+            'callback' => array( $this, 'handle_remote_install_request' ),
+            'permission_callback' => array( $this, 'verify_remote_request' ),
+        ) );
+    }
+
+    /**
+     * [v5.0.0] 원격 설치 요청 처리 (직접 파일 업로드)
+     */
+    public function handle_remote_install_request( $request ) {
+        $files = $request->get_file_params();
+        $params = $request->get_params();
+        $type = isset( $params['type'] ) ? $params['type'] : 'plugin';
+        $activate = ! empty( $params['activate'] );
+
+        if ( empty( $files['file'] ) ) {
+            return new WP_Error( 'no_file', '파일이 전송되지 않았습니다.', array( 'status' => 400 ) );
+        }
+
+        $file = $files['file'];
+        
+        // 임시 폴더 저장 후 설치
+        $upload_dir = wp_upload_dir();
+        $temp_dir = trailingslashit( $upload_dir['basedir'] ) . 'jj-bulk-remote-temp/';
+        if ( ! file_exists( $temp_dir ) ) wp_mkdir_p( $temp_dir );
+        
+        $target_path = $temp_dir . basename( $file['name'] );
+        if ( ! move_uploaded_file( $file['tmp_name'], $target_path ) ) {
+            return new WP_Error( 'upload_fail', '파일 저장 실패', array( 'status' => 500 ) );
+        }
+
+        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/file.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        include_once ABSPATH . 'wp-admin/includes/theme.php';
+
+        $skin = new WP_Ajax_Upgrader_Skin();
+        $upgrader = ( 'theme' === $type ) ? new Theme_Upgrader( $skin ) : new Plugin_Upgrader( $skin );
+        
+        $result = $upgrader->install( $target_path );
+        @unlink( $target_path );
+
+        if ( is_wp_error( $result ) ) {
+            return $result;
+        }
+
+        $slug = ( 'plugin' === $type ) ? $upgrader->plugin_info() : $upgrader->theme_info();
+        if ( $activate && 'plugin' === $type && $slug ) {
+            activate_plugin( $slug );
+        }
+
+        return array( 'success' => true, 'slug' => $slug, 'message' => '원격 설치 성공' );
     }
 
     /**
@@ -1468,20 +1800,139 @@ class JJ_Bulk_Installer {
     }
 
     private function remote_get_items( $params ) {
-        // ajax_get_installed_items() 로직의 원격 버전
         $item_type = isset( $params['item_type'] ) ? $params['item_type'] : 'plugin';
-        // ... 상세 로직 구현 (필요시 리팩토링하여 공통화)
-        return array( 'success' => true, 'data' => '...' );
+        
+        if ( 'plugin' === $item_type ) {
+            include_once ABSPATH . 'wp-admin/includes/plugin.php';
+            $plugins = get_plugins();
+            $auto_update_plugins = (array) get_site_option( 'auto_update_plugins', array() );
+            $updates = get_site_transient( 'update_plugins' );
+
+            $items = array();
+            foreach ( $plugins as $plugin_file => $data ) {
+                $items[] = array(
+                    'id' => $plugin_file,
+                    'name' => $data['Name'],
+                    'version' => $data['Version'],
+                    'active' => is_plugin_active( $plugin_file ),
+                    'auto_update' => in_array( $plugin_file, $auto_update_plugins, true ),
+                    'update_available' => ( is_object( $updates ) && isset( $updates->response[ $plugin_file ] ) )
+                );
+            }
+            return array( 'success' => true, 'item_type' => 'plugin', 'items' => $items );
+        } else {
+            include_once ABSPATH . 'wp-admin/includes/theme.php';
+            $themes = wp_get_themes();
+            $current = wp_get_theme()->get_stylesheet();
+            $auto_update_themes = (array) get_site_option( 'auto_update_themes', array() );
+            $updates = get_site_transient( 'update_themes' );
+
+            $items = array();
+            foreach ( $themes as $stylesheet => $theme_obj ) {
+                $items[] = array(
+                    'id' => $stylesheet,
+                    'name' => $theme_obj->get( 'Name' ),
+                    'version' => $theme_obj->get( 'Version' ),
+                    'active' => ( $stylesheet === $current ),
+                    'auto_update' => in_array( $stylesheet, $auto_update_themes, true ),
+                    'update_available' => ( is_object( $updates ) && isset( $updates->response[ $stylesheet ] ) )
+                );
+            }
+            return array( 'success' => true, 'item_type' => 'theme', 'items' => $items );
+        }
     }
 
     private function remote_install( $params ) {
-        // 원격 설치 로직
-        return array( 'success' => true, 'message' => '설치 완료' );
+        $download_url = isset( $params['download_url'] ) ? $params['download_url'] : '';
+        $type = isset( $params['type'] ) ? $params['type'] : 'plugin';
+        $activate = ! empty( $params['activate'] );
+
+        if ( ! $download_url ) {
+            return new WP_Error( 'missing_url', '다운로드 URL이 없습니다.', array( 'status' => 400 ) );
+        }
+
+        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/file.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin.php';
+        include_once ABSPATH . 'wp-admin/includes/theme.php';
+
+        $skin = new WP_Ajax_Upgrader_Skin();
+        $upgrader = ( 'theme' === $type ) ? new Theme_Upgrader( $skin ) : new Plugin_Upgrader( $skin );
+        
+        $result = $upgrader->install( $download_url );
+        if ( is_wp_error( $result ) ) {
+            return $result;
+        }
+
+        $slug = ( 'plugin' === $type ) ? $upgrader->plugin_info() : $upgrader->theme_info();
+        
+        if ( $activate && 'plugin' === $type && $slug ) {
+            activate_plugin( $slug );
+        }
+
+        return array( 'success' => true, 'slug' => $slug, 'message' => '원격 설치 완료' );
     }
 
-    private function remote_manage_action( $params ) {
-        // ajax_bulk_manage_action() 로직의 원격 버전
-        return array( 'success' => true, 'message' => '작업 완료' );
+    /**
+     * [v5.0.0] Remote: 사이트별 대량 관리 액션
+     */
+    public function ajax_remote_bulk_action() {
+        check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( '권한이 없습니다.' );
+        }
+
+        $remote_urls = isset( $_POST['remote_urls'] ) ? (array) $_POST['remote_urls'] : array();
+        $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( $_POST['item_type'] ) : '';
+        $operation = isset( $_POST['operation'] ) ? sanitize_text_field( $_POST['operation'] ) : '';
+        $items = isset( $_POST['items'] ) ? (array) $_POST['items'] : array();
+
+        if ( empty( $remote_urls ) || empty( $operation ) || empty( $items ) ) {
+            wp_send_json_error( '필수 파라미터가 누락되었습니다.' );
+        }
+
+        $connected_sites = (array) get_option( 'jj_bulk_connected_sites', array() );
+        $results = array();
+
+        foreach ( $remote_urls as $url ) {
+            if ( ! isset( $connected_sites[ $url ] ) ) {
+                $results[ $url ] = array( 'success' => false, 'message' => '연결되지 않은 사이트입니다.' );
+                continue;
+            }
+
+            $site_data = $connected_sites[ $url ];
+            $api_url = trailingslashit( $url ) . 'index.php?rest_route=/jj-bulk/v1/remote-manage';
+            
+            $response = wp_remote_post( $api_url, array(
+                'headers' => array(
+                    'X-JJ-Bulk-Secret' => $site_data['key'],
+                    'Content-Type'    => 'application/json',
+                ),
+                'body' => wp_json_encode( array(
+                    'operation' => 'manage',
+                    'item_type' => $item_type,
+                    'operation' => $operation,
+                    'items'     => $items
+                ) ),
+                'timeout' => 30,
+            ) );
+
+            if ( is_wp_error( $response ) ) {
+                $results[ $url ] = array( 'success' => false, 'message' => $response->get_error_message() );
+            } else {
+                $status = wp_remote_retrieve_response_code( $response );
+                $body = wp_remote_retrieve_body( $response );
+                if ( 200 === $status ) {
+                    $results[ $url ] = json_decode( $body, true );
+                } else {
+                    $results[ $url ] = array( 'success' => false, 'message' => 'HTTP 오류: ' . $status, 'body' => $body );
+                }
+            }
+        }
+
+        wp_send_json_success( array(
+            'results' => $results
+        ) );
     }
 
     private function detect_type( $zip_path ) {

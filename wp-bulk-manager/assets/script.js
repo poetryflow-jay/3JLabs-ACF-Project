@@ -53,10 +53,13 @@ jQuery(document).ready(function($) {
 
             if (tab === 'editor') {
                 initBulkEditorOnce();
-            } else if (tab === 'multisite-editor') {
-                initMultisiteEditor();
-            } else if (tab === 'remote-editor') {
-                initRemoteEditor();
+            } else if (tab === 'multisite-installer' || tab === 'multisite-editor') {
+                initMultisiteUI();
+                if (tab === 'multisite-editor') initMultisiteEditor();
+            } else if (tab === 'remote-installer' || tab === 'remote-editor') {
+                initRemoteUI();
+                initRemoteConnection();
+                if (tab === 'remote-editor') initRemoteEditor();
             }
         }
 
@@ -72,20 +75,308 @@ jQuery(document).ready(function($) {
     // ==============================
     // [v5.0.0] Multisite & Remote Management
     // ==============================
+    function initMultisiteUI() {
+        // 멀티사이트 전체 선택/해제
+        $('#jj-multisite-select-all').on('click', function() {
+            $('input[name="multisite_target[]"]').prop('checked', true);
+        });
+        $('#jj-multisite-select-none').on('click', function() {
+            $('input[name="multisite_target[]"]').prop('checked', false);
+        });
+    }
+
+    function initRemoteUI() {
+        // 원격 사이트 전체 선택/해제
+        $('#jj-remote-select-all').on('click', function() {
+            $('input[name="remote_target[]"]').prop('checked', true);
+        });
+        $('#jj-remote-select-none').on('click', function() {
+            $('input[name="remote_target[]"]').prop('checked', false);
+        });
+
+        // 원격 사이트 연결 해제 (삭제)
+        $(document).on('click', '.jj-remote-disconnect', function() {
+            var url = $(this).data('url');
+            if (!confirm(url + ' 연결을 해제하시겠습니까?')) return;
+
+            var $btn = $(this);
+            $btn.prop('disabled', true);
+
+            $.ajax({
+                url: jjBulk.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'jj_bulk_remote_disconnect',
+                    nonce: jjBulk.nonce,
+                    remote_url: url
+                },
+                success: function(resp) {
+                    if (resp.success) {
+                        showNotice('success', '연결 해제 완료: ' + url);
+                        location.reload(); // 리스트 갱신을 위해 새로고침 (간단한 구현)
+                    } else {
+                        showNotice('error', '해제 실패: ' + (resp.data || '알 수 없는 오류'));
+                        $btn.prop('disabled', false);
+                    }
+                }
+            });
+        });
+    }
+
     function initMultisiteEditor() {
-        // 멀티사이트 에디터 초기화 로직
-        console.log('Multisite Editor Initialized');
+        if ($('#jj-ms-site-select').length) return;
+
+        var html = '<div style="margin-bottom: 20px; padding: 15px; background: #f4f4f4; border: 1px solid #ddd; border-radius: 6px;">' +
+            '<h4 style="margin-top:0;">🔍 관리할 사이트 선택</h4>' +
+            '<div style="display:flex; gap:10px;">' +
+            '<select id="jj-ms-site-select" style="flex:1; max-width: 400px;">' +
+            '<option value="">사이트를 선택하세요...</option>';
+        
+        $('input[name="multisite_target[]"]').each(function() {
+            var id = $(this).val();
+            var name = $(this).closest('label').text().trim();
+            html += '<option value="' + id + '">' + name + '</option>';
+        });
+        
+        html += '</select>' +
+            '<button type="button" id="jj-ms-load-btn" class="button">조회하기</button>' +
+            '</div></div>' +
+            '<div id="jj-ms-editor-list"></div>';
+        
+        $('#jj-multisite-editor-content').html(html);
+
+        $('#jj-ms-load-btn').on('click', function() {
+            var siteId = $('#jj-ms-site-select').val();
+            if (!siteId) {
+                alert('사이트를 선택해주세요.');
+                return;
+            }
+            loadCrossSiteItems('multisite', siteId);
+        });
     }
 
     function initRemoteEditor() {
-        // 원격 에디터 초기화 로직
-        console.log('Remote Editor Initialized');
+        if ($('#jj-remote-site-select').length) return;
+
+        var html = '<div style="margin-bottom: 20px; padding: 15px; background: #f4f4f4; border: 1px solid #ddd; border-radius: 6px;">' +
+            '<h4 style="margin-top:0;">🔍 관리할 원격 사이트 선택</h4>' +
+            '<div style="display:flex; gap:10px;">' +
+            '<select id="jj-remote-site-select" style="flex:1; max-width: 400px;">' +
+            '<option value="">원격 사이트를 선택하세요...</option>';
+        
+        $('input[name="remote_target[]"]').each(function() {
+            var url = $(this).val();
+            html += '<option value="' + url + '">' + url + '</option>';
+        });
+        
+        html += '</select>' +
+            '<button type="button" id="jj-remote-load-btn" class="button">조회하기</button>' +
+            '</div></div>' +
+            '<div id="jj-remote-editor-list"></div>';
+        
+        $('#jj-remote-editor-content').html(html);
+
+        $('#jj-remote-load-btn').on('click', function() {
+            var url = $('#jj-remote-site-select').val();
+            if (!url) {
+                alert('원격 사이트를 선택해주세요.');
+                return;
+            }
+            loadCrossSiteItems('remote', url);
+        });
+    }
+
+    function loadCrossSiteItems(type, target) {
+        var $container = (type === 'multisite') ? $('#jj-ms-editor-list') : $('#jj-remote-editor-list');
+        var action = (type === 'multisite') ? 'jj_bulk_manage_get_items' : 'jj_bulk_remote_get_items';
+        
+        $container.html('<p>항목을 불러오는 중...</p>');
+
+        var ajaxData = {
+            action: action,
+            nonce: jjBulk.nonce,
+            item_type: 'plugin'
+        };
+
+        if (type === 'multisite') {
+            ajaxData.site_id = target;
+        } else {
+            ajaxData.remote_url = target;
+        }
+
+        $.ajax({
+            url: jjBulk.ajax_url,
+            type: 'POST',
+            data: ajaxData,
+            success: function(resp) {
+                if (resp.success) {
+                    var items = (resp.data && resp.data.items) ? resp.data.items : [];
+                    renderCrossSiteTable($container, items, type, target);
+                } else {
+                    $container.html('<p style="color:red;">오류: ' + (resp.data || '알 수 없는 오류') + '</p>');
+                }
+            },
+            error: function() {
+                $container.html('<p style="color:red;">통신 오류가 발생했습니다.</p>');
+            }
+        });
+    }
+
+    function renderCrossSiteTable($container, items, type, target) {
+        if (!items || items.length === 0) {
+            $container.html('<p>설치된 항목이 없습니다.</p>');
+            return;
+        }
+
+        var html = '<table class="wp-list-table widefat fixed striped">' +
+            '<thead><tr>' +
+            '<th class="check-column"><input type="checkbox" class="jj-cs-select-all"></th>' +
+            '<th>이름</th><th>버전</th><th>상태</th><th>작업</th>' +
+            '</tr></thead><tbody>';
+
+        items.forEach(function(item) {
+            var statusLabel = item.active ? '활성' : '비활성';
+            var statusClass = item.active ? 'jj-pill-good' : 'jj-pill-muted';
+            
+            html += '<tr>' +
+                '<td><input type="checkbox" class="jj-cs-item-check" data-id="' + escapeHtml(item.id) + '"></td>' +
+                '<td><strong>' + escapeHtml(item.name) + '</strong></td>' +
+                '<td>' + escapeHtml(item.version) + '</td>' +
+                '<td><span class="jj-pill ' + statusClass + '">' + statusLabel + '</span></td>' +
+                '<td>';
+            
+            if (item.active) {
+                html += '<button type="button" class="button button-small jj-cs-action" data-action="deactivate" data-id="' + escapeHtml(item.id) + '">비활성화</button> ';
+            } else {
+                html += '<button type="button" class="button button-small jj-cs-action" data-action="activate" data-id="' + escapeHtml(item.id) + '">활성화</button> ';
+            }
+            html += '<button type="button" class="button button-small jj-cs-action delete" data-action="delete" data-id="' + escapeHtml(item.id) + '" style="color:red;">삭제</button>';
+            html += '</td></tr>';
+        });
+
+        html += '</tbody></table>' +
+            '<div style="margin-top:10px;">' +
+            '<button type="button" class="button jj-cs-bulk-action" data-action="activate">선택 활성화</button> ' +
+            '<button type="button" class="button jj-cs-bulk-action" data-action="deactivate">선택 비활성화</button> ' +
+            '<button type="button" class="button jj-cs-bulk-action delete" data-action="delete" style="color:red;">선택 삭제</button>' +
+            '</div>';
+
+        $container.html(html);
+
+        // 이벤트 바인딩
+        $container.find('.jj-cs-select-all').on('change', function() {
+            $container.find('.jj-cs-item-check').prop('checked', $(this).is(':checked'));
+        });
+
+        $container.find('.jj-cs-action').on('click', function() {
+            var action = $(this).data('action');
+            var id = $(this).data('id');
+            if (action === 'delete' && !confirm('정말 삭제하시겠습니까?')) return;
+            runCrossSiteAction(type, target, action, [id], $container);
+        });
+
+        $container.find('.jj-cs-bulk-action').on('click', function() {
+            var action = $(this).data('action');
+            var ids = [];
+            $container.find('.jj-cs-item-check:checked').each(function() {
+                ids.push($(this).data('id'));
+            });
+
+            if (ids.length === 0) {
+                alert('항목을 선택해주세요.');
+                return;
+            }
+
+            if (action === 'delete' && !confirm('정말 삭제하시겠습니까?')) return;
+            runCrossSiteAction(type, target, action, ids, $container);
+        });
+    }
+
+    function runCrossSiteAction(type, target, action, ids, $container) {
+        var ajaxAction = (type === 'multisite') ? 'jj_bulk_multisite_bulk_action' : 'jj_bulk_remote_bulk_action';
+        var data = {
+            action: ajaxAction,
+            nonce: jjBulk.nonce,
+            operation: action,
+            items: ids,
+            item_type: 'plugin'
+        };
+
+        if (type === 'multisite') {
+            data.site_ids = [target];
+        } else {
+            data.remote_urls = [target];
+        }
+
+        $container.css('opacity', '0.5');
+
+        $.ajax({
+            url: jjBulk.ajax_url,
+            type: 'POST',
+            data: data,
+            success: function(resp) {
+                if (resp.success) {
+                    showNotice('success', '작업이 완료되었습니다.');
+                    loadCrossSiteItems(type, target); // 새로고침
+                } else {
+                    showNotice('error', '작업 실패: ' + (resp.data || '알 수 없는 오류'));
+                }
+            },
+            complete: function() {
+                $container.css('opacity', '1');
+            }
+        });
+    }
+
+    function loadRemoteItems(url) {
+        var $list = $('#jj-remote-editor-list');
+        $list.html('<p>원격 사이트 정보를 불러오는 중...</p>');
+
+        $.ajax({
+            url: jjBulk.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'jj_bulk_remote_bulk_action',
+                nonce: jjBulk.nonce,
+                remote_urls: [url],
+                operation: 'get_items',
+                item_type: 'plugin'
+            },
+            success: function(resp) {
+                // 원격 응답 구조에 맞춰 렌더링
+                if (resp.success && resp.data.results[url].success) {
+                    renderMsItems(resp.data.results[url], url, true);
+                } else {
+                    $list.html('<p class="error">로드 실패</p>');
+                }
+            }
+        });
+    }
+
+    function renderMsItems(data, targetId, isRemote) {
+        // 간단한 테이블 형식 렌더링
+        var html = '<table class="wp-list-table widefat fixed striped">' +
+            '<thead><tr><th>이름</th><th>버전</th><th>상태</th></tr></thead>' +
+            '<tbody>';
+        
+        data.items.forEach(function(item) {
+            html += '<tr>' +
+                '<td>' + escapeHtml(item.name) + '</td>' +
+                '<td>' + escapeHtml(item.version) + '</td>' +
+                '<td>' + (item.active ? '✅ 활성' : '💤 비활성') + '</td>' +
+                '</tr>';
+        });
+        
+        html += '</tbody></table>';
+        if (isRemote) $('#jj-remote-editor-list').html(html);
+        else $('#jj-ms-editor-list').html(html);
     }
 
     function initRemoteConnection() {
         $('#jj-remote-connect').on('click', function() {
             var url = $('#jj-remote-url').val();
             var key = $('#jj-remote-key').val();
+            var oneWay = $('#jj-remote-one-way').is(':checked');
 
             if (!url || !key) {
                 alert('URL과 시크릿 키를 모두 입력해주세요.');
@@ -99,15 +390,16 @@ jQuery(document).ready(function($) {
                 url: jjBulk.ajax_url,
                 type: 'POST',
                 data: {
-                    action: 'jj_bulk_remote_connect', // PHP에 핸들러 추가 필요
+                    action: 'jj_bulk_remote_connect',
                     nonce: jjBulk.nonce,
                     remote_url: url,
-                    remote_key: key
+                    remote_key: key,
+                    one_way: oneWay
                 },
                 success: function(resp) {
                     if (resp.success) {
                         showNotice('success', '원격 사이트 연결 성공: ' + url);
-                        // 연결된 사이트 목록 업데이트 및 UI 갱신
+                        location.reload(); // 리스트 갱신을 위해 새로고침
                     } else {
                         showNotice('error', '연결 실패: ' + (resp.data || '알 수 없는 오류'));
                     }
@@ -389,32 +681,54 @@ jQuery(document).ready(function($) {
         // 설치 시작
         $('#jj-start-install').on('click', function() {
             if (isProcessing) return;
+
+            // [Grand Upgrade] 대상 사이트 식별
+            var activeTab = $('.jj-bulk-tab.is-active').data('tab');
+            var multisiteIds = [];
+            var remoteUrls = [];
+
+            if (activeTab === 'multisite-installer') {
+                $('input[name="multisite_target[]"]:checked').each(function() {
+                    multisiteIds.push($(this).val());
+                });
+                if (multisiteIds.length === 0) {
+                    if (!confirm('대상 사이트가 선택되지 않았습니다. 현재 사이트(메인)에만 설치하시겠습니까?')) return;
+                }
+            } else if (activeTab === 'remote-installer') {
+                $('input[name="remote_target[]"]:checked').each(function() {
+                    remoteUrls.push($(this).val());
+                });
+                if (remoteUrls.length === 0) {
+                    if (!confirm('원격 사이트가 선택되지 않았습니다. 현재 사이트(메인)에만 설치하시겠습니까?')) return;
+                }
+            }
+
+            var targets = {
+                multisite: multisiteIds,
+                remote: remoteUrls
+            };
+
             isProcessing = true;
             $(this).prop('disabled', true);
             $('#jj-progress-area').show();
 
-            processQueue(0);
+            processQueue(0, targets);
         });
 
-        function processQueue(index) {
+        function processQueue(index, targets) {
             if (index >= filesQueue.length) {
                 isProcessing = false;
                 $('#jj-start-install').prop('disabled', false).text('설치 시작 (' + filesQueue.length + '개)');
                 
-                // 프로그레스 바 100% 완료 보장
                 $('.jj-progress-fill').css('width', '100%');
                 $('.jj-status-text').text('모든 작업 완료 (' + filesQueue.length + '/' + filesQueue.length + ')');
-
-                // 추가 파일 선택 버튼 표시
                 $('#jj-add-more-files').show();
                 
-                // 설치된 플러그인이 있으면 선택 제어 표시
                 if (installedPlugins.length > 0) {
                     $('#jj-selection-controls').show();
                     updateSelectionInfo();
                 }
 
-                // 완료 알림 (인웹 레이어 팝업)
                 showCompletionNotice();
                 return;
             }
@@ -440,47 +754,42 @@ jQuery(document).ready(function($) {
                 success: function(response) {
                     if (response.success) {
                         item.find('.status').text('설치 중...');
-                        installPlugin(response.data, item, index, autoActivate);
+                        // [Grand Upgrade] 로컬/멀티/원격 순차 설치 시작
+                        startCrossSiteInstall(response.data, item, index, autoActivate, targets);
                     } else {
                         var errorMsg = response.data || '알 수 없는 오류';
                         item.addClass('error').find('.status').text('업로드 실패: ' + errorMsg);
-                        console.error('Upload failed:', response);
-                        // 업로드 실패 시에도 프로그레스 업데이트
                         updateProgress(index, filesQueue.length, '업로드 실패', true);
-                        processQueue(index + 1);
+                        processQueue(index + 1, targets);
                     }
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    var errorMsg = '서버 오류';
-                    if (jqXHR.status === 413) {
-                        errorMsg = '파일이 너무 큽니다 (413)';
-                    } else if (jqXHR.status === 500) {
-                        errorMsg = '서버 내부 오류 (500)';
-                    } else if (jqXHR.status === 0) {
-                        errorMsg = '네트워크 연결 오류';
-                    } else if (textStatus === 'timeout') {
-                        errorMsg = '업로드 시간 초과';
-                    } else {
-                        errorMsg = '서버 오류 (' + jqXHR.status + ')';
-                    }
-                    
-                    console.error('AJAX Error:', {
-                        status: jqXHR.status,
-                        statusText: textStatus,
-                        error: errorThrown,
-                        response: jqXHR.responseText
-                    });
-                    
+                error: function(jqXHR, textStatus) {
+                    var errorMsg = '서버 오류 (' + jqXHR.status + ')';
                     item.addClass('error').find('.status').text(errorMsg);
-                    // 서버 오류 시에도 프로그레스 업데이트
                     updateProgress(index, filesQueue.length, errorMsg, true);
-                    processQueue(index + 1);
+                    processQueue(index + 1, targets);
                 }
             });
         }
 
-        function installPlugin(data, item, index, autoActivate) {
-            updateProgress(index, filesQueue.length, '설치 중: ' + data.name, false);
+        // [Grand Upgrade] 여러 사이트에 순차적으로 설치하는 로직
+        function startCrossSiteInstall(fileData, item, index, autoActivate, targets) {
+            // 1. 현재 사이트(로컬) 설치
+            installPlugin(fileData, item, index, autoActivate, function() {
+                // 2. 멀티사이트(서브사이트) 설치
+                processMultisiteInstall(fileData, item, index, autoActivate, targets.multisite, 0, function() {
+                    // 3. 원격 사이트 설치
+                    processRemoteInstall(fileData, item, index, autoActivate, targets.remote, 0, function() {
+                        // 모든 설치 완료 후 다음 파일로
+                        updateProgress(index, filesQueue.length, '완료: ' + fileData.name, true);
+                        processQueue(index + 1, targets);
+                    });
+                });
+            });
+        }
+
+        function installPlugin(data, item, index, autoActivate, callback) {
+            updateProgress(index, filesQueue.length, '로컬 설치 중: ' + data.name, false);
 
             $.ajax({
                 url: jjBulk.ajax_url,
@@ -490,46 +799,94 @@ jQuery(document).ready(function($) {
                     nonce: jjBulk.nonce,
                     path: data.path,
                     type: data.type,
-                    activate: autoActivate // 전체 자동 활성화 여부
+                    activate: autoActivate
                 },
                 success: function(response) {
                     if (response.success) {
-                        var statusText = '설치 완료';
-                        if (response.data.activated) statusText += ' (활성)';
-
-                        // 완료 목록으로 이동
-                        item.removeClass('uploading jj-file-item-pending').addClass('success jj-file-item-completed');
-                        item.find('.status').text(statusText);
-                        
-                        // 체크박스 활성화 (플러그인인 경우)
+                        item.find('.status').text('로컬 설치 완료');
                         if (data.type === 'plugin' && response.data.slug) {
                             item.data('slug', response.data.slug);
                             item.find('.jj-file-checkbox').prop('disabled', false);
                             installedPlugins.push(response.data.slug);
-                        } else {
-                            item.find('.jj-file-checkbox').prop('disabled', true);
                         }
-                        
-                        // 완료 목록으로 이동
-                        $('#jj-file-list-completed-items').append(item);
-                        updatePendingCount();
-                        updateCompletedCount();
                     } else {
-                        item.removeClass('uploading').addClass('error').find('.status').text('실패: ' + response.data);
+                        item.addClass('error').find('.status').text('로컬 설치 실패: ' + response.data);
                     }
-                    
-                    // 설치 완료 시 프로그레스 업데이트 (isComplete = true)
-                    updateProgress(index, filesQueue.length, statusText || '처리 완료', true);
-                    
-                    processQueue(index + 1);
+                    if (callback) callback();
                 },
                 error: function() {
-                    item.removeClass('uploading').addClass('error').find('.status').text('통신 오류');
-                    
-                    // 에러 시에도 프로그레스 업데이트 (isComplete = true)
-                    updateProgress(index, filesQueue.length, '오류 발생', true);
-                    
-                    processQueue(index + 1);
+                    item.addClass('error').find('.status').text('로컬 통신 오류');
+                    if (callback) callback();
+                }
+            });
+        }
+
+        function processMultisiteInstall(fileData, item, index, autoActivate, siteIds, siteIdx, callback) {
+            if (!siteIds || siteIdx >= siteIds.length) {
+                if (callback) callback();
+                return;
+            }
+
+            var siteId = siteIds[siteIdx];
+            updateProgress(index, filesQueue.length, '멀티사이트(' + siteId + ') 설치 중...', false);
+            item.find('.status').text('멀티사이트(' + siteId + ') 설치 중...');
+
+            $.ajax({
+                url: jjBulk.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'jj_bulk_multisite_install',
+                    nonce: jjBulk.nonce,
+                    site_id: siteId,
+                    path: fileData.path,
+                    type: fileData.type,
+                    activate: autoActivate
+                },
+                success: function(response) {
+                    if (!response.success) {
+                        console.error('Multisite Install Failed (' + siteId + '):', response.data);
+                    }
+                    processMultisiteInstall(fileData, item, index, autoActivate, siteIds, siteIdx + 1, callback);
+                },
+                error: function() {
+                    processMultisiteInstall(fileData, item, index, autoActivate, siteIds, siteIdx + 1, callback);
+                }
+            });
+        }
+
+        function processRemoteInstall(fileData, item, index, autoActivate, urls, urlIdx, callback) {
+            if (!urls || urlIdx >= urls.length) {
+                if (callback) callback();
+                return;
+            }
+
+            var url = urls[urlIdx];
+            updateProgress(index, filesQueue.length, '원격(' + url + ') 설치 중...', false);
+            item.find('.status').text('원격(' + url + ') 전송 중...');
+
+            // 원격 전송을 위해 실제 파일을 FormData에 다시 담아야 함 (보안 및 REST API 제약)
+            // 브라우저 캐시 등을 활용하거나, 서버 사이드에서 Proxy 전송 가능
+            // 여기서는 서버 사이드(PHP)에서 해당 파일을 원격으로 쏘는 Proxy 핸들러를 새로 만드는 것이 효율적임
+            
+            $.ajax({
+                url: jjBulk.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'jj_bulk_remote_install_proxy', // PHP에 구현 필요
+                    nonce: jjBulk.nonce,
+                    remote_url: url,
+                    path: fileData.path,
+                    type: fileData.type,
+                    activate: autoActivate
+                },
+                success: function(response) {
+                    if (!response.success) {
+                        console.error('Remote Install Failed (' + url + '):', response.data);
+                    }
+                    processRemoteInstall(fileData, item, index, autoActivate, urls, urlIdx + 1, callback);
+                },
+                error: function() {
+                    processRemoteInstall(fileData, item, index, autoActivate, urls, urlIdx + 1, callback);
                 }
             });
         }

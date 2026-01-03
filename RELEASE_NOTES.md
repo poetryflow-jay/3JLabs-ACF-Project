@@ -3,7 +3,7 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 3일  
-**릴리즈 버전**: Phase 27.5 UI/UX 긴급 패치 (v22.0.1 / v5.0.2 / v6.0.1)  
+**릴리즈 버전**: Phase 28 WP Bulk Manager 그랜드 업그레이드 완성 (v5.0.3)  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소)
 
 ---
@@ -12,19 +12,32 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 22.0.0 | **22.0.1** | Patch |
-| WP Bulk Manager | 5.0.1 | **5.0.2** | Patch |
-| ACF CSS Neural Link | 6.0.0 | **6.0.1** | Patch |
-| ACF MBA (Nudge Flow) | 22.0.0 | **22.0.1** | Patch |
-| ACF CSS AI Extension | 3.1.0 | **3.1.1** | Patch |
-| ACF Code Snippets Box | 2.1.0 | **2.1.1** | Patch |
-| ACF CSS WooCommerce Toolkit | 2.1.0 | **2.1.1** | Patch |
-| Admin Menu Editor Pro | 2.0.0 | **2.0.1** | Patch |
-| ACF CSS Woo License Bridge | 22.0.0 | **22.0.1** | Patch |
+| WP Bulk Manager | 5.0.2 | **5.0.3** | Major/Grand |
+| ACF CSS Manager (Master) | 22.0.1 | **22.0.1** | - |
+| ACF CSS Neural Link | 6.0.1 | **6.0.1** | - |
 
 ---
 
-## 🚀 주요 변경사항 (UI/UX Hotfix)
+## 🚀 주요 변경사항 (Grand Upgrade)
+
+### WP Bulk Manager v5.0.3
+- ✅ **멀티 사이트(Multisite) 통합 관리 완성**:
+    - 네트워크 내 사이트 목록 조회 및 개별 사이트별 플러그인/테마 통합 관리 UI 구현.
+    - 사이트 간 순차적(Local -> Multisite) 대량 설치 로직 완성.
+- ✅ **원격 사이트(Remote Sites) 일괄 제어**:
+    - 연결된 원격 사이트 목록 영구 저장 및 관리 시스템 구축.
+    - REST API를 통한 원격 사이트 플러그인/테마 조회 및 제어(활성화/삭제 등) 기능.
+    - 서버 사이드 Proxy 전송 방식을 통한 원격 사이트 ZIP 파일 직접 전송/설치 기능.
+- ✅ **보안 및 권한 강화**:
+    - '일방향 관리(🛡️)' 토글 추가: 최상위 관리자 권한 수락 시에만 일방향 원격 제어 허용.
+    - 시크릿 키 기반 REST API 인증 체계 고도화.
+- ✅ **Master 무제한 용량 해제**:
+    - Master 에디션 전용 동시 업로드 및 대량 관리 수량 제한을 무제한(9999)으로 상향.
+    - 서버 용량 제한 관련 주의 문구 및 공식 문서 링크 강화.
+
+---
+
+## 🚀 주요 변경사항 (UI/UX Hotfix - Phase 27.5)
 
 ### ACF CSS Manager v22.0.1
 - ✅ **Fatal Error 해결**: `get_admin_colors()` 미정의 오류로 인한 페이지 중단 문제 해결.
