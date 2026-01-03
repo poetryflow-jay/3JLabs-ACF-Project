@@ -1,0 +1,352 @@
+/**
+ * 3J Labs Section Enhancements 2026
+ * Enhanced styling for existing section views
+ * 
+ * @version 1.0.0
+ * @author Jenny x Jason
+ * @created 2026-01-03
+ * 
+ * Purpose: Apply UI System 2026 to existing sections without breaking compatibility
+ */
+
+/* ===========================
+   Colors Section Enhancement
+   =========================== */
+
+/* Transform legacy tabs into modern UI System tabs */
+.jj-section-global .jj-tabs-nav {
+    border-bottom: 2px solid var(--jj-gray-200);
+    margin-bottom: var(--jj-space-lg);
+}
+
+.jj-section-global .jj-tab-button {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--jj-gray-600);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    cursor: pointer;
+    transition: all var(--jj-transition-fast);
+}
+
+.jj-section-global .jj-tab-button:hover {
+    color: var(--jj-gray-900);
+    background: var(--jj-gray-50);
+}
+
+.jj-section-global .jj-tab-button.is-active {
+    color: var(--jj-primary);
+    border-bottom-color: var(--jj-primary);
+}
+
+/* Palette cards */
+.jj-palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--jj-space-md);
+    margin-top: var(--jj-space-md);
+}
+
+.jj-palette-item {
+    background: #FFFFFF;
+    border: 1px solid var(--jj-gray-200);
+    border-radius: var(--jj-radius-md);
+    padding: var(--jj-space-md);
+    transition: all var(--jj-transition-base);
+    display: flex;
+    align-items: center;
+    gap: var(--jj-space-md);
+}
+
+.jj-palette-item:hover {
+    box-shadow: var(--jj-shadow-md);
+    transform: translateY(-2px);
+    border-color: var(--jj-primary);
+}
+
+.jj-palette-color-preview {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--jj-radius-md);
+    border: 2px solid var(--jj-gray-200);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all var(--jj-transition-fast);
+}
+
+.jj-palette-color-preview:hover {
+    transform: scale(1.1);
+    box-shadow: var(--jj-shadow-lg);
+}
+
+.jj-palette-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.jj-palette-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--jj-gray-900);
+    margin-bottom: 4px;
+}
+
+.jj-palette-value {
+    font-family: var(--jj-font-mono);
+    font-size: 12px;
+    color: var(--jj-gray-500);
+    user-select: all;
+}
+
+/* ===========================
+   Typography Section Enhancement
+   =========================== */
+
+.jj-font-preview-card {
+    background: #FFFFFF;
+    border: 1px solid var(--jj-gray-200);
+    border-radius: var(--jj-radius-lg);
+    padding: var(--jj-space-lg);
+    margin-bottom: var(--jj-space-md);
+    transition: all var(--jj-transition-base);
+}
+
+.jj-font-preview-card:hover {
+    box-shadow: var(--jj-shadow-md);
+    border-color: var(--jj-primary);
+}
+
+.jj-font-sample-text {
+    font-size: 24px;
+    margin: var(--jj-space-md) 0;
+    padding: var(--jj-space-md);
+    background: var(--jj-gray-50);
+    border-radius: var(--jj-radius-md);
+}
+
+/* ===========================
+   Buttons Section Enhancement
+   =========================== */
+
+.jj-button-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--jj-space-md);
+    margin-top: var(--jj-space-md);
+}
+
+.jj-button-preview-item {
+    padding: var(--jj-space-lg);
+    background: #FFFFFF;
+    border: 1px solid var(--jj-gray-200);
+    border-radius: var(--jj-radius-md);
+    text-align: center;
+    transition: all var(--jj-transition-base);
+}
+
+.jj-button-preview-item:hover {
+    box-shadow: var(--jj-shadow-md);
+    transform: translateY(-2px);
+}
+
+.jj-button-preview-label {
+    font-size: 12px;
+    color: var(--jj-gray-500);
+    margin-bottom: var(--jj-space-sm);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* ===========================
+   Form Elements Enhancement
+   =========================== */
+
+.jj-section-global .jj-form-row {
+    display: flex;
+    gap: var(--jj-space-md);
+    margin-bottom: var(--jj-space-md);
+    align-items: flex-start;
+}
+
+.jj-section-global .jj-form-col {
+    flex: 1;
+}
+
+.jj-section-global .jj-form-col-narrow {
+    flex: 0 0 auto;
+    min-width: 120px;
+}
+
+/* Color picker enhancements */
+.wp-picker-container {
+    position: relative;
+}
+
+.wp-picker-container .wp-color-result {
+    border-radius: var(--jj-radius-md) !important;
+    border: 2px solid var(--jj-gray-300) !important;
+    box-shadow: none !important;
+    transition: all var(--jj-transition-fast) !important;
+}
+
+.wp-picker-container .wp-color-result:hover {
+    border-color: var(--jj-primary) !important;
+    box-shadow: var(--jj-shadow-md) !important;
+}
+
+/* ===========================
+   Section Headers
+   =========================== */
+
+.jj-section-global .jj-section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--jj-gray-900);
+    margin-bottom: var(--jj-space-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--jj-space-sm);
+}
+
+.jj-section-global .jj-section-title .jj-section-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--jj-primary);
+    color: #FFFFFF;
+    border-radius: var(--jj-radius-full);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.jj-section-global .description {
+    font-size: 14px;
+    color: var(--jj-gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--jj-space-lg);
+    padding: var(--jj-space-md);
+    background: var(--jj-gray-50);
+    border-left: 4px solid var(--jj-primary);
+    border-radius: var(--jj-radius-sm);
+}
+
+/* ===========================
+   Action Buttons
+   =========================== */
+
+.jj-section-global .jj-action-buttons {
+    display: flex;
+    gap: var(--jj-space-sm);
+    margin-top: var(--jj-space-lg);
+    padding-top: var(--jj-space-lg);
+    border-top: 1px solid var(--jj-gray-200);
+}
+
+/* ===========================
+   Stats and Indicators
+   =========================== */
+
+.jj-stats-row {
+    display: flex;
+    gap: var(--jj-space-md);
+    margin-bottom: var(--jj-space-lg);
+}
+
+.jj-stat-box {
+    flex: 1;
+    padding: var(--jj-space-md);
+    background: linear-gradient(135deg, var(--jj-primary) 0%, var(--jj-primary-dark) 100%);
+    color: #FFFFFF;
+    border-radius: var(--jj-radius-md);
+    text-align: center;
+}
+
+.jj-stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.jj-stat-label {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* ===========================
+   Empty States
+   =========================== */
+
+.jj-section-global .jj-empty-state {
+    padding: var(--jj-space-2xl);
+    text-align: center;
+    background: var(--jj-gray-50);
+    border-radius: var(--jj-radius-lg);
+    border: 2px dashed var(--jj-gray-300);
+}
+
+.jj-section-global .jj-empty-icon {
+    font-size: 64px;
+    color: var(--jj-gray-300);
+    margin-bottom: var(--jj-space-md);
+}
+
+.jj-section-global .jj-empty-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--jj-gray-700);
+    margin-bottom: var(--jj-space-sm);
+}
+
+.jj-section-global .jj-empty-description {
+    font-size: 14px;
+    color: var(--jj-gray-500);
+    margin-bottom: var(--jj-space-lg);
+}
+
+/* ===========================
+   Responsive Adjustments
+   =========================== */
+
+@media (max-width: 782px) {
+    .jj-palette-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .jj-button-preview-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .jj-section-global .jj-form-row {
+        flex-direction: column;
+    }
+    
+    .jj-stats-row {
+        flex-direction: column;
+    }
+}
+
+/* ===========================
+   Compatibility Layer
+   =========================== */
+
+/* Ensure existing classes don't break */
+.jj-section-global .jj-tab-content {
+    display: none;
+    animation: jj-fade-in 0.3s ease-in-out;
+}
+
+.jj-section-global .jj-tab-content.is-active {
+    display: block;
+}
+
+/* Legacy support */
+.jj-tabs-container .jj-tabs-nav button {
+    /* Override any legacy button styles */
+    background: none;
+    box-shadow: none;
+}

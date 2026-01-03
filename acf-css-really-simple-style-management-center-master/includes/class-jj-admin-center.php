@@ -195,7 +195,17 @@ final class JJ_Admin_Center {
 
         // [v22.2.0] UI System 2026 로드 (최우선 순위)
         wp_enqueue_style( 'jj-ui-system-2026', $ui_system_css_url, array(), $ui_system_ver );
-        wp_enqueue_style( 'jj-admin-center', $css_url, array( 'jj-ui-system-2026' ), $css_ver );
+        
+        // [v22.2.0] Section Enhancements 2026 - 기존 섹션들에 UI System 적용
+        $section_enhancements_css_url = JJ_STYLE_GUIDE_URL . 'assets/css/jj-section-enhancements-2026.css';
+        $section_enhancements_css_path = JJ_STYLE_GUIDE_PATH . 'assets/css/jj-section-enhancements-2026.css';
+        $section_enhancements_ver = $fallback_ver;
+        if ( file_exists( $section_enhancements_css_path ) ) {
+            $section_enhancements_ver .= '.' . filemtime( $section_enhancements_css_path );
+        }
+        wp_enqueue_style( 'jj-section-enhancements-2026', $section_enhancements_css_url, array( 'jj-ui-system-2026' ), $section_enhancements_ver );
+        
+        wp_enqueue_style( 'jj-admin-center', $css_url, array( 'jj-ui-system-2026', 'jj-section-enhancements-2026' ), $css_ver );
         
         // jQuery UI Sortable (메뉴 순서 변경용)
         wp_enqueue_script( 'jquery-ui-sortable' );
@@ -208,7 +218,17 @@ final class JJ_Admin_Center {
 
         // [v22.2.0] UI System 2026 JavaScript
         wp_enqueue_script( 'jj-ui-system-2026', $ui_system_js_url, array( 'jquery' ), $ui_system_ver, true );
-        wp_enqueue_script( 'jj-admin-center', $js_url, array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'wp-theme-plugin-editor', 'jj-ui-system-2026' ), $js_ver, true );
+        
+        // [v22.2.0] Section Enhancer 2026 - Progressive enhancement for existing sections
+        $section_enhancer_js_url = JJ_STYLE_GUIDE_URL . 'assets/js/jj-section-enhancer-2026.js';
+        $section_enhancer_js_path = JJ_STYLE_GUIDE_PATH . 'assets/js/jj-section-enhancer-2026.js';
+        $section_enhancer_ver = $fallback_ver;
+        if ( file_exists( $section_enhancer_js_path ) ) {
+            $section_enhancer_ver .= '.' . filemtime( $section_enhancer_js_path );
+        }
+        wp_enqueue_script( 'jj-section-enhancer-2026', $section_enhancer_js_url, array( 'jquery', 'jj-ui-system-2026' ), $section_enhancer_ver, true );
+        
+        wp_enqueue_script( 'jj-admin-center', $js_url, array( 'jquery', 'jquery-ui-sortable', 'wp-color-picker', 'wp-theme-plugin-editor', 'jj-ui-system-2026', 'jj-section-enhancer-2026' ), $js_ver, true );
         
         // [v13.4.5] JS 로드 완료 시 body에 클래스 추가하는 인라인 스크립트
         wp_add_inline_script(
