@@ -1,0 +1,524 @@
+/**
+ * 3J Labs Marketing Dashboard - UI System 2026
+ * 
+ * Modern analytics and marketing dashboard with data visualization.
+ * 
+ * @package JJ_Marketing_Dashboard
+ * @version 1.0.0
+ */
+
+/* ============================================
+   DASHBOARD OVERVIEW
+   ============================================ */
+
+.jj-marketing-dashboard {
+    background: linear-gradient(135deg, var(--jj-gray-50, #FAFAFA) 0%, #FFFFFF 100%);
+    min-height: calc(100vh - 60px);
+    padding: 24px;
+}
+
+.jj-marketing-header {
+    background: linear-gradient(135deg, var(--jj-gray-800, #262626) 0%, #171717 100%);
+    border-radius: var(--jj-radius-lg, 12px);
+    padding: 32px;
+    margin: -24px -24px 24px -24px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.jj-marketing-header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.jj-marketing-title {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #FFFFFF 0%, var(--jj-gray-300, #D4D4D4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.jj-marketing-subtitle {
+    font-size: 14px;
+    color: var(--jj-gray-400, #A3A3A3);
+    margin-top: 8px;
+}
+
+.jj-marketing-header-stats {
+    display: flex;
+    gap: 24px;
+}
+
+.jj-marketing-header-stat {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+}
+
+.jj-marketing-header-stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--jj-accent-green, #10B981);
+}
+
+.jj-marketing-header-stat-label {
+    font-size: 12px;
+    color: var(--jj-gray-400, #A3A3A3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+}
+
+/* ============================================
+   STATS GRID
+   ============================================ */
+
+.jj-marketing-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+}
+
+.jj-marketing-stat-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, var(--jj-gray-50, #FAFAFA) 100%);
+    border: 2px solid var(--jj-gray-200, #E5E5E5);
+    border-radius: var(--jj-radius-lg, 12px);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: all var(--jj-transition-base, 300ms);
+}
+
+.jj-marketing-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--jj-primary, #FF6B35) 0%, transparent 70%);
+    opacity: 0.08;
+}
+
+.jj-marketing-stat-card:hover {
+    border-color: var(--jj-primary, #FF6B35);
+    box-shadow: 0 12px 24px rgba(255, 107, 53, 0.15);
+    transform: translateY(-4px);
+}
+
+.jj-marketing-stat-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.jj-marketing-stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--jj-gray-600, #737373);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.jj-marketing-stat-value {
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--jj-gray-800, #262626);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+}
+
+.jj-marketing-stat-change {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.jj-marketing-stat-change.up {
+    color: var(--jj-accent-green, #10B981);
+}
+
+.jj-marketing-stat-change.down {
+    color: #EF4444;
+}
+
+/* ============================================
+   CHARTS SECTION
+   ============================================ */
+
+.jj-marketing-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+}
+
+.jj-marketing-chart-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, var(--jj-gray-50, #FAFAFA) 100%);
+    border: 2px solid var(--jj-gray-200, #E5E5E5);
+    border-radius: var(--jj-radius-lg, 12px);
+    padding: 24px;
+    position: relative;
+}
+
+.jj-marketing-chart-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        var(--jj-accent-blue, #3B82F6) 0%, 
+        var(--jj-accent-purple, #8B5CF6) 100%
+    );
+}
+
+.jj-marketing-chart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--jj-gray-200, #E5E5E5);
+}
+
+.jj-marketing-chart-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--jj-gray-800, #262626);
+    letter-spacing: -0.02em;
+}
+
+.jj-marketing-chart-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.jj-marketing-chart-button {
+    padding: 8px 16px;
+    background: var(--jj-gray-100, #F5F5F5);
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--jj-gray-800, #262626);
+    cursor: pointer;
+    transition: all var(--jj-transition-base, 300ms);
+}
+
+.jj-marketing-chart-button:hover {
+    background: var(--jj-gray-200, #E5E5E5);
+}
+
+.jj-marketing-chart-container {
+    height: 300px;
+    position: relative;
+}
+
+/* ============================================
+   TO-DO ACTIONS
+   ============================================ */
+
+.jj-marketing-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    margin: 32px 0;
+}
+
+.jj-marketing-action-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, var(--jj-gray-50, #FAFAFA) 100%);
+    border: 2px solid var(--jj-gray-200, #E5E5E5);
+    border-radius: var(--jj-radius-lg, 12px);
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    transition: all var(--jj-transition-base, 300ms);
+    cursor: pointer;
+}
+
+.jj-marketing-action-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        var(--jj-accent-green, #10B981) 0%, 
+        var(--jj-accent-blue, #3B82F6) 100%
+    );
+    opacity: 0;
+    transition: opacity var(--jj-transition-base, 300ms);
+}
+
+.jj-marketing-action-card:hover {
+    border-color: var(--jj-accent-green, #10B981);
+    box-shadow: 0 12px 24px rgba(16, 185, 129, 0.15);
+    transform: translateY(-3px);
+}
+
+.jj-marketing-action-card:hover::before {
+    opacity: 1;
+}
+
+.jj-marketing-action-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--jj-accent-green, #10B981) 0%, #059669 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #FFFFFF;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.jj-marketing-action-content {
+    flex: 1;
+}
+
+.jj-marketing-action-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--jj-gray-800, #262626);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.jj-marketing-action-description {
+    font-size: 14px;
+    color: var(--jj-gray-600, #737373);
+    line-height: 1.6;
+}
+
+.jj-marketing-action-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--jj-accent-amber, #F59E0B);
+    color: #FFFFFF;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   SEO AUDIT SECTION
+   ============================================ */
+
+.jj-marketing-seo-audit-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, var(--jj-gray-50, #FAFAFA) 100%);
+    border: 2px solid var(--jj-accent-purple, #8B5CF6);
+    border-radius: var(--jj-radius-lg, 12px);
+    padding: 32px;
+    margin: 32px 0;
+    position: relative;
+}
+
+.jj-marketing-seo-audit-card::before {
+    content: '🔍';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 120px;
+    opacity: 0.04;
+}
+
+.jj-marketing-seo-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.jj-marketing-seo-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--jj-gray-800, #262626);
+    letter-spacing: -0.02em;
+}
+
+.jj-marketing-seo-score-badge {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--jj-accent-purple, #8B5CF6) 0%, #7C3AED 100%);
+    color: #FFFFFF;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.jj-marketing-seo-issues {
+    background: var(--jj-gray-50, #FAFAFA);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 24px;
+}
+
+.jj-marketing-seo-issue-item {
+    background: #FFFFFF;
+    border: 1px solid var(--jj-gray-200, #E5E5E5);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.jj-marketing-seo-issue-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.jj-marketing-seo-issue-icon.high {
+    background: #EF4444;
+    color: #FFFFFF;
+}
+
+.jj-marketing-seo-issue-icon.medium {
+    background: var(--jj-accent-amber, #F59E0B);
+    color: #FFFFFF;
+}
+
+.jj-marketing-seo-issue-icon.low {
+    background: var(--jj-accent-blue, #3B82F6);
+    color: #FFFFFF;
+}
+
+.jj-marketing-seo-issue-content {
+    flex: 1;
+}
+
+.jj-marketing-seo-issue-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--jj-gray-800, #262626);
+    margin-bottom: 4px;
+}
+
+.jj-marketing-seo-issue-message {
+    font-size: 13px;
+    color: var(--jj-gray-600, #737373);
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.jj-marketing-seo-fix-button {
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--jj-primary, #FF6B35) 0%, var(--jj-primary-dark, #E85A2A) 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--jj-transition-base, 300ms);
+}
+
+.jj-marketing-seo-fix-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .jj-marketing-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .jj-marketing-charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .jj-marketing-actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .jj-marketing-header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .jj-marketing-header-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.jj-marketing-stat-card,
+.jj-marketing-chart-card,
+.jj-marketing-action-card {
+    animation: slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.jj-marketing-stat-card:nth-child(1) { animation-delay: 0.05s; }
+.jj-marketing-stat-card:nth-child(2) { animation-delay: 0.1s; }
+.jj-marketing-stat-card:nth-child(3) { animation-delay: 0.15s; }
+.jj-marketing-stat-card:nth-child(4) { animation-delay: 0.2s; }
+
+/* Loading State */
+.jj-marketing-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.jj-marketing-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    border: 4px solid var(--jj-primary, #FF6B35);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

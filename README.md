@@ -1,23 +1,24 @@
 # 3J Labs ACF CSS Plugin Family
 
 프로젝트 경로: `C:\Users\computer\Desktop\3J-Labs-Projects\3J-ACF-CSS`  
-버전: **20.0.0** (ACF CSS Manager Master)  
-업데이트: 2026-01-02
+메인 플러그인 버전: **v22.2.0** (ACF CSS Manager Master)  
+최신 업데이트: 2026년 1월 3일 (Phase 34-35 완료)
 
 ---
 
 ## 📦 플러그인 패밀리
 
 | 플러그인 | 버전 | 설명 |
-|---------|------|------|
-| **ACF CSS 설정 관리자** | v20.0.0 | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 |
-| WP Bulk Manager | v2.3.1 | 플러그인/테마 대량 설치 및 관리 |
-| ACF Code Snippets Box | v1.1.0 | CSS/JS/PHP 코드 스니펫 관리 |
-| ACF CSS Neural Link | v4.2.0 | 라이센스 및 업데이트 관리 시스템 (Master 전용) |
-| ACF CSS WooCommerce Toolkit | v1.1.0 | WooCommerce 스타일 및 기능 확장 |
-| ACF CSS AI Extension | v2.1.0 | AI 기반 스타일 추천 및 생성 |
-| ACF MBA (Nudge Flow) | v1.1.0 | 마케팅 자동화 및 넛지 시스템 |
-| Admin Menu Editor Pro | v1.0.0 | 관리자 메뉴 커스터마이저 |
+|----------|------|------|
+| **ACF CSS Manager (Master)** | **v22.2.0** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + UI System 2026 |
+| WP Bulk Manager | **v22.3.0** | 플러그인/테마 대량 설치 및 관리 + UI System 2026 적용 |
+| ACF Code Snippets Box | **v2.2.0** | CSS/JS/PHP 코드 스니펫 관리 + UI System 2026 적용 |
+| ACF CSS Neural Link | **v6.2.0** | 패턴 학습 및 업데이트 관리 + UI System 2026 적용 |
+| ACF CSS WooCommerce Toolkit | **v2.3.0** | WooCommerce 스타일 및 기능 확장 + UI System 2026 적용 |
+| ACF CSS AI Extension | **v3.2.0** | AI 기반 스타일 추천 및 생성 + UI System 2026 적용 |
+| ACF MBA (Nudge Flow) | **v22.3.0** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + UI System 2026 적용 |
+| Admin Menu Editor Pro | **v2.0.1** | 관리자 메뉴 커스터마이저 |
+| ACF CSS Woo License Bridge | **v22.0.1** | WooCommerce 라이센스 브릿지 |
 
 ---
 

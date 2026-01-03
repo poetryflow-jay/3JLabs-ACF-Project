@@ -3,7 +3,7 @@
  * Plugin Name:       ACF MBA - Marketing Booster Accelerator (Advanced Custom Funnel)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF MBA (Advanced Custom Funnel Marketing Booster Accelerator) - 트리거 기반 넛지 마케팅 자동화 플러그인입니다. IF-DO 방식의 시각적 워크플로우 빌더로 방문자 행동에 따른 팝업, 알림, 할인, 업셀링을 자동화합니다. WooCommerce와 완벽 연동됩니다.
- * Version:           22.3.0
+ * Version:           22.3.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -247,6 +247,18 @@ final class ACF_Nudge_Flow {
             wp_enqueue_style(
                 'acf-nudge-flow-enhanced-2026',
                 ACF_NUDGE_FLOW_PLUGIN_URL . 'assets/css/jj-nudge-flow-enhanced-2026.css',
+                array( 'acf-nudge-flow-admin' ),
+                $css_version
+            );
+        }
+        
+        // [v22.3.1] MAB Optimization Visualization
+        $mab_viz_css_path = ACF_NUDGE_FLOW_PLUGIN_DIR . 'assets/css/jj-nudge-mab-visualization.css';
+        if ( file_exists( $mab_viz_css_path ) ) {
+            $css_version = ACF_NUDGE_FLOW_VERSION . '.' . filemtime( $mab_viz_css_path );
+            wp_enqueue_style(
+                'acf-nudge-mab-visualization',
+                ACF_NUDGE_FLOW_PLUGIN_URL . 'assets/css/jj-nudge-mab-visualization.css',
                 array( 'acf-nudge-flow-admin' ),
                 $css_version
             );
