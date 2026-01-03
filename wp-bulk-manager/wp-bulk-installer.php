@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.2.0-master
+ * Version:           22.3.0-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.2.0-master' ); // [v22.2.0] HMAC-SHA256 Authentication - Enhanced security with replay attack prevention
+define( 'WP_BULK_MANAGER_VERSION', '22.3.0-master' ); // [v22.3.0] UI System 2026 Enhancement - Modern security dashboard and management interface
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -251,6 +251,18 @@ class JJ_Bulk_Installer {
         
         wp_enqueue_style( 'jj-bulk-installer-css', plugin_dir_url( __FILE__ ) . 'assets/style.css', array(), WP_BULK_MANAGER_VERSION );
         wp_enqueue_script( 'jj-bulk-installer-js', plugin_dir_url( __FILE__ ) . 'assets/script.js', array( 'jquery' ), WP_BULK_MANAGER_VERSION, true );
+        
+        // [v22.3.0] UI System 2026 Enhancement
+        $enhanced_css_path = plugin_dir_path( __FILE__ ) . 'assets/css/jj-bulk-manager-enhanced-2026.css';
+        if ( file_exists( $enhanced_css_path ) ) {
+            $css_version = WP_BULK_MANAGER_VERSION . '.' . filemtime( $enhanced_css_path );
+            wp_enqueue_style( 
+                'jj-bulk-manager-enhanced-2026', 
+                plugin_dir_url( __FILE__ ) . 'assets/css/jj-bulk-manager-enhanced-2026.css', 
+                array( 'jj-bulk-installer-css' ), 
+                $css_version 
+            );
+        }
         
         // PHP 설정값 가져오기
         $max_upload = wp_max_upload_size();
