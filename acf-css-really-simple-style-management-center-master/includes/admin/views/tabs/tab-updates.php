@@ -90,7 +90,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             ),
             array(
                 'id' => 'bulk',
-                'label' => 'WP Bulk Manager',
+                'label' => esc_html__( 'WP Bulk Manager', 'acf-css-really-simple-style-management-center' ),
                 'candidates' => array( 'wp-bulk-installer/wp-bulk-installer.php', 'wp-bulk-manager/wp-bulk-installer.php' ),
                 'channel' => '',
             ),

@@ -64,7 +64,9 @@ class ACF_Nudge_Flow_Admin {
         // 메타 데이터 저장
         update_post_meta( $post_id, '_acf_nudge_workflow_enabled', '0' );
         update_post_meta( $post_id, '_acf_nudge_workflow_trigger', $data['trigger'] );
+        update_post_meta( $post_id, '_acf_nudge_workflow_trigger_settings', $data['trigger_settings'] ?? array() );
         update_post_meta( $post_id, '_acf_nudge_workflow_action', $data['action'] );
+        update_post_meta( $post_id, '_acf_nudge_workflow_action_settings', $data['action_settings'] ?? array() );
         update_post_meta( $post_id, '_acf_nudge_workflow_preset_id', $preset_id );
         
         $default_config = array(
@@ -171,6 +173,16 @@ class ACF_Nudge_Flow_Admin {
             array( $this, 'render_settings' )
         );
 
+        // (6) 빌더 (숨김 메뉴)
+        add_submenu_page(
+            'acf-nudge-flow',
+            __( '워크플로우 빌더', 'acf-nudge-flow' ),
+            '', // 메뉴에서 숨김
+            $capability,
+            'acf-nudge-flow-builder',
+            array( $this, 'render_builder' )
+        );
+
         // 메뉴 순서 강제 조정 (WooCommerce 마케팅 아래)
         add_filter( 'custom_menu_order', '__return_true' );
         add_filter( 'menu_order', array( $this, 'force_menu_order' ), 1001 );
@@ -201,6 +213,7 @@ class ACF_Nudge_Flow_Admin {
 
     /**
      * 개인화 마케팅 보고서 기반 프리셋 데이터
+     * [v22.0.1] 실제 작동 가능한 트리거/액션 설정 주입
      */
     public function get_preset_templates() {
         return array(
@@ -211,7 +224,15 @@ class ACF_Nudge_Flow_Admin {
                 'category'    => 'Visit',
                 'icon'        => 'dashicons-welcome-widgets-menus',
                 'trigger'     => 'first_visit',
-                'action'      => 'welcome_banner',
+                'trigger_settings' => array(),
+                'action'      => 'popup_center',
+                'action_settings' => array(
+                    'title' => __( '반갑습니다! 👋', 'acf-nudge-flow' ),
+                    'content' => __( '저희 브랜드를 처음 방문해 주셨군요. 지금 가장 인기 있는 상품들을 만나보세요.', 'acf-nudge-flow' ),
+                    'cta_text' => __( '베스트셀러 보기', 'acf-nudge-flow' ),
+                    'cta_url' => home_url( '/shop' ),
+                    'style' => 'default'
+                ),
             ),
             'signup_nudge' => array(
                 'title'       => __( '회원 가입 유도 혜택 알림', 'acf-nudge-flow' ),
@@ -219,8 +240,16 @@ class ACF_Nudge_Flow_Admin {
                 'type'        => 'free',
                 'category'    => 'Product View',
                 'icon'        => 'dashicons-id',
-                'trigger'     => 'page_depth_2',
-                'action'      => 'benefit_popup',
+                'trigger'     => 'visit_count',
+                'trigger_settings' => array( 'operator' => '>=', 'count' => 2 ),
+                'action'      => 'popup_slide_in',
+                'action_settings' => array(
+                    'position' => 'bottom-right',
+                    'title' => __( '잠시만요! 🎁', 'acf-nudge-flow' ),
+                    'content' => __( '지금 회원 가입하시면 첫 구매 10% 할인 쿠폰을 즉시 드립니다.', 'acf-nudge-flow' ),
+                    'cta_text' => __( '1분만에 가입하기', 'acf-nudge-flow' ),
+                    'cta_url' => wp_registration_url()
+                ),
             ),
             'cart_recovery' => array(
                 'title'       => __( '장바구니 이탈 방지 & 리뷰 넛지', 'acf-nudge-flow' ),
@@ -228,8 +257,15 @@ class ACF_Nudge_Flow_Admin {
                 'type'        => 'free',
                 'category'    => 'Cart',
                 'icon'        => 'dashicons-cart',
-                'trigger'     => 'exit_intent_cart',
-                'action'      => 'review_toast',
+                'trigger'     => 'exit_intent',
+                'trigger_settings' => array(),
+                'action'      => 'toast',
+                'action_settings' => array(
+                    'message' => __( '🛒 장바구니에 담긴 상품이 곧 품절될 수 있어요! (누적 리뷰 4.9/5)', 'acf-nudge-flow' ),
+                    'type' => 'promo',
+                    'position' => 'bottom-left',
+                    'duration' => 8
+                ),
             ),
             'free_shipping' => array(
                 'title'       => __( '무료 배송 임계치 달성 유도', 'acf-nudge-flow' ),
@@ -238,8 +274,14 @@ class ACF_Nudge_Flow_Admin {
                 'category'    => 'AOV Boost',
                 'icon'        => 'dashicons-truck',
                 'price'       => '₩19,000',
-                'trigger'     => 'cart_total_threshold',
-                'action'      => 'shipping_bar',
+                'trigger'     => 'cart_value',
+                'trigger_settings' => array( 'operator' => '<', 'amount' => 50000 ),
+                'action'      => 'free_shipping_bar',
+                'action_settings' => array(
+                    'threshold' => 50000,
+                    'message_before' => __( '🚚 {{remaining}}원 더 담으면 무료배송 혜택을 받으실 수 있어요!', 'acf-nudge-flow' ),
+                    'message_after' => __( '🎉 축하합니다! 무료배송 혜택이 적용되었습니다.', 'acf-nudge-flow' )
+                ),
             ),
             'cross_sell' => array(
                 'title'       => __( '관련 상품 스마트 교차 판매', 'acf-nudge-flow' ),
@@ -248,8 +290,13 @@ class ACF_Nudge_Flow_Admin {
                 'category'    => 'Cross-sell',
                 'icon'        => 'dashicons-plus-alt',
                 'price'       => '₩25,000',
-                'trigger'     => 'category_interest',
-                'action'      => 'recommendation_modal',
+                'trigger'     => 'cart_value', // 임시: 카테고리 트리거 미구현 시 대안
+                'trigger_settings' => array( 'operator' => '>=', 'amount' => 10000 ),
+                'action'      => 'crosssell_popup',
+                'action_settings' => array(
+                    'title' => __( '이 상품과 같이 많이 구매해요 🤝', 'acf-nudge-flow' ),
+                    'discount' => 5
+                ),
             ),
             'vip_retention' => array(
                 'title'       => __( 'VIP 고객 자동 리텐션 팩', 'acf-nudge-flow' ),
@@ -258,8 +305,15 @@ class ACF_Nudge_Flow_Admin {
                 'category'    => 'Retention',
                 'icon'        => 'dashicons-star-filled',
                 'price'       => '₩29,000',
-                'trigger'     => 'customer_ltv_high',
-                'action'      => 'vip_exclusive_offer',
+                'trigger'     => 'total_spent',
+                'trigger_settings' => array( 'operator' => '>=', 'amount' => 500000 ),
+                'action'      => 'discount_reveal',
+                'action_settings' => array(
+                    'title' => __( 'VIP 고객님을 위한 비밀 쿠폰 💎', 'acf-nudge-flow' ),
+                    'coupon_code' => 'THANKSVIP20',
+                    'description' => __( '항상 저희를 믿고 이용해 주셔서 감사합니다. 감사의 마음을 담아 20% 추가 할인 쿠폰을 드립니다.', 'acf-nudge-flow' ),
+                    'auto_apply' => true
+                ),
             ),
         );
     }

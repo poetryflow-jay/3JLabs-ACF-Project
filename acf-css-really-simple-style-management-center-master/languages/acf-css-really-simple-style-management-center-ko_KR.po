@@ -240,6 +240,9 @@ msgstr "경고"
 msgid "Info"
 msgstr "정보"
 
+msgid "WP Bulk Manager"
+msgstr "WP 벌크 매니저"
+
 msgid "일반 설정"
 msgstr "일반 설정"
 

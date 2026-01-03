@@ -152,6 +152,7 @@ final class JJ_Admin_Center {
     public function enqueue_admin_center_assets( $hook ) {
         // Admin Center 페이지에서만 로드
         $allowed_hooks = array(
+            'toplevel_page_jj-admin-center',
             'settings_page_jj-admin-center',
             'appearance_page_jj-admin-center',
             'tools_page_jj-admin-center',
@@ -1600,6 +1601,53 @@ final class JJ_Admin_Center {
         }
 
         wp_send_json_success( array( 'message' => '업데이트 설정이 저장되었습니다.' ) );
+    }
+
+    /**
+     * AJAX: 라이센스 키 저장
+     * [v22.0.1] AES-256-CBC 암호화 적용
+     */
+    public function ajax_save_license_key() {
+        check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+
+        $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
+        
+        if ( empty( $license_key ) ) {
+            wp_send_json_error( array( 'message' => __( '라이센스 키를 입력해 주세요.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+
+        // 암호화하여 저장
+        $encrypted_key = apply_filters( 'jj_license_key_encrypt', $license_key );
+        update_option( 'jj_style_guide_license_key', $encrypted_key );
+
+        wp_send_json_success( array( 'message' => __( '라이센스 키가 안전하게 저장되었습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+    }
+
+    /**
+     * AJAX: 라이센스 키 검증
+     */
+    public function ajax_verify_license_key() {
+        check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+
+        $license_manager = class_exists( 'JJ_License_Manager' ) ? JJ_License_Manager::instance() : null;
+        
+        if ( ! $license_manager ) {
+            wp_send_json_error( array( 'message' => __( '라이센스 관리자를 찾을 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+
+        $result = $license_manager->verify_license();
+        
+        if ( $result ) {
+            wp_send_json_success( array( 'message' => __( '라이센스 인증에 성공했습니다!', 'acf-css-really-simple-style-management-center' ) ) );
+        } else {
+            wp_send_json_error( array( 'message' => __( '라이센스 인증에 실패했습니다. 키를 확인해 주세요.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
     }
 
     /**

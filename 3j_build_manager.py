@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════════
-  3J Labs ACF CSS Plugin Build Manager v22.0.0
+  3J Labs ACF CSS Plugin Build Manager v22.1.0
   플러그인 빌드, 버전 관리, 에디션 관리를 위한 통합 관리 프로그램
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -16,7 +16,7 @@ Features:
 - 외부 대시보드 연동 및 업데이트
 
 @author: 3J Labs (Jay & Jason & Jenny)
-@version: 22.0.0 (Master Clean)
+@version: 22.1.0 (Master Clean)
 @date: 2026-01-03
 """
 
@@ -68,9 +68,9 @@ PLUGINS = {
         'folder': 'acf-css-really-simple-style-management-center-master',
         'main_file': 'acf-css-really-simple-style-guide.php',
         'text_domain': 'acf-css-really-simple-style-management-center',
-        'editions': ['free', 'basic', 'premium', 'unlimited', 'partner', 'master'],
+        'editions': ['master'], # 클린 마스터 전용
         'is_core': True,
-        'description': '메인 플러그인 - WordPress 스타일 통합 관리 시스템'
+        'description': 'WordPress 스타일 통합 관리 시스템 및 마스터 키 시스템'
     },
     'wp-bulk-manager': {
         'id': 'wp-bulk-manager',
@@ -79,20 +79,9 @@ PLUGINS = {
         'folder': 'wp-bulk-manager',
         'main_file': 'wp-bulk-installer.php',
         'text_domain': 'wp-bulk-manager',
-        'editions': ['free', 'premium', 'partner', 'master'],
+        'editions': ['master'], # 현재는 마스터만 빌드
         'is_core': False,
-        'description': '플러그인/테마 대량 설치 및 관리'
-    },
-    'acf-code-snippets': {
-        'id': 'acf-code-snippets',
-        'name': 'ACF Code Snippets Box',
-        'full_name': 'ACF Code Snippets Box - Advanced Custom Function Manager',
-        'folder': 'acf-code-snippets-box',
-        'main_file': 'acf-code-snippets-box.php',
-        'text_domain': 'acf-code-snippets-box',
-        'editions': ['free', 'premium', 'partner', 'master'],
-        'is_core': False,
-        'description': 'CSS/JS/PHP 코드 스니펫 관리'
+        'description': '멀티 사이트 및 원격 연결 지원 대량 설치 관리자'
     },
     'acf-neural-link': {
         'id': 'acf-neural-link',
@@ -103,7 +92,29 @@ PLUGINS = {
         'text_domain': 'acf-css-neural-link',
         'editions': ['master'],
         'is_core': False,
-        'description': '라이센스 및 업데이트 관리 시스템'
+        'description': '라이센스 인증 및 채널별 업데이트 배포 센터'
+    },
+    'acf-nudge-flow': {
+        'id': 'acf-nudge-flow',
+        'name': 'ACF MBA (Nudge Flow)',
+        'full_name': 'ACF MBA - Marketing Booster Accelerator (Advanced Custom Funnel)',
+        'folder': 'acf-nudge-flow',
+        'main_file': 'acf-nudge-flow.php',
+        'text_domain': 'acf-nudge-flow',
+        'editions': ['master'],
+        'is_core': False,
+        'description': '전략적 캠페인 시나리오 기반 마케팅 자동화'
+    },
+    'acf-code-snippets': {
+        'id': 'acf-code-snippets',
+        'name': 'ACF Code Snippets Box',
+        'full_name': 'ACF Code Snippets Box - Advanced Custom Function Manager',
+        'folder': 'acf-code-snippets-box',
+        'main_file': 'acf-code-snippets-box.php',
+        'text_domain': 'acf-code-snippets-box',
+        'editions': ['master'],
+        'is_core': False,
+        'description': 'CSS/JS/PHP 코드 스니펫 관리'
     },
     'acf-woocommerce': {
         'id': 'acf-woocommerce',
@@ -112,7 +123,7 @@ PLUGINS = {
         'folder': 'acf-css-woocommerce-toolkit',
         'main_file': 'acf-css-woocommerce-toolkit.php',
         'text_domain': 'acf-css-woocommerce-toolkit',
-        'editions': ['free', 'premium', 'partner', 'master'],
+        'editions': ['master'],
         'is_core': False,
         'description': 'WooCommerce 스타일 및 기능 확장'
     },
@@ -123,20 +134,9 @@ PLUGINS = {
         'folder': 'acf-css-ai-extension',
         'main_file': 'acf-css-ai-extension.php',
         'text_domain': 'acf-css-ai-extension',
-        'editions': ['premium', 'partner', 'master'],
+        'editions': ['master'],
         'is_core': False,
         'description': 'AI 기반 스타일 추천 및 생성'
-    },
-    'acf-nudge-flow': {
-        'id': 'acf-nudge-flow',
-        'name': 'ACF MBA (Nudge Flow)',
-        'full_name': 'ACF MBA - Marketing Booster Accelerator (Advanced Custom Funnel)',
-        'folder': 'acf-nudge-flow',
-        'main_file': 'acf-nudge-flow.php',
-        'text_domain': 'acf-nudge-flow',
-        'editions': ['free', 'premium', 'partner', 'master'],
-        'is_core': False,
-        'description': '마케팅 자동화 및 넛지 시스템'
     },
     'admin-menu-editor': {
         'id': 'admin-menu-editor',
@@ -145,7 +145,7 @@ PLUGINS = {
         'folder': 'admin-menu-editor-pro',
         'main_file': 'admin-menu-editor-pro.php',
         'text_domain': 'admin-menu-editor-pro',
-        'editions': ['free', 'pro', 'master', 'partner'],
+        'editions': ['master'],
         'is_core': False,
         'description': '관리자 메뉴 커스터마이저'
     },
@@ -156,7 +156,7 @@ PLUGINS = {
         'folder': 'acf-css-woo-license',
         'main_file': 'acf-css-woo-license.php',
         'text_domain': 'acf-css-woo-license',
-        'editions': ['partner', 'master'],
+        'editions': ['master'],
         'is_core': False,
         'description': 'WooCommerce 결제 연동 및 라이센스 발행 브릿지'
     }
@@ -263,14 +263,14 @@ class BuildEngine:
     def build_plugin(self, plugin_id, editions=None):
         """단일 플러그인 빌드"""
         if plugin_id not in PLUGINS:
-            self.log(f"❌ 알 수 없는 플러그인: {plugin_id}")
+            self.log(f"X Unknown plugin: {plugin_id}")
             return False
         
         plugin = PLUGINS[plugin_id]
         source_dir = BASE_DIR / plugin['folder']
         
         if not source_dir.exists():
-            self.log(f"❌ 소스 폴더 없음: {source_dir}")
+            self.log(f"X Source folder missing: {source_dir}")
             return False
         
         # 빌드할 에디션 결정
@@ -280,17 +280,17 @@ class BuildEngine:
             editions = [e for e in editions if e in plugin['editions']]
         
         if not editions:
-            self.log(f"⚠️ {plugin['name']}: 빌드할 에디션 없음")
+            self.log(f"W {plugin['name']}: No editions to build")
             return False
         
-        self.log(f"🏭 {plugin['name']} 빌드 시작 ({len(editions)}개 에디션)")
+        self.log(f"Building {plugin['name']} ({len(editions)} editions)")
         
         success_count = 0
         for edition in editions:
             if self.build_edition(plugin, edition, source_dir):
                 success_count += 1
         
-        self.log(f"✅ {plugin['name']}: {success_count}/{len(editions)} 에디션 빌드 완료")
+        self.log(f"OK {plugin['name']}: {success_count}/{len(editions)} editions complete")
         return success_count > 0
     
     def build_edition(self, plugin, edition, source_dir):
@@ -339,11 +339,11 @@ class BuildEngine:
             # 빌드 후 폴더 삭제 (ZIP만 유지)
             shutil.rmtree(output_dir)
             
-            self.log(f"   📦 {edition.upper()}: {file_count}개 파일 → {zip_filename}")
+            self.log(f"   ZIP: {edition.upper()}: {file_count} files -> {zip_filename}")
             return True
             
         except Exception as e:
-            self.log(f"   ❌ {edition.upper()} 빌드 실패: {e}")
+            self.log(f"   X {edition.upper()} build failed: {e}")
             return False
     
     def _archive_old_files(self, folder_base, suffix):
@@ -372,9 +372,9 @@ class BuildEngine:
         if plugin_ids is None:
             plugin_ids = list(PLUGINS.keys())
         
-        self.log("═" * 60)
-        self.log("🚀 3J Labs ACF CSS 전체 빌드 시작")
-        self.log("═" * 60)
+        self.log("=" * 60)
+        self.log("3J Labs ACF CSS Total Build Start")
+        self.log("=" * 60)
         
         total = len(plugin_ids)
         success = 0
@@ -389,10 +389,10 @@ class BuildEngine:
         if self.progress_callback:
             self.progress_callback(total, total, "완료")
         
-        self.log("═" * 60)
-        self.log(f"🎉 빌드 완료: {success}/{total} 플러그인 성공")
-        self.log(f"📂 출력 폴더: {self.config['output_dir']}")
-        self.log("═" * 60)
+        self.log("=" * 60)
+        self.log(f"Build Complete: {success}/{total} plugins success")
+        self.log(f"Output Folder: {self.config['output_dir']}")
+        self.log("=" * 60)
         
         # 빌드 시간 저장
         self.config['last_build_time'] = datetime.datetime.now().isoformat()
@@ -855,7 +855,7 @@ class JJBuildManager(tk.Tk):
         
         ttk.Label(dashboard_frame, text="대시보드 경로:", width=15).pack(side="left")
         self.dashboard_path_var = tk.StringVar(value=self.config_data.get('dashboard_path', 
-            str(Path.home() / 'Desktop' / 'JJ_Distributions_v8.0.0_Master_Control' / 'dashboard.html')))
+            str(BASE_DIR / 'dashboard.html')))
         ttk.Entry(dashboard_frame, textvariable=self.dashboard_path_var, width=60).pack(side="left", padx=5, fill="x", expand=True)
         ttk.Button(dashboard_frame, text="찾아보기", command=self.browse_dashboard_path).pack(side="left", padx=5)
         
@@ -870,7 +870,10 @@ class JJBuildManager(tk.Tk):
         ttk.Checkbutton(options_frame, text="데스크톱 숏컷 자동 생성", variable=self.auto_shortcut_var).pack(anchor="w", pady=5)
         
         self.auto_dashboard_var = tk.BooleanVar(value=self.config_data.get('auto_dashboard_update', True))
-        ttk.Checkbutton(options_frame, text="빌드 완료 시 외부 대시보드 자동 업데이트", variable=self.auto_dashboard_var).pack(anchor="w", pady=5)
+        ttk.Checkbutton(options_frame, text="빌드 완료 시 대시보드 자동 업데이트", variable=self.auto_dashboard_var).pack(anchor="w", pady=5)
+
+        self.auto_git_var = tk.BooleanVar(value=self.config_data.get('auto_git_push', False))
+        ttk.Checkbutton(options_frame, text="빌드 완료 시 Git 자동 푸시 (origin main)", variable=self.auto_git_var).pack(anchor="w", pady=5)
         
         # 저장 버튼
         ttk.Button(settings_frame, text="💾 설정 저장", command=self.save_settings_action).pack(anchor="e", pady=20)
@@ -1004,14 +1007,20 @@ class JJBuildManager(tk.Tk):
             
             if success:
                 self.after(0, lambda: self.set_status("✅ 빌드 완료!"))
-                self.after(0, lambda: messagebox.showinfo("성공", "빌드가 완료되었습니다!"))
-                
-                if self.auto_open_var.get():
-                    self.after(0, self.open_dist_folder)
                 
                 # 자동 대시보드 업데이트
                 if self.auto_dashboard_var.get():
                     self.after(100, self._auto_update_dashboard)
+                
+                # Git 자동 푸시
+                if self.auto_git_var.get():
+                    commit_msg = f"Build Release: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}"
+                    self.after(200, lambda: self.git_commit_push(commit_msg))
+
+                self.after(500, lambda: messagebox.showinfo("성공", "빌드 및 후속 작업이 완료되었습니다!"))
+                
+                if self.auto_open_var.get():
+                    self.after(600, self.open_dist_folder)
             else:
                 self.after(0, lambda: self.set_status("⚠️ 일부 빌드 실패"))
                 
@@ -1136,114 +1145,64 @@ class JJBuildManager(tk.Tk):
             messagebox.showerror("오류", f"대시보드 업데이트 실패:\n{e}")
     
     def _generate_dashboard_html(self, output_path, plugins_info):
-        """대시보드 HTML 생성"""
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        
-        # 플러그인 카드 생성
-        plugin_cards = ""
-        for plugin_id, info in plugins_info.items():
-            status_class = "success" if info['exists'] else "error"
-            status_text = "✅ Ready" if info['exists'] else "❌ Missing"
-            editions_html = " ".join([f'<span class="edition">{e}</span>' for e in info['editions']])
+        """대시보드 HTML 업데이트 (Search & Replace 방식)"""
+        if not output_path.exists():
+            return
+
+        try:
+            with open(output_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # 1. 전체 빌드 버전 및 날짜 업데이트
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d")
+            build_id = f"RELEASE-{timestamp.replace('-', '')}-AUTO"
             
-            plugin_cards += f'''
-            <div class="plugin-card">
-                <div class="plugin-header">
-                    <h3>{info['name']}</h3>
-                    <span class="version">v{info['version']}</span>
-                </div>
-                <p class="description">{info['description']}</p>
-                <div class="editions">{editions_html}</div>
-                <div class="status {status_class}">{status_text}</div>
-                <div class="folder">{info['folder']}</div>
-            </div>
-            '''
-        
-        html_content = f'''<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3J Labs ACF CSS - Distribution Dashboard</title>
-    <style>
-        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
-        body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #F5F5F0 0%, #E8E6E1 100%);
-            min-height: 100vh;
-            padding: 40px;
-        }}
-        .container {{ max-width: 1400px; margin: 0 auto; }}
-        header {{
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin-bottom: 30px;
-        }}
-        header h1 {{ color: #1D1D1F; font-size: 2.5rem; margin-bottom: 8px; }}
-        header p {{ color: #6E6E73; font-size: 1.1rem; }}
-        .meta {{ display: flex; gap: 20px; margin-top: 15px; color: #8E8E93; font-size: 0.9rem; }}
-        .meta span {{ background: #F5F5F0; padding: 6px 12px; border-radius: 6px; }}
-        .plugins-grid {{
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 20px;
-        }}
-        .plugin-card {{
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }}
-        .plugin-card:hover {{
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }}
-        .plugin-header {{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }}
-        .plugin-header h3 {{ color: #1D1D1F; font-size: 1.2rem; }}
-        .version {{ background: #007AFF; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }}
-        .description {{ color: #6E6E73; font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5; }}
-        .editions {{ display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }}
-        .edition {{ background: #F5F5F0; color: #1D1D1F; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }}
-        .status {{ font-weight: 600; margin-bottom: 8px; }}
-        .status.success {{ color: #34C759; }}
-        .status.error {{ color: #FF3B30; }}
-        .folder {{ color: #8E8E93; font-size: 0.85rem; font-family: 'SF Mono', Consolas, monospace; }}
-        footer {{
-            margin-top: 40px;
-            text-align: center;
-            color: #8E8E93;
-            font-size: 0.9rem;
-        }}
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>🔧 3J Labs ACF CSS Distribution Dashboard</h1>
-            <p>ACF CSS Plugin Family • Build & Distribution Management</p>
-            <div class="meta">
-                <span>📅 Updated: {timestamp}</span>
-                <span>📦 Plugins: {len(plugins_info)}</span>
-                <span>🏭 Build Manager v3.2.0</span>
-            </div>
-        </header>
-        
-        <div class="plugins-grid">
-            {plugin_cards}
-        </div>
-        
-        <footer>
-            <p>© 2026 3J Labs (제이×제니×제이슨 연구소). All rights reserved.</p>
-        </footer>
-    </div>
-</body>
-</html>'''
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(html_content)
+            content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{timestamp.replace("-", ".")} (Build)</span>', content, 1)
+            content = re.sub(r'id="last-updated">.*?</span>', f'id="last-updated">{timestamp}</span>', content)
+            content = re.sub(r'id="build-id">.*?</span>', f'id="build-id">{build_id}</span>', content)
+
+            # 2. 개별 플러그인 카드 버전 및 링크 업데이트
+            for plugin_id, info in plugins_info.items():
+                # 카드 내 버전 태그 업데이트
+                # 예: <div class="plugin-name">WP Bulk Manager</div> ... <span class="version-tag">v5.0.3</span>
+                pattern = f'({re.escape(info["name"])})</div>\\s*<span class="version-tag">v.*?</span>'
+                content = re.sub(pattern, f'\\1</div>\n                        <span class="version-tag">v{info["version"]}</span>', content)
+
+                # 다운로드 링크 업데이트
+                # 예: href="dist/wp-bulk-manager-master-v5.0.3.zip"
+                link_pattern = f'href="dist/{re.escape(info["folder"])}-master-v.*?\\.zip"'
+                new_link = f'href="dist/{info["folder"]}-master-v{info["version"]}.zip"'
+                content = re.sub(link_pattern, new_link, content)
+
+            # 3. 빌드 정보 테이블 업데이트
+            # <tr><td>WP Bulk Manager</td><td>v5.0.3</td>...
+            for plugin_id, info in plugins_info.items():
+                table_pattern = f'<tr><td>{re.escape(info["name"])}</td><td>v.*?</td>'
+                content = re.sub(table_pattern, f'<tr><td>{info["name"]}</td><td>v{info["version"]}</td>', content)
+
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+                
+            self.log(f"📊 대시보드 HTML 파일 업데이트 완료: {output_path.name}")
+
+        except Exception as e:
+            self.log(f"⚠️ 대시보드 업데이트 오류: {e}")
+
+    def git_commit_push(self, message=None):
+        """Git 커밋 및 푸시 자동화"""
+        if not message:
+            message = f"Build Release: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+            
+        try:
+            self.log("🚀 Git 자동 업데이트 시작...")
+            subprocess.run(["git", "add", "."], check=True, capture_output=True)
+            subprocess.run(["git", "commit", "-m", message], check=True, capture_output=True)
+            subprocess.run(["git", "push", "origin", "main"], check=True, capture_output=True)
+            self.log("✅ Git Push 완료!")
+            return True
+        except Exception as e:
+            self.log(f"❌ Git 오류: {e}")
+            return False
     
     def save_settings_action(self):
         """설정 저장"""
@@ -1252,6 +1211,7 @@ class JJBuildManager(tk.Tk):
         self.config_data['auto_shortcut'] = self.auto_shortcut_var.get()
         self.config_data['dashboard_path'] = self.dashboard_path_var.get()
         self.config_data['auto_dashboard_update'] = self.auto_dashboard_var.get()
+        self.config_data['auto_git_push'] = self.auto_git_var.get()
         save_config(self.config_data)
         messagebox.showinfo("성공", "설정이 저장되었습니다.")
     
@@ -1287,7 +1247,7 @@ class JJBuildManager(tk.Tk):
 def cli_build(plugins=None, editions=None):
     """CLI에서 빌드 실행"""
     print("=" * 70)
-    print("  3J Labs ACF CSS Plugin Build Manager v22.0 - CLI Mode")
+    print("  3J Labs ACF CSS Plugin Build Manager v22.1 - CLI Mode")
     print("=" * 70)
     
     if editions is None:
