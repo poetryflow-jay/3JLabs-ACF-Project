@@ -43,7 +43,12 @@
 - `JJ_Error_Tracker`: 에러 추적
 - `JJ_Code_Optimizer`: 코드 최적화
 
-### Phase 26: 전략적 넛지 프리셋 및 템플릿 마켓 (v20.2.4)
+### Phase 26 긴급 재정비 (Clean Master Rollback - v21.0.1)
+- **강제 통합 제거**: `Nudge Flow`, `Bulk Manager` 등 타 패밀리 플러그인의 로직을 `ACF CSS Manager` 코어에서 완전히 분리.
+- **마스터 키 정체성 확립**: `ACF CSS Master` 버전은 타 플러그인의 기능을 직접 수행하지 않고, 권한(Capability)을 해제하는 컨트롤러 역할에 집중.
+- **자체 고유 확장 구조**: 스타일 센터 AI 어시스턴트, 고급 관리자 설정 등 `ACF CSS` 전용 마스터 모듈 로딩 구조로 재편.
+
+### Phase 26: 전략적 넛지 프리셋 및 템플릿 마켓 (v21.0.0)
 - **개인화 마케팅 보고서 기반 프리셋 (Strategic Presets)**:
     - `welcome_curation`, `signup_nudge`, `cart_recovery`, `free_shipping`, `cross_sell`, `vip_retention` 6종 시나리오 구현.
     - `JJ_Master_Nudge_Flow::get_preset_templates()` 메서드로 데이터 구조 관리.

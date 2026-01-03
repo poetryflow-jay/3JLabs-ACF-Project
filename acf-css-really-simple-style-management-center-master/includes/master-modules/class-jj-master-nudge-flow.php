@@ -32,12 +32,16 @@ class JJ_Master_Nudge_Flow {
         // 워크플로우 포스트 타입
         add_action( 'init', array( $this, 'register_post_type' ) );
         
-        // 관리자 메뉴
-        add_action( 'admin_menu', array( $this, 'add_admin_menu' ), 20 );
+        // 관리자 메뉴 (우선순위 상향)
+        add_action( 'admin_menu', array( $this, 'add_admin_menu' ), 5 );
         
-        // 메뉴 순서 강제 조정 (WooCommerce 마케팅 아래)
+        // 메뉴 순서 강제 조정 (대시보드 중심)
         add_filter( 'menu_order', array( $this, 'force_menu_order' ), 1001 );
         add_filter( 'custom_menu_order', '__return_true' );
+
+        // 빌더 UI 복구 및 에셋 로드
+        add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+        add_action( 'admin_footer', array( $this, 'output_builder_templates' ) );
 
         // 프론트엔드 넛지 실행
         add_action( 'wp_footer', array( $this, 'execute_nudges' ) );
@@ -78,60 +82,58 @@ class JJ_Master_Nudge_Flow {
 
     /**
      * 관리자 메뉴 추가
-     * [v20.2.2] WooCommerce '마케팅' 메뉴 아래로 배치 및 서브메뉴 구조화
+     * [v21.0.0] Clean Master 재편: 대시보드를 최상단으로 올리고 메뉴 구조 정상화
      */
     public function add_admin_menu() {
-        $parent_slug = 'woocommerce-marketing'; // WooCommerce 마케팅 메뉴 슬러그
         $capability  = 'manage_options';
 
-        // 1. 최상위 메뉴 (마케팅 메뉴 하위로 리다이렉트되도록 하거나 독자 노출)
-        // 사장님 요청에 따라 '마케팅' 메뉴 바로 아래에 배치
+        // 1. 최상위 메뉴 (대시보드 중심)
         add_menu_page(
             __( '넛지 플로우', 'acf-css-really-simple-style-management-center' ),
             __( '🚀 넛지 플로우', 'acf-css-really-simple-style-management-center' ),
             $capability,
             'jj-nudge-flow',
-            array( $this, 'render_dashboard_page' ), // 첫 페이지는 대시보드
+            array( $this, 'render_dashboard_page' ), 
             'dashicons-megaphone',
-            58 // WooCommerce 마케팅(58) 인근 배치
+            58 
         );
 
-        // 2. 서브메뉴 구성 (순서 중요)
+        // 2. 서브메뉴 구성 (순서: 대시보드 > 워크플로우 > 분석 > 템플릿 > 설정)
         
-        // (1) 대시보드 (최상단)
+        // (1) 대시보드 (기본 페이지)
         add_submenu_page(
             'jj-nudge-flow',
-            __( '대시보드', 'acf-css-really-simple-style-management-center' ),
+            __( '대시보드 통계', 'acf-css-really-simple-style-management-center' ),
             __( '📊 대시보드', 'acf-css-really-simple-style-management-center' ),
             $capability,
-            'jj-nudge-flow', // 상위 슬러그와 동일하게 하여 기본 페이지로 설정
+            'jj-nudge-flow',
             array( $this, 'render_dashboard_page' )
         );
 
-        // (2) 워크플로우 (모든 넛지 흐름 관리)
+        // (2) 워크플로우 (드래그 앤 드롭 빌더)
         add_submenu_page(
             'jj-nudge-flow',
-            __( '워크플로우', 'acf-css-really-simple-style-management-center' ),
+            __( '워크플로우 관리', 'acf-css-really-simple-style-management-center' ),
             __( '🔄 워크플로우', 'acf-css-really-simple-style-management-center' ),
             $capability,
             'edit.php?post_type=jj_nudge_workflow',
-            null // 기본 포스트 목록 페이지 사용
+            null 
         );
 
         // (3) 분석 (데이터 통계)
         add_submenu_page(
             'jj-nudge-flow',
-            __( '분석', 'acf-css-really-simple-style-management-center' ),
+            __( '성과 분석', 'acf-css-really-simple-style-management-center' ),
             __( '📈 분석 통계', 'acf-css-really-simple-style-management-center' ),
             $capability,
             'jj-nudge-analytics',
             array( $this, 'render_analytics_page' )
         );
 
-        // (4) 템플릿 센터 (불러오기/내보내기 및 공유 마켓)
+        // (4) 템플릿 센터 (전략적 프리셋)
         add_submenu_page(
             'jj-nudge-flow',
-            __( '템플릿 센터', 'acf-css-really-simple-style-management-center' ),
+            __( '전략 템플릿 센터', 'acf-css-really-simple-style-management-center' ),
             __( '🎁 템플릿 센터', 'acf-css-really-simple-style-management-center' ),
             $capability,
             'jj-nudge-templates',
@@ -141,7 +143,7 @@ class JJ_Master_Nudge_Flow {
         // (5) 설정
         add_submenu_page(
             'jj-nudge-flow',
-            __( '설정', 'acf-css-really-simple-style-management-center' ),
+            __( '넛지 플로우 설정', 'acf-css-really-simple-style-management-center' ),
             __( '⚙️ 설정', 'acf-css-really-simple-style-management-center' ),
             $capability,
             'jj-nudge-settings',
@@ -171,47 +173,115 @@ class JJ_Master_Nudge_Flow {
 
     /**
      * 템플릿 센터 페이지 렌더링
-     * [v20.2.2] 유료/무료 공유 템플릿 생태계 구축
+     * [v21.0.0] 전략적 프리셋 강제 주입 및 마켓플레이스 UI 고도화
      */
     public function render_template_center_page() {
+        $presets = $this->get_preset_templates();
         ?>
-        <div class="wrap">
-            <h1><?php esc_html_e( '🎁 템플릿 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
-            <p><?php esc_html_e( '검증된 넛지 템플릿을 불러오거나, 직접 만든 템플릿을 공유하여 수익을 창출하세요.', 'acf-css-really-simple-style-management-center' ); ?></p>
-            
+        <div class="wrap jj-nudge-market-wrap">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <h1><?php esc_html_e( '🎁 전략적 넛지 템플릿 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
+                <button class="button button-primary button-hero" style="background:#6366f1; border-color:#4f46e5;">
+                    <span class="dashicons dashicons-money-alt" style="margin-top:4px;"></span> <?php esc_html_e( '내 시나리오 판매 등록', 'acf-css-really-simple-style-management-center' ); ?>
+                </button>
+            </div>
+
+            <div class="notice notice-info">
+                <p><strong><?php esc_html_e( '💡 사장님을 위한 팁:', 'acf-css-really-simple-style-management-center' ); ?></strong> <?php esc_html_e( '아래 템플릿들은 설치 시 즉시 비활성화(Draft) 상태로 저장됩니다. 워크플로우 메뉴에서 쇼핑몰 환경에 맞게 세부 수치를 조정한 후 활성화하세요.', 'acf-css-really-simple-style-management-center' ); ?></p>
+            </div>
+
             <h2 class="nav-tab-wrapper">
-                <a href="#free" class="nav-tab nav-tab-active"><?php esc_html_e( '무료 템플릿', 'acf-css-really-simple-style-management-center' ); ?></a>
-                <a href="#premium" class="nav-tab"><?php esc_html_e( '유료 프리미엄', 'acf-css-really-simple-style-management-center' ); ?></a>
-                <a href="#my-shared" class="nav-tab"><?php esc_html_e( '내 공유 현황', 'acf-css-really-simple-style-management-center' ); ?></a>
+                <a href="#strategic" class="nav-tab nav-tab-active"><?php esc_html_e( '3J Labs 추천 전략 (보고서 기반)', 'acf-css-really-simple-style-management-center' ); ?></a>
+                <a href="#global" class="nav-tab"><?php esc_html_e( '글로벌 유저 공유 마켓', 'acf-css-really-simple-style-management-center' ); ?></a>
+                <a href="#my" class="nav-tab"><?php esc_html_e( '내 템플릿 보관함', 'acf-css-really-simple-style-management-center' ); ?></a>
             </h2>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
-                <!-- 템플릿 카드 예시 -->
-                <div class="postbox" style="padding: 15px;">
-                    <h3><?php esc_html_e( '장바구니 리마인더 (기본)', 'acf-css-really-simple-style-management-center' ); ?></h3>
-                    <p><?php esc_html_e( '장바구니에 상품을 담고 결제하지 않은 고객에게 쿠폰을 제안합니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span class="badge" style="background: #eee; padding: 2px 8px; border-radius: 4px;"><?php esc_html_e( '무료', 'acf-css-really-simple-style-management-center' ); ?></span>
-                        <button class="button button-primary"><?php esc_html_e( '가져오기', 'acf-css-really-simple-style-management-center' ); ?></button>
+            <div class="jj-market-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:25px; margin-top:25px;">
+                <?php if ( ! empty( $presets ) ) : ?>
+                    <?php foreach ( $presets as $id => $data ) : 
+                        $is_premium = ( isset($data['type']) && $data['type'] === 'premium' );
+                        $border_color = $is_premium ? '#f59e0b' : '#e2e8f0';
+                        $bg_gradient = $is_premium ? 'linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%)' : '#f8fafc';
+                    ?>
+                    <div class="postbox" style="overflow:hidden; border-radius:10px; border-left:4px solid <?php echo $border_color; ?>; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                        <div style="height:140px; background:<?php echo $bg_gradient; ?>; border-bottom:1px solid #e2e8f0; display:flex; align-items:center; justify-content:center;">
+                            <span class="dashicons <?php echo esc_attr( $data['icon'] ); ?>" style="font-size:50px; width:50px; height:50px; color:<?php echo $is_premium ? '#f59e0b' : '#94a3b8'; ?>;"></span>
+                        </div>
+                        <div style="padding:20px;">
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                                <span style="font-size:11px; color:#6366f1; font-weight:700; text-transform:uppercase;"><?php echo esc_html( $data['category'] ); ?></span>
+                                <?php if ( $is_premium ) : ?>
+                                    <span style="background:#fef3c7; color:#b45309; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700;"><?php echo esc_html( $data['price'] ); ?></span>
+                                <?php else : ?>
+                                    <span style="background:#f1f5f9; color:#475569; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;"><?php esc_html_e( 'FREE', 'acf-css-really-simple-style-management-center' ); ?></span>
+                                <?php endif; ?>
+                            </div>
+                            <h3 style="margin:0; font-size:17px; font-weight:800; color:#1e293b;"><?php echo esc_html( $data['title'] ); ?></h3>
+                            <p style="font-size:13px; color:#64748b; margin:12px 0 20px; line-height:1.6; height:60px; overflow:hidden;">
+                                <?php echo esc_html( $data['description'] ); ?>
+                            </p>
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9; padding-top:15px;">
+                                <span style="font-size:12px; color:#94a3b8;">by 3J Labs Strategy</span>
+                                <button class="button <?php echo $is_premium ? 'button-primary' : 'button-secondary'; ?> jj-install-preset" data-preset="<?php echo esc_attr( $id ); ?>">
+                                    <?php echo $is_premium ? __( '구매 후 설치', 'acf-css-really-simple-style-management-center' ) : __( '지금 설치 (무료)', 'acf-css-really-simple-style-management-center' ); ?>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="postbox" style="padding: 15px; border-left: 4px solid #f59e0b;">
-                    <h3 style="color: #d97706;"><?php esc_html_e( '⚡ 초고속 완판 전략 세트', 'acf-css-really-simple-style-management-center' ); ?> <span class="dashicons dashicons-star-filled"></span></h3>
-                    <p><?php esc_html_e( '타임 세일과 이탈 방지 넛지가 결합된 고효율 패키지입니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: bold; color: #10b981;">₩19,900</span>
-                        <button class="button button-secondary"><?php esc_html_e( '구매하기', 'acf-css-really-simple-style-management-center' ); ?></button>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p><?php esc_html_e( '로드할 수 있는 템플릿이 없습니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
+                <?php endif; ?>
             </div>
-            
-            <div style="margin-top: 40px; padding: 20px; background: #f0f0f1; border-radius: 8px;">
-                <h3><?php esc_html_e( '💰 템플릿 판매자 되기', 'acf-css-really-simple-style-management-center' ); ?></h3>
-                <p><?php esc_html_e( '자신만의 독창적인 넛지 시나리오를 3J Labs 마켓플레이스에 등록하세요. 판매 수익의 70%를 정산해 드립니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
-                <button class="button button-large"><?php esc_html_e( '판매자 등록 신청', 'acf-css-really-simple-style-management-center' ); ?></button>
+
+            <!-- 판매자 수익화 섹션 -->
+            <div style="margin-top:50px; padding:40px; background:linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border-radius:15px; color:#fff; box-shadow:0 10px 25px -5px rgba(79, 70, 229, 0.4);">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:40px;">
+                    <div style="max-width:65%;">
+                        <h2 style="color:#fff; margin:0 0 15px; font-size:26px; font-weight:900;"><?php esc_html_e( '💰 사장님의 마케팅 노하우를 자산으로 만드세요', 'acf-css-really-simple-style-management-center' ); ?></h2>
+                        <p style="font-size:16px; opacity:0.95; line-height:1.7; margin:0;">
+                            <?php esc_html_e( '직접 운영하며 검증된 고효율 넛지 시나리오가 있나요? 템플릿으로 만들어 마켓에 등록해 보세요. 판매 금액의 70%가 사장님의 수익으로 즉시 적립됩니다.', 'acf-css-really-simple-style-management-center' ); ?>
+                        </p>
+                    </div>
+                    <div style="text-align:right; flex-shrink:0;">
+                        <button class="button button-large" style="height:55px; padding:0 40px; font-weight:900; border-radius:10px; font-size:16px; color:#4f46e5; background:#fff; border:none; box-shadow:0 10px 15px -3px rgba(0,0,0,0.2); cursor:pointer;">
+                            <?php esc_html_e( '판매자 파트너 신청하기', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
+        <script>
+        jQuery(document).ready(function($) {
+            $('.jj-install-preset').on('click', function() {
+                var presetId = $(this).data('preset');
+                var $btn = $(this);
+                
+                if (confirm('<?php echo esc_js( __( '이 템플릿을 설치하시겠습니까? 설치 후 워크플로우 메뉴에서 확인 가능합니다.', 'acf-css-really-simple-style-management-center' ) ); ?>')) {
+                    $btn.prop('disabled', true).text('<?php echo esc_js( __( '설치 중...', 'acf-css-really-simple-style-management-center' ) ); ?>');
+                    
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'jj_install_nudge_preset',
+                            preset_id: presetId,
+                            nonce: '<?php echo wp_create_nonce( "jj_nudge_market_nonce" ); ?>'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                alert('<?php echo esc_js( __( '성공적으로 설치되었습니다! 워크플로우 메뉴에서 설정을 확인하세요.', 'acf-css-really-simple-style-management-center' ) ); ?>');
+                                $btn.text('<?php echo esc_js( __( '설치 완료', 'acf-css-really-simple-style-management-center' ) ); ?>');
+                            } else {
+                                alert('오류: ' + response.data);
+                                $btn.prop('disabled', false).text('<?php echo esc_js( __( '다시 시도', 'acf-css-really-simple-style-management-center' ) ); ?>');
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        </script>
         <?php
     }
 
@@ -374,6 +444,57 @@ class JJ_Master_Nudge_Flow {
      */
     public function execute_nudges() {
         // JavaScript 기반으로 실행됨
+    }
+
+    /**
+     * 관리자용 에셋 로드 (빌더 UI용)
+     * [v21.0.0] 좌측 패널 드래그 앤 드롭 빌더 복구
+     */
+    public function admin_enqueue_scripts( $hook ) {
+        global $post_type;
+        if ( 'jj_nudge_workflow' !== $post_type ) {
+            return;
+        }
+
+        wp_enqueue_style( 'jj-nudge-builder', JJ_STYLE_GUIDE_URL . 'assets/css/jj-nudge-builder.css', array(), JJ_STYLE_GUIDE_VERSION );
+        wp_enqueue_script( 'jquery-ui-draggable' );
+        wp_enqueue_script( 'jquery-ui-droppable' );
+        wp_enqueue_script( 'jquery-ui-sortable' );
+        wp_enqueue_script( 'jj-nudge-builder', JJ_STYLE_GUIDE_URL . 'assets/js/jj-nudge-builder.js', array( 'jquery', 'jquery-ui-draggable', 'jquery-ui-droppable' ), JJ_STYLE_GUIDE_VERSION, true );
+    }
+
+    /**
+     * 빌더 템플릿 출력 (좌측 패널 트리거/액션 목록)
+     */
+    public function output_builder_templates() {
+        global $post_type;
+        if ( 'jj_nudge_workflow' !== $post_type ) {
+            return;
+        }
+        ?>
+        <div id="jj-nudge-builder-sidebar" style="display:none;">
+            <div class="jj-builder-panel">
+                <h3><?php esc_html_e( '⚡ 트리거 (Triggers)', 'acf-css-really-simple-style-management-center' ); ?></h3>
+                <div class="jj-draggable-item" data-type="trigger" data-id="first_visit"><?php esc_html_e( '첫 방문', 'acf-css-really-simple-style-management-center' ); ?></div>
+                <div class="jj-draggable-item" data-type="trigger" data-id="page_view"><?php esc_html_e( '페이지 조회', 'acf-css-really-simple-style-management-center' ); ?></div>
+                <div class="jj-draggable-item" data-type="trigger" data-id="exit_intent"><?php esc_html_e( '이탈 감지', 'acf-css-really-simple-style-management-center' ); ?></div>
+                
+                <h3><?php esc_html_e( '🎯 액션 (Actions)', 'acf-css-really-simple-style-management-center' ); ?></h3>
+                <div class="jj-draggable-item" data-type="action" data-id="popup"><?php esc_html_e( '팝업 노출', 'acf-css-really-simple-style-management-center' ); ?></div>
+                <div class="jj-draggable-item" data-type="action" data-id="coupon"><?php esc_html_e( '쿠폰 지급', 'acf-css-really-simple-style-management-center' ); ?></div>
+                <div class="jj-draggable-item" data-type="action" data-id="toast"><?php esc_html_e( '토스트 알림', 'acf-css-really-simple-style-management-center' ); ?></div>
+            </div>
+        </div>
+        <script>
+            // WP 에디터 상단에 빌더 사이드바 강제 삽입
+            jQuery(document).ready(function($) {
+                if ($('#poststuff').length) {
+                    $('#jj-nudge-builder-sidebar').show().prependTo('#poststuff');
+                    $('body').addClass('jj-nudge-builder-active');
+                }
+            });
+        </script>
+        <?php
     }
 
     /**

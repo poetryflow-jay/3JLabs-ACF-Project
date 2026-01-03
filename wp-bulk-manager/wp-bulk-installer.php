@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.5.1' ); // [v2.5.1] 업로드 에러 핸들링 개선, 상세한 오류 메시지 제공
+define( 'WP_BULK_MANAGER_VERSION', '3.0.0' ); // [v3.0.0] 메뉴 시스템 최적화 및 업로드 안정성 강화 메이저 업데이트
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 

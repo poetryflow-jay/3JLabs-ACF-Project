@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 플러그인 상수 정의
  */
 if ( ! defined( 'ACF_CSS_WOO_LICENSE_VERSION' ) ) {
-    define( 'ACF_CSS_WOO_LICENSE_VERSION', '20.2.2' ); // [v20.2.2] 에디션 제어 및 파트너 전용 대시보드 추가
+    define( 'ACF_CSS_WOO_LICENSE_VERSION', '21.0.0' ); // [v21.0.0] 에디션별 대시보드 및 Neural Link 연동 메이저 업데이트
 }
 
 /**

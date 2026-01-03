@@ -3,7 +3,7 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 3일  
-**릴리즈 버전**: Phase 26 완료 (v20.2.4)  
+**릴리즈 버전**: Phase 26 긴급 재정비 (v21.0.1)  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소)
 
 ---
@@ -12,10 +12,20 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 20.2.2 | **20.2.4** | Major |
-| ACF CSS Woo License Bridge | 20.2.2 | **20.2.2** | - |
-| WP Bulk Manager | 2.5.1 | **2.5.1** | - |
-| ACF CSS Neural Link | 4.3.0 | **4.3.0** | - |
+| ACF CSS Manager (Master) | 20.2.4 | **21.0.1** | Emergency |
+| ACF CSS Woo License Bridge | 20.2.2 | **21.0.0** | Major |
+| WP Bulk Manager | 2.5.1 | **3.0.0** | Major |
+| ACF CSS Neural Link | 4.3.0 | **5.0.0** | Major |
+
+---
+
+## 🚀 주요 변경사항 (Phase 26 Rollback - Clean Master)
+
+### ACF CSS Manager v21.0.1
+- ✅ **Clean Master Rollback**: Nudge Flow, Bulk Manager 등 타 패밀리 플러그인의 강제 통합 로직을 전면 제거하여 코드 경량화 및 안정성 확보.
+- ✅ **마스터 키 권한 집중**: 타 플러그인의 기능을 직접 수행하는 대신, 패밀리 플러그인 전체의 라이센스 잠금을 해제하고 모든 프리미엄 기능을 활성화하는 '마스터 통합 제어기' 역할로 정체성 재정립.
+- ✅ **자체 기능 무제한**: 마스터 에디션 내 모든 고유 기능(Style Center, Style Guide 등)의 제약을 해제하고 개발 중인 내부 확장 모듈(AI 어시스턴트 등) 로딩 구조 마련.
+- ✅ **시스템 오작동 수정**: 무리한 통합으로 인한 메뉴 충돌 및 "권한 없음" 오류 방지 조치.
 
 ---
 

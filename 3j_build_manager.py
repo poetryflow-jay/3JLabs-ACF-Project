@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════════
-  3J Labs ACF CSS Plugin Build Manager v3.2.0
+  3J Labs ACF CSS Plugin Build Manager v21.0.0
   플러그인 빌드, 버전 관리, 에디션 관리를 위한 통합 관리 프로그램
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -16,8 +16,8 @@ Features:
 - 외부 대시보드 연동 및 업데이트
 
 @author: 3J Labs (Jay & Jason & Jenny)
-@version: 3.2.0
-@date: 2026-01-02
+@version: 21.0.1
+@date: 2026-01-03
 """
 
 import tkinter as tk

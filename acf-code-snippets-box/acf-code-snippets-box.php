@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSB_VERSION', '1.1.0' );
+define( 'ACF_CSB_VERSION', '2.0.0' ); // [v2.0.0] 메이저 버전 동기화
 define( 'ACF_CSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSB_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACF_CSB_BASENAME', plugin_basename( __FILE__ ) );

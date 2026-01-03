@@ -116,65 +116,28 @@ class JJ_Master_Integrator {
 
     /**
      * 통합 모듈 정의
+     * [v21.0.0] Clean Master Rollback: 타 패밀리 플러그인의 강제 통합을 제거하고 
+     * ACF CSS 고유의 마스터 전용 기능 및 향후 개발 예정 기능만을 로드합니다.
      */
     private function define_integrated_modules() {
         $base_path = JJ_STYLE_GUIDE_PATH;
 
         $this->integrated_modules = array(
-            // Code Snippets Box 기능
-            'code_snippets' => array(
-                'name' => 'ACF Code Snippets Box',
-                'description' => 'JS, CSS, PHP, HTML 코드 스니펫 관리 및 조건부 실행',
-                'class' => 'JJ_Master_Code_Snippets',
-                'file' => $base_path . 'includes/master-modules/class-jj-master-code-snippets.php',
+            // [Internal] 스타일 센터 고급 관리 기능
+            'advanced_admin' => array(
+                'name' => __( '고급 관리자 센터', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( '마스터 버전 전용 고급 스타일 제어 및 시스템 최적화 도구입니다.', 'acf-css-really-simple-style-management-center' ),
+                'class' => 'JJ_Master_Advanced_Admin',
+                'file' => $base_path . 'includes/master-modules/class-jj-master-advanced-admin.php',
                 'required' => false,
-                'standalone_check' => 'ACF_Code_Snippets_Box',
             ),
-            // WooCommerce Toolkit 기능
-            'woocommerce' => array(
-                'name' => 'ACF CSS WooCommerce Toolkit',
-                'description' => '우커머스 가격, 할인, 장바구니 스타일링',
-                'class' => 'JJ_Master_WooCommerce',
-                'file' => $base_path . 'includes/master-modules/class-jj-master-woocommerce.php',
+            // [Future] AI 스타일 도우미 (Internal)
+            'ai_assistant' => array(
+                'name' => __( 'AI 스타일 어시스턴트 (Beta)', 'acf-css-really-simple-style-management-center' ),
+                'description' => __( '자연어 명령으로 스타일을 생성하고 최적화하는 내장 AI 비서 기능입니다.', 'acf-css-really-simple-style-management-center' ),
+                'class' => 'JJ_Master_AI_Assistant',
+                'file' => $base_path . 'includes/master-modules/class-jj-master-ai-assistant.php',
                 'required' => false,
-                'standalone_check' => 'ACF_CSS_WooCommerce_Toolkit',
-                'dependency' => 'WooCommerce',
-            ),
-            // AI Extension 기능
-            'ai_extension' => array(
-                'name' => 'ACF CSS AI Extension',
-                'description' => 'AI 기반 스타일 추천 및 분석',
-                'class' => 'JJ_Master_AI',
-                'file' => $base_path . 'includes/master-modules/class-jj-master-ai.php',
-                'required' => false,
-                'standalone_check' => 'JJ_ACF_CSS_AI_Extension',
-            ),
-            // Nudge Flow (Marketing Booster) 기능
-            'nudge_flow' => array(
-                'name' => 'ACF MBA',
-                'description' => '트리거 기반 넛지 마케팅 자동화',
-                'class' => 'JJ_Master_Nudge_Flow',
-                'file' => $base_path . 'includes/master-modules/class-jj-master-nudge-flow.php',
-                'required' => false,
-                'standalone_check' => 'ACF_Nudge_Flow',
-            ),
-            // Bulk Manager 기능
-            'bulk_manager' => array(
-                'name' => 'WP Bulk Manager',
-                'description' => '플러그인/테마 대량 설치 및 관리',
-                'class' => 'JJ_Master_Bulk_Manager',
-                'file' => $base_path . 'includes/master-modules/class-jj-master-bulk-manager.php',
-                'required' => false,
-                'standalone_check' => 'WP_Bulk_Installer',
-            ),
-            // Admin Menu Editor 기능
-            'menu_editor' => array(
-                'name' => 'Admin Menu Editor',
-                'description' => '관리자 메뉴 순서, 이름, 아이콘, 권한 편집',
-                'class' => 'JJ_Master_Menu_Editor',
-                'file' => $base_path . 'includes/master-modules/class-jj-master-menu-editor.php',
-                'required' => false,
-                'standalone_check' => 'JJ_Admin_Menu_Editor_Lite',
             ),
         );
     }

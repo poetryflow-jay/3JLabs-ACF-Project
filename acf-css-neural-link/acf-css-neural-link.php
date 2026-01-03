@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v2.1.2] 플러그인 버전별 자동 업데이트 제어 기능 추가, dev 버전과의 호환성 개선
 // [v2.1.3] 플러그인 폴더명 및 슬러그 업데이트
 // [v2.1.4] Pro 버전 원격 활성화 시스템 지원
-define( 'JJ_NEURAL_LINK_VERSION', '4.3.0' ); // [v4.3.0] 순차 배포(롤링 업데이트), 베타 테스트 채널, 패키지 서명 강화
+define( 'JJ_NEURAL_LINK_VERSION', '5.0.0' ); // [v5.0.0] 순차 배포 및 업데이트 채널 관리 시스템 안정화
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
 if ( ! defined( 'JJ_NEURAL_LINK_PATH' ) ) {
