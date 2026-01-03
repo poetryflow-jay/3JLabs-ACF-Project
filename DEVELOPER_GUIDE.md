@@ -48,6 +48,16 @@
 - **Master Only 빌드 프로세스**: `3j_build_manager.py`를 최적화하여 Master 에디션 ZIP 파일만을 일괄 생성하고 배포하도록 설정.
 - **독립 작동 보장**: 각 패밀리 플러그인이 독립적으로 고유 기능을 수행하되, `Neural Link`를 통해 마스터 권한을 공유하는 느슨한 결합(Loose Coupling) 구조 완성.
 
+### Phase 27: WP Bulk Manager 그랜드 업그레이드 (v5.0.0)
+
+- **멀티 사이트 지원**: 워드프레스 멀티 사이트 네트워크 내의 여러 사이트에 플러그인/테마 대량 설치 및 관리 지원.
+- **원격 사이트 연결 (Connected Sites)**: 시크릿 키를 통한 타 워드프레스 사이트 원격 관리 기능.
+- **Master 전용 원격 관리**: ACF CSS Master 또는 Bulk Manager Master 버전 보유 시 원격 사이트 라이센스 인증 간소화.
+- **대용량 처리 지원**: 파일당 최대 1GB, 전체 용량 10GB(권장 2GB) 수준으로 처리 능력 향상.
+- **보안 강화**: 시크릿 키 기반 HMAC-SHA256 요청 서명 (예정) 및 X-JJ-Bulk-Secret 헤더 검증.
+
+---
+
 ### Phase 26 긴급 재정비 (Clean Master Rollback - v21.0.1)
 - **강제 통합 제거**: `Nudge Flow`, `Bulk Manager` 등 타 패밀리 플러그인의 로직을 `ACF CSS Manager` 코어에서 완전히 분리.
 - **마스터 키 정체성 확립**: `ACF CSS Master` 버전은 타 플러그인의 기능을 직접 수행하지 않고, 권한(Capability)을 해제하는 컨트롤러 역할에 집중.

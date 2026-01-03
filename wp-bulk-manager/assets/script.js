@@ -53,6 +53,10 @@ jQuery(document).ready(function($) {
 
             if (tab === 'editor') {
                 initBulkEditorOnce();
+            } else if (tab === 'multisite-editor') {
+                initMultisiteEditor();
+            } else if (tab === 'remote-editor') {
+                initRemoteEditor();
             }
         }
 
@@ -63,6 +67,56 @@ jQuery(document).ready(function($) {
         if (savedTab && $('.jj-bulk-tab[data-tab="' + savedTab + '"]').length) {
             activateTab(savedTab);
         }
+    }
+
+    // ==============================
+    // [v5.0.0] Multisite & Remote Management
+    // ==============================
+    function initMultisiteEditor() {
+        // 멀티사이트 에디터 초기화 로직
+        console.log('Multisite Editor Initialized');
+    }
+
+    function initRemoteEditor() {
+        // 원격 에디터 초기화 로직
+        console.log('Remote Editor Initialized');
+    }
+
+    function initRemoteConnection() {
+        $('#jj-remote-connect').on('click', function() {
+            var url = $('#jj-remote-url').val();
+            var key = $('#jj-remote-key').val();
+
+            if (!url || !key) {
+                alert('URL과 시크릿 키를 모두 입력해주세요.');
+                return;
+            }
+
+            var $btn = $(this);
+            $btn.prop('disabled', true).text('연결 중...');
+
+            $.ajax({
+                url: jjBulk.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'jj_bulk_remote_connect', // PHP에 핸들러 추가 필요
+                    nonce: jjBulk.nonce,
+                    remote_url: url,
+                    remote_key: key
+                },
+                success: function(resp) {
+                    if (resp.success) {
+                        showNotice('success', '원격 사이트 연결 성공: ' + url);
+                        // 연결된 사이트 목록 업데이트 및 UI 갱신
+                    } else {
+                        showNotice('error', '연결 실패: ' + (resp.data || '알 수 없는 오류'));
+                    }
+                },
+                complete: function() {
+                    $btn.prop('disabled', false).text('연결하기');
+                }
+            });
+        });
     }
 
     // ==============================
@@ -920,4 +974,5 @@ jQuery(document).ready(function($) {
     initTabs();
     initInstaller();
     initTooltipSystem();
+    initRemoteConnection();
 });
