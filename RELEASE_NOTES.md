@@ -12,7 +12,7 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 22.1.2 | **22.1.4** | AI Optimizer |
+| ACF CSS Manager (Master) | 22.1.2 | **22.1.5** | Team Collaboration |
 | ACF MBA Nudge Flow | 22.1.0 | **22.2.0** | AI/Intelligence |
 | ACF CSS WooCommerce Toolkit | 2.1.1 | **2.2.0** | Templates/UX |
 | ACF CSS Neural Link | 6.0.1 | **6.1.0** | AI Pattern Learning |
@@ -83,6 +83,23 @@
     - 암호학적으로 안전한 키 생성 (random_bytes)
     - 요청 파라미터 정렬로 일관된 서명 보장
     - 레거시 시크릿 키 방식 폴백 지원
+
+### ACF CSS Manager v22.1.5 (Jenny x Jason Edition)
+- ✅ **Team Collaboration System** (`class-jj-team-sync.php`):
+    - 설정 내보내기 with 메타데이터 (작성자, 버전 태그, 변경 내역)
+    - 설정 가져오기 with 충돌 감지
+    - Merge vs. Overwrite 모드
+    - 가져오기 전 자동 백업
+    - 내보내기 히스토리 추적 (최근 20개)
+- ✅ **Team Sync Dashboard** (`view-section-team-sync.php`):
+    - 투-패널 UI: 내보내기 폼 | 가져오기 폼
+    - JSON 파일 다운로드/업로드
+    - 버전 태깅 및 변경 사항 설명
+    - 실시간 충돌 경고
+- ✅ **AJAX Handlers**:
+    - `jj_export_settings`: 메타데이터 포함 JSON 내보내기
+    - `jj_import_settings`: 충돌 감지 및 병합/덮어쓰기
+    - `jj_get_export_history`: 히스토리 조회
 
 ### ACF CSS Manager v22.1.4 (Jason x Mikael Edition)
 - ✅ **AI CSS Performance Optimizer** (`class-jj-css-optimizer-ai.php`):
