@@ -185,6 +185,11 @@ class JJ_Simple_Style_Guide {
             wp_die( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
         }
 
+        // 엔진 초기화 (지연 로딩 대응)
+        if ( class_exists( 'JJ_Demo_Importer' ) ) {
+            JJ_Demo_Importer::instance()->init();
+        }
+
         // 옵션 로드
         $this->options = (array) get_option( $this->option_key );
         $options = $this->options; // 뷰 파일에서 $options 변수 사용
@@ -195,7 +200,18 @@ class JJ_Simple_Style_Guide {
             <hr class="wp-header-end">
 
             <div class="jj-style-guide-container" style="margin-top: 20px;">
-                <div class="jj-style-guide-sections">
+                <!-- [v22.1.2] 마케팅 핵심: 프리셋 섹션을 최상단에 배치 (Quick Value) -->
+                <div class="jj-section-wrapper" data-section="presets">
+                    <?php 
+                    $presets_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-presets.php';
+                    if ( file_exists( $presets_path ) ) {
+                        include $presets_path;
+                    }
+                    ?>
+                </div>
+
+                <div class="jj-style-guide-sections" style="margin-top: 40px; border-top: 2px solid #e2e8f0; padding-top: 40px;">
+                    <h2 style="margin-bottom: 30px;"><?php _e( '🛠️ 세부 커스텀 스타일링', 'acf-css-really-simple-style-management-center' ); ?></h2>
                     <?php
                     // 섹션 뷰 파일 로드
                     $sections = array(

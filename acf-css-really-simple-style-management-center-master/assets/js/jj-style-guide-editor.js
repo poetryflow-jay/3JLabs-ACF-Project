@@ -1843,41 +1843,48 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // 색상 복사 기능
-    $('#jj-style-guide-form').on('click', '.jj-copy-color', function(e) {
+    // [v22.1.2 '신규'] 디자인 프리셋 적용 (Jenny x Jason)
+    $('#jj-style-guide-wrapper').on('click', '.jj-import-preset-btn', function(e) {
         e.preventDefault();
-        var $button = $(this);
-        var color = $button.data('color');
-        
-        if (!color) return;
-        
-        // 클립보드에 복사 (최신 브라우저)
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(color).then(function() {
-                $button.text('복사됨!').css('background-color', '#46b450');
-                setTimeout(function() {
-                    $button.text('복사').css('background-color', '');
-                }, 2000);
-            }).catch(function() {
-                // 폴백: 텍스트 영역 사용
-                var $temp = $('<textarea>').val(color).appendTo('body').select();
-                document.execCommand('copy');
-                $temp.remove();
-                $button.text('복사됨!').css('background-color', '#46b450');
-                setTimeout(function() {
-                    $button.text('복사').css('background-color', '');
-                }, 2000);
-            });
-        } else {
-            // 폴백: 텍스트 영역 사용
-            var $temp = $('<textarea>').val(color).appendTo('body').select();
-            document.execCommand('copy');
-            $temp.remove();
-            $button.text('복사됨!').css('background-color', '#46b450');
-            setTimeout(function() {
-                $button.text('복사').css('background-color', '');
-            }, 2000);
+        var $btn = $(this);
+        var $card = $btn.closest('.jj-preset-card');
+        var presetId = $card.data('preset-id');
+        var presetName = $card.find('h3').text();
+
+        if (!confirm('"' + presetName + '" 프리셋을 적용하시겠습니까?\n기존의 일부 스타일 설정이 덮어씌워질 수 있습니다.')) {
+            return;
         }
+
+        $btn.prop('disabled', true).text('적용 중...');
+        $card.css('opacity', '0.7');
+
+        $.ajax({
+            url: jj_admin_params.ajax_url,
+            type: 'POST',
+            data: {
+                action: 'jj_import_style_preset',
+                security: jj_admin_params.nonce,
+                preset_id: presetId
+            },
+            success: function(response) {
+                if (response.success) {
+                    // 성공 효과: 화면 반짝임 후 새로고침
+                    $btn.text('적용 완료!').css('background', '#10b981');
+                    $('body').fadeOut(500, function() {
+                        location.reload();
+                    });
+                } else {
+                    alert(response.data.message || '프리셋 적용에 실패했습니다.');
+                    $btn.prop('disabled', false).text('프리셋 적용하기');
+                    $card.css('opacity', '1');
+                }
+            },
+            error: function() {
+                alert('네트워크 오류가 발생했습니다.');
+                $btn.prop('disabled', false).text('프리셋 적용하기');
+                $card.css('opacity', '1');
+            }
+        });
     });
 
 });
