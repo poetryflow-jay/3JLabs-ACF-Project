@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS Neural Link - License & Update Manager (Advanced Custom Fonts & Colors & Styles)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS (Advanced Custom Fonts & Colors & Styles) 플러그인의 라이센스 인증, 자동 업데이트, 원격 제어를 담당하는 중앙 관리 시스템입니다. WooCommerce와 연동하여 라이센스를 자동으로 발행하고 관리합니다.
- * Version:           6.0.0
+ * Version:           6.0.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com

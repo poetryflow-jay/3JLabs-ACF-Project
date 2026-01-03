@@ -6,7 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * - 스타일 센터 UI에 사용되는 텍스트/레이블 일부를 옵션으로 제어하기 위한 컨트롤 패널
  * - 상위/마스터 버전에서만 노출되도록 확장 가능하도록 설계
  * 
- * @version 21.0.0
+ * @version 22.0.1
+ * - [v22.0.1] UI/UX 긴급 패치 및 Fatal Error 해결
  * - [v21.0.0] 메이저 버전 업데이트 및 넛지 프리셋 통합
  * - [v20.2.4] Nudge Flow 템플릿 마켓 전략 프리셋 반영
  * - [v20.2.3] Style Guide 페이지 등록 추가 (권한 오류 수정)
@@ -456,7 +457,7 @@ final class JJ_Admin_Center {
         $menu_title = __( '스타일 센터 🎨', 'acf-css-really-simple-style-management-center' );
         $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ) );
 
-        // [v20.2.0] 최상위 메뉴로 추가 (알림판 > 벌크 매니저 다음)
+        // [v22.0.0] 최상위 메뉴 하나만 등록 (중복 제거)
         add_menu_page(
             $page_title,
             $menu_title,
@@ -464,15 +465,12 @@ final class JJ_Admin_Center {
             'jj-admin-center',
             array( $this, 'render_admin_center_page' ),
             'dashicons-art',
-            2.6 // Dashboard(2) > 벌크 매니저(2.5) 바로 아래
+            2.6 
         );
 
-        // [v22.0.0] 중복 메뉴 제거: Settings, Appearance, Tools 하위의 중복 메뉴를 제거하고 
-        // 오직 최상위 메뉴 하나만 남기도록 합니다. (사용자 요청 반영)
-
-        // [v20.2.5] 실험실 센터(Labs Center) 서브메뉴 등록
+        // [v22.0.0] 실험실 센터를 스타일 센터의 서브메뉴로 통합 (중복 제거)
         if ( class_exists( 'JJ_Labs_Center' ) ) {
-            $labs_title = __( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' );
+            $labs_title = __( '실험실 센터', 'acf-css-really-simple-style-management-center' );
             add_submenu_page(
                 'jj-admin-center',
                 $labs_title,

@@ -156,6 +156,21 @@
         .edition-tag.partner { background: rgba(219, 97, 162, 0.2); color: var(--accent-pink); }
         .edition-tag.master { background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }
         
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: opacity 0.2s;
+            margin-top: 15px;
+        }
+        
+        .download-btn.master { background: var(--accent-purple); color: #fff; }
+        .download-btn:hover { opacity: 0.9; }
+
         .stats-section {
             background: var(--bg-secondary);
             border-radius: 16px;
@@ -250,192 +265,163 @@
             <div class="logo">3J Labs</div>
             <p class="subtitle">제이 × 제니 × 제이슨 연구소 | ACF CSS Plugin Suite</p>
             <div class="version-badge">
-                Dashboard Version <span>v9.1.0</span> | Last Updated: <span id="last-updated">2026-01-02</span>
+                통합 빌드 버전: <span>v22.0.1 (UI/UX Hotfix)</span> | Last Updated: <span id="last-updated">2026-01-03</span>
             </div>
         </header>
         
         <!-- 플러그인 카드 그리드 -->
         <section class="plugins-grid">
 
-            <!-- ACF CSS 설정 관리자 -->
+            <!-- 1. ACF CSS Manager -->
             <div class="plugin-card">
                 <div class="plugin-header">
                     <div class="plugin-icon">🎨</div>
                     <div class="plugin-name">ACF CSS 설정 관리자</div>
-                    <div class="plugin-fullname">Advanced Custom Fonts & Colors & Styles Setting Manager</div>
-                    <span class="plugin-version master">v20.0.0</span>
+                    <div class="plugin-fullname">ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager</div>
+                    <div class="plugin-version master">v22.0.1 (Master Clean)</div>
                 </div>
                 <div class="plugin-body">
-                    <p class="plugin-description">
-                        Advanced Custom Fonts & Colors & Styles Setting Manager
-                    </p>
+                    <div class="plugin-description">메인 플러그인 - WordPress 스타일 통합 관리 시스템 및 마스터 키 시스템.</div>
                     <div class="editions-list">
-                        <span class="edition-tag free">Free</span>
-                        <span class="edition-tag basic">Basic</span>
-                        <span class="edition-tag premium">Premium</span>
-                        <span class="edition-tag unlimited">Unlimited</span>
-                        <span class="edition-tag partner">Partner</span>
-                        <span class="edition-tag master">Master</span>
+                        <span class="edition-tag master">MASTER</span>
                     </div>
+                    <a href="dist/acf-css-really-simple-style-management-center-master-master-v22.0.1.zip" class="download-btn master">다운로드 (Master)</a>
                 </div>
             </div>
 
-            <!-- Admin Menu Editor Pro -->
+            <!-- 2. WP Bulk Manager -->
             <div class="plugin-card">
                 <div class="plugin-header">
-                    <div class="plugin-icon">📋</div>
-                    <div class="plugin-name">Admin Menu Editor Pro</div>
-                    <div class="plugin-fullname">Advanced WordPress Menu Management</div>
-                    <span class="plugin-version pro">v1.0.0</span>
+                    <div class="plugin-icon">🚀</div>
+                    <div class="plugin-name">WP Bulk Manager</div>
+                    <div class="plugin-fullname">WP Bulk Manager - Plugin & Theme Bulk Installer and Editor</div>
+                    <div class="plugin-version master">v5.0.2</div>
                 </div>
                 <div class="plugin-body">
-                    <p class="plugin-description">
-                        Advanced WordPress Menu Management
-                    </p>
+                    <div class="plugin-description">플러그인/테마 대량 설치 및 관리. 멀티 사이트 및 원격 연결 지원 (v5.0+)</div>
                     <div class="editions-list">
-                        <span class="edition-tag free">Free (Lite)</span>
-                        <span class="edition-tag pro">Pro</span>
-                        <span class="edition-tag master">Master 통합</span>
+                        <span class="edition-tag master">MASTER</span>
                     </div>
+                    <a href="dist/wp-bulk-manager-master-v5.0.2.zip" class="download-btn master">다운로드 (Master)</a>
                 </div>
             </div>
 
-            <!-- ACF Code Snippets Box -->
+            <!-- 3. ACF CSS Neural Link -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <div class="plugin-icon">🔗</div>
+                    <div class="plugin-name">ACF CSS Neural Link</div>
+                    <div class="plugin-fullname">ACF CSS Neural Link - License & Update Manager</div>
+                    <div class="plugin-version master">v6.0.1</div>
+                </div>
+                <div class="plugin-body">
+                    <div class="plugin-description">라이센스 및 업데이트 관리 시스템. 순차 배포 및 채널 관리 기능 포함.</div>
+                    <div class="editions-list">
+                        <span class="edition-tag master">MASTER</span>
+                    </div>
+                    <a href="dist/acf-css-neural-link-master-v6.0.1.zip" class="download-btn master">다운로드 (Master)</a>
+                </div>
+            </div>
+
+            <!-- 4. ACF MBA (Nudge Flow) -->
+            <div class="plugin-card">
+                <div class="plugin-header">
+                    <div class="plugin-icon">🎯</div>
+                    <div class="plugin-name">ACF MBA (Nudge Flow)</div>
+                    <div class="plugin-fullname">ACF MBA - Marketing Booster Accelerator</div>
+                    <div class="plugin-version master">v22.0.1</div>
+                </div>
+                <div class="plugin-body">
+                    <div class="plugin-description">마케팅 자동화 및 넛지 시스템. 전략적 프리셋 및 템플릿 마켓 통합.</div>
+                    <div class="editions-list">
+                        <span class="edition-tag master">MASTER</span>
+                    </div>
+                    <a href="dist/acf-nudge-flow-master-v22.0.1.zip" class="download-btn master">다운로드 (Master)</a>
+                </div>
+            </div>
+
+            <!-- 5. ACF Code Snippets Box -->
             <div class="plugin-card">
                 <div class="plugin-header">
                     <div class="plugin-icon">📝</div>
                     <div class="plugin-name">ACF Code Snippets Box</div>
                     <div class="plugin-fullname">Advanced Custom Function Manager</div>
-                    <span class="plugin-version free">v1.1.0</span>
+                    <div class="plugin-version master">v2.1.1</div>
                 </div>
                 <div class="plugin-body">
-                    <p class="plugin-description">
-                        Advanced Custom Function Manager
-                    </p>
+                    <div class="plugin-description">CSS/JS/PHP 코드 스니펫 관리. 직관적인 코드 삽입 및 제어.</div>
                     <div class="editions-list">
-                        <span class="edition-tag free">Free</span>
-                        <span class="edition-tag premium">Premium</span>
-                        <span class="edition-tag master">Master 통합</span>
+                        <span class="edition-tag master">MASTER</span>
                     </div>
+                    <a href="dist/acf-code-snippets-box-master-v2.1.1.zip" class="download-btn master">다운로드 (Master)</a>
                 </div>
             </div>
 
-            <!-- ACF CSS WooCommerce Toolkit -->
+            <!-- 6. ACF CSS WooCommerce Toolkit -->
             <div class="plugin-card">
                 <div class="plugin-header">
                     <div class="plugin-icon">🛒</div>
                     <div class="plugin-name">ACF CSS WooCommerce Toolkit</div>
                     <div class="plugin-fullname">Advanced Commerce Styling</div>
-                    <span class="plugin-version free">v1.1.0</span>
+                    <div class="plugin-version master">v2.1.1</div>
                 </div>
                 <div class="plugin-body">
-                    <p class="plugin-description">
-                        Advanced Commerce Styling
-                    </p>
+                    <div class="plugin-description">WooCommerce 스타일 및 기능 확장. 쇼핑몰 전용 스타일링 도구.</div>
                     <div class="editions-list">
-                        <span class="edition-tag premium">Premium</span>
-                        <span class="edition-tag unlimited">Unlimited</span>
-                        <span class="edition-tag master">Master 통합</span>
+                        <span class="edition-tag master">MASTER</span>
                     </div>
+                    <a href="dist/acf-css-woocommerce-toolkit-master-v2.1.1.zip" class="download-btn master">다운로드 (Master)</a>
                 </div>
             </div>
 
-            <!-- ACF CSS AI Extension -->
+            <!-- 7. ACF CSS AI Extension -->
             <div class="plugin-card">
                 <div class="plugin-header">
                     <div class="plugin-icon">🤖</div>
                     <div class="plugin-name">ACF CSS AI Extension</div>
                     <div class="plugin-fullname">AI-Powered Style Intelligence</div>
-                    <span class="plugin-version free">v2.1.0</span>
+                    <div class="plugin-version master">v3.1.1</div>
                 </div>
                 <div class="plugin-body">
-                    <p class="plugin-description">
-                        AI-Powered Style Intelligence
-                    </p>
+                    <div class="plugin-description">AI 기반 스타일 추천 및 생성. 지능형 디자인 어시스턴트.</div>
                     <div class="editions-list">
-                        <span class="edition-tag premium">Premium</span>
-                        <span class="edition-tag unlimited">Unlimited</span>
-                        <span class="edition-tag master">Master 통합</span>
+                        <span class="edition-tag master">MASTER</span>
                     </div>
+                    <a href="dist/acf-css-ai-extension-master-v3.1.1.zip" class="download-btn master">다운로드 (Master)</a>
                 </div>
             </div>
 
-            <!-- ACF CSS Neural Link -->
+            <!-- 8. Admin Menu Editor Pro -->
             <div class="plugin-card">
                 <div class="plugin-header">
-                    <div class="plugin-icon">🔗</div>
-                    <div class="plugin-name">ACF CSS Neural Link</div>
-                    <div class="plugin-fullname">License & Update Manager</div>
-                    <span class="plugin-version free">v4.2.0</span>
+                    <div class="plugin-icon">🛠️</div>
+                    <div class="plugin-name">Admin Menu Editor Pro</div>
+                    <div class="plugin-fullname">Advanced Admin Customizer</div>
+                    <div class="plugin-version master">v2.0.1</div>
                 </div>
                 <div class="plugin-body">
-                    <p class="plugin-description">
-                        License & Update Manager
-                    </p>
+                    <div class="plugin-description">관리자 메뉴 커스터마이저. 복잡한 워드프레스 메뉴를 자유롭게 재구성.</div>
                     <div class="editions-list">
-                        <span class="edition-tag basic">Basic</span>
-                        <span class="edition-tag premium">Premium</span>
-                        <span class="edition-tag master">Master 통합</span>
+                        <span class="edition-tag master">MASTER</span>
                     </div>
+                    <a href="dist/admin-menu-editor-pro-master-v2.0.1.zip" class="download-btn master">다운로드 (Master)</a>
                 </div>
             </div>
 
-            <!-- ACF MBA (Nudge Flow) -->
-            <div class="plugin-card">
-                <div class="plugin-header">
-                    <div class="plugin-icon">📣</div>
-                    <div class="plugin-name">ACF MBA (Nudge Flow)</div>
-                    <div class="plugin-fullname">Advanced Custom Funnel Marketing Boosting Accelerator</div>
-                    <span class="plugin-version free">v1.1.0</span>
-                </div>
-                <div class="plugin-body">
-                    <p class="plugin-description">
-                        Advanced Custom Funnel Marketing Boosting Accelerator
-                    </p>
-                    <div class="editions-list">
-                        <span class="edition-tag premium">Premium</span>
-                        <span class="edition-tag unlimited">Unlimited</span>
-                        <span class="edition-tag master">Master 통합</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- WP Bulk Manager -->
-            <div class="plugin-card">
-                <div class="plugin-header">
-                    <div class="plugin-icon">📦</div>
-                    <div class="plugin-name">WP Bulk Manager</div>
-                    <div class="plugin-fullname">Plugin & Theme Bulk Installer and Editor</div>
-                    <span class="plugin-version master">v5.0.1</span>
-                </div>
-                <div class="plugin-body">
-                    <p class="plugin-description">
-                        Plugin & Theme Bulk Installer and Editor
-                    </p>
-                    <div class="editions-list">
-                        <span class="edition-tag free">Free</span>
-                        <span class="edition-tag unlimited">Unlimited</span>
-                        <span class="edition-tag master">Master 통합</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ACF CSS WooCommerce License Bridge -->
+            <!-- 9. ACF CSS Woo License Bridge -->
             <div class="plugin-card">
                 <div class="plugin-header">
                     <div class="plugin-icon">🔑</div>
                     <div class="plugin-name">ACF CSS Woo License Bridge</div>
-                    <div class="plugin-fullname">WooCommerce License & Neural Link Integration</div>
-                    <span class="plugin-version master">v21.0.1</span>
+                    <div class="plugin-fullname">WooCommerce License Bridge</div>
+                    <div class="plugin-version master">v22.0.1</div>
                 </div>
                 <div class="plugin-body">
-                    <p class="plugin-description">
-                        WooCommerce 결제 완료 시 Neural Link 서버에 라이센스 발행 요청을 전송하고 판매 내역을 관리합니다.
-                    </p>
+                    <div class="plugin-description">WooCommerce 결제 연동 및 라이센스 발행 브릿지 (관리자 전용).</div>
                     <div class="editions-list">
-                        <span class="edition-tag partner">Partner (판매 전용)</span>
-                        <span class="edition-tag master">Master (전체 관리)</span>
+                        <span class="edition-tag master">MASTER</span>
                     </div>
+                    <a href="dist/acf-css-woo-license-master-v22.0.1.zip" class="download-btn master">다운로드 (Master)</a>
                 </div>
             </div>
         </section>
@@ -449,15 +435,15 @@
                     <div class="stat-label">총 플러그인</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">6</div>
-                    <div class="stat-label">에디션 종류</div>
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">활성 에디션 (Master)</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">22</div>
                     <div class="stat-label">지원 언어</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">PHP 8.5</div>
+                    <div class="stat-number">PHP 7.4+</div>
                     <div class="stat-label">최소 PHP</div>
                 </div>
                 <div class="stat-item">
@@ -469,7 +455,7 @@
         
         <!-- 빌드 정보 -->
         <section class="build-info">
-            <h2>🔧 최신 빌드 정보</h2>
+            <h2>🔧 최신 빌드 정보 (Phase 27.5 Hotfix)</h2>
             <table class="build-table">
                 <thead>
                     <tr>
@@ -480,60 +466,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>ACF CSS 설정 관리자</td>
-                        <td>v21.0.1</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only (Clean)</td>
-                    </tr>
-                    <tr>
-                        <td>Admin Menu Editor Pro</td>
-                        <td>v2.0.0</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
-                    <tr>
-                        <td>ACF Code Snippets Box</td>
-                        <td>v2.0.0</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
-                    <tr>
-                        <td>ACF CSS WooCommerce Toolkit</td>
-                        <td>v2.0.0</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
-                    <tr>
-                        <td>ACF CSS AI Extension</td>
-                        <td>v3.0.0</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
-                    <tr>
-                        <td>ACF CSS Neural Link</td>
-                        <td>v5.0.0</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
-                    <tr>
-                        <td>ACF MBA (Nudge Flow)</td>
-                        <td>v21.0.0</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
-                    <tr>
-                        <td>WP Bulk Manager</td>
-                        <td>v5.0.1</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
-                    <tr>
-                        <td>ACF CSS WooCommerce License Bridge</td>
-                        <td>v21.0.0</td>
-                        <td>2026-01-03</td>
-                        <td style="color: var(--accent-purple);">💎 Master Only</td>
-                    </tr>
+                    <tr><td>ACF CSS 설정 관리자</td><td>v22.0.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only (Clean)</td></tr>
+                    <tr><td>WP Bulk Manager</td><td>v5.0.2</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
+                    <tr><td>ACF CSS Neural Link</td><td>v6.0.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
+                    <tr><td>ACF MBA (Nudge Flow)</td><td>v22.0.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
+                    <tr><td>ACF CSS AI Extension</td><td>v3.1.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
+                    <tr><td>ACF Code Snippets Box</td><td>v2.1.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
+                    <tr><td>ACF CSS WooCommerce Toolkit</td><td>v2.1.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
+                    <tr><td>Admin Menu Editor Pro</td><td>v2.0.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
+                    <tr><td>ACF CSS Woo License Bridge</td><td>v22.0.1</td><td>2026-01-03</td><td style="color: var(--accent-purple);">💎 Master Only</td></tr>
                 </tbody>
             </table>
         </section>
@@ -543,12 +484,11 @@
         <p>© 2026 <a href="https://3j-labs.com" target="_blank">3J Labs (제이×제니×제이슨 연구소)</a></p>
         <p>Made with ❤️ by Jay, Jenny & Jason</p>
         <p style="margin-top: 10px; font-size: 0.8rem; color: var(--text-secondary);">
-            자동 업데이트: 2026-01-03 12:30:00 | 메인 버전: v21.0.1 (Master Only)
+            자동 업데이트: 2026-01-03 13:05:00 | 메인 버전: v22.0.1 (Master Only)
         </p>
     </footer>
     
     <script>
-        // 현재 날짜로 업데이트
         document.getElementById('last-updated').textContent = new Date().toISOString().split('T')[0];
     </script>
 </body>

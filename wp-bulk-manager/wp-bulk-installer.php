@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           5.0.1-master
+ * Version:           5.0.2-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '5.0.1-master' ); // [v5.0.1] 마스터 라이센스 감지 강화 및 업데이트/롤백 기능 추가
+define( 'WP_BULK_MANAGER_VERSION', '5.0.2-master' ); // [v5.0.2] UI/UX 긴급 패치 및 마스터 권한 최적화
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -303,7 +303,7 @@ class JJ_Bulk_Installer {
         // 4. 특정 마스터 파일 존재 여부 확인 (최종 수단)
         if ( ! $is_master ) {
             $master_plugin_dir = WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master/';
-            if ( file_exists( $master_plugin_dir ) ) {
+            if ( is_dir( $master_plugin_dir ) ) {
                 $is_master = true;
             }
         }
@@ -586,7 +586,7 @@ class JJ_Bulk_Installer {
                         <div class="jj-bulk-toolbar-right">
                             <button type="button" class="button button-primary" id="jj-bulk-action-activate" data-op="activate" data-type="plugin">선택 활성화</button>
                             <button type="button" class="button" id="jj-bulk-action-deactivate" data-op="deactivate" data-type="plugin">선택 비활성화</button>
-                            <button type="button" class="button" id="jj-bulk-action-update" data-op="update" data-type="plugin">선택 업데이트</button>
+                            <button type="button" class="button" id="jj-bulk-action-update" data-op="update" data-type="plugin" style="background: #2271b1; color: #fff; border-color: #2271b1;">선택 업데이트 🚀</button>
                             <button type="button" class="button" id="jj-bulk-action-rollback" data-op="rollback" data-type="plugin">선택 롤백</button>
                             <button type="button" class="button button-secondary" id="jj-bulk-action-delete" data-op="delete" data-type="plugin" <?php echo ( ! $limits['can_bulk_delete'] ) ? 'disabled' : ''; ?>>선택 삭제</button>
                             <button type="button" class="button button-danger" id="jj-bulk-action-deactivate-delete" data-op="deactivate_delete" data-type="plugin" <?php echo ( ! $limits['can_deactivate_then_delete'] ) ? 'disabled' : ''; ?>>비활성화 후 삭제</button>

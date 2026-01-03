@@ -3,7 +3,7 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 3일  
-**릴리즈 버전**: Phase 26 마스터 통합 빌드 (v22.0.0 / v4.0.0 / v6.0.0)  
+**릴리즈 버전**: Phase 27.5 UI/UX 긴급 패치 (v22.0.1 / v5.0.2 / v6.0.1)  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소)
 
 ---
@@ -12,19 +12,35 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 21.0.1 | **22.0.0** | Major |
-| WP Bulk Manager | 5.0.0 | **5.0.1** | Minor |
-| ACF CSS Neural Link | 5.0.0 | **6.0.0** | Major |
-| ACF MBA (Nudge Flow) | 21.0.0 | **22.0.0** | Major |
-| ACF CSS AI Extension | 2.1.0 | **3.1.0** | Major |
-| ACF Code Snippets Box | 1.1.0 | **2.1.0** | Major |
-| ACF CSS WooCommerce Toolkit | 1.1.0 | **2.1.0** | Major |
-| Admin Menu Editor Pro | 1.0.0 | **2.0.0** | Major |
-| ACF CSS Woo License Bridge | 21.0.0 | **22.0.0** | Major |
+| ACF CSS Manager (Master) | 22.0.0 | **22.0.1** | Patch |
+| WP Bulk Manager | 5.0.1 | **5.0.2** | Patch |
+| ACF CSS Neural Link | 6.0.0 | **6.0.1** | Patch |
+| ACF MBA (Nudge Flow) | 22.0.0 | **22.0.1** | Patch |
+| ACF CSS AI Extension | 3.1.0 | **3.1.1** | Patch |
+| ACF Code Snippets Box | 2.1.0 | **2.1.1** | Patch |
+| ACF CSS WooCommerce Toolkit | 2.1.0 | **2.1.1** | Patch |
+| Admin Menu Editor Pro | 2.0.0 | **2.0.1** | Patch |
+| ACF CSS Woo License Bridge | 22.0.0 | **22.0.1** | Patch |
 
 ---
 
-## 🚀 주요 변경사항 (Master Clean Build)
+## 🚀 주요 변경사항 (UI/UX Hotfix)
+
+### ACF CSS Manager v22.0.1
+- ✅ **Fatal Error 해결**: `get_admin_colors()` 미정의 오류로 인한 페이지 중단 문제 해결.
+- ✅ **메뉴 중복 제거**: 설정, 모양, 도구 메뉴의 중복 링크를 제거하고 최상위 메뉴 하나만 유지.
+- ✅ **아이콘 위치 변경**: '🎨 스타일 센터' → '스타일 센터 🎨'로 사용자 요청 반영.
+- ✅ **실험실 통합**: 실험실 센터를 스타일 센터 하위 서브메뉴로 배치하여 구조 최적화.
+
+### WP Bulk Manager v5.0.2
+- ✅ **마스터 권한 최종 해제**: 라이센스 감지 로직 고도화로 삭제 등 모든 유료 기능 잠금 해제.
+- ✅ **업데이트 버튼 강조**: '선택 업데이트 🚀' 버튼에 브랜드 컬러를 적용하여 시인성 극대화.
+- ✅ **자동 활성화 복구**: 인스톨러 페이지에서 '즉시 활성화' 체크박스가 사라졌던 문제 수정.
+- ✅ **ID 배지 추가**: 플러그인 목록에 기술적 ID(폴더명)를 배지 형태로 추가하여 개발 편의성 증대.
+
+---
+
+## 🚀 주요 변경사항 (Master Clean Build - Phase 26)
 
 ### WP Bulk Manager v5.0.1 (기능 보완)
 - ✅ **마스터 라이센스 감지 강화**: 플러그인 폴더명, ACF CSS Manager(Master) 존재 여부 및 상수 정의를 통한 다각도 검증 로직 적용.

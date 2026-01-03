@@ -3,7 +3,7 @@
  * Plugin Name:       ACF MBA - Marketing Booster Accelerator (Advanced Custom Funnel)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF MBA (Advanced Custom Funnel Marketing Booster Accelerator) - 트리거 기반 넛지 마케팅 자동화 플러그인입니다. IF-DO 방식의 시각적 워크플로우 빌더로 방문자 행동에 따른 팝업, 알림, 할인, 업셀링을 자동화합니다. WooCommerce와 완벽 연동됩니다.
- * Version:           22.0.0
+ * Version:           22.0.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
