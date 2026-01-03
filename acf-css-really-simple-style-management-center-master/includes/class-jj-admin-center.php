@@ -6,7 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * - 스타일 센터 UI에 사용되는 텍스트/레이블 일부를 옵션으로 제어하기 위한 컨트롤 패널
  * - 상위/마스터 버전에서만 노출되도록 확장 가능하도록 설계
  * 
- * @version 20.2.1
+ * @version 20.2.3
+ * - [v20.2.3] Style Guide 페이지 등록 추가 (권한 오류 수정)
  * - [v20.2.1] 번역 로딩 타이밍 수정 (WordPress 6.7.0+ 호환)
  * - [v13.4.7] Admin Center 빈 화면 방지: 탭 로딩 예외 처리 추가
  * - 탭 기반 인터페이스 추가 (General, Admin Menu, Section Layout, Texts, Colors)
@@ -478,6 +479,40 @@ final class JJ_Admin_Center {
         add_theme_page( $page_title, __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ), 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
         add_management_page( $page_title, __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ), 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
 
+        // [v20.2.2] Style Guide 페이지 등록 (호환성을 위해 Settings에도 등록)
+        $style_guide_title = __( '스타일 센터', 'acf-css-really-simple-style-management-center' );
+        add_submenu_page(
+            'jj-admin-center',
+            $style_guide_title,
+            $style_guide_title,
+            'manage_options',
+            JJ_STYLE_GUIDE_PAGE_SLUG,
+            array( $this, 'render_style_guide_page' )
+        );
+        
+        // Settings 메뉴에도 등록 (하위 호환성 및 직접 접근용)
+        add_options_page(
+            $style_guide_title,
+            $style_guide_title,
+            'manage_options',
+            JJ_STYLE_GUIDE_PAGE_SLUG,
+            array( $this, 'render_style_guide_page' )
+        );
+
+    }
+
+    /**
+     * Style Guide 페이지 렌더링
+     * [v20.2.2] Style Guide 페이지 등록 및 렌더링
+     */
+    public function render_style_guide_page() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
+        }
+
+        // Style Guide 페이지는 Admin Center와 동일한 내용을 표시
+        // (향후 별도 렌더링 로직 추가 가능)
+        $this->render_admin_center_page();
     }
 
     /**

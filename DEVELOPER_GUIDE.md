@@ -43,7 +43,17 @@
 - `JJ_Error_Tracker`: 에러 추적
 - `JJ_Code_Optimizer`: 코드 최적화
 
-### Phase 24 추가 클래스 (WooCommerce 통합)
+### Phase 25: Nudge Flow 메뉴 개편 및 수익화 모델 (v20.2.2)
+- **메뉴 배치**: WooCommerce '마케팅' 메뉴 하단으로 이동 (Position: 58)
+- **서브메뉴 구조**:
+  - `jj-nudge-flow` (Dashboard): 넛지 통계 및 요약
+  - `edit.php?post_type=jj_nudge_workflow` (Workflows): 넛지 흐름 관리
+  - `jj-nudge-analytics` (Analytics): 상세 분석 데이터
+  - `jj-nudge-templates` (Template Center): 유/무료 공유 템플릿 센터
+  - `jj-nudge-settings` (Settings): 모듈 환경 설정
+- **수익화 설계**: 템플릿 센터 내 판매자 등록 및 유료 템플릿(프리미엄) 구매 UI 기반 마련
+
+## Phase 24 추가 클래스 (WooCommerce 통합)
 
 - `ACF_CSS_Woo_License`: WooCommerce-Neural Link 브릿지
 - `JJ_Woo_License_Dashboard`: 판매 및 라이센스 관리 대시보드 (Master/Partner)
