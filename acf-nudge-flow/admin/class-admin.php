@@ -25,8 +25,154 @@ class ACF_Nudge_Flow_Admin {
         add_action( 'wp_ajax_acf_nudge_get_actions', array( $this, 'ajax_get_actions' ) );
         add_action( 'wp_ajax_jj_install_nudge_preset', array( $this, 'ajax_install_nudge_preset' ) );
         
+        // [v22.3.1] Chart.js and dashboard assets
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_dashboard_assets' ) );
+        
         // 빌더 UI 템플릿 출력
         add_action( 'admin_footer', array( $this, 'output_builder_templates' ) );
+    }
+    
+    /**
+     * [v22.3.1] Enqueue Chart.js and dashboard visualization assets
+     */
+    public function enqueue_dashboard_assets( $hook ) {
+        // Only load on our dashboard pages
+        if ( strpos( $hook, 'acf-nudge-flow' ) === false ) {
+            return;
+        }
+        
+        // Chart.js CDN
+        wp_enqueue_script(
+            'chartjs',
+            'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js',
+            array(),
+            '4.4.1',
+            true
+        );
+        
+        // Dashboard styles
+        wp_add_inline_style( 'wp-admin', $this->get_dashboard_inline_styles() );
+    }
+    
+    /**
+     * [v22.3.1] Dashboard inline styles - Jenny's gradient card design
+     */
+    private function get_dashboard_inline_styles() {
+        return '
+            .acf-nudge-stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 20px;
+                margin: 30px 0;
+            }
+            
+            .acf-nudge-stat-card {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-radius: 12px;
+                padding: 24px;
+                color: #fff;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            
+            .acf-nudge-stat-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+            
+            .acf-nudge-stat-card:nth-child(1) {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+            
+            .acf-nudge-stat-card:nth-child(2) {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            }
+            
+            .acf-nudge-stat-card:nth-child(3) {
+                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            }
+            
+            .acf-nudge-stat-card:nth-child(4) {
+                background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            }
+            
+            .acf-nudge-stat-card .stat-icon {
+                font-size: 32px;
+                margin-bottom: 12px;
+                opacity: 0.9;
+            }
+            
+            .acf-nudge-stat-card .stat-value {
+                font-size: 36px;
+                font-weight: 700;
+                line-height: 1.2;
+                margin-bottom: 8px;
+            }
+            
+            .acf-nudge-stat-card .stat-label {
+                font-size: 14px;
+                opacity: 0.9;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            
+            .acf-nudge-chart-container {
+                background: #fff;
+                border-radius: 12px;
+                padding: 24px;
+                margin: 30px 0;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+            
+            .acf-nudge-quick-actions {
+                margin-top: 40px;
+            }
+            
+            .quick-action-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                margin-top: 20px;
+            }
+            
+            .quick-action-card {
+                background: #fff;
+                border: 2px solid #e5e7eb;
+                border-radius: 8px;
+                padding: 20px;
+                text-align: center;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .quick-action-card:hover {
+                border-color: #667eea;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+            }
+            
+            .quick-action-card .icon {
+                font-size: 40px;
+                margin-bottom: 12px;
+            }
+            
+            .quick-action-card .title {
+                font-size: 16px;
+                font-weight: 600;
+                color: #111827;
+                margin-bottom: 8px;
+                display: block;
+            }
+            
+            .quick-action-card .desc {
+                font-size: 13px;
+                color: #6b7280;
+                display: block;
+            }
+        ';
     }
 
     /**
@@ -450,6 +596,12 @@ class ACF_Nudge_Flow_Admin {
                     </div>
                 </div>
                 
+                <!-- [v22.3.1] Performance chart (Jenny's design) -->
+                <div class="acf-nudge-chart-container">
+                    <h2 style="margin: 0 0 20px 0;"><?php esc_html_e( '📈 7일 성과 추이', 'acf-nudge-flow' ); ?></h2>
+                    <canvas id="acf-nudge-performance-chart" style="max-height: 300px;"></canvas>
+                </div>
+                
                 <div class="acf-nudge-quick-actions">
                     <h2><?php esc_html_e( '빠른 시작', 'acf-nudge-flow' ); ?></h2>
                     <div class="quick-action-cards">
@@ -480,6 +632,64 @@ class ACF_Nudge_Flow_Admin {
                 </div>
             </div>
         </div>
+        
+        <script>
+        // [v22.3.1] Chart.js visualization - Mikael's data + Jenny's design
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('acf-nudge-performance-chart');
+            if (!ctx) return;
+            
+            // Sample data - will be replaced with real AJAX data
+            const chartData = {
+                labels: ['월', '화', '수', '목', '금', '토', '일'],
+                datasets: [{
+                    label: '노출수',
+                    data: [120, 190, 300, 250, 200, 280, 310],
+                    borderColor: 'rgb(102, 126, 234)',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: '전환수',
+                    data: [12, 19, 24, 18, 22, 26, 31],
+                    borderColor: 'rgb(67, 233, 123)',
+                    backgroundColor: 'rgba(67, 233, 123, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            };
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+        </script>
         <?php
     }
 
