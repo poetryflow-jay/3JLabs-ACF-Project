@@ -103,54 +103,139 @@ class ACF_CSS_Woo_License {
      * 관리자 메뉴 추가
      */
     public function add_admin_menu() {
-        add_submenu_page(
-            'woocommerce',
-            __( 'ACF CSS 라이센스 설정', 'acf-css-woo-license' ),
+        // [v20.2.2] 에디션에 따라 메뉴 구성 변경
+        $is_master = ( defined( 'ACF_CSS_WOO_LICENSE_EDITION' ) && ACF_CSS_WOO_LICENSE_EDITION === 'master' );
+
+        add_menu_page(
             __( 'ACF CSS 라이센스', 'acf-css-woo-license' ),
+            __( '🔑 라이센스 브릿지', 'acf-css-woo-license' ),
             'manage_options',
             'acf-css-woo-license',
-            array( $this, 'render_settings_page' )
+            array( $this, 'render_dashboard_page' ),
+            'dashicons-admin-network',
+            58
+        );
+
+        if ( $is_master ) {
+            add_submenu_page(
+                'acf-css-woo-license',
+                __( '연결 설정', 'acf-css-woo-license' ),
+                __( '연결 설정', 'acf-css-woo-license' ),
+                'manage_options',
+                'acf-css-woo-license-settings',
+                array( $this, 'render_settings_page' )
+            );
+        }
+
+        add_submenu_page(
+            'acf-css-woo-license',
+            __( '판매 및 정산', 'acf-css-woo-license' ),
+            __( '판매 및 정산', 'acf-css-woo-license' ),
+            'manage_options',
+            'acf-css-woo-license-sales',
+            array( $this, 'render_sales_page' )
         );
     }
 
     /**
-     * 설정 등록
+     * 대시보드 페이지 렌더링
      */
-    public function register_settings() {
-        register_setting( 'acf_css_woo_license_settings', 'acf_css_neural_link_url' );
-        register_setting( 'acf_css_woo_license_settings', 'acf_css_neural_link_api_key' );
-        
-        add_settings_section(
-            'acf_css_neural_link_section',
-            __( 'Neural Link 서버 설정', 'acf-css-woo-license' ),
-            null,
-            'acf-css-woo-license'
-        );
-        
-        add_settings_field(
-            'acf_css_neural_link_url',
-            __( 'Neural Link URL', 'acf-css-woo-license' ),
-            array( $this, 'render_url_field' ),
-            'acf-css-woo-license',
-            'acf_css_neural_link_section'
-        );
-        
-        add_settings_field(
-            'acf_css_neural_link_api_key',
-            __( 'API Key', 'acf-css-woo-license' ),
-            array( $this, 'render_api_key_field' ),
-            'acf-css-woo-license',
-            'acf_css_neural_link_section'
-        );
+    public function render_dashboard_page() {
+        $is_master = ( defined( 'ACF_CSS_WOO_LICENSE_EDITION' ) && ACF_CSS_WOO_LICENSE_EDITION === 'master' );
+        ?>
+        <div class="wrap">
+            <h1><?php _e( 'ACF CSS 라이센스 브릿지 대시보드', 'acf-css-woo-license' ); ?></h1>
+            <p class="description"><?php echo $is_master ? __( '마스터 관리자 전용 대시보드입니다.', 'acf-css-woo-license' ) : __( '파트너 전용 판매 관리 대시보드입니다.', 'acf-css-woo-license' ); ?></p>
+            
+            <div class="welcome-panel" style="padding: 20px; margin-top: 20px;">
+                <div class="welcome-panel-content">
+                    <h2><?php _e( '환영합니다!', 'acf-css-woo-license' ); ?></h2>
+                    <p><?php _e( '이 플러그인은 WooCommerce와 Neural Link 서버를 연결하여 라이센스 발행 및 업데이트를 자동화합니다.', 'acf-css-woo-license' ); ?></p>
+                    
+                    <div class="welcome-panel-column-container">
+                        <div class="welcome-panel-column">
+                            <h3><?php _e( '최근 판매 현황', 'acf-css-woo-license' ); ?></h3>
+                            <ul>
+                                <li><span class="dashicons dashicons-cart"></span> <?php _e( '오늘 판매 건수: ', 'acf-css-woo-license' ); ?> <strong>0</strong></li>
+                                <li><span class="dashicons dashicons-chart-area"></span> <?php _e( '이번 달 매출: ', 'acf-css-woo-license' ); ?> <strong>0원</strong></li>
+                            </ul>
+                        </div>
+                        <?php if ( $is_master ) : ?>
+                        <div class="welcome-panel-column">
+                            <h3><?php _e( '시스템 관리', 'acf-css-woo-license' ); ?></h3>
+                            <a class="button button-primary button-hero" href="<?php echo admin_url( 'admin.php?page=acf-css-woo-license-settings' ); ?>"><?php _e( 'Neural Link 연결 설정', 'acf-css-woo-license' ); ?></a>
+                        </div>
+                        <?php endif; ?>
+                        <div class="welcome-panel-column welcome-panel-last">
+                            <h3><?php _e( '도움말', 'acf-css-woo-license' ); ?></h3>
+                            <a href="https://3j-labs.com/docs/bridge/" target="_blank"><?php _e( '브릿지 플러그인 문서', 'acf-css-woo-license' ); ?></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+
+    /**
+     * 판매 및 정산 페이지 렌더링
+     */
+    public function render_sales_page() {
+        if ( ! class_exists( 'JJ_Woo_License_Dashboard' ) ) {
+            wp_die( 'Dashboard class not found.' );
+        }
+        $dashboard = JJ_Woo_License_Dashboard::instance();
+        $sales = $dashboard->get_sales_data();
+        ?>
+        <div class="wrap">
+            <h1><?php _e( '판매 및 정산 관리', 'acf-css-woo-license' ); ?></h1>
+            <p><?php _e( 'WooCommerce를 통해 판매된 라이센스 내역과 정산 정보를 확인합니다.', 'acf-css-woo-license' ); ?></p>
+            
+            <table class="wp-list-table widefat fixed striped">
+                <thead>
+                    <tr>
+                        <th><?php _e( '주문 ID', 'acf-css-woo-license' ); ?></th>
+                        <th><?php _e( '고객 이메일', 'acf-css-woo-license' ); ?></th>
+                        <th><?php _e( '상품명', 'acf-css-woo-license' ); ?></th>
+                        <th><?php _e( '금액', 'acf-css-woo-license' ); ?></th>
+                        <th><?php _e( '발행일', 'acf-css-woo-license' ); ?></th>
+                        <th><?php _e( '상태', 'acf-css-woo-license' ); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ( empty( $sales ) ) : ?>
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 20px;"><?php _e( '판매 내역이 없습니다.', 'acf-css-woo-license' ); ?></td>
+                    </tr>
+                    <?php else : ?>
+                        <?php foreach ( $sales as $sale ) : ?>
+                        <tr>
+                            <td>#<?php echo esc_html( $sale['order_id'] ); ?></td>
+                            <td><?php echo esc_html( $sale['customer'] ); ?></td>
+                            <td><?php echo esc_html( $sale['product_name'] ); ?></td>
+                            <td><?php echo wc_price( $sale['amount'] ); ?></td>
+                            <td><?php echo esc_html( $sale['date'] ); ?></td>
+                            <td><span class="status-badge <?php echo esc_attr( $sale['status'] ); ?>"><?php echo esc_html( $sale['status'] ); ?></span></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
     }
 
     /**
      * 설정 페이지 렌더링
      */
     public function render_settings_page() {
+        // [v20.2.2] 마스터만 접근 가능하도록 체크
+        if ( ! defined( 'ACF_CSS_WOO_LICENSE_EDITION' ) || ACF_CSS_WOO_LICENSE_EDITION !== 'master' ) {
+            wp_die( __( '접근 권한이 없습니다.', 'acf-css-woo-license' ) );
+        }
         ?>
         <div class="wrap">
-            <h1><?php _e( 'ACF CSS 라이센스 설정', 'acf-css-woo-license' ); ?></h1>
+            <h1><?php _e( 'Neural Link 연결 설정 (Master)', 'acf-css-woo-license' ); ?></h1>
             
             <form method="post" action="options.php">
                 <?php
