@@ -63,6 +63,16 @@ class ACF_CSS_WC_Admin_Settings {
             'acf-css-wc-toolkit',
             array( $this, 'render_settings_page' )
         );
+        
+        // Page Styler submenu
+        add_submenu_page(
+            'woocommerce',
+            __( 'Page Styler', 'acf-css-woocommerce-toolkit' ),
+            __( '🎨 Page Styler', 'acf-css-woocommerce-toolkit' ),
+            'manage_woocommerce',
+            'acf-css-wc-page-styler',
+            array( $this, 'render_styler_page' )
+        );
     }
 
     /**
@@ -260,6 +270,193 @@ class ACF_CSS_WC_Admin_Settings {
     public static function get_option( $key, $default = null ) {
         $options = get_option( self::OPTION_NAME, array() );
         return isset( $options[ $key ] ) ? $options[ $key ] : $default;
+    }
+
+    /**
+     * Page Styler 페이지 렌더링
+     */
+    public function render_styler_page() {
+        if ( ! current_user_can( 'manage_woocommerce' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-css-woocommerce-toolkit' ) );
+        }
+
+        if ( ! class_exists( 'JJ_WC_Product_Page_Styler' ) ) {
+            echo '<div class="notice notice-error"><p>' . esc_html__( 'Product Page Styler가 로드되지 않았습니다.', 'acf-css-woocommerce-toolkit' ) . '</p></div>';
+            return;
+        }
+
+        $styler = JJ_WC_Product_Page_Styler::instance();
+        $templates = $styler->get_templates();
+        $applied = $styler->get_applied_styles();
+        ?>
+        <div class="wrap acf-css-wc-styler">
+            <h1><?php esc_html_e( 'WooCommerce Page Styler', 'acf-css-woocommerce-toolkit' ); ?></h1>
+            <p class="description">
+                <?php esc_html_e( '원클릭으로 우커머스 페이지에 전문가가 디자인한 스타일을 적용하세요.', 'acf-css-woocommerce-toolkit' ); ?>
+            </p>
+
+            <style>
+                .jj-template-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 24px;
+                    margin-top: 24px;
+                }
+                .jj-template-card {
+                    background: #fff;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 12px;
+                    padding: 20px;
+                    transition: all 0.3s ease;
+                }
+                .jj-template-card:hover {
+                    border-color: #3b82f6;
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+                }
+                .jj-template-card.applied {
+                    border-color: #10b981;
+                    background: #f0fdf4;
+                }
+                .jj-template-card h3 {
+                    margin: 0 0 8px 0;
+                    font-size: 18px;
+                    color: #111827;
+                }
+                .jj-template-card .description {
+                    color: #6b7280;
+                    font-size: 14px;
+                    margin-bottom: 16px;
+                }
+                .jj-template-card .target-badge {
+                    display: inline-block;
+                    padding: 4px 12px;
+                    background: #e5e7eb;
+                    border-radius: 6px;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: #374151;
+                    margin-bottom: 12px;
+                }
+                .jj-template-card .button {
+                    width: 100%;
+                    margin-top: 8px;
+                }
+                .jj-template-card .button-primary {
+                    background: #3b82f6;
+                    border-color: #3b82f6;
+                }
+                .jj-template-card .button-secondary {
+                    background: #ef4444;
+                    border-color: #ef4444;
+                    color: #fff;
+                }
+                .jj-template-card.applied .applied-badge {
+                    display: inline-block;
+                    padding: 6px 12px;
+                    background: #10b981;
+                    color: #fff;
+                    border-radius: 6px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    margin-bottom: 12px;
+                }
+            </style>
+
+            <div class="jj-template-grid">
+                <?php foreach ( $templates as $id => $template ) : 
+                    $is_applied = isset( $applied[ $template['target'] ] ) && $applied[ $template['target'] ]['template_id'] === $id;
+                ?>
+                    <div class="jj-template-card <?php echo $is_applied ? 'applied' : ''; ?>" data-template-id="<?php echo esc_attr( $id ); ?>" data-target="<?php echo esc_attr( $template['target'] ); ?>">
+                        <?php if ( $is_applied ) : ?>
+                            <span class="applied-badge">✓ <?php esc_html_e( '적용됨', 'acf-css-woocommerce-toolkit' ); ?></span>
+                        <?php endif; ?>
+                        
+                        <h3><?php echo esc_html( $template['name'] ); ?></h3>
+                        
+                        <span class="target-badge"><?php echo esc_html( str_replace( '_', ' ', $template['target'] ) ); ?></span>
+                        
+                        <p class="description"><?php echo esc_html( $template['description'] ); ?></p>
+                        
+                        <?php if ( ! $is_applied ) : ?>
+                            <button class="button button-primary jj-apply-template" data-template-id="<?php echo esc_attr( $id ); ?>">
+                                <?php esc_html_e( '적용하기', 'acf-css-woocommerce-toolkit' ); ?>
+                            </button>
+                        <?php else : ?>
+                            <button class="button button-secondary jj-remove-template" data-target="<?php echo esc_attr( $template['target'] ); ?>">
+                                <?php esc_html_e( '제거하기', 'acf-css-woocommerce-toolkit' ); ?>
+                            </button>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <script>
+            jQuery(document).ready(function($) {
+                $('.jj-apply-template').on('click', function() {
+                    var $btn = $(this);
+                    var templateId = $btn.data('template-id');
+                    
+                    $btn.prop('disabled', true).text('<?php esc_html_e( '적용 중...', 'acf-css-woocommerce-toolkit' ); ?>');
+                    
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'jj_wc_apply_template',
+                            security: '<?php echo wp_create_nonce( 'jj_wc_styler_nonce' ); ?>',
+                            template_id: templateId
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                alert(response.data.message);
+                                $btn.prop('disabled', false).text('<?php esc_html_e( '적용하기', 'acf-css-woocommerce-toolkit' ); ?>');
+                            }
+                        },
+                        error: function() {
+                            alert('<?php esc_html_e( '오류가 발생했습니다.', 'acf-css-woocommerce-toolkit' ); ?>');
+                            $btn.prop('disabled', false).text('<?php esc_html_e( '적용하기', 'acf-css-woocommerce-toolkit' ); ?>');
+                        }
+                    });
+                });
+
+                $('.jj-remove-template').on('click', function() {
+                    if (!confirm('<?php esc_html_e( '정말 제거하시겠습니까?', 'acf-css-woocommerce-toolkit' ); ?>')) {
+                        return;
+                    }
+                    
+                    var $btn = $(this);
+                    var target = $btn.data('target');
+                    
+                    $btn.prop('disabled', true).text('<?php esc_html_e( '제거 중...', 'acf-css-woocommerce-toolkit' ); ?>');
+                    
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'jj_wc_remove_template',
+                            security: '<?php echo wp_create_nonce( 'jj_wc_styler_nonce' ); ?>',
+                            target: target
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                alert(response.data.message);
+                                $btn.prop('disabled', false).text('<?php esc_html_e( '제거하기', 'acf-css-woocommerce-toolkit' ); ?>');
+                            }
+                        },
+                        error: function() {
+                            alert('<?php esc_html_e( '오류가 발생했습니다.', 'acf-css-woocommerce-toolkit' ); ?>');
+                            $btn.prop('disabled', false).text('<?php esc_html_e( '제거하기', 'acf-css-woocommerce-toolkit' ); ?>');
+                        }
+                    });
+                });
+            });
+            </script>
+        </div>
+        <?php
     }
 }
 

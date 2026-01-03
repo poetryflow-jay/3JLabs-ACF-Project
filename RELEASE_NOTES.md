@@ -14,6 +14,7 @@
 |----------|-----------|---------|-----------|
 | ACF CSS Manager (Master) | 22.1.1 | **22.1.2** | Marketing/UI |
 | ACF MBA Nudge Flow | 22.1.0 | **22.2.0** | AI/Intelligence |
+| ACF CSS WooCommerce Toolkit | 2.1.1 | **2.2.0** | Templates/UX |
 | WP Bulk Manager | 22.1.0 | **22.1.1** | Activation Fix |
 | ACF CSS Neural Link | 6.0.1 | **6.0.1** | - |
 
@@ -37,6 +38,21 @@
     - CTA 클릭 시 자동 전환 추적
     - `acf_nudge_conversion` AJAX 엔드포인트
     - 실시간 MAB 학습 데이터 수집
+
+### ACF CSS WooCommerce Toolkit v2.2.0 (Jenny x Jason Edition)
+- ✅ **One-Click Page Style Templates**:
+    - 4가지 전문가 디자인 템플릿: Modern Grid, Luxury Single, Minimal Cart, Clean Checkout
+    - 제품 목록, 단일 상품, 장바구니, 결제 페이지별 최적화 스타일
+    - 호버 애니메이션, 그라데이션, 그림자 효과 포함
+- ✅ **Product Page Styler** (`class-product-page-styler.php`):
+    - 템플릿 적용/제거 시스템
+    - 페이지 타겟별 조건부 스타일 출력
+    - 실시간 적용 상태 추적
+- ✅ **관리자 UI** (🎨 Page Styler):
+    - 카드 기반 템플릿 브라우저
+    - 원클릭 적용/제거 버튼
+    - 적용 상태 시각적 표시
+    - AJAX 기반 즉시 적용
 
 ---
 

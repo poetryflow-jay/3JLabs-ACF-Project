@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS WooCommerce Toolkit - Advanced Commerce Styling
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS 플러그인의 WooCommerce 특화 확장입니다. 가격 표시 강화, 할인 계산기, 할부 표시, 장바구니 UI 개선 등 우커머스 스타일링과 기능을 제공합니다. ACF CSS Pro 버전 이상의 사용자를 위한 프리미엄 기능입니다.
- * Version:           2.1.1
+ * Version:           2.2.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSS_WC_VERSION', '1.1.0' );
+define( 'ACF_CSS_WC_VERSION', '2.2.0' );
 define( 'ACF_CSS_WC_PLUGIN_FILE', __FILE__ );
 define( 'ACF_CSS_WC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSS_WC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -102,6 +102,9 @@ class ACF_CSS_WooCommerce_Toolkit {
         // 상품 Q&A 시스템
         require_once ACF_CSS_WC_PLUGIN_DIR . 'includes/class-product-qa.php';
         
+        // Product Page Styler (One-click templates)
+        require_once ACF_CSS_WC_PLUGIN_DIR . 'includes/class-product-page-styler.php';
+        
         // 관리자 설정
         if ( is_admin() ) {
             require_once ACF_CSS_WC_PLUGIN_DIR . 'admin/class-admin-settings.php';
@@ -116,6 +119,11 @@ class ACF_CSS_WooCommerce_Toolkit {
         add_action( 'init', array( $this, 'init_modules' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+        add_action( 'wp_head', array( $this, 'output_page_styles' ), 999 );
+        
+        // AJAX handlers for product page styler
+        add_action( 'wp_ajax_jj_wc_apply_template', array( $this, 'ajax_apply_template' ) );
+        add_action( 'wp_ajax_jj_wc_remove_template', array( $this, 'ajax_remove_template' ) );
         
         // HPOS 호환성 선언
         add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
@@ -218,6 +226,75 @@ class ACF_CSS_WooCommerce_Toolkit {
                 true 
             );
         }
+    }
+
+    /**
+     * Output product page styles to frontend
+     */
+    public function output_page_styles() {
+        if ( class_exists( 'JJ_WC_Product_Page_Styler' ) ) {
+            JJ_WC_Product_Page_Styler::instance()->output_styles();
+        }
+    }
+
+    /**
+     * AJAX: Apply style template
+     */
+    public function ajax_apply_template() {
+        check_ajax_referer( 'jj_wc_styler_nonce', 'security' );
+        
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-woocommerce-toolkit' ) ) );
+        }
+        
+        $template_id = isset( $_POST['template_id'] ) ? sanitize_text_field( $_POST['template_id'] ) : '';
+        
+        if ( empty( $template_id ) ) {
+            wp_send_json_error( array( 'message' => __( '템플릿 ID가 필요합니다.', 'acf-css-woocommerce-toolkit' ) ) );
+        }
+        
+        if ( class_exists( 'JJ_WC_Product_Page_Styler' ) ) {
+            $styler = JJ_WC_Product_Page_Styler::instance();
+            $result = $styler->apply_template( $template_id );
+            
+            if ( $result ) {
+                wp_send_json_success( array( 'message' => __( '템플릿이 적용되었습니다.', 'acf-css-woocommerce-toolkit' ) ) );
+            } else {
+                wp_send_json_error( array( 'message' => __( '템플릿 적용에 실패했습니다.', 'acf-css-woocommerce-toolkit' ) ) );
+            }
+        }
+        
+        wp_send_json_error( array( 'message' => __( 'Product Page Styler가 로드되지 않았습니다.', 'acf-css-woocommerce-toolkit' ) ) );
+    }
+
+    /**
+     * AJAX: Remove style template
+     */
+    public function ajax_remove_template() {
+        check_ajax_referer( 'jj_wc_styler_nonce', 'security' );
+        
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-woocommerce-toolkit' ) ) );
+        }
+        
+        $target = isset( $_POST['target'] ) ? sanitize_text_field( $_POST['target'] ) : '';
+        
+        if ( empty( $target ) ) {
+            wp_send_json_error( array( 'message' => __( '타겟이 필요합니다.', 'acf-css-woocommerce-toolkit' ) ) );
+        }
+        
+        if ( class_exists( 'JJ_WC_Product_Page_Styler' ) ) {
+            $styler = JJ_WC_Product_Page_Styler::instance();
+            $result = $styler->remove_template( $target );
+            
+            if ( $result ) {
+                wp_send_json_success( array( 'message' => __( '템플릿이 제거되었습니다.', 'acf-css-woocommerce-toolkit' ) ) );
+            } else {
+                wp_send_json_error( array( 'message' => __( '적용된 템플릿이 없습니다.', 'acf-css-woocommerce-toolkit' ) ) );
+            }
+        }
+        
+        wp_send_json_error( array( 'message' => __( 'Product Page Styler가 로드되지 않았습니다.', 'acf-css-woocommerce-toolkit' ) ) );
     }
 
     /**
