@@ -523,9 +523,15 @@ jQuery(document).ready(function($) {
         }
     }
     
-    // 완료 알림 표시
+    // 완료 알림 표시 [v22.3.1] 개선된 성공 메시지 - 플러그인 목록 링크 포함
     function showCompletionNotice() {
-        showNotice('success', '모든 설치가 완료되었습니다! 🎉');
+        var pluginsUrl = (jjBulk.admin_urls && jjBulk.admin_urls.plugins) ? jjBulk.admin_urls.plugins : 'plugins.php';
+        var message = '모든 설치가 완료되었습니다! 🎉 ';
+        var extraHtml = '<p style="margin-top: 10px;">' +
+            '<a href="' + pluginsUrl + '" class="button button-primary" style="margin-right: 10px;">📦 플러그인 목록에서 확인</a>' +
+            '<span class="description">설치된 플러그인을 관리하려면 플러그인 목록 페이지를 방문하세요.</span>' +
+            '</p>';
+        showNotice('success', message, extraHtml);
     }
 
     function initInstaller() {
@@ -550,6 +556,44 @@ jQuery(document).ready(function($) {
         // 체크박스 변경 시 선택 정보 업데이트
         $(document).on('change', '.jj-file-checkbox', function() {
             updateSelectionInfo();
+        });
+        
+        // [v22.3.1] 개별 플러그인 활성화 버튼 클릭 핸들러
+        $(document).on('click', '.jj-activate-single', function(e) {
+            e.preventDefault();
+            var $btn = $(this);
+            var slug = $btn.data('slug');
+            var $item = $btn.closest('.jj-file-item');
+            var pluginsUrl = (jjBulk.admin_urls && jjBulk.admin_urls.plugins) ? jjBulk.admin_urls.plugins : 'plugins.php';
+            
+            $btn.prop('disabled', true).text('활성화 중...');
+            
+            $.ajax({
+                url: jjBulk.ajax_url,
+                type: 'POST',
+                data: {
+                    action: 'jj_bulk_activate_plugin',
+                    nonce: jjBulk.nonce,
+                    slug: slug
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $item.find('.status').html(
+                            '✅ 활성화 완료! ' +
+                            '<a href="' + pluginsUrl + '" class="button button-small" style="margin-left: 8px; font-size: 11px;">플러그인 목록 보기</a>'
+                        );
+                        $item.addClass('jj-file-item-activated');
+                        showNotice('success', '플러그인이 활성화되었습니다! <a href="' + pluginsUrl + '">플러그인 목록에서 확인</a>');
+                    } else {
+                        $btn.prop('disabled', false).text('🚀 활성화');
+                        showNotice('error', '활성화 실패: ' + (response.data || '알 수 없는 오류'));
+                    }
+                },
+                error: function() {
+                    $btn.prop('disabled', false).text('🚀 활성화');
+                    showNotice('error', '서버 통신 오류가 발생했습니다.');
+                }
+            });
         });
         
         // 선택한 플러그인 활성화 버튼
@@ -803,12 +847,29 @@ jQuery(document).ready(function($) {
                 },
                 success: function(response) {
                     if (response.success) {
-                        item.find('.status').text('로컬 설치 완료');
+                        // [v22.3.1] 개선된 설치 완료 UI - 개별 활성화 버튼 추가
                         if (data.type === 'plugin' && response.data.slug) {
                             item.data('slug', response.data.slug);
                             item.find('.jj-file-checkbox').prop('disabled', false);
                             installedPlugins.push(response.data.slug);
+                            
+                            // 자동 활성화가 성공한 경우
+                            if (response.data.activated) {
+                                item.find('.status').html('✅ 설치 및 활성화 완료');
+                                item.addClass('jj-file-item-activated');
+                            } else {
+                                // 자동 활성화가 아닌 경우, 개별 활성화 버튼 추가
+                                item.find('.status').html(
+                                    '설치 완료 ' +
+                                    '<button type="button" class="button button-small button-primary jj-activate-single" ' +
+                                    'data-slug="' + escapeHtml(response.data.slug) + '" ' +
+                                    'style="margin-left: 8px; font-size: 11px;">🚀 활성화</button>'
+                                );
+                            }
+                        } else {
+                            item.find('.status').text('설치 완료');
                         }
+                        item.removeClass('jj-file-item-pending').addClass('jj-file-item-completed');
                     } else {
                         item.addClass('error').find('.status').text('로컬 설치 실패: ' + response.data);
                     }
@@ -913,7 +974,14 @@ jQuery(document).ready(function($) {
 
         function processActivation(list, index, btn) {
             if (index >= list.length) {
-                showNotice('success', '활성화 작업 완료! (' + list.length + '개)');
+                // [v22.3.1] 개선된 활성화 완료 메시지 - 플러그인 목록 링크 포함
+                var pluginsUrl = (jjBulk.admin_urls && jjBulk.admin_urls.plugins) ? jjBulk.admin_urls.plugins : 'plugins.php';
+                var message = '활성화 작업 완료! (' + list.length + '개) ';
+                var extraHtml = '<p style="margin-top: 10px;">' +
+                    '<a href="' + pluginsUrl + '" class="button button-primary">📦 플러그인 목록에서 확인</a>' +
+                    '</p>';
+                showNotice('success', message, extraHtml);
+                
                 if (btn) {
                     btn.prop('disabled', false);
                     updateSelectionInfo();

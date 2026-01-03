@@ -315,7 +315,8 @@ final class JJ_Admin_Center {
             /* 3J Labs 패밀리 플러그인 메뉴 강조 스타일 */
             /* ═══════════════════════════════════════════════════════════════ */
             
-            /* ACF 스타일 센터 - 앰버/오렌지 */
+            /* ACF 스타일 센터 - 앰버/오렌지 [v22.2.1] 메뉴 슬러그 업데이트 */
+            #adminmenu li.toplevel_page_jj-style-guide-cockpit > a,
             #adminmenu li.toplevel_page_jj-admin-center > a {
                 background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
                 color: #fff !important;
@@ -325,12 +326,16 @@ final class JJ_Admin_Center {
                 margin: 2px 8px;
                 transition: all 0.2s ease;
             }
+            #adminmenu li.toplevel_page_jj-style-guide-cockpit > a:hover,
             #adminmenu li.toplevel_page_jj-admin-center > a:hover {
                 background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
             }
+            #adminmenu li.toplevel_page_jj-style-guide-cockpit > a .wp-menu-image:before,
             #adminmenu li.toplevel_page_jj-admin-center > a .wp-menu-image:before {
                 color: #fff !important;
             }
+            #adminmenu li.toplevel_page_jj-style-guide-cockpit.current > a,
+            #adminmenu li.toplevel_page_jj-style-guide-cockpit.wp-has-current-submenu > a,
             #adminmenu li.toplevel_page_jj-admin-center.current > a,
             #adminmenu li.toplevel_page_jj-admin-center.wp-has-current-submenu > a {
                 background: linear-gradient(135deg, #b45309 0%, #92400e 100%) !important;
@@ -451,37 +456,45 @@ final class JJ_Admin_Center {
     }
 
     /**
-     * [v20.2.0] 스타일 센터 메뉴 순서 강제 지정
-     * 알림판 > 벌크 매니저 > 스타일 센터 순서
+     * [v22.2.1] 스타일 센터 메뉴 순서 강제 지정
+     * 알림판 > 스타일 센터 > 벌크 매니저 순서 (CEO 요청)
      */
     public function force_style_center_menu_order( $menu_order ) {
         if ( ! is_array( $menu_order ) ) {
             return $menu_order;
         }
         
-        $our_slug = 'jj-admin-center';
+        $style_center_slug = 'jj-style-guide-cockpit';
         $bulk_manager_slug = 'jj-bulk-installer-main';
         
-        // 우리 메뉴 위치 찾기
-        $our_position = array_search( $our_slug, $menu_order );
-        
-        if ( $our_position !== false ) {
-            // 우리 메뉴를 제거
-            unset( $menu_order[ $our_position ] );
+        // 스타일 센터 위치 찾기 및 제거
+        $style_position = array_search( $style_center_slug, $menu_order );
+        if ( $style_position !== false ) {
+            unset( $menu_order[ $style_position ] );
             $menu_order = array_values( $menu_order );
         }
         
-        // 벌크 매니저 바로 뒤에 삽입
+        // 벌크 매니저 위치 찾기 및 제거
         $bulk_position = array_search( $bulk_manager_slug, $menu_order );
         if ( $bulk_position !== false ) {
-            array_splice( $menu_order, $bulk_position + 1, 0, $our_slug );
+            unset( $menu_order[ $bulk_position ] );
+            $menu_order = array_values( $menu_order );
+        }
+        
+        // Dashboard(알림판) 바로 뒤에 스타일 센터, 그 뒤에 벌크 매니저 삽입
+        $dashboard_position = array_search( 'index.php', $menu_order );
+        if ( $dashboard_position !== false ) {
+            // Dashboard 뒤에 스타일 센터 삽입
+            array_splice( $menu_order, $dashboard_position + 1, 0, $style_center_slug );
+            // 스타일 센터 뒤에 벌크 매니저 삽입 (벌크 매니저가 있었던 경우에만)
+            if ( $bulk_position !== false ) {
+                array_splice( $menu_order, $dashboard_position + 2, 0, $bulk_manager_slug );
+            }
         } else {
-            // 벌크 매니저가 없으면 Dashboard 바로 뒤에
-            $dashboard_position = array_search( 'index.php', $menu_order );
-            if ( $dashboard_position !== false ) {
-                array_splice( $menu_order, $dashboard_position + 1, 0, $our_slug );
-            } else {
-                array_unshift( $menu_order, $our_slug );
+            // Dashboard가 없으면 맨 앞에
+            array_unshift( $menu_order, $style_center_slug );
+            if ( $bulk_position !== false ) {
+                array_splice( $menu_order, 1, 0, $bulk_manager_slug );
             }
         }
         
