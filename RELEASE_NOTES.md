@@ -15,8 +15,8 @@
 | ACF CSS Manager (Master) | 22.1.1 | **22.1.2** | Marketing/UI |
 | ACF MBA Nudge Flow | 22.1.0 | **22.2.0** | AI/Intelligence |
 | ACF CSS WooCommerce Toolkit | 2.1.1 | **2.2.0** | Templates/UX |
+| ACF CSS Neural Link | 6.0.1 | **6.1.0** | AI Pattern Learning |
 | WP Bulk Manager | 22.1.0 | **22.1.1** | Activation Fix |
-| ACF CSS Neural Link | 6.0.1 | **6.0.1** | - |
 
 ---
 
@@ -53,6 +53,22 @@
     - 원클릭 적용/제거 버튼
     - 적용 상태 시각적 표시
     - AJAX 기반 즉시 적용
+
+### ACF CSS Neural Link v6.1.0 (Jenny x Jason x Mikael Edition)
+- ✅ **AI Pattern Learning System**:
+    - 사용자의 CSS 수정 패턴 자동 학습 및 추적
+    - 빈도 분석 + 동시 발생 감지 + 순서 패턴 학습
+    - 머신러닝 라이트 알고리즘으로 패턴 추출
+- ✅ **Pattern Learner** (`class-jj-pattern-learner.php`):
+    - 5가지 변경 유형 자동 분류 (색상, 폰트, 여백, 테두리, 버튼)
+    - 스타일 수정 히스토리 (최근 100개)
+    - 공동 발생 및 순차 패턴 감지
+    - 신뢰도 기반 제안 시스템 (High/Medium/Low)
+- ✅ **AI Learning Dashboard** (🧠 AI Learning):
+    - 학습 통계 실시간 시각화
+    - Chart.js 기반 변경 유형 차트
+    - AI 추천 사항 표시
+    - 학습 데이터 초기화 기능
 
 ---
 

@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS Neural Link - License & Update Manager (Advanced Custom Fonts & Colors & Styles)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS (Advanced Custom Fonts & Colors & Styles) 플러그인의 라이센스 인증, 자동 업데이트, 원격 제어를 담당하는 중앙 관리 시스템입니다. WooCommerce와 연동하여 라이센스를 자동으로 발행하고 관리합니다.
- * Version:           6.0.1
+ * Version:           6.1.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v2.1.2] 플러그인 버전별 자동 업데이트 제어 기능 추가, dev 버전과의 호환성 개선
 // [v2.1.3] 플러그인 폴더명 및 슬러그 업데이트
 // [v2.1.4] Pro 버전 원격 활성화 시스템 지원
-define( 'JJ_NEURAL_LINK_VERSION', '6.0.0' ); // [v6.0.0] 순차 배포 및 업데이트 채널 관리 시스템 안정화
+define( 'JJ_NEURAL_LINK_VERSION', '6.1.0' ); // [v6.1.0] AI Pattern Learning - Auto-detects CSS modification patterns and suggests improvements
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
 if ( ! defined( 'JJ_NEURAL_LINK_PATH' ) ) {
@@ -90,6 +90,20 @@ if ( defined( 'JJ_NEURAL_LINK_PATH' ) && function_exists( 'class_exists' ) ) {
         require_once $autoloader_file;
         if ( class_exists( 'JJ_License_Autoloader' ) ) {
             JJ_License_Autoloader::init();
+        }
+    }
+    
+    // Load Pattern Learner
+    $pattern_learner_file = JJ_NEURAL_LINK_PATH . 'includes/class-jj-pattern-learner.php';
+    if ( file_exists( $pattern_learner_file ) ) {
+        require_once $pattern_learner_file;
+    }
+    
+    // Load Pattern Learner Admin
+    if ( is_admin() ) {
+        $pattern_learner_admin_file = JJ_NEURAL_LINK_PATH . 'includes/admin/class-jj-pattern-learner-admin.php';
+        if ( file_exists( $pattern_learner_admin_file ) ) {
+            require_once $pattern_learner_admin_file;
         }
     }
 }
@@ -131,6 +145,16 @@ function jj_license_manager_init() {
     // 메인 클래스 인스턴스 생성
     if ( class_exists( 'JJ_License_Manager_Main' ) ) {
         JJ_License_Manager_Main::instance();
+    }
+    
+    // Initialize Pattern Learner
+    if ( class_exists( 'JJ_Pattern_Learner' ) ) {
+        JJ_Pattern_Learner::instance();
+    }
+    
+    // Initialize Pattern Learner Admin
+    if ( is_admin() && class_exists( 'JJ_Pattern_Learner_Admin' ) ) {
+        JJ_Pattern_Learner_Admin::instance();
     }
 }
 add_action( 'plugins_loaded', 'jj_license_manager_init', 20 );
