@@ -2,8 +2,8 @@
 
 ## 릴리즈 개요
 
-**릴리즈 날짜**: 2026년 1월 2일  
-**릴리즈 버전**: Phase 18 완료  
+**릴리즈 날짜**: 2026년 1월 3일  
+**릴리즈 버전**: Phase 24 진행 중 (v20.2.2)  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소)
 
 ---
@@ -12,11 +12,32 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 13.3.0 | **13.4.0** | Minor |
-| ACF CSS AI Extension | 2.0.6 | **2.1.0** | Minor |
-| ACF CSS Neural Link | 4.0.0 | **4.1.0** | Minor |
-| ACF Code Snippets Box | 1.0.0 | **1.1.0** | Minor |
-| ACF CSS WooCommerce Toolkit | 1.0.0 | **1.1.0** | Minor |
+| ACF CSS Manager (Master) | 13.4.0 | **20.2.2** | Major |
+| ACF CSS Woo License Bridge | 2.0.0 | **20.2.2** | Major |
+| WP Bulk Manager | 2.3.4 | **2.5.1** | Minor |
+| ACF CSS Neural Link | 4.1.0 | **4.3.0** | Minor |
+
+---
+
+## 🚀 주요 변경사항 (Phase 24)
+
+### ACF CSS Manager v20.2.2
+- ✅ **WordPress 6.7.0+ 번역 로딩 최적화**: `_load_textdomain_just_in_time` 경고 해결을 위해 클래스 초기화 시점을 `init` 훅으로 연기.
+- ✅ **메뉴 시스템 강화**: '알림판' 바로 아래 '벌크 매니저', 'ACF 스타일 센터' 순서 강제 및 강조 배경색 적용.
+
+### ACF CSS Woo License Bridge v20.2.2
+- ✅ **Master/Partner 에디션 시스템 도입**: 빌드 시 에디션에 따라 기능 및 대시보드 접근 제어.
+- ✅ **판매 및 정산 대시보드**: 파트너 전용 판매 내역 확인 및 정산 현황 뷰 추가.
+- ✅ **Neural Link 서버 연동**: WooCommerce 결제와 Neural Link 라이센스 발행 API 연동 강화.
+
+### WP Bulk Manager v2.5.1
+- ✅ **메뉴 가시성 문제 해결**: `custom_menu_order` 필터를 사용하여 최상위 메뉴 위치 고정.
+- ✅ **선택 활성화 기능**: 플러그인 목록에서 여러 플러그인을 한 번에 활성화하는 기능 추가.
+- ✅ **업로드 오류 핸들링 개선**: 서버측 PHP 업로드 오류 및 클라이언트측 AJAX 오류 메시지 상세화.
+
+### ACF CSS Neural Link v4.3.0
+- ✅ **업데이트 채널 관리**: Stable, Beta, Dev 채널별 배포 로직 통합.
+- ✅ **순차 배포(Rolling Updates)**: 사이트별 그룹 할당(A/B/C) 및 점진적 업데이트 배포 기능.
 
 ---
 

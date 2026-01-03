@@ -43,6 +43,14 @@
 - `JJ_Error_Tracker`: 에러 추적
 - `JJ_Code_Optimizer`: 코드 최적화
 
+### Phase 24 추가 클래스 (WooCommerce 통합)
+
+- `ACF_CSS_Woo_License`: WooCommerce-Neural Link 브릿지
+- `JJ_Woo_License_Dashboard`: 판매 및 라이센스 관리 대시보드 (Master/Partner)
+- `ACF_CSS_PortOne_Webhook`: 포트원 결제 연동 핸들러
+- `JJ_Woo_MyAccount_Licenses`: 내 계정 라이센스 관리 UI
+- `JJ_Coupon_Generator`: 프로모션 쿠폰 자동 생성기
+
 ---
 
 ## REST API

@@ -148,6 +148,17 @@ PLUGINS = {
         'editions': ['free', 'pro', 'master', 'partner'],
         'is_core': False,
         'description': '관리자 메뉴 커스터마이저'
+    },
+    'acf-css-woo-license': {
+        'id': 'acf-css-woo-license',
+        'name': 'ACF CSS Woo License Bridge',
+        'full_name': 'ACF CSS License Bridge for WooCommerce',
+        'folder': 'acf-css-woo-license',
+        'main_file': 'acf-css-woo-license.php',
+        'text_domain': 'acf-css-woo-license',
+        'editions': ['partner', 'master'],
+        'is_core': False,
+        'description': 'WooCommerce 결제 연동 및 라이센스 발행 브릿지'
     }
 }
 

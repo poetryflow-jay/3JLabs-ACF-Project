@@ -75,3 +75,34 @@ npm run analyze
 - [ ] CSS 번들링 추가
 - [ ] 이미지 최적화 파이프라인
 - [ ] TypeScript 지원
+
+---
+
+## Python 빌드 매니저 (3J Build Manager)
+
+**버전**: 3.2.0
+
+ACF CSS 패밀리 플러그인의 다중 에디션 빌드와 ZIP 패키징을 자동화합니다.
+
+### 주요 기능
+- **다중 에디션 빌드**: Master, Partner, Unlimited, Premium, Basic, Free 에디션 지원.
+- **자동 버전 관리**: PHP 헤더에서 버전을 감지하고 에디션 접미사를 자동 부여.
+- **ZIP 패키징**: WordPress 업로드 가능 형식으로 자동 압축.
+- **GUI & CLI 지원**: 현대적인 macOS 스타일 GUI와 커맨드라인 인터페이스 제공.
+
+### 사용법
+```bash
+# GUI 실행
+python 3j_build_manager.py
+
+# CLI 전체 빌드 (Master & Partner 에디션)
+python 3j_build_manager.py --cli --all --editions master partner
+```
+
+### 관리 대상 플러그인
+1. `acf-css-manager`: 메인 스타일 관리자
+2. `wp-bulk-manager`: 벌크 매니저
+3. `acf-code-snippets`: 코드 스니펫 박스
+4. `acf-neural-link`: 뉴럴 링크 (라이센스 서버)
+5. `acf-css-woo-license`: 우커머스 라이센스 브릿지 (Master/Partner 전용)
+6. ... 기타 패밀리 플러그인

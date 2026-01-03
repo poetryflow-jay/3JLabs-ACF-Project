@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager (Master)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS (Advanced Custom Fonts & Colors & Styles) - WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다.
- * Version:           20.2.0
+ * Version:           20.2.2
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '20.2.0' ); // [v20.2.0] 메뉴 강조 표시: 알림판 > 벌크 매니저 > 스타일 센터 배치, 배경색/볼드/아이콘 개선
+    define( 'JJ_STYLE_GUIDE_VERSION', '20.2.1' ); // [v20.2.1] 번역 로딩 타이밍 수정 (WordPress 6.7.0+ 호환)
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
@@ -212,46 +212,53 @@ $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-security-enhancer.php
 // [Phase 22] 업데이트 채널 관리자 (베타 테스트 동의, 순차 배포, 채널 선택)
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-update-channel-manager.php', true );
 
-// 메인 클래스 초기화
-if ( class_exists( 'JJ_Simple_Style_Guide' ) ) {
-    try {
-        $jj_style_guide = new JJ_Simple_Style_Guide();
-    } catch ( Exception $e ) {
-        if ( function_exists( 'error_log' ) ) error_log( 'JJ Style Guide Init Failed: ' . $e->getMessage() );
-    } catch ( Error $e ) {
-        if ( function_exists( 'error_log' ) ) error_log( 'JJ Style Guide Init Fatal Error: ' . $e->getMessage() );
-    }
-}
+// [Phase 23] 번역 로딩 - WordPress 6.7.0+ 호환
+// [v20.2.2] _load_textdomain_just_in_time 경고 방지를 위해 init 액션(1)에서 로드
+add_action( 'init', function() {
+    load_plugin_textdomain( 
+        'acf-css-really-simple-style-management-center', 
+        false, 
+        dirname( plugin_basename( __FILE__ ) ) . '/languages' 
+    );
+}, 1 ); 
 
-// [v5.3.9] 코드 무결성 모니터 초기화 (plugins_loaded 시점)
+// [v20.2.2] 모든 클래스 초기화 시점을 init(10)으로 늦춤 (번역 로딩 후 실행되도록)
+add_action( 'init', function() {
+    global $jj_style_guide, $admin_center, $live_page;
 
-// [Phase 4.5/4.99] Admin Center 초기화 (메뉴/상단바/관리자 UI)
-if ( class_exists( 'JJ_Admin_Center' ) ) {
-    try {
-        $admin_center = JJ_Admin_Center::instance();
-        if ( method_exists( $admin_center, 'init' ) ) {
-            $admin_center->init();
+    // 1. 메인 클래스 초기화
+    if ( class_exists( 'JJ_Simple_Style_Guide' ) ) {
+        try {
+            $jj_style_guide = new JJ_Simple_Style_Guide();
+        } catch ( Exception $e ) {
+            if ( function_exists( 'error_log' ) ) error_log( 'JJ Style Guide Init Failed: ' . $e->getMessage() );
         }
-    } catch ( Exception $e ) {
-        if ( function_exists( 'error_log' ) ) error_log( 'JJ Admin Center Init Failed: ' . $e->getMessage() );
-    } catch ( Error $e ) {
-        if ( function_exists( 'error_log' ) ) error_log( 'JJ Admin Center Init Fatal Error: ' . $e->getMessage() );
     }
-}
 
-// [Phase 10.6] Style Guide Live Page 초기화 (프론트엔드 스타일 가이드 허브)
-if ( class_exists( 'JJ_Style_Guide_Live_Page' ) ) {
-    try {
-        $live_page = JJ_Style_Guide_Live_Page::instance();
-        if ( method_exists( $live_page, 'init' ) ) {
-            $live_page->init();
+    // 2. Admin Center 초기화
+    if ( class_exists( 'JJ_Admin_Center' ) ) {
+        try {
+            $admin_center = JJ_Admin_Center::instance();
+            if ( method_exists( $admin_center, 'init' ) ) {
+                $admin_center->init();
+            }
+        } catch ( Exception $e ) {
+            if ( function_exists( 'error_log' ) ) error_log( 'JJ Admin Center Init Failed: ' . $e->getMessage() );
         }
-    } catch ( Exception $e ) {
-        if ( function_exists( 'error_log' ) ) error_log( 'JJ Style Guide Live Page Init Failed: ' . $e->getMessage() );
-    } catch ( Error $e ) {
-        if ( function_exists( 'error_log' ) ) error_log( 'JJ Style Guide Live Page Init Fatal Error: ' . $e->getMessage() );
     }
-}
+
+    // 3. Style Guide Live Page 초기화
+    if ( class_exists( 'JJ_Style_Guide_Live_Page' ) ) {
+        try {
+            $live_page = JJ_Style_Guide_Live_Page::instance();
+            if ( method_exists( $live_page, 'init' ) ) {
+                $live_page->init();
+            }
+        } catch ( Exception $e ) {
+            if ( function_exists( 'error_log' ) ) error_log( 'JJ Style Guide Live Page Init Failed: ' . $e->getMessage() );
+        }
+    }
+}, 10 );
 
 // 템플릿 태그 (외부 사용용)
 /**

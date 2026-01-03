@@ -6,7 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * - 스타일 센터 UI에 사용되는 텍스트/레이블 일부를 옵션으로 제어하기 위한 컨트롤 패널
  * - 상위/마스터 버전에서만 노출되도록 확장 가능하도록 설계
  * 
- * @version 13.4.7
+ * @version 20.2.1
+ * - [v20.2.1] 번역 로딩 타이밍 수정 (WordPress 6.7.0+ 호환)
  * - [v13.4.7] Admin Center 빈 화면 방지: 탭 로딩 예외 처리 추가
  * - 탭 기반 인터페이스 추가 (General, Admin Menu, Section Layout, Texts, Colors)
  * - 2패널 레이아웃 구현 (Admin Menu 탭: 왼쪽 메뉴 목록, 오른쪽 상세 설정)
