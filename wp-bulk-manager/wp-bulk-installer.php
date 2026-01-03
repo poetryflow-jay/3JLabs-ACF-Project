@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           2.5.0
+ * Version:           2.5.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '2.5.0' ); // [v2.5.0] 벌크 에디터 '선택 활성화' 버튼 추가, 자동 업데이트 관리 기능 추가, 메뉴 이름 개선
+define( 'WP_BULK_MANAGER_VERSION', '2.5.1' ); // [v2.5.1] 업로드 에러 핸들링 개선, 상세한 오류 메시지 제공
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -1091,16 +1091,50 @@ class JJ_Bulk_Installer {
     // 1. 파일 업로드 핸들러
     public function ajax_handle_upload() {
         check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        if ( ! current_user_can( 'install_plugins' ) ) wp_send_json_error( '권한이 없습니다.' );
-        if ( empty( $_FILES['file'] ) ) wp_send_json_error( '파일이 없습니다.' );
+        if ( ! current_user_can( 'install_plugins' ) ) {
+            wp_send_json_error( '권한이 없습니다.' );
+        }
+        if ( empty( $_FILES['file'] ) ) {
+            wp_send_json_error( '파일이 전송되지 않았습니다.' );
+        }
 
         $file = $_FILES['file'];
+        
+        // 업로드 에러 체크
+        if ( isset( $file['error'] ) && $file['error'] !== UPLOAD_ERR_OK ) {
+            $error_messages = array(
+                UPLOAD_ERR_INI_SIZE   => '파일 크기가 서버 설정(upload_max_filesize)을 초과했습니다.',
+                UPLOAD_ERR_FORM_SIZE  => '파일 크기가 폼에서 지정한 MAX_FILE_SIZE를 초과했습니다.',
+                UPLOAD_ERR_PARTIAL    => '파일이 부분적으로만 업로드되었습니다.',
+                UPLOAD_ERR_NO_FILE    => '파일이 업로드되지 않았습니다.',
+                UPLOAD_ERR_NO_TMP_DIR => '임시 폴더가 없습니다.',
+                UPLOAD_ERR_CANT_WRITE => '디스크에 파일을 쓸 수 없습니다.',
+                UPLOAD_ERR_EXTENSION  => 'PHP 확장이 파일 업로드를 중단했습니다.',
+            );
+            $error_msg = isset( $error_messages[ $file['error'] ] ) ? $error_messages[ $file['error'] ] : '알 수 없는 업로드 오류 (코드: ' . $file['error'] . ')';
+            wp_send_json_error( $error_msg );
+        }
+        
+        // ZIP 파일 확인
+        $file_ext = strtolower( pathinfo( $file['name'], PATHINFO_EXTENSION ) );
+        if ( 'zip' !== $file_ext ) {
+            wp_send_json_error( 'ZIP 파일만 업로드할 수 있습니다.' );
+        }
+
         $upload_dir = wp_upload_dir();
         $temp_dir = $upload_dir['basedir'] . '/jj-bulk-temp/';
-        if ( ! file_exists( $temp_dir ) ) wp_mkdir_p( $temp_dir );
+        
+        // 임시 디렉토리 생성
+        if ( ! file_exists( $temp_dir ) ) {
+            $created = wp_mkdir_p( $temp_dir );
+            if ( ! $created ) {
+                wp_send_json_error( '임시 폴더를 생성할 수 없습니다. 서버 권한을 확인하세요.' );
+            }
+        }
         
         $target_path = $temp_dir . basename( $file['name'] );
         
+        // 파일 이동
         if ( move_uploaded_file( $file['tmp_name'], $target_path ) ) {
             wp_send_json_success( array( 
                 'path' => $target_path,
@@ -1108,7 +1142,11 @@ class JJ_Bulk_Installer {
                 'type' => $this->detect_type( $target_path )
             ) );
         } else {
-            wp_send_json_error( '파일 업로드 실패' );
+            $error_detail = '';
+            if ( ! is_writable( $temp_dir ) ) {
+                $error_detail = ' (임시 폴더에 쓰기 권한이 없습니다: ' . $temp_dir . ')';
+            }
+            wp_send_json_error( '파일 업로드 실패' . $error_detail );
         }
     }
 

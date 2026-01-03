@@ -388,16 +388,38 @@ jQuery(document).ready(function($) {
                         item.find('.status').text('설치 중...');
                         installPlugin(response.data, item, index, autoActivate);
                     } else {
-                        item.addClass('error').find('.status').text('업로드 실패: ' + response.data);
+                        var errorMsg = response.data || '알 수 없는 오류';
+                        item.addClass('error').find('.status').text('업로드 실패: ' + errorMsg);
+                        console.error('Upload failed:', response);
                         // 업로드 실패 시에도 프로그레스 업데이트
                         updateProgress(index, filesQueue.length, '업로드 실패', true);
                         processQueue(index + 1);
                     }
                 },
-                error: function() {
-                    item.addClass('error').find('.status').text('서버 오류');
+                error: function(jqXHR, textStatus, errorThrown) {
+                    var errorMsg = '서버 오류';
+                    if (jqXHR.status === 413) {
+                        errorMsg = '파일이 너무 큽니다 (413)';
+                    } else if (jqXHR.status === 500) {
+                        errorMsg = '서버 내부 오류 (500)';
+                    } else if (jqXHR.status === 0) {
+                        errorMsg = '네트워크 연결 오류';
+                    } else if (textStatus === 'timeout') {
+                        errorMsg = '업로드 시간 초과';
+                    } else {
+                        errorMsg = '서버 오류 (' + jqXHR.status + ')';
+                    }
+                    
+                    console.error('AJAX Error:', {
+                        status: jqXHR.status,
+                        statusText: textStatus,
+                        error: errorThrown,
+                        response: jqXHR.responseText
+                    });
+                    
+                    item.addClass('error').find('.status').text(errorMsg);
                     // 서버 오류 시에도 프로그레스 업데이트
-                    updateProgress(index, filesQueue.length, '서버 오류', true);
+                    updateProgress(index, filesQueue.length, errorMsg, true);
                     processQueue(index + 1);
                 }
             });
