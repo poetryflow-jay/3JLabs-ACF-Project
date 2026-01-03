@@ -340,6 +340,31 @@ if ( ! class_exists( 'JJ_Safe_Loader' ) ) {
                 'reason' => $can_boot ? 'ok' : ( 'Missing: ' . implode( ', ', $missing ) ),
             );
         }
+
+        /**
+         * Log a missing file manually (e.g. from fallback loader)
+         * [v5.4.2] Added to fix undefined method error
+         */
+        public static function log_missing_file( $path, $required = true ) {
+            $path = (string) $path;
+            $required = (bool) $required;
+            $key = md5( $path . '|' . ( $required ? '1' : '0' ) );
+            
+            if ( ! isset( self::$missing_files[ $key ] ) ) {
+                self::$missing_files[ $key ] = array(
+                    'path'     => $path,
+                    'required' => $required,
+                    'count'    => 1,
+                );
+            } else {
+                self::$missing_files[ $key ]['count']++;
+            }
+            
+            if ( $required && function_exists( 'error_log' ) ) {
+                error_log( 'JJ Safe Loader: File not found (Manual Log) - ' . $path );
+            }
+        }
     }
 }
+
 

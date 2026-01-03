@@ -322,8 +322,13 @@ class ACF_Nudge_Flow_Admin {
      * 템플릿 센터 렌더링
      */
     public function render_template_center() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
+        }
         $presets = $this->get_preset_templates();
         ?>
+
+
         <div class="wrap acf-nudge-flow-admin">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                 <h1><?php esc_html_e( '🎁 전략적 넛지 템플릿 센터', 'acf-nudge-flow' ); ?></h1>
@@ -401,7 +406,12 @@ class ACF_Nudge_Flow_Admin {
      * 대시보드 렌더링
      */
     public function render_dashboard() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
+        }
         ?>
+
+
         <div class="wrap acf-nudge-flow-admin">
             <h1><?php esc_html_e( 'ACF Nudge Flow', 'acf-nudge-flow' ); ?></h1>
             
@@ -477,7 +487,12 @@ class ACF_Nudge_Flow_Admin {
      * 워크플로우 목록 렌더링
      */
     public function render_workflows() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
+        }
         $workflows = get_posts( array(
+
+
             'post_type'      => 'acf_nudge_workflow',
             'posts_per_page' => -1,
             'post_status'    => array( 'publish', 'draft' ),
@@ -547,7 +562,12 @@ class ACF_Nudge_Flow_Admin {
      * 워크플로우 빌더 렌더링
      */
     public function render_builder() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
+        }
         $workflow_id = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : 0;
+
+
         $template = isset( $_GET['template'] ) ? sanitize_text_field( $_GET['template'] ) : '';
         ?>
         <div class="wrap acf-nudge-flow-admin">
@@ -567,7 +587,12 @@ class ACF_Nudge_Flow_Admin {
      * 분석 페이지 렌더링
      */
     public function render_analytics() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
+        }
         ?>
+
+
         <div class="wrap acf-nudge-flow-admin">
             <h1><?php esc_html_e( '분석', 'acf-nudge-flow' ); ?></h1>
             <div id="acf-nudge-analytics">
@@ -581,7 +606,13 @@ class ACF_Nudge_Flow_Admin {
      * 설정 페이지 렌더링
      */
     public function render_settings() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
+        }
+
         if ( isset( $_POST['acf_nudge_settings_nonce'] ) && 
+
+
              wp_verify_nonce( $_POST['acf_nudge_settings_nonce'], 'acf_nudge_save_settings' ) ) {
             $this->save_settings();
         }
