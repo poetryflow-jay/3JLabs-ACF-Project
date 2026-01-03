@@ -456,11 +456,11 @@ class JJ_Master_Nudge_Flow {
             return;
         }
 
-        wp_enqueue_style( 'jj-nudge-builder', JJ_STYLE_GUIDE_URL . 'assets/css/jj-nudge-builder.css', array(), JJ_STYLE_GUIDE_VERSION );
+        wp_enqueue_style( 'jj-nudge-builder', JJ_STYLE_GUIDE_URL . 'assets/css/jj-nudge-system.css', array(), JJ_STYLE_GUIDE_VERSION );
         wp_enqueue_script( 'jquery-ui-draggable' );
         wp_enqueue_script( 'jquery-ui-droppable' );
         wp_enqueue_script( 'jquery-ui-sortable' );
-        wp_enqueue_script( 'jj-nudge-builder', JJ_STYLE_GUIDE_URL . 'assets/js/jj-nudge-builder.js', array( 'jquery', 'jquery-ui-draggable', 'jquery-ui-droppable' ), JJ_STYLE_GUIDE_VERSION, true );
+        wp_enqueue_script( 'jj-nudge-builder', JJ_STYLE_GUIDE_URL . 'assets/js/jj-nudge-system.js', array( 'jquery', 'jquery-ui-draggable', 'jquery-ui-droppable' ), JJ_STYLE_GUIDE_VERSION, true );
     }
 
     /**
