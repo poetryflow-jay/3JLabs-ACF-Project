@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.1.1-master
+ * Version:           22.2.0-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.1.1-master' ); // [v22.1.1] Bugfix: Activation button issue
+define( 'WP_BULK_MANAGER_VERSION', '22.2.0-master' ); // [v22.2.0] HMAC-SHA256 Authentication - Enhanced security with replay attack prevention
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -34,6 +34,12 @@ class JJ_Bulk_Installer {
     }
 
     private function __construct() {
+        // Load HMAC Auth class
+        $hmac_file = plugin_dir_path( __FILE__ ) . 'includes/class-jj-bulk-hmac-auth.php';
+        if ( file_exists( $hmac_file ) ) {
+            require_once $hmac_file;
+        }
+        
         // [v2.4.0] admin_menu 훅 우선순위를 1로 설정 + 메뉴 순서 강제 지정
         add_action( 'admin_menu', array( $this, 'add_menu_pages' ), 1 );
         add_action( 'admin_notices', array( $this, 'add_install_page_notice' ) );
@@ -1779,9 +1785,22 @@ class JJ_Bulk_Installer {
     }
 
     /**
-     * [v5.0.0] 원격 요청 검증 (시크릿 키 확인)
+     * [v22.2.0] 원격 요청 검증 (HMAC-SHA256 기반)
      */
     public function verify_remote_request( $request ) {
+        // HMAC authentication (secure)
+        if ( class_exists( 'JJ_Bulk_HMAC_Auth' ) ) {
+            $hmac_auth = JJ_Bulk_HMAC_Auth::instance();
+            $result = $hmac_auth->verify_request( $request );
+            
+            if ( is_wp_error( $result ) ) {
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Fallback to legacy secret key method (deprecated)
         $client_key = $request->get_header( 'X-JJ-Bulk-Secret' );
         $stored_key = $this->get_or_create_secret_key();
         

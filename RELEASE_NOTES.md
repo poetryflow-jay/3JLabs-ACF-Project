@@ -16,7 +16,7 @@
 | ACF MBA Nudge Flow | 22.1.0 | **22.2.0** | AI/Intelligence |
 | ACF CSS WooCommerce Toolkit | 2.1.1 | **2.2.0** | Templates/UX |
 | ACF CSS Neural Link | 6.0.1 | **6.1.0** | AI Pattern Learning |
-| WP Bulk Manager | 22.1.0 | **22.1.1** | Activation Fix |
+| WP Bulk Manager | 22.1.1 | **22.2.0** | HMAC Security |
 
 ---
 
@@ -69,6 +69,20 @@
     - Chart.js 기반 변경 유형 차트
     - AI 추천 사항 표시
     - 학습 데이터 초기화 기능
+
+### WP Bulk Manager v22.2.0 (Mikael x Jason Edition)
+- ✅ **HMAC-SHA256 Authentication** (`class-jj-bulk-hmac-auth.php`):
+    - 평문 시크릿 키를 암호화 서명으로 교체
+    - HMAC-SHA256 기반 요청 서명 및 검증
+    - Constant-time 비교로 타이밍 공격 방지
+- ✅ **Replay Attack Prevention**:
+    - 타임스탬프 검증 (5분 허용 오차)
+    - Nonce 재사용 감지 및 차단
+    - 자동 nonce 캐시 정리 (최근 100개 유지)
+- ✅ **Enhanced Security**:
+    - 암호학적으로 안전한 키 생성 (random_bytes)
+    - 요청 파라미터 정렬로 일관된 서명 보장
+    - 레거시 시크릿 키 방식 폴백 지원
 
 ---
 
