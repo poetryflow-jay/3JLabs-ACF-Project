@@ -12,7 +12,7 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 22.1.1 | **22.1.2** | Marketing/UI |
+| ACF CSS Manager (Master) | 22.1.2 | **22.1.3** | Industry Templates |
 | ACF MBA Nudge Flow | 22.1.0 | **22.2.0** | AI/Intelligence |
 | ACF CSS WooCommerce Toolkit | 2.1.1 | **2.2.0** | Templates/UX |
 | ACF CSS Neural Link | 6.0.1 | **6.1.0** | AI Pattern Learning |
@@ -83,6 +83,18 @@
     - 암호학적으로 안전한 키 생성 (random_bytes)
     - 요청 파라미터 정렬로 일관된 서명 보장
     - 레거시 시크릿 키 방식 폴백 지원
+
+### ACF CSS Manager v22.1.3 (Jenny Edition)
+- ✅ **Industry-Specific Design Templates**:
+    - 5가지 산업별 맞춤 프리셋 추가
+    - E-commerce Pro: 쇼핑몰 전환율 최적화 디자인 (그린 계열)
+    - Blog & Magazine: 콘텐츠 가독성 중심 타이포그래피 (세리프)
+    - Portfolio Creative: 비주얼 작업물 포트폴리오 (퍼플+핑크)
+    - Agency Bold: 전문성과 신뢰감 (다크 블루 + 시안)
+    - SaaS Clean: 모던 SaaS UI/UX (인디고 + 그라데이션)
+- ✅ **Modified** (`class-jj-style-presets.php`):
+    - 기존 5개 + 산업별 5개 = 총 10개 프리셋
+    - Industry 메타데이터 추가로 카테고리 필터링 지원
 
 ---
 
