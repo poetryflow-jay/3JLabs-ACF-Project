@@ -1,0 +1,305 @@
+# Japanese translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Japanese <ja@3j-labs.com>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
+
+#. Plugin Name of the plugin
+msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
+msgstr "ACF CSS - 高度なカスタムフォント・カラー・スタイル設定マネージャー"
+
+#. Description of the plugin
+msgid ""
+"A comprehensive style management plugin that centrally and consistently "
+"manages all style elements of your WordPress website, including color "
+"palettes, typography, buttons, and forms. The Free version provides basic "
+"style management features for maintaining brand consistency and efficient "
+"design system operation. Install the Pro version plugin alongside to access "
+"Basic, Premium, and Unlimited features. Fully integrated with WordPress "
+"Customizer for intuitive style management with real-time preview."
+msgstr ""
+"WordPressウェブサイトのすべてのスタイル要素（カラーパレット、タイポグラフィ、ボタン、フォーム）を中央で一貫して管理する包括的なスタイル管理プラグインです。無料版は基本的なスタイル管理機能を提供し、ブランドの一貫性を維持し、デザインシステムを効率的に運用できます。Pro版プラグインを併用すると、Basic、Premium、Unlimited機能にアクセスできます。WordPress"
+" Customizerと完全に統合され、リアルタイムプレビューとともに直感的なスタイル管理が可能です。"
+
+#. Author of the plugin
+msgid "3J Labs"
+msgstr "3Jラボ (ジェイ×ジェニー×ジェイソン研究所)"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "スタイルセンター"
+
+msgid "관리자 센터"
+msgstr "管理センター"
+
+msgid "실험실"
+msgstr "ラボ"
+
+msgid "설정"
+msgstr "設定"
+
+msgid "저장"
+msgstr "保存"
+
+msgid "취소"
+msgstr "キャンセル"
+
+msgid "적용"
+msgstr "適用"
+
+msgid "초기화"
+msgstr "リセット"
+
+msgid "내보내기"
+msgstr "エクスポート"
+
+msgid "불러오기"
+msgstr "インポート"
+
+msgid "다운로드"
+msgstr "ダウンロード"
+
+msgid "업로드"
+msgstr "アップロード"
+
+# Colors
+msgid "색상"
+msgstr "カラー"
+
+msgid "기본 색상"
+msgstr "プライマリカラー"
+
+msgid "보조 색상"
+msgstr "セカンダリカラー"
+
+msgid "강조 색상"
+msgstr "アクセントカラー"
+
+msgid "배경 색상"
+msgstr "背景色"
+
+msgid "텍스트 색상"
+msgstr "テキスト色"
+
+msgid "브랜드 팔레트"
+msgstr "ブランドパレット"
+
+msgid "시스템 팔레트"
+msgstr "システムパレット"
+
+# Typography
+msgid "타이포그래피"
+msgstr "タイポグラフィ"
+
+msgid "폰트 패밀리"
+msgstr "フォントファミリー"
+
+msgid "폰트 크기"
+msgstr "フォントサイズ"
+
+msgid "폰트 굵기"
+msgstr "フォントウェイト"
+
+msgid "행간"
+msgstr "行間"
+
+msgid "자간"
+msgstr "字間"
+
+msgid "제목 1"
+msgstr "見出し1"
+
+msgid "제목 2"
+msgstr "見出し2"
+
+msgid "제목 3"
+msgstr "見出し3"
+
+msgid "본문"
+msgstr "本文"
+
+# Responsive
+msgid "데스크톱"
+msgstr "デスクトップ"
+
+msgid "랩톱"
+msgstr "ノートPC"
+
+msgid "태블릿"
+msgstr "タブレット"
+
+msgid "모바일"
+msgstr "モバイル"
+
+# Export
+msgid "PDF (인쇄)"
+msgstr "PDF（印刷）"
+
+msgid "PNG 이미지"
+msgstr "PNG画像"
+
+msgid "HTML 파일"
+msgstr "HTMLファイル"
+
+msgid "CSS 변수"
+msgstr "CSS変数"
+
+msgid "JSON 토큰"
+msgstr "JSONトークン"
+
+msgid "ZIP (전체)"
+msgstr "ZIP（全体）"
+
+msgid "내보내는 중..."
+msgstr "エクスポート中..."
+
+msgid "내보내기 완료!"
+msgstr "エクスポート完了！"
+
+msgid "내보내기 실패"
+msgstr "エクスポート失敗"
+
+# Fonts
+msgid "폰트 추천"
+msgstr "フォント推奨"
+
+msgid "한국어 무료 폰트 (Google Fonts)"
+msgstr "韓国語無料フォント（Google Fonts）"
+
+msgid "영문 무료 폰트 (Google Fonts)"
+msgstr "英語無料フォント（Google Fonts）"
+
+msgid "유료/프리미엄 폰트 (참조용)"
+msgstr "有料/プレミアムフォント（参考用）"
+
+msgid "%s 폰트가 적용되었습니다."
+msgstr "%s フォントが適用されました。"
+
+# Figma
+msgid "Figma 연동"
+msgstr "Figma連携"
+
+msgid "Figma Personal Access Token"
+msgstr "Figma パーソナルアクセストークン"
+
+msgid "Figma 파일 키"
+msgstr "Figma ファイルキー"
+
+msgid "연결 테스트"
+msgstr "接続テスト"
+
+msgid "Figma에서 가져오기"
+msgstr "Figmaからインポート"
+
+msgid "Figma로 내보내기"
+msgstr "Figmaにエクスポート"
+
+msgid "연결 성공!"
+msgstr "接続成功！"
+
+msgid "연결 실패"
+msgstr "接続失敗"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "設定が保存されました。"
+
+msgid "권한이 없습니다."
+msgstr "権限がありません。"
+
+msgid "오류가 발생했습니다."
+msgstr "エラーが発生しました。"
+
+msgid "정말 실행하시겠습니까?"
+msgstr "本当に実行しますか？"
+
+msgid "성공"
+msgstr "成功"
+
+msgid "오류"
+msgstr "エラー"
+
+msgid "경고"
+msgstr "警告"
+
+msgid "정보"
+msgstr "情報"
+
+msgid "저장 중..."
+msgstr "保存中..."
+
+msgid "백업 관리"
+msgstr "バックアップ管理"
+
+msgid "도구"
+msgstr "ツール"
+
+msgid "업데이트"
+msgstr "アップデート"
+
+msgid "라이센스"
+msgstr "ライセンス"
+
+msgid "시스템 상태"
+msgstr "システム状態"
+
+msgid "일반 설정"
+msgstr "一般設定"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr "管理インターフェースの基本表示オプションを設定します。"
+
+msgid "관리자 메뉴 표시"
+msgstr "管理メニュー表示"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "左側管理メニューを表示"
+
+msgid "관리자 툴바 표시"
+msgstr "管理ツールバー表示"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "上部管理ツールバーを表示"
+
+msgid "설정 열기"
+msgstr "設定を開く"
+
+msgid "스타일 관리"
+msgstr "スタイル管理"
+
+msgid "이전 버전으로 롤백"
+msgstr "以前のバージョンにロールバック"
+
+msgid "시스템 진단"
+msgstr "システム診断"
+
+msgid "PRO로 업그레이드"
+msgstr "PROにアップグ레이ド"
+
+msgid "Pro 버전"
+msgstr "Proバージョン"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "プラグイン設定ページに移動"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "3J Labs公式ウェブサイトを訪問"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "プラグインのドキュメントとユーザーガイド"
+
+msgid "기술 지원 및 문의"
+msgstr "技術サポートとお問い合わせ"

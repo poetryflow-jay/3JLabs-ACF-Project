@@ -189,48 +189,116 @@ class JJ_Simple_Style_Guide {
         if ( class_exists( 'JJ_Demo_Importer' ) ) {
             JJ_Demo_Importer::instance()->init();
         }
+        
+        if ( class_exists( 'JJ_History_Manager' ) ) {
+            JJ_History_Manager::instance()->init();
+        }
 
         // 옵션 로드
         $this->options = (array) get_option( $this->option_key );
         $options = $this->options; // 뷰 파일에서 $options 변수 사용
 
+        // [v22.1.2] 온보딩 모달 로드
+        $onboarding_path = JJ_STYLE_GUIDE_PATH . 'includes/admin/views/view-onboarding-modal.php';
+        if ( file_exists( $onboarding_path ) ) {
+            include $onboarding_path;
+        }
+
         ?>
         <div class="wrap jj-style-guide-wrap">
-            <h1 class="wp-heading-inline"><?php _e( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h1 style="margin: 0;"><?php _e( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
+                <div class="jj-header-actions" style="display: flex; gap: 10px;">
+                    <button type="button" id="jj-live-preview-toggle" class="button button-secondary">
+                        <span class="dashicons dashicons-visibility" style="margin-top: 4px;"></span> <?php _e( '실시간 미리보기', 'acf-css-really-simple-style-management-center' ); ?>
+                    </button>
+                    <button type="button" class="button button-primary" id="jj-save-style-guide-header">
+                        <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
+                    </button>
+                </div>
+            </div>
             <hr class="wp-header-end">
 
-            <div class="jj-style-guide-container" style="margin-top: 20px;">
-                <!-- [v22.1.2] 마케팅 핵심: 프리셋 섹션을 최상단에 배치 (Quick Value) -->
-                <div class="jj-section-wrapper" data-section="presets">
+            <!-- [v22.1.2] 2컬럼 레이아웃 지원 (에디터 + 프리뷰) -->
+            <div class="jj-style-guide-main-layout" style="display: flex; gap: 30px; margin-top: 20px;">
+                <div class="jj-style-guide-editor-pane" style="flex: 1; max-width: 100%;">
+                    <!-- [v22.1.2] 시스템 인사이트 (Stats) -->
                     <?php 
-                    $presets_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-presets.php';
-                    if ( file_exists( $presets_path ) ) {
-                        include $presets_path;
+                    $stats_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-stats.php';
+                    if ( file_exists( $stats_path ) ) {
+                        include $stats_path;
                     }
                     ?>
+
+                    <!-- [v22.1.2] 마케팅 핵심: 프리셋 섹션 -->
+                    <div class="jj-section-wrapper" data-section="presets">
+                        <?php 
+                        $presets_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-presets.php';
+                        if ( file_exists( $presets_path ) ) {
+                            include $presets_path;
+                        }
+                        ?>
+                    </div>
+
+                    <div class="jj-style-guide-sections" id="jj-sections-sortable" style="margin-top: 40px; border-top: 2px solid #e2e8f0; padding-top: 40px;">
+                        <h2 style="margin-bottom: 30px;"><?php _e( '🛠️ 세부 커스텀 스타일링', 'acf-css-really-simple-style-management-center' ); ?></h2>
+                        <?php
+                        // [v22.1.2] 저장된 섹션 레이아웃 순서대로 렌더링
+                        $layout = array();
+                        if ( class_exists( 'JJ_Admin_Center' ) ) {
+                            $layout = JJ_Admin_Center::instance()->get_sections_layout();
+                            
+                            // 순서대로 정렬
+                            uasort( $layout, function( $a, $b ) {
+                                return (int) $a['order'] <=> (int) $b['order'];
+                            } );
+                        }
+
+                        // 섹션 매핑
+                        $section_files = array(
+                            'colors'        => 'includes/editor-views/view-section-colors.php',
+                            'typography'    => 'includes/editor-views/view-section-typography.php',
+                            'buttons'       => 'includes/editor-views/view-section-buttons.php',
+                            'forms'         => 'includes/editor-views/view-section-forms.php',
+                            'temp-palette'  => 'includes/editor-views/view-section-temp-palette.php',
+                        );
+
+                        foreach ( $layout as $slug => $meta ) {
+                            if ( empty( $meta['enabled'] ) ) continue;
+                            
+                            $rel_path = isset( $section_files[ $slug ] ) ? $section_files[ $slug ] : '';
+                            if ( ! $rel_path ) continue;
+
+                            $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
+                            if ( file_exists( $file_path ) ) {
+                                echo '<div class="jj-section-wrapper" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '">';
+                                include $file_path;
+                                echo '</div>';
+                            }
+                        }
+
+                        // [v22.1.2] 유지보수 및 보안 섹션 (최하단 고정)
+                        $maintenance_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-maintenance.php';
+                        if ( file_exists( $maintenance_path ) ) {
+                            include $maintenance_path;
+                        }
+                        ?>
+                    </div>
                 </div>
 
-                <div class="jj-style-guide-sections" style="margin-top: 40px; border-top: 2px solid #e2e8f0; padding-top: 40px;">
-                    <h2 style="margin-bottom: 30px;"><?php _e( '🛠️ 세부 커스텀 스타일링', 'acf-css-really-simple-style-management-center' ); ?></h2>
-                    <?php
-                    // 섹션 뷰 파일 로드
-                    $sections = array(
-                        'colors'        => 'includes/editor-views/view-section-colors.php',
-                        'typography'    => 'includes/editor-views/view-section-typography.php',
-                        'buttons'       => 'includes/editor-views/view-section-buttons.php',
-                        'forms'         => 'includes/editor-views/view-section-forms.php',
-                        'temp-palette'  => 'includes/editor-views/view-section-temp-palette.php',
-                    );
-
-                    foreach ( $sections as $slug => $rel_path ) {
-                        $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
-                        if ( file_exists( $file_path ) ) {
-                            echo '<div class="jj-section-wrapper" data-section="' . esc_attr( $slug ) . '">';
-                            include $file_path;
-                            echo '</div>';
-                        }
-                    }
-                    ?>
+                <!-- 실시간 프리뷰 사이드바 (기본 숨김) -->
+                <div id="jj-live-preview-pane" style="display: none; width: 450px; position: sticky; top: 50px; height: calc(100vh - 100px); background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                    <div class="jj-preview-header" style="padding: 15px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 700; color: #1e293b;">Live Preview</span>
+                        <div class="jj-preview-viewport-controls">
+                            <button type="button" class="button button-small jj-viewport-btn" data-viewport="desktop"><span class="dashicons dashicons-desktop"></span></button>
+                            <button type="button" class="button button-small jj-viewport-btn" data-viewport="tablet"><span class="dashicons dashicons-tablet"></span></button>
+                            <button type="button" class="button button-small jj-viewport-btn" data-viewport="mobile"><span class="dashicons dashicons-smartphone"></span></button>
+                        </div>
+                    </div>
+                    <div class="jj-preview-iframe-wrapper" style="height: calc(100% - 50px); background: #cbd5e1; display: flex; align-items: center; justify-content: center;">
+                        <iframe id="jj-inline-preview-iframe" src="<?php echo esc_url( home_url('/') ); ?>" style="width: 100%; height: 100%; border: none; background: #fff; transition: all 0.3s ease;"></iframe>
+                    </div>
                 </div>
             </div>
             
@@ -256,17 +324,24 @@ class JJ_Simple_Style_Guide {
         $base_url = defined( 'JJ_STYLE_GUIDE_URL' ) ? JJ_STYLE_GUIDE_URL : plugin_dir_url( dirname( __FILE__ ) ) . '../';
         $version  = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '22.1.2';
 
-        wp_enqueue_media();
-        wp_enqueue_style( 'wp-color-picker' );
-        
-        // Admin Center CSS 재사용 (레이아웃)
-        wp_enqueue_style( 'jj-admin-center', $base_url . 'assets/css/jj-admin-center.css', array(), $version );
-        
+        // [v22.1.2] Spectrum Color Picker (Modern Upgrade)
+        wp_enqueue_style( 'spectrum-colorpicker', 'https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.1/spectrum.min.css' );
+        wp_enqueue_script( 'spectrum-colorpicker', 'https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.1/spectrum.min.js', array( 'jquery' ), '1.8.1', true );
+
         // Editor JS
         wp_enqueue_script(
             'jj-style-guide-editor',
             $base_url . 'assets/js/jj-style-guide-editor.js',
-            array( 'jquery', 'wp-color-picker' ),
+            array( 'jquery', 'wp-color-picker', 'spectrum-colorpicker' ),
+            $version,
+            true
+        );
+
+        // [v22.1.2] Onboarding Tour JS
+        wp_enqueue_script(
+            'jj-onboarding-tour',
+            $base_url . 'assets/js/jj-onboarding-tour.js',
+            array( 'jquery' ),
             $version,
             true
         );
@@ -515,6 +590,11 @@ class JJ_Simple_Style_Guide {
             wp_send_json_error( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
         }
         
+        // [v22.1.2] 저장 전 히스토리 스냅샷 생성
+        if ( class_exists( 'JJ_History_Manager' ) ) {
+            JJ_History_Manager::instance()->create_snapshot( 'AJAX Save' );
+        }
+
         $options = isset( $_POST['options'] ) ? json_decode( stripslashes( $_POST['options'] ), true ) : array();
         $result = $this->save_options( $options );
         

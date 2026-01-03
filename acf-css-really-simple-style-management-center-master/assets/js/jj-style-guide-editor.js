@@ -3,13 +3,13 @@ jQuery(document).ready(function($) {
     // --- [ 1. 설정 로드 및 초기화 (v3.4.9 '유지') ] ---
     var currentSettings = jj_admin_params.settings || {};
 
-    // [v1.8.0-beta4 '재탄생'] 1a. 컬러 피커 초기화 로직
+    // [v22.1.2 '업그레이드'] 1a. 컬러 피커 초기화 로직 (Spectrum.js 적용)
     function initColorPickers($container) {
         $container.find('.jj-color-field, .jj-color-picker').each(function() {
             var $input = $(this);
             
-            // [v1.9.0 '갱신'] 이미 초기화되었다면 파괴하고 다시 생성
-            if ( $input.closest('.wp-picker-container').length > 0 ) {
+            // 기존 wpColorPicker 제거 (있을 경우)
+            if ($input.closest('.wp-picker-container').length > 0) {
                 $input.wpColorPicker('destroy');
             }
 
@@ -20,32 +20,50 @@ jQuery(document).ready(function($) {
             }
             var value = getNestedObject(currentSettings, settingKey.split(/\[|\]/).filter(Boolean));
             
-            $input.wpColorPicker({
-                change: function(event, ui) {
-                    var newColor = ui.color.toString();
+            // Spectrum.js 초기화
+            $input.spectrum({
+                color: value || '#3b82f6',
+                preferredFormat: "hex",
+                showInput: true,
+                showInitial: true,
+                showPalette: true,
+                showSelectionPalette: true,
+                maxSelectionSize: 10,
+                palette: [
+                    ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+                    ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+                    ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+                    ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"]
+                ],
+                change: function(color) {
+                    var newColor = color.toHexString();
                     var keyParts = $(this).data('setting-key').split(/\[|\]/).filter(Boolean);
                     if (keyParts.length === 0) { keyParts = $(this).data('id').replace('-', '[').split(/\[|\]/).filter(Boolean); }
                     setNestedObject(currentSettings, keyParts, newColor);
                     
-                    // [v3.3 '제련'] 미리보기 '즉시' '갱신'
-                    $input.closest('.jj-color-card').find('.jj-color-preview').css('background-color', newColor);
+                    // 미리보기 업데이트
+                    $input.closest('.jj-color-card, .jj-control-group').find('.jj-color-preview').css('background-color', newColor);
+                    
                     if (settingKey.startsWith('buttons')) {
                         updateButtonPreview();
                     } else if (settingKey.startsWith('forms')) {
                         updateFormPreview();
                     }
-                    // [v5.0.3] 실시간 프리뷰 CSS 업데이트 (새로고침 없이)
+
+                    // 실시간 프리뷰
                     if (typeof window.JJLivePreview !== 'undefined' && window.JJLivePreview.isPreviewOpen()) {
                         window.JJLivePreview.handleSettingChange();
-                    } else {
-                        // 폴백: 기존 새로고침 방식
-                        refreshPreviewIfOpen();
                     }
+                },
+                move: function(color) {
+                    // 드래그 중에도 실시간 반영 (선택 사항)
+                    var newColor = color.toHexString();
+                    $input.closest('.jj-color-card, .jj-control-group').find('.jj-color-preview').css('background-color', newColor);
                 }
             });
 
             if (value) {
-                $input.wpColorPicker('color', value);
+                $input.spectrum("set", value);
                 $input.closest('.jj-control-group').find('.jj-color-preview').css('background-color', value);
             }
         });
@@ -1843,48 +1861,52 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // [v22.1.2 '신규'] 디자인 프리셋 적용 (Jenny x Jason)
-    $('#jj-style-guide-wrapper').on('click', '.jj-import-preset-btn', function(e) {
-        e.preventDefault();
+    // [v22.1.2 '신규'] 실시간 프리뷰 사이드바 토글
+    $('#jj-live-preview-toggle').on('click', function() {
+        var $pane = $('#jj-live-preview-pane');
+        var $editor = $('.jj-style-guide-editor-pane');
         var $btn = $(this);
-        var $card = $btn.closest('.jj-preset-card');
-        var presetId = $card.data('preset-id');
-        var presetName = $card.find('h3').text();
 
-        if (!confirm('"' + presetName + '" 프리셋을 적용하시겠습니까?\n기존의 일부 스타일 설정이 덮어씌워질 수 있습니다.')) {
-            return;
-        }
-
-        $btn.prop('disabled', true).text('적용 중...');
-        $card.css('opacity', '0.7');
-
-        $.ajax({
-            url: jj_admin_params.ajax_url,
-            type: 'POST',
-            data: {
-                action: 'jj_import_style_preset',
-                security: jj_admin_params.nonce,
-                preset_id: presetId
-            },
-            success: function(response) {
-                if (response.success) {
-                    // 성공 효과: 화면 반짝임 후 새로고침
-                    $btn.text('적용 완료!').css('background', '#10b981');
-                    $('body').fadeOut(500, function() {
-                        location.reload();
-                    });
-                } else {
-                    alert(response.data.message || '프리셋 적용에 실패했습니다.');
-                    $btn.prop('disabled', false).text('프리셋 적용하기');
-                    $card.css('opacity', '1');
-                }
-            },
-            error: function() {
-                alert('네트워크 오류가 발생했습니다.');
-                $btn.prop('disabled', false).text('프리셋 적용하기');
-                $card.css('opacity', '1');
+        if ($pane.is(':visible')) {
+            $pane.hide();
+            $editor.css('max-width', '100%');
+            $btn.removeClass('button-primary').addClass('button-secondary');
+        } else {
+            $pane.show();
+            $editor.css('max-width', 'calc(100% - 480px)');
+            $btn.removeClass('button-secondary').addClass('button-primary');
+            
+            // 프리뷰 초기화 (iFrame에 현재 스타일 전송)
+            if (typeof window.JJLivePreview !== 'undefined') {
+                window.JJLivePreview.previewIframe = $('#jj-inline-preview-iframe')[0];
+                window.JJLivePreview.previewMode = 'iframe';
+                window.JJLivePreview.handleSettingChange();
             }
+        }
+    });
+
+    // 프리뷰 뷰포트 전환
+    $('.jj-viewport-btn').on('click', function() {
+        var viewport = $(this).data('viewport');
+        var $iframe = $('#jj-inline-preview-iframe');
+        var sizes = {
+            'desktop': '100%',
+            'tablet': '768px',
+            'mobile': '375px'
+        };
+
+        $('.jj-viewport-btn').removeClass('button-primary').addClass('button-secondary');
+        $(this).removeClass('button-secondary').addClass('button-primary');
+
+        $iframe.css({
+            'width': sizes[viewport],
+            'margin': '0 auto'
         });
+    });
+
+    // 저장 버튼 (헤더)
+    $('#jj-save-style-guide-header').on('click', function() {
+        $('#jj-save-style-guide').trigger('click');
     });
 
 });

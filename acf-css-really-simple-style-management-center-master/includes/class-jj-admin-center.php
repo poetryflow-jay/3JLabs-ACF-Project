@@ -100,6 +100,9 @@ final class JJ_Admin_Center {
         add_action( 'wp_ajax_jj_bulk_install_process', array( $this, 'ajax_handle_bulk_install' ) );
         add_action( 'wp_ajax_jj_bulk_activate_plugin', array( $this, 'ajax_handle_bulk_activate' ) );
 
+        // [v22.1.2] 섹션 순서 저장 AJAX 핸들러
+        add_action( 'wp_ajax_jj_save_section_order', array( $this, 'ajax_save_section_order' ) );
+
         // [v8.0.0] 자동 업데이트 필터 (강제 적용)
         add_filter( 'auto_update_plugin', array( $this, 'filter_auto_update_plugin' ), 10, 2 );
     }
@@ -1671,6 +1674,45 @@ final class JJ_Admin_Center {
         } else {
             wp_send_json_error( array( 'message' => __( '라이센스 인증에 실패했습니다. 키를 확인해 주세요.', 'acf-css-really-simple-style-management-center' ) ) );
         }
+    }
+
+    /**
+     * AJAX: 섹션 순서 저장
+     */
+    public function ajax_save_section_order() {
+        check_ajax_referer( 'jj_admin_center_save_action', 'security' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+
+        $new_order = isset( $_POST['section_order'] ) ? (array) $_POST['section_order'] : array();
+        if ( empty( $new_order ) ) {
+            wp_send_json_error( array( 'message' => __( '순서 데이터가 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+
+        $current_layout = $this->get_sections_layout();
+        $clean_layout = array();
+
+        foreach ( $new_order as $index => $slug ) {
+            $slug = sanitize_key( $slug );
+            if ( isset( $current_layout[ $slug ] ) ) {
+                $clean_layout[ $slug ] = $current_layout[ $slug ];
+                $clean_layout[ $slug ]['order'] = ( $index + 1 ) * 10;
+            }
+        }
+
+        // 누락된 섹션 추가 (순서 뒤로)
+        foreach ( $current_layout as $slug => $meta ) {
+            if ( ! isset( $clean_layout[ $slug ] ) ) {
+                $clean_layout[ $slug ] = $meta;
+                $clean_layout[ $slug ]['order'] = 999;
+            }
+        }
+
+        update_option( $this->sections_option_key, $clean_layout );
+        self::flush_sections_layout_cache();
+
+        wp_send_json_success( array( 'message' => __( '섹션 순서가 저장되었습니다.', 'acf-css-really-simple-style-management-center' ) ) );
     }
 
     /**

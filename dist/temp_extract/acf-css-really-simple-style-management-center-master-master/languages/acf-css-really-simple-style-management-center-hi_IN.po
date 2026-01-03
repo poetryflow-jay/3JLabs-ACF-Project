@@ -1,0 +1,179 @@
+# Hindi (India) translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Hindi <hi@3j-labs.com>\n"
+"Language: hi_IN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "स्टाइल सेंटर"
+
+msgid "관리자 센터"
+msgstr "एडमिन सेंटर"
+
+msgid "실험실"
+msgstr "लैब्स"
+
+msgid "설정"
+msgstr "सेटिंग्स"
+
+msgid "저장"
+msgstr "सहेजें"
+
+msgid "취소"
+msgstr "रद्द करें"
+
+msgid "적용"
+msgstr "लागू करें"
+
+msgid "초기화"
+msgstr "रीसेट"
+
+msgid "내보내기"
+msgstr "निर्यात"
+
+msgid "불러오기"
+msgstr "आयात"
+
+msgid "다운로드"
+msgstr "डाउनलोड"
+
+msgid "업로드"
+msgstr "अपलोड"
+
+# Colors
+msgid "색상"
+msgstr "रंग"
+
+msgid "기본 색상"
+msgstr "प्राथमिक रंग"
+
+msgid "보조 색상"
+msgstr "द्वितीयक रंग"
+
+msgid "강조 색상"
+msgstr "एक्सेंट रंग"
+
+msgid "배경 색상"
+msgstr "पृष्ठभूमि रंग"
+
+msgid "텍스트 색상"
+msgstr "टेक्स्ट रंग"
+
+msgid "브랜드 팔레트"
+msgstr "ब्रांड पैलेट"
+
+msgid "시스템 팔레트"
+msgstr "सिस्टम पैलेट"
+
+# Typography
+msgid "타이포그래피"
+msgstr "टाइपोग्राफी"
+
+msgid "폰트 패밀리"
+msgstr "फ़ॉन्ट फैमिली"
+
+msgid "폰트 크기"
+msgstr "फ़ॉन्ट साइज़"
+
+msgid "폰트 굵기"
+msgstr "फ़ॉन्ट वेट"
+
+msgid "행간"
+msgstr "लाइन हाइट"
+
+msgid "자간"
+msgstr "लेटर स्पेसिंग"
+
+# Responsive
+msgid "데스크톱"
+msgstr "डेस्कटॉप"
+
+msgid "태블릿"
+msgstr "टैबलेट"
+
+msgid "모바일"
+msgstr "मोबाइल"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "सेटिंग्स सहेजी गईं।"
+
+msgid "권한이 없습니다."
+msgstr "अनुमति अस्वीकृत।"
+
+msgid "오류가 발생했습니다."
+msgstr "एक त्रुटि हुई।"
+
+msgid "성공"
+msgstr "सफलता"
+
+msgid "오류"
+msgstr "त्रुटि"
+
+msgid "경고"
+msgstr "चेतावनी"
+
+msgid "정보"
+msgstr "जानकारी"
+
+msgid "일반 설정"
+msgstr "सामान्य सेटिंग्स"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr "प्रशासन इंटरफ़ेस के लिए बुनियादी प्रदर्शन विकल्प कॉन्फ़िगर करें।"
+
+msgid "관리자 메뉴 표시"
+msgstr "एडमिन मेनू प्रदर्शित करें"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "बाएं एडमिन मेनू प्रदर्शित करें"
+
+msgid "관리자 툴바 표시"
+msgstr "एडमिन टूलबार प्रदर्शित करें"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "शीर्ष एडमिन टूलबार प्रदर्शित करें"
+
+msgid "설정 열기"
+msgstr "सेटिंग्स खोलें"
+
+msgid "스타일 관리"
+msgstr "स्टाइल प्रबंधन"
+
+msgid "이전 버전으로 롤백"
+msgstr "पिछले संस्करण पर वापस जाएं"
+
+msgid "시스템 진단"
+msgstr "सिस्टम निदान"
+
+msgid "PRO로 업그레이드"
+msgstr "PRO में अपग्रेड करें"
+
+msgid "Pro 버전"
+msgstr "Pro संस्करण"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "प्लगइन सेटिंग्स पेज पर जाएं"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "3J Labs आधिकारिक वेबसाइट पर जाएं"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "प्लगइन दस्तावेज़ और उपयोगकर्ता गाइड"
+
+msgid "기술 지원 및 문의"
+msgstr "तकनीकी सहायता और पूछताछ"

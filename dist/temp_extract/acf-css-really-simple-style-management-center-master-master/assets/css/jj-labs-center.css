@@ -1,0 +1,286 @@
+/**
+ * J&J 실험실 센터 Styles - v3.7.0
+ * 
+ * 실험실 센터 전용 스타일
+ * - 탭 네비게이션 스타일
+ * - 스캐너 결과 표시 스타일
+ * - 수동 재정의 편집기 스타일
+ * - 반응형 디자인
+ * 
+ * @since 3.7.0
+ */
+
+/* J&J Labs Center Styles - v3.7.0 */
+
+/* [v3.7.0] CSS 에디터 스타일 개선 */
+.jj-labs-overrides-tab .CodeMirror {
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    height: 500px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.jj-labs-overrides-tab .CodeMirror-scroll {
+    min-height: 500px;
+}
+
+.jj-labs-overrides-tab .CodeMirror-gutters {
+    background-color: #f9f9f9;
+    border-right: 1px solid #ddd;
+}
+
+.jj-labs-overrides-tab .CodeMirror-linenumber {
+    color: #999;
+}
+
+/* CSS 오류 표시 */
+#jj-labs-css-errors {
+    margin-top: 10px;
+    padding: 10px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    color: #856404;
+    font-size: 13px;
+}
+
+#jj-labs-css-errors strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* 실험실 센터 컨테이너 */
+.jj-labs-center-wrap {
+    max-width: 1400px;
+    margin: 20px auto 0;
+}
+
+.jj-labs-center-wrap h1 {
+    margin-bottom: 10px;
+}
+
+.jj-labs-center-wrap .version {
+    font-size: 14px;
+    font-weight: normal;
+    color: #8c8f94;
+}
+
+/* 탭 네비게이션 */
+.jj-labs-center-tabs-container {
+    margin-top: 20px;
+}
+
+.jj-labs-center-tabs {
+    display: flex;
+    border-bottom: 1px solid #c3c4c7;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jj-labs-center-tabs li {
+    margin: 0;
+    padding: 0;
+}
+
+.jj-labs-center-tabs li a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #50575e;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.jj-labs-center-tabs li.active a,
+.jj-labs-center-tabs li a:hover {
+    color: #2271b1;
+    border-bottom-color: #2271b1;
+}
+
+.jj-labs-center-tab-content {
+    display: none;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+}
+
+.jj-labs-center-tab-content.active {
+    display: block;
+}
+
+/* 스캐너 탭 */
+.jj-labs-scanner-tab h2 {
+    margin-top: 0;
+}
+
+.jj-labs-scan-results {
+    margin-top: 30px;
+}
+
+.jj-labs-results-empty {
+    padding: 40px;
+    text-align: center;
+    background: #f9f9f9;
+    border: 1px dashed #c3c4c7;
+    border-radius: 4px;
+}
+
+.jj-labs-results-tabs {
+    margin-top: 20px;
+}
+
+.jj-labs-results-count {
+    font-size: 13px;
+    color: #8c8f94;
+    font-weight: normal;
+    margin-left: 8px;
+}
+
+.jj-labs-results-css textarea,
+.jj-labs-results-html textarea,
+.jj-labs-results-js textarea {
+    width: 100%;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    background: #f9f9f9;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    padding: 10px;
+    resize: vertical;
+}
+
+/* 수동 재정의 탭 */
+.jj-labs-overrides-tab h2 {
+    margin-top: 0;
+}
+
+.jj-labs-css-variables-reference {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+}
+
+.jj-labs-css-variables-reference h4 {
+    margin-top: 0;
+}
+
+.jj-labs-css-variables-reference ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.jj-labs-css-variables-reference code {
+    background: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+}
+
+/* 공식 지원 목록 탭 */
+.jj-labs-supported-tab h2 {
+    margin-top: 0;
+}
+
+.jj-labs-supported-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.jj-labs-supported-list-item {
+    padding: 8px 12px;
+    margin: 5px 0;
+    background: #f9f9f9;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    transition: background 0.2s;
+}
+
+.jj-labs-supported-list-item:hover {
+    background: #f0f0f1;
+}
+
+.jj-labs-supported-list-item.is-hidden {
+    display: none;
+}
+
+.jj-labs-supported-actions {
+    margin-top: 15px;
+}
+
+/* [v13.4.3] 버튼 정렬 및 높이 통일 */
+.jj-labs-center-wrap .jj-bulk-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.jj-labs-center-wrap .jj-bulk-actions .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    line-height: 30px;
+    padding: 0 12px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.jj-labs-center-wrap .jj-bulk-actions .button .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+/* 탭 설정 테이블 버튼 정렬 */
+.jj-labs-center-wrap table.widefat .button {
+    height: 28px;
+    line-height: 26px;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+
+/* 헤더 버튼 정렬 통일 */
+.jj-labs-center-header .button {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.jj-labs-center-header .button .dashicons {
+    margin-right: 4px;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 782px) {
+    .jj-labs-center-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .jj-labs-center-tabs li a {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+    
+    .jj-labs-center-tab-content {
+        padding: 15px;
+    }
+    
+    .jj-labs-center-wrap .jj-bulk-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+

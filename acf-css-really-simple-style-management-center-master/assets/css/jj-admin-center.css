@@ -17,12 +17,48 @@
  */
 
 /* 컨테이너 */
-.jj-admin-center-wrap {
-    margin: 20px auto 0;
-    max-width: 1600px;
-    background: #fff;
-    position: relative;
+/* [v22.1.2] Spectrum Color Picker Modern Styling */
+.sp-replacer {
+    border-radius: 8px !important;
+    border: 1px solid #e2e8f0 !important;
+    background: #fff !important;
+    padding: 6px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
 }
+.sp-preview {
+    border-radius: 4px !important;
+    margin-right: 10px !important;
+}
+.sp-dd {
+    padding: 0 !important;
+    font-size: 10px !important;
+}
+.sp-container {
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+    background: #fff !important;
+}
+.sp-picker-container {
+    border: none !important;
+}
+.sp-palette-container {
+    border-right: 1px solid #f1f5f9 !important;
+}
+.sp-thumb-el:hover, .sp-thumb-el.sp-thumb-active {
+    border-color: #3b82f6 !important;
+}
+
+/* Onboarding Modal Extra Styling */
+#jj-onboarding-modal .step {
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 12px;
+}
+
 
 /* [v6.3.0] 왼쪽 고정 사이드바 네비게이션 */
 .jj-admin-center-sidebar {

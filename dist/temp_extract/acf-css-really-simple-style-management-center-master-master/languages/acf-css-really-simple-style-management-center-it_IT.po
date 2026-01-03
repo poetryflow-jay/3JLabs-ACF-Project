@@ -1,0 +1,215 @@
+# Italian translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Italian <it@3j-labs.com>\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Centro Stili"
+
+msgid "관리자 센터"
+msgstr "Centro Amministrazione"
+
+msgid "실험실"
+msgstr "Laboratorio"
+
+msgid "설정"
+msgstr "Impostazioni"
+
+msgid "저장"
+msgstr "Salva"
+
+msgid "취소"
+msgstr "Annulla"
+
+msgid "적용"
+msgstr "Applica"
+
+msgid "초기화"
+msgstr "Reimposta"
+
+msgid "내보내기"
+msgstr "Esporta"
+
+msgid "불러오기"
+msgstr "Importa"
+
+msgid "다운로드"
+msgstr "Scarica"
+
+msgid "업로드"
+msgstr "Carica"
+
+# Colors
+msgid "색상"
+msgstr "Colori"
+
+msgid "기본 색상"
+msgstr "Colore Primario"
+
+msgid "보조 색상"
+msgstr "Colore Secondario"
+
+msgid "강조 색상"
+msgstr "Colore Accento"
+
+msgid "배경 색상"
+msgstr "Colore di Sfondo"
+
+msgid "텍스트 색상"
+msgstr "Colore del Testo"
+
+msgid "브랜드 팔레트"
+msgstr "Palette del Brand"
+
+msgid "시스템 팔레트"
+msgstr "Palette di Sistema"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Tipografia"
+
+msgid "폰트 패밀리"
+msgstr "Famiglia di Font"
+
+msgid "폰트 크기"
+msgstr "Dimensione Font"
+
+msgid "폰트 굵기"
+msgstr "Peso del Font"
+
+msgid "행간"
+msgstr "Altezza Riga"
+
+msgid "자간"
+msgstr "Spaziatura Lettere"
+
+msgid "제목 1"
+msgstr "Titolo 1"
+
+msgid "제목 2"
+msgstr "Titolo 2"
+
+msgid "제목 3"
+msgstr "Titolo 3"
+
+msgid "본문"
+msgstr "Paragrafo"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Desktop"
+
+msgid "랩톱"
+msgstr "Laptop"
+
+msgid "태블릿"
+msgstr "Tablet"
+
+msgid "모바일"
+msgstr "Mobile"
+
+# Export
+msgid "PDF (인쇄)"
+msgstr "PDF (Stampa)"
+
+msgid "PNG 이미지"
+msgstr "Immagine PNG"
+
+msgid "HTML 파일"
+msgstr "File HTML"
+
+msgid "CSS 변수"
+msgstr "Variabili CSS"
+
+msgid "JSON 토큰"
+msgstr "Token JSON"
+
+msgid "ZIP (전체)"
+msgstr "ZIP (Tutto)"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Impostazioni salvate."
+
+msgid "권한이 없습니다."
+msgstr "Accesso negato."
+
+msgid "오류가 발생했습니다."
+msgstr "Si è verificato un errore."
+
+msgid "성공"
+msgstr "Successo"
+
+msgid "오류"
+msgstr "Errore"
+
+msgid "경고"
+msgstr "Avviso"
+
+msgid "정보"
+msgstr "Informazione"
+
+msgid "일반 설정"
+msgstr "Impostazioni Generali"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr ""
+"Configura le opzioni di visualizzazione di base dell'interfaccia di "
+"amministrazione."
+
+msgid "관리자 메뉴 표시"
+msgstr "Mostra Menu Amministrazione"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "Mostra menu amministrazione sinistro"
+
+msgid "관리자 툴바 표시"
+msgstr "Mostra Barra degli Strumenti"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "Mostra barra degli strumenti superiore"
+
+msgid "설정 열기"
+msgstr "Apri Impostazioni"
+
+msgid "스타일 관리"
+msgstr "Gestione Stili"
+
+msgid "이전 버전으로 롤백"
+msgstr "Ripristina Versione Precedente"
+
+msgid "시스템 진단"
+msgstr "Diagnostica del Sistema"
+
+msgid "PRO로 업그레이드"
+msgstr "Aggiorna a PRO"
+
+msgid "Pro 버전"
+msgstr "Versione Pro"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "Vai alla pagina delle impostazioni del plugin"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "Visita il sito web ufficiale di 3J Labs"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "Documentazione e guida utente del plugin"
+
+msgid "기술 지원 및 문의"
+msgstr "Supporto tecnico e richieste"

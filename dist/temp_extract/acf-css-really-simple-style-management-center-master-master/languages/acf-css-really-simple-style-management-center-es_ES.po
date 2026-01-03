@@ -1,0 +1,298 @@
+# Spanish (Spain) translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Spanish (Spain) <es@3j-labs.com>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
+
+#. Plugin Name of the plugin
+msgid "ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager"
+msgstr ""
+"ACF CSS - Administrador Avanzado de Fuentes, Colores y Estilos "
+"Personalizados"
+
+#. Description of the plugin
+msgid ""
+"A comprehensive style management plugin that centrally and consistently "
+"manages all style elements of your WordPress website, including color "
+"palettes, typography, buttons, and forms. The Free version provides basic "
+"style management features for maintaining brand consistency and efficient "
+"design system operation. Install the Pro version plugin alongside to access "
+"Basic, Premium, and Unlimited features. Fully integrated with WordPress "
+"Customizer for intuitive style management with real-time preview."
+msgstr ""
+"Un plugin completo de gestión de estilos que gestiona de forma centralizada "
+"y consistente todos los elementos de estilo de su sitio web WordPress, "
+"incluyendo paletas de colores, tipografía, botones y formularios. La versión"
+" gratuita proporciona funciones básicas de gestión de estilos para mantener "
+"la consistencia de la marca y operar el sistema de diseño de manera "
+"eficiente. Instale el plugin de la versión Pro junto con él para acceder a "
+"las funciones Basic, Premium y Unlimited. Totalmente integrado con WordPress"
+" Customizer para una gestión de estilos intuitiva con vista previa en tiempo"
+" real."
+
+#. Author of the plugin
+msgid "3J Labs"
+msgstr "3J Labs (Laboratorio de Investigación Jay × Jenny × Jason)"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Centro de Estilos"
+
+msgid "관리자 센터"
+msgstr "Centro de Administración"
+
+msgid "실험실"
+msgstr "Laboratorio"
+
+msgid "설정"
+msgstr "Configuración"
+
+msgid "저장"
+msgstr "Guardar"
+
+msgid "취소"
+msgstr "Cancelar"
+
+msgid "적용"
+msgstr "Aplicar"
+
+msgid "초기화"
+msgstr "Restablecer"
+
+msgid "내보내기"
+msgstr "Exportar"
+
+msgid "불러오기"
+msgstr "Importar"
+
+msgid "다운로드"
+msgstr "Descargar"
+
+msgid "업로드"
+msgstr "Subir"
+
+# Colors
+msgid "색상"
+msgstr "Colores"
+
+msgid "기본 색상"
+msgstr "Color Primario"
+
+msgid "보조 색상"
+msgstr "Color Secundario"
+
+msgid "강조 색상"
+msgstr "Color de Acento"
+
+msgid "배경 색상"
+msgstr "Color de Fondo"
+
+msgid "텍스트 색상"
+msgstr "Color de Texto"
+
+msgid "브랜드 팔레트"
+msgstr "Paleta de Marca"
+
+msgid "시스템 팔레트"
+msgstr "Paleta del Sistema"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Tipografía"
+
+msgid "폰트 패밀리"
+msgstr "Familia de Fuente"
+
+msgid "폰트 크기"
+msgstr "Tamaño de Fuente"
+
+msgid "폰트 굵기"
+msgstr "Peso de Fuente"
+
+msgid "행간"
+msgstr "Altura de Línea"
+
+msgid "자간"
+msgstr "Espaciado de Letras"
+
+msgid "제목 1"
+msgstr "Encabezado 1"
+
+msgid "제목 2"
+msgstr "Encabezado 2"
+
+msgid "제목 3"
+msgstr "Encabezado 3"
+
+msgid "본문"
+msgstr "Párrafo"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Escritorio"
+
+msgid "랩톱"
+msgstr "Portátil"
+
+msgid "태블릿"
+msgstr "Tableta"
+
+msgid "모바일"
+msgstr "Móvil"
+
+# Export
+msgid "PDF (인쇄)"
+msgstr "PDF (Imprimir)"
+
+msgid "PNG 이미지"
+msgstr "Imagen PNG"
+
+msgid "HTML 파일"
+msgstr "Archivo HTML"
+
+msgid "CSS 변수"
+msgstr "Variables CSS"
+
+msgid "JSON 토큰"
+msgstr "Tokens JSON"
+
+msgid "ZIP (전체)"
+msgstr "ZIP (Todo)"
+
+msgid "내보내는 중..."
+msgstr "Exportando..."
+
+msgid "내보내기 완료!"
+msgstr "¡Exportación completa!"
+
+msgid "내보내기 실패"
+msgstr "Error de exportación"
+
+# Fonts
+msgid "폰트 추천"
+msgstr "Recomendaciones de Fuentes"
+
+msgid "%s 폰트가 적용되었습니다."
+msgstr "Se ha aplicado la fuente %s."
+
+# Figma
+msgid "Figma 연동"
+msgstr "Integración de Figma"
+
+msgid "연결 테스트"
+msgstr "Probar Conexión"
+
+msgid "Figma에서 가져오기"
+msgstr "Importar desde Figma"
+
+msgid "Figma로 내보내기"
+msgstr "Exportar a Figma"
+
+msgid "연결 성공!"
+msgstr "¡Conexión exitosa!"
+
+msgid "연결 실패"
+msgstr "Conexión fallida"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Configuración guardada."
+
+msgid "권한이 없습니다."
+msgstr "Permiso denegado."
+
+msgid "오류가 발생했습니다."
+msgstr "Se produjo un error."
+
+msgid "정말 실행하시겠습니까?"
+msgstr "¿Está seguro?"
+
+msgid "성공"
+msgstr "Éxito"
+
+msgid "오류"
+msgstr "Error"
+
+msgid "경고"
+msgstr "Advertencia"
+
+msgid "정보"
+msgstr "Información"
+
+msgid "백업 관리"
+msgstr "Gestión de Copias de Seguridad"
+
+msgid "도구"
+msgstr "Herramientas"
+
+msgid "업데이트"
+msgstr "Actualizaciones"
+
+msgid "라이센스"
+msgstr "Licencia"
+
+msgid "시스템 상태"
+msgstr "Estado del Sistema"
+
+msgid "일반 설정"
+msgstr "Configuración General"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr ""
+"Configure las opciones de visualización básicas de la interfaz de "
+"administración."
+
+msgid "관리자 메뉴 표시"
+msgstr "Mostrar Menú de Administración"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "Mostrar menú de administración izquierdo"
+
+msgid "관리자 툴바 표시"
+msgstr "Mostrar Barra de Herramientas"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "Mostrar barra de herramientas superior"
+
+msgid "설정 열기"
+msgstr "Abrir Configuración"
+
+msgid "스타일 관리"
+msgstr "Gestión de Estilos"
+
+msgid "이전 버전으로 롤백"
+msgstr "Revertir a Versión Anterior"
+
+msgid "시스템 진단"
+msgstr "Diagnóstico del Sistema"
+
+msgid "PRO로 업그레이드"
+msgstr "Actualizar a PRO"
+
+msgid "Pro 버전"
+msgstr "Versión Pro"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "Ir a la página de configuración del plugin"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "Visitar el sitio web oficial de 3J Labs"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "Documentación y guía de usuario del plugin"
+
+msgid "기술 지원 및 문의"
+msgstr "Soporte técnico y consultas"

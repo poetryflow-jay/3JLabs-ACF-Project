@@ -184,6 +184,8 @@ $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-style-guide-frontend.
 // [v22.1.2] 마케팅 및 디자인 엔진 로드 (Jenny x Jason)
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-style-presets.php', true );
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-demo-importer.php', true );
+$jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-history-manager.php', true );
+$jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-conflict-detector.php', true );
 
 // 3. 에디션 컨트롤러 (권한 관리)
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-edition-controller.php', true );

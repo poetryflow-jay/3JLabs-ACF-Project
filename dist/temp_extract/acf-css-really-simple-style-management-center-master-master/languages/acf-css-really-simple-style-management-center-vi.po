@@ -1,0 +1,179 @@
+# Vietnamese translation for ACF CSS Manager
+# Copyright (C) 2026 3J Labs
+# This file is distributed under the GPLv2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: ACF CSS Manager 13.0.0\n"
+"Report-Msgid-Bugs-To: https://3j-labs.com/support\n"
+"POT-Creation-Date: 2026-01-01 22:30:00\n"
+"PO-Revision-Date: 2026-01-01 22:30:00\n"
+"Last-Translator: 3J Labs <support@3j-labs.com>\n"
+"Language-Team: Vietnamese <vi@3j-labs.com>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Domain: acf-css-really-simple-style-management-center\n"
+"X-Generator: 3J Labs i18n Generator\n"
+
+# Core UI
+msgid "스타일 센터"
+msgstr "Trung tâm Phong cách"
+
+msgid "관리자 센터"
+msgstr "Trung tâm Quản trị"
+
+msgid "실험실"
+msgstr "Phòng thí nghiệm"
+
+msgid "설정"
+msgstr "Cài đặt"
+
+msgid "저장"
+msgstr "Lưu"
+
+msgid "취소"
+msgstr "Hủy"
+
+msgid "적용"
+msgstr "Áp dụng"
+
+msgid "초기화"
+msgstr "Đặt lại"
+
+msgid "내보내기"
+msgstr "Xuất"
+
+msgid "불러오기"
+msgstr "Nhập"
+
+msgid "다운로드"
+msgstr "Tải xuống"
+
+msgid "업로드"
+msgstr "Tải lên"
+
+# Colors
+msgid "색상"
+msgstr "Màu sắc"
+
+msgid "기본 색상"
+msgstr "Màu chính"
+
+msgid "보조 색상"
+msgstr "Màu phụ"
+
+msgid "강조 색상"
+msgstr "Màu nhấn"
+
+msgid "배경 색상"
+msgstr "Màu nền"
+
+msgid "텍스트 색상"
+msgstr "Màu chữ"
+
+msgid "브랜드 팔레트"
+msgstr "Bảng màu thương hiệu"
+
+msgid "시스템 팔레트"
+msgstr "Bảng màu hệ thống"
+
+# Typography
+msgid "타이포그래피"
+msgstr "Kiểu chữ"
+
+msgid "폰트 패밀리"
+msgstr "Họ phông chữ"
+
+msgid "폰트 크기"
+msgstr "Cỡ chữ"
+
+msgid "폰트 굵기"
+msgstr "Độ đậm chữ"
+
+msgid "행간"
+msgstr "Chiều cao dòng"
+
+msgid "자간"
+msgstr "Khoảng cách chữ"
+
+# Responsive
+msgid "데스크톱"
+msgstr "Máy tính"
+
+msgid "태블릿"
+msgstr "Máy tính bảng"
+
+msgid "모바일"
+msgstr "Di động"
+
+# Messages
+msgid "설정이 저장되었습니다."
+msgstr "Đã lưu cài đặt."
+
+msgid "권한이 없습니다."
+msgstr "Không có quyền truy cập."
+
+msgid "오류가 발생했습니다."
+msgstr "Đã xảy ra lỗi."
+
+msgid "성공"
+msgstr "Thành công"
+
+msgid "오류"
+msgstr "Lỗi"
+
+msgid "경고"
+msgstr "Cảnh báo"
+
+msgid "정보"
+msgstr "Thông tin"
+
+msgid "일반 설정"
+msgstr "Cài Đặt Chung"
+
+msgid "관리자 인터페이스의 기본 표시 옵션을 설정합니다."
+msgstr "Cấu hình các tùy chọn hiển thị cơ bản cho giao diện quản trị."
+
+msgid "관리자 메뉴 표시"
+msgstr "Hiển Thị Menu Quản Trị"
+
+msgid "좌측 관리자 메뉴 표시"
+msgstr "Hiển thị menu quản trị bên trái"
+
+msgid "관리자 툴바 표시"
+msgstr "Hiển Thị Thanh Công Cụ"
+
+msgid "상단 관리자 툴바 표시"
+msgstr "Hiển thị thanh công cụ phía trên"
+
+msgid "설정 열기"
+msgstr "Mở Cài Đặt"
+
+msgid "스타일 관리"
+msgstr "Quản Lý Kiểu Dáng"
+
+msgid "이전 버전으로 롤백"
+msgstr "Khôi Phục Phiên Bản Trước"
+
+msgid "시스템 진단"
+msgstr "Chẩn Đoán Hệ Thống"
+
+msgid "PRO로 업그레이드"
+msgstr "Nâng Cấp Lên PRO"
+
+msgid "Pro 버전"
+msgstr "Phiên Bản Pro"
+
+msgid "플러그인 설정 페이지로 이동"
+msgstr "Đi đến trang cài đặt plugin"
+
+msgid "3J Labs 공식 웹사이트 방문"
+msgstr "Truy cập trang web chính thức của 3J Labs"
+
+msgid "플러그인 문서 및 사용 가이드"
+msgstr "Tài liệu và hướng dẫn sử dụng plugin"
+
+msgid "기술 지원 및 문의"
+msgstr "Hỗ trợ kỹ thuật và yêu cầu"

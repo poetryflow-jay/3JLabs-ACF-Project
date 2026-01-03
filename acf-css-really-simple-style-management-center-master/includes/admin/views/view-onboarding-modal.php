@@ -49,9 +49,39 @@ jQuery(document).ready(function($) {
         $('#jj-onboarding-modal').css('display', 'flex').hide().fadeIn(500);
     }
 
-    $('.jj-modal-close, .jj-modal-skip, .jj-start-now').on('click', function() {
+    $('.jj-modal-close, .jj-modal-skip').on('click', function() {
         $('#jj-onboarding-modal').fadeOut(300);
         localStorage.setItem('jj_onboarding_shown', 'true');
+    });
+
+    $('.jj-start-now').on('click', function() {
+        var $btn = $(this);
+        $btn.prop('disabled', true).text('추천 디자인 시스템 구축 중...');
+
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'jj_apply_recommended_setup',
+                security: jj_admin_params.nonce
+            },
+            success: function(response) {
+                if (response.success) {
+                    $btn.text('구축 완료! 이동 중...');
+                    localStorage.setItem('jj_onboarding_shown', 'true');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    alert(response.data.message || '오류가 발생했습니다.');
+                    $btn.prop('disabled', false).text('지금 바로 시작하기');
+                }
+            },
+            error: function() {
+                alert('네트워크 오류가 발생했습니다.');
+                $btn.prop('disabled', false).text('지금 바로 시작하기');
+            }
+        });
     });
 });
 </script>

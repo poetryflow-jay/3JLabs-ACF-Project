@@ -18,6 +18,46 @@ class JJ_Demo_Importer {
 
     public function init() {
         add_action( 'wp_ajax_jj_import_style_preset', array( $this, 'ajax_import_preset' ) );
+        add_action( 'wp_ajax_jj_apply_recommended_setup', array( $this, 'ajax_apply_recommended_setup' ) );
+    }
+
+    /**
+     * AJAX: 추천 설정 원클릭 적용
+     * - Modern Vivid 프리셋 적용 + 최적 옵션 활성화
+     */
+    public function ajax_apply_recommended_setup() {
+        check_ajax_referer( 'jj_style_guide_nonce', 'security' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+
+        $presets = JJ_Style_Presets::instance()->get_presets();
+        $recommended_preset = $presets['modern_vivid'];
+        
+        // 추천 옵션 조합
+        $new_options = array(
+            'colors'     => $recommended_preset['colors'],
+            'typography' => $recommended_preset['typography'],
+            'buttons'    => $recommended_preset['buttons'],
+            'settings'   => array(
+                'apply_to_frontend'   => true,
+                'apply_to_admin'      => false,
+                'apply_to_customizer' => true,
+                'css_output_method'   => 'inline',
+                'cache_enabled'       => true,
+            )
+        );
+
+        $success = update_option( 'jj_style_guide_options', $new_options );
+
+        if ( $success ) {
+            wp_send_json_success( array( 
+                'message' => __( '추천 디자인 시스템이 성공적으로 구축되었습니다!', 'acf-css-really-simple-style-management-center' ) 
+            ) );
+        } else {
+            wp_send_json_error( array( 'message' => __( '설정 적용에 실패했습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
     }
 
     /**

@@ -19,6 +19,25 @@
 
 ---
 
+## 🚀 주요 변경사항 (Phase 31.5 - Marketing & Innovation)
+
+### ACF CSS Manager v22.1.2 (Jenny x Jason Edition)
+- ✅ **One-Click Demo Importer**: 전문가가 설계한 디자인 시스템을 버튼 하나로 즉시 구축
+- ✅ **Design Preset Library**: 5가지 핵심 테마(Modern, Classic, Minimal, Nordic, Cyberpunk) 탑재
+- ✅ **Spectrum Color Picker**: 더 세밀하고 아름다운 색상 제어를 위한 업그레이드
+- ✅ **Inline Live Preview**: 에디터 내에서 실시간으로 웹사이트 변화를 확인하는 사이드바 프리뷰
+- ✅ **System Insights Dashboard**: 색상, 폰트 사용량 및 디자인 일관성 지표 시각화
+- ✅ **Auto-Rollback System**: 모든 설정 변경 전 자동 스냅샷 생성 및 원클릭 복구 지원
+- ✅ **Onboarding Welcome Modal**: 첫 사용자를 위한 3단계 안내 가이드 및 추천 설정 퀵 스타트
+- ✅ **Conflict Detector**: 타 플러그인과의 디자인 충돌을 자동 감지하고 해결 제안
+
+### ACF MBA Nudge Flow v22.1.0
+- ✅ **권한 보안 패치 (Critical)**:
+    - 모든 렌더링 함수에 `current_user_can('manage_options')` 가드 추가
+    - 권한 없는 사용자 접근 시 `wp_die()` 처리
+
+---
+
 ## 🚀 주요 변경사항 (Phase 30 - GUI Recovery & Security)
 
 ### ACF CSS Manager v22.1.1
