@@ -467,41 +467,8 @@ final class JJ_Admin_Center {
             2.6 // Dashboard(2) > 벌크 매니저(2.5) 바로 아래
         );
 
-        // [v20.2.3] 중복 메뉴 제거: add_submenu_page('jj-admin-center', ...) 호출 시 
-        // 첫 번째 서브메뉴는 부모 메뉴와 동일하게 자동 생성되므로 명시적 추가 불필요.
-        // 대신 '통합 상태' 등 추가 서브메뉴가 필요한 경우 여기서 관리.
-        
-        // 기존 설정 메뉴도 유지 (호환성)
-        add_options_page(
-            $page_title,
-            __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ),
-            'manage_options',
-            'jj-admin-center',
-            array( $this, 'render_admin_center_page' )
-        );
-        
-        // [Phase 4.5] 모양(Appearance) 및 도구(Tools) 메뉴 추가
-        // 중요: 동일한 slug(jj-admin-center)로 등록해야 hook_suffix가 일관되고, CSS/JS가 정상 로드됩니다.
-        add_theme_page( $page_title, __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ), 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
-        add_management_page( $page_title, __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ), 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
-
-        // [v20.2.2] Style Guide 페이지 등록 (호환성을 위해 Settings에도 등록)
-        // [v20.2.3] 최상위 메뉴 하위로 '스타일 센터' 한 번만 표시되도록 수정
-        // add_submenu_page 로 중복 등록하지 않고, 탭 시스템 내에서 처리하거나 
-        // 필요한 경우에만 최소한으로 등록.
-
-        // [v20.2.5] 실험실 센터(Labs Center) 서브메뉴 등록
-        if ( class_exists( 'JJ_Labs_Center' ) ) {
-            $labs_title = __( '실험실 센터', 'acf-css-really-simple-style-management-center' );
-            add_submenu_page(
-                'jj-admin-center',
-                $labs_title,
-                $labs_title,
-                'manage_options',
-                'jj-labs-center',
-                array( JJ_Labs_Center::instance(), 'render_labs_center_page' )
-            );
-        }
+        // [v22.0.0] 중복 메뉴 제거: Settings, Appearance, Tools 하위의 중복 메뉴를 제거하고 
+        // 오직 최상위 메뉴 하나만 남기도록 합니다. (사용자 요청 반영)
     }
 
     /**

@@ -300,9 +300,12 @@ class JJ_Bulk_Installer {
             }
         }
 
-        // 4. 특정 마스터 키 확인
-        if ( defined( 'JJ_MASTER_KEY_ACTIVE' ) && JJ_MASTER_KEY_ACTIVE ) {
-            $is_master = true;
+        // 4. 특정 마스터 파일 존재 여부 확인 (최종 수단)
+        if ( ! $is_master ) {
+            $master_plugin_dir = WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master/';
+            if ( file_exists( $master_plugin_dir ) ) {
+                $is_master = true;
+            }
         }
 
         if ( $is_master ) {
