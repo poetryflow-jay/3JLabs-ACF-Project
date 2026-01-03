@@ -172,6 +172,102 @@ class JJ_Simple_Style_Guide {
         add_action( 'wp_ajax_jj_style_guide_reset', array( $this, 'ajax_reset_options' ) );
         add_action( 'wp_ajax_jj_style_guide_export', array( $this, 'ajax_export_options' ) );
         add_action( 'wp_ajax_jj_style_guide_import', array( $this, 'ajax_import_options' ) );
+
+        // [v22.1.2] 스타일 센터 에셋 로드 (Admin Center에서 로드하지 않을 경우 대비)
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_style_guide_assets' ) );
+    }
+
+    /**
+     * [v22.1.2] 스타일 센터(Visual Editor) 페이지 렌더링
+     */
+    public function render_page() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
+        }
+
+        // 옵션 로드
+        $this->options = (array) get_option( $this->option_key );
+        $options = $this->options; // 뷰 파일에서 $options 변수 사용
+
+        ?>
+        <div class="wrap jj-style-guide-wrap">
+            <h1 class="wp-heading-inline"><?php _e( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
+            <hr class="wp-header-end">
+
+            <div class="jj-style-guide-container" style="margin-top: 20px;">
+                <div class="jj-style-guide-sections">
+                    <?php
+                    // 섹션 뷰 파일 로드
+                    $sections = array(
+                        'colors'        => 'includes/editor-views/view-section-colors.php',
+                        'typography'    => 'includes/editor-views/view-section-typography.php',
+                        'buttons'       => 'includes/editor-views/view-section-buttons.php',
+                        'forms'         => 'includes/editor-views/view-section-forms.php',
+                        'temp-palette'  => 'includes/editor-views/view-section-temp-palette.php',
+                    );
+
+                    foreach ( $sections as $slug => $rel_path ) {
+                        $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
+                        if ( file_exists( $file_path ) ) {
+                            echo '<div class="jj-section-wrapper" data-section="' . esc_attr( $slug ) . '">';
+                            include $file_path;
+                            echo '</div>';
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+            
+            <div class="jj-style-guide-footer" style="margin-top: 30px; padding: 15px; background: #fff; border: 1px solid #c3c4c7;">
+                <button type="button" class="button button-primary button-large" id="jj-save-style-guide">
+                    <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
+                </button>
+                <span class="spinner" style="float: none; margin: 0 10px;"></span>
+            </div>
+        </div>
+        <?php
+    }
+
+    /**
+     * [v22.1.2] 스타일 센터 전용 에셋 로드
+     */
+    public function enqueue_style_guide_assets( $hook ) {
+        // 스타일 센터 페이지인지 확인 (슬러그: jj-style-guide-cockpit)
+        if ( strpos( $hook, 'jj-style-guide-cockpit' ) === false ) {
+            return;
+        }
+
+        $base_url = defined( 'JJ_STYLE_GUIDE_URL' ) ? JJ_STYLE_GUIDE_URL : plugin_dir_url( dirname( __FILE__ ) ) . '../';
+        $version  = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '22.1.2';
+
+        wp_enqueue_media();
+        wp_enqueue_style( 'wp-color-picker' );
+        
+        // Admin Center CSS 재사용 (레이아웃)
+        wp_enqueue_style( 'jj-admin-center', $base_url . 'assets/css/jj-admin-center.css', array(), $version );
+        
+        // Editor JS
+        wp_enqueue_script(
+            'jj-style-guide-editor',
+            $base_url . 'assets/js/jj-style-guide-editor.js',
+            array( 'jquery', 'wp-color-picker' ),
+            $version,
+            true
+        );
+
+        wp_localize_script(
+            'jj-style-guide-editor',
+            'jj_admin_params',
+            array(
+                'nonce'    => wp_create_nonce( 'jj_style_guide_nonce' ),
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'settings' => $this->options,
+                'i18n'     => array(
+                    'saving' => __( '저장 중...', 'acf-css-really-simple-style-management-center' ),
+                    'saved'  => __( '저장 완료!', 'acf-css-really-simple-style-management-center' ),
+                ),
+            )
+        );
     }
 
     /**

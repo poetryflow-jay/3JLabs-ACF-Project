@@ -150,14 +150,15 @@ final class JJ_Admin_Center {
      * Admin Center 전용 CSS/JS enqueue
      */
     public function enqueue_admin_center_assets( $hook ) {
-        // Admin Center 페이지에서만 로드
-        $allowed_hooks = array(
-            'toplevel_page_jj-admin-center',
-            'settings_page_jj-admin-center',
-            'appearance_page_jj-admin-center',
-            'tools_page_jj-admin-center',
+        // [v22.1.2] 훅 검사 로직 개선 (스타일 센터 하위 메뉴 포함)
+        // jj-admin-center, jj-style-guide-cockpit, jj-labs-center 등을 모두 커버
+        $is_target_page = (
+            strpos( $hook, 'jj-admin-center' ) !== false || 
+            strpos( $hook, 'jj-style-guide' ) !== false ||
+            strpos( $hook, 'jj-labs-center' ) !== false
         );
-        if ( ! in_array( $hook, $allowed_hooks, true ) ) {
+
+        if ( ! $is_target_page ) {
             return;
         }
 
@@ -452,31 +453,53 @@ final class JJ_Admin_Center {
 
     /**
      * 메뉴 페이지 등록
-     * [v20.2.0] 최상위 메뉴로 변경 - 알림판 > 벌크 매니저 바로 아래에 "ACF 스타일 센터" 배치
+     * [v22.1.2] 메뉴 구조 개편 (Visual Editor 중심)
+     * - 최상위: 스타일 센터 (Visual Editor)
+     * - 서브: 설정 관리자 (Admin Center)
+     * - 서브: 실험실 (Labs)
      */
     public function add_admin_menu_page() {
-        $menu_title = __( '스타일 센터 🎨', 'acf-css-really-simple-style-management-center' );
-        $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ) );
+        $main_slug = 'jj-style-guide-cockpit';
+        $capability = 'manage_options';
 
-        // [v22.0.0] 최상위 메뉴 하나만 등록 (중복 제거)
+        // 1. 최상위 메뉴: 스타일 센터 (Visual Editor)
         add_menu_page(
-            $page_title,
-            $menu_title,
-            'manage_options',
-            'jj-admin-center',
-            array( $this, 'render_admin_center_page' ),
+            __( 'ACF 스타일 센터', 'acf-css-really-simple-style-management-center' ),
+            __( '스타일 센터 🎨', 'acf-css-really-simple-style-management-center' ),
+            $capability,
+            $main_slug,
+            array( JJ_Simple_Style_Guide::instance(), 'render_page' ), // [Fix] JJ_Simple_Style_Guide의 render_page 호출
             'dashicons-art',
             2.6 
         );
 
-        // [v22.0.0] 실험실 센터를 스타일 센터의 서브메뉴로 통합 (중복 제거)
+        // 2. 서브메뉴: 스타일 센터 (대시보드) - 최상위 메뉴와 동일하게 연결하여 첫 화면으로 설정
+        add_submenu_page(
+            $main_slug,
+            __( '스타일 센터', 'acf-css-really-simple-style-management-center' ),
+            __( '스타일 센터', 'acf-css-really-simple-style-management-center' ),
+            $capability,
+            $main_slug,
+            array( JJ_Simple_Style_Guide::instance(), 'render_page' )
+        );
+
+        // 3. 서브메뉴: 설정 관리자 (기존 Admin Center)
+        add_submenu_page(
+            $main_slug,
+            __( '설정 관리자', 'acf-css-really-simple-style-management-center' ),
+            __( '설정 관리자', 'acf-css-really-simple-style-management-center' ),
+            $capability,
+            'jj-admin-center',
+            array( $this, 'render_admin_center_page' )
+        );
+
+        // 4. 서브메뉴: 실험실 센터 (Labs)
         if ( class_exists( 'JJ_Labs_Center' ) ) {
-            $labs_title = __( '실험실 센터', 'acf-css-really-simple-style-management-center' );
             add_submenu_page(
-                'jj-admin-center',
-                $labs_title,
-                $labs_title,
-                'manage_options',
+                $main_slug,
+                __( '실험실', 'acf-css-really-simple-style-management-center' ),
+                __( '실험실', 'acf-css-really-simple-style-management-center' ),
+                $capability,
                 'jj-labs-center',
                 array( JJ_Labs_Center::instance(), 'render_labs_center_page' )
             );
