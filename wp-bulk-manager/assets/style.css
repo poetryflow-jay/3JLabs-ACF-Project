@@ -323,6 +323,11 @@
     color: #3c434a;
 }
 
+.jj-item-name {
+    font-size: 14px;
+    color: #1d2327;
+}
+
 /* 인웹 레이어 팝업 */
 .jj-inweb-popup-overlay {
     position: fixed;

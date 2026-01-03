@@ -13,7 +13,7 @@
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
 | ACF CSS Manager (Master) | 21.0.1 | **22.0.0** | Major |
-| WP Bulk Manager | 4.0.0 | **5.0.0** | Major |
+| WP Bulk Manager | 5.0.0 | **5.0.1** | Minor |
 | ACF CSS Neural Link | 5.0.0 | **6.0.0** | Major |
 | ACF MBA (Nudge Flow) | 21.0.0 | **22.0.0** | Major |
 | ACF CSS AI Extension | 2.1.0 | **3.1.0** | Major |

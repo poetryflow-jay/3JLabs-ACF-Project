@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-$colors_layout = $this->get_admin_colors();
+$colors_layout = $this->get_admin_menu_colors();
 ?>
 <div class="jj-admin-center-tab-content" data-tab="colors">
     <div class="jj-ai-palette-generator" style="margin-bottom: 20px; padding: 15px; background: #f0f0f1; border-radius: 5px; border-left: 4px solid #72aee6;">

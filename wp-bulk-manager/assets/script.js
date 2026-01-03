@@ -616,6 +616,8 @@ jQuery(document).ready(function($) {
             if (subtab === 'themes') {
                 $('#jj-bulk-action-activate').hide();
                 $('#jj-bulk-action-deactivate').hide();
+                $('#jj-bulk-action-update').show();
+                $('#jj-bulk-action-rollback').hide();
                 $('#jj-bulk-action-delete').hide();
                 $('#jj-bulk-action-deactivate-delete').hide();
                 $('#jj-bulk-action-auto-update-enable').hide();
@@ -624,6 +626,8 @@ jQuery(document).ready(function($) {
             } else {
                 $('#jj-bulk-action-activate').show();
                 $('#jj-bulk-action-deactivate').show();
+                $('#jj-bulk-action-update').show();
+                $('#jj-bulk-action-rollback').show();
                 $('#jj-bulk-action-delete').show();
                 $('#jj-bulk-action-deactivate-delete').show();
                 $('#jj-bulk-action-auto-update-enable').show();
@@ -686,7 +690,7 @@ jQuery(document).ready(function($) {
         });
 
         // Actions (plugins / themes)
-        $('#jj-bulk-action-activate, #jj-bulk-action-deactivate, #jj-bulk-action-delete, #jj-bulk-action-deactivate-delete, #jj-bulk-action-auto-update-enable, #jj-bulk-action-auto-update-disable, #jj-bulk-action-theme-delete').on('click', function() {
+        $('#jj-bulk-action-activate, #jj-bulk-action-deactivate, #jj-bulk-action-update, #jj-bulk-action-rollback, #jj-bulk-action-delete, #jj-bulk-action-deactivate-delete, #jj-bulk-action-auto-update-enable, #jj-bulk-action-auto-update-disable, #jj-bulk-action-theme-delete').on('click', function() {
             var op = $(this).data('op');
             var type = $(this).data('type');
             runBulkOperation(type, op);
@@ -793,12 +797,18 @@ jQuery(document).ready(function($) {
                 checkboxAttrs = ' disabled title="네트워크 활성 플러그인은 네트워크 관리자에서 관리하세요."';
             }
 
+            // [v5.0.1] 다국어 이름 표시
+            var displayName = '<strong class="jj-item-name">' + escapeHtml(p.name) + '</strong>';
+            if (p.name_translated && p.name_translated !== p.name) {
+                displayName += ' <span class="jj-name-translated" style="color: #646970; font-size: 0.9em;">(' + escapeHtml(p.name_translated) + ')</span>';
+            }
+
             rows.push(
-                '<tr class="jj-bulk-row" data-status="' + escapeHtml(rowStatus) + '" data-search="' + escapeHtml((p.name + ' ' + (p.author || '') + ' ' + p.id).toLowerCase()) + '">' +
+                '<tr class="jj-bulk-row" data-status="' + escapeHtml(rowStatus) + '" data-search="' + escapeHtml((p.name + ' ' + (p.name_translated || '') + ' ' + (p.author || '') + ' ' + p.id).toLowerCase()) + '">' +
                     '<th scope="row" class="check-column"><input type="checkbox" class="jj-bulk-row-check" data-id="' + escapeHtml(p.id) + '"' + checkboxAttrs + '></th>' +
                     '<td>' +
-                        '<strong>' + escapeHtml(p.name) + '</strong> <span class="description">v' + escapeHtml(p.version || '-') + '</span>' +
-                        (p.author ? '<div class="description">' + escapeHtml(p.author) + '</div>' : '') +
+                        displayName + ' <span class="description">v' + escapeHtml(p.version || '-') + '</span>' +
+                        (p.author ? '<div class="description">작성자: ' + escapeHtml(p.author) + '</div>' : '') +
                         requires +
                     '</td>' +
                     '<td><span class="jj-pill ' + statusClass + '">' + escapeHtml(statusLabel) + '</span></td>' +
@@ -912,6 +922,10 @@ jQuery(document).ready(function($) {
             confirmText = '선택한 ' + ids.length + '개를 활성화할까요?';
         } else if (operation === 'deactivate') {
             confirmText = '선택한 ' + ids.length + '개를 비활성화할까요?';
+        } else if (operation === 'update') {
+            confirmText = '선택한 ' + ids.length + '개를 업데이트할까요?';
+        } else if (operation === 'rollback') {
+            confirmText = '선택한 ' + ids.length + '개를 롤백할까요? (지원되는 항목만 적용됩니다)';
         } else if (operation === 'delete') {
             confirmText = '정말로 선택한 ' + ids.length + '개를 삭제할까요?\n삭제는 되돌릴 수 없습니다.';
         } else if (operation === 'deactivate_delete') {

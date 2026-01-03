@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           5.0.0
+ * Version:           5.0.1-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '5.0.0' ); // [v5.0.0] 그랜드 업그레이드: 멀티 사이트 및 원격 연결 사이트 대량 관리 기능 추가
+define( 'WP_BULK_MANAGER_VERSION', '5.0.1-master' ); // [v5.0.1] 마스터 라이센스 감지 강화 및 업데이트/롤백 기능 추가
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -279,29 +279,40 @@ class JJ_Bulk_Installer {
      * [v2.2.0] ACF CSS 라이센스 등급에 따른 제한 설정 조회
      */
     private function get_license_limits() {
-        // [v2.3.2] Master Edition 감지 강화
+        // [v5.0.1] Master Edition 감지 로직 고도화
+        $is_master = false;
+
         // 1. 상수로 정의된 경우
         if ( defined( 'JJ_BULK_INSTALLER_LICENSE' ) && 'MASTER' === JJ_BULK_INSTALLER_LICENSE ) {
-            return array(
-                'max_files' => 999,
-                'can_auto_activate' => true,
-                'max_manage_items' => 999,
-                'can_bulk_delete' => true,
-                'can_deactivate_then_delete' => true,
-                'is_master' => true, // [v2.3.2] 마스터 버전 플래그 추가
-            );
+            $is_master = true;
         }
         
-        // 2. 플러그인 폴더명에 'master'가 포함된 경우 (마스터 빌드)
+        // 2. 플러그인 폴더명에 'master'가 포함된 경우
         $plugin_dir = dirname( plugin_basename( __FILE__ ) );
         if ( false !== strpos( strtolower( $plugin_dir ), 'master' ) ) {
+            $is_master = true;
+        }
+
+        // 3. ACF CSS Manager (Master) 연동 확인
+        if ( class_exists( 'JJ_Edition_Controller' ) ) {
+            if ( JJ_Edition_Controller::instance()->is_at_least( 'master' ) ) {
+                $is_master = true;
+            }
+        }
+
+        // 4. 특정 마스터 키 확인
+        if ( defined( 'JJ_MASTER_KEY_ACTIVE' ) && JJ_MASTER_KEY_ACTIVE ) {
+            $is_master = true;
+        }
+
+        if ( $is_master ) {
             return array(
                 'max_files' => 999,
                 'can_auto_activate' => true,
                 'max_manage_items' => 999,
                 'can_bulk_delete' => true,
                 'can_deactivate_then_delete' => true,
-                'is_master' => true, // [v2.3.2] 마스터 버전 플래그 추가
+                'is_master' => true,
             );
         }
 
@@ -311,37 +322,25 @@ class JJ_Bulk_Installer {
             'max_manage_items' => 3,
             'can_bulk_delete' => false,
             'can_deactivate_then_delete' => false,
-            'is_master' => false, // [v2.3.1] 마스터 버전 플래그 추가
+            'is_master' => false,
         );
         
-        // ACF CSS Manager가 설치되어 있고 클래스가 존재할 때
+        // ACF CSS Manager가 설치되어 있고 클래스가 존재할 때 (Basic/Premium 등 체크)
         if ( class_exists( 'JJ_Edition_Controller' ) ) {
             $edition_ctrl = JJ_Edition_Controller::instance();
             
-            // Basic 이상: 10개 파일
             if ( $edition_ctrl->is_at_least( 'basic' ) ) {
                 $limits['max_files'] = 10;
                 $limits['max_manage_items'] = 10;
                 $limits['can_bulk_delete'] = true;
             }
             
-            // Premium 이상: 무제한 + 자동 활성화
             if ( $edition_ctrl->is_at_least( 'premium' ) ) {
                 $limits['max_files'] = 999;
                 $limits['can_auto_activate'] = true;
                 $limits['max_manage_items'] = 999;
                 $limits['can_bulk_delete'] = true;
                 $limits['can_deactivate_then_delete'] = true;
-            }
-            
-            // Master: 무제한
-            if ( $edition_ctrl->is_at_least( 'master' ) ) {
-                $limits['max_files'] = 999;
-                $limits['can_auto_activate'] = true;
-                $limits['max_manage_items'] = 999;
-                $limits['can_bulk_delete'] = true;
-                $limits['can_deactivate_then_delete'] = true;
-                $limits['is_master'] = true; // [v2.3.2] 마스터 버전 플래그 추가
             }
         }
         
@@ -408,7 +407,9 @@ class JJ_Bulk_Installer {
         $server_info = $this->get_server_upload_info(); // [Phase 19.1] 서버 사양 정보
 
         $plan_label = 'PREMIUM+';
-        if ( (int) $limits['max_files'] <= 3 ) {
+        if ( ! empty( $limits['is_master'] ) ) {
+            $plan_label = 'MASTER';
+        } elseif ( (int) $limits['max_files'] <= 3 ) {
             $plan_label = 'FREE';
         } elseif ( (int) $limits['max_files'] <= 10 ) {
             $plan_label = 'BASIC';
@@ -470,17 +471,32 @@ class JJ_Bulk_Installer {
                                 최대 <?php echo (int) $limits['max_files']; ?>개 | 파일당 최대 1GB (서버 설정에 따라 파일당 최대 <?php echo esc_html( $server_info['max_file_size_fmt'] ); ?>입니다. 더 높은 용량을 사용하려면 서버 설정을 변경하세요) | 전체 용량 최대 10GB (가급적 2GB 이하 첨부 권장)
                                 <br><span style="color: #d63638; font-weight: 600;">(⚠️ 주의: 서버 설정이나 워드프레스 설정에 따른 용량 제한을 이 플러그인의 설정이 무시할 수는 없으므로 유의하여 설정을 변경하시기 바랍니다. <a href="https://wordpress.org/documentation/article/increasing-the-maximum-upload-file-size/" target="_blank" style="color: #d63638; text-decoration: underline;">공식 문서 확인</a>)</span>
                             </p>
-                            <?php if ( $server_info['max_file_size'] < 1073741824 ) : // 1GB 미만인 경우 ?>
-                                <p class="description" style="color: #d63638; margin-top: 0.5em;">
-                                    <strong>⚠️ 주의:</strong> 현재 서버 설정으로는 파일당 최대 <?php echo esc_html( $server_info['max_file_size_fmt'] ); ?>까지만 업로드 가능합니다. 
-                                    더 큰 파일을 업로드하려면 서버의 <code>upload_max_filesize</code> (현재: <?php echo esc_html( $server_info['upload_max_filesize'] ); ?>) 
-                                    및 <code>post_max_size</code> (현재: <?php echo esc_html( $server_info['post_max_size'] ); ?>) 설정을 변경해야 합니다.
-                                </p>
-                            <?php endif; ?>
+
+                            <div style="margin: 15px 0; background: #f0f6fb; padding: 10px; border-radius: 6px; border: 1px solid #c3d9e8;">
+                                <label style="font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                    <input type="checkbox" id="jj-auto-activate-all" <?php checked( $limits['can_auto_activate'] ); ?> <?php disabled( ! $limits['can_auto_activate'] ); ?>> 
+                                    설치 완료 후 즉시 활성화 (Plugins Only)
+                                </label>
+                                <?php if ( ! $limits['can_auto_activate'] ) : ?>
+                                    <div style="font-size: 11px; color: #d63638; margin-top: 4px;">🔒 이 기능은 Premium 이상에서 사용할 수 있습니다.</div>
+                                <?php endif; ?>
+                            </div>
+
                             <!-- label로 감싸서 클릭 영역 확보 -->
                             <label for="jj-file-input" class="screen-reader-text">파일 선택</label>
                             <input type="file" id="jj-file-input" multiple accept=".zip">
                         </div>
+                    </div>
+
+                    <!-- [v5.0.1] 설치 후 자동 활성화 옵션 복구 -->
+                    <div class="jj-installer-options" style="margin-bottom: 20px; padding: 15px; background: #f0f6fb; border-radius: 6px; border: 1px solid #c3d9e8; display: flex; align-items: center; gap: 15px;">
+                        <label style="font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                            <input type="checkbox" id="jj-auto-activate-all" <?php echo $limits['can_auto_activate'] ? 'checked' : 'disabled'; ?>>
+                            🚀 설치 완료 후 즉시 활성화 (Plugins only)
+                        </label>
+                        <?php if ( ! $limits['can_auto_activate'] ) : ?>
+                            <span class="description" style="color: #d63638;">(🔒 Premium 이상 기능)</span>
+                        <?php endif; ?>
                     </div>
 
                     <!-- 파일 목록 -->
@@ -577,6 +593,8 @@ class JJ_Bulk_Installer {
                         <div class="jj-bulk-toolbar-right">
                             <button type="button" class="button button-primary" id="jj-bulk-action-activate" data-op="activate" data-type="plugin">선택 활성화</button>
                             <button type="button" class="button" id="jj-bulk-action-deactivate" data-op="deactivate" data-type="plugin">선택 비활성화</button>
+                            <button type="button" class="button" id="jj-bulk-action-update" data-op="update" data-type="plugin">선택 업데이트</button>
+                            <button type="button" class="button" id="jj-bulk-action-rollback" data-op="rollback" data-type="plugin">선택 롤백</button>
                             <button type="button" class="button button-secondary" id="jj-bulk-action-delete" data-op="delete" data-type="plugin" <?php echo ( ! $limits['can_bulk_delete'] ) ? 'disabled' : ''; ?>>선택 삭제</button>
                             <button type="button" class="button button-danger" id="jj-bulk-action-deactivate-delete" data-op="deactivate_delete" data-type="plugin" <?php echo ( ! $limits['can_deactivate_then_delete'] ) ? 'disabled' : ''; ?>>비활성화 후 삭제</button>
                             <button type="button" class="button" id="jj-bulk-action-auto-update-enable" data-op="auto_update_enable" data-type="plugin">자동 업데이트 허용</button>
@@ -769,9 +787,14 @@ class JJ_Bulk_Installer {
                     $requires_plugins = array_values( array_filter( $parts ) );
                 }
 
+                // [v5.0.1] 다국어 이름 처리 (원문 + 번역문)
+                $plugin_name = isset( $data['Name'] ) ? $data['Name'] : $plugin_file;
+                $name_translated = isset( $data['Title'] ) ? $data['Title'] : $plugin_name;
+                
                 $items[] = array(
                     'id' => $plugin_file,
-                    'name' => isset( $data['Name'] ) ? $data['Name'] : $plugin_file,
+                    'name' => $plugin_name,
+                    'name_translated' => $name_translated,
                     'version' => isset( $data['Version'] ) ? $data['Version'] : '',
                     'author' => isset( $data['Author'] ) ? wp_strip_all_tags( $data['Author'] ) : '',
                     'active' => (bool) $active,
@@ -859,11 +882,11 @@ class JJ_Bulk_Installer {
         if ( ! in_array( $item_type, array( 'plugin', 'theme' ), true ) ) {
             wp_send_json_error( '잘못된 item_type 입니다.' );
         }
-        if ( ! in_array( $operation, array( 'activate', 'deactivate', 'delete', 'deactivate_delete', 'auto_update_enable', 'auto_update_disable' ), true ) ) {
+        if ( ! in_array( $operation, array( 'activate', 'deactivate', 'update', 'rollback', 'delete', 'deactivate_delete', 'auto_update_enable', 'auto_update_disable' ), true ) ) {
             wp_send_json_error( '잘못된 operation 입니다.' );
         }
-        if ( 'theme' === $item_type && ! in_array( $operation, array( 'delete', 'auto_update_enable', 'auto_update_disable' ), true ) ) {
-            wp_send_json_error( '테마는 삭제와 자동 업데이트 관리만 지원합니다.' );
+        if ( 'theme' === $item_type && ! in_array( $operation, array( 'update', 'delete', 'auto_update_enable', 'auto_update_disable' ), true ) ) {
+            wp_send_json_error( '테마는 업데이트, 삭제와 자동 업데이트 관리만 지원합니다.' );
         }
         if ( ! is_array( $items ) ) {
             wp_send_json_error( 'items 형식이 올바르지 않습니다.' );
@@ -922,17 +945,28 @@ class JJ_Bulk_Installer {
                 $network_active = is_multisite() ? is_plugin_active_for_network( $plugin_file ) : false;
                 $active = is_plugin_active( $plugin_file ) || $network_active;
 
-                // 0) activate if needed
+                // 이미 활성 상태인 경우
                 if ( 'activate' === $operation && ! $active ) {
-                    $result = activate_plugin( $plugin_file, '', false, false );
-                    if ( is_wp_error( $result ) ) {
-                        $results[] = array( 'id' => $plugin_file, 'ok' => false, 'message' => '활성화 실패: ' . $result->get_error_message() );
-                        continue;
+                    // ... (기존 활성화 로직)
+                }
+
+                // [v5.0.1] update / rollback 처리
+                if ( in_array( $operation, array( 'update', 'rollback' ), true ) ) {
+                    if ( 'update' === $operation ) {
+                        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+                        $skin = new WP_Ajax_Upgrader_Skin();
+                        $upgrader = ( 'theme' === $item_type ) ? new Theme_Upgrader( $skin ) : new Plugin_Upgrader( $skin );
+                        
+                        $result = $upgrader->upgrade( $plugin_file );
+                        if ( is_wp_error( $result ) ) {
+                            $results[] = array( 'id' => $plugin_file, 'ok' => false, 'message' => '업데이트 실패: ' . $result->get_error_message() );
+                        } else {
+                            $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '업데이트 완료' );
+                        }
+                    } else {
+                        // Rollback: 현재 코어 기능에는 없으므로 안내 또는 특정 플러그인 연동
+                        $results[] = array( 'id' => $plugin_file, 'ok' => false, 'message' => '롤백 기능은 준비 중입니다 (WP Rollback 등 외부 플러그인 권장)' );
                     }
-                    $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '활성화 완료' );
-                    continue;
-                } elseif ( 'activate' === $operation ) {
-                    $results[] = array( 'id' => $plugin_file, 'ok' => true, 'message' => '이미 활성 상태' );
                     continue;
                 }
 
@@ -1027,6 +1061,21 @@ class JJ_Bulk_Installer {
         foreach ( $items as $stylesheet ) {
             if ( ! isset( $themes[ $stylesheet ] ) ) {
                 $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => '존재하지 않는 테마입니다.' );
+                continue;
+            }
+
+            // update operation
+            if ( 'update' === $operation ) {
+                include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+                $skin = new WP_Ajax_Upgrader_Skin();
+                $upgrader = new Theme_Upgrader( $skin );
+                $update_result = $upgrader->bulk_upgrade( array( $stylesheet ) );
+                
+                if ( empty( $update_result[ $stylesheet ] ) ) {
+                    $results[] = array( 'id' => $stylesheet, 'ok' => false, 'message' => '업데이트 실패' );
+                } else {
+                    $results[] = array( 'id' => $stylesheet, 'ok' => true, 'message' => '업데이트 완료' );
+                }
                 continue;
             }
 

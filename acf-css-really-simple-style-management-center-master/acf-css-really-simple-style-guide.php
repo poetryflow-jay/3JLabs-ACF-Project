@@ -194,6 +194,7 @@ $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-asset-optimizer.php',
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-plugin-updater.php', true ); // 업데이트 관리자
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-license-manager.php', true ); // 라이센스 관리자
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-block-editor-integration.php', true ); // 블록 에디터 통합
+$jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-labs-center.php', true ); // 실험실 센터
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-elementor-integration.php', false ); // 엘리멘터 통합 (선택)
 
 // [v13.4.4] Master Integrator 로드 (모든 패밀리 플러그인 기능 통합)
@@ -256,6 +257,18 @@ add_action( 'init', function() {
             }
         } catch ( Exception $e ) {
             if ( function_exists( 'error_log' ) ) error_log( 'JJ Style Guide Live Page Init Failed: ' . $e->getMessage() );
+        }
+    }
+
+    // 4. Labs Center 초기화
+    if ( class_exists( 'JJ_Labs_Center' ) ) {
+        try {
+            $labs_center = JJ_Labs_Center::instance();
+            if ( method_exists( $labs_center, 'init' ) ) {
+                $labs_center->init();
+            }
+        } catch ( Exception $e ) {
+            if ( function_exists( 'error_log' ) ) error_log( 'JJ Labs Center Init Failed: ' . $e->getMessage() );
         }
     }
 }, 10 );

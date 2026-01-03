@@ -292,12 +292,13 @@ final class JJ_Labs_Center {
 
     /**
      * "J&J 실험실" 서브메뉴 추가
+     * [v20.2.5] 등록 로직 간소화 및 권한 체크 강화
      */
     public function add_admin_menu_page() {
-        // [v5.5.0] 권한 체크 (Edition Controller)
         $capability = 'manage_options';
+        
+        // [v5.5.0] 에디션 체크
         if ( class_exists( 'JJ_Edition_Controller' ) ) {
-            // 최소 Basic 이상 접근 가능하도록 (실제 기능 제한은 내부에서 처리)
             if ( ! JJ_Edition_Controller::instance()->is_at_least( 'basic' ) ) {
                 return;
             }
@@ -305,19 +306,20 @@ final class JJ_Labs_Center {
 
         $page_title = __( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' );
         $menu_title = __( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' );
+        $slug       = 'jj-labs-center';
 
-        // 1. 설정 메뉴 하단
+        // 1. 설정(Settings) 메뉴 하단 (호환성 유지)
         add_options_page(
             $page_title,
             $menu_title,
             $capability,
-            'jj-labs-center',
+            $slug,
             array( $this, 'render_labs_center_page' )
         );
 
         // 2. 모양(Appearance) 및 도구(Tools) 메뉴 추가 (접근성 강화)
-        add_theme_page( $page_title, $menu_title, $capability, 'jj-labs-center', array( $this, 'render_labs_center_page' ) );
-        add_management_page( $page_title, $menu_title, $capability, 'jj-labs-center', array( $this, 'render_labs_center_page' ) );
+        add_theme_page( $page_title, $menu_title, $capability, $slug, array( $this, 'render_labs_center_page' ) );
+        add_management_page( $page_title, $menu_title, $capability, $slug, array( $this, 'render_labs_center_page' ) );
     }
 
     /**

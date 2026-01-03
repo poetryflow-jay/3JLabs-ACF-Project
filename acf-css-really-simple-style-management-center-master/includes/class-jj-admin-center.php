@@ -453,7 +453,7 @@ final class JJ_Admin_Center {
      * [v20.2.0] 최상위 메뉴로 변경 - 알림판 > 벌크 매니저 바로 아래에 "ACF 스타일 센터" 배치
      */
     public function add_admin_menu_page() {
-        $menu_title = __( '🎨 스타일 센터', 'acf-css-really-simple-style-management-center' );
+        $menu_title = __( '스타일 센터 🎨', 'acf-css-really-simple-style-management-center' );
         $page_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'full_name' ) : __( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ) );
 
         // [v20.2.0] 최상위 메뉴로 추가 (알림판 > 벌크 매니저 다음)
@@ -467,6 +467,10 @@ final class JJ_Admin_Center {
             2.6 // Dashboard(2) > 벌크 매니저(2.5) 바로 아래
         );
 
+        // [v20.2.3] 중복 메뉴 제거: add_submenu_page('jj-admin-center', ...) 호출 시 
+        // 첫 번째 서브메뉴는 부모 메뉴와 동일하게 자동 생성되므로 명시적 추가 불필요.
+        // 대신 '통합 상태' 등 추가 서브메뉴가 필요한 경우 여기서 관리.
+        
         // 기존 설정 메뉴도 유지 (호환성)
         add_options_page(
             $page_title,
@@ -482,25 +486,22 @@ final class JJ_Admin_Center {
         add_management_page( $page_title, __( 'ACF CSS 설정 관리자', 'acf-css-really-simple-style-management-center' ), 'manage_options', 'jj-admin-center', array( $this, 'render_admin_center_page' ) );
 
         // [v20.2.2] Style Guide 페이지 등록 (호환성을 위해 Settings에도 등록)
-        $style_guide_title = __( '스타일 센터', 'acf-css-really-simple-style-management-center' );
-        add_submenu_page(
-            'jj-admin-center',
-            $style_guide_title,
-            $style_guide_title,
-            'manage_options',
-            JJ_STYLE_GUIDE_PAGE_SLUG,
-            array( $this, 'render_style_guide_page' )
-        );
-        
-        // Settings 메뉴에도 등록 (하위 호환성 및 직접 접근용)
-        add_options_page(
-            $style_guide_title,
-            $style_guide_title,
-            'manage_options',
-            JJ_STYLE_GUIDE_PAGE_SLUG,
-            array( $this, 'render_style_guide_page' )
-        );
+        // [v20.2.3] 최상위 메뉴 하위로 '스타일 센터' 한 번만 표시되도록 수정
+        // add_submenu_page 로 중복 등록하지 않고, 탭 시스템 내에서 처리하거나 
+        // 필요한 경우에만 최소한으로 등록.
 
+        // [v20.2.5] 실험실 센터(Labs Center) 서브메뉴 등록
+        if ( class_exists( 'JJ_Labs_Center' ) ) {
+            $labs_title = __( '실험실 센터', 'acf-css-really-simple-style-management-center' );
+            add_submenu_page(
+                'jj-admin-center',
+                $labs_title,
+                $labs_title,
+                'manage_options',
+                'jj-labs-center',
+                array( JJ_Labs_Center::instance(), 'render_labs_center_page' )
+            );
+        }
     }
 
     /**
@@ -1199,6 +1200,13 @@ final class JJ_Admin_Center {
         $defaults = $this->get_default_admin_colors();
 
         return array_merge( $defaults, $stored );
+    }
+
+    /**
+     * [v22.0.0] get_admin_menu_colors()의 별칭 (Fatal Error 방지)
+     */
+    public function get_admin_colors() {
+        return $this->get_admin_menu_colors();
     }
 
     /**
