@@ -3,7 +3,7 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 3일  
-**릴리즈 버전**: Phase 28 WP Bulk Manager 그랜드 업그레이드 완성 (v5.0.3)  
+**릴리즈 버전**: Phase 30 GUI Recovery & Security Enhancement (v22.1.1)  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소)
 
 ---
@@ -12,13 +12,35 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| WP Bulk Manager | 5.0.2 | **5.0.3** | Major/Grand |
-| ACF CSS Manager (Master) | 22.0.1 | **22.0.1** | - |
+| ACF CSS Manager (Master) | 22.1.0 | **22.1.1** | Security/UI |
+| ACF MBA Nudge Flow | 22.0.1 | **22.1.0** | Security |
+| WP Bulk Manager | 5.0.3 | **22.1.0** | Sync |
 | ACF CSS Neural Link | 6.0.1 | **6.0.1** | - |
 
 ---
 
-## 🚀 주요 변경사항 (Grand Upgrade)
+## 🚀 주요 변경사항 (Phase 30 - GUI Recovery & Security)
+
+### ACF CSS Manager v22.1.1
+- ✅ **GUI 렌더링 엔진 복구**: Style Center가 텍스트로만 표시되던 문제 해결
+    - 누락된 6개 핵심 클래스 파일 복구:
+      - `class-jj-simple-style-guide.php`
+      - `class-jj-common-utils.php`
+      - `class-jj-style-guide-frontend.php`
+      - `class-jj-font-manager.php`
+      - `class-jj-palette-manager.php`
+      - `class-jj-typography-manager.php`
+- ✅ **Safe Loader 진단 강화**: 파일 로드 실패 시 상세 진단 정보 제공
+
+### ACF MBA Nudge Flow v22.1.0
+- ✅ **권한 보안 패치 (Critical)**:
+    - 모든 렌더링 함수에 `current_user_can('manage_options')` 가드 추가
+    - 권한 없는 사용자 접근 시 `wp_die()` 처리
+- ✅ **수정된 함수**: `render_template_center`, `render_dashboard`, `render_workflows`, `render_builder`, `render_analytics`, `render_settings`
+
+---
+
+## 🚀 주요 변경사항 (Grand Upgrade - Phase 28)
 
 ### WP Bulk Manager v5.0.3
 - ✅ **멀티 사이트(Multisite) 통합 관리 완성**:
