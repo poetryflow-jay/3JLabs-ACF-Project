@@ -43,6 +43,17 @@
 - `JJ_Error_Tracker`: 에러 추적
 - `JJ_Code_Optimizer`: 코드 최적화
 
+### Phase 26: 전략적 넛지 프리셋 및 템플릿 마켓 (v20.2.4)
+- **개인화 마케팅 보고서 기반 프리셋 (Strategic Presets)**:
+    - `welcome_curation`, `signup_nudge`, `cart_recovery`, `free_shipping`, `cross_sell`, `vip_retention` 6종 시나리오 구현.
+    - `JJ_Master_Nudge_Flow::get_preset_templates()` 메서드로 데이터 구조 관리.
+- **AJAX 기반 프리셋 배포 (AJAX Distribution)**:
+    - `jj_install_nudge_preset` 액션을 통해 프리셋 데이터를 `jj_nudge_workflow` 포스트로 자동 복제.
+    - 설치 시 `post_status`를 `draft`로 설정하여 사용자가 검토 후 활성화하도록 유도.
+- **수익화 마켓플레이스 UI (Monetization UI)**:
+    - 유료 프리미엄 템플릿과 무료 템플릿의 시각적 구분 및 가격 표시.
+    - 판매자 신청 섹션 및 정산 기대 효과 노출로 에코시스템 참여 유도.
+
 ### Phase 25: Nudge Flow 메뉴 개편 및 수익화 모델 (v20.2.2)
 - **메뉴 배치**: WooCommerce '마케팅' 메뉴 하단으로 이동 (Position: 58)
 - **서브메뉴 구조**:

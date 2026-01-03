@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '20.2.2' ); // [v20.2.2] 번역 로딩 타이밍 수정 (WordPress 6.7.0+ 호환)
+    define( 'JJ_STYLE_GUIDE_VERSION', '20.2.4' ); // [v20.2.2] 번역 로딩 타이밍 수정 (WordPress 6.7.0+ 호환)
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의

@@ -35,12 +35,17 @@ class JJ_Master_Nudge_Flow {
         // 관리자 메뉴
         add_action( 'admin_menu', array( $this, 'add_admin_menu' ), 20 );
         
+        // 메뉴 순서 강제 조정 (WooCommerce 마케팅 아래)
+        add_filter( 'menu_order', array( $this, 'force_menu_order' ), 1001 );
+        add_filter( 'custom_menu_order', '__return_true' );
+
         // 프론트엔드 넛지 실행
         add_action( 'wp_footer', array( $this, 'execute_nudges' ) );
         
         // AJAX 핸들러
         add_action( 'wp_ajax_jj_nudge_dismiss', array( $this, 'ajax_dismiss_nudge' ) );
         add_action( 'wp_ajax_nopriv_jj_nudge_dismiss', array( $this, 'ajax_dismiss_nudge' ) );
+        add_action( 'wp_ajax_jj_install_nudge_preset', array( $this, 'ajax_install_nudge_preset' ) );
         
         // 스크립트 로드
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -372,20 +377,75 @@ class JJ_Master_Nudge_Flow {
     }
 
     /**
-     * AJAX: 넛지 닫기
+     * AJAX: 프리셋 템플릿 설치
+     * [v20.2.4] 설치 시 비활성화(draft) 상태로 생성
      */
-    public function ajax_dismiss_nudge() {
-        check_ajax_referer( 'jj_nudge_nonce', 'nonce' );
+    public function ajax_install_nudge_preset() {
+        check_ajax_referer( 'jj_nudge_market_nonce', 'nonce' );
 
-        $workflow_id = isset( $_POST['workflow_id'] ) ? intval( $_POST['workflow_id'] ) : 0;
-        
-        if ( $workflow_id > 0 ) {
-            // 세션 또는 쿠키에 닫은 워크플로우 기록
-            $dismissed = isset( $_COOKIE['jj_nudge_dismissed'] ) ? json_decode( stripslashes( $_COOKIE['jj_nudge_dismissed'] ), true ) : array();
-            $dismissed[] = $workflow_id;
-            setcookie( 'jj_nudge_dismissed', json_encode( array_unique( $dismissed ) ), time() + ( 24 * 60 * 60 ), '/' );
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
         }
 
-        wp_send_json_success();
+        $preset_id = isset( $_POST['preset_id'] ) ? sanitize_text_field( $_POST['preset_id'] ) : '';
+        $presets = $this->get_preset_templates();
+
+        if ( ! isset( $presets[ $preset_id ] ) ) {
+            wp_send_json_error( __( '유효하지 않은 프리셋입니다.', 'acf-css-really-simple-style-management-center' ) );
+        }
+
+        $data = $presets[ $preset_id ];
+
+        // 새로운 워크플로우 생성
+        $post_id = wp_insert_post( array(
+            'post_title'   => $data['title'] . ' (Preset)',
+            'post_type'    => 'jj_nudge_workflow',
+            'post_status'  => 'draft', // 초기 비활성화 상태
+            'post_content' => $data['description'],
+        ) );
+
+        if ( is_wp_error( $post_id ) ) {
+            wp_send_json_error( $post_id->get_error_message() );
+        }
+
+        // 메타 데이터 저장
+        update_post_meta( $post_id, '_jj_workflow_active', '0' );
+        update_post_meta( $post_id, '_jj_workflow_trigger', $data['trigger'] );
+        update_post_meta( $post_id, '_jj_workflow_action', $data['action'] );
+        update_post_meta( $post_id, '_jj_workflow_preset_id', $preset_id );
+        
+        // 프리셋별 기본 설정값 (예시)
+        $default_config = array(
+            'delay' => 5,
+            'frequency' => 'once_per_session',
+            'theme' => 'modern',
+        );
+        update_post_meta( $post_id, '_jj_workflow_config', $default_config );
+
+        wp_send_json_success( array( 'post_id' => $post_id ) );
+    }
+
+    /**
+     * 메뉴 순서 강제 조정
+     */
+    public function force_menu_order( $menu_ord ) {
+        if ( ! $menu_ord ) return $menu_ord;
+
+        $new_order = array();
+        $target_menu = 'jj-nudge-flow';
+        $marketing_menu = 'woocommerce-marketing';
+
+        foreach ( $menu_ord as $item ) {
+            $new_order[] = $item;
+            if ( $item === $marketing_menu ) {
+                // 마케팅 메뉴 바로 다음에 넛지 플로우 배치
+                if ( ( $key = array_search( $target_menu, $menu_ord ) ) !== false ) {
+                    unset( $new_order[ array_search( $target_menu, $new_order ) ] );
+                    $new_order[] = $target_menu;
+                }
+            }
+        }
+
+        return array_values( array_unique( $new_order ) );
     }
 }
