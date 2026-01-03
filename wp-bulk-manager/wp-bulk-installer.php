@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.1.0-master
+ * Version:           22.1.1-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.1.0-master' ); // [v22.1.0] Aligned with Master Family Version
+define( 'WP_BULK_MANAGER_VERSION', '22.1.1-master' ); // [v22.1.1] Bugfix: Activation button issue
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -1353,6 +1353,14 @@ class JJ_Bulk_Installer {
         include_once ABSPATH . 'wp-admin/includes/plugin.php';
         include_once ABSPATH . 'wp-admin/includes/theme.php';
 
+        // [v22.1.1] 설치 전 플러그인 목록 확보 (Diff 비교용)
+        $plugins_before = array();
+        if ( $type === 'plugin' ) {
+            // 캐시 강제 초기화
+            wp_clean_plugins_cache();
+            $plugins_before = get_plugins();
+        }
+
         ob_start();
         $skin = new WP_Ajax_Upgrader_Skin();
         $upgrader = ( $type === 'theme' ) ? new Theme_Upgrader( $skin ) : new Plugin_Upgrader( $skin );
@@ -1367,11 +1375,22 @@ class JJ_Bulk_Installer {
         $plugin_slug = '';
         if ( $type === 'plugin' ) {
             $plugin_slug = $upgrader->plugin_info();
+            
+            // [v22.1.1] plugin_info() 실패 시, 플러그인 목록 비교로 추적
             if ( ! $plugin_slug ) {
-                // 설치 후 파일명으로 추측 (간단한 로직)
-                // 실제로는 압축 해제된 폴더를 찾아야 함.
-                // 이번 버전에서는 '설치됨' 상태만 반환하고 활성화는 수동/자동 옵션에 따름
+                wp_clean_plugins_cache();
+                $plugins_after = get_plugins();
+                
+                // 새로 추가된 키 찾기
+                $new_plugins = array_diff_key( $plugins_after, $plugins_before );
+                if ( ! empty( $new_plugins ) ) {
+                    // 첫 번째 발견된 키를 사용 (보통 하나만 설치되므로)
+                    $plugin_slug = key( $new_plugins );
+                }
             }
+        } else {
+            // 테마의 경우 theme_info() 사용
+            $plugin_slug = $upgrader->theme_info();
         }
 
         @unlink( $file_path );
@@ -1933,6 +1952,24 @@ class JJ_Bulk_Installer {
         wp_send_json_success( array(
             'results' => $results
         ) );
+    }
+
+    /**
+     * [v5.0.0] 원격 관리 액션 실행
+     */
+    private function remote_manage_action( $params ) {
+        $item_type = isset( $params['item_type'] ) ? $params['item_type'] : 'plugin';
+        $operation = isset( $params['operation'] ) ? $params['operation'] : '';
+        $items = isset( $params['items'] ) ? $params['items'] : array();
+
+        if ( empty( $items ) || empty( $operation ) ) {
+            return new WP_Error( 'missing_params', '필수 파라미터 누락', array( 'status' => 400 ) );
+        }
+
+        // 내부 관리 액션 재사용
+        $results = $this->internal_bulk_manage_action( $item_type, $operation, $items );
+        
+        return array( 'success' => true, 'results' => $results );
     }
 
     private function detect_type( $zip_path ) {
