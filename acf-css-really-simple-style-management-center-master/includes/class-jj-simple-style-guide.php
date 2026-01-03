@@ -359,6 +359,36 @@ class JJ_Simple_Style_Guide {
                 ),
             )
         );
+
+        // [v22.2.1] UI System 2026 Enhanced CSS 로드
+        if ( defined( 'JJ_STYLE_GUIDE_URL' ) && defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
+            // 메인 UI 시스템 CSS
+            $ui_system_css_url = JJ_STYLE_GUIDE_URL . 'assets/css/jj-ui-system-2026.css';
+            $ui_system_css_path = JJ_STYLE_GUIDE_PATH . 'assets/css/jj-ui-system-2026.css';
+
+            if ( file_exists( $ui_system_css_path ) ) {
+                $css_version = $version . '.' . filemtime( $ui_system_css_path );
+                wp_enqueue_style( 'jj-ui-system-2026', $ui_system_css_url, array(), $css_version );
+            }
+
+            // 섹션 강화 CSS
+            $section_css_url = JJ_STYLE_GUIDE_URL . 'assets/css/jj-section-enhancements-2026.css';
+            $section_css_path = JJ_STYLE_GUIDE_PATH . 'assets/css/jj-section-enhancements-2026.css';
+
+            if ( file_exists( $section_css_path ) ) {
+                $css_version = $version . '.' . filemtime( $section_css_path );
+                wp_enqueue_style( 'jj-section-enhancements-2026', $section_css_url, array( 'jj-ui-system-2026' ), $css_version );
+            }
+        }
+
+        // UI System JS
+        $ui_system_js_url = defined( 'JJ_STYLE_GUIDE_URL' ) ? JJ_STYLE_GUIDE_URL . 'assets/js/jj-ui-system-2026.js' : '';
+        $ui_system_js_path = defined( 'JJ_STYLE_GUIDE_PATH' ) ? JJ_STYLE_GUIDE_PATH . 'assets/js/jj-ui-system-2026.js' : '';
+
+        if ( file_exists( $ui_system_js_path ) ) {
+            $js_version = $version . '.' . filemtime( $ui_system_js_path );
+            wp_enqueue_script( 'jj-ui-system-2026-js', $ui_system_js_url, array( 'jquery' ), $js_version, true );
+        }
     }
 
     /**
