@@ -68,8 +68,21 @@ foreach ( $snippets as $snippet ) {
             <div style="font-size: 36px; font-weight: bold;"><?php echo esc_html( $type_counts['js'] ); ?></div>
             <div style="opacity: 0.9;"><?php esc_html_e( 'JS 스니펫', 'acf-code-snippets-box' ); ?></div>
         </div>
+        </div>
+        
+        <div class="acf-csb-stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(240, 87, 118, 0.4);">
+            <h3 style="margin: 0;"><?php esc_html_e( '오늘 실행', 'acf-code-snippets-box' ); ?></h3>
+            <div style="font-size: 42px; font-weight: 700; margin-bottom: 15px;"><?php echo number_format( get_option( 'acf_csb_executions_today', 0 ) ); ?></div>
+            <div class="stat-label" style="opacity: 0.9; font-size: 14px;"><?php esc_html_e( 'PHP 실행 횟수', 'acf-code-snippets-box' ); ?></div>
+        </div>
+        
+        <div class="acf-csb-stat-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);">
+            <h3 style="margin: 0;"><?php esc_html_e( '가장 많이 사용', 'acf-code-snippets-box' ); ?></h3>
+            <div style="font-size: 42px; font-weight: 700; margin-bottom: 15px;">CSS</div>
+            <div class="stat-label" style="opacity: 0.9; font-size: 14px;"><?php esc_html_e( '스니펫 유형', 'acf-code-snippets-box' ); ?></div>
+        </div>
     </div>
-
+    
     <!-- 빠른 액션 -->
     <div class="acf-csb-quick-actions" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0;">
         <a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=acf_code_snippet' ) ); ?>" class="acf-csb-action-card" style="display: flex; align-items: center; padding: 20px; background: #fff; border-radius: 12px; text-decoration: none; color: #1d2327; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s;">

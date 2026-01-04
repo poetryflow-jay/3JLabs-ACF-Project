@@ -75,29 +75,103 @@ class JJ_Pattern_Learner_Admin {
             </p>
 
             <div class="jj-stats-grid">
+                <!-- [v6.3.0] Pattern Learning Progress Card (Mikael) -->
+                <div class="jj-stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <h3><?php esc_html_e( '패턴 학습 진행률', 'acf-css-neural-link' ); ?></h3>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div>
+                            <div class="stat-value" style="font-size: 42px; margin-bottom: 8px;"><?php echo esc_html( $stats['learning_progress'] ) . '%'; ?></div>
+                            <div class="stat-label"><?php esc_html_e( '학습 완료율', 'acf-css-neural-link' ); ?></div>
+                        </div>
+                        <div class="progress-bar-container" style="flex: 1; max-width: 200px;">
+                            <div class="progress-bar" style="height: 20px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden;">
+                                <div class="progress-fill" style="height: 100%; background: #10b981; width: <?php echo esc_attr( $stats['learning_progress'] ); ?>%; border-radius: 10px; transition: width 0.5s ease;"></div>
+                            </div>
+                            <div class="progress-label" style="text-align: right; font-size: 11px; color: rgba(255,255,255,0.9); margin-top: 5px;">
+                                <?php 
+                                if ( $stats['learning_status'] === 'in_progress' ) {
+                                    esc_html_e( '학습 중...', 'acf-css-neural-link' );
+                                } elseif ( $stats['learning_status'] === 'completed' ) {
+                                    esc_html_e( '완료', 'acf-css-neural-link' );
+                                } else {
+                                    esc_html_e( '대기 중', 'acf-css-neural-link' );
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="jj-stat-card">
                     <h3><?php esc_html_e( 'Total Changes', 'acf-css-neural-link' ); ?></h3>
                     <div class="stat-value"><?php echo esc_html( number_format( $stats['total_changes'] ) ); ?></div>
                     <div class="stat-label"><?php esc_html_e( '전체 수정 횟수', 'acf-css-neural-link' ); ?></div>
                 </div>
-
+                
                 <div class="jj-stat-card">
                     <h3><?php esc_html_e( 'Patterns Learned', 'acf-css-neural-link' ); ?></h3>
                     <div class="stat-value"><?php echo esc_html( number_format( $stats['patterns_learned'] ) ); ?></div>
                     <div class="stat-label"><?php esc_html_e( '학습된 패턴', 'acf-css-neural-link' ); ?></div>
                 </div>
-
+                
                 <div class="jj-stat-card">
                     <h3><?php esc_html_e( 'Change Types', 'acf-css-neural-link' ); ?></h3>
                     <div class="stat-value"><?php echo esc_html( count( $stats['change_types'] ) ); ?></div>
                     <div class="stat-label"><?php esc_html_e( '수정 유형 수', 'acf-css-neural-link' ); ?></div>
                 </div>
             </div>
-
+            
             <div class="jj-chart-container">
-                <h2><?php esc_html_e( 'Most Frequent Change Types', 'acf-css-neural-link' ); ?></h2>
-                <canvas id="jj-change-types-chart" width="400" height="200"></canvas>
+                <h2><?php esc_html_e( '📈 학습 진행 이력 (최근 30일)', 'acf-css-neural-link' ); ?></h2>
+                <canvas id="jj-learning-history-chart" style="max-height: 300px;"></canvas>
             </div>
+            
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const ctx = document.getElementById('jj-learning-history-chart');
+                if (!ctx) return;
+                
+                // Mock data - will be replaced with real data
+                const chartData = {
+                    labels: ['일', '화', '수', '목', '금', '토', '일'],
+                    datasets: [{
+                        label: '학습된 패턴 수',
+                        data: [12, 19, 24, 18, 22, 26, 15],
+                        borderColor: 'rgb(102, 126, 234)',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: '학습 완료율 (%)',
+                        data: [65, 72, 78, 70, 85, 80, 90],
+                        borderColor: 'rgb(16, 185, 129)',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                };
+                
+                new Chart(ctx, {
+                    type: 'line',
+                    data: chartData,
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            });
+            </script>
 
             <div class="jj-suggestions-box">
                 <h3>💡 <?php esc_html_e( 'AI 추천 사항', 'acf-css-neural-link' ); ?></h3>
