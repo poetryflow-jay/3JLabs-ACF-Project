@@ -185,23 +185,41 @@ class JJ_Simple_Style_Guide {
             wp_die( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
         }
 
-        // 엔진 초기화 (지연 로딩 대응)
-        if ( class_exists( 'JJ_Demo_Importer' ) ) {
-            JJ_Demo_Importer::instance()->init();
+        // [v22.4.2] 안전한 엔진 초기화 (오류 방지)
+        try {
+            if ( class_exists( 'JJ_Demo_Importer' ) ) {
+                JJ_Demo_Importer::instance()->init();
+            }
+        } catch ( Exception $e ) {
+            error_log( '[JJ Style Guide] JJ_Demo_Importer init failed: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            error_log( '[JJ Style Guide] JJ_Demo_Importer init fatal: ' . $e->getMessage() );
         }
         
-        if ( class_exists( 'JJ_History_Manager' ) ) {
-            JJ_History_Manager::instance()->init();
+        try {
+            if ( class_exists( 'JJ_History_Manager' ) ) {
+                JJ_History_Manager::instance()->init();
+            }
+        } catch ( Exception $e ) {
+            error_log( '[JJ Style Guide] JJ_History_Manager init failed: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            error_log( '[JJ Style Guide] JJ_History_Manager init fatal: ' . $e->getMessage() );
         }
 
         // 옵션 로드
         $this->options = (array) get_option( $this->option_key );
         $options = $this->options; // 뷰 파일에서 $options 변수 사용
 
-        // [v22.1.2] 온보딩 모달 로드
+        // [v22.1.2] 온보딩 모달 로드 (안전한 include)
         $onboarding_path = JJ_STYLE_GUIDE_PATH . 'includes/admin/views/view-onboarding-modal.php';
         if ( file_exists( $onboarding_path ) ) {
-            include $onboarding_path;
+            try {
+                include $onboarding_path;
+            } catch ( Exception $e ) {
+                error_log( '[JJ Style Guide] Onboarding modal include failed: ' . $e->getMessage() );
+            } catch ( Error $e ) {
+                error_log( '[JJ Style Guide] Onboarding modal include fatal: ' . $e->getMessage() );
+            }
         }
 
         ?>
@@ -238,7 +256,13 @@ class JJ_Simple_Style_Guide {
                     <?php 
                     $stats_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-stats.php';
                     if ( file_exists( $stats_path ) ) {
-                        include $stats_path;
+                        try {
+                            include $stats_path;
+                        } catch ( Exception $e ) {
+                            error_log( '[JJ Style Guide] Stats section include failed: ' . $e->getMessage() );
+                        } catch ( Error $e ) {
+                            error_log( '[JJ Style Guide] Stats section include fatal: ' . $e->getMessage() );
+                        }
                     }
                     ?>
 
@@ -247,7 +271,13 @@ class JJ_Simple_Style_Guide {
                         <?php 
                         $presets_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-presets.php';
                         if ( file_exists( $presets_path ) ) {
-                            include $presets_path;
+                            try {
+                                include $presets_path;
+                            } catch ( Exception $e ) {
+                                error_log( '[JJ Style Guide] Presets section include failed: ' . $e->getMessage() );
+                            } catch ( Error $e ) {
+                                error_log( '[JJ Style Guide] Presets section include fatal: ' . $e->getMessage() );
+                            }
                         }
                         ?>
                     </div>
@@ -264,15 +294,42 @@ class JJ_Simple_Style_Guide {
                             </p>
                         </div>
                         <?php
-                        // [v22.1.2] 저장된 섹션 레이아웃 순서대로 렌더링
+                        // [v22.1.2] 저장된 섹션 레이아웃 순서대로 렌더링 (안전한 처리)
                         $layout = array();
-                        if ( class_exists( 'JJ_Admin_Center' ) ) {
-                            $layout = JJ_Admin_Center::instance()->get_sections_layout();
-                            
-                            // 순서대로 정렬
-                            uasort( $layout, function( $a, $b ) {
-                                return (int) $a['order'] <=> (int) $b['order'];
-                            } );
+                        try {
+                            if ( class_exists( 'JJ_Admin_Center' ) && method_exists( 'JJ_Admin_Center', 'instance' ) ) {
+                                $admin_center = JJ_Admin_Center::instance();
+                                if ( method_exists( $admin_center, 'get_sections_layout' ) ) {
+                                    $layout = $admin_center->get_sections_layout();
+                                    
+                                    // 순서대로 정렬
+                                    if ( is_array( $layout ) && ! empty( $layout ) ) {
+                                        uasort( $layout, function( $a, $b ) {
+                                            $order_a = isset( $a['order'] ) ? (int) $a['order'] : 999;
+                                            $order_b = isset( $b['order'] ) ? (int) $b['order'] : 999;
+                                            return $order_a <=> $order_b;
+                                        } );
+                                    }
+                                }
+                            }
+                        } catch ( Exception $e ) {
+                            error_log( '[JJ Style Guide] Layout loading failed: ' . $e->getMessage() );
+                            // 기본 레이아웃 사용
+                            $layout = array(
+                                'colors' => array( 'enabled' => true, 'order' => 1 ),
+                                'typography' => array( 'enabled' => true, 'order' => 2 ),
+                                'buttons' => array( 'enabled' => true, 'order' => 3 ),
+                                'forms' => array( 'enabled' => true, 'order' => 4 ),
+                            );
+                        } catch ( Error $e ) {
+                            error_log( '[JJ Style Guide] Layout loading fatal: ' . $e->getMessage() );
+                            // 기본 레이아웃 사용
+                            $layout = array(
+                                'colors' => array( 'enabled' => true, 'order' => 1 ),
+                                'typography' => array( 'enabled' => true, 'order' => 2 ),
+                                'buttons' => array( 'enabled' => true, 'order' => 3 ),
+                                'forms' => array( 'enabled' => true, 'order' => 4 ),
+                            );
                         }
 
                         // 섹션 매핑
@@ -293,7 +350,15 @@ class JJ_Simple_Style_Guide {
                             $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
                             if ( file_exists( $file_path ) ) {
                                 echo '<div class="jj-section-wrapper jj-card" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '" style="margin-bottom: 25px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); transition: all 0.3s ease;">';
-                                include $file_path;
+                                try {
+                                    include $file_path;
+                                } catch ( Exception $e ) {
+                                    error_log( '[JJ Style Guide] Section include failed (' . $slug . '): ' . $e->getMessage() );
+                                    echo '<p style="color: #ef4444;">' . esc_html__( '섹션을 로드하는 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
+                                } catch ( Error $e ) {
+                                    error_log( '[JJ Style Guide] Section include fatal (' . $slug . '): ' . $e->getMessage() );
+                                    echo '<p style="color: #ef4444;">' . esc_html__( '섹션을 로드하는 중 치명적 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
+                                }
                                 echo '</div>';
                             }
                         }
@@ -301,7 +366,13 @@ class JJ_Simple_Style_Guide {
                         // [v22.1.2] 유지보수 및 보안 섹션 (최하단 고정)
                         $maintenance_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-maintenance.php';
                         if ( file_exists( $maintenance_path ) ) {
-                            include $maintenance_path;
+                            try {
+                                include $maintenance_path;
+                            } catch ( Exception $e ) {
+                                error_log( '[JJ Style Guide] Maintenance section include failed: ' . $e->getMessage() );
+                            } catch ( Error $e ) {
+                                error_log( '[JJ Style Guide] Maintenance section include fatal: ' . $e->getMessage() );
+                            }
                         }
                         ?>
                     </div>
