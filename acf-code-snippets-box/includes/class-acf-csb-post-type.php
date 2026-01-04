@@ -397,4 +397,118 @@ class ACF_CSB_Post_Type {
         // 관리자 스타일
         wp_enqueue_style( 'acf-csb-admin', ACF_CSB_URL . 'assets/css/admin.css', array(), ACF_CSB_VERSION );
     }
+    
+    /**
+     * 프리셋 스니펫 목록에 표시
+     * [v2.3.4] 활성화되지 않은 프리셋 스니펫도 목록에 표시
+     */
+    public function display_preset_snippets_in_list( $which ) {
+        global $post_type;
+        
+        if ( $post_type !== self::POST_TYPE || $which !== 'top' ) {
+            return;
+        }
+        
+        // 모든 프리셋 가져오기
+        $all_presets = ACF_CSB_Presets::get_all_presets();
+        $preset_snippets = array();
+        
+        // 각 프리셋 타입별로 순회
+        foreach ( $all_presets as $preset_type => $presets ) {
+            foreach ( $presets as $preset_id => $preset ) {
+                // 기존 스니펫이 있는지 확인
+                $existing = get_posts( array(
+                    'post_type'      => self::POST_TYPE,
+                    'meta_key'       => '_acf_csb_preset_id',
+                    'meta_value'     => $preset_id,
+                    'posts_per_page' => 1,
+                    'post_status'    => 'any',
+                ) );
+                
+                if ( empty( $existing ) ) {
+                    // 스니펫이 없으면 프리셋 정보 저장
+                    $preset_snippets[] = array(
+                        'id'          => $preset_id,
+                        'type'        => $preset_type,
+                        'name'        => $preset['name'],
+                        'description' => isset( $preset['description'] ) ? $preset['description'] : '',
+                        'category'    => isset( $preset['category'] ) ? $preset['category'] : '',
+                        'pro_only'    => isset( $preset['pro_only'] ) && $preset['pro_only'],
+                    );
+                }
+            }
+        }
+        
+        if ( ! empty( $preset_snippets ) ) {
+            ?>
+            <div class="acf-csb-preset-snippets-list" style="margin: 20px 0; padding: 15px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px;">
+                <h3 style="margin-top: 0;"><?php esc_html_e( '📦 사용 가능한 프리셋 스니펫', 'acf-code-snippets-box' ); ?></h3>
+                <p style="color: #666; font-size: 13px;">
+                    <?php esc_html_e( '아래 프리셋들은 아직 스니펫으로 추가되지 않았습니다. 클릭하여 추가하세요.', 'acf-code-snippets-box' ); ?>
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; margin-top: 15px;">
+                    <?php foreach ( $preset_snippets as $preset ) : ?>
+                        <div class="acf-csb-preset-item" style="background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; transition: all 0.2s;" 
+                             onclick="acfCsbAddPresetSnippet('<?php echo esc_js( $preset['type'] ); ?>', '<?php echo esc_js( $preset['id'] ); ?>')"
+                             onmouseover="this.style.borderColor='#0073aa'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.1)'"
+                             onmouseout="this.style.borderColor='#ddd'; this.style.boxShadow='none'">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div style="flex: 1;">
+                                    <strong style="display: block; margin-bottom: 5px; color: #1d2327;">
+                                        <?php echo esc_html( $preset['name'] ); ?>
+                                        <?php if ( $preset['pro_only'] ) : ?>
+                                            <span style="background: #ff6b6b; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">PRO</span>
+                                        <?php endif; ?>
+                                    </strong>
+                                    <span style="font-size: 11px; color: #666; display: block; margin-bottom: 3px;">
+                                        <?php echo esc_html( $preset['description'] ); ?>
+                                    </span>
+                                    <span style="font-size: 10px; color: #999;">
+                                        <?php echo esc_html( ucfirst( $preset['type'] ) ); ?> • <?php echo esc_html( $preset['category'] ); ?>
+                                    </span>
+                                </div>
+                                <span style="color: #0073aa; font-size: 18px; margin-left: 10px;">➕</span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <script>
+            function acfCsbAddPresetSnippet(type, id) {
+                if (confirm('<?php echo esc_js( __( '이 프리셋을 스니펫으로 추가하시겠습니까?', 'acf-code-snippets-box' ) ); ?>')) {
+                    jQuery.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'acf_csb_create_preset_snippet',
+                            nonce: '<?php echo wp_create_nonce( "acf_csb_nonce" ); ?>',
+                            preset_type: type,
+                            preset_id: id
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                window.location.href = '<?php echo esc_url( admin_url( "post.php" ) ); ?>?post=' + response.data.post_id + '&action=edit';
+                            } else {
+                                alert('오류: ' + (response.data || '<?php echo esc_js( __( "스니펫 생성 실패", "acf-code-snippets-box" ) ); ?>'));
+                            }
+                        },
+                        error: function() {
+                            alert('<?php echo esc_js( __( "서버 통신 오류가 발생했습니다.", "acf-code-snippets-box" ) ); ?>');
+                        }
+                    });
+                }
+            }
+            </script>
+            <?php
+        }
+    }
+    
+    /**
+     * 프리셋 스니펫 뷰 추가
+     * [v2.3.4] 목록 페이지 뷰에 프리셋 섹션 추가
+     */
+    public function add_preset_snippets_view( $views ) {
+        // 기본 뷰는 그대로 유지
+        return $views;
+    }
 }

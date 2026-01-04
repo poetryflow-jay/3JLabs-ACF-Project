@@ -5,7 +5,8 @@
       "Bash(find:*)",
       "Bash(while read file)",
       "Bash(do echo \"=== $file ===\" grep -o \"wp_ajax_[a-z_]*\" \"$file\")",
-      "Bash(php -l:*)"
+      "Bash(php -l:*)",
+      "Bash(python dev_scripts/testing/php_syntax_check.py:*)"
     ]
   }
 }
