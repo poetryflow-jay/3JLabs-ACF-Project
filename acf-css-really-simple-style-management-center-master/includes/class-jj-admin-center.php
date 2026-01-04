@@ -1518,9 +1518,18 @@ final class JJ_Admin_Center {
      * AJAX: Admin Center 설정 저장 (통합 핸들러)
      */
     public function ajax_save_admin_center_settings() {
-        check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[ACF CSS Admin Center]' );
+            if ( ! $ajax->verify_request( 'jj_admin_center_save_action', 'nonce' ) ) {
+                return;
+            }
+        } else {
+            // 폴백: 기존 방식
+            check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+            }
         }
 
         $data = isset( $_POST['data'] ) ? wp_unslash( $_POST['data'] ) : array();
@@ -1693,12 +1702,21 @@ final class JJ_Admin_Center {
      * [v22.0.1] AES-256-CBC 암호화 적용
      */
     public function ajax_save_license_key() {
-        check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[ACF CSS License]' );
+            if ( ! $ajax->verify_request( 'jj_admin_center_save_action', 'nonce' ) ) {
+                return;
+            }
+            $license_key = $ajax->get_post_param( 'license_key', '', 'text' );
+        } else {
+            // 폴백: 기존 방식
+            check_ajax_referer( 'jj_admin_center_save_action', 'nonce' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+            }
+            $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
         }
-
-        $license_key = isset( $_POST['license_key'] ) ? sanitize_text_field( $_POST['license_key'] ) : '';
         
         if ( empty( $license_key ) ) {
             wp_send_json_error( array( 'message' => __( '라이센스 키를 입력해 주세요.', 'acf-css-really-simple-style-management-center' ) ) );
