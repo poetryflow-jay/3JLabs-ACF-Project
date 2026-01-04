@@ -716,9 +716,16 @@ jQuery(document).ready(function($) {
         // 완료 목록 개수 업데이트
         function updateCompletedCount() {
             var count = $('.jj-file-item-completed').length;
-            $('#jj-completed-count').text(count + '개');
+            var $countElement = $('#jj-completed-count');
+            if ($countElement.length) {
+                $countElement.text(count + '개');
+            }
             if (count > 0) {
                 $('#jj-file-list-completed').show();
+                // [v22.4.0] 완료 목록이 있으면 자동으로 스크롤
+                $('html, body').animate({
+                    scrollTop: $('#jj-file-list-completed').offset().top - 100
+                }, 500);
             }
         }
 
@@ -847,7 +854,9 @@ jQuery(document).ready(function($) {
                 },
                 success: function(response) {
                     if (response.success) {
-                        // [v22.3.1] 개선된 설치 완료 UI - 개별 활성화 버튼 추가
+                        var pluginsUrl = (jjBulk.admin_urls && jjBulk.admin_urls.plugins) ? jjBulk.admin_urls.plugins : 'plugins.php';
+                        
+                        // [v22.4.0] Phase 37: UI/UX 개선 - 완료 목록으로 이동 및 메시지 개선
                         if (data.type === 'plugin' && response.data.slug) {
                             item.data('slug', response.data.slug);
                             item.find('.jj-file-checkbox').prop('disabled', false);
@@ -855,8 +864,13 @@ jQuery(document).ready(function($) {
                             
                             // 자동 활성화가 성공한 경우
                             if (response.data.activated) {
-                                item.find('.status').html('✅ 설치 및 활성화 완료');
+                                item.find('.status').html(
+                                    '✅ 설치 및 활성화 완료! ' +
+                                    '<a href="' + pluginsUrl + '" class="button button-small" style="margin-left: 8px; font-size: 11px;">플러그인 목록 보기</a>'
+                                );
                                 item.addClass('jj-file-item-activated');
+                                // [v22.4.0] 자동 활성화 성공 시 성공 메시지 표시
+                                showNotice('success', '플러그인 "' + escapeHtml(data.name) + '"이(가) 설치 및 활성화되었습니다! <a href="' + pluginsUrl + '">플러그인 목록에서 확인</a>');
                             } else {
                                 // 자동 활성화가 아닌 경우, 개별 활성화 버튼 추가
                                 item.find('.status').html(
@@ -869,7 +883,11 @@ jQuery(document).ready(function($) {
                         } else {
                             item.find('.status').text('설치 완료');
                         }
+                        
+                        // [v22.4.0] 완료된 항목을 완료 목록으로 이동
                         item.removeClass('jj-file-item-pending').addClass('jj-file-item-completed');
+                        moveToCompletedList(item);
+                        updateCompletedCount();
                     } else {
                         item.addClass('error').find('.status').text('로컬 설치 실패: ' + response.data);
                     }
@@ -880,6 +898,39 @@ jQuery(document).ready(function($) {
                     if (callback) callback();
                 }
             });
+        }
+        
+        // [v22.4.0] 완료된 항목을 완료 목록으로 이동하는 함수
+        function moveToCompletedList(item) {
+            var $completedList = $('#jj-file-list-completed-items');
+            if ($completedList.length === 0) {
+                // 완료 목록이 없으면 생성
+                var $completedSection = $('#jj-file-list-completed');
+                if ($completedSection.length === 0) {
+                    // 완료 섹션이 없으면 생성
+                    var completedHtml = '<div class="jj-file-list-section" id="jj-file-list-completed" style="display: block; margin-top: 20px;">' +
+                        '<h3 class="jj-section-title">' +
+                        '✅ 완료 목록 ' +
+                        '<span class="jj-section-count" id="jj-completed-count">0개</span>' +
+                        '</h3>' +
+                        '<div class="jj-file-list" id="jj-file-list-completed-items"></div>' +
+                        '</div>';
+                    $('#jj-file-list').after(completedHtml);
+                    $completedList = $('#jj-file-list-completed-items');
+                } else {
+                    $completedList = $completedSection.find('.jj-file-list');
+                    if ($completedList.length === 0) {
+                        $completedSection.append('<div class="jj-file-list" id="jj-file-list-completed-items"></div>');
+                        $completedList = $('#jj-file-list-completed-items');
+                    }
+                }
+            }
+            
+            // 항목을 완료 목록으로 이동
+            item.detach().appendTo($completedList);
+            
+            // 완료 목록 섹션 표시
+            $('#jj-file-list-completed').show();
         }
 
         function processMultisiteInstall(fileData, item, index, autoActivate, siteIds, siteIdx, callback) {

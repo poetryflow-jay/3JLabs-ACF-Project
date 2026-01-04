@@ -3,7 +3,7 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 3일  
-**릴리즈 버전**: Phase 34 Quality & Enhancement - UI System 2026 Full Rollout  
+**릴리즈 버전**: Phase 37 Security & UX Enhancement - 보안 강화 및 UI/UX 개선  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
 
 ---
@@ -12,11 +12,42 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 22.1.2 | **22.2.0** | UI Revolution 2026 |
-| ACF CSS Neural Link | 6.0.1 | **6.2.0** | UI System 2026 Applied |
-| ACF CSS WooCommerce Toolkit | 2.1.1 | **2.3.0** | UI System 2026 Applied |
-| ACF MBA Nudge Flow | 22.1.0 | **22.3.0** | UI System 2026 Applied |
-| WP Bulk Manager | 22.1.1 | **22.3.0** | UI System 2026 Applied |
+| ACF CSS Manager (Master) | 22.2.2 | **22.4.0** | Phase 37: 보안 강화 및 UI/UX 개선 |
+| ACF CSS Neural Link | 6.2.0 | **6.3.0** | Phase 37: 보안 강화 |
+| ACF CSS WooCommerce Toolkit | 2.3.0 | **2.4.0** | Phase 37: 보안 강화 |
+| ACF MBA Nudge Flow | 22.3.2 | **22.4.0** | Phase 37: 보안 강화 |
+| WP Bulk Manager | 22.3.1 | **22.4.0** | Phase 37: UI/UX 개선 및 보안 강화 |
+| ACF Code Snippets Box | 2.2.0 | **2.3.0** | Phase 37: 보안 강화 |
+| ACF CSS AI Extension | 3.2.0 | **3.3.0** | Phase 37: 보안 강화 |
+
+---
+
+## 🎨 주요 변경사항 (Phase 37 - Security & UX Enhancement)
+
+### Phase 37: 보안 강화 및 UI/UX 개선
+
+#### 보안 강화
+- ✅ **라이센스 위변조 방지**: Edition Controller에 MASTER 검증 로직 추가
+  - 상수만으로는 MASTER 인정하지 않음
+  - 실제 마스터 플러그인 파일 존재 및 무결성 확인
+  - 파일 내용에서 MASTER 관련 키워드 검증
+- ✅ **자동 업데이트 보안 강화**: 
+  - 다운로드 URL 도메인 검증 (허용된 도메인만)
+  - 패키지 서명 검증 로직 개선
+  - Security Enhancer를 통한 서명 검증 통합
+- ✅ **FTP 탈취 방지**: 모든 플러그인의 중요 폴더에 `index.php` 보안 파일 추가
+
+#### WP Bulk Manager v22.4.0 UI/UX 개선
+- ✅ **메뉴 명칭 개선**: 
+  - "싱글 사이트 벌크 인스톨러/에디터" → "원격 사이트 인스톨러/에디터"
+  - "관리(Bulk Editor)" → "관리 설정"
+- ✅ **멀티 사이트 탭 항상 표시**: 멀티 사이트가 아닐 때 안내 메시지 표시
+- ✅ **자동 활성화 UI/UX 개선**:
+  - 자동 활성화 성공 시 완료 목록으로 자동 이동
+  - 자동 활성화 성공 메시지 표시 및 플러그인 목록 링크 제공
+  - 완료된 항목이 완료 목록으로 자동 이동
+  - 완료 목록 자동 스크롤 기능
+  - 설치 완료 후에도 활성화 버튼 표시 (자동 활성화 실패 시)
 
 ---
 

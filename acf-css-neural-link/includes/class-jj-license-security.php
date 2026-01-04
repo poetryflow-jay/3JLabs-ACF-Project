@@ -194,6 +194,77 @@ class JJ_License_Security {
     }
     
     /**
+     * [v22.3.2] 라이선스 변조 감지 - Mikael의 알고리즘
+     * 
+     * @param string $license_key 라이선스 키
+     * @return bool 유효 여부
+     */
+    public static function detect_tampering( $license_key ) {
+        if ( empty( $license_key ) ) {
+            return false;
+        }
+        
+        // 1. 라이선스 키 체크섬 검증
+        if ( ! self::validate_license_checksum( $license_key ) ) {
+            self::log_security_event( 'tampering_detected', array(
+                'license_key' => $license_key,
+                'reason' => 'checksum_mismatch'
+            ) );
+            return false;
+        }
+        
+        // 2. 라이선스 파일 변조 검증
+        $plugin_file = JJ_NEURAL_LINK_PATH . 'acf-css-neural-link.php';
+        if ( file_exists( $plugin_file ) ) {
+            $plugin_data = get_file_data( $plugin_file );
+            $expected_version = defined( 'JJ_NEURAL_LINK_VERSION' ) ? JJ_NEURAL_LINK_VERSION : '';
+            
+            if ( $plugin_data['Version'] !== $expected_version ) {
+                self::log_security_event( 'version_mismatch', array(
+                    'license_key' => $license_key,
+                    'expected_version' => $expected_version,
+                    'detected_version' => $plugin_data['Version']
+                ) );
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * [v22.3.2] 라이선스 키 체크섬 검증
+     * 
+     * @param string $license_key 라이선스 키
+     * @return bool 유효 여부
+     */
+    private static function validate_license_checksum( $license_key ) {
+        // 라이선스 키 형식: XXXX-XXXX-XXXX-XXXX-XXXX (4그룹)
+        if ( ! preg_match( '/^[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}$/', $license_key ) ) {
+            return false;
+        }
+        
+        // 체크섬 계산 (마지막 4자리)
+        $parts = explode( '-', $license_key );
+        $checksum_part = $parts[3];
+        
+        // 앞 3그룹으로 예상 체크섬 계산
+        $expected_checksum = self::calculate_checksum( $parts[0] . '-' . $parts[1] . '-' . $parts[2] );
+        
+        return hash_equals( $checksum_part, $expected_checksum );
+    }
+    
+    /**
+     * [v22.3.2] 라이선스 체크섬 계산
+     * 
+     * @param string $data 데이터
+     * @return string 체크섬 (16자리 hex)
+     */
+    private static function calculate_checksum( $data ) {
+        return substr( hash( 'sha256', $data ), 0, 16 );
+    }
+    
+    /**
      * SQL Injection 방지를 위한 추가 검증
      * 
      * @param string $query SQL 쿼리

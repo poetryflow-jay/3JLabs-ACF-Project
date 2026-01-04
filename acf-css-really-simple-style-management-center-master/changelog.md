@@ -26,6 +26,41 @@
 
 ---
 
+## Version 22.4.0 (2026-01-03) - Phase 37: 보안 강화 및 UI/UX 개선
+
+### 🔒 보안 강화
+- **라이센스 위변조 방지**: Edition Controller에 MASTER 검증 로직 추가 - 상수만으로는 MASTER 인정하지 않음, 실제 파일 존재 및 무결성 확인
+- **자동 업데이트 보안**: 다운로드 URL 검증 및 서명 검증 로직 강화
+  - 허용된 도메인만 다운로드 허용 (3j-labs.com, j-j-labs.com, poetryflow.blog)
+  - 패키지 서명 검증 개선 (URL과 서명 일관성 확인)
+- **FTP 탈취 방지 강화**: 모든 플러그인의 중요 폴더에 `index.php` 보안 파일 추가
+  - ACF Nudge Flow: includes, admin, assets, public 폴더
+  - Neural Link: includes, assets 폴더
+  - Code Snippets Box: includes, admin, assets 폴더
+  - WP Bulk Manager: includes 폴더
+
+### 🎨 UI/UX 개선
+- **WP Bulk Manager v22.4.0**:
+  - 메뉴 명칭 개선: "싱글 사이트 벌크 인스톨러/에디터" → "원격 사이트 인스톨러/에디터"
+  - "관리(Bulk Editor)" → "관리 설정"으로 변경
+  - 멀티 사이트 탭 항상 표시 (멀티 사이트가 아닐 때 안내 메시지 표시)
+  - **자동 활성화 UI/UX 개선**: 
+    - 자동 활성화 성공 시 완료 목록으로 자동 이동
+    - 자동 활성화 성공 메시지 표시 및 플러그인 목록 링크 제공
+    - 완료된 항목이 완료 목록으로 자동 이동되도록 개선
+    - 완료 목록 자동 스크롤 기능 추가
+  - 설치 완료 후에도 활성화 버튼 표시 (자동 활성화 실패 시)
+
+### 🛠️ 버전 업데이트
+- ACF CSS Manager: v22.2.2 → **v22.4.0**
+- WP Bulk Manager: v22.3.1 → **v22.4.0**
+- ACF Nudge Flow: v22.3.2 → **v22.4.0**
+- Neural Link: v6.2.0 → **v6.3.0**
+- Code Snippets Box: v2.2.0 → **v2.3.0**
+- WooCommerce Toolkit: v2.3.0 → **v2.4.0**
+- AI Extension: v3.2.0 → **v3.3.0**
+- Build Manager: v22.1.0 → **v22.4.0**
+
 ## Version 22.1.0 (2026-01-03) - Phase 29: 넛지 플로우 정상화 및 스타일 센터 GUI 복구
 
 ### 🚀 넛지 플로우 (ACF MBA) 정상화

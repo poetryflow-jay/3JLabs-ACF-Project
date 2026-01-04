@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS - Advanced Custom Fonts & Colors & Styles Setting Manager (Master)
  * Plugin URI:        https://3j-labs.com
  * Description:       ACF CSS (Advanced Custom Fonts & Colors & Styles) - WordPress 웹사이트의 모든 스타일 요소(색상 팔레트, 타이포그래피, 버튼, 폼)를 중앙에서 일관되게 관리하는 통합 스타일 관리 플러그인입니다. Free 버전은 기본적인 스타일 관리 기능을 제공하며, 브랜드 일관성을 유지하고 디자인 시스템을 효율적으로 운영할 수 있습니다. Pro 버전 플러그인을 함께 설치하면 Basic, Premium, Unlimited 기능을 사용할 수 있습니다. WordPress Customizer와 완벽 통합되어 실시간 미리보기와 함께 직관적인 스타일 관리가 가능합니다.
- * Version:           22.2.1
+ * Version:           22.4.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '22.2.1' ); // [v22.2.1] UI/UX Fix - Menu order: Dashboard > Style Center > Bulk Manager
+    define( 'JJ_STYLE_GUIDE_VERSION', '22.4.0' ); // [v22.4.0] Phase 37: 보안 강화 및 UI/UX 개선 - 라이센스 위변조 방지, 자동 업데이트 보안, 활성화 버튼 개선
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의

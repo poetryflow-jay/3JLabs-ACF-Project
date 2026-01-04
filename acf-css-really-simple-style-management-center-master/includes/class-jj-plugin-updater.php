@@ -202,17 +202,35 @@ class JJ_Plugin_Updater {
         if ( $update_info && isset( $update_info['new_version'] ) ) {
             // 버전 비교
             if ( version_compare( $this->current_version, $update_info['new_version'], '<' ) ) {
+                $download_url = $this->get_download_url( $update_info['new_version'] );
+                
+                // [v22.4.0] 보안 강화: 다운로드 URL 검증
+                if ( ! $this->verify_download_url( $download_url, $update_info ) ) {
+                    // 검증 실패 시 업데이트 정보 추가하지 않음
+                    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                        error_log( '[JJ Plugin Updater] 다운로드 URL 검증 실패 - 업데이트 차단' );
+                    }
+                    return $transient;
+                }
+                
                 // 업데이트 정보 추가
-                $transient->response[ $plugin_basename ] = (object) array(
+                $update_object = (object) array(
                     'slug' => $this->plugin_slug,
                     'plugin' => $plugin_basename,
                     'new_version' => $update_info['new_version'],
                     'url' => isset( $update_info['url'] ) ? $update_info['url'] : '',
-                    'package' => $this->get_download_url( $update_info['new_version'] ),
+                    'package' => $download_url,
                     'tested' => isset( $update_info['tested'] ) ? $update_info['tested'] : get_bloginfo( 'version' ),
                     'requires_php' => isset( $update_info['requires_php'] ) ? $update_info['requires_php'] : '7.4',
                     'compatibility' => isset( $update_info['compatibility'] ) ? $update_info['compatibility'] : new stdClass(),
                 );
+                
+                // [v22.4.0] 서명 정보 추가 (Security Enhancer에서 검증)
+                if ( isset( $update_info['signature'] ) ) {
+                    $update_object->signature = $update_info['signature'];
+                }
+                
+                $transient->response[ $plugin_basename ] = $update_object;
             }
         }
         
@@ -538,6 +556,44 @@ class JJ_Plugin_Updater {
         }
         
         return '';
+    }
+    
+    /**
+     * [v22.4.0] Phase 37: 다운로드 URL 검증
+     * 
+     * @param string $download_url 다운로드 URL
+     * @param array $update_info 업데이트 정보
+     * @return bool 검증 성공 여부
+     */
+    private function verify_download_url( $download_url, $update_info ) {
+        if ( empty( $download_url ) ) {
+            return false;
+        }
+        
+        // 1. URL 형식 검증
+        if ( ! filter_var( $download_url, FILTER_VALIDATE_URL ) ) {
+            return false;
+        }
+        
+        // 2. 허용된 도메인 확인 (3j-labs.com, j-j-labs.com 등)
+        $allowed_domains = array( '3j-labs.com', 'j-j-labs.com', 'poetryflow.blog' );
+        $url_host = parse_url( $download_url, PHP_URL_HOST );
+        
+        if ( ! in_array( $url_host, $allowed_domains, true ) ) {
+            // 허용된 도메인이 아니면 차단
+            return false;
+        }
+        
+        // 3. Security Enhancer를 통한 서명 검증 (있는 경우)
+        if ( class_exists( 'JJ_Security_Enhancer' ) && isset( $update_info['signature'] ) ) {
+            $security = JJ_Security_Enhancer::instance();
+            $is_valid = $security->verify_package_signature( $download_url, $update_info['signature'] );
+            if ( ! $is_valid ) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 }
 

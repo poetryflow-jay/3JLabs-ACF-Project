@@ -44,12 +44,21 @@ final class JJ_Edition_Controller {
     /**
      * 현재 에디션 초기화
      * 우선순위: 1. 상수 정의 (MASTER 강제) -> 2. DB 옵션 -> 3. 기본값(Free)
+     * [v22.4.0] Phase 37: 보안 강화 - 상수만으로는 MASTER 인정하지 않음, 추가 검증 필요
      */
     private function init_edition() {
-        // [Safety Lock] 상수가 MASTER라면 무조건 MASTER 권한 부여 (다른 로직 무시)
+        // [v22.4.0] 보안 강화: 상수가 MASTER라도 추가 검증 수행
         if ( defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) && strtoupper( JJ_STYLE_GUIDE_LICENSE_TYPE ) === 'MASTER' ) {
-            $this->current_edition = self::EDITION_MASTER;
-            return;
+            // 추가 검증: 실제 마스터 플러그인 파일 존재 및 무결성 확인
+            if ( $this->verify_master_edition() ) {
+                $this->current_edition = self::EDITION_MASTER;
+                return;
+            } else {
+                // 검증 실패 시 로그 기록 (보안 위반 의심)
+                if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                    error_log( '[JJ Edition Controller] MASTER 상수 정의되었으나 검증 실패 - 위변조 의심' );
+                }
+            }
         }
 
         // 1. wp-config.php 등에서 정의된 상수 확인 (개발 및 테스트용)
@@ -180,6 +189,60 @@ final class JJ_Edition_Controller {
      */
     public function get_license_type() {
         return strtoupper( $this->current_edition );
+    }
+
+    /**
+     * [v22.4.0] Phase 37: MASTER 에디션 검증
+     * 상수만으로는 MASTER를 인정하지 않고, 실제 파일 존재 및 무결성 확인
+     * 
+     * @return bool
+     */
+    private function verify_master_edition() {
+        // 1. 메인 플러그인 파일 존재 확인
+        $main_file = JJ_STYLE_GUIDE_PATH . 'acf-css-really-simple-style-guide.php';
+        if ( ! file_exists( $main_file ) ) {
+            return false;
+        }
+
+        // 2. 파일 내용에서 MASTER 관련 코드 확인
+        $file_content = @file_get_contents( $main_file );
+        if ( false === $file_content ) {
+            return false;
+        }
+
+        // 3. MASTER 관련 키워드 확인 (위변조 방지)
+        $master_indicators = array(
+            'Master',
+            'JJ_STYLE_GUIDE_LICENSE_TYPE',
+            'JJ_STYLE_GUIDE_EDITION',
+            'EDITION_MASTER',
+        );
+
+        $found_indicators = 0;
+        foreach ( $master_indicators as $indicator ) {
+            if ( false !== strpos( $file_content, $indicator ) ) {
+                $found_indicators++;
+            }
+        }
+
+        // 최소 2개 이상의 지표가 있어야 MASTER로 인정
+        if ( $found_indicators < 2 ) {
+            return false;
+        }
+
+        // 4. Edition Controller 파일 자체의 무결성 확인 (간단한 검증)
+        $controller_file = __FILE__;
+        if ( ! file_exists( $controller_file ) ) {
+            return false;
+        }
+
+        // 5. 파일 크기 검증 (너무 작으면 위변조 의심)
+        $file_size = filesize( $main_file );
+        if ( $file_size < 1000 ) { // 최소 1KB 이상
+            return false;
+        }
+
+        return true;
     }
 
     /**

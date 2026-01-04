@@ -168,8 +168,9 @@ class JJ_Security_Enhancer {
 
     /**
      * 패키지 서명 검증
+     * [v22.4.0] Phase 37: 보안 강화 - 서명 검증 로직 개선
      */
-    private function verify_package_signature( $package_url, $signature ) {
+    public function verify_package_signature( $package_url, $signature ) {
         // 실제 구현 시 서버의 공개 키로 서명 검증
         // 여기서는 기본 검증만 수행
         
@@ -183,9 +184,20 @@ class JJ_Security_Enhancer {
             return false;
         }
 
+        // [v22.4.0] 추가 검증: 서명 길이 확인 (너무 짧으면 위변조 의심)
+        if ( strlen( $decoded_signature ) < 32 ) {
+            return false;
+        }
+
+        // [v22.4.0] URL과 서명의 일관성 확인 (간단한 해시 검증)
+        $url_hash = hash( 'sha256', $package_url . $this->encryption_key );
+        $expected_prefix = substr( $url_hash, 0, 16 );
+        $signature_prefix = substr( bin2hex( $decoded_signature ), 0, 16 );
+        
         // 실제 서명 검증은 서버의 공개 키가 필요하므로
         // 여기서는 기본 검증만 수행 (실제 구현 시 OpenSSL 공개 키 검증 추가)
-        return true;
+        // 현재는 URL과 서명의 일관성만 확인
+        return hash_equals( $expected_prefix, $signature_prefix );
     }
 
     /**

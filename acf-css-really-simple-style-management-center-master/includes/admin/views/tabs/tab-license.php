@@ -86,7 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <?php endif; ?>
 
         <!-- [현재 라이센스 상태 카드] -->
-        <div class="jj-license-status-card" style="margin-bottom: 30px; padding: 25px; background: #fff; border: 1px solid #dcdcde; border-left: 4px solid <?php echo $license_status['valid'] ? '#00a32a' : '#d63638'; ?>; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+    <div class="jj-license-status-card" style="margin-bottom: 30px; padding: 25px; background: #fff; border: 1px solid #dcdcde; border-left: 4px solid <?php echo $license_status['valid'] ? '#00a32a' : '#d63638'; ?>; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
                 <div style="flex: 1;">
                     <h4 style="margin-top: 0; margin-bottom: 15px; font-size: 16px;">
@@ -98,17 +98,99 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <div style="font-weight: 600; color: #646970;"><?php esc_html_e( '활성화 상태:', 'acf-css-really-simple-style-management-center' ); ?></div>
                         <div>
                             <?php if ( $license_status['valid'] ) : ?>
-                                <span class="jj-status-badge active" style="background: #00a32a; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 600; font-size: 12px;">
-                                    <span class="dashicons dashicons-yes" style="font-size: 14px; width: 14px; height: 14px; vertical-align: middle;"></span>
-                                    <?php esc_html_e( '정품 인증됨', 'acf-css-really-simple-style-management-center' ); ?>
-                                </span>
+                                <span class="status-badge status-active"><?php esc_html_e( '활성', 'acf-css-really-simple-style-management-center' ); ?></span>
                             <?php else : ?>
-                                <span class="jj-status-badge inactive" style="background: #d63638; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: 600; font-size: 12px;">
-                                    <span class="dashicons dashicons-warning" style="font-size: 14px; width: 14px; height: 14px; vertical-align: middle;"></span>
-                                    <?php esc_html_e( '인증되지 않음', 'acf-css-really-simple-style-management-center' ); ?>
-                                </span>
+                                <span class="status-badge status-inactive"><?php esc_html_e( '비활성', 'acf-css-really-simple-style-management-center' ); ?></span>
                             <?php endif; ?>
                         </div>
+                        
+                        <!-- 타입 -->
+                        <div style="font-weight: 600; color: #646970;"><?php esc_html_e( '요금제:', 'acf-css-really-simple-style-management-center' ); ?></div>
+                        <div>
+                            <span class="badge" style="background: #e0e7ff; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 700;">
+                                <?php echo esc_html( $license_type ); ?>
+                            </span>
+                        </div>
+                        
+                        <!-- 만료일 -->
+                        <div style="font-weight: 600; color: #646970;"><?php esc_html_e( '만료일:', 'acf-css-really-simple-style-management-center' ); ?></div>
+                        <div>
+                            <?php if ( isset( $license_status['valid_until'] ) ) : ?>
+                                <?php echo date( 'Y-m-d', $license_status['valid_until'] ); ?>
+                            <?php else : ?>
+                                <?php esc_html_e( '평생', 'acf-css-really-simple-style-management-center' ); ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- [v22.2.1] Upgrade Call-to-Action Banner -->
+                <?php if ( $is_expired || ( ! $license_status['valid'] && ! empty( $current_license_key ) && in_array( $license_type, array( 'BASIC', 'PREM' ) ) ) ) : ?>
+                <div style="flex: 1; min-width: 300px; padding: 20px; background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%); border-radius: 8px; border: 2px solid #f59e0b;">
+                    <h4 style="margin-top: 0; margin-bottom: 12px; font-size: 18px; color: #92400e;">
+                        ⚡ <?php esc_html_e( '더 강력한 기능이 기다립니다!', 'acf-css-really-simple-style-management-center' ); ?>
+                    </h4>
+                    <p style="margin: 0 0 15px 0; font-size: 14px; line-height: 1.6; color: #4b5563;">
+                        <?php if ( $is_expired ) : ?>
+                            <?php esc_html_e( '현재 라이센스가 만료되었습니다. 업그레이드하여 새로운 기능과 업데이트를 계속 받으세요.', 'acf-css-really-simple-style-management-center' ); ?>
+                        <?php else : ?>
+                            <?php esc_html_e( ' ' . esc_html( $license_type ) . ' ' . __( '버전은 기능 제한이 있습니다. 업그레이드하여 무제한 기능과 모든 혜택을 누리세요.', 'acf-css-really-simple-style-management-center' ) ); ?>
+                        <?php endif; ?>
+                    </p>
+                    
+                    <!-- Feature Comparison Table -->
+                    <table style="width: 100%; margin: 15px 0; border-collapse: collapse; font-size: 13px;">
+                        <thead>
+                            <tr style="background: rgba(0,0,0,0.05);">
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e5e7eb;"><?php esc_html_e( '기능', 'acf-css-really-simple-style-management-center' ); ?></th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid #e5e7eb; color: #9ca3af;">FREE</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid #e5e7eb; color: #f59e0b; font-weight: 700;">PREMIUM</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid #e5e7eb; color: #6366f1; font-weight: 700;">UNLIMITED</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;"><?php esc_html_e( '색상 팔레트', 'acf-css-really-simple-style-management-center' ); ?></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">2개</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">무제한</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0; color: #10b981;">✓</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;"><?php esc_html_e( '어드민 테마', 'acf-css-really-simple-style-management-center' ); ?></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">✓</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0; color: #10b981;">✓</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;"><?php esc_html_e( '로그인 커스터마이징', 'acf-css-really-simple-style-management-center' ); ?></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">✓</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0; color: #10b981;">✓</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;"><?php esc_html_e( '실험실 (Labs)', 'acf-css-really-simple-style-management-center' ); ?></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">✓</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0; color: #10b981;">✓</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border-bottom: 1px solid #f0f0f0;"><?php esc_html_e( '자동 업데이트', 'acf-css-really-simple-style-management-center' ); ?></td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">-</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0;">✓</td>
+                                <td style="padding: 12px; text-align: center; border-bottom: 1px solid #f0f0f0; color: #10b981;">✓</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <a href="<?php echo esc_url( $purchase_url ); ?>" class="button button-primary" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); border-color: #4338ca; padding: 12px 30px; font-size: 15px; border-radius: 6px; text-decoration: none; display: inline-block;">
+                            <?php esc_html_e( '지금 업그레이드하기', 'acf-css-really-simple-style-management-center' ); ?> 🚀
+                        </a>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
 
                         <!-- 에디션 -->
                         <div style="font-weight: 600; color: #646970;"><?php esc_html_e( '에디션:', 'acf-css-really-simple-style-management-center' ); ?></div>

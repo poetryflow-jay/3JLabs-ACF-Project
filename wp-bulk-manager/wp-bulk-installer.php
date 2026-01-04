@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.3.1-master
+ * Version:           22.4.0-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.3.1-master' ); // [v22.3.1] UX Improvement - Enhanced installation flow with individual activate buttons and plugin list links
+define( 'WP_BULK_MANAGER_VERSION', '22.4.0-master' ); // [v22.4.0] Phase 37: UI/UX 개선 및 보안 강화 - 멀티 사이트 탭 항상 표시, 메뉴 명칭 수정, 보안 검증 강화
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -303,36 +303,43 @@ class JJ_Bulk_Installer {
     
     /**
      * [v2.2.0] ACF CSS 라이센스 등급에 따른 제한 설정 조회
+     * [v22.4.0] Phase 37: 보안 강화 - 라이센스 위변조 방지 로직 추가
      */
     private function get_license_limits() {
         // [v5.0.1] Master Edition 감지 로직 고도화
+        // [v22.4.0] 보안 강화: 단순 상수나 폴더명만으로는 MASTER 인정하지 않음
         $is_master = false;
 
-        // 1. 상수로 정의된 경우
-        if ( defined( 'JJ_BULK_INSTALLER_LICENSE' ) && 'MASTER' === JJ_BULK_INSTALLER_LICENSE ) {
-            $is_master = true;
-        }
-        
-        // 2. 플러그인 폴더명에 'master'가 포함된 경우
-        $plugin_dir = dirname( plugin_basename( __FILE__ ) );
-        if ( false !== strpos( strtolower( $plugin_dir ), 'master' ) ) {
-            $is_master = true;
-        }
-
-        // 3. ACF CSS Manager (Master) 연동 확인
+        // 1. ACF CSS Manager (Master) 연동 확인 (우선순위 1 - 가장 신뢰할 수 있는 방법)
         if ( class_exists( 'JJ_Edition_Controller' ) ) {
-            if ( JJ_Edition_Controller::instance()->is_at_least( 'master' ) ) {
-                $is_master = true;
+            $edition_ctrl = JJ_Edition_Controller::instance();
+            if ( $edition_ctrl->is_at_least( 'master' ) ) {
+                // [v22.4.0] 추가 검증: Edition Controller가 실제로 MASTER를 반환하는지 재확인
+                $current_edition = $edition_ctrl->get_current_edition();
+                if ( 'master' === $current_edition ) {
+                    $is_master = true;
+                }
             }
         }
 
-        // 4. 특정 마스터 파일 존재 여부 확인 (최종 수단)
+        // 2. 특정 마스터 파일 존재 여부 확인 (보조 검증)
         if ( ! $is_master ) {
             $master_plugin_dir = WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master/';
             if ( is_dir( $master_plugin_dir ) ) {
-                $is_master = true;
+                // [v22.4.0] 추가 검증: 마스터 플러그인의 핵심 파일 존재 확인
+                $master_main_file = $master_plugin_dir . 'acf-css-really-simple-style-guide.php';
+                if ( file_exists( $master_main_file ) ) {
+                    // 파일 내용에서 실제 MASTER 버전인지 확인 (간단한 검증)
+                    $file_content = file_get_contents( $master_main_file );
+                    if ( false !== strpos( $file_content, 'Master' ) && false !== strpos( $file_content, 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
+                        $is_master = true;
+                    }
+                }
             }
         }
+
+        // [v22.4.0] 보안 강화: 상수나 폴더명만으로는 MASTER 인정하지 않음 (위변조 방지)
+        // 단, Edition Controller나 실제 마스터 파일 검증을 통과한 경우에만 MASTER로 인정
 
         if ( $is_master ) {
             return array(
@@ -484,13 +491,11 @@ class JJ_Bulk_Installer {
 
             <div class="jj-bulk-tabs" role="tablist" aria-label="WP Bulk Manager Tabs">
                 <button type="button" class="jj-bulk-tab is-active" data-tab="installer" role="tab" aria-selected="true">설치(Installer)</button>
-                <button type="button" class="jj-bulk-tab" data-tab="editor" role="tab" aria-selected="false">관리(Bulk Editor)</button>
-                <?php if ( is_multisite() ) : ?>
-                    <button type="button" class="jj-bulk-tab" data-tab="multisite-installer" role="tab" aria-selected="false">멀티 사이트 인스톨러</button>
-                    <button type="button" class="jj-bulk-tab" data-tab="multisite-editor" role="tab" aria-selected="false">멀티 사이트 에디터</button>
-                <?php endif; ?>
-                <button type="button" class="jj-bulk-tab" data-tab="remote-installer" role="tab" aria-selected="false">싱글 사이트 벌크 인스톨러</button>
-                <button type="button" class="jj-bulk-tab" data-tab="remote-editor" role="tab" aria-selected="false">싱글 사이트 벌크 에디터</button>
+                <button type="button" class="jj-bulk-tab" data-tab="editor" role="tab" aria-selected="false">관리 설정</button>
+                <button type="button" class="jj-bulk-tab" data-tab="multisite-installer" role="tab" aria-selected="false">멀티 사이트 인스톨러</button>
+                <button type="button" class="jj-bulk-tab" data-tab="multisite-editor" role="tab" aria-selected="false">멀티 사이트 에디터</button>
+                <button type="button" class="jj-bulk-tab" data-tab="remote-installer" role="tab" aria-selected="false">원격 사이트 인스톨러</button>
+                <button type="button" class="jj-bulk-tab" data-tab="remote-editor" role="tab" aria-selected="false">원격 사이트 에디터</button>
             </div>
 
             <!-- Installer Panel -->
@@ -680,11 +685,11 @@ class JJ_Bulk_Installer {
                 </div>
             </div>
 
-            <!-- Multisite Panels (Conditional) -->
-            <?php if ( is_multisite() ) : ?>
-                <div class="jj-bulk-tab-panel" data-tab-panel="multisite-installer" role="tabpanel" style="display:none;">
-                    <div class="jj-bulk-container">
-                        <h2>🌐 멀티 사이트 벌크 인스톨러</h2>
+            <!-- Multisite Panels (Always Visible) -->
+            <div class="jj-bulk-tab-panel" data-tab-panel="multisite-installer" role="tabpanel" style="display:none;">
+                <div class="jj-bulk-container">
+                    <h2>🌐 멀티 사이트 벌크 인스톨러</h2>
+                    <?php if ( is_multisite() ) : ?>
                         <p class="description">네트워크 내의 여러 사이트를 선택하여 플러그인/테마를 한 번에 설치합니다.</p>
                         <div class="jj-multisite-selector" style="margin-bottom: 20px; padding: 15px; background: #f0f0f1; border-radius: 5px;">
                             <h4>대상 사이트 선택</h4>
@@ -714,25 +719,39 @@ class JJ_Bulk_Installer {
                                 <a href="https://wordpress.org/documentation/article/increasing-the-maximum-upload-file-size/" target="_blank" style="color: #d63638; text-decoration: underline;">공식 문서 확인</a>)
                             </p>
                         </div>
-                    </div>
+                    <?php else : ?>
+                        <div class="notice notice-info inline">
+                            <p><strong>ℹ️ 멀티 사이트 모드가 아닙니다.</strong></p>
+                            <p>이 기능은 WordPress 멀티 사이트 네트워크에서만 사용할 수 있습니다. 멀티 사이트를 활성화하려면 <code>wp-config.php</code>에 <code>define('WP_ALLOW_MULTISITE', true);</code>를 추가하세요.</p>
+                            <p class="description">일반 설치 및 관리 기능은 '설치(Installer)' 및 '관리 설정' 탭에서 사용할 수 있습니다.</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
+            </div>
 
-                <div class="jj-bulk-tab-panel" data-tab-panel="multisite-editor" role="tabpanel" style="display:none;">
-                    <div class="jj-bulk-container">
-                        <h2>🌐 멀티 사이트 벌크 에디터</h2>
+            <div class="jj-bulk-tab-panel" data-tab-panel="multisite-editor" role="tabpanel" style="display:none;">
+                <div class="jj-bulk-container">
+                    <h2>🌐 멀티 사이트 벌크 에디터</h2>
+                    <?php if ( is_multisite() ) : ?>
                         <p class="description">네트워크 내 전체 사이트의 플러그인/테마 상태를 통합 관리합니다.</p>
                         <div id="jj-multisite-editor-content">
                             <!-- 멀티사이트 전용 에디터 UI -->
                             <p>네트워크 관리자 권한으로 전체 사이트의 설치 항목을 조회하고 일괄 관리합니다.</p>
                         </div>
-                    </div>
+                    <?php else : ?>
+                        <div class="notice notice-info inline">
+                            <p><strong>ℹ️ 멀티 사이트 모드가 아닙니다.</strong></p>
+                            <p>이 기능은 WordPress 멀티 사이트 네트워크에서만 사용할 수 있습니다. 멀티 사이트를 활성화하려면 <code>wp-config.php</code>에 <code>define('WP_ALLOW_MULTISITE', true);</code>를 추가하세요.</p>
+                            <p class="description">일반 관리 기능은 '관리 설정' 탭에서 사용할 수 있습니다.</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
+            </div>
 
             <!-- Remote Panels -->
             <div class="jj-bulk-tab-panel" data-tab-panel="remote-installer" role="tabpanel" style="display:none;">
                 <div class="jj-bulk-container">
-                    <h2>📡 싱글 사이트 벌크 인스톨러 (원격 연결)</h2>
+                    <h2>📡 원격 사이트 인스톨러</h2>
                     <p class="description">연결된 다른 워드프레스 사이트들에 대량으로 설치를 진행합니다.</p>
                     
                         <div class="jj-remote-connection-settings" style="margin-bottom: 20px; padding: 15px; background: #f0f6fb; border: 1px solid #c3d9e8; border-radius: 5px;">
@@ -784,7 +803,7 @@ class JJ_Bulk_Installer {
 
             <div class="jj-bulk-tab-panel" data-tab-panel="remote-editor" role="tabpanel" style="display:none;">
                 <div class="jj-bulk-container">
-                    <h2>📡 싱글 사이트 벌크 에디터 (원격 연결)</h2>
+                    <h2>📡 원격 사이트 에디터</h2>
                     <p class="description">연결된 원격 사이트들의 플러그인/테마를 한 곳에서 관리합니다.</p>
                     <div id="jj-remote-editor-content">
                         <p>원격 사이트를 먼저 연결해주세요.</p>
