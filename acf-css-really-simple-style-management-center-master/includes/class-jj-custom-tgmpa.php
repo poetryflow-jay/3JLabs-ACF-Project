@@ -337,32 +337,101 @@ class JJ_Custom_TGMPA {
      * 플러그인 파일 경로 반환
      */
     private function get_plugin_file( $slug ) {
+        // [v23.0.7] 플러그인 파일 매핑 수정 - 올바른 메인 파일명 사용
         $plugin_files = array(
             'acf-css-woo-license' => 'acf-css-woo-license/acf-css-woo-license.php',
             'acf-code-snippets-box' => 'acf-code-snippets-box/acf-code-snippets-box.php',
             'jj-marketing-automation-dashboard' => 'jj-marketing-automation-dashboard/jj-marketing-dashboard.php',
             'wp-bulk-seo-aeo' => 'wp-bulk-seo-aeo/wp-bulk-seo-aeo.php',
-            'wp-bulk-manager' => 'wp-bulk-manager/wp-bulk-installer.php',
+            'wp-bulk-manager' => 'wp-bulk-manager/wp-bulk-manager.php', // [v23.0.7] 수정: wp-bulk-installer.php → wp-bulk-manager.php
         );
-        
+
+        // [v23.0.7] 대체 파일명 매핑 (호환성 유지)
+        $alt_files = array(
+            'acf-css-woo-license' => array(
+                'acf-css-woo-license/acf-css-neural-link.php', // 레거시 호환
+            ),
+            'wp-bulk-manager' => array(
+                'wp-bulk-manager/wp-bulk-installer.php', // 레거시 호환
+            ),
+            'wp-bulk-seo-aeo' => array(
+                'SEO/wp-bulk-seo-aeo/wp-bulk-seo-aeo.php', // 대체 경로
+            ),
+            'jj-marketing-automation-dashboard' => array(
+                'jj-marketing-automation-dashboard/jj-marketing-automation-dashboard.php', // 대체 파일명
+            ),
+        );
+
         if ( isset( $plugin_files[ $slug ] ) ) {
             $plugin_file = $plugin_files[ $slug ];
-            
+
             // 플러그인이 실제로 존재하는지 확인
-            if ( ! file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) ) {
-                // 대체 경로 확인 (SEO 플러그인의 경우)
-                if ( $slug === 'wp-bulk-seo-aeo' ) {
-                    $alt_path = 'SEO/wp-bulk-seo-aeo/wp-bulk-seo-aeo.php';
+            if ( file_exists( WP_PLUGIN_DIR . '/' . $plugin_file ) ) {
+                return $plugin_file;
+            }
+
+            // [v23.0.7] 대체 경로 확인 (모든 플러그인에 대해)
+            if ( isset( $alt_files[ $slug ] ) ) {
+                foreach ( $alt_files[ $slug ] as $alt_path ) {
                     if ( file_exists( WP_PLUGIN_DIR . '/' . $alt_path ) ) {
                         return $alt_path;
                     }
                 }
-                return false;
             }
-            
-            return $plugin_file;
+
+            // [v23.0.7] 동적 탐색: 폴더 내 메인 PHP 파일 자동 감지
+            $plugin_dir = WP_PLUGIN_DIR . '/' . $slug;
+            if ( is_dir( $plugin_dir ) ) {
+                $main_file = $this->find_main_plugin_file( $plugin_dir, $slug );
+                if ( $main_file ) {
+                    return $slug . '/' . $main_file;
+                }
+            }
+
+            return false;
         }
-        
+
+        return false;
+    }
+
+    /**
+     * [v23.0.7] 플러그인 폴더에서 메인 파일 자동 감지
+     *
+     * @param string $plugin_dir 플러그인 디렉토리 경로
+     * @param string $slug 플러그인 슬러그
+     * @return string|false 메인 파일명 또는 false
+     */
+    private function find_main_plugin_file( $plugin_dir, $slug ) {
+        // 일반적인 메인 파일 패턴
+        $patterns = array(
+            $slug . '.php',                    // 슬러그와 동일한 이름
+            str_replace( '-', '_', $slug ) . '.php', // 언더스코어 버전
+            'plugin.php',                      // 일반적인 이름
+            'index.php',                       // 인덱스 파일
+        );
+
+        foreach ( $patterns as $pattern ) {
+            $file_path = $plugin_dir . '/' . $pattern;
+            if ( file_exists( $file_path ) ) {
+                // Plugin Name 헤더가 있는지 확인
+                $file_content = file_get_contents( $file_path );
+                if ( strpos( $file_content, 'Plugin Name:' ) !== false ) {
+                    return $pattern;
+                }
+            }
+        }
+
+        // 폴더 내 모든 PHP 파일을 검사하여 Plugin Name 헤더 찾기
+        $php_files = glob( $plugin_dir . '/*.php' );
+        if ( $php_files ) {
+            foreach ( $php_files as $php_file ) {
+                $file_content = file_get_contents( $php_file );
+                if ( strpos( $file_content, 'Plugin Name:' ) !== false ) {
+                    return basename( $php_file );
+                }
+            }
+        }
+
         return false;
     }
     

@@ -60,72 +60,55 @@
 }
 
 
-/* [v6.3.0] 왼쪽 고정 사이드바 네비게이션 */
+/* [v23.0.6] 상단 가로 배치 빠른 이동 네비게이션 - 경고 메시지와 겹치지 않도록 수정 */
 .jj-admin-center-sidebar {
-    position: fixed;
-    left: 160px; /* WordPress 관리자 사이드바 너비 */
-    top: 32px; /* WordPress 상단바 높이 */
-    width: 240px;
-    height: calc(100vh - 32px);
-    background: #f6f7f7;
-    border-right: 1px solid #c3c4c7;
-    overflow-y: auto;
-    z-index: 100;
-    transition: transform 0.3s ease;
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-/* [Phase 10.1] 모바일 사이드바 오버레이 */
+/* [Phase 10.1] 모바일 사이드바 오버레이 - 더 이상 사용하지 않음 */
 .jj-admin-center-sidebar-overlay {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 100000;
 }
 
 .jj-admin-center-sidebar-overlay.is-open {
-    display: block;
+    display: none;
 }
 
-/* WordPress 관리자 사이드바 접힘 상태 대응 */
+/* WordPress 관리자 사이드바 접힘 상태 - 더 이상 필요없음 */
 .folded .jj-admin-center-sidebar {
-    left: 36px;
+    /* 상단 배치이므로 left 조정 불필요 */
 }
 
-/* 모바일/태블릿에서 사이드바 숨김 */
+/* 모바일/태블릿에서도 상단 배치 유지 */
 @media screen and (max-width: 960px) {
     .jj-admin-center-sidebar {
-        transform: translateX(-100%);
-        left: 0;
-        top: 0;
-        height: 100vh;
-        z-index: 100001;
-    }
-    
-    .jj-admin-center-sidebar.jj-sidebar-open {
-        transform: translateX(0);
+        /* 가로 스크롤 허용 */
+        overflow-x: auto;
     }
 
-    body.admin-bar .jj-admin-center-sidebar {
-        top: 32px;
-        height: calc(100vh - 32px);
+    .jj-admin-center-sidebar.jj-sidebar-open {
+        /* 더 이상 사용하지 않음 */
     }
 }
 
 @media screen and (max-width: 782px) {
-    body.admin-bar .jj-admin-center-sidebar {
-        top: 46px;
-        height: calc(100vh - 46px);
+    .jj-admin-center-sidebar {
+        border-radius: 4px;
     }
 }
 
 .jj-admin-center-sidebar-header {
-    padding: 15px 20px;
-    background: #fff;
-    border-bottom: 1px solid #c3c4c7;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -133,9 +116,10 @@
 
 .jj-admin-center-sidebar-header h2 {
     margin: 0;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
-    color: #1d2327;
+    color: #fff;
+    letter-spacing: 0.5px;
 }
 
 .jj-sidebar-toggle {
@@ -144,10 +128,14 @@
     border: none;
     padding: 5px;
     cursor: pointer;
-    color: #50575e;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-@media screen and (max-width: 960px) {
+.jj-sidebar-toggle:hover {
+    color: #fff;
+}
+
+@media screen and (max-width: 600px) {
     .jj-sidebar-toggle {
         display: block;
     }
@@ -156,7 +144,10 @@
 .jj-admin-center-sidebar-nav {
     list-style: none;
     margin: 0;
-    padding: 10px 0;
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
 .jj-admin-center-sidebar-nav li {
@@ -164,45 +155,75 @@
     padding: 0;
 }
 
+/* 구분선 스타일 변경 */
+.jj-admin-center-sidebar-nav li.jj-sidebar-nav-divider {
+    display: none; /* 가로 배치에서는 구분선 숨김 */
+}
+
 .jj-admin-center-sidebar-nav a {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    padding: 12px 20px;
-    color: #50575e;
+    padding: 8px 14px;
+    color: #495057;
     text-decoration: none;
-    font-size: 14px;
-    transition: all 0.2s;
-    border-left: 3px solid transparent;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: #fff;
+    white-space: nowrap;
 }
 
 .jj-admin-center-sidebar-nav a:hover {
-    background: #fff;
-    color: #2271b1;
-    border-left-color: #2271b1;
+    background: #667eea;
+    color: #fff;
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
 }
 
 .jj-admin-center-sidebar-nav a.active {
-    background: #fff;
-    color: #2271b1;
-    border-left-color: #2271b1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-color: transparent;
     font-weight: 600;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
 }
 
 .jj-admin-center-sidebar-nav .dashicons {
-    margin-right: 10px;
-    font-size: 18px;
-    width: 18px;
-    height: 18px;
+    margin-right: 6px;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
 }
 
-/* 사이드바가 있을 때 메인 컨텐츠 오프셋 */
+/* 사이드바가 있을 때 메인 컨텐츠 오프셋 - 더 이상 필요없음 */
 .jj-admin-center-wrap.jj-has-sidebar {
-    margin-left: 240px;
+    margin-left: 0;
 }
 
 @media screen and (max-width: 960px) {
     .jj-admin-center-wrap.jj-has-sidebar {
         margin-left: 0;
+    }
+}
+
+/* 모바일에서 네비게이션 버튼 크기 조정 */
+@media screen and (max-width: 782px) {
+    .jj-admin-center-sidebar-nav {
+        padding: 6px;
+        gap: 4px;
+    }
+
+    .jj-admin-center-sidebar-nav a {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .jj-admin-center-sidebar-nav .dashicons {
+        font-size: 14px;
+        width: 14px;
+        height: 14px;
     }
 }
 
@@ -849,12 +870,13 @@
         max-height: 400px;
     }
     
+    /* [v23.0.6] 상단 배치이므로 box-shadow 변경 */
     .jj-admin-center-sidebar {
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
-    
+
     .jj-admin-center-sidebar.jj-sidebar-open {
-        transform: translateX(0);
+        /* 상단 배치이므로 transform 불필요 */
     }
     
     /* 터치 친화적 버튼 크기 */
@@ -910,17 +932,18 @@
 }
 
 .jj-admin-center-sidebar-nav a {
-    -webkit-tap-highlight-color: rgba(34, 113, 177, 0.1);
+    -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1);
     touch-action: manipulation;
-    min-height: 44px;
+    min-height: 40px;
 }
 
-/* [v6.3.0] 스와이프 제스처 힌트 */
+/* [v23.0.6] 터치 제스처 - 상단 배치에 맞게 수정 */
 @media (hover: none) and (pointer: coarse) {
     .jj-admin-center-sidebar {
-        touch-action: pan-y;
+        touch-action: pan-x; /* 상단 배치이므로 가로 스크롤 */
+        -webkit-overflow-scrolling: touch;
     }
-    
+
     .jj-admin-center-tabs {
         touch-action: pan-x;
         -webkit-overflow-scrolling: touch;

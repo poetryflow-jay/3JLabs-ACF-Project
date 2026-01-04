@@ -1,0 +1,98 @@
+# ACF CSS Style Management Center - Claude Memory
+
+## Project Overview
+ACF CSS (Advanced Custom Fonts & Colors & Styles) is a comprehensive WordPress style management plugin that provides centralized control over colors, typography, buttons, forms, and admin UI.
+
+## Current Version
+- **Version**: 23.0.7
+- **Last Updated**: 2026-01-05
+- **Edition**: Master (includes all features)
+
+## Recent Changes (v23.0.7)
+
+### Bug Fix: TGMPA Plugin File Mapping
+**Problem**:
+1. ACF CSS v23.0.2 was being installed duplicately via WP Bulk Manager
+2. Other plugins (WP Bulk Manager, Marketing Dashboard, SEO) failed to install/activate
+
+**Root Cause**:
+Wrong plugin main file mapping in TGMPA:
+```php
+// WRONG
+'wp-bulk-manager' => 'wp-bulk-manager/wp-bulk-installer.php'
+
+// CORRECT
+'wp-bulk-manager' => 'wp-bulk-manager/wp-bulk-manager.php'
+```
+
+**Files Modified**:
+- `includes/class-jj-custom-tgmpa.php` - Fixed file mapping + added dynamic detection
+- `includes/class-jj-required-plugins.php` - Fixed file mapping + added fallback paths
+
+### Previous Update (v23.0.6)
+- Added conditional plugin tabs (WooCommerce, LearnDash, Ultimate Member, Fluent Community, BuddyPress)
+- Moved "Quick Navigation" to top row layout in Settings Manager
+
+## Key Files Structure
+```
+acf-css-really-simple-style-management-center-master/
+├── acf-css-really-simple-style-guide.php   # Main plugin file
+├── includes/
+│   ├── class-jj-simple-style-guide.php     # Core style guide class
+│   ├── class-jj-admin-center.php           # Admin settings
+│   ├── class-jj-custom-tgmpa.php           # Custom TGMPA implementation
+│   ├── class-jj-required-plugins.php       # Required plugins manager
+│   ├── class-jj-edition-controller.php     # Edition management
+│   └── editor-views/                       # Section view files
+│       ├── view-section-colors.php
+│       ├── view-section-typography.php
+│       ├── view-section-buttons.php
+│       ├── view-section-forms.php
+│       ├── view-section-fields.php
+│       ├── view-section-woocommerce.php    # [v23.0.6]
+│       ├── view-section-learndash.php      # [v23.0.6]
+│       ├── view-section-ultimate-member.php # [v23.0.6]
+│       ├── view-section-fluent-community.php # [v23.0.6]
+│       └── view-section-buddypress.php     # [v23.0.6]
+├── assets/
+│   ├── css/
+│   │   ├── jj-admin-center.css
+│   │   └── jj-ui-system-2026.css
+│   └── js/
+│       └── jj-style-guide-editor.js
+└── changelog.md
+```
+
+## Important Technical Notes
+
+### Plugin File Detection
+The TGMPA system uses multiple methods to find plugin main files:
+1. Static mapping (primary)
+2. Alternative paths (fallback)
+3. Dynamic detection via `find_main_plugin_file()` (last resort)
+
+### Edition System
+- Free: Basic features
+- Basic: Extended adapters
+- Premium: Admin theme + Lab Center
+- Partner: White labeling
+- Master: All features (internal use)
+
+### Related Plugins (3J Labs Family)
+- ACF Code Snippets Box
+- WP Bulk Manager
+- WP Bulk SEO & AEO
+- JJ Marketing Automation Dashboard
+- ACF CSS Woo License (Neural Link)
+
+## Development Principles
+1. Always use `class_exists()`, `function_exists()` before calling classes/functions
+2. Use `JJ_STYLE_GUIDE_PATH` constant for file paths
+3. Check file existence before including
+4. Version updates require changes in both header and constant
+
+## Build Commands
+```powershell
+# Create ZIP for distribution
+Compress-Archive -Path "acf-css-really-simple-style-management-center-master" -DestinationPath "acf-css-really-simple-style-management-center-master.zip" -Force
+```

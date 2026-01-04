@@ -1,9 +1,9 @@
 # ACF CSS: Advanced Custom Fonts&Colors&Styles Setting
 ## Professional Style Management Solution
 
-**버전**: 5.7.0-BETA  
-**제작**: Jay & Jenny Labs  
-**최종 업데이트**: 2025년 12월 18일  
+**버전**: 23.0.7
+**제작**: 3J Labs (Jay & Jason & Jenny)
+**최종 업데이트**: 2026년 1월 5일
 **상태**: Stable & Commercial Ready
 
 ---

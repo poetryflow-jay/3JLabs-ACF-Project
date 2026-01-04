@@ -26,6 +26,49 @@
 
 ---
 
+## Version 23.0.7 (2026-01-05) - Phase 45: TGMPA 플러그인 파일명 매핑 수정
+
+### 🐛 버그 수정
+- **ACF CSS v23.0.2 중복 설치 문제 해결**: WP Bulk Manager로 설치 시 중복 설치되던 문제 수정
+- **플러그인 설치/활성화 실패 문제 해결**: WP Bulk Manager, Marketing Dashboard, SEO 플러그인 등 설치 안 되던 문제 수정
+- **플러그인 파일명 매핑 수정**: `wp-bulk-installer.php` → `wp-bulk-manager.php` (올바른 메인 파일명)
+
+### 🛠️ 개선사항
+- **class-jj-custom-tgmpa.php**:
+  - 플러그인 파일 매핑 수정
+  - 대체 파일명 매핑 추가 (레거시 호환)
+  - `find_main_plugin_file()` 메서드 추가 - 플러그인 폴더에서 메인 파일 자동 감지
+- **class-jj-required-plugins.php**:
+  - 플러그인 파일명 매핑 수정
+  - 대체 경로 탐색 로직 개선
+
+### 📁 수정된 파일
+- `acf-css-really-simple-style-guide.php` (버전: 23.0.6 → 23.0.7)
+- `includes/class-jj-custom-tgmpa.php`
+- `includes/class-jj-required-plugins.php`
+
+---
+
+## Version 23.0.6 (2026-01-05) - 조건부 플러그인 탭 및 빠른 이동 UI 개선
+
+### ✨ 새로운 기능
+- **조건부 플러그인 탭**: WooCommerce, LearnDash, Ultimate Member, Fluent Community, BuddyPress 스타일 탭 추가
+  - 해당 플러그인이 설치된 경우에만 표시
+  - 각 플러그인별 스타일 설정 지원
+
+### 🎨 UI/UX 개선
+- **설정 관리자 '빠른 이동' 상단 배치**: 왼쪽 고정 사이드바 → 상단 가로 배치로 변경
+  - 경고/알림 메시지와 겹치지 않도록 개선
+  - 새로운 그라데이션 스타일 적용
+
+### 📁 수정된 파일
+- `acf-css-really-simple-style-guide.php`
+- `includes/class-jj-simple-style-guide.php`
+- `assets/css/jj-admin-center.css`
+- 5개 새 뷰 파일 추가 (editor-views/)
+
+---
+
 ## Version 22.4.3 (2026-01-04) - 긴급 오류 수정: WP Bulk Manager 500 에러 및 심각한 오류 수정
 
 ### 🐛 버그 수정

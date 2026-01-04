@@ -1,11 +1,13 @@
 <?php
 /**
  * 3J Labs Required Plugins Manager
- * 
+ *
  * TGMPA를 사용하여 상호 보완 관계에 있는 플러그인들을 필수/권장 플러그인으로 등록합니다.
- * 
+ *
+ * [v23.0.7] 플러그인 파일명 매핑 수정 및 중복 설치 방지 로직 강화
+ *
  * @package ACF_CSS
- * @version 23.0.0
+ * @version 23.0.7
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -290,21 +292,35 @@ class JJ_Required_Plugins {
     
     /**
      * 플러그인 활성화 여부 확인
+     * [v23.0.7] 플러그인 파일명 수정 및 동적 탐색 추가
      */
     private function is_plugin_active( $slug ) {
-        // 플러그인 파일 경로 확인
+        // [v23.0.7] 올바른 플러그인 파일 경로
         $plugin_files = array(
             'acf-css-woo-license' => 'acf-css-woo-license/acf-css-woo-license.php',
             'acf-code-snippets-box' => 'acf-code-snippets-box/acf-code-snippets-box.php',
             'jj-marketing-automation-dashboard' => 'jj-marketing-automation-dashboard/jj-marketing-dashboard.php',
             'wp-bulk-seo-aeo' => 'wp-bulk-seo-aeo/wp-bulk-seo-aeo.php',
-            'wp-bulk-manager' => 'wp-bulk-manager/wp-bulk-installer.php',
+            'wp-bulk-manager' => 'wp-bulk-manager/wp-bulk-manager.php', // [v23.0.7] 수정: wp-bulk-installer.php → wp-bulk-manager.php
         );
-        
+
+        // [v23.0.7] 대체 파일명 (레거시 호환)
+        $alt_files = array(
+            'wp-bulk-manager' => 'wp-bulk-manager/wp-bulk-installer.php',
+            'wp-bulk-seo-aeo' => 'SEO/wp-bulk-seo-aeo/wp-bulk-seo-aeo.php',
+        );
+
         if ( isset( $plugin_files[ $slug ] ) ) {
-            return is_plugin_active( $plugin_files[ $slug ] );
+            // 기본 경로로 확인
+            if ( is_plugin_active( $plugin_files[ $slug ] ) ) {
+                return true;
+            }
+            // 대체 경로로 확인
+            if ( isset( $alt_files[ $slug ] ) && is_plugin_active( $alt_files[ $slug ] ) ) {
+                return true;
+            }
         }
-        
+
         return false;
     }
     

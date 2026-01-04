@@ -24,7 +24,10 @@
       "Bash(for file in SEO/oneclick-seo-pro/oneclick-seo-pro.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-analyzer.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-scorer.php)",
       "Bash(git commit:*)",
       "Bash(for plugin in \"acf-css-really-simple-style-management-center-master/acf-css-really-simple-style-guide.php\" \"acf-nudge-flow/acf-nudge-flow.php\" \"acf-code-snippets-box/acf-code-snippets-box.php\" \"acf-css-neural-link/acf-css-neural-link.php\" \"wp-bulk-manager/wp-bulk-installer.php\" \"acf-css-woocommerce-toolkit/acf-css-woocommerce-toolkit.php\" \"acf-css-ai-extension/acf-css-ai-extension.php\" \"acf-user-journey-analytics/acf-user-journey-analytics.php\" \"admin-menu-editor-pro/admin-menu-editor-pro.php\" \"jj-analytics-dashboard/jj-analytics-dashboard.php\" \"jj-marketing-automation-dashboard/jj-marketing-dashboard.php\")",
-      "Bash(do echo \"=== $plugin ===\")"
+      "Bash(do echo \"=== $plugin ===\")",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfix: ACF CSS 스타일 센터 탭 전환 및 저장 버튼 UI 수정 (v23.0.5)\n\n문제 1: 탭 전환이 작동하지 않음\n- CSS에서 :first-of-type 선택자가 !important로 첫 번째 탭을 항상 표시\n- jj-section-hidden 클래스보다 우선순위가 높아 다른 탭이 표시되지 않음\n- 수정: :first-of-type:not(.jj-section-hidden) 조건 추가\n\n문제 2: 저장 버튼이 투명하게 보임\n- jj-btn-primary 클래스의 CSS 변수가 배경색을 제대로 적용하지 않음\n- 수정: 인라인 스타일로 그라데이션 배경 명시적 지정\n\n수정된 파일:\n- acf-css-really-simple-style-guide.php: v23.0.4 → v23.0.5\n- jj-ui-system-2026.css: 탭 CSS 우선순위 수정\n- jj-style-guide-editor.js: 탭 초기화 타이밍 개선 (window.onload 추가)\n- class-jj-simple-style-guide.php: 저장 버튼 배경색 수정\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(dir:*)",
+      "Bash(powershell -ExecutionPolicy Bypass -File \"C:\\Users\\computer\\Desktop\\3J-Labs-Projects\\3J-ACF-CSS\\build-zip.ps1\")"
     ]
   }
 }
