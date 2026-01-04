@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.4.4-master
+ * Version:           22.4.5-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.4.4-master' ); // [v22.4.4] Phase 37.2: UI/UX 개선 - 탭 이름 변경, 링크 버튼화, 버튼 배치 개선, 플러그인 헤더 링크 줄바꿈 개선
+define( 'WP_BULK_MANAGER_VERSION', '22.4.5-master' ); // [v22.4.5] 마스터 버전 감지 로직 개선 - WP Bulk Manager 자체 버전에 -master가 포함된 경우 마스터로 인식
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -309,10 +309,20 @@ class JJ_Bulk_Installer {
     private function get_license_limits() {
         // [v5.0.1] Master Edition 감지 로직 고도화
         // [v22.4.0] 보안 강화: 단순 상수나 폴더명만으로는 MASTER 인정하지 않음
+        // [v22.4.5] WP Bulk Manager 자체 버전에 -master가 포함된 경우 마스터로 인식
         $is_master = false;
 
-        // 1. ACF CSS Manager (Master) 연동 확인 (우선순위 1 - 가장 신뢰할 수 있는 방법)
-        if ( class_exists( 'JJ_Edition_Controller' ) ) {
+        // 0. WP Bulk Manager 자체 버전 확인 (최우선 - 플러그인 자체가 마스터 버전인지 확인)
+        if ( defined( 'WP_BULK_MANAGER_VERSION' ) ) {
+            $version = WP_BULK_MANAGER_VERSION;
+            // 버전 문자열에 -master가 포함되어 있으면 마스터 버전으로 인식
+            if ( false !== strpos( $version, '-master' ) ) {
+                $is_master = true;
+            }
+        }
+
+        // 1. ACF CSS Manager (Master) 연동 확인 (우선순위 2 - ACF CSS Manager와 연동)
+        if ( ! $is_master && class_exists( 'JJ_Edition_Controller' ) ) {
             $edition_ctrl = JJ_Edition_Controller::instance();
             if ( $edition_ctrl->is_at_least( 'master' ) ) {
                 // [v22.4.0] 추가 검증: Edition Controller가 실제로 MASTER를 반환하는지 재확인
