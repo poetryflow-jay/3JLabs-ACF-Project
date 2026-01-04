@@ -3,10 +3,66 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 4일
-**릴리즈 버전**: Phase 39.4 - 문서 업데이트 및 버전 관리
+**릴리즈 버전**: Phase 40.1 - Code Snippets Box 및 Nudge Flow 개선
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
 
 ---
+
+## 🚀 Phase 40.1 - Code Snippets Box 및 Nudge Flow 개선 (2026-01-04)
+
+### ACF Code Snippets Box v2.3.4
+- ✅ **프리셋 토글 기능 추가**:
+  - 기존 스니펫이 있으면 토글 버튼 표시 (활성화/비활성화)
+  - 기존 스니펫이 없으면 '스니펫으로 추가' 버튼 표시
+  - 토글 시 AJAX로 즉시 활성화/비활성화
+  - 수정 버튼으로 기존 스니펫 편집 페이지로 이동
+- ✅ **프리셋 스니펫 목록 표시 기능**:
+  - '모든 스니펫' 페이지 상단에 활성화되지 않은 프리셋 스니펫 표시
+  - 클릭 한 번으로 프리셋을 스니펫으로 추가 가능
+  - 프리셋 타입, 카테고리, PRO 여부 표시
+  - 그리드 레이아웃과 호버 효과
+- ✅ **RealDeal WooCommerce 프리셋 추가**:
+  - 상품 편집: 할부 개월 수 및 할인 계산기 (PHP)
+  - RealDeal 가격 시스템 v11.0 통합 (PHP, Pro)
+  - RealDeal 할부 및 할인 표시 v6.0 (PHP, Pro)
+  - RealDeal 미니카트 UI 최종 해결사 v15.0 (JavaScript)
+  - 옵션상품 변형 선택 기능 (JavaScript)
+  - RealDeal WooCommerce 통합 CSS v3.0 (CSS, Pro)
+  - 장바구니 및 미리보기 UI 개선 v11.1 (CSS)
+- ✅ **프리셋 자동 로드 개선**:
+  - editor.js의 loadPresetIfExists() 함수 개선
+  - 에디터 준비 대기 로직 추가
+  - nonce 전달 개선 (acfCsbEditor 객체에 nonce 추가)
+  - 에러 처리 강화
+
+### ACF Nudge Flow v22.4.6
+- ✅ **대시보드 첫 화면 설정**:
+  - 넛지 플로우 내부 메뉴의 첫 화면을 '대시보드'로 설정
+  - 메뉴 순서 재구성: Dashboard, Workflows, Nudge Templates, Analytics, Template Center, Settings
+- ✅ **워크플로우 빌더 드래그 앤 드롭 구현**:
+  - 트리거와 액션을 드래그하여 캔버스에 추가
+  - jQuery UI Draggable 통합
+  - 노드 위치 저장 및 복원
+- ✅ **넛지 템플릿 프리셋 추가**:
+  - 환영 팝업, 이탈 방지 팝업, 장바구니 리마인더, 뉴스레터 구독, 소개서 다운로드 유도 등 프리셋 추가
+  - Custom Post Type 기반 템플릿 시스템
+  - 자동 프리셋 생성 로직
+- ✅ **빠른 시작 카드 기능 구현**:
+  - 대시보드의 빠른 시작 카드 클릭 시 AJAX로 프리셋 설치
+  - 워크플로우 빌더로 자동 이동 및 프리셋 로드
+  - 시각적 피드백 제공
+- ✅ **분석 페이지 개선**:
+  - 실시간 통계 카드 표시
+  - Chart.js 기반 차트 시각화
+  - 실제 데이터 연동 준비
+
+### 버전 업데이트
+- ACF Code Snippets Box: v2.3.2 → **v2.3.4**
+- ACF Nudge Flow: v22.4.5 → **v22.4.6**
+
+---
+
+## 📚 Phase 39.4 - 문서 업데이트 및 버전 관리 (2026-01-04)
 
 ## 🔒 Phase 39.3 - 보안 강화 (v22.4.9 / v6.3.2)
 
