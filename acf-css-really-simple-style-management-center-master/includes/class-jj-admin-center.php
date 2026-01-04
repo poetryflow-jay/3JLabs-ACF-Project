@@ -513,12 +513,21 @@ final class JJ_Admin_Center {
         $capability = 'manage_options';
 
         // 1. 최상위 메뉴: 스타일 센터 (Visual Editor)
+        // [v22.4.1] 안전한 인스턴스 호출 - 클래스 존재 확인 후 호출
+        $render_callback = function() {
+            if ( class_exists( 'JJ_Simple_Style_Guide' ) ) {
+                JJ_Simple_Style_Guide::instance()->render_page();
+            } else {
+                wp_die( __( '스타일 센터 클래스를 로드할 수 없습니다.', 'acf-css-really-simple-style-management-center' ) );
+            }
+        };
+        
         add_menu_page(
             __( 'ACF 스타일 센터', 'acf-css-really-simple-style-management-center' ),
             __( '스타일 센터 🎨', 'acf-css-really-simple-style-management-center' ),
             $capability,
             $main_slug,
-            array( JJ_Simple_Style_Guide::instance(), 'render_page' ), // [Fix] JJ_Simple_Style_Guide의 render_page 호출
+            $render_callback,
             'dashicons-art',
             2.1 // [v22.4.1] 알림판(Dashboard) 바로 아래 위치 (2.0 = Dashboard, 2.1 = 바로 아래)
         );
@@ -530,7 +539,7 @@ final class JJ_Admin_Center {
             __( '스타일 센터', 'acf-css-really-simple-style-management-center' ),
             $capability,
             $main_slug,
-            array( JJ_Simple_Style_Guide::instance(), 'render_page' )
+            $render_callback
         );
 
         // 3. 서브메뉴: 설정 관리자 (기존 Admin Center)
