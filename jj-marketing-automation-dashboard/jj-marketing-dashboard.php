@@ -108,12 +108,12 @@ final class JJ_Marketing_Dashboard {
     public function add_admin_menu() {
         add_menu_page(
             __( 'Marketing Dashboard', 'jj-marketing-dashboard' ),
-            __( '📊 Marketing', 'jj-marketing-dashboard' ),
+            '마케팅대시보드 📊',
             'manage_options',
             JJ_MARKETING_DASHBOARD_SLUG,
             array( $this, 'render_dashboard' ),
             'dashicons-chart-pie',
-            50
+            26 // 워드프레스 '마케팅' 바로 아래
         );
 
         // 서브메뉴: 종합 대시보드

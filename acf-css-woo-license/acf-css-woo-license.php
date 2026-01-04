@@ -109,7 +109,7 @@ class ACF_CSS_Woo_License {
         add_submenu_page(
             'woocommerce',
             __( 'ACF CSS 라이센스 설정', 'acf-css-woo-license' ),
-            __( 'ACF CSS 라이센스', 'acf-css-woo-license' ),
+            '3J 라이센스',
             'manage_options',
             'acf-css-woo-license',
             array( $this, 'render_settings_page' )

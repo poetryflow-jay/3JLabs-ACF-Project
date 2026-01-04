@@ -60,13 +60,14 @@ final class JJ_Admin_Center {
         // [v20.2.0] 스타일 센터 메뉴 강조 스타일 (앰버/오렌지 계열)
         add_action( 'admin_head', array( $this, 'output_style_center_menu_highlight' ) );
         
-        // [v20.2.0] 메뉴 순서 강제 지정 (알림판 > 벌크 매니저 > 스타일 센터)
-        add_filter( 'menu_order', array( $this, 'force_style_center_menu_order' ), 1000 );
+        // [v22.5.2] 메뉴 순서 강제 지정 (알림판 > 스타일 센터 > 벌크 매니저)
+        // 우선순위를 최대한 높여서 다른 플러그인보다 나중에 실행되도록 함
+        // admin_menu 액션 이후에 실행되도록 매우 높은 우선순위 사용
+        add_filter( 'custom_menu_order', '__return_true', 99999 );
+        add_filter( 'menu_order', array( $this, 'force_style_center_menu_order' ), 99999 );
 
         // 관리자 메뉴 커스터마이징 적용
         add_action( 'admin_menu', array( $this, 'apply_admin_menu_customizations' ), 999 );
-        add_filter( 'custom_menu_order', '__return_true' );
-        add_filter( 'menu_order', array( $this, 'filter_menu_order' ) );
         add_action( 'admin_head', array( $this, 'output_admin_menu_styles' ) );
         // [v13.4.5] JS 로드 실패 시 폴백 스타일 출력
         add_action( 'admin_head', array( $this, 'output_admin_center_fallback_styles' ) );
@@ -264,7 +265,23 @@ final class JJ_Admin_Center {
         ) );
         
         // [v5.0.3] 키보드 단축키 시스템 로드
-        wp_enqueue_script( 'jj-keyboard-shortcuts', JJ_STYLE_GUIDE_URL . 'assets/js/jj-keyboard-shortcuts.js', array( 'jquery', 'jj-common-utils' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
+        // 키보드 단축키 스크립트 로드 (jj-common-utils 의존성 제거 - 독립 실행)
+        if ( defined( 'JJ_STYLE_GUIDE_URL' ) ) {
+            $keyboard_shortcuts_url = JJ_STYLE_GUIDE_URL . 'assets/js/jj-keyboard-shortcuts.js';
+            $keyboard_shortcuts_version = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0';
+            
+            wp_enqueue_script( 'jj-keyboard-shortcuts', $keyboard_shortcuts_url, array( 'jquery' ), $keyboard_shortcuts_version, true );
+            
+            // 키보드 단축키용 파라미터 전달 (jj_admin_params가 없을 경우를 대비)
+            wp_localize_script(
+                'jj-keyboard-shortcuts',
+                'jj_admin_params',
+                array(
+                    'locale' => get_locale(),
+                    'show_shortcuts_hint' => true,
+                )
+            );
+        }
         
         // [v5.0.3] 툴팁 시스템 로드
         wp_enqueue_script( 'jj-tooltips', JJ_STYLE_GUIDE_URL . 'assets/js/jj-tooltips.js', array( 'jquery', 'jj-common-utils' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
@@ -456,8 +473,9 @@ final class JJ_Admin_Center {
     }
 
     /**
-     * [v22.2.1] 스타일 센터 메뉴 순서 강제 지정
+     * [v22.5.2] 스타일 센터 메뉴 순서 강제 지정
      * 알림판 > 스타일 센터 > 벌크 매니저 순서 (CEO 요청)
+     * 알림판이 항상 맨 위에 오도록 보장
      */
     public function force_style_center_menu_order( $menu_order ) {
         if ( ! is_array( $menu_order ) ) {
@@ -466,39 +484,106 @@ final class JJ_Admin_Center {
         
         $style_center_slug = 'jj-style-guide-cockpit';
         $bulk_manager_slug = 'jj-bulk-installer-main';
+        $dashboard_slug = 'index.php';
+        $marketing_slug = 'jj-marketing-dashboard';
+        $seo_slug = 'wp-bulk-seo-aeo';
         
-        // 스타일 센터 위치 찾기 및 제거
+        // 1. 알림판이 맨 앞에 오도록 보장
+        $dashboard_position = array_search( $dashboard_slug, $menu_order );
+        if ( $dashboard_position !== false && $dashboard_position !== 0 ) {
+            // 알림판을 제거하고 맨 앞에 추가
+            unset( $menu_order[ $dashboard_position ] );
+            $menu_order = array_values( $menu_order );
+            array_unshift( $menu_order, $dashboard_slug );
+        } elseif ( $dashboard_position === false ) {
+            // 알림판이 없으면 맨 앞에 추가
+            array_unshift( $menu_order, $dashboard_slug );
+        }
+        
+        // 2. 스타일 센터 위치 찾기 및 제거
         $style_position = array_search( $style_center_slug, $menu_order );
         if ( $style_position !== false ) {
             unset( $menu_order[ $style_position ] );
             $menu_order = array_values( $menu_order );
         }
         
-        // 벌크 매니저 위치 찾기 및 제거
+        // 3. 벌크 매니저 위치 찾기 및 제거
         $bulk_position = array_search( $bulk_manager_slug, $menu_order );
         if ( $bulk_position !== false ) {
             unset( $menu_order[ $bulk_position ] );
             $menu_order = array_values( $menu_order );
         }
         
-        // Dashboard(알림판) 바로 뒤에 스타일 센터, 그 뒤에 벌크 매니저 삽입
-        $dashboard_position = array_search( 'index.php', $menu_order );
-        if ( $dashboard_position !== false ) {
-            // Dashboard 뒤에 스타일 센터 삽입
-            array_splice( $menu_order, $dashboard_position + 1, 0, $style_center_slug );
-            // 스타일 센터 뒤에 벌크 매니저 삽입 (벌크 매니저가 있었던 경우에만)
-            if ( $bulk_position !== false ) {
-                array_splice( $menu_order, $dashboard_position + 2, 0, $bulk_manager_slug );
-            }
-        } else {
-            // Dashboard가 없으면 맨 앞에
-            array_unshift( $menu_order, $style_center_slug );
-            if ( $bulk_position !== false ) {
-                array_splice( $menu_order, 1, 0, $bulk_manager_slug );
+        // 4. 마케팅 대시보드 위치 찾기 및 제거 (워드프레스 '마케팅' 바로 아래에 배치하기 위해)
+        $marketing_position = array_search( $marketing_slug, $menu_order );
+        if ( $marketing_position !== false ) {
+            unset( $menu_order[ $marketing_position ] );
+            $menu_order = array_values( $menu_order );
+        }
+        
+        // 5. SEO 위치 찾기 및 제거 ('사용자' 바로 위에 배치하기 위해)
+        $seo_position = array_search( $seo_slug, $menu_order );
+        if ( $seo_position !== false ) {
+            unset( $menu_order[ $seo_position ] );
+            $menu_order = array_values( $menu_order );
+        }
+        
+        // 6. 알림판 바로 뒤에 스타일 센터, 그 다음에 벌크 매니저 삽입
+        // 알림판은 항상 첫 번째(인덱스 0)에 있음
+        $new_order = array();
+        $new_order[] = $dashboard_slug; // 알림판 (첫 번째)
+        $new_order[] = $style_center_slug; // 스타일 센터 (두 번째)
+        
+        if ( $bulk_position !== false ) {
+            $new_order[] = $bulk_manager_slug; // 벌크 매니저 (세 번째)
+        }
+        
+        // 7. 워드프레스 기본 메뉴들 중 '마케팅' 찾기 (보통 'edit.php?post_type=shop_order' 근처)
+        // 마케팅 대시보드는 '마케팅' 바로 아래에 배치
+        $marketing_wp_position = false;
+        foreach ( $menu_order as $idx => $slug ) {
+            // 'edit.php?post_type=shop_order' 또는 'woocommerce' 근처에 마케팅이 있을 수 있음
+            // 또는 직접 'marketing' 관련 슬러그 찾기
+            if ( strpos( $slug, 'marketing' ) !== false || strpos( $slug, 'edit.php?post_type=shop_order' ) !== false ) {
+                $marketing_wp_position = $idx;
+                break;
             }
         }
         
-        return $menu_order;
+        // 8. 나머지 메뉴들 추가하면서 특정 위치에 삽입
+        $inserted_marketing = false;
+        $inserted_seo = false;
+        foreach ( $menu_order as $idx => $slug ) {
+            if ( ! in_array( $slug, $new_order, true ) ) {
+                // 마케팅 대시보드를 '마케팅' 바로 다음에 삽입
+                if ( $marketing_wp_position !== false && $idx > $marketing_wp_position && ! $inserted_marketing ) {
+                    if ( $marketing_position !== false ) {
+                        $new_order[] = $marketing_slug;
+                        $inserted_marketing = true;
+                    }
+                }
+                
+                // SEO를 '사용자' 바로 위에 삽입 (users.php 바로 전)
+                if ( $slug === 'users.php' && ! $inserted_seo ) {
+                    if ( $seo_position !== false ) {
+                        $new_order[] = $seo_slug;
+                        $inserted_seo = true;
+                    }
+                }
+                
+                $new_order[] = $slug;
+            }
+        }
+        
+        // 마케팅이나 SEO가 아직 삽입되지 않았다면 맨 뒤에 추가
+        if ( $marketing_position !== false && ! $inserted_marketing ) {
+            $new_order[] = $marketing_slug;
+        }
+        if ( $seo_position !== false && ! $inserted_seo ) {
+            $new_order[] = $seo_slug;
+        }
+        
+        return $new_order;
     }
 
     /**
@@ -529,7 +614,8 @@ final class JJ_Admin_Center {
             $main_slug,
             $render_callback,
             'dashicons-art',
-            2.1 // [v22.4.1] 알림판(Dashboard) 바로 아래 위치 (2.0 = Dashboard, 2.1 = 바로 아래)
+            2.1 // [v22.5.2] 알림판(Dashboard) 바로 아래 위치 (2.0 = Dashboard, 2.1 = 바로 아래)
+            // 실제 순서는 force_style_center_menu_order 필터에서 강제 지정됨
         );
 
         // 2. 서브메뉴: 스타일 센터 (대시보드) - 최상위 메뉴와 동일하게 연결하여 첫 화면으로 설정
@@ -1098,13 +1184,16 @@ final class JJ_Admin_Center {
                 ),
             ),
             'forms'      => array(
-                'label'  => __( '4. 폼 & 필드', 'acf-css-really-simple-style-management-center' ),
+                'label'  => __( '4. 폼', 'acf-css-really-simple-style-management-center' ),
                 'order'  => 40,
                 'enabled'=> 1,
-                'tabs'   => array( // [v5.0.0] 탭 활성화/비활성화
-                    'form-label' => array( 'label' => __( '라벨 (Labels)', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
-                    'form-field' => array( 'label' => __( '입력 필드 (Fields)', 'acf-css-really-simple-style-management-center' ), 'enabled' => 1 ),
-                ),
+                'tabs'   => array(), // 탭 없음 (독립 섹션)
+            ),
+            'fields'     => array(
+                'label'  => __( '5. 필드', 'acf-css-really-simple-style-management-center' ),
+                'order'  => 50,
+                'enabled'=> 1,
+                'tabs'   => array(), // 탭 없음 (독립 섹션)
             ),
         );
 
@@ -1457,6 +1546,78 @@ final class JJ_Admin_Center {
         
         ?>
         <style type="text/css">
+            /* [v22.5.3] 플러그인 메뉴 강조 스타일 */
+            /* 마케팅 대시보드 강조 */
+            #adminmenu li#toplevel_page_jj-marketing-dashboard a.menu-top {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+                color: #ffffff !important;
+            }
+            #adminmenu li#toplevel_page_jj-marketing-dashboard a.menu-top:hover,
+            #adminmenu li#toplevel_page_jj-marketing-dashboard.wp-has-current-submenu a.menu-top {
+                background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
+            }
+            #adminmenu li#toplevel_page_jj-marketing-dashboard .wp-menu-name {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            #adminmenu li#toplevel_page_jj-marketing-dashboard .wp-menu-name::after {
+                content: '📊';
+                margin-left: auto;
+                order: 2;
+            }
+            #adminmenu li#toplevel_page_jj-marketing-dashboard .wp-menu-image {
+                display: none !important;
+            }
+            
+            /* 원 클릭 SEO 강조 */
+            #adminmenu li#toplevel_page_wp-bulk-seo-aeo a.menu-top {
+                background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important;
+                color: #ffffff !important;
+            }
+            #adminmenu li#toplevel_page_wp-bulk-seo-aeo a.menu-top:hover,
+            #adminmenu li#toplevel_page_wp-bulk-seo-aeo.wp-has-current-submenu a.menu-top {
+                background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%) !important;
+            }
+            #adminmenu li#toplevel_page_wp-bulk-seo-aeo .wp-menu-name {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            #adminmenu li#toplevel_page_wp-bulk-seo-aeo .wp-menu-name::after {
+                content: '📈';
+                margin-left: auto;
+                order: 2;
+            }
+            #adminmenu li#toplevel_page_wp-bulk-seo-aeo .wp-menu-image {
+                display: none !important;
+            }
+            
+            /* 코드 박스 아이콘 오른쪽 배치 */
+            #adminmenu li#toplevel_page_acf-code-snippets .wp-menu-name {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            #adminmenu li#toplevel_page_acf-code-snippets .wp-menu-name::after {
+                content: '📦';
+                margin-left: auto;
+                order: 2;
+            }
+            #adminmenu li#toplevel_page_acf-code-snippets .wp-menu-image {
+                display: none !important;
+            }
+            
+            /* 3J 라이센스 강조 (WooCommerce 서브메뉴) */
+            #adminmenu li.wp-submenu li a[href*="acf-css-woo-license"] {
+                background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+                color: #ffffff !important;
+                font-weight: 600 !important;
+            }
+            #adminmenu li.wp-submenu li a[href*="acf-css-woo-license"]:hover {
+                background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%) !important;
+            }
+            
             /* Admin Menu Custom Colors */
             #adminmenu, #adminmenu .wp-submenu, #adminmenuback, #adminmenuwrap {
                 background-color: <?php echo esc_attr( $colors['sidebar_bg'] ); ?> !important;
