@@ -2,6 +2,26 @@
 
 ## 릴리즈 개요
 
+**릴리즈 날짜**: 2026년 1월 4일  
+**릴리즈 버전**: Phase 37.1 Hotfix - render_page() 오류 수정  
+**개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
+
+---
+
+## 🐛 긴급 수정 (v22.4.2)
+
+### render_page() 안정성 강화
+- ✅ **오류 처리 강화**: 모든 include 및 클래스 호출에 try-catch 추가
+  - 엔진 초기화 안전 처리 (JJ_Demo_Importer, JJ_History_Manager)
+  - 섹션 레이아웃 로딩 시 예외 처리 및 기본 레이아웃 폴백
+  - 각 섹션 파일 include 시 오류 발생해도 페이지가 계속 렌더링되도록 개선
+- ✅ **오류 로깅 개선**: 모든 오류를 error_log에 기록하여 디버깅 용이성 향상
+
+### 버전 업데이트
+- ACF CSS Manager: v22.4.1 → **v22.4.2**
+
+---
+
 **릴리즈 날짜**: 2026년 1월 3일  
 **릴리즈 버전**: Phase 37 Security & UX Enhancement - 보안 강화 및 UI/UX 개선  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
@@ -12,7 +32,7 @@
 
 | 플러그인 | 이전 버전 | 새 버전 | 변경 유형 |
 |----------|-----------|---------|-----------|
-| ACF CSS Manager (Master) | 22.2.2 | **22.4.0** | Phase 37: 보안 강화 및 UI/UX 개선 |
+| ACF CSS Manager (Master) | 22.2.2 | **22.4.2** | Phase 37: 보안 강화 및 UI/UX 개선 + Hotfix |
 | ACF CSS Neural Link | 6.2.0 | **6.3.0** | Phase 37: 보안 강화 |
 | ACF CSS WooCommerce Toolkit | 2.3.0 | **2.4.0** | Phase 37: 보안 강화 |
 | ACF MBA Nudge Flow | 22.3.2 | **22.4.0** | Phase 37: 보안 강화 |

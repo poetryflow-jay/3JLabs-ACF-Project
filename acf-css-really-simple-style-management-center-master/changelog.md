@@ -26,6 +26,19 @@
 
 ---
 
+## Version 22.4.2 (2026-01-04) - 긴급 오류 수정: render_page() 안정성 강화
+
+### 🐛 버그 수정
+- **render_page() 오류 처리 강화**: 모든 include 및 클래스 호출에 try-catch 추가
+  - 엔진 초기화 (JJ_Demo_Importer, JJ_History_Manager) 안전 처리
+  - 섹션 레이아웃 로딩 시 예외 처리 및 기본 레이아웃 폴백
+  - 각 섹션 파일 include 시 오류 발생해도 페이지가 계속 렌더링되도록 개선
+  - 온보딩 모달 및 유지보수 섹션 include 안전 처리
+- **오류 로깅 개선**: 모든 오류를 error_log에 기록하여 디버깅 용이성 향상
+
+### 🛠️ 버전 업데이트
+- ACF CSS Manager: v22.4.1 → **v22.4.2**
+
 ## Version 22.4.0 (2026-01-03) - Phase 37: 보안 강화 및 UI/UX 개선
 
 ### 🔒 보안 강화
