@@ -88,6 +88,8 @@ if ( ! class_exists( 'JJ_Shared_Loader' ) ) {
             self::load( 'trait-jj-singleton' );
             self::load( 'class-jj-ajax-helper' );
             self::load( 'class-jj-file-validator' );
+            self::load( 'class-jj-rollback-shared' );
+            self::load( 'class-jj-rollback-admin' );
         }
 
         /**
@@ -166,6 +168,24 @@ if ( ! class_exists( 'JJ_Shared_Loader' ) ) {
 
             if ( class_exists( 'JJ_File_Validator' ) ) {
                 return JJ_File_Validator::instance();
+            }
+
+            return null;
+        }
+
+        /**
+         * 롤백 관리자 인스턴스 반환 (편의 메서드)
+         *
+         * @since 1.0.0
+         * @return JJ_Rollback_Shared|null
+         */
+        public static function rollback() {
+            if ( ! self::is_loaded( 'class-jj-rollback-shared' ) ) {
+                self::load( 'class-jj-rollback-shared' );
+            }
+
+            if ( class_exists( 'JJ_Rollback_Shared' ) ) {
+                return JJ_Rollback_Shared::instance();
             }
 
             return null;

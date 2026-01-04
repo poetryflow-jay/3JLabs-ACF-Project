@@ -15,7 +15,13 @@
       "Bash(git push:*)",
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: 1-Click SEO Pro v2.0.0 대규모 업그레이드 (Phase 42.1)\n\nv25 디자인 시스템 통합:\n- jj-seo-v25-ui.css 추가 (그라데이션, 다크 모드, 애니메이션)\n- 대시보드 v25 UI로 완전 재구성\n- 반응형 레이아웃 및 접근성 강화\n\n보안 강화:\n- 공유 보안 모듈 연동 (class-security-init.php)\n- 라이센스 관리 시스템 통합\n- AJAX nonce 검증 강화\n\n기능 추가:\n- 1-Click SEO 설정 버튼 (ajax_1click_setup)\n- 크로스 프로모션 배너 (User Journey Analytics)\n- 모듈별 성능 시각화 바\n- Chart.js 등급 분포 차트\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(python -c \"import subprocess; result = subprocess.run([''php'', ''-l'', ''acf-user-journey-analytics/acf-user-journey-analytics.php''], capture_output=True, text=True); print(result.stdout + result.stderr)\")"
+      "Bash(python -c \"import subprocess; result = subprocess.run([''php'', ''-l'', ''acf-user-journey-analytics/acf-user-journey-analytics.php''], capture_output=True, text=True); print(result.stdout + result.stderr)\")",
+      "Bash(for file in acf-user-journey-analytics/includes/*.php acf-user-journey-analytics/admin/*.php)",
+      "Bash(do echo \"=== $file ===\")",
+      "Bash(php:*)",
+      "Bash(done)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Phase 42.2 - 보안 강화, 롤백 기능, 성능 최적화\n\nUser Journey Analytics:\n- AJAX 추적 nonce 검증 추가 (보안 강화)\n- Transient 캐싱 시스템 도입 (1분~1시간 TTL)\n- 캐시 무효화 메서드 추가\n\n롤백 기능 완전 구현 (class-jj-plugin-list-enhancer.php):\n- WordPress Plugin_Upgrader 활용\n- 3J Labs 및 WordPress.org 플러그인 지원\n- 자동 백업/복원 로직\n- 활성화 상태 자동 복원\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(for file in SEO/oneclick-seo-pro/oneclick-seo-pro.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-analyzer.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-scorer.php)"
     ]
   }
 }

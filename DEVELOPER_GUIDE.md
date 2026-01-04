@@ -1,7 +1,7 @@
-# ACF CSS - 개발자 가이드
+# 3J Labs ACF CSS Plugin Family - 개발자 가이드
 
-**버전**: 22.5.1
-**작성일**: 2026년 1월 4일 (Phase 40.1 업데이트)
+**버전**: v23.0.3
+**작성일**: 2026년 1월 5일 (Phase 42 업데이트)
 
 ---
 
@@ -321,4 +321,236 @@ $instance = My_Plugin_Class::instance();
 
 ---
 
-**기여 가이드**: https://3j-labs.com/contribute
+## 빌드 시스템
+
+### 빌드 매니저 구조
+
+빌드 매니저(`3j_build_manager.py`)는 Python으로 작성된 GUI/CLI 빌드 도구입니다.
+
+#### 주요 클래스
+
+- `BuildEngine`: 플러그인 빌드 엔진
+- `JJBuildManager`: GUI 애플리케이션
+- `PLUGINS`: 플러그인 레지스트리
+- `EDITIONS`: 에디션 정보
+
+#### 플러그인 추가 방법
+
+1. `PLUGINS` 딕셔너리에 플러그인 정보 추가:
+
+```python
+'acf-new-plugin': {
+    'id': 'acf-new-plugin',
+    'name': 'ACF New Plugin',
+    'full_name': 'ACF New Plugin - Description',
+    'folder': 'acf-new-plugin',
+    'main_file': 'acf-new-plugin.php',
+    'text_domain': 'acf-new-plugin',
+    'editions': ['master'],
+    'is_core': True,
+    'description': 'Plugin description'
+}
+```
+
+2. 플러그인 폴더 구조 확인
+3. 빌드 테스트
+
+#### 빌드 프로세스
+
+1. 소스 폴더에서 파일 복사
+2. 제외 패턴에 맞는 파일 필터링
+3. ZIP 파일 생성
+4. 패키지 서명 생성 (HMAC-SHA256)
+5. 이전 버전 아카이빙
+
+### 대시보드 시스템
+
+대시보드(`dashboard.html`)는 빌드된 플러그인을 표시하고 다운로드할 수 있는 웹 인터페이스입니다.
+
+#### 실시간 업데이트
+
+대시보드는 30초마다 `package_signatures.json` 파일을 읽어 자동으로 업데이트됩니다.
+
+```javascript
+// 30초마다 업데이트
+setInterval(fetchBuildInfo, 30000);
+
+// 페이지 가시성 변경 시 업데이트
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+        fetchBuildInfo();
+    }
+});
+```
+
+#### 플러그인 카드 추가
+
+```html
+<div class="plugin-card" data-category="family">
+    <div class="plugin-header">
+        <div class="plugin-icon">📦</div>
+        <div class="plugin-name-row">
+            <div class="plugin-name">Plugin Name</div>
+            <span class="version-tag">v1.0.0</span>
+        </div>
+        <div class="plugin-fullname">Full Plugin Name</div>
+    </div>
+    <div class="plugin-body">
+        <div class="plugin-description">Description</div>
+        <div class="card-footer">
+            <div class="editions-row">
+                <span class="tag family">FAMILY</span>
+                <span class="tag master">MASTER</span>
+            </div>
+            <div class="download-group">
+                <a href="dist/plugin-master-v1.0.0.zip" class="btn-download master">다운로드</a>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+---
+
+## 테스트
+
+### PHPUnit 테스트
+
+```bash
+# 테스트 실행
+vendor/bin/phpunit
+
+# 특정 테스트만 실행
+vendor/bin/phpunit tests/CssOptimizerTest.php
+```
+
+### 테스트 작성 예제
+
+```php
+class My_Plugin_Test extends TestCase {
+    public function test_my_function() {
+        $result = my_function( 'input' );
+        $this->assertEquals( 'expected', $result );
+    }
+}
+```
+
+---
+
+## 배포
+
+### 릴리즈 프로세스
+
+1. 버전 업데이트
+   - 플러그인 헤더의 `Version:` 업데이트
+   - `define()` 상수 업데이트
+   - `CHANGELOG.md` 업데이트
+
+2. 빌드 실행
+   ```bash
+   python 3j_build_manager.py --cli --all
+   ```
+
+3. 테스트
+   - 빌드된 ZIP 파일 테스트
+   - WordPress에 설치 테스트
+
+4. Git 태그 생성
+   ```bash
+   git tag -a v23.0.3 -m "Release v23.0.3"
+   git push origin v23.0.3
+   ```
+
+5. 대시보드 업데이트
+   - `dashboard.html` 업데이트
+   - 빌드 정보 반영
+
+---
+
+## 성능 최적화
+
+### 캐싱 전략
+
+- 옵션 캐싱: `JJ_Options_Cache`
+- CSS 캐싱: `JJ_CSS_Cache`
+- 트랜지언트 활용: `get_transient()`, `set_transient()`
+
+### 데이터베이스 최적화
+
+- 인덱스 추가
+- 쿼리 최적화
+- 배치 처리
+
+### 프론트엔드 최적화
+
+- CSS/JS 최소화
+- 이미지 지연 로딩
+- CDN 활용
+
+---
+
+## 보안 모범 사례
+
+### 입력 검증
+
+```php
+// 항상 입력값 검증
+$id = isset( $_POST['id'] ) ? intval( $_POST['id'] ) : 0;
+$email = isset( $_POST['email'] ) ? sanitize_email( $_POST['email'] ) : '';
+```
+
+### 출력 이스케이프
+
+```php
+// 항상 출력값 이스케이프
+echo esc_html( $user_input );
+echo esc_url( $url );
+echo esc_attr( $attribute );
+```
+
+### Nonce 검증
+
+```php
+// 모든 AJAX 요청에 Nonce 검증
+check_ajax_referer( 'action_name', 'nonce' );
+```
+
+### 권한 확인
+
+```php
+// 관리자 권한 확인
+if ( ! current_user_can( 'manage_options' ) ) {
+    wp_die( '권한이 없습니다.' );
+}
+```
+
+---
+
+## 디버깅
+
+### 디버그 모드 활성화
+
+`wp-config.php`에 추가:
+
+```php
+define( 'WP_DEBUG', true );
+define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG_DISPLAY', false );
+```
+
+### 로그 확인
+
+- WordPress 로그: `wp-content/debug.log`
+- 플러그인 로그: 각 플러그인의 로그 파일
+
+### 일반적인 디버깅 도구
+
+- `error_log()`: PHP 로그
+- `console.log()`: JavaScript 로그
+- WordPress Query Monitor 플러그인
+
+---
+
+**기여 가이드**: https://3j-labs.com/contribute  
+**API 문서**: [API_DOCUMENTATION.md](API_DOCUMENTATION.md)  
+**사용자 가이드**: [USER_GUIDE.md](USER_GUIDE.md)

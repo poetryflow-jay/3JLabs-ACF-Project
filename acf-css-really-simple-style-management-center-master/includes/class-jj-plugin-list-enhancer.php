@@ -547,31 +547,62 @@ class JJ_Plugin_List_Enhancer {
             wp_send_json_error( array( 'message' => __( '권한이 없습니다.', $this->plugin_config['text_domain'] ) ) );
         }
 
-        if ( empty( $plugin ) || empty( $version ) ) {
-            wp_send_json_error( array( 'message' => __( '플러그인 또는 버전이 지정되지 않았습니다.', $this->plugin_config['text_domain'] ) ) );
+        if ( empty( $plugin ) ) {
+            wp_send_json_error( array( 'message' => __( '플러그인이 지정되지 않았습니다.', $this->plugin_config['text_domain'] ) ) );
         }
 
-        // 플러그인 슬러그 추출 (plugin-folder/plugin-file.php -> plugin-folder)
-        $plugin_slug = dirname( $plugin );
-        if ( empty( $plugin_slug ) || $plugin_slug === '.' ) {
-            $plugin_slug = str_replace( '.php', '', basename( $plugin ) );
+        // 공유 롤백 클래스 로드
+        $shared_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/../shared-ui-assets/php/';
+        if ( file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+            require_once $shared_path . 'class-jj-shared-loader.php';
+            JJ_Shared_Loader::load( 'class-jj-rollback-shared' );
+        }
+
+        if ( ! class_exists( 'JJ_Rollback_Shared' ) ) {
+            wp_send_json_error( array( 'message' => __( '롤백 클래스를 로드할 수 없습니다.', $this->plugin_config['text_domain'] ) ) );
         }
 
         // 롤백 실행
-        $result = $this->perform_rollback( $plugin_slug, $version, $plugin );
+        $rollback = JJ_Rollback_Shared::instance();
+        $result = $rollback->rollback_plugin( $plugin, $version );
 
         if ( is_wp_error( $result ) ) {
-            wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+            wp_send_json_error( array( 
+                'message' => $result->get_error_message(),
+                'code' => $result->get_error_code()
+            ) );
         }
 
         wp_send_json_success( array(
             'message' => sprintf(
-                __( '%s이(가) 버전 %s으로 성공적으로 롤백되었습니다.', $this->plugin_config['text_domain'] ),
-                $plugin_slug,
-                $version
+                __( '플러그인이 버전 %s로 롤백되었습니다.', $this->plugin_config['text_domain'] ),
+                $result['to_version']
             ),
+            'data' => $result,
             'reload' => true
         ) );
+    }
+
+    /**
+     * 롤백 가능한 버전 목록 가져오기
+     *
+     * @since 1.0.0
+     * @return array 버전 목록
+     */
+    private function get_available_rollback_versions() {
+        // 공유 롤백 클래스 로드
+        $shared_path = dirname( dirname( dirname( __FILE__ ) ) ) . '/../shared-ui-assets/php/';
+        if ( file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+            require_once $shared_path . 'class-jj-shared-loader.php';
+            JJ_Shared_Loader::load( 'class-jj-rollback-shared' );
+        }
+
+        if ( ! class_exists( 'JJ_Rollback_Shared' ) ) {
+            return array();
+        }
+
+        $rollback = JJ_Rollback_Shared::instance();
+        return $rollback->get_available_rollback_versions( $this->plugin_basename );
     }
 
     /**
@@ -852,7 +883,7 @@ class JJ_Plugin_List_Enhancer {
      */
     private function get_inline_css() {
         return '
-        /* [v23.0.2] 플러그인 목록 페이지 UI/UX 대폭 개선 - 모든 플러그인에 적용 */
+        /* [v23.0.3] 플러그인 목록 페이지 UI/UX 대폭 개선 - 모든 플러그인에 적용 */
         .jj-auto-update-toggle:hover,
         .jj-auto-update-toggle-global:hover,
         .jj-rollback-trigger:hover,
@@ -861,6 +892,145 @@ class JJ_Plugin_List_Enhancer {
             text-decoration: underline !important;
             transform: translateY(-1px);
             transition: all 0.2s ease;
+        }
+        
+        /* 롤백 모달 스타일 */
+        .jj-rollback-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .jj-rollback-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .jj-rollback-modal {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .jj-rollback-modal-overlay.active .jj-rollback-modal {
+            transform: scale(1);
+        }
+        
+        .jj-rollback-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .jj-rollback-modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .jj-rollback-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        
+        .jj-rollback-modal-close:hover {
+            color: #000;
+        }
+        
+        .jj-rollback-modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .jj-rollback-versions-list {
+            margin: 15px 0;
+        }
+        
+        .jj-rollback-version-item {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .jj-rollback-version-item:hover {
+            border-color: #2271b1;
+            background: #f0f6fc;
+        }
+        
+        .jj-rollback-version-item input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .jj-rollback-version-item input[type="radio"]:checked + .version-label {
+            font-weight: 700;
+            color: #2271b1;
+        }
+        
+        .jj-rollback-warning {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        
+        .jj-rollback-warning p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .jj-rollback-modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .jj-rollback-progress {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .jj-rollback-progress .spinner {
+            float: left;
+            margin: 0 10px 0 0;
         }
         
         /* 플러그인 액션 링크 스타일 개선 - 볼드, 큰 글꼴, 색상 강조 */
@@ -1253,11 +1423,17 @@ class JJ_Global_Plugin_List_Enhancer {
         // 모든 플러그인에 자동 업데이트 버튼 추가
         add_filter( 'plugin_action_links', array( $this, 'add_auto_update_to_all_plugins' ), 10, 2 );
         
+        // 모든 플러그인에 롤백 버튼 추가 - [v23.0.3] 완전한 롤백 기능 구현
+        add_filter( 'plugin_action_links', array( $this, 'add_rollback_to_all_plugins' ), 10, 2 );
+        
         // 모든 플러그인에 향상된 메타 링크 추가
         add_filter( 'plugin_row_meta', array( $this, 'enhance_all_plugin_meta' ), 10, 2 );
         
         // 자동 업데이트 토글 AJAX (전역)
         add_action( 'wp_ajax_jj_toggle_auto_update_global', array( $this, 'ajax_toggle_auto_update_global' ) );
+        
+        // 전역 롤백 AJAX 핸들러 - [v23.0.3]
+        add_action( 'wp_ajax_jj_rollback_plugin_global', array( $this, 'ajax_rollback_plugin_global' ) );
         
         // 스타일 및 스크립트 로드
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
@@ -1373,6 +1549,118 @@ class JJ_Global_Plugin_List_Enhancer {
     }
     
     /**
+     * 모든 플러그인에 롤백 버튼 추가 - [v23.0.3]
+     */
+    public function add_rollback_to_all_plugins( $links, $plugin_file ) {
+        // WordPress 코어 플러그인 제외
+        if ( strpos( $plugin_file, 'wordpress-seo' ) !== false || 
+             strpos( $plugin_file, 'akismet' ) !== false ||
+             strpos( $plugin_file, 'hello.php' ) !== false ) {
+            return $links;
+        }
+        
+        // 공유 롤백 클래스 로드
+        $shared_path = dirname( dirname( __FILE__ ) ) . '/../shared-ui-assets/php/';
+        if ( ! file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+            // 상대 경로로 찾기
+            $shared_path = WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master/shared-ui-assets/php/';
+        }
+        
+        $available_versions = array();
+        if ( file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+            require_once $shared_path . 'class-jj-shared-loader.php';
+            JJ_Shared_Loader::load( 'class-jj-rollback-shared' );
+            if ( class_exists( 'JJ_Rollback_Shared' ) ) {
+                $rollback = JJ_Rollback_Shared::instance();
+                $available_versions = $rollback->get_available_rollback_versions( $plugin_file );
+            }
+        }
+        
+        // 롤백 가능한 버전이 없으면 버튼 표시 안 함
+        if ( empty( $available_versions ) ) {
+            return $links;
+        }
+        
+        $rollback_nonce = wp_create_nonce( 'jj_rollback_plugin_global_' . $plugin_file );
+        
+        // 버전 배열을 JSON 문자열로 변환 (키는 버전, 값은 URL이지만 여기서는 버전만 사용)
+        $versions_array = is_array( $available_versions ) ? array_values( $available_versions ) : array();
+        
+        $rollback_link = sprintf(
+            '<a href="#" class="jj-rollback-trigger jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" data-versions=\'%s\' style="font-size: 14px; font-weight: 800; color: #856404; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block; background: linear-gradient(135deg, #fbbf24 0%%, #f59e0b 100%%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🔄 <strong>%s</strong></a>',
+            esc_attr__( '이전 버전으로 되돌리기', 'acf-css-really-simple-style-management-center' ),
+            esc_attr( $plugin_file ),
+            esc_attr( $rollback_nonce ),
+            esc_attr( wp_json_encode( $versions_array ) ),
+            __( '롤백', 'acf-css-really-simple-style-management-center' )
+        );
+        
+        // 기존 링크 앞에 추가
+        array_unshift( $links, $rollback_link );
+        
+        return $links;
+    }
+    
+    /**
+     * 전역 롤백 AJAX 핸들러 - [v23.0.3]
+     */
+    public function ajax_rollback_plugin_global() {
+        $nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+        $plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( $_POST['plugin'] ) : '';
+        $version = isset( $_POST['version'] ) ? sanitize_text_field( $_POST['version'] ) : '';
+        $zip_url = isset( $_POST['zip_url'] ) ? esc_url_raw( $_POST['zip_url'] ) : '';
+        
+        if ( ! wp_verify_nonce( $nonce, 'jj_rollback_plugin_global_' . $plugin ) ) {
+            wp_send_json_error( array( 'message' => __( '보안 검증 실패', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        if ( ! current_user_can( 'update_plugins' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        if ( empty( $plugin ) || empty( $version ) ) {
+            wp_send_json_error( array( 'message' => __( '플러그인 또는 버전이 지정되지 않았습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        // 공유 롤백 클래스 로드
+        $shared_path = dirname( dirname( __FILE__ ) ) . '/../shared-ui-assets/php/';
+        if ( ! file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+            $shared_path = WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master/shared-ui-assets/php/';
+        }
+        
+        if ( file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+            require_once $shared_path . 'class-jj-shared-loader.php';
+            JJ_Shared_Loader::load( 'class-jj-rollback-shared' );
+        }
+        
+        if ( ! class_exists( 'JJ_Rollback_Shared' ) ) {
+            wp_send_json_error( array( 'message' => __( '롤백 클래스를 로드할 수 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        // 롤백 실행 (zip_url이 있으면 사용, 없으면 자동으로 찾기)
+        $rollback = JJ_Rollback_Shared::instance();
+        $result = $rollback->rollback_plugin( $plugin, $version );
+        
+        if ( is_wp_error( $result ) ) {
+            wp_send_json_error( array( 
+                'message' => $result->get_error_message(),
+                'code' => $result->get_error_code(),
+            ) );
+        }
+        
+        wp_send_json_success( array(
+            'message' => sprintf(
+                __( '플러그인이 버전 %s로 롤백되었습니다.', 'acf-css-really-simple-style-management-center' ),
+                $result['to_version']
+            ),
+            'from_version' => $result['from_version'],
+            'to_version' => $result['to_version'],
+            'data' => $result,
+            'reload' => true,
+        ) );
+    }
+    
+    /**
      * 전역 자동 업데이트 토글 AJAX
      */
     public function ajax_toggle_auto_update_global() {
@@ -1466,8 +1754,320 @@ class JJ_Global_Plugin_List_Enhancer {
                     });
                 }
             });
+            
+            // 전역 롤백 트리거 - [v23.0.3] 완전한 롤백 기능 구현
+            $(document).on('click', '.jj-rollback-trigger', function(e) {
+                e.preventDefault();
+                var $trigger = $(this);
+                var plugin = $trigger.data('plugin');
+                var nonce = $trigger.data('nonce');
+                var versions = [];
+                
+                try {
+                    versions = JSON.parse($trigger.data('versions') || '[]');
+                } catch (e) {
+                    console.error('버전 데이터 파싱 실패:', e);
+                }
+                
+                if (versions.length === 0) {
+                    alert('롤백 가능한 버전을 찾을 수 없습니다.');
+                    return;
+                }
+                
+                // 버전 선택 모달 표시
+                showRollbackModal(plugin, nonce, versions);
+            });
+            
+            // 롤백 모달 표시 함수
+            function showRollbackModal(plugin, nonce, versions) {
+                // 모달 HTML 생성
+                var modalHtml = '<div id="jj-rollback-modal" class="jj-rollback-modal-overlay">' +
+                    '<div class="jj-rollback-modal">' +
+                    '<div class="jj-rollback-modal-header">' +
+                    '<h2>🔄 플러그인 롤백</h2>' +
+                    '<button type="button" class="jj-rollback-modal-close" aria-label="닫기">×</button>' +
+                    '</div>' +
+                    '<div class="jj-rollback-modal-body">' +
+                    '<p>롤백할 버전을 선택하세요:</p>' +
+                    '<div class="jj-rollback-versions-list">';
+                
+                // versions가 배열인 경우와 객체인 경우 모두 처리
+                if (Array.isArray(versions)) {
+                    versions.forEach(function(version) {
+                        modalHtml += '<label class="jj-rollback-version-item">' +
+                            '<input type="radio" name="rollback_version" value="' + version + '">' +
+                            '<span class="version-label">v' + version + '</span>' +
+                            '</label>';
+                    });
+                } else if (typeof versions === 'object') {
+                    // 객체인 경우 키(버전)만 사용
+                    Object.keys(versions).forEach(function(version) {
+                        modalHtml += '<label class="jj-rollback-version-item">' +
+                            '<input type="radio" name="rollback_version" value="' + version + '">' +
+                            '<span class="version-label">v' + version + '</span>' +
+                            '</label>';
+                    });
+                }
+                
+                modalHtml += '</div>' +
+                    '<div class="jj-rollback-warning">' +
+                    '<p><strong>⚠️ 주의:</strong> 롤백 시 현재 버전의 데이터는 백업됩니다. 롤백 후 플러그인을 다시 활성화해야 할 수 있습니다.</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="jj-rollback-modal-footer">' +
+                    '<button type="button" class="button jj-rollback-cancel">취소</button>' +
+                    '<button type="button" class="button button-primary jj-rollback-confirm">롤백 실행</button>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+                
+                // 기존 모달 제거
+                $('#jj-rollback-modal').remove();
+                
+                // 모달 추가
+                $('body').append(modalHtml);
+                var $modal = $('#jj-rollback-modal');
+                
+                // 모달 표시
+                setTimeout(function() {
+                    $modal.addClass('active');
+                }, 10);
+                
+                // 닫기 버튼
+                $modal.find('.jj-rollback-modal-close, .jj-rollback-cancel').on('click', function() {
+                    $modal.removeClass('active');
+                    setTimeout(function() {
+                        $modal.remove();
+                    }, 300);
+                });
+                
+                // 롤백 실행
+                $modal.find('.jj-rollback-confirm').on('click', function() {
+                    var selectedVersion = $modal.find('input[name=\"rollback_version\"]:checked').val();
+                    
+                    if (!selectedVersion) {
+                        alert('버전을 선택해주세요.');
+                        return;
+                    }
+                    
+                    if (!confirm('정말로 버전 ' + selectedVersion + '으로 롤백하시겠습니까?\\n\\n이 작업은 되돌릴 수 없습니다.')) {
+                        return;
+                    }
+                    
+                    // 롤백 실행
+                    executeRollback(plugin, nonce, selectedVersion, $modal);
+                });
+            }
+            
+            // 롤백 실행 함수
+            function executeRollback(plugin, nonce, version, $modal) {
+                var $confirmBtn = $modal.find('.jj-rollback-confirm');
+                var originalText = $confirmBtn.text();
+                
+                // 버튼 비활성화 및 로딩 표시
+                $confirmBtn.prop('disabled', true).text('롤백 중...');
+                $modal.find('.jj-rollback-modal-body').append('<div class=\"jj-rollback-progress\"><div class=\"spinner is-active\"></div> <span>롤백을 실행하고 있습니다...</span></div>');
+                
+                // AJAX 액션 결정 (전역 또는 개별)
+                var action = 'jj_rollback_plugin_global';
+                var actionSuffix = plugin.replace(/[\/\\\\]/g, '_');
+                
+                // 개별 AJAX 액션이 있는지 확인
+                if ($('[data-plugin=\"' + plugin + '\"]').length > 0) {
+                    // 개별 플러그인용 롤백 액션 사용
+                    action = 'jj_rollback_plugin_' + actionSuffix;
+                }
+                
+                // AJAX 요청
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: action,
+                        nonce: nonce,
+                        plugin: plugin,
+                        version: version
+                    },
+                    timeout: 300000, // 5분 타임아웃
+                    success: function(response) {
+                        if (response.success) {
+                            $modal.find('.jj-rollback-progress').html('<div class=\"notice notice-success\"><p>✅ ' + response.data.message + '</p></div>');
+                            
+                            setTimeout(function() {
+                                // 페이지 새로고침
+                                if (response.data.reload !== false) {
+                                    location.reload();
+                                }
+                            }, 2000);
+                        } else {
+                            $modal.find('.jj-rollback-progress').html('<div class=\"notice notice-error\"><p>❌ ' + (response.data.message || '롤백에 실패했습니다.') + '</p></div>');
+                            $confirmBtn.prop('disabled', false).text(originalText);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        var errorMsg = '롤백 중 오류가 발생했습니다.';
+                        if (status === 'timeout') {
+                            errorMsg = '롤백 시간이 초과되었습니다. 서버 로그를 확인해주세요.';
+                        } else if (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
+                            errorMsg = xhr.responseJSON.data.message;
+                        }
+                        
+                        $modal.find('.jj-rollback-progress').html('<div class=\"notice notice-error\"><p>❌ ' + errorMsg + '</p></div>');
+                        $confirmBtn.prop('disabled', false).text(originalText);
+                    }
+                });
+            }
         });
         " );
+        
+        // 롤백 모달 CSS 추가
+        wp_add_inline_style( 'wp-admin', $this->get_rollback_modal_css() );
+    }
+    
+    /**
+     * 롤백 모달 CSS - [v23.0.3]
+     */
+    private function get_rollback_modal_css() {
+        return '
+        /* 롤백 모달 스타일 */
+        .jj-rollback-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .jj-rollback-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .jj-rollback-modal {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .jj-rollback-modal-overlay.active .jj-rollback-modal {
+            transform: scale(1);
+        }
+        
+        .jj-rollback-modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .jj-rollback-modal-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .jj-rollback-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        
+        .jj-rollback-modal-close:hover {
+            color: #000;
+        }
+        
+        .jj-rollback-modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .jj-rollback-versions-list {
+            margin: 15px 0;
+        }
+        
+        .jj-rollback-version-item {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .jj-rollback-version-item:hover {
+            border-color: #2271b1;
+            background: #f0f6fc;
+        }
+        
+        .jj-rollback-version-item input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .jj-rollback-version-item input[type="radio"]:checked + .version-label {
+            font-weight: 700;
+            color: #2271b1;
+        }
+        
+        .jj-rollback-warning {
+            margin-top: 20px;
+            padding: 15px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        
+        .jj-rollback-warning p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
+        .jj-rollback-modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .jj-rollback-progress {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .jj-rollback-progress .spinner {
+            float: left;
+            margin: 0 10px 0 0;
+        }
+        ';
     }
 }
 
