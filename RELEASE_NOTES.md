@@ -3,8 +3,27 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 4일  
-**릴리즈 버전**: Phase 37.1 Hotfix - render_page() 오류 수정  
+**릴리즈 버전**: Phase 37.1 Hotfix - 500 에러 및 심각한 오류 수정  
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
+
+---
+
+## 🐛 긴급 수정 (v22.4.3)
+
+### WP Bulk Manager 500 에러 및 심각한 오류 수정
+- ✅ **ajax_handle_install() 오류 처리 강화**: 모든 단계에 try-catch 추가
+  - nonce 검증, 파일 include, 설치, 활성화 단계별 오류 처리
+  - 오류 발생 시 상세한 로그 기록 및 Stack trace 기록
+  - 각 단계별 안전한 폴백 처리
+- ✅ **ajax_handle_upload() 오류 처리 강화**:
+  - nonce 검증 오류 처리
+  - 업로드 디렉토리 처리 안전성 강화
+  - 타입 감지 실패 시 기본값 사용
+  - 모든 예외 및 Fatal Error 처리
+- ✅ **500 서버 오류 및 WordPress 심각한 오류 방지**: 모든 AJAX 핸들러에 전면적인 오류 처리 적용
+
+### 버전 업데이트
+- WP Bulk Manager: v22.4.2-master → **v22.4.3-master**
 
 ---
 

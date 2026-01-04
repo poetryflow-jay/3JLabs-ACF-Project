@@ -26,6 +26,23 @@
 
 ---
 
+## Version 22.4.3 (2026-01-04) - 긴급 오류 수정: WP Bulk Manager 500 에러 및 심각한 오류 수정
+
+### 🐛 버그 수정
+- **WP Bulk Manager ajax_handle_install() 오류 처리 강화**: 모든 단계에 try-catch 추가
+  - nonce 검증, 파일 include, 설치, 활성화 단계별 오류 처리
+  - 오류 발생 시 상세한 로그 기록 및 Stack trace 기록
+  - 각 단계별 안전한 폴백 처리
+- **WP Bulk Manager ajax_handle_upload() 오류 처리 강화**:
+  - nonce 검증 오류 처리
+  - 업로드 디렉토리 처리 안전성 강화
+  - 타입 감지 실패 시 기본값 사용
+  - 모든 예외 및 Fatal Error 처리
+- **500 서버 오류 및 WordPress 심각한 오류 방지**: 모든 AJAX 핸들러에 전면적인 오류 처리 적용
+
+### 🛠️ 버전 업데이트
+- WP Bulk Manager: v22.4.2-master → **v22.4.3-master**
+
 ## Version 22.4.2 (2026-01-04) - 긴급 오류 수정: render_page() 안정성 강화
 
 ### 🐛 버그 수정
