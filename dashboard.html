@@ -897,6 +897,217 @@
 
         // 날짜 업데이트
         document.getElementById('last-updated').textContent = new Date().toISOString().split('T')[0];
+
+        // ═══════════════════════════════════════════════════════════════════════════════
+        // 실시간 업데이트 시스템 (AJAX 폴링)
+        // ═══════════════════════════════════════════════════════════════════════════════
+        let updateInterval = null;
+        let isUpdating = false;
+
+        /**
+         * 빌드 정보를 서버에서 가져오기
+         */
+        async function fetchBuildInfo() {
+            if (isUpdating) return;
+            isUpdating = true;
+
+            try {
+                // package_signatures.json 파일 읽기
+                const response = await fetch('dist/package_signatures.json?' + Date.now());
+                if (!response.ok) throw new Error('Failed to fetch build info');
+                
+                const data = await response.json();
+                updateDashboard(data);
+            } catch (error) {
+                console.warn('Build info update failed:', error);
+            } finally {
+                isUpdating = false;
+            }
+        }
+
+        /**
+         * 대시보드 업데이트
+         */
+        function updateDashboard(data) {
+            // 플러그인 목록 업데이트
+            const plugins = Object.keys(data).filter(key => !key.startsWith('_'));
+            document.getElementById('total-plugins').textContent = plugins.length;
+
+            // 빌드 테이블 업데이트
+            updateBuildTable(data);
+
+            // 통계 업데이트
+            updateStatistics(data);
+        }
+
+        /**
+         * 빌드 테이블 업데이트
+         */
+        function updateBuildTable(data) {
+            const tbody = document.getElementById('build-tbody');
+            if (!tbody) return;
+
+            // 기존 행 제거
+            tbody.innerHTML = '';
+
+            // 플러그인 정보 매핑
+            const pluginMap = {
+                'acf-css-really-simple-style-management-center-master-master': { name: 'ACF CSS 설정 관리자', category: 'core' },
+                'wp-bulk-manager-master': { name: 'WP Bulk Manager', category: 'family' },
+                'acf-css-neural-link-master': { name: 'ACF CSS Neural Link', category: 'core' },
+                'acf-nudge-flow-master': { name: 'ACF MBA (Nudge Flow)', category: 'family' },
+                'acf-code-snippets-box-master': { name: 'ACF Code Snippets Box', category: 'family' },
+                'acf-css-woocommerce-toolkit-master': { name: 'ACF CSS WooCommerce Toolkit', category: 'family' },
+                'acf-css-ai-extension-master': { name: 'ACF CSS AI Extension', category: 'family' },
+                'admin-menu-editor-pro-master': { name: 'Admin Menu Editor Pro', category: 'family' },
+                'acf-css-woo-license-master': { name: 'ACF CSS Woo License Bridge', category: 'core' },
+                'SEO/wp-bulk-seo-aeo-master': { name: 'WP Bulk SEO & AEO', category: 'family' },
+                'acf-mail-smtp-master': { name: 'ACF Mail SMTP', category: 'family' },
+                'acf-user-journey-analytics-master': { name: 'ACF User Journey Analytics', category: 'family' },
+                'jj-analytics-dashboard-master': { name: 'JJ Analytics Dashboard', category: 'family' },
+                'jj-marketing-automation-dashboard-master': { name: 'JJ Marketing Automation Dashboard', category: 'family' }
+            };
+
+            // 데이터를 배열로 변환하고 정렬
+            const plugins = Object.entries(data)
+                .filter(([key]) => !key.startsWith('_'))
+                .map(([filename, info]) => {
+                    const pluginId = filename.replace(/-master-v[\d.]+\.zip$/, '-master');
+                    const plugin = pluginMap[pluginId] || { name: pluginId, category: 'family' };
+                    return {
+                        name: plugin.name,
+                        version: info.version || 'N/A',
+                        status: info.status || 'stable',
+                        category: plugin.category,
+                        generatedAt: info.generated_at || null
+                    };
+                })
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+            // 테이블 행 생성
+            plugins.forEach(plugin => {
+                const row = document.createElement('tr');
+                
+                const statusColor = plugin.status === 'development' 
+                    ? 'var(--accent-orange)' 
+                    : plugin.status === 'free'
+                    ? 'var(--accent-blue)'
+                    : 'var(--accent-green)';
+                
+                const statusText = plugin.status === 'development' 
+                    ? '● Development' 
+                    : plugin.status === 'free'
+                    ? '● Free'
+                    : '● Stable';
+
+                row.innerHTML = `
+                    <td>${plugin.name}</td>
+                    <td>v${plugin.version}</td>
+                    <td style="color: ${statusColor};">${statusText}</td>
+                    <td>Master Only</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        /**
+         * 통계 업데이트
+         */
+        function updateStatistics(data) {
+            const plugins = Object.keys(data).filter(key => !key.startsWith('_'));
+            const totalPlugins = plugins.length;
+            
+            // 활성 빌드 수 (stable 상태)
+            const activeBuilds = plugins.filter(key => {
+                const info = data[key];
+                return info && info.status === 'stable';
+            }).length;
+
+            // 개발 중인 플러그인 수
+            const inDevelopment = plugins.filter(key => {
+                const info = data[key];
+                return info && info.status === 'development';
+            }).length;
+
+            // 통계 카드 업데이트
+            const statCards = document.querySelectorAll('.stat-card .stat-value');
+            if (statCards.length >= 3) {
+                statCards[0].textContent = totalPlugins; // 총 플러그인
+                statCards[1].textContent = activeBuilds; // 활성 빌드
+                statCards[2].textContent = inDevelopment; // 개발 중
+            }
+        }
+
+        /**
+         * 실시간 업데이트 시작
+         */
+        function startRealtimeUpdates() {
+            // 즉시 한 번 실행
+            fetchBuildInfo();
+            
+            // 30초마다 업데이트
+            updateInterval = setInterval(fetchBuildInfo, 30000);
+            
+            // 페이지 가시성 변경 시 업데이트
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden) {
+                    fetchBuildInfo();
+                }
+            });
+        }
+
+        /**
+         * 실시간 업데이트 중지
+         */
+        function stopRealtimeUpdates() {
+            if (updateInterval) {
+                clearInterval(updateInterval);
+                updateInterval = null;
+            }
+        }
+
+        // 페이지 로드 시 실시간 업데이트 시작
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startRealtimeUpdates);
+        } else {
+            startRealtimeUpdates();
+        }
+
+        // 페이지 언로드 시 정리
+        window.addEventListener('beforeunload', stopRealtimeUpdates);
+
+        // 업데이트 상태 표시
+        let updateIndicator = document.createElement('div');
+        updateIndicator.id = 'update-indicator';
+        updateIndicator.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            z-index: 1000;
+            display: none;
+        `;
+        document.body.appendChild(updateIndicator);
+
+        // 업데이트 중 표시
+        const originalFetch = fetchBuildInfo;
+        fetchBuildInfo = async function() {
+            updateIndicator.textContent = '🔄 업데이트 중...';
+            updateIndicator.style.display = 'block';
+            await originalFetch();
+            setTimeout(() => {
+                updateIndicator.textContent = '✅ 업데이트 완료';
+                setTimeout(() => {
+                    updateIndicator.style.display = 'none';
+                }, 2000);
+            }, 500);
+        };
     </script>
 </body>
 </html>

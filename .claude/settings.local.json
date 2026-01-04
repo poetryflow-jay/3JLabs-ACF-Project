@@ -12,7 +12,10 @@
       "Bash(cat:*)",
       "Bash(python:*)",
       "Bash(dir \"C:\\Users\\computer\\Desktop\\3J-Labs-Projects\\3J-ACF-CSS\\dist\\*.zip\" /O:-D)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: 1-Click SEO Pro v2.0.0 대규모 업그레이드 (Phase 42.1)\n\nv25 디자인 시스템 통합:\n- jj-seo-v25-ui.css 추가 (그라데이션, 다크 모드, 애니메이션)\n- 대시보드 v25 UI로 완전 재구성\n- 반응형 레이아웃 및 접근성 강화\n\n보안 강화:\n- 공유 보안 모듈 연동 (class-security-init.php)\n- 라이센스 관리 시스템 통합\n- AJAX nonce 검증 강화\n\n기능 추가:\n- 1-Click SEO 설정 버튼 (ajax_1click_setup)\n- 크로스 프로모션 배너 (User Journey Analytics)\n- 모듈별 성능 시각화 바\n- Chart.js 등급 분포 차트\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(python -c \"import subprocess; result = subprocess.run([''php'', ''-l'', ''acf-user-journey-analytics/acf-user-journey-analytics.php''], capture_output=True, text=True); print(result.stdout + result.stderr)\")"
     ]
   }
 }

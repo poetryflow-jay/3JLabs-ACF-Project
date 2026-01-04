@@ -1001,9 +1001,70 @@ class JJBuildManager(tk.Tk):
         ttk.Button(build_btn_frame, text="전체 해제", command=lambda: self.toggle_all_plugins(False)).pack(side="left", padx=5)
         ttk.Button(build_btn_frame, text="Core만 선택", command=self.select_core_only).pack(side="left", padx=5)
         
-        # 빌드 로그 (macOS 터미널 스타일 - 라이트 버전)
+        # 진행률 표시 개선
+        progress_frame = ttk.Frame(self.tab_build)
+        progress_frame.pack(fill="x", padx=10, pady=(0, 10))
+        
+        # 진행률 정보 레이블
+        self.progress_info = ttk.Label(
+            progress_frame,
+            text="준비됨",
+            font=self.fonts['body'],
+            foreground=self.colors['text_secondary']
+        )
+        self.progress_info.pack(side="left", padx=(0, 10))
+        
+        # 진행률 바 (개선된 스타일)
+        self.progress_bar = ttk.Progressbar(
+            progress_frame,
+            mode='determinate',
+            length=400,
+            style="TProgressbar"
+        )
+        self.progress_bar.pack(side="left", fill="x", expand=True, padx=(0, 10))
+        
+        # 진행률 퍼센트 표시
+        self.progress_percent = ttk.Label(
+            progress_frame,
+            text="0%",
+            font=self.fonts['heading'],
+            foreground=self.colors['accent'],
+            width=5
+        )
+        self.progress_percent.pack(side="right")
+        
+        # 빌드 히스토리 프레임
+        history_frame = ttk.LabelFrame(self.tab_build, text=" 최근 빌드 히스토리 ", padding=10)
+        history_frame.pack(fill="x", padx=10, pady=(0, 10))
+        
+        # 히스토리 트리뷰
+        history_columns = ('시간', '플러그인', '버전', '상태')
+        self.history_tree = ttk.Treeview(history_frame, columns=history_columns, show='headings', height=5)
+        
+        for col in history_columns:
+            self.history_tree.heading(col, text=col)
+            self.history_tree.column(col, width=150)
+        
+        scrollbar_history = ttk.Scrollbar(history_frame, orient="vertical", command=self.history_tree.yview)
+        self.history_tree.configure(yscrollcommand=scrollbar_history.set)
+        
+        self.history_tree.pack(side="left", fill="both", expand=True)
+        scrollbar_history.pack(side="right", fill="y")
+        
+        # 빌드 로그 (macOS 터미널 스타일 - 라이트 버전, 개선)
         log_frame = ttk.LabelFrame(self.tab_build, text=" 빌드 로그 ", padding=10)
         log_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # 로그 컨트롤 버튼
+        log_controls = ttk.Frame(log_frame)
+        log_controls.pack(fill="x", pady=(0, 5))
+        
+        ttk.Button(log_controls, text="🗑️ 지우기", command=self.clear_log).pack(side="left", padx=5)
+        ttk.Button(log_controls, text="📋 복사", command=self.copy_log).pack(side="left", padx=5)
+        ttk.Button(log_controls, text="💾 저장", command=self.save_log).pack(side="left", padx=5)
+        
+        self.auto_scroll_var = tk.BooleanVar(value=True)
+        ttk.Checkbutton(log_controls, text="자동 스크롤", variable=self.auto_scroll_var).pack(side="right", padx=5)
         
         self.log_text = scrolledtext.ScrolledText(
             log_frame, 
@@ -1195,7 +1256,8 @@ class JJBuildManager(tk.Tk):
         """빌드 실행 (스레드)"""
         def log_callback(msg):
             self.after(0, lambda: self.log_text.insert(tk.END, msg))
-            self.after(0, lambda: self.log_text.see(tk.END))
+            if self.auto_scroll_var.get():
+                self.after(0, lambda: self.log_text.see(tk.END))
         
         def progress_callback(current, total, name):
             percent = int((current / total) * 100) if total > 0 else 0
@@ -1213,6 +1275,8 @@ class JJBuildManager(tk.Tk):
             success = engine.build_all(plugin_ids, editions)
             
             self.after(0, lambda: self.progress_bar.config(value=100))
+            self.after(0, lambda: self.progress_percent.config(text="100%"))
+            self.after(0, lambda: self.progress_info.config(text="완료"))
             
             if success:
                 self.after(0, lambda: self.set_status("✅ 빌드 완료!"))
@@ -1297,6 +1361,50 @@ class JJBuildManager(tk.Tk):
         else:
             output_dir.mkdir(parents=True, exist_ok=True)
             os.startfile(str(output_dir))
+    
+    def clear_log(self):
+        """로그 지우기"""
+        self.log_text.delete("1.0", tk.END)
+        self.set_status("로그가 지워졌습니다.")
+    
+    def copy_log(self):
+        """로그 복사"""
+        try:
+            content = self.log_text.get("1.0", tk.END)
+            self.clipboard_clear()
+            self.clipboard_append(content)
+            self.set_status("로그가 클립보드에 복사되었습니다.")
+        except Exception as e:
+            messagebox.showerror("오류", f"복사 실패: {e}")
+    
+    def save_log(self):
+        """로그 저장"""
+        try:
+            content = self.log_text.get("1.0", tk.END)
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"build_log_{timestamp}.txt"
+            
+            filepath = filedialog.asksaveasfilename(
+                defaultextension=".txt",
+                filetypes=[("Text files", "*.txt"), ("All files", "*.*")],
+                initialfile=filename
+            )
+            
+            if filepath:
+                with open(filepath, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                self.set_status(f"로그가 저장되었습니다: {filepath}")
+        except Exception as e:
+            messagebox.showerror("오류", f"저장 실패: {e}")
+    
+    def add_build_history(self, timestamp, plugin, version, status):
+        """빌드 히스토리 추가"""
+        self.history_tree.insert('', 0, values=(timestamp, plugin, version, status))
+        
+        # 최대 50개까지만 유지
+        items = self.history_tree.get_children()
+        if len(items) > 50:
+            self.history_tree.delete(items[-1])
     
     def open_source_folder(self):
         """소스 폴더 열기"""
