@@ -1,0 +1,859 @@
+/**
+ * 1-Click SEO Pro v25.0.0 UI/UX Enhancement
+ *
+ * v25.0.0 그랜드 업데이트: 현대적 디자인 시스템 통합
+ *
+ * @package OneClick_SEO_Pro
+ * @version 25.0.0
+ * @author 3J Labs (Jenny x Jason)
+ * @created 2026-01-05
+ *
+ * 주요 개선사항:
+ * - v25 디자인 시스템 통합
+ * - 다크 모드 지원
+ * - 고급 애니메이션
+ * - 접근성 강화
+ * - 반응형 개선
+ */
+
+/* ===========================
+   v25 디자인 시스템 변수 통합
+   =========================== */
+
+@import url('../../../../acf-css-really-simple-style-management-center-master/assets/css/jj-design-system-v25.css');
+
+/* ===========================
+   CSS Variables Fallback
+   =========================== */
+:root {
+    --jj-primary: #FF6B35;
+    --jj-primary-dark: #E65A2B;
+    --jj-secondary: #F7931E;
+    --jj-success: #10B981;
+    --jj-warning: #F59E0B;
+    --jj-error: #EF4444;
+    --jj-info: #3B82F6;
+
+    --jj-bg-primary: #FFFFFF;
+    --jj-bg-secondary: #F9FAFB;
+    --jj-text-primary: #1F2937;
+    --jj-text-secondary: #6B7280;
+    --jj-border-primary: #E5E7EB;
+
+    --jj-space-xs: 4px;
+    --jj-space-sm: 8px;
+    --jj-space-md: 16px;
+    --jj-space-lg: 24px;
+    --jj-space-xl: 32px;
+
+    --jj-radius-sm: 4px;
+    --jj-radius-md: 8px;
+    --jj-radius-lg: 12px;
+    --jj-radius-xl: 16px;
+    --jj-radius-full: 9999px;
+
+    --jj-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --jj-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --jj-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --jj-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+    --jj-transition-base: 0.3s ease;
+    --jj-transition-fast: 0.15s ease;
+
+    --jj-gradient-primary: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    --jj-gradient-accent-blue: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    --jj-gradient-accent-green: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    --jj-gradient-accent-purple: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+}
+
+/* ===========================
+   SEO 대시보드 v25 스타일
+   =========================== */
+
+.oneclick-seo-dashboard-v25 {
+    padding: var(--jj-space-xl);
+    background: var(--jj-bg-primary);
+    max-width: 1400px;
+}
+
+.oneclick-seo-header-v25 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--jj-space-xl);
+    padding-bottom: var(--jj-space-lg);
+    border-bottom: 2px solid var(--jj-border-primary);
+}
+
+.oneclick-seo-header-v25 h1 {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--jj-text-primary);
+    margin: 0;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: var(--jj-space-sm);
+}
+
+.oneclick-seo-header-v25 .header-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--jj-space-xs) var(--jj-space-sm);
+    background: var(--jj-gradient-primary);
+    color: #FFFFFF;
+    border-radius: var(--jj-radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.oneclick-seo-header-v25 .header-actions {
+    display: flex;
+    gap: var(--jj-space-sm);
+}
+
+/* ===========================
+   SEO 점수 카드 v25
+   =========================== */
+
+.oneclick-seo-score-grid-v25 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--jj-space-lg);
+    margin-bottom: var(--jj-space-xl);
+}
+
+.oneclick-seo-score-card-v25 {
+    background: var(--jj-gradient-primary);
+    border-radius: var(--jj-radius-xl);
+    padding: var(--jj-space-xl);
+    color: #FFFFFF;
+    box-shadow: var(--jj-shadow-lg);
+    transition: all var(--jj-transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.oneclick-seo-score-card-v25::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity var(--jj-transition-base);
+}
+
+.oneclick-seo-score-card-v25:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--jj-shadow-xl);
+}
+
+.oneclick-seo-score-card-v25:hover::before {
+    opacity: 1;
+}
+
+.oneclick-seo-score-card-v25.overall {
+    background: var(--jj-gradient-primary);
+    grid-column: span 2;
+}
+
+.oneclick-seo-score-card-v25.content {
+    background: var(--jj-gradient-accent-blue);
+}
+
+.oneclick-seo-score-card-v25.technical {
+    background: var(--jj-gradient-accent-green);
+}
+
+.oneclick-seo-score-card-v25.user-experience {
+    background: var(--jj-gradient-accent-purple);
+}
+
+.oneclick-seo-score-card-v25 .score-icon {
+    font-size: 36px;
+    margin-bottom: var(--jj-space-md);
+    opacity: 0.95;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.oneclick-seo-score-card-v25 .score-value {
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: var(--jj-space-sm);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.oneclick-seo-score-card-v25 .score-label {
+    font-size: 18px;
+    opacity: 0.95;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.oneclick-seo-score-card-v25 .score-trend {
+    margin-top: var(--jj-space-md);
+    font-size: 14px;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: var(--jj-space-xs);
+}
+
+/* ===========================
+   빠른 액션 카드 v25
+   =========================== */
+
+.oneclick-seo-actions-grid-v25 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--jj-space-lg);
+    margin-bottom: var(--jj-space-xl);
+}
+
+.oneclick-seo-action-card-v25 {
+    background: var(--jj-bg-primary);
+    border: 2px solid var(--jj-border-primary);
+    border-radius: var(--jj-radius-xl);
+    padding: var(--jj-space-xl);
+    transition: all var(--jj-transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.oneclick-seo-action-card-v25::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--jj-gradient-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--jj-transition-base);
+}
+
+.oneclick-seo-action-card-v25:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--jj-shadow-xl);
+    border-color: var(--jj-primary);
+}
+
+.oneclick-seo-action-card-v25:hover::before {
+    transform: scaleX(1);
+}
+
+.oneclick-seo-action-card-v25.priority-critical {
+    border-left: 4px solid var(--jj-error);
+}
+
+.oneclick-seo-action-card-v25.priority-high {
+    border-left: 4px solid var(--jj-warning);
+}
+
+.oneclick-seo-action-card-v25.priority-medium {
+    border-left: 4px solid var(--jj-info);
+}
+
+.oneclick-seo-action-card-v25.priority-low {
+    border-left: 4px solid var(--jj-success);
+}
+
+.oneclick-seo-action-card-v25 .action-icon {
+    font-size: 30px;
+    margin-bottom: var(--jj-space-md);
+    display: block;
+}
+
+.oneclick-seo-action-card-v25 .action-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--jj-text-primary);
+    margin-bottom: var(--jj-space-sm);
+}
+
+.oneclick-seo-action-card-v25 .action-description {
+    font-size: 16px;
+    color: var(--jj-text-secondary);
+    line-height: 1.75;
+    margin-bottom: var(--jj-space-lg);
+}
+
+.oneclick-seo-action-card-v25 .action-impact {
+    display: inline-block;
+    padding: var(--jj-space-xs) var(--jj-space-sm);
+    background: rgba(255, 107, 53, 0.1);
+    color: var(--jj-primary);
+    border-radius: var(--jj-radius-full);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--jj-space-md);
+}
+
+.oneclick-seo-action-card-v25 .action-buttons {
+    display: flex;
+    gap: var(--jj-space-sm);
+}
+
+/* ===========================
+   버튼 v25 스타일
+   =========================== */
+
+.oneclick-seo-btn-v25 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--jj-space-sm);
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    border-radius: var(--jj-radius-md);
+    border: none;
+    cursor: pointer;
+    transition: all var(--jj-transition-base);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.oneclick-seo-btn-v25-primary {
+    background: var(--jj-gradient-primary);
+    color: #FFFFFF;
+    box-shadow: var(--jj-shadow-md);
+}
+
+.oneclick-seo-btn-v25-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--jj-shadow-lg);
+    color: #FFFFFF;
+}
+
+.oneclick-seo-btn-v25-secondary {
+    background: #F3F4F6;
+    color: #1F2937;
+    border: 1px solid var(--jj-border-primary);
+}
+
+.oneclick-seo-btn-v25-secondary:hover {
+    background: #E5E7EB;
+    border-color: #D1D5DB;
+    color: #1F2937;
+}
+
+.oneclick-seo-btn-v25-success {
+    background: var(--jj-gradient-accent-green);
+    color: #FFFFFF;
+    box-shadow: var(--jj-shadow-md);
+}
+
+.oneclick-seo-btn-v25-success:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--jj-shadow-lg);
+    color: #FFFFFF;
+}
+
+.oneclick-seo-btn-v25-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.oneclick-seo-btn-v25-lg {
+    padding: 16px 28px;
+    font-size: 18px;
+}
+
+/* ===========================
+   테이블 v25 스타일
+   =========================== */
+
+.oneclick-seo-table-v25 {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--jj-bg-primary);
+    border-radius: var(--jj-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--jj-shadow-md);
+}
+
+.oneclick-seo-table-v25 th {
+    padding: 16px 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--jj-text-secondary);
+    background: var(--jj-bg-secondary);
+    text-align: left;
+    border-bottom: 2px solid var(--jj-border-primary);
+}
+
+.oneclick-seo-table-v25 td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--jj-border-primary);
+    color: var(--jj-text-primary);
+}
+
+.oneclick-seo-table-v25 tbody tr {
+    transition: background var(--jj-transition-fast);
+}
+
+.oneclick-seo-table-v25 tbody tr:hover {
+    background: var(--jj-bg-secondary);
+}
+
+.oneclick-seo-table-v25 tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===========================
+   SEO 점수 배지
+   =========================== */
+
+.oneclick-seo-grade-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    padding: 6px 12px;
+    border-radius: var(--jj-radius-full);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.oneclick-seo-grade-badge.grade-a-plus {
+    background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+    color: #FFFFFF;
+}
+
+.oneclick-seo-grade-badge.grade-a {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--jj-success);
+}
+
+.oneclick-seo-grade-badge.grade-b {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--jj-info);
+}
+
+.oneclick-seo-grade-badge.grade-c {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--jj-warning);
+}
+
+.oneclick-seo-grade-badge.grade-d {
+    background: rgba(249, 115, 22, 0.1);
+    color: #F97316;
+}
+
+.oneclick-seo-grade-badge.grade-f {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--jj-error);
+}
+
+/* ===========================
+   모듈 점수 바
+   =========================== */
+
+.oneclick-seo-module-scores-v25 {
+    display: flex;
+    flex-direction: column;
+    gap: var(--jj-space-md);
+    padding: var(--jj-space-lg);
+    background: var(--jj-bg-primary);
+    border-radius: var(--jj-radius-xl);
+    box-shadow: var(--jj-shadow-md);
+}
+
+.oneclick-seo-module-item {
+    display: flex;
+    align-items: center;
+    gap: var(--jj-space-md);
+}
+
+.oneclick-seo-module-item .module-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--jj-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    background: var(--jj-bg-secondary);
+    flex-shrink: 0;
+}
+
+.oneclick-seo-module-item .module-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.oneclick-seo-module-item .module-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--jj-text-primary);
+    margin-bottom: 6px;
+}
+
+.oneclick-seo-module-item .module-bar {
+    height: 8px;
+    background: var(--jj-bg-secondary);
+    border-radius: var(--jj-radius-full);
+    overflow: hidden;
+}
+
+.oneclick-seo-module-item .module-bar-fill {
+    height: 100%;
+    border-radius: var(--jj-radius-full);
+    transition: width 0.5s ease;
+}
+
+.oneclick-seo-module-item .module-bar-fill.excellent { background: var(--jj-gradient-accent-green); }
+.oneclick-seo-module-item .module-bar-fill.good { background: var(--jj-gradient-accent-blue); }
+.oneclick-seo-module-item .module-bar-fill.average { background: linear-gradient(135deg, #F59E0B 0%, #F97316 100%); }
+.oneclick-seo-module-item .module-bar-fill.poor { background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); }
+
+.oneclick-seo-module-item .module-score {
+    font-size: 16px;
+    font-weight: 700;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* ===========================
+   이슈 리스트 v25
+   =========================== */
+
+.oneclick-seo-issues-v25 {
+    display: flex;
+    flex-direction: column;
+    gap: var(--jj-space-sm);
+}
+
+.oneclick-seo-issue-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--jj-space-md);
+    padding: var(--jj-space-md) var(--jj-space-lg);
+    background: var(--jj-bg-secondary);
+    border-radius: var(--jj-radius-lg);
+    border-left: 4px solid;
+    transition: all var(--jj-transition-base);
+}
+
+.oneclick-seo-issue-item:hover {
+    transform: translateX(4px);
+    box-shadow: var(--jj-shadow-md);
+}
+
+.oneclick-seo-issue-item.critical {
+    border-left-color: var(--jj-error);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.oneclick-seo-issue-item.warning {
+    border-left-color: var(--jj-warning);
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.oneclick-seo-issue-item.info {
+    border-left-color: var(--jj-info);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.oneclick-seo-issue-item.success {
+    border-left-color: var(--jj-success);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.oneclick-seo-issue-item .issue-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--jj-radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.oneclick-seo-issue-item.critical .issue-icon { background: var(--jj-error); }
+.oneclick-seo-issue-item.warning .issue-icon { background: var(--jj-warning); }
+.oneclick-seo-issue-item.info .issue-icon { background: var(--jj-info); }
+.oneclick-seo-issue-item.success .issue-icon { background: var(--jj-success); }
+
+.oneclick-seo-issue-item .issue-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.oneclick-seo-issue-item .issue-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--jj-text-primary);
+    margin: 0 0 4px;
+}
+
+.oneclick-seo-issue-item .issue-desc {
+    font-size: 14px;
+    color: var(--jj-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.oneclick-seo-issue-item .issue-action {
+    flex-shrink: 0;
+}
+
+/* ===========================
+   환영 배너 v25
+   =========================== */
+
+.oneclick-seo-welcome-v25 {
+    background: var(--jj-gradient-primary);
+    border-radius: var(--jj-radius-xl);
+    padding: var(--jj-space-xl);
+    margin-bottom: var(--jj-space-xl);
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.oneclick-seo-welcome-v25::before {
+    content: '';
+    position: absolute;
+    top: -100%;
+    right: -50%;
+    width: 200%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.oneclick-seo-welcome-v25 h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0 0 var(--jj-space-sm);
+    position: relative;
+}
+
+.oneclick-seo-welcome-v25 p {
+    font-size: 16px;
+    opacity: 0.95;
+    margin: 0;
+    line-height: 1.6;
+    max-width: 600px;
+    position: relative;
+}
+
+/* ===========================
+   다크 모드 지원
+   =========================== */
+
+[data-theme="dark"] .oneclick-seo-dashboard-v25 {
+    background: #0F172A;
+}
+
+[data-theme="dark"] .oneclick-seo-header-v25 {
+    border-color: #334155;
+}
+
+[data-theme="dark"] .oneclick-seo-header-v25 h1 {
+    color: #F1F5F9;
+}
+
+[data-theme="dark"] .oneclick-seo-action-card-v25 {
+    background: #1E293B;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .oneclick-seo-action-card-v25 .action-title {
+    color: #F1F5F9;
+}
+
+[data-theme="dark"] .oneclick-seo-action-card-v25 .action-description {
+    color: #CBD5E1;
+}
+
+[data-theme="dark"] .oneclick-seo-table-v25 {
+    background: #1E293B;
+}
+
+[data-theme="dark"] .oneclick-seo-table-v25 th {
+    background: #0F172A;
+    color: #CBD5E1;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .oneclick-seo-table-v25 td {
+    color: #F1F5F9;
+    border-color: #334155;
+}
+
+[data-theme="dark"] .oneclick-seo-table-v25 tbody tr:hover {
+    background: #0F172A;
+}
+
+[data-theme="dark"] .oneclick-seo-module-scores-v25 {
+    background: #1E293B;
+}
+
+[data-theme="dark"] .oneclick-seo-module-item .module-name {
+    color: #F1F5F9;
+}
+
+[data-theme="dark"] .oneclick-seo-module-item .module-icon {
+    background: #0F172A;
+}
+
+[data-theme="dark"] .oneclick-seo-module-item .module-bar {
+    background: #0F172A;
+}
+
+[data-theme="dark"] .oneclick-seo-issue-item {
+    background: #1E293B;
+}
+
+[data-theme="dark"] .oneclick-seo-issue-item .issue-title {
+    color: #F1F5F9;
+}
+
+[data-theme="dark"] .oneclick-seo-issue-item .issue-desc {
+    color: #CBD5E1;
+}
+
+/* ===========================
+   애니메이션
+   =========================== */
+
+@keyframes oneclickSeoFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes oneclickSeoPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+.oneclick-seo-score-card-v25,
+.oneclick-seo-action-card-v25,
+.oneclick-seo-issue-item {
+    animation: oneclickSeoFadeIn 0.4s ease-out;
+}
+
+.oneclick-seo-score-card-v25.animating {
+    animation: oneclickSeoPulse 2s ease-in-out infinite;
+}
+
+/* ===========================
+   반응형
+   =========================== */
+
+@media (max-width: 1024px) {
+    .oneclick-seo-score-grid-v25 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .oneclick-seo-score-card-v25.overall {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .oneclick-seo-dashboard-v25 {
+        padding: var(--jj-space-md);
+    }
+
+    .oneclick-seo-score-grid-v25 {
+        grid-template-columns: 1fr;
+    }
+
+    .oneclick-seo-score-card-v25.overall {
+        grid-column: span 1;
+    }
+
+    .oneclick-seo-actions-grid-v25 {
+        grid-template-columns: 1fr;
+    }
+
+    .oneclick-seo-header-v25 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--jj-space-md);
+    }
+
+    .oneclick-seo-score-card-v25 .score-value {
+        font-size: 48px;
+    }
+}
+
+/* ===========================
+   접근성
+   =========================== */
+
+.oneclick-seo-btn-v25:focus-visible {
+    outline: 2px solid var(--jj-primary);
+    outline-offset: 2px;
+}
+
+.oneclick-seo-action-card-v25:focus-visible {
+    outline: 2px solid var(--jj-primary);
+    outline-offset: 2px;
+}
+
+.oneclick-seo-issue-item:focus-visible {
+    outline: 2px solid var(--jj-primary);
+    outline-offset: 2px;
+}
+
+/* 애니메이션 감소 모드 */
+@media (prefers-reduced-motion: reduce) {
+    .oneclick-seo-score-card-v25,
+    .oneclick-seo-action-card-v25,
+    .oneclick-seo-issue-item,
+    .oneclick-seo-module-item .module-bar-fill {
+        animation: none;
+        transition: none;
+    }
+}
+
+/* ===========================
+   프린트 스타일
+   =========================== */
+
+@media print {
+    .oneclick-seo-dashboard-v25 {
+        background: #FFFFFF;
+    }
+
+    .oneclick-seo-score-card-v25,
+    .oneclick-seo-action-card-v25 {
+        box-shadow: none;
+        border: 1px solid #E5E7EB;
+    }
+
+    .oneclick-seo-btn-v25 {
+        display: none;
+    }
+}

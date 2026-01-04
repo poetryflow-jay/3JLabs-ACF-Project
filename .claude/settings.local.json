@@ -11,7 +11,8 @@
       "Bash(powershell -Command:*)",
       "Bash(cat:*)",
       "Bash(python:*)",
-      "Bash(dir \"C:\\Users\\computer\\Desktop\\3J-Labs-Projects\\3J-ACF-CSS\\dist\\*.zip\" /O:-D)"
+      "Bash(dir \"C:\\Users\\computer\\Desktop\\3J-Labs-Projects\\3J-ACF-CSS\\dist\\*.zip\" /O:-D)",
+      "Bash(git push:*)"
     ]
   }
 }

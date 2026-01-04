@@ -227,13 +227,56 @@ PLUGINS = {
         'id': 'wp-bulk-seo',
         'name': 'WP Bulk SEO & AEO(AIO)',
         'full_name': 'WP Bulk SEO & AEO(AIO) - WordPress Really Simple and Easy Search Engine Optimization and AI Optimization Automation. 1, 2, 3 Click Auto Optimization.',
-        'folder': 'wp-bulk-seo-aeo',  # 개발 예정
+        'folder': 'SEO/wp-bulk-seo-aeo',
         'main_file': 'wp-bulk-seo-aeo.php',
         'text_domain': 'wp-bulk-seo-aeo',
-        'editions': [],  # 개발 예정
-        'is_core': True,  # 독립적으로 사용 가능
-        'description': 'WordPress SEO 및 AI 최적화 자동화 (개발 예정)',
-        'status': 'planned'  # 개발 예정 플래그
+        'editions': ['master'],
+        'is_core': True,
+        'description': 'WordPress SEO 및 AI 최적화 자동화 (Rank Math Pro 스타일)'
+    },
+    'acf-mail-smtp': {
+        'id': 'acf-mail-smtp',
+        'name': 'ACF Mail SMTP',
+        'full_name': 'ACF Mail SMTP - Advanced Custom Form & Mail & SMTP',
+        'folder': 'acf-mail-smtp',
+        'main_file': 'acf-mail-smtp.php',
+        'text_domain': 'acf-mail-smtp',
+        'editions': ['master'],
+        'is_core': True,
+        'description': '폼 빌더, SMTP 이메일 발송, 자동화'
+    },
+    'acf-user-journey-analytics': {
+        'id': 'acf-user-journey-analytics',
+        'name': 'ACF User Journey Analytics',
+        'full_name': 'ACF User Journey Analytics - Free Traffic Analysis Dashboard',
+        'folder': 'acf-user-journey-analytics',
+        'main_file': 'acf-user-journey-analytics.php',
+        'text_domain': 'acf-user-journey-analytics',
+        'editions': ['master'],
+        'is_core': True,
+        'description': '무료 트래픽 분석 대시보드 (50+ 광고 플랫폼 지원)'
+    },
+    'jj-analytics-dashboard': {
+        'id': 'jj-analytics-dashboard',
+        'name': 'JJ Analytics Dashboard',
+        'full_name': 'JJ Analytics Dashboard - Integrated Analytics Dashboard',
+        'folder': 'jj-analytics-dashboard',
+        'main_file': 'jj-analytics-dashboard.php',
+        'text_domain': 'jj-analytics-dashboard',
+        'editions': ['master'],
+        'is_core': True,
+        'description': '전체 플러그인 통합 분석 대시보드'
+    },
+    'jj-marketing-automation-dashboard': {
+        'id': 'jj-marketing-automation-dashboard',
+        'name': 'JJ Marketing Automation Dashboard',
+        'full_name': 'JJ Marketing Automation Dashboard - Comprehensive Marketing Automation Dashboard',
+        'folder': 'jj-marketing-automation-dashboard',
+        'main_file': 'jj-marketing-dashboard.php',
+        'text_domain': 'jj-marketing-automation-dashboard',
+        'editions': ['master'],
+        'is_core': True,
+        'description': '종합 마케팅 자동화 대시보드'
     }
 }
 
@@ -480,24 +523,52 @@ class BuildEngine:
             return False
     
     def _archive_old_files(self, folder_base, suffix):
-        """기존 ZIP 파일을 old 폴더로 이동"""
+        """기존 ZIP 파일을 old 폴더로 이동 (개선된 버전)"""
         output_dir = Path(self.config['output_dir'])
         old_dir = output_dir / "old"
+        old_dir.mkdir(parents=True, exist_ok=True)
         
         # 같은 폴더+에디션의 기존 ZIP 찾기
         pattern = f"{folder_base}{suffix}-v*.zip"
         matching_files = list(output_dir.glob(pattern))
         
         if matching_files:
-            # 타임스탬프 폴더 생성
-            timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-            archive_dir = old_dir / f"archive-{timestamp}"
+            # 날짜별 폴더 생성 (YYYY-MM-DD 형식)
+            date_str = datetime.datetime.now().strftime("%Y-%m-%d")
+            archive_dir = old_dir / date_str
             archive_dir.mkdir(parents=True, exist_ok=True)
             
+            # 파일을 날짜 폴더로 이동
             for old_file in matching_files:
                 try:
-                    shutil.move(str(old_file), str(archive_dir / old_file.name))
-                except Exception:
+                    # 파일명에 타임스탬프 추가 (중복 방지)
+                    timestamp = datetime.datetime.now().strftime("%H%M%S")
+                    new_name = f"{old_file.stem}_{timestamp}{old_file.suffix}"
+                    shutil.move(str(old_file), str(archive_dir / new_name))
+                    self.log(f"   ARCHIVED: {old_file.name} -> old/{date_str}/{new_name}")
+                except Exception as e:
+                    self.log(f"   WARNING: Failed to archive {old_file.name}: {e}")
+            
+            # old 폴더 정리 (30일 이상 된 폴더 삭제)
+            self._cleanup_old_archives(old_dir)
+    
+    def _cleanup_old_archives(self, old_dir, days=30):
+        """30일 이상 된 아카이브 폴더 삭제"""
+        if not old_dir.exists():
+            return
+        
+        cutoff_date = datetime.datetime.now() - datetime.timedelta(days=days)
+        
+        for item in old_dir.iterdir():
+            if item.is_dir():
+                try:
+                    # 폴더명이 날짜 형식인지 확인 (YYYY-MM-DD)
+                    folder_date = datetime.datetime.strptime(item.name, "%Y-%m-%d")
+                    if folder_date < cutoff_date:
+                        shutil.rmtree(item)
+                        self.log(f"   CLEANUP: Removed old archive {item.name}")
+                except ValueError:
+                    # 날짜 형식이 아니면 무시
                     pass
     
     def build_all(self, plugin_ids=None, editions=None):
