@@ -442,13 +442,23 @@ final class JJ_Backup_Manager {
      * 백업 생성 AJAX 핸들러
      */
     public function create_backup_ajax() {
-        check_ajax_referer( 'jj_style_guide_nonce', 'security' );
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[ACF CSS Backup]' );
+            if ( ! $ajax->verify_request( 'jj_style_guide_nonce', 'security' ) ) {
+                return;
+            }
+            $type  = $ajax->get_post_param( 'type', 'manual', 'text' );
+            $label = $ajax->get_post_param( 'label', '', 'text' );
+        } else {
+            // 폴백: 기존 방식
+            check_ajax_referer( 'jj_style_guide_nonce', 'security' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+            }
+            $type  = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'manual';
+            $label = isset( $_POST['label'] ) ? sanitize_text_field( wp_unslash( $_POST['label'] ) ) : '';
         }
-
-        $type  = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'manual';
-        $label = isset( $_POST['label'] ) ? sanitize_text_field( wp_unslash( $_POST['label'] ) ) : '';
 
         $backup = $this->create_backup( $type, $label );
 
@@ -466,12 +476,21 @@ final class JJ_Backup_Manager {
      * 백업 복원 AJAX 핸들러
      */
     public function restore_backup_ajax() {
-        check_ajax_referer( 'jj_style_guide_nonce', 'security' );
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[ACF CSS Backup]' );
+            if ( ! $ajax->verify_request( 'jj_style_guide_nonce', 'security' ) ) {
+                return;
+            }
+            $backup_id = $ajax->get_post_param( 'backup_id', '', 'text' );
+        } else {
+            // 폴백: 기존 방식
+            check_ajax_referer( 'jj_style_guide_nonce', 'security' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+            }
+            $backup_id = isset( $_POST['backup_id'] ) ? sanitize_text_field( wp_unslash( $_POST['backup_id'] ) ) : '';
         }
-
-        $backup_id = isset( $_POST['backup_id'] ) ? sanitize_text_field( wp_unslash( $_POST['backup_id'] ) ) : '';
 
         if ( empty( $backup_id ) ) {
             wp_send_json_error( array( 'message' => __( '백업 ID가 필요합니다.', 'acf-css-really-simple-style-management-center' ) ) );
