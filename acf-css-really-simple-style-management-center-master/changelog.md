@@ -26,6 +26,27 @@
 
 ---
 
+## Version 23.0.8 (2026-01-05) - Phase 46: Dashboard & Build System Upgrade
+
+### ✨ 새로운 기능
+- **대시보드 타임스탬프 포맷 변경**: 12시간제 AM/PM 형식으로 변경 (YYYY-MM-DD AM/PM H:MM)
+- **애드온 카테고리 추가**: Core와 Free 사이에 새로운 Addon 카테고리 추가
+- **다운로드 버튼**: 빌드 레지스트리에 Free/Pro 다운로드 버튼 추가
+- **플러그인 이름 표시 개선**: 폴더명 대신 PHP 헤더의 실제 Plugin Name 표시
+- **빌드 자동화 스크립트**: `phase46_dashboard_upgrade.py` 추가
+
+### 🛠️ 개선사항
+- **버전 업데이트**: 모든 플러그인 버전 +0.1 증가
+- **대시보드 자동 갱신**: 빌드 시 자동으로 대시보드 HTML 재생성
+- **이전 빌드 아카이브**: 빌드 시 기존 ZIP 파일 자동으로 old 폴더 이동
+
+### 📁 수정된 파일
+- `dashboard.html` (재생성)
+- `phase46_dashboard_upgrade.py` (신규)
+- 모든 플러그인 메인 PHP 파일 (버전 업데이트)
+
+---
+
 ## Version 23.0.7 (2026-01-05) - Phase 45: TGMPA 플러그인 파일명 매핑 수정
 
 ### 🐛 버그 수정

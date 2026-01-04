@@ -3,7 +3,7 @@
  * Plugin Name:       ACF Admin Menu Editor Pro - Advanced Custom Fix Admin Menu Editor (Pro Version)
  * Plugin URI:        https://3j-labs.com/
  * Description:       Admin Menu Editor Pro - 워드프레스 관리자 메뉴를 완전히 커스터마이징하세요. 메뉴 순서 변경, 숨기기, 이름 변경, 아이콘 변경, 권한 설정, 서브메뉴 편집까지 모든 기능을 제공합니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전 이상 사용자에게 고급 기능을 제공합니다.
- * Version:           2.0.2
+ * Version:           2.0.3
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'AME_PRO_VERSION', '2.0.0' ); // [v2.0.0] 메이저 버전 동기화
+define( 'AME_PRO_VERSION', '2.0.3' ); // [v2.0.0] 메이저 버전 동기화
 define( 'AME_PRO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AME_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'AME_PRO_BASENAME', plugin_basename( __FILE__ ) );

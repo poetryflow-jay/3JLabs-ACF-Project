@@ -4,11 +4,23 @@
 ACF CSS (Advanced Custom Fonts & Colors & Styles) is a comprehensive WordPress style management plugin that provides centralized control over colors, typography, buttons, forms, and admin UI.
 
 ## Current Version
-- **Version**: 23.0.7
+- **Version**: 23.0.8
 - **Last Updated**: 2026-01-05
 - **Edition**: Master (includes all features)
 
-## Recent Changes (v23.0.7)
+## Recent Changes (v23.0.8 - Phase 46)
+
+### Dashboard & Build System Upgrade
+1. **Timestamp Format**: Changed to 12-hour AM/PM format (YYYY-MM-DD AM/PM H:MM)
+2. **Addon Category**: Added new category between Core and Free plugins
+3. **Download Buttons**: Added Free/Pro buttons in Build Registry table
+4. **Plugin Names**: Now displays actual Plugin Name from PHP headers
+5. **Auto-Update**: Dashboard regenerates automatically during builds
+6. **Version Increment**: All plugins updated (+0.1)
+
+**New File**: `phase46_dashboard_upgrade.py` - Comprehensive build automation script
+
+## Previous Changes (v23.0.7)
 
 ### Bug Fix: TGMPA Plugin File Mapping
 **Problem**:

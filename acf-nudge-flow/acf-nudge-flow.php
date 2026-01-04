@@ -3,7 +3,7 @@
  * Plugin Name:       넛지 플로우 - ACF MBA (Advanced Custom Funnels for Marketing Boosting Accelerator)
  * Plugin URI:        https://3j-labs.com/
  * Description:       넛지 플로우 (Nudge Flow) - ACF MBA (Advanced Custom Funnels for Marketing Boosting Accelerator). 트리거 기반 넛지 마케팅 자동화 플러그인입니다. IF-DO 방식의 시각적 워크플로우 빌더로 방문자 행동에 따른 팝업, 알림, 할인, 업셀링을 자동화합니다. WooCommerce와 완벽 연동됩니다.
- * Version:           22.10.1
+ * Version:           22.10.2
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_NUDGE_FLOW_VERSION', '22.10.1' ); // [v22.10.1] 템플릿 센터 탭 전환 문법 오류 수정
+define( 'ACF_NUDGE_FLOW_VERSION', '22.10.2' ); // [v22.10.1] 템플릿 센터 탭 전환 문법 오류 수정
 define( 'ACF_NUDGE_FLOW_PLUGIN_FILE', __FILE__ );
 define( 'ACF_NUDGE_FLOW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_NUDGE_FLOW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
