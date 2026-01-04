@@ -214,8 +214,30 @@ class JJ_File_Integrity_Monitor {
 
     /**
      * 관리자 알림
+     * [v22.4.3] 정상적인 업데이트 시 경고 표시 안 함
      */
     private function notify_admin( $violation ) {
+        // [v22.4.3] 정상적인 업데이트인지 확인 (플러그인 버전이 변경되었는지 확인)
+        $current_version = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '0.0.0';
+        $stored_version = get_option( 'jj_file_integrity_last_version', '0.0.0' );
+        
+        // 버전이 변경되었으면 정상적인 업데이트로 간주하고 해시 재설정
+        if ( version_compare( $current_version, $stored_version, '>' ) ) {
+            // 해시 재설정
+            $this->reset_file_hashes();
+            update_option( 'jj_file_integrity_last_version', $current_version );
+            return; // 경고 표시 안 함
+        }
+        
+        // [v22.4.3] 최근 24시간 내에 같은 파일에 대한 경고가 있었는지 확인
+        $recent_warning_key = 'jj_file_integrity_warning_' . md5( $violation['file'] );
+        $last_warning_time = get_transient( $recent_warning_key );
+        
+        if ( $last_warning_time && ( time() - $last_warning_time ) < DAY_IN_SECONDS ) {
+            // 24시간 내에 이미 경고를 표시했으면 다시 표시하지 않음
+            return;
+        }
+        
         $admin_email = get_option( 'admin_email' );
         $site_url = home_url();
         
@@ -259,6 +281,37 @@ class JJ_File_Integrity_Monitor {
             </div>
             <?php
         } );
+        
+        // 경고 표시 시간 기록
+        set_transient( $recent_warning_key, time(), DAY_IN_SECONDS );
+    }
+    
+    /**
+     * [v22.4.3] 파일 해시 재설정 (정상적인 업데이트 후 사용)
+     */
+    public function reset_file_hashes() {
+        $stored_hashes = array();
+        
+        foreach ( $this->critical_files as $file_info ) {
+            $file_path = $file_info['path'];
+            
+            if ( ! file_exists( $file_path ) ) {
+                continue;
+            }
+            
+            $current_hash = hash_file( 'sha256', $file_path );
+            $file_key = md5( $file_path );
+            
+            $stored_hashes[ $file_key ] = array(
+                'path' => $file_path,
+                'hash' => $current_hash,
+                'mtime' => filemtime( $file_path ),
+                'type' => $file_info['type'],
+                'description' => $file_info['description'],
+            );
+        }
+        
+        update_option( $this->option_key, $stored_hashes );
     }
 
     /**

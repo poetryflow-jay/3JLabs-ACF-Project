@@ -578,11 +578,14 @@ jQuery(document).ready(function($) {
                 },
                 success: function(response) {
                     if (response.success) {
+                        // [v22.4.4] 설치 및 활성화 완료로 상태 변경 (자동 활성화와 동일한 형식)
                         $item.find('.status').html(
-                            '✅ 활성화 완료! ' +
+                            '✅ 설치 및 활성화 완료! ' +
                             '<a href="' + pluginsUrl + '" class="button button-small" style="margin-left: 8px; font-size: 11px;">플러그인 목록 보기</a>'
                         );
                         $item.addClass('jj-file-item-activated');
+                        // 활성화 버튼 제거
+                        $btn.remove();
                         showNotice('success', '플러그인이 활성화되었습니다! <a href="' + pluginsUrl + '">플러그인 목록에서 확인</a>');
                     } else {
                         $btn.prop('disabled', false).text('🚀 활성화');

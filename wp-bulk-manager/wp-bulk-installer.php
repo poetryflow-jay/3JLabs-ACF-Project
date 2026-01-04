@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.4.3-master
+ * Version:           22.4.4-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.4.3-master' ); // [v22.4.3] Phase 37.1 Hotfix: ajax_handle_install 및 ajax_handle_upload 전면적인 오류 처리 강화 (500 에러 및 심각한 오류 방지)
+define( 'WP_BULK_MANAGER_VERSION', '22.4.4-master' ); // [v22.4.4] Phase 37.2: UI/UX 개선 - 탭 이름 변경, 링크 버튼화, 버튼 배치 개선, 플러그인 헤더 링크 줄바꿈 개선
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -120,9 +120,10 @@ class JJ_Bulk_Installer {
             return $plugin_meta;
         }
         
+        // [v22.4.4] 링크 텍스트가 줄바꿈되지 않도록 스타일 개선 (white-space: nowrap, display: inline-block)
         $new_meta = array();
-        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com' ) . '" target="_blank" rel="noopener noreferrer" style="color: #2271b1; font-weight: 600;">🌐 ' . __( '공식 사이트', 'wp-bulk-manager' ) . '</a>';
-        $new_meta[] = '<a href="' . esc_url( admin_url( 'tools.php?page=jj-bulk-installer' ) ) . '" style="color: #135e96; font-weight: 600;">📚 ' . __( '문서', 'wp-bulk-manager' ) . '</a>';
+        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com' ) . '" target="_blank" rel="noopener noreferrer" style="color: #2271b1; font-weight: 600; white-space: nowrap; display: inline-block;">🌐 ' . esc_html__( '공식 사이트', 'wp-bulk-manager' ) . '</a>';
+        $new_meta[] = '<a href="' . esc_url( admin_url( 'tools.php?page=jj-bulk-installer' ) ) . '" style="color: #135e96; font-weight: 600; white-space: nowrap; display: inline-block;">📚 ' . esc_html__( '문서', 'wp-bulk-manager' ) . '</a>';
         
         return array_merge( $plugin_meta, $new_meta );
     }
@@ -499,7 +500,7 @@ class JJ_Bulk_Installer {
 
             <div class="jj-bulk-tabs" role="tablist" aria-label="WP Bulk Manager Tabs">
                 <button type="button" class="jj-bulk-tab is-active" data-tab="installer" role="tab" aria-selected="true">설치(Installer)</button>
-                <button type="button" class="jj-bulk-tab" data-tab="editor" role="tab" aria-selected="false">관리 설정</button>
+                <button type="button" class="jj-bulk-tab" data-tab="editor" role="tab" aria-selected="false">관리(Editor)</button>
                 <button type="button" class="jj-bulk-tab" data-tab="multisite-installer" role="tab" aria-selected="false">멀티 사이트 인스톨러</button>
                 <button type="button" class="jj-bulk-tab" data-tab="multisite-editor" role="tab" aria-selected="false">멀티 사이트 에디터</button>
                 <button type="button" class="jj-bulk-tab" data-tab="remote-installer" role="tab" aria-selected="false">원격 사이트 인스톨러</button>
@@ -608,10 +609,10 @@ class JJ_Bulk_Installer {
                             <span class="jj-badge">테마 <strong id="jj-count-themes">-</strong></span>
                         </div>
                         <div class="jj-bulk-editor-actions">
-                            <button type="button" class="button" id="jj-bulk-refresh">목록 새로고침</button>
+                            <button type="button" class="button button-secondary" id="jj-bulk-refresh">목록 새로고침</button>
                             <a class="button button-secondary" href="<?php echo esc_url( admin_url( 'plugins.php' ) ); ?>">WP 플러그인 화면</a>
                             <a class="button button-secondary" href="<?php echo esc_url( admin_url( 'themes.php' ) ); ?>">WP 테마 화면</a>
-                            <a class="button button-link" href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>">업데이트 화면</a>
+                            <a class="button button-secondary" href="<?php echo esc_url( admin_url( 'update-core.php' ) ); ?>">업데이트 화면</a>
                         </div>
                     </div>
 
@@ -631,10 +632,10 @@ class JJ_Bulk_Installer {
                         <div class="jj-bulk-toolbar-right">
                             <button type="button" class="button button-primary" id="jj-bulk-action-activate" data-op="activate" data-type="plugin">선택 활성화</button>
                             <button type="button" class="button" id="jj-bulk-action-deactivate" data-op="deactivate" data-type="plugin">선택 비활성화</button>
-                            <button type="button" class="button" id="jj-bulk-action-update" data-op="update" data-type="plugin" style="background: #2271b1; color: #fff; border-color: #2271b1;">선택 업데이트 🚀</button>
                             <button type="button" class="button" id="jj-bulk-action-rollback" data-op="rollback" data-type="plugin">선택 롤백</button>
                             <button type="button" class="button button-secondary" id="jj-bulk-action-delete" data-op="delete" data-type="plugin" <?php echo ( ! $limits['can_bulk_delete'] ) ? 'disabled' : ''; ?>>선택 삭제</button>
                             <button type="button" class="button button-danger" id="jj-bulk-action-deactivate-delete" data-op="deactivate_delete" data-type="plugin" <?php echo ( ! $limits['can_deactivate_then_delete'] ) ? 'disabled' : ''; ?>>비활성화 후 삭제</button>
+                            <button type="button" class="button" id="jj-bulk-action-update" data-op="update" data-type="plugin" style="background: #2271b1; color: #fff; border-color: #2271b1;">선택 업데이트 🚀</button>
                             <button type="button" class="button" id="jj-bulk-action-auto-update-enable" data-op="auto_update_enable" data-type="plugin">자동 업데이트 허용</button>
                             <button type="button" class="button" id="jj-bulk-action-auto-update-disable" data-op="auto_update_disable" data-type="plugin">자동 업데이트 비허용</button>
                             <button type="button" class="button button-danger" id="jj-bulk-action-theme-delete" data-op="delete" data-type="theme" style="display:none;" <?php echo ( ! $limits['can_bulk_delete'] ) ? 'disabled' : ''; ?>>선택 삭제</button>
@@ -731,7 +732,7 @@ class JJ_Bulk_Installer {
                         <div class="notice notice-info inline">
                             <p><strong>ℹ️ 멀티 사이트 모드가 아닙니다.</strong></p>
                             <p>이 기능은 WordPress 멀티 사이트 네트워크에서만 사용할 수 있습니다. 멀티 사이트를 활성화하려면 <code>wp-config.php</code>에 <code>define('WP_ALLOW_MULTISITE', true);</code>를 추가하세요.</p>
-                            <p class="description">일반 설치 및 관리 기능은 '설치(Installer)' 및 '관리 설정' 탭에서 사용할 수 있습니다.</p>
+                            <p class="description">일반 설치 및 관리 기능은 '설치(Installer)' 및 '관리(Editor)' 탭에서 사용할 수 있습니다.</p>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -750,7 +751,7 @@ class JJ_Bulk_Installer {
                         <div class="notice notice-info inline">
                             <p><strong>ℹ️ 멀티 사이트 모드가 아닙니다.</strong></p>
                             <p>이 기능은 WordPress 멀티 사이트 네트워크에서만 사용할 수 있습니다. 멀티 사이트를 활성화하려면 <code>wp-config.php</code>에 <code>define('WP_ALLOW_MULTISITE', true);</code>를 추가하세요.</p>
-                            <p class="description">일반 관리 기능은 '관리 설정' 탭에서 사용할 수 있습니다.</p>
+                            <p class="description">일반 관리 기능은 '관리(Editor)' 탭에서 사용할 수 있습니다.</p>
                         </div>
                     <?php endif; ?>
                 </div>
