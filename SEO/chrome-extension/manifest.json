@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "name": "3J SEO Analyzer",
+  "version": "1.0.0",
+  "description": "Real-time SERP analysis, competitor SEO scores, keyword metrics, and WordPress integration",
+  "author": "3J Labs",
+  "homepage_url": "https://3jlabs.com",
+  
+  "permissions": [
+    "activeTab",
+    "storage",
+    "alarms",
+    "scripting"
+  ],
+  
+  "host_permissions": [
+    "https://www.google.com/*",
+    "https://www.google.co.kr/*",
+    "https://www.googleapis.com/*",
+    "https://*.3jlabs.com/*"
+  ],
+  
+  "background": {
+    "service_worker": "js/background.js",
+    "type": "module"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/search*",
+        "https://www.google.co.kr/search*"
+      ],
+      "js": ["js/serp-analyzer.js"],
+      "css": ["css/serp-overlay.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "3J SEO Analyzer"
+  },
+  
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  
+  "options_page": "options/options.html",
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["css/*", "images/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

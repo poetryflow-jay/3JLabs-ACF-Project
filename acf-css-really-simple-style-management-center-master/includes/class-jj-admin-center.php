@@ -286,6 +286,30 @@ final class JJ_Admin_Center {
         // [v5.0.3] 툴팁 시스템 로드
         wp_enqueue_script( 'jj-tooltips', JJ_STYLE_GUIDE_URL . 'assets/js/jj-tooltips.js', array( 'jquery', 'jj-common-utils' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', true );
 
+        // [v23.0.4] UI Enhancements 2026
+        wp_enqueue_style( 'jj-ui-enhancements-2026', JJ_STYLE_GUIDE_URL . 'assets/css/jj-ui-enhancements-2026.css', array(), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0' );
+        wp_enqueue_script( 'jj-ui-enhancements-2026', JJ_STYLE_GUIDE_URL . 'assets/js/jj-ui-enhancements-2026.js', array( 'jquery', 'jj-tooltips' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0', true );
+
+        // [v25.0.0] Design System v25
+        wp_enqueue_style( 'jj-design-system-v25', JJ_STYLE_GUIDE_URL . 'assets/css/jj-design-system-v25.css', array( 'jj-ui-enhancements-2026' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0' );
+        
+        // [v25.0.0] Animations System
+        wp_enqueue_style( 'jj-animations-v25', JJ_STYLE_GUIDE_URL . 'assets/css/jj-animations-v25.css', array( 'jj-design-system-v25' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0' );
+        wp_enqueue_script( 'jj-animations-v25', JJ_STYLE_GUIDE_URL . 'assets/js/jj-animations-v25.js', array( 'jquery' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0', true );
+        
+        // [v25.0.0] In-Web Popup System
+        wp_enqueue_style( 'jj-inweb-popup-v25', JJ_STYLE_GUIDE_URL . 'assets/css/jj-inweb-popup-v25.css', array( 'jj-animations-v25' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0' );
+        wp_enqueue_script( 'jj-inweb-popup-v25', JJ_STYLE_GUIDE_URL . 'assets/js/jj-inweb-popup-v25.js', array( 'jquery', 'jj-animations-v25' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0', true );
+        
+        // [v25.0.0] Dark Mode System
+        wp_enqueue_script( 'jj-dark-mode-v25', JJ_STYLE_GUIDE_URL . 'assets/js/jj-dark-mode-v25.js', array( 'jquery' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0', true );
+        
+        // [v25.0.0] Visualizations System
+        wp_enqueue_script( 'jj-visualizations-v25', JJ_STYLE_GUIDE_URL . 'assets/js/jj-visualizations-v25.js', array( 'jquery' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0', true );
+        
+        // [v25.0.0] Accessibility System
+        wp_enqueue_style( 'jj-accessibility-v25', JJ_STYLE_GUIDE_URL . 'assets/css/jj-accessibility-v25.css', array( 'jj-design-system-v25' ), defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0' );
+
         // [v5.0.3] 라이브 미리보기 시스템 (관리자용)
         wp_enqueue_script( 'jj-live-preview', JJ_STYLE_GUIDE_URL . 'assets/js/jj-live-preview.js', array( 'jquery', 'jj-common-utils' ), $js_ver, true );
         
@@ -300,6 +324,17 @@ final class JJ_Admin_Center {
             defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '8.0.0', 
             true 
         );
+
+        // [v23.0.4] 넛지 시스템 로드
+        if ( file_exists( JJ_STYLE_GUIDE_PATH . 'assets/js/jj-nudge-system.js' ) ) {
+            wp_enqueue_script( 
+                'jj-nudge-system', 
+                JJ_STYLE_GUIDE_URL . 'assets/js/jj-nudge-system.js', 
+                array( 'jquery' ), 
+                defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '25.0.0', 
+                true 
+            );
+        }
     }
 
     /**

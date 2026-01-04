@@ -45,12 +45,45 @@ final class JJ_Edition_Controller {
      * 현재 에디션 초기화
      * 우선순위: 1. 상수 정의 (MASTER 강제) -> 2. DB 옵션 -> 3. 기본값(Free)
      * [v22.4.0] Phase 37: 보안 강화 - 상수만으로는 MASTER 인정하지 않음, 추가 검증 필요
+     * [v25.0.0] 라이센스 보안 강화 통합
      */
     private function init_edition() {
+        // [v25.0.0] 라이센스 보안 검증 먼저 수행
+        if ( class_exists( 'JJ_License_Security_V25' ) ) {
+            $license_security = JJ_License_Security_V25::instance();
+            $license_key = get_option( 'jj_style_guide_license_key', '' );
+            
+            if ( ! empty( $license_key ) ) {
+                // 서버에서 실제 에디션 가져오기
+                $server_edition = apply_filters( 'jj_license_edition', '', $license_key );
+                
+                if ( ! empty( $server_edition ) ) {
+                    // 서버 에디션 우선 사용
+                    $this->current_edition = $server_edition;
+                    return;
+                }
+            }
+        }
+
         // [v22.4.0] 보안 강화: 상수가 MASTER라도 추가 검증 수행
         if ( defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) && strtoupper( JJ_STYLE_GUIDE_LICENSE_TYPE ) === 'MASTER' ) {
             // 추가 검증: 실제 마스터 플러그인 파일 존재 및 무결성 확인
             if ( $this->verify_master_edition() ) {
+                // [v25.0.0] 라이센스 보안 검증도 통과해야 함
+                if ( class_exists( 'JJ_License_Security_V25' ) ) {
+                    $license_security = JJ_License_Security_V25::instance();
+                    $license_key = get_option( 'jj_style_guide_license_key', '' );
+                    
+                    if ( ! empty( $license_key ) ) {
+                        $is_valid = apply_filters( 'jj_license_is_valid', false, $license_key );
+                        if ( ! $is_valid ) {
+                            // 라이센스가 유효하지 않으면 FREE로 강제
+                            $this->current_edition = self::EDITION_FREE;
+                            return;
+                        }
+                    }
+                }
+                
                 $this->current_edition = self::EDITION_MASTER;
                 return;
             } else {

@@ -3,7 +3,7 @@
  * Plugin Name: WP Bulk SEO & AEO(AIO) - WordPress Really Simple and Easy Search Engine Optimization and AI Optimization Automation. 1, 2, 3 Click Auto Optimization.
  * Plugin URI: https://3j-labs.com/
  * Description: AI-powered SEO & AEO optimization based on real Google ranking factors from the 2024 algorithm leak. Integrates Google Search Console API, Google Analytics API, and PageSpeed Insights API v5 for comprehensive SEO analysis. Features 1-Click SEO, 2-Click AI optimization, and 3-Click full automation.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: 3J Labs (제이x제니x제이슨 연구소)
  * Author URI: https://3j-labs.com/
  * License: GPL v2 or later
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('WP_BULK_SEO_AEO_VERSION', '2.0.0');
+define('WP_BULK_SEO_AEO_VERSION', '2.1.0');
 define('WP_BULK_SEO_AEO_FILE', __FILE__);
 define('WP_BULK_SEO_AEO_PATH', plugin_dir_path(__FILE__));
 define('WP_BULK_SEO_AEO_URL', plugin_dir_url(__FILE__));
@@ -62,8 +62,20 @@ final class WP_Bulk_SEO_AEO {
      * Constructor
      */
     private function __construct() {
-        $this->load_dependencies();
-        $this->init_hooks();
+        try {
+            $this->load_dependencies();
+            $this->init_hooks();
+        } catch (Exception $e) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO Constructor Error: ' . $e->getMessage());
+            }
+            // 오류가 발생해도 플러그인은 활성화되도록 함
+        } catch (Error $e) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO Constructor Fatal Error: ' . $e->getMessage());
+            }
+            // 치명적 오류가 발생해도 플러그인은 활성화되도록 함
+        }
     }
 
     /**
@@ -93,91 +105,73 @@ final class WP_Bulk_SEO_AEO {
         }
 
         // Core functionality
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/class-bulk-optimizer.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/class-bulk-optimizer.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/class-ai-engine.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/class-ai-engine.php';
-        }
+        $core_files = [
+            'includes/class-bulk-optimizer.php',
+            'includes/class-ai-engine.php',
+            'includes/class-schema-generator.php',
+            'includes/class-sitemap-manager.php',
+            'includes/class-content-optimizer.php',
+            'includes/class-gtm-style-optimizer.php',
+        ];
         
         // API Integrations
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/api/class-google-search-console.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/api/class-google-search-console.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/api/class-pagespeed-insights.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/api/class-pagespeed-insights.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/api/class-google-analytics.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/api/class-google-analytics.php';
+        $api_files = [
+            'includes/api/class-google-search-console.php',
+            'includes/api/class-pagespeed-insights.php',
+            'includes/api/class-google-analytics.php',
+            'includes/api/class-rest-api.php', // 필수
+        ];
+        
+        // AEO (Answer Engine Optimization)
+        $aeo_files = [
+            'includes/aeo/class-aeo-engine.php',
+            'includes/aeo/class-faq-generator.php',
+            'includes/aeo/class-featured-snippet-optimizer.php',
+        ];
+        
+        // Extension & Benchmarking
+        $extension_files = [
+            'includes/chrome-extension/class-chrome-extension-sync.php',
+            'includes/benchmarking/class-benchmark-engine.php',
+            'includes/ranking/class-ranking-monitor.php',
+            'includes/ranking/class-ranking-predictor.php',
+        ];
+        
+        // Remote Service
+        $remote_files = [
+            'includes/remote-service/class-remote-service-manager.php',
+            'includes/remote-service/class-license-manager.php',
+        ];
+        
+        // Modules (Rank Math Pro style)
+        $module_files = [
+            'includes/modules/class-seo-analysis-module.php',
+            'includes/modules/class-redirections-module.php',
+            'includes/modules/class-content-ai-module.php',
+        ];
+        
+        // Admin
+        $admin_files = [];
+        if (is_admin()) {
+            $admin_files[] = 'includes/admin/class-admin.php';
         }
         
-        // Core optimization classes
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/class-schema-generator.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/class-schema-generator.php';
+        // 모든 파일을 안전하게 로드
+        $all_files = array_merge($core_files, $api_files, $aeo_files, $extension_files, $remote_files, $module_files, $admin_files);
+        
+        foreach ($all_files as $file) {
+            $file_path = WP_BULK_SEO_AEO_PATH . $file;
+            if (file_exists($file_path)) {
+                try {
+                    require_once $file_path;
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Failed to load ' . $file . ': ' . $e->getMessage());
+                    }
+                    // 파일 로드 오류가 발생해도 계속 진행
+                }
+            }
         }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/class-sitemap-manager.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/class-sitemap-manager.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/class-content-optimizer.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/class-content-optimizer.php';
-        }
-
-        // AEO (Answer Engine Optimization)
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/aeo/class-aeo-engine.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/aeo/class-aeo-engine.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/aeo/class-faq-generator.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/aeo/class-faq-generator.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/aeo/class-featured-snippet-optimizer.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/aeo/class-featured-snippet-optimizer.php';
-        }
-
-        // Chrome Extension Sync
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/chrome-extension/class-chrome-extension-sync.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/chrome-extension/class-chrome-extension-sync.php';
-        }
-
-        // Benchmarking Engine
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/benchmarking/class-benchmark-engine.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/benchmarking/class-benchmark-engine.php';
-        }
-
-        // Ranking System
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/ranking/class-ranking-monitor.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/ranking/class-ranking-monitor.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/ranking/class-ranking-predictor.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/ranking/class-ranking-predictor.php';
-        }
-
-        // GTM-Style Optimizer
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/class-gtm-style-optimizer.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/class-gtm-style-optimizer.php';
-        }
-
-        // Remote Service Manager
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/remote-service/class-remote-service-manager.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/remote-service/class-remote-service-manager.php';
-        }
-        if (file_exists(WP_BULK_SEO_AEO_PATH . 'includes/remote-service/class-license-manager.php')) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/remote-service/class-license-manager.php';
-        }
-
-        // Admin
-        if (is_admin()) {
-            require_once WP_BULK_SEO_AEO_PATH . 'includes/admin/class-admin.php';
-            // require_once WP_BULK_SEO_AEO_PATH . 'includes/admin/class-metabox.php';
-            // require_once WP_BULK_SEO_AEO_PATH . 'includes/admin/class-bulk-actions.php';
-            // require_once WP_BULK_SEO_AEO_PATH . 'includes/admin/class-dashboard.php';
-        }
-
-        // REST API
-        require_once WP_BULK_SEO_AEO_PATH . 'includes/api/class-rest-api.php';
-
-        // Integrations (optional - will be created later if needed)
-        // require_once WP_BULK_SEO_AEO_PATH . 'includes/integrations/class-acf-integration.php';
-        // require_once WP_BULK_SEO_AEO_PATH . 'includes/integrations/class-woocommerce-integration.php';
     }
 
     /**
@@ -242,12 +236,22 @@ final class WP_Bulk_SEO_AEO {
      * Plugin deactivation
      */
     public function deactivate() {
-        // Clear scheduled hooks
-        wp_clear_scheduled_hook('wp_bulk_seo_aeo_analyze_cron');
-        wp_clear_scheduled_hook('wp_bulk_seo_aeo_ranking_monitor');
+        try {
+            // Clear scheduled hooks
+            if (function_exists('wp_clear_scheduled_hook')) {
+                wp_clear_scheduled_hook('wp_bulk_seo_aeo_analyze_cron');
+                wp_clear_scheduled_hook('wp_bulk_seo_aeo_ranking_monitor');
+            }
 
-        // Flush rewrite rules
-        flush_rewrite_rules();
+            // Flush rewrite rules
+            if (function_exists('flush_rewrite_rules')) {
+                flush_rewrite_rules();
+            }
+        } catch (Exception $e) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO Deactivation Error: ' . $e->getMessage());
+            }
+        }
     }
 
     /**
@@ -255,6 +259,21 @@ final class WP_Bulk_SEO_AEO {
      */
     private function create_tables() {
         global $wpdb;
+
+        // WordPress가 로드되지 않았을 경우 대비
+        if (!function_exists('dbDelta')) {
+            if (defined('ABSPATH') && file_exists(ABSPATH . 'wp-admin/includes/upgrade.php')) {
+                require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            } else {
+                // dbDelta가 없으면 테이블 생성을 건너뜀
+                return;
+            }
+        }
+
+        // $wpdb가 없으면 테이블 생성을 건너뜀
+        if (!isset($wpdb) || !is_object($wpdb)) {
+            return;
+        }
 
         $charset_collate = $wpdb->get_charset_collate();
 
@@ -487,23 +506,39 @@ final class WP_Bulk_SEO_AEO {
             KEY tracked_at (tracked_at)
         ) $charset_collate;";
 
-        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
-        dbDelta($sql_factors);
-        dbDelta($sql_scores);
-        dbDelta($sql_issues);
-        dbDelta($sql_log);
-        dbDelta($sql_rankings);
-        dbDelta($sql_ranking_history);
-        dbDelta($sql_competition);
-        dbDelta($sql_search_volume);
-        dbDelta($sql_keywords);
-        dbDelta($sql_extension_data);
-        dbDelta($sql_remote_sites);
-        dbDelta($sql_remote_sync);
-        dbDelta($sql_metrics);
+        // dbDelta 함수가 있는지 확인 후 실행
+        if (function_exists('dbDelta')) {
+            try {
+                dbDelta($sql_factors);
+                dbDelta($sql_scores);
+                dbDelta($sql_issues);
+                dbDelta($sql_log);
+                dbDelta($sql_rankings);
+                dbDelta($sql_ranking_history);
+                dbDelta($sql_competition);
+                dbDelta($sql_search_volume);
+                dbDelta($sql_keywords);
+                dbDelta($sql_extension_data);
+                dbDelta($sql_remote_sites);
+                dbDelta($sql_remote_sync);
+                dbDelta($sql_metrics);
+            } catch (Exception $e) {
+                if (function_exists('error_log')) {
+                    error_log('WP Bulk SEO & AEO Table Creation Error: ' . $e->getMessage());
+                }
+                // 테이블 생성 오류가 발생해도 계속 진행
+            }
+        }
 
-        // Load CSV data into factors table
-        $this->load_factors_from_csv();
+        // Load CSV data into factors table (오류 처리 포함)
+        try {
+            $this->load_factors_from_csv();
+        } catch (Exception $e) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO CSV Load Error: ' . $e->getMessage());
+            }
+            // CSV 로드 오류가 발생해도 계속 진행
+        }
     }
 
     /**
@@ -512,10 +547,38 @@ final class WP_Bulk_SEO_AEO {
     private function load_factors_from_csv() {
         global $wpdb;
 
+        // $wpdb가 없으면 CSV 로드를 건너뜀
+        if (!isset($wpdb) || !is_object($wpdb)) {
+            return;
+        }
+
         $table = $wpdb->prefix . 'bulk_seo_aeo_factors';
 
         // Check if data already exists
-        $count = $wpdb->get_var("SELECT COUNT(*) FROM $table");
+        $count = 0;
+        try {
+            // 테이블이 존재하는지 먼저 확인
+            $table_exists = $wpdb->get_var($wpdb->prepare("SHOW TABLES LIKE %s", $table));
+            if ($table_exists) {
+                $count = $wpdb->get_var("SELECT COUNT(*) FROM $table");
+            } else {
+                // 테이블이 없으면 CSV 로드를 건너뜀
+                return;
+            }
+        } catch (Exception $e) {
+            // 테이블이 없을 수 있으므로 오류 무시하고 계속 진행
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO CSV Load: Table check error: ' . $e->getMessage());
+            }
+            return; // 테이블이 없으면 CSV 로드를 건너뜀
+        } catch (Error $e) {
+            // 치명적 오류도 처리
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO CSV Load: Table check fatal error: ' . $e->getMessage());
+            }
+            return;
+        }
+        
         if ($count > 0) {
             return; // Data already loaded
         }
@@ -526,28 +589,41 @@ final class WP_Bulk_SEO_AEO {
             WP_BULK_SEO_AEO_PATH . 'includes/algorithm/3j-ranking-factors-database.csv',
             dirname(WP_BULK_SEO_AEO_PATH) . '/../seo_factors_sample_data.csv',
         ];
-
+        
+        // CSV 파일이 없으면 로드를 건너뜀
         $csv_file = null;
         foreach ($csv_files as $file) {
-            if (file_exists($file)) {
+            if (file_exists($file) && is_readable($file)) {
                 $csv_file = $file;
                 break;
             }
         }
-
+        
         if (!$csv_file) {
-            return; // No CSV file found
-        }
-
-        $handle = fopen($csv_file, 'r');
-        if (!$handle) {
+            // CSV 파일이 없어도 플러그인은 정상 작동
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO: CSV file not found, skipping data load');
+            }
             return;
         }
 
-        // Read header
-        $header = fgetcsv($handle);
-        if (!$header) {
-            fclose($handle);
+        $handle = @fopen($csv_file, 'r');
+        if (!$handle) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO: Failed to open CSV file: ' . $csv_file);
+            }
+            return;
+        }
+
+        // Read header (오류 처리 포함)
+        $header = @fgetcsv($handle);
+        if (!$header || empty($header)) {
+            if (isset($handle) && is_resource($handle)) {
+                fclose($handle);
+            }
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO: Failed to read CSV header');
+            }
             return;
         }
 
@@ -566,32 +642,47 @@ final class WP_Bulk_SEO_AEO {
             elseif (strpos($col_lower, 'api_source') !== false || strpos($col_lower, 'api') !== false) $column_map['api_source'] = $index;
         }
 
-        // Insert data
+        // Insert data (오류 처리 포함)
         $inserted = 0;
-        while (($data = fgetcsv($handle)) !== false) {
-            if (count($data) < 3) continue; // Skip invalid rows
+        try {
+            while (($data = @fgetcsv($handle)) !== false) {
+                if (count($data) < 3) continue; // Skip invalid rows
 
-            $insert_data = [];
-            if (isset($column_map['name'])) $insert_data['name'] = sanitize_text_field($data[$column_map['name']] ?? '');
-            if (isset($column_map['module_name'])) $insert_data['module_name'] = sanitize_text_field($data[$column_map['module_name']] ?? '');
-            if (isset($column_map['category'])) $insert_data['category'] = sanitize_text_field($data[$column_map['category']] ?? '');
-            if (isset($column_map['seo_factor'])) $insert_data['seo_factor'] = sanitize_text_field($data[$column_map['seo_factor']] ?? '');
-            if (isset($column_map['estimated_weight'])) {
-                $weight = intval($data[$column_map['estimated_weight']] ?? 5);
-                $insert_data['estimated_weight'] = max(1, min(10, $weight)); // Clamp between 1-10
+                $insert_data = [];
+                if (isset($column_map['name'])) $insert_data['name'] = sanitize_text_field($data[$column_map['name']] ?? '');
+                if (isset($column_map['module_name'])) $insert_data['module_name'] = sanitize_text_field($data[$column_map['module_name']] ?? '');
+                if (isset($column_map['category'])) $insert_data['category'] = sanitize_text_field($data[$column_map['category']] ?? '');
+                if (isset($column_map['seo_factor'])) $insert_data['seo_factor'] = sanitize_text_field($data[$column_map['seo_factor']] ?? '');
+                if (isset($column_map['estimated_weight'])) {
+                    $weight = intval($data[$column_map['estimated_weight']] ?? 5);
+                    $insert_data['estimated_weight'] = max(1, min(10, $weight)); // Clamp between 1-10
+                }
+                if (isset($column_map['impact'])) $insert_data['impact'] = sanitize_text_field($data[$column_map['impact']] ?? '');
+                if (isset($column_map['explanation'])) $insert_data['explanation'] = sanitize_textarea_field($data[$column_map['explanation']] ?? '');
+                if (isset($column_map['google_element'])) $insert_data['google_element'] = sanitize_text_field($data[$column_map['google_element']] ?? '');
+                if (isset($column_map['api_source'])) $insert_data['api_source'] = sanitize_text_field($data[$column_map['api_source']] ?? '');
+
+                if (!empty($insert_data['name'])) {
+                    try {
+                        $wpdb->insert($table, $insert_data);
+                        $inserted++;
+                    } catch (Exception $e) {
+                        // 개별 행 삽입 오류는 무시하고 계속 진행
+                        if (function_exists('error_log')) {
+                            error_log('WP Bulk SEO & AEO CSV: Row insert error: ' . $e->getMessage());
+                        }
+                    }
+                }
             }
-            if (isset($column_map['impact'])) $insert_data['impact'] = sanitize_text_field($data[$column_map['impact']] ?? '');
-            if (isset($column_map['explanation'])) $insert_data['explanation'] = sanitize_textarea_field($data[$column_map['explanation']] ?? '');
-            if (isset($column_map['google_element'])) $insert_data['google_element'] = sanitize_text_field($data[$column_map['google_element']] ?? '');
-            if (isset($column_map['api_source'])) $insert_data['api_source'] = sanitize_text_field($data[$column_map['api_source']] ?? '');
-
-            if (!empty($insert_data['name'])) {
-                $wpdb->insert($table, $insert_data);
-                $inserted++;
+        } catch (Exception $e) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO CSV: Data processing error: ' . $e->getMessage());
+            }
+        } finally {
+            if (isset($handle) && is_resource($handle)) {
+                fclose($handle);
             }
         }
-
-        fclose($handle);
     }
 
     /**
@@ -635,34 +726,117 @@ final class WP_Bulk_SEO_AEO {
      * Initialize components
      */
     public function init_components() {
-        // Initialize core components
-        if (class_exists('ThreeJ_SEO_Scorer')) {
-            $this->scorer = new ThreeJ_SEO_Scorer();
-        }
-        if (class_exists('ThreeJ_SEO_Analyzer')) {
-            $this->analyzer = new ThreeJ_SEO_Analyzer();
-        }
-        if (class_exists('WP_Bulk_SEO_AEO_Bulk_Optimizer')) {
-            $this->bulk_optimizer = new WP_Bulk_SEO_AEO_Bulk_Optimizer();
-        }
-        if (class_exists('WP_Bulk_SEO_AEO_AI_Engine')) {
-            $this->ai_engine = new WP_Bulk_SEO_AEO_AI_Engine();
-        }
-        if (class_exists('WP_Bulk_SEO_AEO_Schema_Generator')) {
-            $this->schema_generator = new WP_Bulk_SEO_AEO_Schema_Generator();
-        }
-        if (class_exists('WP_Bulk_SEO_AEO_Sitemap_Manager')) {
-            $this->sitemap_manager = new WP_Bulk_SEO_AEO_Sitemap_Manager();
-        }
+        try {
+            // Initialize core components (클래스 존재 확인 후 인스턴스 생성)
+            if (class_exists('ThreeJ_SEO_Scorer')) {
+                try {
+                    $this->scorer = new ThreeJ_SEO_Scorer();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: ThreeJ_SEO_Scorer init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            if (class_exists('ThreeJ_SEO_Analyzer')) {
+                try {
+                    $this->analyzer = new ThreeJ_SEO_Analyzer();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: ThreeJ_SEO_Analyzer init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            if (class_exists('WP_Bulk_SEO_AEO_Bulk_Optimizer')) {
+                try {
+                    $this->bulk_optimizer = new WP_Bulk_SEO_AEO_Bulk_Optimizer();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Bulk_Optimizer init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            if (class_exists('WP_Bulk_SEO_AEO_AI_Engine')) {
+                try {
+                    $this->ai_engine = new WP_Bulk_SEO_AEO_AI_Engine();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: AI_Engine init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            if (class_exists('WP_Bulk_SEO_AEO_Schema_Generator')) {
+                try {
+                    $this->schema_generator = new WP_Bulk_SEO_AEO_Schema_Generator();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Schema_Generator init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            if (class_exists('WP_Bulk_SEO_AEO_Sitemap_Manager')) {
+                try {
+                    $this->sitemap_manager = new WP_Bulk_SEO_AEO_Sitemap_Manager();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Sitemap_Manager init error: ' . $e->getMessage());
+                    }
+                }
+            }
 
-        // Initialize Admin
-        if (is_admin() && class_exists('WP_Bulk_SEO_AEO_Admin')) {
-            new WP_Bulk_SEO_AEO_Admin($this);
-        }
-        
-        // [v2.0.0] 플러그인 리스트 향상 (JJ_Plugin_List_Enhancer)
-        if (is_admin()) {
-            $this->init_plugin_list_enhancer();
+            // Initialize Modules (Rank Math Pro style)
+            if (class_exists('WP_Bulk_SEO_AEO_Analysis_Module')) {
+                try {
+                    WP_Bulk_SEO_AEO_Analysis_Module::instance();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Analysis Module init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            if (class_exists('WP_Bulk_SEO_AEO_Redirections_Module')) {
+                try {
+                    WP_Bulk_SEO_AEO_Redirections_Module::instance();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Redirections Module init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            if (class_exists('WP_Bulk_SEO_AEO_Content_AI_Module')) {
+                try {
+                    WP_Bulk_SEO_AEO_Content_AI_Module::instance();
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Content AI Module init error: ' . $e->getMessage());
+                    }
+                }
+            }
+
+            // Initialize Admin
+            if (is_admin() && class_exists('WP_Bulk_SEO_AEO_Admin')) {
+                try {
+                    new WP_Bulk_SEO_AEO_Admin($this);
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('WP Bulk SEO & AEO: Admin init error: ' . $e->getMessage());
+                    }
+                }
+            }
+            
+            // [v2.0.0] 플러그인 리스트 향상 (JJ_Plugin_List_Enhancer)
+            if (is_admin()) {
+                $this->init_plugin_list_enhancer();
+            }
+        } catch (Exception $e) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO: Components init error: ' . $e->getMessage());
+            }
+            // 오류가 발생해도 플러그인은 활성화되도록 함
+        } catch (Error $e) {
+            if (function_exists('error_log')) {
+                error_log('WP Bulk SEO & AEO: Components init fatal error: ' . $e->getMessage());
+            }
+            // 치명적 오류가 발생해도 플러그인은 활성화되도록 함
         }
     }
     
@@ -774,10 +948,21 @@ final class WP_Bulk_SEO_AEO {
             'wp-bulk-seo-aeo-license',
             [$this, 'render_license']
         );
+        
+        // Redirections (Rank Math Pro style)
+        add_submenu_page(
+            'wp-bulk-seo-aeo',
+            __('Redirections', 'wp-bulk-seo-aeo'),
+            __('리다이렉션', 'wp-bulk-seo-aeo'),
+            'manage_options',
+            'wp-bulk-seo-aeo-redirections',
+            [$this, 'render_redirections']
+        );
     }
 
     /**
      * Enqueue admin assets
+     * [v25.0.0] v25 디자인 시스템 통합
      */
     public function enqueue_admin_assets($hook) {
         // Only on plugin pages
@@ -785,11 +970,62 @@ final class WP_Bulk_SEO_AEO {
             return;
         }
 
-        // Styles
+        // [v25.0.0] v25 디자인 시스템 CSS
+        $shared_path = dirname(dirname(WP_BULK_SEO_AEO_PATH)) . '/acf-css-really-simple-style-management-center-master';
+        if (file_exists($shared_path . '/assets/css/jj-design-system-v25.css')) {
+            wp_enqueue_style(
+                'jj-design-system-v25',
+                plugin_dir_url(dirname(dirname(__FILE__))) . 'acf-css-really-simple-style-management-center-master/assets/css/jj-design-system-v25.css',
+                [],
+                '25.0.0'
+            );
+        }
+
+        // [v25.0.0] SEO v25 UI CSS
+        wp_enqueue_style(
+            'jj-seo-v25-ui',
+            WP_BULK_SEO_AEO_URL . 'assets/css/jj-seo-v25-ui.css',
+            ['jj-design-system-v25'],
+            WP_BULK_SEO_AEO_VERSION
+        );
+
+        // [v25.0.0] 애니메이션 시스템
+        if (file_exists($shared_path . '/assets/css/jj-animations-v25.css')) {
+            wp_enqueue_style(
+                'jj-animations-v25',
+                plugin_dir_url(dirname(dirname(__FILE__))) . 'acf-css-really-simple-style-management-center-master/assets/css/jj-animations-v25.css',
+                ['jj-design-system-v25'],
+                '25.0.0'
+            );
+        }
+
+        // [v25.0.0] 다크 모드 시스템
+        if (file_exists($shared_path . '/assets/js/jj-dark-mode-v25.js')) {
+            wp_enqueue_script(
+                'jj-dark-mode-v25',
+                plugin_dir_url(dirname(dirname(__FILE__))) . 'acf-css-really-simple-style-management-center-master/assets/js/jj-dark-mode-v25.js',
+                ['jquery'],
+                '25.0.0',
+                true
+            );
+        }
+
+        // [v25.0.0] 시각화 시스템 (Chart.js)
+        if (file_exists($shared_path . '/assets/js/jj-visualizations-v25.js')) {
+            wp_enqueue_script(
+                'jj-visualizations-v25',
+                plugin_dir_url(dirname(dirname(__FILE__))) . 'acf-css-really-simple-style-management-center-master/assets/js/jj-visualizations-v25.js',
+                ['jquery'],
+                '25.0.0',
+                true
+            );
+        }
+
+        // Legacy admin styles (하위 호환성)
         wp_enqueue_style(
             'wp-bulk-seo-aeo-admin',
             WP_BULK_SEO_AEO_URL . 'assets/css/admin.css',
-            [],
+            ['jj-seo-v25-ui'],
             WP_BULK_SEO_AEO_VERSION
         );
 
@@ -1084,5 +1320,17 @@ function wp_bulk_seo_aeo() {
     return WP_Bulk_SEO_AEO::instance();
 }
 
-// Initialize plugin
-wp_bulk_seo_aeo();
+// Initialize plugin (오류 처리 포함)
+try {
+    wp_bulk_seo_aeo();
+} catch (Exception $e) {
+    if (function_exists('error_log')) {
+        error_log('WP Bulk SEO & AEO Init Error: ' . $e->getMessage());
+    }
+    // 오류가 발생해도 플러그인은 활성화되도록 함
+} catch (Error $e) {
+    if (function_exists('error_log')) {
+        error_log('WP Bulk SEO & AEO Init Fatal Error: ' . $e->getMessage());
+    }
+    // 치명적 오류가 발생해도 플러그인은 활성화되도록 함
+}

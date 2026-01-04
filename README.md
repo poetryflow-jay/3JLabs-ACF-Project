@@ -1,30 +1,51 @@
 # 3J Labs ACF CSS Plugin Family
 
 프로젝트 경로: `C:\Users\computer\Desktop\3J-Labs-Projects\3J-ACF-CSS`
-메인 플러그인 버전: **v22.5.1** (ACF CSS Manager Master)
-최신 업데이트: 2026년 1월 4일 (Phase 39.4 완료)
+메인 플러그인 버전: **v23.0.2** (ACF CSS Manager Master)
+최신 업데이트: 2026년 1월 5일 (Phase 42 진행 중)
 
 ---
 
-## 📦 플러그인 패밀리
+## 플러그인 패밀리
+
+### 핵심 플러그인 (Core)
 
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
-| **ACF CSS Manager (Master)** | **v22.5.1** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + UI System 2026 |
-| WP Bulk Manager | **v22.5.2-master** | 플러그인/테마 대량 설치 및 관리 + 보안 강화 |
-| ACF Code Snippets Box | **v2.3.4** | CSS/JS/PHP 코드 스니펫 관리 + 프리셋 토글 + RealDeal WooCommerce 프리셋 |
+| **ACF CSS Manager (Master)** | **v23.0.2** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + UI System 2026 |
+| ACF MBA (Nudge Flow) | **v22.10.0** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + User Journey 연동 |
+| ACF Code Snippets Box | **v2.3.4** | CSS/JS/PHP 코드 스니펫 관리 + 프리셋 토글 |
 | ACF CSS Neural Link | **v6.3.5** | 패턴 학습 및 업데이트 관리 + 보안 강화 |
-| ACF CSS WooCommerce Toolkit | **v2.4.1** | WooCommerce 스타일 및 기능 확장 + 보안 강화 |
-| ACF CSS AI Extension | **v3.3.1** | AI 기반 스타일 추천 및 생성 + 보안 강화 |
-| ACF MBA (Nudge Flow) | **v22.4.6** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + 워크플로우 빌더 개선 |
+| WP Bulk Manager | **v22.5.2** | 플러그인/테마 대량 설치 및 관리 |
+
+### 확장 플러그인 (Extensions)
+
+| 플러그인 | 버전 | 설명 |
+|----------|------|------|
+| ACF CSS WooCommerce Toolkit | **v2.4.1** | WooCommerce 스타일 및 기능 확장 |
+| ACF CSS AI Extension | **v3.3.1** | AI 기반 스타일 추천 및 생성 |
+| ACF CSS Woo License Bridge | **v22.0.6** | WooCommerce 라이센스 브릿지 |
 | Admin Menu Editor Pro | **v2.0.2** | 관리자 메뉴 커스터마이저 |
-| ACF CSS Woo License Bridge | **v22.0.5** | WooCommerce 라이센스 브릿지 |
+
+### 신규 플러그인 (New)
+
+| 플러그인 | 버전 | 설명 |
+|----------|------|------|
+| **ACF User Journey Analytics** | **v1.0.0** | **무료** 트래픽 분석 대시보드 (50+ 광고 플랫폼 지원) |
 | JJ Analytics Dashboard | **v1.0.1** | 전체 플러그인 통합 분석 대시보드 |
 | JJ Marketing Automation Dashboard | **v1.0.2** | 종합 마케팅 자동화 대시보드 |
 
+### SEO 플러그인 (개발 중)
+
+| 플러그인 | 버전 | 설명 |
+|----------|------|------|
+| WP 1-Click SEO Pro | **v0.1.0** | 원클릭 SEO 최적화 (개발 중) |
+| WP Bulk SEO AEO | **v0.1.0** | 대량 SEO/AEO 관리 (개발 중) |
+| 3J SEO Algorithm | - | 고급 SEO 알고리즘 엔진 (기획 중) |
+
 ---
 
-## 🚀 빌드 매니저
+## 빌드 매니저
 
 ### GUI 모드
 ```bash
@@ -53,51 +74,36 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ---
 
-## 📂 폴더 구조
+## 폴더 구조
 
 ```
 3J-ACF-CSS/
 ├── 3j_build_manager.py          # 메인 빌드 매니저 (GUI/CLI)
 ├── dev_scripts/                  # 개발용 스크립트
-│   ├── deprecated/              # 더 이상 사용하지 않는 스크립트
-│   ├── i18n/                    # 번역 관련 스크립트
-│   ├── fixes/                   # 일회성 수정 스크립트
-│   ├── testing/                 # 테스트 스크립트
-│   └── deployment/              # 배포 관련 스크립트
 ├── dist/                         # 빌드된 ZIP 파일
-│   └── old/                     # 이전 버전 아카이브
+├── shared-ui-assets/             # 공유 보안/UI 모듈
+├── memory & context/             # 52개 메모리 파일
+│
 ├── acf-css-really-simple-style-management-center-master/  # 메인 플러그인
-├── wp-bulk-manager/
-├── acf-code-snippets-box/
-├── acf-css-neural-link/
-├── acf-css-woocommerce-toolkit/
-├── acf-css-ai-extension/
-├── acf-nudge-flow/
-└── admin-menu-editor-pro/
+├── acf-nudge-flow/               # 마케팅 자동화
+├── acf-code-snippets-box/        # 코드 스니펫
+├── acf-css-neural-link/          # 업데이트 관리
+├── wp-bulk-manager/              # 대량 설치
+├── acf-user-journey-analytics/   # 트래픽 분석 (신규, 무료)
+│
+├── SEO/                          # SEO 플러그인 (개발 중)
+│   ├── oneclick-seo-pro/
+│   ├── wp-bulk-seo-aeo/
+│   └── 3j-seo-algorithm/
+│
+└── docs/                         # 문서
 ```
 
 ---
 
-## 🔧 작업 원칙 (Development Principles)
+## 작업 원칙 (Development Principles)
 
-### 터미널 및 빌드 작업 원칙
-
-1. **Python REPL 상태 감지 및 대응**
-   - 터미널 프롬프트가 `>>>`로 표시되면 Python REPL 상태입니다.
-   - **해결 방법**: `exit()` 명령으로 Python을 종료한 후 정상 셸로 복구합니다.
-
-2. **타임아웃 및 재시도 전략**
-   - 터미널 작업이 40초 이상 응답이 없으면 다른 방법으로 재시도합니다.
-
-3. **ZIP 빌드 주의사항**
-   - WordPress 플러그인 ZIP 파일은 **플러그인 폴더가 포함**되어야 합니다.
-   - ✅ 올바른 방법: ZIP 안에 폴더가 포함됨
-
-4. **dist 폴더 자동 관리**
-   - 빌드 완료 시 자동으로 구 버전 파일을 `dist/old/` 폴더로 이동
-   - 최신 버전만 `dist/` 폴더에 유지
-
-### 필수 원칙 (메모리 기반)
+### 필수 원칙
 
 1. **문법/참조 오류 방지**
    - 모든 PHP 클래스/함수 호출 전 `class_exists()`, `function_exists()` 검증
@@ -117,7 +123,7 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ---
 
-## 🔗 관련 문서
+## 관련 문서
 
 - [개발자 가이드](DEVELOPER_GUIDE.md)
 - [사용자 가이드](USER_GUIDE.md)
@@ -126,45 +132,50 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ---
 
-## 🆕 최근 변경사항 (Phase 40.1)
+## 최근 변경사항
 
-### Code Snippets Box 및 Nudge Flow 개선 (2026-01-04)
-- **ACF Code Snippets Box v2.3.4**: 프리셋 토글 기능, 프리셋 스니펫 목록 표시, RealDeal WooCommerce 프리셋 추가
-- **ACF Nudge Flow v22.4.6**: 대시보드 첫 화면 설정, 워크플로우 빌더 드래그 앤 드롭, 넛지 템플릿 프리셋, 빠른 시작 카드
-- '모든 스니펫' 페이지에 활성화되지 않은 프리셋 표시 기능 추가
-- 프리셋 라이브러리에서 토글 방식으로 활성화/비활성화 가능
-- RealDeal WooCommerce 통합 프리셋 7개 추가 (PHP, JS, CSS)
+### Phase 42 (2026-01-05) - User Journey Analytics 분리
 
-### 문서 업데이트 및 버전 관리 (Phase 39.4)
-- 전체 플러그인 버전 0.1 업데이트 (11개 플러그인)
-- 모든 플러그인 압축 파일 재생성
-- RELEASE_NOTES.md, DEVELOPER_GUIDE.md, README.md 업데이트
-- WP Bulk Manager 플러그인 목록 액션 링크 복구 (v22.5.1)
-- JJ Marketing Automation Dashboard 누락된 파일 추가 (v1.0.1)
+**ACF User Journey Analytics v1.0.0 (신규, 무료)**
+- 50+ 광고 플랫폼 자동 감지 (Google, Meta, Naver, Kakao, TikTok 등)
+- AI 검색엔진 트래픽 추적 (ChatGPT, Perplexity, Claude)
+- 5단계 전환 퍼널 분석
+- ROI/ROAS/CPA 계산
+- Chart.js 기반 실시간 시각화
+- CSV 내보내기 (UTF-8 BOM)
+
+**ACF Nudge Flow v22.10.0**
+- 트래픽 분석 기능을 User Journey Analytics로 분리
+- "트래픽 분석" 메뉴를 "트래픽 연동"으로 변경
+- User Journey Analytics 연동 인터페이스 구현
+
+### Phase 41 (2026-01-03) - 플러그인 목록 UI/UX 개선
+
+- JJ_Global_Plugin_List_Enhancer 클래스 구현
+- 모든 플러그인에 자동 업데이트 버튼 추가
+- 플러그인별 맞춤 기능 링크
+
+### Phase 40.1 (2026-01-04) - Code Snippets Box & Nudge Flow 개선
+
+- 프리셋 토글 기능 추가
+- RealDeal WooCommerce 프리셋 7개 추가
+- 워크플로우 빌더 드래그 앤 드롭 구현
 
 ### 보안 강화 (Phase 39.3)
 
-### 보안 강화 (v22.4.9 / v6.3.2)
-- WP Bulk Manager AJAX 핸들러 8개에 JJ_Ajax_Helper 통합
-- License Tampering Detection: 라이센스 변조 감지 기능
-- Update Hijacking 방지: 도메인 화이트리스트, HTTPS 강제, 패키지 서명 검증
-- 비정상적인 사용 패턴 감지 (다수 IP/라이센스 동시 사용 등)
+- WP Bulk Manager AJAX 핸들러 보안 강화
+- License Tampering Detection
+- Update Hijacking 방지
+- 비정상적인 사용 패턴 감지
 
-### 코드 품질 개선 (Phase 39.2)
-- 깨진 링크 수정: `jj-style-center` → `jj-style-guide-cockpit`
-- 깨진 링크 수정: `options-general.php?page=jj-labs-center` → `admin.php?page=jj-labs-center`
-- WP Bulk Manager 플러그인 목록 링크 정렬 개선 (인라인 스타일 및 이모지 제거)
+### 공유 보안 모듈 (shared-ui-assets/)
 
-### 공통 유틸리티 추가 (shared-ui-assets/php/)
-- `JJ_Ajax_Helper`: AJAX 보안 검증 통합 클래스
-- `JJ_File_Validator`: 파일 업로드 검증 유틸리티
-- `JJ_Singleton_Trait`: 싱글톤 패턴 트레이트
-- `JJ_Shared_Loader`: 공통 유틸리티 로더
-
-### 신규 프로젝트
-- JJ Analytics Dashboard v1.0.0: 전체 플러그인 통합 분석 대시보드
+- `class-jj-security-module-v25.php`: 통합 보안 모듈
+- `class-jj-license-security-shared.php`: 라이센스 보안
+- `class-jj-update-security-shared.php`: 업데이트 보안
+- `class-jj-file-integrity-shared.php`: 파일 무결성
 
 ---
 
-*작성일: 2026-01-04*
-*작성자: Jason (CTO, 3J Labs)*
+*작성일: 2026-01-05*
+*작성자: 3J Labs (제이x제니x제이슨 연구소)*

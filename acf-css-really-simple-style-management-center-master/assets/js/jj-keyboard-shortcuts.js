@@ -374,6 +374,9 @@
                 this.currentLocale = jj_admin_params.locale;
             } else if (typeof wp !== 'undefined' && wp.i18n && wp.i18n.getLocale) {
                 this.currentLocale = wp.i18n.getLocale();
+            } else {
+                // 기본값 설정
+                this.currentLocale = 'en_US';
             }
             
             // 키보드 이벤트 리스너 등록

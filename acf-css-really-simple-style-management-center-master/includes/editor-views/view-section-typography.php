@@ -4,6 +4,11 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// $options 변수가 없으면 기본값 사용
+if ( ! isset( $options ) || ! is_array( $options ) ) {
+    $options = array();
+}
+
 $typography_options = $options['typography'] ?? array();
 $fonts_options      = $options['fonts'] ?? array();
 $typography_settings = isset( $options['typography_settings'] ) && is_array( $options['typography_settings'] ) ? $options['typography_settings'] : array();
@@ -109,7 +114,10 @@ $text_transforms    = array('' => 'Default', 'none' => 'None', 'uppercase' => 'U
 
         <div class="jj-style-guide-grid jj-grid-2-col">
             <div class="jj-control-group">
-                <label for="jj-typography-base-px"><?php _e( '기준 px (1rem/1em)', 'acf-css-really-simple-style-management-center' ); ?></label>
+                <label for="jj-typography-base-px">
+                    <?php _e( '기준 px (1rem/1em)', 'acf-css-really-simple-style-management-center' ); ?>
+                    <span class="dashicons dashicons-editor-help" style="font-size: 16px; color: #2271b1; cursor: help; margin-left: 4px;" data-tooltip="typography-base-px"></span>
+                </label>
                 <input type="number"
                        id="jj-typography-base-px"
                        class="jj-data-field"
@@ -117,12 +125,19 @@ $text_transforms    = array('' => 'Default', 'none' => 'None', 'uppercase' => 'U
                        value="<?php echo esc_attr( $typo_base_px ); ?>"
                        placeholder="16"
                        min="1"
-                       step="1" />
+                       step="1"
+                       data-tooltip="기준 픽셀 크기입니다. 이 값을 기준으로 rem/em 단위가 계산됩니다. 일반적으로 16px을 권장합니다." />
                 <p class="description"><?php _e( '예: 16 (일반적인 브라우저 기본값)', 'acf-css-really-simple-style-management-center' ); ?></p>
             </div>
             <div class="jj-control-group">
-                <label for="jj-typography-unit"><?php _e( '출력 단위', 'acf-css-really-simple-style-management-center' ); ?></label>
-                <select id="jj-typography-unit" class="jj-data-field" data-setting-key="typography_settings[unit]">
+                <label for="jj-typography-unit">
+                    <?php _e( '출력 단위', 'acf-css-really-simple-style-management-center' ); ?>
+                    <span class="dashicons dashicons-editor-help" style="font-size: 16px; color: #2271b1; cursor: help; margin-left: 4px;" data-tooltip="typography-responsive"></span>
+                </label>
+                <select id="jj-typography-unit" 
+                        class="jj-data-field" 
+                        data-setting-key="typography_settings[unit]"
+                        data-tooltip="반응형 타이포그래피 설정입니다. rem은 반응형에서 예측 가능성이 높아 권장됩니다.">
                     <option value="px" <?php selected( $typo_unit, 'px' ); ?>><?php _e( 'px (기본)', 'acf-css-really-simple-style-management-center' ); ?></option>
                     <option value="rem" <?php selected( $typo_unit, 'rem' ); ?>><?php _e( 'rem (권장)', 'acf-css-really-simple-style-management-center' ); ?></option>
                     <option value="em" <?php selected( $typo_unit, 'em' ); ?>><?php _e( 'em', 'acf-css-really-simple-style-management-center' ); ?></option>

@@ -41,23 +41,39 @@ class ACF_Nudge_Workflow_Manager {
 
     /**
      * 워크플로우 포맷팅
+     * [v22.5.0] IF-DO 방식 지원
      */
     private function format_workflow( $post ) {
+        // IF-DO 방식 데이터 (우선)
+        $trigger = get_post_meta( $post->ID, '_acf_nudge_workflow_trigger', true );
+        $trigger_settings = get_post_meta( $post->ID, '_acf_nudge_workflow_trigger_settings', true );
+        $action = get_post_meta( $post->ID, '_acf_nudge_workflow_action', true );
+        $action_settings = get_post_meta( $post->ID, '_acf_nudge_workflow_action_settings', true );
+        $enabled = get_post_meta( $post->ID, '_acf_nudge_workflow_enabled', true ) === '1';
+        
+        // 하위 호환성: 기존 nodes/edges 방식
         $nodes = get_post_meta( $post->ID, '_acf_nudge_workflow_nodes', true );
         $edges = get_post_meta( $post->ID, '_acf_nudge_workflow_edges', true );
         $settings = get_post_meta( $post->ID, '_acf_nudge_workflow_settings', true );
 
         return array(
-            'id'       => $post->ID,
-            'title'    => $post->post_title,
-            'nodes'    => is_array( $nodes ) ? $nodes : array(),
-            'edges'    => is_array( $edges ) ? $edges : array(),
-            'settings' => is_array( $settings ) ? $settings : array(),
+            'id'               => $post->ID,
+            'title'            => $post->post_title,
+            'trigger'          => $trigger,
+            'trigger_settings' => is_array( $trigger_settings ) ? $trigger_settings : array(),
+            'action'           => $action,
+            'action_settings'  => is_array( $action_settings ) ? $action_settings : array(),
+            'enabled'          => $enabled,
+            // 하위 호환성
+            'nodes'            => is_array( $nodes ) ? $nodes : array(),
+            'edges'            => is_array( $edges ) ? $edges : array(),
+            'settings'         => is_array( $settings ) ? $settings : array(),
         );
     }
 
     /**
      * 워크플로우 저장
+     * [v22.5.0] IF-DO 방식으로 변경 (trigger, action 직접 저장)
      */
     public function save( $id, $data ) {
         if ( $id ) {
@@ -73,6 +89,33 @@ class ACF_Nudge_Workflow_Manager {
             ) );
         }
 
+        // IF-DO 방식: 트리거와 액션 직접 저장
+        if ( isset( $data['trigger'] ) ) {
+            update_post_meta( $id, '_acf_nudge_workflow_trigger', sanitize_text_field( $data['trigger'] ) );
+        }
+
+        if ( isset( $data['trigger_settings'] ) && is_array( $data['trigger_settings'] ) ) {
+            update_post_meta( $id, '_acf_nudge_workflow_trigger_settings', array_map( 'sanitize_text_field', $data['trigger_settings'] ) );
+        }
+
+        if ( isset( $data['action'] ) ) {
+            update_post_meta( $id, '_acf_nudge_workflow_action', sanitize_text_field( $data['action'] ) );
+        }
+
+        if ( isset( $data['action_settings'] ) && is_array( $data['action_settings'] ) ) {
+            // 액션 설정은 다양한 타입이므로 wp_kses_post로 처리
+            $sanitized_action_settings = array();
+            foreach ( $data['action_settings'] as $key => $value ) {
+                if ( is_array( $value ) ) {
+                    $sanitized_action_settings[ $key ] = array_map( 'sanitize_text_field', $value );
+                } else {
+                    $sanitized_action_settings[ $key ] = wp_kses_post( $value );
+                }
+            }
+            update_post_meta( $id, '_acf_nudge_workflow_action_settings', $sanitized_action_settings );
+        }
+
+        // 하위 호환성: 기존 nodes/edges 방식도 지원
         if ( isset( $data['nodes'] ) ) {
             update_post_meta( $id, '_acf_nudge_workflow_nodes', $data['nodes'] );
         }
@@ -87,6 +130,8 @@ class ACF_Nudge_Workflow_Manager {
 
         if ( isset( $data['enabled'] ) ) {
             update_post_meta( $id, '_acf_nudge_workflow_enabled', $data['enabled'] ? '1' : '0' );
+        } elseif ( isset( $data['enabled'] ) && $data['enabled'] === false ) {
+            update_post_meta( $id, '_acf_nudge_workflow_enabled', '0' );
         }
 
         return $id;

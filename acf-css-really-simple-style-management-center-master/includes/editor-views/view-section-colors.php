@@ -86,12 +86,12 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
             $first_enabled_tab = $tab_enabled_brand ? 'brand' : ( $tab_enabled_system ? 'system' : ( $tab_enabled_alternative ? 'alternative' : ( $tab_enabled_another ? 'another' : 'temp-palette' ) ) );
             ?>
             <?php if ( $tab_enabled_brand ) : ?>
-            <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'brand' ) ? 'is-active' : ''; ?>" data-tab="brand">
+            <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'brand' ) ? 'is-active' : ''; ?>" data-tab="brand" data-tooltip="color-palette-brand">
                 <?php _e( '1. 브랜드 팔레트', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <?php endif; ?>
             <?php if ( $tab_enabled_system ) : ?>
-            <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'system' ) ? 'is-active' : ''; ?>" data-tab="system">
+            <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'system' ) ? 'is-active' : ''; ?>" data-tab="system" data-tooltip="color-palette-system">
                 <?php _e( '2. 시스템 팔레트', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <?php endif; ?>
@@ -229,11 +229,19 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                     <?php _e( '브랜드 팔레트 설정만 선택적으로 내보내거나 불러올 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
                 </p>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <button type="button" class="button button-secondary jj-export-section" data-section-type="palette" data-section-subtype="brand">
+                    <button type="button" 
+                            class="button button-secondary jj-export-section" 
+                            data-section-type="palette" 
+                            data-section-subtype="brand"
+                            data-tooltip="preset-export">
                         <span class="dashicons dashicons-download" style="margin-top: 4px;"></span>
                         <?php _e( '브랜드 팔레트 내보내기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
-                    <button type="button" class="button button-secondary jj-import-section" data-section-type="palette" data-section-subtype="brand">
+                    <button type="button" 
+                            class="button button-secondary jj-import-section" 
+                            data-section-type="palette" 
+                            data-section-subtype="brand"
+                            data-tooltip="preset-import">
                         <span class="dashicons dashicons-upload" style="margin-top: 4px;"></span>
                         <?php _e( '브랜드 팔레트 불러오기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
@@ -267,12 +275,16 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
             <?php endif; ?>
             <div class="jj-style-guide-grid jj-grid-4-col">
                 <div class="jj-control-group jj-color-card">
-                    <label for="jj-sys-site_bg"><?php _e( '사이트 배경 (Site Background)', 'acf-css-really-simple-style-management-center' ); ?></label>
+                    <label for="jj-sys-site_bg">
+                        <?php _e( '사이트 배경 (Site Background)', 'acf-css-really-simple-style-management-center' ); ?>
+                        <span class="dashicons dashicons-editor-help" style="font-size: 16px; color: #2271b1; cursor: help; margin-left: 4px;" data-tooltip="color-palette-system"></span>
+                    </label>
                     <input type="text" 
                            id="jj-sys-site_bg" 
                            class="jj-color-field jj-data-field" 
                            data-setting-key="palettes[system][site_bg]" 
-                           value="<?php echo esc_attr( $system_palettes['site_bg'] ?? '' ); ?>">
+                           value="<?php echo esc_attr( $system_palettes['site_bg'] ?? '' ); ?>"
+                           data-tooltip="body 태그의 배경색입니다. 사이트 전체의 기본 배경색을 설정합니다.">
                     <div class="jj-color-preview"></div>
                     <p class="description">
                         <?php

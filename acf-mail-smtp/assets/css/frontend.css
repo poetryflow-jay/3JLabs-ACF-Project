@@ -1,0 +1,118 @@
+/**
+ * ACF Mail SMTP Frontend Styles
+ * 
+ * @package ACF_Mail_SMTP
+ * @version 1.0.0
+ * @author 3J Labs
+ */
+
+.acf-mail-smtp-form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.acf-mail-smtp-form h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1f2937;
+}
+
+.acf-mail-smtp-form .form-field {
+    margin-bottom: 20px;
+}
+
+.acf-mail-smtp-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.acf-mail-smtp-form input[type="text"],
+.acf-mail-smtp-form input[type="email"],
+.acf-mail-smtp-form input[type="number"],
+.acf-mail-smtp-form input[type="date"],
+.acf-mail-smtp-form select,
+.acf-mail-smtp-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.acf-mail-smtp-form input:focus,
+.acf-mail-smtp-form select:focus,
+.acf-mail-smtp-form textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.acf-mail-smtp-form .required {
+    color: #d63638;
+}
+
+.acf-mail-smtp-form .submit-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.acf-mail-smtp-form .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.acf-mail-smtp-form .submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.acf-mail-smtp-form .message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.acf-mail-smtp-form .message.success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.acf-mail-smtp-form .message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
+
+/* Loading spinner */
+.acf-mail-smtp-form .loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -584,6 +584,66 @@
 }
 
 /* ===========================
+   섹션 탭 네비게이션 (v22.5.0)
+   =========================== */
+.jj-sections-tabs-wrapper {
+    margin-bottom: 30px;
+}
+
+.jj-sections-tabs-nav {
+    display: flex;
+    gap: 8px;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 0;
+    padding: 0;
+    background: #fff;
+    border-radius: 12px 12px 0 0;
+    padding: 0 20px;
+}
+
+.jj-section-tab-button {
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.2s ease;
+    margin-bottom: -2px;
+    position: relative;
+}
+
+.jj-section-tab-button:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.jj-section-tab-button.jj-tab-active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.jj-section-wrapper.jj-section-tab-content {
+    display: none;
+}
+
+.jj-section-wrapper.jj-section-tab-content:first-of-type {
+    display: block !important;
+}
+
+/* [v23.0.3] 탭 표시 개선 - 첫 번째 탭은 항상 표시 */
+.jj-section-wrapper.jj-section-tab-content.jj-section-visible {
+    display: block !important;
+}
+
+.jj-section-wrapper.jj-section-tab-content.jj-section-hidden {
+    display: none !important;
+}
+
+/* ===========================
    Animations
    =========================== */
 @keyframes jj-spin {

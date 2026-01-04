@@ -1,0 +1,282 @@
+/**
+ * 3J SEO Analyzer - Options Page Styles
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 14px;
+    color: #1d2327;
+    background: #f0f0f1;
+    line-height: 1.5;
+}
+
+.options-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+.options-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.options-header img {
+    width: 48px;
+    height: 48px;
+}
+
+.options-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Sections */
+.settings-section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.settings-section h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.settings-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 20px 0 10px;
+}
+
+/* Setting Rows */
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-row.danger {
+    background: #fff5f5;
+    margin: 0 -20px;
+    padding: 15px 20px;
+    border-radius: 0 0 8px 8px;
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-info label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.setting-info p {
+    font-size: 13px;
+    color: #646970;
+}
+
+/* Toggle Switch */
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #dcdcde;
+    border-radius: 26px;
+    transition: 0.3s;
+}
+
+.toggle-slider::before {
+    position: absolute;
+    content: '';
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: #fff;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.toggle input:checked + .toggle-slider {
+    background: #2271b1;
+}
+
+.toggle input:checked + .toggle-slider::before {
+    transform: translateX(22px);
+}
+
+/* Select */
+select {
+    padding: 8px 12px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+    min-width: 150px;
+}
+
+select:focus {
+    outline: none;
+    border-color: #2271b1;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-primary {
+    background: #2271b1;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #135e96;
+}
+
+.btn-secondary {
+    background: #f0f0f1;
+    color: #1d2327;
+    border: 1px solid #dcdcde;
+}
+
+.btn-secondary:hover {
+    background: #dcdcde;
+}
+
+.btn-danger {
+    background: #d63638;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #b32d2e;
+}
+
+/* Sites List */
+.sites-list {
+    background: #f6f7f7;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.site-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.site-item:last-child {
+    margin-bottom: 0;
+}
+
+.site-item .site-url {
+    font-size: 13px;
+    color: #646970;
+}
+
+.site-item .disconnect-btn {
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+.no-sites {
+    text-align: center;
+    padding: 20px;
+    color: #646970;
+}
+
+/* About */
+.about-info {
+    color: #646970;
+}
+
+.about-info a {
+    color: #2271b1;
+    text-decoration: none;
+}
+
+.about-info a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.options-footer {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.save-status {
+    font-size: 13px;
+    color: #00a32a;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .options-container {
+        padding: 15px;
+    }
+
+    .setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .options-header h1 {
+        font-size: 20px;
+    }
+}

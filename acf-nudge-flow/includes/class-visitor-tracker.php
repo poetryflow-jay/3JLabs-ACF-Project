@@ -48,10 +48,29 @@ class ACF_Nudge_Visitor_Tracker {
     }
 
     /**
+     * 방문자 ID 반환 (public)
+     * 
+     * [v22.5.2] 외부에서 접근 가능하도록 추가
+     */
+    public function get_visitor_id() {
+        return $this->visitor_id;
+    }
+
+    /**
      * 방문자 데이터 수집
+     * 
+     * [v22.5.2] 다양한 데이터 소스 통합 지원
      */
     public function get_data() {
         global $wpdb;
+
+        $user_id = get_current_user_id();
+        $data_source = null;
+        
+        // 데이터 소스 통합 클래스 로드
+        if ( class_exists( 'ACF_Nudge_Flow_Data_Source_Integration' ) ) {
+            $data_source = ACF_Nudge_Flow_Data_Source_Integration::instance();
+        }
 
         $data = array(
             'visitor_id'    => $this->visitor_id,
@@ -61,21 +80,35 @@ class ACF_Nudge_Visitor_Tracker {
             'referrer_type' => $this->get_referrer_type(),
             'utm'           => $this->get_all_utm(),
             'is_logged_in'  => is_user_logged_in(),
-            'user_id'       => get_current_user_id(),
+            'user_id'       => $user_id,
             'device'        => $this->get_device_type(),
             'dismissed'     => $this->get_dismissed_nudges(),
         );
 
-        // WooCommerce 데이터
-        if ( class_exists( 'WooCommerce' ) ) {
-            $data['woo'] = array(
-                'has_purchased'   => $this->has_purchased(),
-                'purchase_count'  => $this->get_purchase_count(),
-                'total_spent'     => $this->get_total_spent(),
-                'cart_count'      => $this->get_cart_count(),
-                'cart_total'      => $this->get_cart_total(),
-                'has_abandoned'   => $this->has_abandoned_cart(),
-            );
+        // 통합 구매 데이터 (WooCommerce + 기타 플러그인)
+        if ( $data_source ) {
+            $purchase_data = $data_source->get_user_purchase_data( $user_id );
+            $data['purchase'] = $purchase_data;
+            
+            // 회원 데이터
+            $membership_data = $data_source->get_user_membership_data( $user_id );
+            $data['membership'] = $membership_data;
+            
+            // 분석 데이터
+            $analytics_data = $data_source->get_analytics_data( $user_id, $this->visitor_id );
+            $data['analytics'] = $analytics_data;
+        } else {
+            // 기본 WooCommerce 데이터 (하위 호환성)
+            if ( class_exists( 'WooCommerce' ) ) {
+                $data['woo'] = array(
+                    'has_purchased'   => $this->has_purchased(),
+                    'purchase_count'  => $this->get_purchase_count(),
+                    'total_spent'     => $this->get_total_spent(),
+                    'cart_count'      => $this->get_cart_count(),
+                    'cart_total'      => $this->get_cart_total(),
+                    'has_abandoned'   => $this->has_abandoned_cart(),
+                );
+            }
         }
 
         return $data;

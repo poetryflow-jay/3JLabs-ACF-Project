@@ -1667,34 +1667,9 @@ jQuery(document).ready(function($) {
     });
 
     // 단축키 안내 툴팁 추가 (선택적)
-    if (jj_admin_params.show_shortcuts_hint !== false) {
-        $(document).ready(function() {
-            var $shortcutHint = $('<div class="jj-shortcuts-hint" style="position:fixed; bottom:20px; right:20px; background:#fff; border:1px solid #c3c4c7; padding:10px 15px; border-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:10000; font-size:12px; display:none;"><strong>키보드 단축키:</strong><br>Ctrl/Cmd + S: 저장<br>Ctrl/Cmd + Shift + R: 기본값으로 되돌리기<span class="dashicons dashicons-no-alt" style="float:right; cursor:pointer; margin-left:10px; color:#666;"></span></div>');
-            $('body').append($shortcutHint);
-
-            // 처음 로드 시 3초간 표시 후 자동 숨김
-            setTimeout(function() {
-                $shortcutHint.fadeIn(300);
-            }, 1000);
-            
-            setTimeout(function() {
-                $shortcutHint.fadeOut(300);
-            }, 4000);
-
-            // 닫기 버튼 클릭
-            $shortcutHint.find('.dashicons-no-alt').on('click', function() {
-                $shortcutHint.fadeOut(300);
-            });
-
-            // 단축키로 다시 표시 (Ctrl/Cmd + ?)
-            $(document).on('keydown', function(e) {
-                if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === '?') {
-                    e.preventDefault();
-                    $shortcutHint.fadeToggle(300);
-                }
-            });
-        });
-    }
+    // 키보드 단축키 시스템이 별도 파일(jj-keyboard-shortcuts.js)로 분리되어 있으므로
+    // 여기서는 중복 구현하지 않음
+    // 단축키 도움말은 jj-keyboard-shortcuts.js의 KeyboardShortcuts.showHelpModal() 사용
 
     // [v3.7.0 '신규'] 스타일 센터 설정 내보내기/불러오기
     $(document).on('click', '.jj-export-settings[data-center="style-center"]', function() {
@@ -1907,6 +1882,178 @@ jQuery(document).ready(function($) {
     // 저장 버튼 (헤더)
     $('#jj-save-style-guide-header').on('click', function() {
         $('#jj-save-style-guide').trigger('click');
+    });
+
+    // [v23.0.3] 섹션 탭 전환 기능 개선
+    function initSectionTabs() {
+        // 탭이 있는지 확인
+        var $tabsWrapper = $('.jj-sections-tabs-wrapper');
+        var $tabButtons = $('.jj-section-tab-button');
+        var $tabContents = $('.jj-section-wrapper.jj-section-tab-content');
+        
+        // 탭이 없으면 초기화하지 않음
+        if ($tabButtons.length === 0 || $tabContents.length === 0) {
+            console.log('[JJ Style Guide] No tabs found, skipping tab initialization.');
+            return;
+        }
+        
+        // 모든 탭 콘텐츠 숨기기 (클래스와 인라인 스타일 모두 처리)
+        $tabContents.hide().removeClass('jj-section-visible').addClass('jj-section-hidden').css('display', 'none');
+        
+        // 첫 번째 탭 버튼 자동 활성화
+        var $firstTab = $tabButtons.first();
+        if ($firstTab.length) {
+            // 모든 탭 버튼 비활성화
+            $tabButtons.removeClass('jj-tab-active').css({
+                'color': '#64748b',
+                'border-bottom-color': 'transparent',
+                'background': 'transparent'
+            });
+            
+            // 첫 번째 탭 버튼 활성화
+            $firstTab.addClass('jj-tab-active').css({
+                'color': '#667eea',
+                'border-bottom-color': '#667eea',
+                'background': 'rgba(102, 126, 234, 0.05)'
+            });
+            
+            // 첫 번째 탭의 섹션 표시
+            var firstSectionSlug = $firstTab.data('tab-section');
+            if (firstSectionSlug) {
+                var $firstSection = $('.jj-section-wrapper[data-section="' + firstSectionSlug + '"]');
+                if ($firstSection.length) {
+                    $firstSection
+                        .removeClass('jj-section-hidden')
+                        .addClass('jj-section-visible')
+                        .css('display', 'block')
+                        .show();
+                    
+                    // 첫 번째 섹션 필드 초기화
+                    setTimeout(function() {
+                        if (typeof initColorPickers === 'function') {
+                            initColorPickers($firstSection);
+                        }
+                        if (typeof enhanceColorTools === 'function') {
+                            enhanceColorTools($firstSection);
+                        }
+                        if (typeof initializeAllFields === 'function') {
+                            initializeAllFields($firstSection);
+                        }
+                    }, 100);
+                } else {
+                    console.warn('[JJ Style Guide] First section not found:', firstSectionSlug);
+                }
+            } else {
+                console.warn('[JJ Style Guide] First tab has no data-tab-section attribute');
+            }
+        }
+        
+        // 디버깅: 탭과 섹션 개수 확인
+        var tabCount = $tabButtons.length;
+        var sectionCount = $tabContents.length;
+        if (tabCount !== sectionCount) {
+            console.warn('[JJ Style Guide] Tab count mismatch. Tabs:', tabCount, 'Sections:', sectionCount);
+        }
+        
+        // 모든 섹션이 숨겨져 있는지 확인 (디버깅)
+        var visibleSections = $tabContents.filter('.jj-section-visible, :visible').length;
+        if (visibleSections === 0 && sectionCount > 0) {
+            console.warn('[JJ Style Guide] No visible sections found. Showing first section as fallback.');
+            var $fallbackSection = $tabContents.first();
+            $fallbackSection
+                .removeClass('jj-section-hidden')
+                .addClass('jj-section-visible')
+                .css('display', 'block')
+                .show();
+        }
+    }
+    
+    // [v23.0.3] 페이지 로드 시 탭 초기화 개선
+    $(document).ready(function() {
+        // DOM이 완전히 로드된 후 탭 초기화
+        setTimeout(function() {
+            initSectionTabs();
+        }, 100);
+    });
+    
+    // AJAX 콘텐츠 로드 후에도 탭 초기화
+    $(document).on('jj-style-guide-content-loaded', function() {
+        setTimeout(function() {
+            initSectionTabs();
+        }, 100);
+    });
+    
+    // [v23.0.3] 탭 클릭 이벤트 개선
+    $(document).on('click', '.jj-section-tab-button', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var $button = $(this);
+        var targetSection = $button.data('tab-section');
+        
+        if (!targetSection) {
+            console.warn('[JJ Style Guide] Tab section not found for button:', $button);
+            return false;
+        }
+        
+        // 모든 탭 버튼 비활성화
+        $('.jj-section-tab-button').removeClass('jj-tab-active').css({
+            'color': '#64748b',
+            'border-bottom-color': 'transparent',
+            'background': 'transparent'
+        });
+        
+        // 클릭한 탭 버튼 활성화
+        $button.addClass('jj-tab-active').css({
+            'color': '#667eea',
+            'border-bottom-color': '#667eea',
+            'background': 'rgba(102, 126, 234, 0.05)'
+        });
+        
+        // 모든 섹션 콘텐츠 숨기기 (인라인 스타일과 클래스 모두 처리)
+        $('.jj-section-wrapper.jj-section-tab-content')
+            .hide()
+            .removeClass('jj-section-visible')
+            .addClass('jj-section-hidden')
+            .css('display', 'none');
+        
+        // 선택한 섹션만 표시 (인라인 스타일 제거하고 표시)
+        var $targetSection = $('.jj-section-wrapper[data-section="' + targetSection + '"]');
+        if ($targetSection.length) {
+            $targetSection
+                .removeClass('jj-section-hidden')
+                .addClass('jj-section-visible')
+                .css('display', 'block')
+                .fadeIn(200);
+            
+            // 동적으로 로드된 컨텐츠의 필드 초기화
+            setTimeout(function() {
+                if (typeof initColorPickers === 'function') {
+                    initColorPickers($targetSection);
+                }
+                if (typeof enhanceColorTools === 'function') {
+                    enhanceColorTools($targetSection);
+                }
+                if (typeof initializeAllFields === 'function') {
+                    initializeAllFields($targetSection);
+                }
+            }, 250);
+        } else {
+            console.warn('[JJ Style Guide] Section not found:', targetSection, 'Available sections:', $('.jj-section-wrapper[data-section]').map(function() { return $(this).data('section'); }).get());
+        }
+        
+        // 스크롤을 탭 네비게이션으로 이동
+        var $tabsWrapper = $('.jj-sections-tabs-wrapper');
+        if ($tabsWrapper.length) {
+            var tabsOffset = $tabsWrapper.offset();
+            if (tabsOffset) {
+                $('html, body').animate({
+                    scrollTop: tabsOffset.top - 50
+                }, 300);
+            }
+        }
+        
+        return false;
     });
 
 });

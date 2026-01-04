@@ -22,11 +22,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.0.1' ); // [v1.0.1] 버전 업데이트 - 문서 및 빌드 업데이트
+define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.1.0' ); // [v1.1.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_FILE', __FILE__ );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'JJ_ANALYTICS_DASHBOARD_SLUG', 'jj-analytics-dashboard' );
+
+// [v25.0.0] 보안 모듈 및 라이센스 관리 로드
+$shared_path = dirname( dirname( __FILE__ ) ) . '/shared-ui-assets';
+if ( file_exists( $shared_path . '/class-jj-security-module-v25.php' ) ) {
+    require_once $shared_path . '/class-jj-security-module-v25.php';
+    if ( class_exists( 'JJ_Security_Module_V25_Loader' ) ) {
+        JJ_Security_Module_V25_Loader::instance( JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR, JJ_ANALYTICS_DASHBOARD_PLUGIN_URL, JJ_ANALYTICS_DASHBOARD_VERSION, JJ_ANALYTICS_DASHBOARD_SLUG );
+    }
+}
+if ( file_exists( $shared_path . '/class-jj-license-manager-shared.php' ) ) {
+    require_once $shared_path . '/class-jj-license-manager-shared.php';
+    if ( class_exists( 'JJ_License_Manager_Shared' ) ) {
+        JJ_License_Manager_Shared::instance( JJ_ANALYTICS_DASHBOARD_SLUG );
+    }
+}
 
 /**
  * 메인 플러그인 클래스

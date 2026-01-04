@@ -1,0 +1,223 @@
+/**
+ * JJ In-Web Popup System v25.0.0
+ * 고도화된 인웹 팝업 스타일
+ * 
+ * @version 25.0.0
+ * @author Jenny (Lead Designer) x Jason (Implementation)
+ */
+
+/* ===========================
+   인웹 팝업 기본 스타일
+   =========================== */
+
+.jj-inweb-popup {
+    position: fixed;
+    z-index: var(--jj-z-notification);
+    background: #FFFFFF;
+    border-radius: var(--jj-radius-xl);
+    box-shadow: var(--jj-shadow-2xl);
+    max-width: 400px;
+    min-width: 300px;
+    animation: popupScaleIn 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: auto;
+}
+
+@keyframes popupScaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.jj-inweb-popup-header {
+    display: flex;
+    align-items: center;
+    padding: var(--jj-space-lg);
+    border-bottom: 1px solid var(--jj-gray-200);
+}
+
+.jj-inweb-popup-icon {
+    font-size: 24px;
+    margin-right: var(--jj-space-md);
+}
+
+.jj-inweb-popup-title {
+    flex: 1;
+    margin: 0;
+    font-size: var(--jj-text-lg);
+    font-weight: 600;
+    color: var(--jj-gray-900);
+}
+
+.jj-inweb-popup-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--jj-gray-400);
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--jj-radius-sm);
+    transition: all var(--jj-transition-fast);
+}
+
+.jj-inweb-popup-close:hover {
+    background: var(--jj-gray-100);
+    color: var(--jj-gray-700);
+}
+
+.jj-inweb-popup-body {
+    padding: var(--jj-space-lg);
+}
+
+.jj-inweb-popup-message {
+    margin: 0;
+    color: var(--jj-gray-700);
+    line-height: var(--jj-leading-relaxed);
+}
+
+.jj-inweb-popup-actions {
+    display: flex;
+    gap: var(--jj-space-sm);
+    padding: var(--jj-space-lg);
+    border-top: 1px solid var(--jj-gray-200);
+    justify-content: flex-end;
+}
+
+/* ===========================
+   타입별 스타일
+   =========================== */
+
+.jj-inweb-popup-info {
+    border-left: 4px solid var(--jj-info);
+}
+
+.jj-inweb-popup-info .jj-inweb-popup-header {
+    background: linear-gradient(135deg, var(--jj-info-light) 0%, var(--jj-info) 100%);
+    color: #FFFFFF;
+    border-bottom: none;
+}
+
+.jj-inweb-popup-success {
+    border-left: 4px solid var(--jj-success);
+}
+
+.jj-inweb-popup-success .jj-inweb-popup-header {
+    background: linear-gradient(135deg, var(--jj-success-light) 0%, var(--jj-success) 100%);
+    color: #FFFFFF;
+    border-bottom: none;
+}
+
+.jj-inweb-popup-warning {
+    border-left: 4px solid var(--jj-warning);
+}
+
+.jj-inweb-popup-warning .jj-inweb-popup-header {
+    background: linear-gradient(135deg, var(--jj-warning-light) 0%, var(--jj-warning) 100%);
+    color: #FFFFFF;
+    border-bottom: none;
+}
+
+.jj-inweb-popup-error {
+    border-left: 4px solid var(--jj-error);
+}
+
+.jj-inweb-popup-error .jj-inweb-popup-header {
+    background: linear-gradient(135deg, var(--jj-error-light) 0%, var(--jj-error) 100%);
+    color: #FFFFFF;
+    border-bottom: none;
+}
+
+.jj-inweb-popup-tip {
+    border-left: 4px solid var(--jj-accent-amber);
+}
+
+.jj-inweb-popup-tip .jj-inweb-popup-header {
+    background: linear-gradient(135deg, var(--jj-accent-amber-light) 0%, var(--jj-accent-amber) 100%);
+    color: #FFFFFF;
+    border-bottom: none;
+}
+
+/* ===========================
+   스포트라이트 효과
+   =========================== */
+
+.jj-spotlight {
+    position: fixed;
+    z-index: calc(var(--jj-z-notification) - 1);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: var(--jj-radius-lg);
+    pointer-events: none;
+    animation: spotlightPulse 2s ease-in-out;
+}
+
+@keyframes spotlightPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 20px rgba(255, 107, 53, 0);
+    }
+}
+
+/* ===========================
+   위치별 스타일
+   =========================== */
+
+.jj-inweb-popup[style*="top: 20px"] {
+    animation: slideInDown 0.3s ease-out;
+}
+
+.jj-inweb-popup[style*="bottom: 20px"] {
+    animation: slideInUp 0.3s ease-out;
+}
+
+.jj-inweb-popup[style*="left: 50%"] {
+    animation: scaleIn 0.3s ease-out;
+}
+
+/* ===========================
+   다크 모드
+   =========================== */
+
+[data-theme="dark"] .jj-inweb-popup {
+    background: var(--jj-bg-secondary);
+    color: var(--jj-text-primary);
+}
+
+[data-theme="dark"] .jj-inweb-popup-header {
+    border-bottom-color: var(--jj-border-primary);
+}
+
+[data-theme="dark"] .jj-inweb-popup-body {
+    color: var(--jj-text-secondary);
+}
+
+[data-theme="dark"] .jj-inweb-popup-actions {
+    border-top-color: var(--jj-border-primary);
+}
+
+/* ===========================
+   반응형
+   =========================== */
+
+@media (max-width: 768px) {
+    .jj-inweb-popup {
+        max-width: calc(100vw - 40px);
+        min-width: auto;
+    }
+
+    .jj-inweb-popup[style*="left: 50%"] {
+        left: 20px !important;
+        right: 20px !important;
+        transform: translateY(-50%) !important;
+    }
+}

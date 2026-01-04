@@ -62,7 +62,7 @@ class ACF_CSB_Export_Import {
         add_submenu_page(
             'edit.php?post_type=acf_code_snippet',
             __( '내보내기/가져오기', 'acf-code-snippets-box' ),
-            __( '내보내기/가져오기', 'acf-code-snippets-box' ),
+            __( '📤 내보내기/가져오기', 'acf-code-snippets-box' ),
             'manage_options',
             'acf-csb-export-import',
             array( $this, 'render_page' )

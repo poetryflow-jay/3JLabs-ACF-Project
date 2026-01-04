@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSB_VERSION', '4.0.0' ); // [v4.0.0] Major Version Release
+define( 'ACF_CSB_VERSION', '4.2.0' ); // [v4.2.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
 define( 'ACF_CSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSB_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACF_CSB_BASENAME', plugin_basename( __FILE__ ) );
@@ -55,11 +55,37 @@ final class ACF_Code_Snippets_Box {
      * 생성자
      */
     private function __construct() {
+        // [v25.0.0] 보안 모듈 및 라이센스 관리 로드
+        $this->load_security_and_license();
+        
         $this->load_dependencies();
         $this->init_hooks();
         
         // [Phase 19.1] 플러그인 목록 페이지 UI/UX 개선
         $this->init_plugin_list_enhancer();
+    }
+    
+    /**
+     * [v25.0.0] 보안 모듈 및 라이센스 관리 로드
+     */
+    private function load_security_and_license() {
+        $shared_path = dirname( dirname( __FILE__ ) ) . '/shared-ui-assets';
+        
+        // 공유 보안 모듈 로더
+        if ( file_exists( $shared_path . '/class-jj-security-module-v25.php' ) ) {
+            require_once $shared_path . '/class-jj-security-module-v25.php';
+            if ( class_exists( 'JJ_Security_Module_V25_Loader' ) ) {
+                JJ_Security_Module_V25_Loader::instance( ACF_CSB_PATH, ACF_CSB_URL, ACF_CSB_VERSION, ACF_CSB_SLUG );
+            }
+        }
+        
+        // 공유 라이센스 관리자
+        if ( file_exists( $shared_path . '/class-jj-license-manager-shared.php' ) ) {
+            require_once $shared_path . '/class-jj-license-manager-shared.php';
+            if ( class_exists( 'JJ_License_Manager_Shared' ) ) {
+                JJ_License_Manager_Shared::instance( ACF_CSB_SLUG );
+            }
+        }
     }
     
     /**
@@ -112,6 +138,24 @@ final class ACF_Code_Snippets_Box {
         
         // 클라우드 동기화 (Pro Premium+)
         require_once ACF_CSB_PATH . 'includes/class-acf-csb-cloud-sync.php';
+
+        // [v4.1.0] 버전 히스토리
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-version-history.php';
+
+        // [v4.1.0] 성능 모니터
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-performance-monitor.php';
+
+        // [v4.1.0] 코드 테스터
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-code-tester.php';
+
+        // [v4.2.0] 코드 분석기
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-code-analyzer.php';
+
+        // [v4.2.0] 코드 최적화기
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-code-optimizer.php';
+
+        // [v4.2.0] 샌드박스
+        require_once ACF_CSB_PATH . 'includes/class-acf-csb-sandbox.php';
     }
 
     /**
@@ -195,18 +239,33 @@ final class ACF_Code_Snippets_Box {
 
         // ACF CSS 연동
         ACF_CSB_ACF_CSS_Bridge::instance()->init();
+
+        // [v4.1.0] 버전 히스토리 초기화
+        ACF_CSB_Version_History::instance();
+
+        // [v4.1.0] 성능 모니터 초기화
+        ACF_CSB_Performance_Monitor::instance();
+
+        // [v4.1.0] 코드 테스터 초기화
+        ACF_CSB_Code_Tester::instance();
+
+        // [v4.2.0] 코드 분석기 초기화
+        ACF_CSB_Code_Analyzer::instance();
+
+        // [v4.2.0] 코드 최적화기 초기화
+        ACF_CSB_Code_Optimizer::instance();
     }
 
     /**
      * 관리자 에셋 로드
-     * [v2.2.0] UI System 2026 Enhancement
+     * [v4.1.0] Enhanced Editor & UI System 2026
      */
     public function enqueue_admin_assets( $hook ) {
         // ACF Code Snippets 페이지에서만 로드
         if ( strpos( $hook, 'acf-code-snippets' ) === false && strpos( $hook, 'acf_code_snippet' ) === false ) {
             return;
         }
-        
+
         // [v2.2.0] UI System 2026 Enhancement
         $enhanced_css_path = ACF_CSB_PATH . 'assets/css/jj-code-snippets-enhanced-2026.css';
         if ( file_exists( $enhanced_css_path ) ) {
@@ -217,6 +276,27 @@ final class ACF_Code_Snippets_Box {
                 array(),
                 $css_version
             );
+        }
+
+        // [v4.1.0] Enhanced Editor Script
+        $enhanced_js_path = ACF_CSB_PATH . 'assets/js/editor-enhanced.js';
+        if ( file_exists( $enhanced_js_path ) ) {
+            wp_enqueue_script(
+                'acf-csb-editor-enhanced',
+                ACF_CSB_URL . 'assets/js/editor-enhanced.js',
+                array( 'jquery', 'wp-theme-plugin-editor' ),
+                ACF_CSB_VERSION,
+                true
+            );
+
+            // 에디터에 데이터 전달
+            global $post;
+            wp_localize_script( 'acf-csb-editor-enhanced', 'acfCsbEditor', array(
+                'nonce'              => wp_create_nonce( 'acf_csb_nonce' ),
+                'ajaxUrl'            => admin_url( 'admin-ajax.php' ),
+                'postId'             => $post ? $post->ID : 0,
+                'codeEditorSettings' => wp_enqueue_code_editor( array( 'type' => 'text/css' ) ),
+            ) );
         }
     }
     

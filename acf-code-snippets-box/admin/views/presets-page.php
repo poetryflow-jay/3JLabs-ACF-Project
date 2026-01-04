@@ -22,6 +22,64 @@ $php_presets = ACF_CSB_Presets::get_php_presets();
         <?php esc_html_e( '자주 사용되는 유용한 코드 스니펫을 원클릭으로 추가하세요.', 'acf-code-snippets-box' ); ?>
     </p>
 
+    <!-- [v4.2.0] 검색 및 필터 바 -->
+    <div class="acf-csb-preset-search-bar" style="
+        margin: 20px 0;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        flex-wrap: wrap;
+    ">
+        <div style="flex: 1; min-width: 250px;">
+            <input type="text" 
+                   id="preset-search-input" 
+                   placeholder="<?php esc_attr_e( '프리셋 검색... (이름, 설명, 태그)', 'acf-code-snippets-box' ); ?>" 
+                   style="width: 100%; padding: 10px 15px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px;">
+        </div>
+        <div>
+            <select id="preset-category-filter" style="padding: 10px 15px; border: 2px solid #ddd; border-radius: 6px; font-size: 14px;">
+                <option value=""><?php esc_html_e( '모든 카테고리', 'acf-code-snippets-box' ); ?></option>
+                <?php
+                $categories = ACF_CSB_Presets::get_all_categories();
+                $counts = ACF_CSB_Presets::get_category_counts();
+                foreach ( $categories as $category ) :
+                    $category_name = ACF_CSB_Presets::get_category_name( $category );
+                    $count = isset( $counts[ $category ] ) ? $counts[ $category ] : 0;
+                ?>
+                    <option value="<?php echo esc_attr( $category ); ?>">
+                        <?php echo esc_html( $category_name ); ?> (<?php echo esc_html( $count ); ?>)
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div>
+            <button type="button" class="button button-primary" id="preset-search-btn">
+                <?php esc_html_e( '🔍 검색', 'acf-code-snippets-box' ); ?>
+            </button>
+            <button type="button" class="button" id="preset-reset-btn">
+                <?php esc_html_e( '초기화', 'acf-code-snippets-box' ); ?>
+            </button>
+        </div>
+    </div>
+
+    <!-- 검색 결과 표시 영역 -->
+    <div id="preset-search-results" style="display: none; margin: 20px 0;">
+        <div class="search-results-header" style="padding: 15px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+            <h3 style="margin: 0;">
+                <?php esc_html_e( '검색 결과', 'acf-code-snippets-box' ); ?>
+                <span id="search-results-count" style="color: #666; font-weight: normal;"></span>
+            </h3>
+            <button type="button" class="button button-small" id="close-search-results" style="margin-top: 10px;">
+                <?php esc_html_e( '검색 결과 닫기', 'acf-code-snippets-box' ); ?>
+            </button>
+        </div>
+        <div id="search-results-content"></div>
+    </div>
+
     <!-- 탭 네비게이션 -->
     <nav class="nav-tab-wrapper" style="margin-top: 20px;">
         <a href="#css-presets" class="nav-tab nav-tab-active" data-tab="css"><?php esc_html_e( 'CSS 프리셋', 'acf-code-snippets-box' ); ?></a>
@@ -195,6 +253,200 @@ $php_presets = ACF_CSB_Presets::get_php_presets();
 
 <script>
 jQuery(document).ready(function($) {
+    // [v4.2.0] 프리셋 검색 기능
+    let searchTimeout = null;
+    
+    $('#preset-search-input').on('input', function() {
+        const query = $(this).val().trim();
+        
+        if (searchTimeout) clearTimeout(searchTimeout);
+        
+        if (query.length >= 2) {
+            searchTimeout = setTimeout(function() {
+                performSearch(query);
+            }, 500);
+        } else if (query.length === 0) {
+            $('#preset-search-results').hide();
+            $('.acf-csb-preset-tab').show();
+        }
+    });
+    
+    $('#preset-search-btn').on('click', function() {
+        const query = $('#preset-search-input').val().trim();
+        if (query.length >= 2) {
+            performSearch(query);
+        }
+    });
+    
+    $('#preset-reset-btn').on('click', function() {
+        $('#preset-search-input').val('');
+        $('#preset-category-filter').val('');
+        $('#preset-search-results').hide();
+        $('.acf-csb-preset-tab').show();
+    });
+    
+    $('#close-search-results').on('click', function() {
+        $('#preset-search-results').hide();
+        $('.acf-csb-preset-tab').show();
+    });
+    
+    function performSearch(query) {
+        const category = $('#preset-category-filter').val();
+        const currentTab = $('.nav-tab-active').data('tab') || 'all';
+        
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'acf_csb_search_presets',
+                nonce: '<?php echo wp_create_nonce( "acf_csb_nonce" ); ?>',
+                query: query,
+                type: currentTab,
+                category: category
+            },
+            success: function(response) {
+                if (response.success) {
+                    displaySearchResults(response.data.results, query, response.data.count);
+                } else {
+                    alert('검색 중 오류가 발생했습니다.');
+                }
+            },
+            error: function() {
+                alert('검색 요청 실패');
+            }
+        });
+    }
+    
+    function displaySearchResults(results, query, count) {
+        const $resultsContainer = $('#preset-search-results');
+        const $resultsContent = $('#search-results-content');
+        const $countSpan = $('#search-results-count');
+        
+        $countSpan.text('(' + count + '개 결과)');
+        
+        let html = '';
+        
+        if (count === 0) {
+            html = '<div style="text-align: center; padding: 40px; color: #666;">검색 결과가 없습니다.</div>';
+        } else {
+            // 타입별로 그룹화하여 표시
+            const typeLabels = {
+                'css': 'CSS 프리셋',
+                'js': 'JavaScript 프리셋',
+                'php': 'PHP 프리셋',
+                'woocommerce_php': 'WooCommerce PHP 프리셋',
+                'woocommerce_css': 'WooCommerce CSS 프리셋',
+                'utility': '유틸리티 프리셋'
+            };
+            
+            Object.keys(results).forEach(function(type) {
+                if (results[type].length === 0) return;
+                
+                html += '<div style="margin-bottom: 30px;">';
+                html += '<h3 style="margin: 0 0 20px; padding-bottom: 10px; border-bottom: 2px solid #ddd;">' + (typeLabels[type] || type) + '</h3>';
+                html += '<div class="acf-csb-preset-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">';
+                
+                Object.keys(results[type]).forEach(function(id) {
+                    const preset = results[type][id];
+                    html += buildPresetCardHTML(preset, type, id);
+                });
+                
+                html += '</div></div>';
+            });
+        }
+        
+        $resultsContent.html(html);
+        $resultsContainer.show();
+        $('.acf-csb-preset-tab').hide();
+        
+        // 검색 결과에서도 프리셋 사용 버튼 이벤트 바인딩
+        bindPresetEvents();
+    }
+    
+    function buildPresetCardHTML(preset, type, id) {
+        const typeColors = {
+            'css': 'linear-gradient(135deg, #f5576c 0%, #f093fb 100%)',
+            'js': 'linear-gradient(135deg, #f0ad4e 0%, #ffc107 100%)',
+            'php': 'linear-gradient(135deg, #8892bf 0%, #a29bfe 100%)',
+            'woocommerce_php': 'linear-gradient(135deg, #7f54b3 0%, #9b59b6 100%)',
+            'woocommerce_css': 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)',
+            'utility': 'linear-gradient(135deg, #34495e 0%, #2c3e50 100%)'
+        };
+        
+        const bgColor = typeColors[type] || typeColors['css'];
+        const categoryName = preset.category ? ACF_CSB_Presets.get_category_name(preset.category) : '';
+        
+        let html = '<div class="acf-csb-preset-card" style="background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden;">';
+        html += '<div style="background: ' + bgColor + '; color: #fff; padding: 15px 20px;">';
+        html += '<h3 style="margin: 0; font-size: 16px;">' + escapeHtml(preset.name) + '</h3>';
+        if (categoryName) {
+            html += '<span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; font-size: 11px; margin-left: 10px;">' + escapeHtml(categoryName) + '</span>';
+        }
+        html += '</div>';
+        html += '<div style="padding: 20px;">';
+        html += '<p style="color: #646970; margin: 0 0 15px;">' + escapeHtml(preset.description) + '</p>';
+        html += '<pre style="background: #f6f7f7; padding: 15px; border-radius: 6px; font-size: 12px; overflow-x: auto; max-height: 150px;"><code>' + escapeHtml(preset.code) + '</code></pre>';
+        html += '<div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">';
+        html += '<button type="button" class="button button-primary acf-csb-use-preset" data-type="' + type + '" data-id="' + id + '">스니펫으로 추가</button>';
+        html += '<button type="button" class="button acf-csb-copy-code" data-code="' + escapeHtml(preset.code) + '">코드 복사</button>';
+        html += '</div></div></div>';
+        
+        return html;
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function bindPresetEvents() {
+        // 코드 복사
+        $('.acf-csb-copy-code').off('click').on('click', function() {
+            const code = $(this).data('code');
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = $(this).text();
+                $(this).text('복사됨!');
+                setTimeout(() => $(this).text(originalText), 2000);
+            });
+        });
+        
+        // 프리셋 사용
+        $('.acf-csb-use-preset').off('click').on('click', function() {
+            const type = $(this).data('type');
+            const id = $(this).data('id');
+            const $btn = $(this);
+            
+            $btn.prop('disabled', true).text('추가 중...');
+            
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'acf_csb_create_preset_snippet',
+                    nonce: '<?php echo wp_create_nonce( "acf_csb_nonce" ); ?>',
+                    preset_type: type,
+                    preset_id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $btn.text('추가됨!').addClass('button-secondary');
+                        setTimeout(() => {
+                            $btn.text('스니펫으로 추가').removeClass('button-secondary').prop('disabled', false);
+                        }, 2000);
+                    } else {
+                        alert('오류: ' + (response.data || '스니펫 생성 실패'));
+                        $btn.prop('disabled', false).text('스니펫으로 추가');
+                    }
+                },
+                error: function() {
+                    alert('서버 통신 오류가 발생했습니다.');
+                    $btn.prop('disabled', false).text('스니펫으로 추가');
+                }
+            });
+        });
+    }
+
     // 탭 전환
     $('.nav-tab').on('click', function(e) {
         e.preventDefault();
@@ -215,15 +467,16 @@ jQuery(document).ready(function($) {
         });
     });
 
-    // 프리셋 사용 - 새 스니펫 생성
+    // 프리셋 사용 - 원클릭 추가 (바로 활성화)
     $('.acf-csb-use-preset').on('click', function() {
         const type = $(this).data('type');
         const id = $(this).data('id');
         const $btn = $(this);
+        const $card = $btn.closest('.acf-csb-preset-card');
         
-        $btn.prop('disabled', true).text('<?php echo esc_js( __( "생성 중...", "acf-code-snippets-box" ) ); ?>');
+        $btn.prop('disabled', true).text('<?php echo esc_js( __( "추가 중...", "acf-code-snippets-box" ) ); ?>');
         
-        // 새 스니펫 생성
+        // 새 스니펫 생성 및 바로 활성화
         $.ajax({
             url: ajaxurl,
             type: 'POST',
@@ -235,7 +488,33 @@ jQuery(document).ready(function($) {
             },
             success: function(response) {
                 if (response.success) {
-                    window.location.href = '<?php echo esc_url( admin_url( "post.php" ) ); ?>?post=' + response.data.post_id + '&action=edit';
+                    // 성공 메시지 표시
+                    const $successMsg = $('<div class="notice notice-success inline" style="margin: 10px 0; padding: 10px;"><p>✅ ' + (response.data.message || '<?php echo esc_js( __( "프리셋이 활성화되었습니다.", "acf-code-snippets-box" ) ); ?>') + '</p></div>');
+                    $card.find('.acf-csb-preset-card > div:last-child').prepend($successMsg);
+                    
+                    // 3초 후 메시지 제거
+                    setTimeout(function() {
+                        $successMsg.fadeOut(function() {
+                            $(this).remove();
+                        });
+                    }, 3000);
+                    
+                    // 버튼을 토글 버튼으로 변경
+                    const postId = response.data.post_id;
+                    $btn.removeClass('acf-csb-use-preset button-primary')
+                        .addClass('acf-csb-toggle-preset button-secondary')
+                        .data('type', type)
+                        .data('id', id)
+                        .data('post-id', postId)
+                        .data('enabled', '1')
+                        .html('🔴 비활성화')
+                        .prop('disabled', false);
+                    
+                    // 수정 버튼 추가
+                    if (!$card.find('a[href*="post.php"]').length) {
+                        const $editBtn = $('<a href="<?php echo esc_url( admin_url( "post.php" ) ); ?>?post=' + postId + '&action=edit" class="button"><?php echo esc_js( __( "✏️ 수정", "acf-code-snippets-box" ) ); ?></a>');
+                        $btn.after($editBtn);
+                    }
                 } else {
                     alert('오류: ' + (response.data || '<?php echo esc_js( __( "스니펫 생성 실패", "acf-code-snippets-box" ) ); ?>'));
                     $btn.prop('disabled', false).text('<?php echo esc_js( __( "스니펫으로 추가", "acf-code-snippets-box" ) ); ?>');

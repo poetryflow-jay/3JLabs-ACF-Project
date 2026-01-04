@@ -206,6 +206,114 @@
                 en_US: 'Restore to this backup. Current settings will be saved as a new backup before restoration.',
                 ja: 'このバックアップに復元します。現在の設定は復元前に新しいバックアップとして保存されます。',
                 zh_CN: '恢复到此备份。当前设置将在恢复前保存为新备份。'
+            },
+
+            // [v23.0.4] 추가 툴팁 - 버튼 관련
+            'button-style': {
+                ko_KR: '버튼의 기본 스타일을 설정합니다. 사각형, 둥근 모서리, 완전히 둥근 형태 중 선택할 수 있습니다.',
+                en_US: 'Set the default button style. You can choose from square, rounded corners, or fully rounded.',
+                ja: 'ボタンのデフォルトスタイルを設定します。四角、角丸、完全に丸い形状から選択できます。',
+                zh_CN: '设置按钮的默认样式。您可以从方形、圆角或完全圆形中选择。'
+            },
+            'button-hover-effect': {
+                ko_KR: '마우스를 올렸을 때 버튼에 적용되는 효과입니다. 색상 변화, 그림자, 크기 변화 등을 설정할 수 있습니다.',
+                en_US: 'Effect applied to the button when hovering. You can set color changes, shadows, size changes, etc.',
+                ja: 'マウスを置いたときにボタンに適用される効果です。色の変化、影、サイズの変化などを設定できます。',
+                zh_CN: '悬停时应用于按钮的效果。您可以设置颜色变化、阴影、大小变化等。'
+            },
+            'button-size': {
+                ko_KR: '버튼의 크기를 설정합니다. 작음, 보통, 큼, 매우 큼 중 선택할 수 있으며, 각 크기별로 패딩과 폰트 크기가 자동으로 조정됩니다.',
+                en_US: 'Set the button size. You can choose from small, medium, large, or extra large. Padding and font size are automatically adjusted for each size.',
+                ja: 'ボタンのサイズを設定します。小、中、大、特大から選択でき、各サイズでパディングとフォントサイズが自動的に調整されます。',
+                zh_CN: '设置按钮大小。您可以选择小、中、大或特大。每种大小的填充和字体大小都会自动调整。'
+            },
+
+            // [v23.0.4] 추가 툴팁 - 폼 관련
+            'form-input-style': {
+                ko_KR: '입력 필드의 기본 스타일을 설정합니다. 테두리 색상, 배경색, 포커스 효과 등을 커스터마이징할 수 있습니다.',
+                en_US: 'Set the default style for input fields. You can customize border color, background color, focus effects, etc.',
+                ja: '入力フィールドのデフォルトスタイルを設定します。境界線の色、背景色、フォーカス効果などをカスタマイズできます。',
+                zh_CN: '设置输入字段的默认样式。您可以自定义边框颜色、背景颜色、焦点效果等。'
+            },
+            'form-label-style': {
+                ko_KR: '폼 레이블의 스타일을 설정합니다. 폰트 크기, 색상, 굵기, 위치 등을 조정할 수 있습니다.',
+                en_US: 'Set the style for form labels. You can adjust font size, color, weight, position, etc.',
+                ja: 'フォームラベルのスタイルを設定します。フォントサイズ、色、太さ、位置などを調整できます。',
+                zh_CN: '设置表单标签的样式。您可以调整字体大小、颜色、粗细、位置等。'
+            },
+            'form-error-style': {
+                ko_KR: '폼 검증 오류 메시지의 스타일을 설정합니다. 오류 색상, 아이콘, 애니메이션 등을 커스터마이징할 수 있습니다.',
+                en_US: 'Set the style for form validation error messages. You can customize error color, icons, animations, etc.',
+                ja: 'フォーム検証エラーメッセージのスタイルを設定します。エラー色、アイコン、アニメーションなどをカスタマイズできます。',
+                zh_CN: '设置表单验证错误消息的样式。您可以自定义错误颜色、图标、动画等。'
+            },
+
+            // [v23.0.4] 추가 툴팁 - 필드 관련
+            'field-border-radius': {
+                ko_KR: '입력 필드의 모서리 둥글기를 설정합니다. 0px는 사각형, 값이 클수록 더 둥글어집니다.',
+                en_US: 'Set the corner roundness of input fields. 0px is square, larger values make it more rounded.',
+                ja: '入力フィールドの角の丸みを設定します。0pxは四角、値が大きいほど丸くなります。',
+                zh_CN: '设置输入字段的圆角。0px是方形，值越大越圆。'
+            },
+            'field-focus-ring': {
+                ko_KR: '입력 필드에 포커스가 있을 때 표시되는 링 효과입니다. 접근성을 위해 권장됩니다.',
+                en_US: 'Ring effect displayed when the input field has focus. Recommended for accessibility.',
+                ja: '入力フィールドにフォーカスがあるときに表示されるリング効果です。アクセシビリティのために推奨されます。',
+                zh_CN: '输入字段获得焦点时显示的环形效果。建议用于可访问性。'
+            },
+
+            // [v23.0.4] 추가 툴팁 - 프리셋 관련
+            'preset-save': {
+                ko_KR: '현재 설정을 프리셋으로 저장합니다. 나중에 한 번의 클릭으로 복원할 수 있습니다.',
+                en_US: 'Save current settings as a preset. You can restore it with one click later.',
+                ja: '現在の設定をプリセットとして保存します。後でワンクリックで復元できます。',
+                zh_CN: '将当前设置保存为预设。您以后可以一键恢复。'
+            },
+            'preset-apply': {
+                ko_KR: '이 프리셋을 적용합니다. 현재 설정은 자동으로 백업됩니다.',
+                en_US: 'Apply this preset. Current settings will be automatically backed up.',
+                ja: 'このプリセットを適用します。現在の設定は自動的にバックアップされます。',
+                zh_CN: '应用此预设。当前设置将自动备份。'
+            },
+            'preset-export': {
+                ko_KR: '프리셋을 JSON 파일로 내보냅니다. 다른 사이트에서 가져올 수 있습니다.',
+                en_US: 'Export preset as JSON file. You can import it on other sites.',
+                ja: 'プリセットをJSONファイルとしてエクスポートします。他のサイトでインポートできます。',
+                zh_CN: '将预设导出为JSON文件。您可以在其他网站上导入。'
+            },
+            'preset-import': {
+                ko_KR: 'JSON 파일에서 프리셋을 가져옵니다. 기존 프리셋과 병합하거나 덮어쓸 수 있습니다.',
+                en_US: 'Import preset from JSON file. You can merge with existing presets or overwrite them.',
+                ja: 'JSONファイルからプリセットをインポートします。既存のプリセットとマージするか、上書きできます。',
+                zh_CN: '从JSON文件导入预设。您可以与现有预设合并或覆盖它们。'
+            },
+
+            // [v23.0.4] 추가 툴팁 - 실시간 미리보기
+            'live-preview': {
+                ko_KR: '변경사항을 실시간으로 미리볼 수 있습니다. 저장하지 않아도 즉시 확인할 수 있습니다.',
+                en_US: 'Preview changes in real-time. You can check immediately without saving.',
+                ja: '変更をリアルタイムでプレビューできます。保存しなくてもすぐに確認できます。',
+                zh_CN: '实时预览更改。您无需保存即可立即查看。'
+            },
+            'undo-redo': {
+                ko_KR: '실행 취소(Ctrl+Z)와 다시 실행(Ctrl+Y)을 사용할 수 있습니다. 최대 50개의 작업을 기억합니다.',
+                en_US: 'You can use undo (Ctrl+Z) and redo (Ctrl+Y). Remembers up to 50 actions.',
+                ja: '元に戻す(Ctrl+Z)とやり直し(Ctrl+Y)を使用できます。最大50個の操作を記憶します。',
+                zh_CN: '您可以使用撤销(Ctrl+Z)和重做(Ctrl+Y)。最多记住50个操作。'
+            },
+
+            // [v23.0.4] 추가 툴팁 - 키보드 단축키
+            'keyboard-shortcuts': {
+                ko_KR: '키보드 단축키를 사용하면 더 빠르게 작업할 수 있습니다. ? 키를 눌러 단축키 목록을 확인하세요.',
+                en_US: 'Using keyboard shortcuts allows you to work faster. Press ? to see the list of shortcuts.',
+                ja: 'キーボードショートカットを使用すると、より速く作業できます。?キーを押してショートカットリストを確認してください。',
+                zh_CN: '使用键盘快捷键可以让您更快地工作。按?键查看快捷键列表。'
+            },
+            'quick-search': {
+                ko_KR: 'Ctrl+K 또는 Cmd+K를 눌러 빠른 검색을 시작할 수 있습니다. 설정, 색상, 폰트 등을 빠르게 찾을 수 있습니다.',
+                en_US: 'Press Ctrl+K or Cmd+K to start quick search. You can quickly find settings, colors, fonts, etc.',
+                ja: 'Ctrl+KまたはCmd+Kを押してクイック検索を開始できます。設定、色、フォントなどを素早く見つけることができます。',
+                zh_CN: '按Ctrl+K或Cmd+K开始快速搜索。您可以快速找到设置、颜色、字体等。'
             }
         },
         
@@ -237,16 +345,38 @@
             
             // data-tooltip 속성이 있는 요소에 툴팁 추가
             $(document).on('mouseenter', '[data-tooltip]', function(e) {
-                self.showTooltip($(this), $(this).data('tooltip'));
+                const tooltipKey = $(this).data('tooltip');
+                if (tooltipKey) {
+                    self.showTooltip($(this), tooltipKey);
+                }
             });
             
             $(document).on('mouseleave', '[data-tooltip]', function() {
                 self.hideTooltip();
             });
             
+            // [v23.0.4] 툴팁 아이콘 클릭 시에도 표시
+            $(document).on('click', '.dashicons-editor-help[data-tooltip], [data-tooltip] .dashicons-editor-help', function(e) {
+                e.stopPropagation();
+                const $parent = $(this).closest('[data-tooltip]');
+                if ($parent.length) {
+                    const tooltipKey = $parent.data('tooltip');
+                    if (tooltipKey) {
+                        self.showTooltip($parent, tooltipKey);
+                        // 클릭 시에는 약간 더 오래 표시
+                        setTimeout(function() {
+                            self.hideTooltip();
+                        }, 5000);
+                    }
+                }
+            });
+            
             // 키보드 포커스 시 툴팁 표시 (접근성)
             $(document).on('focusin', '[data-tooltip]', function() {
-                self.showTooltip($(this), $(this).data('tooltip'));
+                const tooltipKey = $(this).data('tooltip');
+                if (tooltipKey) {
+                    self.showTooltip($(this), tooltipKey);
+                }
             });
             
             $(document).on('focusout', '[data-tooltip]', function() {
@@ -416,9 +546,12 @@
             .jj-tooltip-content {
                 background: #1d2327;
                 color: #fff;
-                padding: 8px 12px;
-                border-radius: 4px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                padding: 10px 14px;
+                border-radius: 6px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+                font-size: 13px;
+                line-height: 1.5;
+                max-width: 300px;
             }
             .jj-tooltip-arrow {
                 position: absolute;
@@ -454,10 +587,23 @@
                 border-width: 5px 5px 5px 0;
                 border-color: transparent #1d2327 transparent transparent;
             }
+            /* [v23.0.4] 툴팁 아이콘 스타일 */
+            .dashicons-editor-help {
+                transition: all 0.2s ease;
+            }
+            .dashicons-editor-help:hover {
+                color: #2271b1 !important;
+                transform: scale(1.1);
+            }
+
             @media (max-width: 782px) {
                 .jj-tooltip {
                     max-width: 250px;
                     font-size: 12px;
+                }
+                .jj-tooltip-content {
+                    max-width: 250px;
+                    padding: 8px 12px;
                 }
             }
             </style>

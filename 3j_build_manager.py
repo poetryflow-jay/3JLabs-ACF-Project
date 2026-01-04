@@ -138,34 +138,34 @@ PLUGINS = {
     'wp-bulk-manager': {
         'id': 'wp-bulk-manager',
         'name': 'WP Bulk Manager',
-        'full_name': 'WP Bulk Manager - Plugin & Theme Bulk Installer and Editor',
+        'full_name': 'WP Bulk Manager - Really Simple WordPress Plugin & Theme Bulk Installer and Editor',
         'folder': 'wp-bulk-manager',
         'main_file': 'wp-bulk-installer.php',
         'text_domain': 'wp-bulk-manager',
         'editions': ['master'], # 현재는 마스터만 빌드
-        'is_core': False,
+        'is_core': True,  # 독립적으로 사용 가능
         'description': '멀티 사이트 및 원격 연결 지원 대량 설치 관리자'
     },
     'acf-neural-link': {
         'id': 'acf-neural-link',
         'name': 'ACF CSS Neural Link',
-        'full_name': 'ACF CSS Neural Link - License & Update Manager',
+        'full_name': 'ACF CSS Neural Link - License & Update Manager (Advanced Custom Fonts & Colors & Styles Setting)',
         'folder': 'acf-css-neural-link',
         'main_file': 'acf-css-neural-link.php',
         'text_domain': 'acf-css-neural-link',
         'editions': ['master'],
-        'is_core': False,
+        'is_core': False,  # 애드온: 결합해서 사용해야 함
         'description': '라이센스 인증 및 채널별 업데이트 배포 센터'
     },
     'acf-nudge-flow': {
         'id': 'acf-nudge-flow',
-        'name': 'ACF MBA (Nudge Flow)',
-        'full_name': 'ACF MBA - Marketing Booster Accelerator (Advanced Custom Funnel)',
+        'name': '넛지 플로우 (Nudge Flow)',
+        'full_name': '넛지 플로우 (Nudge Flow) - ACF MBA (Advanced Custom Funnels for Marketing Boosting Accelerator)',
         'folder': 'acf-nudge-flow',
         'main_file': 'acf-nudge-flow.php',
         'text_domain': 'acf-nudge-flow',
         'editions': ['master'],
-        'is_core': False,
+        'is_core': True,  # 독립적으로 사용 가능
         'description': '전략적 캠페인 시나리오 기반 마케팅 자동화'
     },
     'acf-code-snippets': {
@@ -176,40 +176,40 @@ PLUGINS = {
         'main_file': 'acf-code-snippets-box.php',
         'text_domain': 'acf-code-snippets-box',
         'editions': ['master'],
-        'is_core': False,
+        'is_core': True,  # 독립적으로 사용 가능
         'description': 'CSS/JS/PHP 코드 스니펫 관리'
     },
     'acf-woocommerce': {
         'id': 'acf-woocommerce',
         'name': 'ACF CSS WooCommerce Toolkit',
-        'full_name': 'ACF CSS WooCommerce Toolkit - Advanced Commerce Styling',
+        'full_name': 'ACF CSS WooCommerce Toolkit - Advanced Commerce Funnel - Custom Smart Sales',
         'folder': 'acf-css-woocommerce-toolkit',
         'main_file': 'acf-css-woocommerce-toolkit.php',
         'text_domain': 'acf-css-woocommerce-toolkit',
         'editions': ['master'],
-        'is_core': False,
+        'is_core': True,  # 독립적으로 사용 가능
         'description': 'WooCommerce 스타일 및 기능 확장'
     },
     'acf-ai-extension': {
         'id': 'acf-ai-extension',
         'name': 'ACF CSS AI Extension',
-        'full_name': 'ACF CSS AI Extension - Intelligent Style Generator',
+        'full_name': 'ACF CSS AI Extension - Intelligent Style Generator (Advanced Custom Fonts & Colors & Styles Setting)',
         'folder': 'acf-css-ai-extension',
         'main_file': 'acf-css-ai-extension.php',
         'text_domain': 'acf-css-ai-extension',
         'editions': ['master'],
-        'is_core': False,
+        'is_core': False,  # 애드온: 결합해서 사용해야 함
         'description': 'AI 기반 스타일 추천 및 생성'
     },
     'admin-menu-editor': {
         'id': 'admin-menu-editor',
-        'name': 'Admin Menu Editor Pro',
-        'full_name': 'Admin Menu Editor Pro - Advanced Admin Customizer',
+        'name': 'ACF Admin Menu Editor Pro',
+        'full_name': 'ACF Admin Menu Editor Pro - Advanced Custom Fix Admin Menu Editor (Pro Version)',
         'folder': 'admin-menu-editor-pro',
         'main_file': 'admin-menu-editor-pro.php',
         'text_domain': 'admin-menu-editor-pro',
         'editions': ['master'],
-        'is_core': False,
+        'is_core': True,  # 독립적으로 사용 가능
         'description': '관리자 메뉴 커스터마이저'
     },
     'acf-css-woo-license': {
@@ -220,8 +220,20 @@ PLUGINS = {
         'main_file': 'acf-css-woo-license.php',
         'text_domain': 'acf-css-woo-license',
         'editions': ['master'],
-        'is_core': False,
-        'description': 'WooCommerce 결제 연동 및 라이센스 발행 브릿지'
+        'is_core': False,  # 애드온: 결합해서 사용해야 함
+        'description': 'WooCommerce 결제 연동 및 라이센스 발행 브릿지 (모든 판매 가능한 플러그인과 연계)'
+    },
+    'wp-bulk-seo': {
+        'id': 'wp-bulk-seo',
+        'name': 'WP Bulk SEO & AEO(AIO)',
+        'full_name': 'WP Bulk SEO & AEO(AIO) - WordPress Really Simple and Easy Search Engine Optimization and AI Optimization Automation. 1, 2, 3 Click Auto Optimization.',
+        'folder': 'wp-bulk-seo-aeo',  # 개발 예정
+        'main_file': 'wp-bulk-seo-aeo.php',
+        'text_domain': 'wp-bulk-seo-aeo',
+        'editions': [],  # 개발 예정
+        'is_core': True,  # 독립적으로 사용 가능
+        'description': 'WordPress SEO 및 AI 최적화 자동화 (개발 예정)',
+        'status': 'planned'  # 개발 예정 플래그
     }
 }
 
@@ -265,6 +277,52 @@ def save_config(config):
             json.dump(config, f, indent=2, ensure_ascii=False)
     except Exception as e:
         print(f"설정 저장 오류: {e}")
+
+def format_kst_time(iso_string):
+    """한국 표준시(서울 기준) 12시간제로 시간 포맷팅"""
+    if not iso_string:
+        return "없음"
+    try:
+        # ISO 문자열을 datetime으로 변환
+        dt = datetime.datetime.fromisoformat(iso_string.replace('Z', '+00:00'))
+        
+        # UTC로 변환 (timezone 정보가 없으면 로컬 시간으로 가정)
+        if dt.tzinfo is None:
+            # timezone 정보가 없으면 UTC로 가정
+            dt = dt.replace(tzinfo=datetime.timezone.utc)
+        
+        # 한국 시간대(UTC+9)로 변환
+        kst_offset = datetime.timedelta(hours=9)
+        kst_timezone = datetime.timezone(kst_offset)
+        kst_time = dt.astimezone(kst_timezone)
+        
+        # 12시간제로 포맷팅
+        hour = kst_time.hour
+        minute = kst_time.minute
+        
+        if hour == 0:
+            period = "오전"
+            display_hour = 12
+        elif hour < 12:
+            period = "오전"
+            display_hour = hour
+        elif hour == 12:
+            period = "오후"
+            display_hour = 12
+        else:
+            period = "오후"
+            display_hour = hour - 12
+        
+        date_str = kst_time.strftime("%Y년 %m월 %d일")
+        time_str = f"{period} {display_hour}시 {minute}분"
+        
+        return f"{date_str} {time_str}"
+    except Exception as e:
+        # 오류 발생 시 원본 문자열의 날짜 부분만 반환
+        try:
+            return iso_string[:10] if len(iso_string) >= 10 else iso_string
+        except:
+            return "없음"
 
 def get_version_from_file(file_path):
     """PHP 파일에서 버전 추출"""
@@ -445,7 +503,8 @@ class BuildEngine:
     def build_all(self, plugin_ids=None, editions=None):
         """전체 빌드"""
         if plugin_ids is None:
-            plugin_ids = list(PLUGINS.keys())
+            # 개발 예정 플러그인 제외
+            plugin_ids = [pid for pid, p in PLUGINS.items() if p.get('status') != 'planned']
         
         self.log("=" * 60)
         self.log("3J Labs ACF CSS Total Build Start")
@@ -469,8 +528,11 @@ class BuildEngine:
         self.log(f"Output Folder: {self.config['output_dir']}")
         self.log("=" * 60)
         
-        # 빌드 시간 저장
-        self.config['last_build_time'] = datetime.datetime.now().isoformat()
+        # 빌드 시간 저장 (한국 시간대 기준, UTC+9)
+        kst_offset = datetime.timedelta(hours=9)
+        kst_timezone = datetime.timezone(kst_offset)
+        kst_time = datetime.datetime.now(kst_timezone)
+        self.config['last_build_time'] = kst_time.isoformat()
         save_config(self.config)
         
         return success == total
@@ -706,8 +768,8 @@ class JJBuildManager(tk.Tk):
         title_row = ttk.Frame(title_frame)
         title_row.pack(anchor="w")
         
-        # 앱 아이콘 (이모지 사용)
-        icon_label = tk.Label(title_row, text="🔧", font=("Segoe UI", 32), bg=self.colors['bg_window'])
+        # 앱 아이콘 (깃털 이모지 사용)
+        icon_label = tk.Label(title_row, text="🪶", font=("Segoe UI", 32), bg=self.colors['bg_window'])
         icon_label.pack(side="left", padx=(0, 12))
         
         title_text_frame = ttk.Frame(title_row)
@@ -765,11 +827,12 @@ class JJBuildManager(tk.Tk):
         summary_frame.pack(fill="x", padx=10, pady=15)
         
         # 카드 데이터
+        last_build_time = format_kst_time(self.config_data.get('last_build_time'))
         cards_data = [
             ("📦", "전체 플러그인", len(PLUGINS), "개", self.colors['accent']),
             ("⭐", "Core 플러그인", sum(1 for p in PLUGINS.values() if p['is_core']), "개", self.colors['success']),
-            ("🧩", "Family 플러그인", sum(1 for p in PLUGINS.values() if not p['is_core']), "개", self.colors['info']),
-            ("🕐", "마지막 빌드", self.config_data.get('last_build_time', '없음')[:10] if self.config_data.get('last_build_time') else "없음", "", self.colors['text_secondary'])
+            ("🧩", "애드온 플러그인", sum(1 for p in PLUGINS.values() if not p['is_core']), "개", self.colors['info']),
+            ("🕐", "마지막 빌드", last_build_time, "", self.colors['text_secondary'])
         ]
         
         for i, (icon, title, value, suffix, color) in enumerate(cards_data):
@@ -1297,9 +1360,9 @@ class JJBuildManager(tk.Tk):
             return
         
         desktop = Path.home() / 'Desktop'
-        shortcut_path = desktop / '3J Labs Build Manager.lnk'
+        shortcut_path = desktop / '🪶 3J Labs Build Manager.lnk'
         
-        if create_shortcut(str(Path(__file__)), str(shortcut_path), "3J Labs ACF CSS Build Manager"):
+        if create_shortcut(str(Path(__file__)), str(shortcut_path), "🪶 3J Labs ACF CSS Build Manager - 깃털 아이콘"):
             messagebox.showinfo("성공", f"숏컷이 생성되었습니다:\n{shortcut_path}")
         else:
             messagebox.showerror("오류", "숏컷 생성에 실패했습니다.")
@@ -1310,7 +1373,7 @@ class JJBuildManager(tk.Tk):
             return
         
         desktop = Path.home() / 'Desktop'
-        shortcut_path = desktop / '3J Labs Build Manager.lnk'
+        shortcut_path = desktop / '🪶 3J Labs Build Manager.lnk'
         
         if not shortcut_path.exists() and self.config_data.get('auto_shortcut', True):
             if messagebox.askyesno("숏컷 생성", "데스크톱에 바로가기를 생성하시겠습니까?"):

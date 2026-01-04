@@ -1,0 +1,148 @@
+{
+  "acf-css-really-simple-style-management-center-master-master-v22.5.1.zip": {
+    "signature": "155a5b8fdc2f9e025500031384d6a1765b7b28d2533b62a2a9302bf8276a1e0d",
+    "md5": "9120a8c68d556701feb0f291a0607d15",
+    "size": 847038,
+    "generated_at": "2026-01-04T17:05:16.322345",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "22.5.1"
+  },
+  "_updated_at": "2026-01-04T22:11:45.185487",
+  "_version": "1.0.0",
+  "wp-bulk-manager-master-v22.5.2.zip": {
+    "signature": "69fb2d0d6f051bd708632466fbc08622024ca2ef17d5d7c590dcb5fc346a28dc",
+    "md5": "118f487ab80e99668b64bbd3ac344710",
+    "size": 44307,
+    "generated_at": "2026-01-04T17:05:16.369435",
+    "plugin_id": "wp-bulk-manager",
+    "edition": "master",
+    "version": "22.5.2"
+  },
+  "acf-css-neural-link-master-v6.3.5.zip": {
+    "signature": "134ada0d112dac3f531fbea8b91a3809b8c8acf9e659d4bd9bb709949f624f4f",
+    "md5": "70912adaf51d3520afb392b0a84f31b6",
+    "size": 103545,
+    "generated_at": "2026-01-04T22:11:44.918673",
+    "plugin_id": "acf-neural-link",
+    "edition": "master",
+    "version": "6.3.5"
+  },
+  "acf-nudge-flow-master-v22.4.6.zip": {
+    "signature": "7ac53dfcd61dbe9f40e96439c72e3e7e4ea5e754094189f452558fec16fdc830",
+    "md5": "a40315217d9123f0650b48a7f55f1e8c",
+    "size": 50890,
+    "generated_at": "2026-01-04T17:05:16.449848",
+    "plugin_id": "acf-nudge-flow",
+    "edition": "master",
+    "version": "22.4.6"
+  },
+  "acf-code-snippets-box-master-v3.5.zip": {
+    "signature": "9aec9aadf207ac4bb968f13a9c9078fefea0f57e295cc11067720bc38f9b5bda",
+    "md5": "832a0621cd0541fdcc41be1e806458b4",
+    "size": 116671,
+    "generated_at": "2026-01-04T17:05:16.508606",
+    "plugin_id": "acf-code-snippets",
+    "edition": "master",
+    "version": "3.5"
+  },
+  "acf-css-woocommerce-toolkit-master-v2.4.1.zip": {
+    "signature": "862c859be4aca798278bbe4f85f260ad717e8cc0a95c0dcfed98a06ad93a3e55",
+    "md5": "ddb9c772f192f30e65f39f41b77fa63a",
+    "size": 90288,
+    "generated_at": "2026-01-04T22:11:45.123118",
+    "plugin_id": "acf-woocommerce",
+    "edition": "master",
+    "version": "2.4.1"
+  },
+  "acf-css-ai-extension-master-v3.3.1.zip": {
+    "signature": "1dd52a23c0056fc2b5413c2a6536ee71c281ccf20424e9ca50bbd1ef5121706c",
+    "md5": "b0e1f67a4a13f36f97f37fd55a38f140",
+    "size": 34665,
+    "generated_at": "2026-01-04T22:11:45.142880",
+    "plugin_id": "acf-ai-extension",
+    "edition": "master",
+    "version": "3.3.1"
+  },
+  "admin-menu-editor-pro-master-v2.0.2.zip": {
+    "signature": "84a7a439e2d523de79137f5de8c68a9c4b35518771749d08a41222d7d017f5d3",
+    "md5": "7e6bfaea0cbdc7308ce74be06ef55541",
+    "size": 5402,
+    "generated_at": "2026-01-04T22:11:45.150980",
+    "plugin_id": "admin-menu-editor",
+    "edition": "master",
+    "version": "2.0.2"
+  },
+  "acf-css-woo-license-master-v22.0.6.zip": {
+    "signature": "74c02ffd8873f34de35b51495d161c0448c859e703dbf2f6280e99439a521fe5",
+    "md5": "7805c36e4187fa4a31e7597bb2b560a7",
+    "size": 19272,
+    "generated_at": "2026-01-04T17:05:16.599125",
+    "plugin_id": "acf-css-woo-license",
+    "edition": "master",
+    "version": "22.0.6"
+  },
+  "acf-nudge-flow-master-v22.5.0.zip": {
+    "signature": "61c200fce091ae817359c39c90b00614130608a48cf4adc04a9f71af40326ce2",
+    "md5": "8f8968521b1dbf837f1320ae28cc282d",
+    "size": 63991,
+    "generated_at": "2026-01-04T20:37:07.738105",
+    "plugin_id": "acf-nudge-flow",
+    "edition": "master",
+    "version": "22.5.0"
+  },
+  "acf-code-snippets-box-master-v4.0.0.zip": {
+    "signature": "179a51ec108fb12c2eb78de3b6d2f170b727b6e45b5d151cf1b69187226dd450",
+    "md5": "0e87193858e64a56079510c3c56044b4",
+    "size": 137767,
+    "generated_at": "2026-01-04T22:11:45.080040",
+    "plugin_id": "acf-code-snippets",
+    "edition": "master",
+    "version": "4.0.0"
+  },
+  "acf-nudge-flow-master-v22.5.1.zip": {
+    "signature": "541624c09500c292d3a35b37992e8de58421f61bcb2da340425f3d55f6a11252",
+    "md5": "9842589ce0803dedc47c8f37375002ad",
+    "size": 547013,
+    "generated_at": "2026-01-04T21:37:03.075750",
+    "plugin_id": "acf-nudge-flow",
+    "edition": "master",
+    "version": "22.5.1"
+  },
+  "acf-nudge-flow-master-v22.5.2.zip": {
+    "signature": "75da35d3c45d046877b2cbf00fe30b5950581f2637ef2dbf560c84527b17ff1a",
+    "md5": "92f200db2ede57061ce710e1d6651577",
+    "size": 604218,
+    "generated_at": "2026-01-04T22:11:45.015485",
+    "plugin_id": "acf-nudge-flow",
+    "edition": "master",
+    "version": "22.5.2"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v23.0.2.zip": {
+    "signature": "e213293b714ea9fb59f815a50a45c77ac97925f03a2d2f8904f9db9c4f90a9a3",
+    "md5": "02593613553d506a0b11b67e213f053f",
+    "size": 893877,
+    "generated_at": "2026-01-04T22:11:44.835376",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "23.0.2"
+  },
+  "wp-bulk-manager-master-v23.0.1.zip": {
+    "signature": "08d5666b5d4ebe65f7595e6d85544a50e306092cda733e787cbaaa12539ae226",
+    "md5": "65220c3c9b6205fa368b0ed12be2e793",
+    "size": 44471,
+    "generated_at": "2026-01-04T22:11:44.877453",
+    "plugin_id": "wp-bulk-manager",
+    "edition": "master",
+    "version": "23.0.1"
+  },
+  "acf-css-woo-license-master-v23.0.0.zip": {
+    "signature": "5abde93313876cc8c6549f4afa1d60bddf6c4f05018d24a3a60731a190b13ad1",
+    "md5": "da2110c1b61c37d721c52870bf12226a",
+    "size": 19725,
+    "generated_at": "2026-01-04T22:11:45.185310",
+    "plugin_id": "acf-css-woo-license",
+    "edition": "master",
+    "version": "23.0.0"
+  }
+}

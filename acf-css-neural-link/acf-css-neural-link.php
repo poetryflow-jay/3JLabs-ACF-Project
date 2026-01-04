@@ -106,6 +106,12 @@ if ( defined( 'JJ_NEURAL_LINK_PATH' ) && function_exists( 'class_exists' ) ) {
             require_once $pattern_learner_admin_file;
         }
     }
+    
+    // Plugin List Enhancer 로드
+    $plugin_list_enhancer_file = dirname( dirname( __FILE__ ) ) . '/acf-css-really-simple-style-management-center-master/includes/class-jj-plugin-list-enhancer.php';
+    if ( file_exists( $plugin_list_enhancer_file ) ) {
+        require_once $plugin_list_enhancer_file;
+    }
 }
 
 /**
@@ -117,12 +123,32 @@ add_action( 'before_woocommerce_init', function() {
     }
 } );
 
+// 플러그인 목록 페이지 향상 초기화
+function jj_neural_link_init_plugin_list_enhancer() {
+    if ( class_exists( 'JJ_Plugin_List_Enhancer' ) ) {
+        $enhancer = new JJ_Plugin_List_Enhancer();
+        $enhancer->init( array(
+            'plugin_file' => __FILE__,
+            'plugin_name' => 'ACF CSS Neural Link',
+            'settings_url' => admin_url( 'admin.php?page=jj-license-manager' ),
+            'text_domain' => 'acf-css-neural-link',
+            'version_constant' => 'JJ_NEURAL_LINK_VERSION',
+            'license_constant' => 'JJ_LICENSE_MANAGER_LICENSE_TYPE',
+            'upgrade_url' => 'https://3j-labs.com/',
+            'docs_url' => admin_url( 'admin.php?page=jj-license-manager' ),
+            'support_url' => 'https://3j-labs.com/support',
+        ) );
+    }
+}
+add_action( 'plugins_loaded', 'jj_neural_link_init_plugin_list_enhancer', 25 );
+
 // 플러그인 초기화
 function jj_license_manager_init() {
-    // WooCommerce 활성화 확인
+    // WooCommerce 활성화 확인 (경고만 표시, 활성화는 허용)
     if ( ! class_exists( 'WooCommerce' ) ) {
         add_action( 'admin_notices', 'jj_license_manager_woocommerce_notice' );
-        return;
+        // WooCommerce가 없어도 플러그인은 활성화 가능하도록 계속 진행
+        // return; // 주석 처리하여 활성화 허용
     }
     
     // 메인 클래스 존재 확인 후 인스턴스 생성
@@ -133,18 +159,25 @@ function jj_license_manager_init() {
             require_once $main_class_file;
         } else {
             add_action( 'admin_notices', function() {
-                echo '<div class="notice notice-error"><p>';
+                echo '<div class="notice notice-warning"><p>';
                 echo '<strong>' . esc_html__( 'JJ License Manager', 'jj-license-manager' ) . '</strong>: ';
-                echo esc_html__( '필수 파일을 찾을 수 없습니다. 플러그인을 재설치해주세요.', 'jj-license-manager' );
+                echo esc_html__( '일부 파일을 찾을 수 없습니다. 플러그인 기능이 제한될 수 있습니다.', 'jj-license-manager' );
                 echo '</p></div>';
             } );
-            return;
+            // 파일이 없어도 플러그인은 활성화 가능하도록 계속 진행
+            // return; // 주석 처리하여 활성화 허용
         }
     }
     
-    // 메인 클래스 인스턴스 생성
+    // 메인 클래스 인스턴스 생성 (클래스가 있을 때만)
     if ( class_exists( 'JJ_License_Manager_Main' ) ) {
-        JJ_License_Manager_Main::instance();
+        try {
+            JJ_License_Manager_Main::instance();
+        } catch ( Exception $e ) {
+            if ( function_exists( 'error_log' ) ) {
+                error_log( 'JJ License Manager Init Error: ' . $e->getMessage() );
+            }
+        }
     }
     
     // Initialize Pattern Learner
@@ -239,15 +272,34 @@ function jj_license_manager_activate() {
  */
 register_deactivation_hook( __FILE__, 'jj_license_manager_deactivate' );
 function jj_license_manager_deactivate() {
-    // Cron 작업 제거
-    wp_clear_scheduled_hook( 'jj_license_manager_daily_check' );
+    try {
+        // Cron 작업 제거
+        if (function_exists('wp_clear_scheduled_hook')) {
+            wp_clear_scheduled_hook( 'jj_license_manager_daily_check' );
+        }
+    } catch (Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('JJ License Manager Deactivation Error: ' . $e->getMessage());
+        }
+    }
 }
 
 
 
-// Server API 로드
-require_once JJ_NEURAL_LINK_PATH . 'includes/api/class-jj-neural-link-server-api.php';
-add_action( 'plugins_loaded', array( 'JJ_Neural_Link_Server_API', 'instance' ) );
+// Server API 로드 (파일 존재 확인 후 로드)
+$server_api_file = JJ_NEURAL_LINK_PATH . 'includes/api/class-jj-neural-link-server-api.php';
+if (file_exists($server_api_file)) {
+    try {
+        require_once $server_api_file;
+        if (class_exists('JJ_Neural_Link_Server_API')) {
+            add_action( 'plugins_loaded', array( 'JJ_Neural_Link_Server_API', 'instance' ) );
+        }
+    } catch (Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('JJ Neural Link: Failed to load Server API: ' . $e->getMessage());
+        }
+    }
+}
 
 
 // Version Manager 로드 (관리자용)
@@ -275,27 +327,39 @@ if ( file_exists( JJ_NEURAL_LINK_PATH . 'includes/api/class-jj-neural-link-launc
 
 // [v4.2.0] JJ Plugin Updater - WordPress 업데이트 시스템 통합
 if ( file_exists( JJ_NEURAL_LINK_PATH . 'includes/class-jj-plugin-updater.php' ) ) {
-    require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-plugin-updater.php';
-    
-    add_action( 'admin_init', function() {
-        // Neural Link 자체 업데이트
-        if ( class_exists( 'JJ_Plugin_Updater' ) ) {
-            $license_key = get_option( 'jj_license_manager_license_key', '' );
-            $api_url = get_option( 'jj_license_manager_server_url', 'https://3j-labs.com' );
+    try {
+        require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-plugin-updater.php';
+        
+        add_action( 'admin_init', function() {
+            try {
+                // Neural Link 자체 업데이트
+                if ( class_exists( 'JJ_Plugin_Updater' ) ) {
+                    $license_key = get_option( 'jj_license_manager_license_key', '' );
+                    $api_url = get_option( 'jj_license_manager_server_url', 'https://3j-labs.com/' );
 
-            new JJ_Plugin_Updater(
-                $api_url,
-                __FILE__,
-                array(
-                    'version'   => JJ_NEURAL_LINK_VERSION,
-                    'license'   => $license_key,
-                    'item_name' => 'ACF CSS Neural Link',
-                    'author'    => '3J Labs',
-                    'beta'      => false,
-                )
-            );
+                    new JJ_Plugin_Updater(
+                        $api_url,
+                        __FILE__,
+                        array(
+                            'version'   => JJ_NEURAL_LINK_VERSION,
+                            'license'   => $license_key,
+                            'item_name' => 'ACF CSS Neural Link',
+                            'author'    => '3J Labs',
+                            'beta'      => false,
+                        )
+                    );
+                }
+            } catch (Exception $e) {
+                if (function_exists('error_log')) {
+                    error_log('JJ Neural Link: Plugin Updater init error: ' . $e->getMessage());
+                }
+            }
+        } );
+    } catch (Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('JJ Neural Link: Failed to load Plugin Updater: ' . $e->getMessage());
         }
-    } );
+    }
 }
 
 /**
@@ -306,19 +370,34 @@ if ( file_exists( JJ_NEURAL_LINK_PATH . 'includes/class-jj-plugin-updater.php' )
  */
 add_action( 'upgrader_process_complete', 'jj_neural_link_refresh_file_hashes', 10, 2 );
 function jj_neural_link_refresh_file_hashes( $upgrader_object, $options ) {
-    // 플러그인 업데이트인지 확인
-    if ( $options['action'] !== 'update' || $options['type'] !== 'plugin' ) {
-        return;
-    }
+    try {
+        // 플러그인 업데이트인지 확인
+        if ( !isset($options['action']) || !isset($options['type']) || $options['action'] !== 'update' || $options['type'] !== 'plugin' ) {
+            return;
+        }
 
-    // JJ_License_Security 클래스 로드
-    $security_file = JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-security.php';
-    if ( ! file_exists( $security_file ) ) {
-        return;
-    }
+        // JJ_License_Security 클래스 로드
+        $security_file = JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-security.php';
+        if ( ! file_exists( $security_file ) ) {
+            return;
+        }
 
-    require_once $security_file;
-    if ( ! class_exists( 'JJ_License_Security' ) || ! method_exists( 'JJ_License_Security', 'store_file_hashes' ) ) {
+        try {
+            require_once $security_file;
+        } catch (Exception $e) {
+            if (function_exists('error_log')) {
+                error_log('JJ Neural Link: Failed to load Security class in refresh: ' . $e->getMessage());
+            }
+            return;
+        }
+        
+        if ( ! class_exists( 'JJ_License_Security' ) || ! method_exists( 'JJ_License_Security', 'store_file_hashes' ) ) {
+            return;
+        }
+    } catch (Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('JJ Neural Link: Refresh file hashes error: ' . $e->getMessage());
+        }
         return;
     }
 
@@ -341,13 +420,19 @@ function jj_neural_link_refresh_file_hashes( $upgrader_object, $options ) {
     foreach ( $plugins as $plugin ) {
         foreach ( $jj_plugin_patterns as $pattern ) {
             if ( strpos( $plugin, $pattern ) !== false ) {
-                // 해당 플러그인 경로의 해시 갱신
-                $plugin_dir = WP_PLUGIN_DIR . '/' . dirname( $plugin ) . '/';
-                if ( is_dir( $plugin_dir ) ) {
-                    JJ_License_Security::store_file_hashes( $plugin_dir );
+                try {
+                    // 해당 플러그인 경로의 해시 갱신
+                    $plugin_dir = WP_PLUGIN_DIR . '/' . dirname( $plugin ) . '/';
+                    if ( is_dir( $plugin_dir ) ) {
+                        JJ_License_Security::store_file_hashes( $plugin_dir );
 
-                    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-                        error_log( '[Neural Link] File hashes refreshed for: ' . $plugin );
+                        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                            error_log( '[Neural Link] File hashes refreshed for: ' . $plugin );
+                        }
+                    }
+                } catch (Exception $e) {
+                    if (function_exists('error_log')) {
+                        error_log('JJ Neural Link: Failed to refresh file hashes for ' . $plugin . ': ' . $e->getMessage());
                     }
                 }
                 break;

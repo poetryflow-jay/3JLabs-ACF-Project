@@ -1,0 +1,51 @@
+ID	카테고리	세그먼트명	파라미터	설명
+1	방문이 시작되었을 때	사이트를 처음 방문한 방문객	-	첫 방문자 타겟팅
+2	방문이 시작되었을 때	사이트를 다시 방문한 방문객	-	재방문자 타겟팅
+3	방문이 시작되었을 때	누적 방문수가 OO회 이하인 방문객	visit_count_max	방문 횟수 제한
+4	방문이 시작되었을 때	누적 방문수가 OO회 이상인 방문객	visit_count_min	충성 방문자
+"5	방문이 시작되었을 때	누적 방문수가 OO회~OO회 사이인 방문객	visit_count_min, visit_count_max	구간 타겟팅"
+6	방문이 시작되었을 때	마지막 방문 이후 OO일 만에 다시 방문한 방문객	days_since_last_visit	재방문 주기
+7	방문이 시작되었을 때	마지막 방문 이후 OO일 이상 방문이 없었다가 다시 방문한 방문객	min_days_absence	휴면 복귀자
+"8	방문이 시작되었을 때	최근 OO일 동안 사이트를 OO회 이상 방문한 방문객	days_period, visit_count_min	활성 사용자"
+9	방문이 시작되었을 때	평균 체류시간이 OO초 이내인 방문객	avg_stay_seconds_max	이탈 위험
+10	방문이 시작되었을 때	평균 체류시간이 OO분 이상인 방문객	avg_stay_minutes_min	관심 고객
+11	방문이 시작되었을 때	평균 페이지뷰가 OO회 이하인 방문객	avg_pageview_max	-
+12	방문이 시작되었을 때	평균 페이지뷰가 OO회 이상인 방문객	avg_pageview_min	-
+13	방문이 시작되었을 때	OO시간대에 방문하는 방문객	visit_hour	시간대 타겟팅
+14	방문이 시작되었을 때	#페이지 에서 방문이 시작된 방문객	landing_page	랜딩페이지 기반
+15	방문이 시작되었을 때	#파라미터를 포함한 페이지에서 방문이 시작된 방문객	url_parameter	UTM 등 파라미터
+16	방문이 시작되었을 때	PC로 방문한 방문객	-	디바이스 필터
+17	방문이 시작되었을 때	모바일로 방문한 방문객	-	디바이스 필터
+18	방문이 시작되었을 때	#운영체제로 방문한 방문객	os_type	OS 타겟팅
+19	방문이 시작되었을 때	#브라우저로 방문한 방문객	browser_type	브라우저 타겟팅
+20	다른 사이트에서 방문했을 때	#검색엔진에서 방문한 방문객	search_engine	검색유입
+"21	다른 사이트에서 방문했을 때	#검색엔진에서 #검색어로 방문한 방문객	search_engine, keyword	키워드 타겟팅"
+22	다른 사이트에서 방문했을 때	#검색광고로 방문한 방문객	ad_source	검색광고 유입
+23	다른 사이트에서 방문했을 때	#캠페인으로 방문한 방문객	campaign	캠페인 추적
+24	다른 사이트에서 방문했을 때	#소셜미디어에서 방문한 방문객	social_media	SNS 유입
+25	다른 사이트에서 방문했을 때	#외부도메인 또는 URL에서 방문한 방문객	referrer_domain	레퍼러 추적
+"26	지정된 페이지를 봤을 때	#특정 페이지를 OO회 이상 보고 있는 방문객	page_url, view_count_min	페이지 관심도"
+"27	지정된 페이지를 봤을 때	#특정 페이지를 OO초 이상 보고 있는 방문객	page_url, stay_seconds_min	체류 기반"
+"28	지정된 페이지를 봤을 때	#콘텐츠 그룹을 OO일 동안 OO회 이상 본 방문객	content_group, days_period, view_count_min	콘텐츠 그룹"
+29	지정된 페이지를 봤을 때	방문 시작 후 페이지뷰가 OO회 이상인 방문객	session_pageview_min	세션 활동
+"30	지정된 페이지를 봤을 때	#페이지(A)에서 #페이지(B)로 이동한 방문객	page_from, page_to	이동 경로"
+31	특정 행동에 해당될 때	사이트에서 #내부검색어를 검색한 방문객	internal_search_keyword	내부 검색
+32	특정 행동에 해당될 때	사이트 내부 검색을 했으나 검색결과가 없는 경우	-	검색 실패
+33	특정 행동에 해당될 때	#회원가입 완료 페이지에 도달했을 때	signup_complete_page	회원가입 완료
+"34	특정 행동에 해당될 때	회원가입 정보입력 페이지를 보았으나 완료페이지까지 도달하지 못한 방문객	signup_form_page, signup_complete_page	가입 이탈"
+35	특정 행동에 해당될 때	회원가입일이 최근 OO일 이내인 회원	days_since_signup	신규 회원
+36	특정 행동에 해당될 때	로그인을 한 회원	-	로그인 회원
+37	특정 행동에 해당될 때	성별이 #남 #여 인 방문객	gender	성별 타겟팅
+38	특정 행동에 해당될 때	연령이 #10대이하~#60대이상 인 회원	age_group	연령 타겟팅
+39	특정 행동에 해당될 때	#회원탈퇴 페이지에 도달한 회원	withdrawal_page	탈퇴 위험
+40	전자 상거래	방문 시작 후 동일한 상품을 OO회 이상 본 방문객	product_view_count_min	상품 관심
+"41	전자 상거래	동일한 카테고리의 상품을 OO시간 동안 OO회 이상 본 방문객	category_id, hours_period, view_count_min	카테고리 관심"
+"42	전자 상거래	#특정 상품을 OO회 이상 보고 있는 방문객	product_id, view_count_min	특정 상품"
+"43	전자 상거래	#특정 카테고리를 OO회 이상 보고 있는 방문객	category_id, view_count_min	특정 카테고리"
+44	전자 상거래	위시리스트에 보관중인 상품이 OO개 이상인 방문객	wishlist_count_min	위시리스트
+45	전자 상거래	장바구니에 담긴 상품이 OO개 이상인 방문객	cart_item_count_min	장바구니
+46	전자 상거래	최근 OO일 이내 장바구니에 상품을 추가했으나 구매하지 않은 방문객	days_since_cart_add	장바구니 이탈
+47	전자 상거래	지금까지 구매수가 1회인 방문객	-	1회 구매자
+48	전자 상거래	누적 구매수가 2회 이상인 방문객	-	재구매자
+49	전자 상거래	구매 경험이 없는 방문객	-	비구매자
+50	전자 상거래	누적 구매액이 OO원 이상인 방문객	total_purchase_amount_min	VIP

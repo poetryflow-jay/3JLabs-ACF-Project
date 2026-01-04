@@ -1,0 +1,37 @@
+name,module_name,category,seo_factor,estimated_weight,impact,explanation,google_element,api_source
+Domain Authority,siteAuthority,Domain Authority,Domain Authority,10,High,도메인의 전반적인 권위와 신뢰성. PageRank와 백링크 품질을 종합적으로 평가합니다.,siteAuthority,Search Console API
+PageRank,PageRank,Link SEO,Backlink Quality,10,High,Google의 핵심 랭킹 요소. 홈페이지의 PageRank가 모든 문서 랭킹에 영향을 미칩니다.,PageRank,Search Console API
+Mobile Friendliness,Mobile SEO,Technical SEO,Mobile SEO,10,High,모바일 최적화가 검색 가시성에 미치는 영향. 반응형 디자인과 터치 타겟 크기가 중요합니다.,Mobile Friendliness,PageSpeed API / Search Console URL Inspection
+Core Web Vitals - LCP,PageSpeed API,Technical SEO,Page Speed,9,High,Largest Contentful Paint (LCP). PageSpeed API의 Loading Experience에서 제공하는 실제 사용자 메트릭입니다.,Core Web Vitals,PageSpeed API
+Core Web Vitals - FCP,PageSpeed API,Technical SEO,Page Speed,9,High,First Contentful Paint (FCP). PageSpeed API의 Lighthouse 결과에서 제공하는 성능 메트릭입니다.,Core Web Vitals,PageSpeed API
+Core Web Vitals - CLS,PageSpeed API,Technical SEO,Page Speed,9,High,Cumulative Layout Shift (CLS). PageSpeed API의 Lighthouse 결과와 Loading Experience에서 제공합니다.,Core Web Vitals,PageSpeed API
+Core Web Vitals - FID,PageSpeed API,Technical SEO,Page Speed,9,High,First Input Delay (FID). PageSpeed API의 Loading Experience에서 제공하는 실제 사용자 메트릭입니다.,Core Web Vitals,PageSpeed API
+Lighthouse Performance Score,PageSpeed API,Technical SEO,Page Speed,9,High,Lighthouse 성능 점수 (0-100). PageSpeed API의 LighthouseResult.categories.performance.score입니다.,Performance Score,PageSpeed API
+Lighthouse SEO Score,PageSpeed API,Technical SEO,SEO Score,9,High,Lighthouse SEO 점수 (0-100). PageSpeed API의 LighthouseResult.categories.seo.score입니다.,SEO Score,PageSpeed API
+Lighthouse Accessibility Score,PageSpeed API,Technical SEO,Accessibility,8,High,Lighthouse 접근성 점수 (0-100). PageSpeed API의 LighthouseResult.categories.accessibility.score입니다.,Accessibility Score,PageSpeed API
+Lighthouse Best Practices Score,PageSpeed API,Technical SEO,Best Practices,8,High,Lighthouse 모범 사례 점수 (0-100). PageSpeed API의 LighthouseResult.categories.best-practices.score입니다.,Best Practices Score,PageSpeed API
+Loading Experience Metrics,PageSpeed API,Technical SEO,Page Speed,9,High,실제 사용자 로딩 경험 메트릭. PageSpeed API의 LoadingExperience.metrics에서 제공하는 median, percentile 값입니다.,Loading Experience,PageSpeed API
+Brand Recognition,Brand Signals,Social Signals,Social Signals,9,High,Google 검색 외부에서의 브랜드 구축이 가장 중요합니다. 브랜드가 다른 모든 것보다 중요합니다.,Brand Recognition,Search Console API
+User Engagement - Clicks,Search Console API,User Experience,User Engagement,9,High,Search Console API의 SearchAnalytics에서 제공하는 클릭 수. Good Clicks 분석의 기반입니다.,Good Clicks,Search Console API
+User Engagement - CTR,Search Console API,User Experience,User Engagement,9,High,Search Console API의 SearchAnalytics에서 제공하는 CTR (Click-Through Rate). Navboost 시스템의 핵심 요소입니다.,CTR,Search Console API
+User Engagement - Impressions,Search Console API,User Experience,User Engagement,8,High,Search Console API의 SearchAnalytics에서 제공하는 노출 수. 검색 가시성의 핵심 지표입니다.,Impressions,Search Console API
+User Engagement - Position,Search Console API,User Experience,User Engagement,8,High,Search Console API의 SearchAnalytics에서 제공하는 평균 검색 순위. 순위 개선 추적에 필수입니다.,Position,Search Console API
+Content Quality,Originality Score,Content SEO,Content Quality,8,High,독창성 점수(0-512)와 YMYL 점수. 콘텐츠의 깊이와 품질을 평가합니다.,Originality Score,Search Console API
+Content Relevance,siteFocusScore,Content SEO,Content Relevance,8,High,사이트의 핵심 주제와 콘텐츠의 일치도. siteFocusScore와 siteRadius로 측정됩니다.,siteFocusScore,Search Console API
+Page Speed - TTFB,PageSpeed API,Technical SEO,Page Speed,8,High,Time to First Byte (TTFB). PageSpeed API의 Lighthouse audits에서 제공하는 서버 응답 시간입니다.,TTFB,PageSpeed API
+Page Speed - TBT,PageSpeed API,Technical SEO,Page Speed,8,High,Total Blocking Time (TBT). PageSpeed API의 Lighthouse audits에서 제공하는 JavaScript 실행 시간입니다.,TBT,PageSpeed API
+HTTPS Security,HTTPS/SSL,Security,HTTPS Security,8,High,암호화된 보안 연결의 중요성. SSL 인증서와 보안 헤더가 필요합니다.,HTTPS,PageSpeed API / Search Console URL Inspection
+Backlink Quality,PageRank,Link SEO,Backlink Quality,8,High,백링크의 품질, 관련성, 다양성. PageRank와 링크 매칭이 중요합니다.,Backlink Quality,Search Console API
+Structured Data,Schema.org,Technical SEO,Structured Data,7,Medium,Schema.org 마크업 사용의 이점. Rich Snippets 최적화에 필수입니다. PageSpeed API의 Lighthouse SEO audits에서 검증 가능합니다.,Schema.org,PageSpeed API / Search Console URL Inspection
+Title Optimization,titlematchScore,Content SEO,Title Optimization,7,Medium,제목-쿼리 매칭 점수. 키워드 기반 제목 생성이 중요합니다.,titlematchScore,Search Console API
+Content Freshness,semanticDate,Content SEO,Content Freshness,7,Medium,콘텐츠 신선도. semanticDate, syntacticDate, bylineDate를 최적화해야 합니다.,semanticDate,Search Console API
+Keyword Usage,avgTermWeight,Content SEO,Keyword Usage,7,Medium,효과적인 키워드 배치 및 밀도. avgTermWeight를 고려한 최적화가 필요합니다.,avgTermWeight,Search Console API
+Author Authority,Author Information,Content SEO,Author Authority,6,Medium,작성자 정보와 권위. Entity-Author 매칭이 중요합니다.,Author Information,Search Console API
+Internal Linking,Internal Links,Link SEO,Internal Linking,7,Medium,내부 링크 구조가 순위에 미치는 영향. 링크 깊이와 앵커 텍스트 최적화가 필요합니다.,Internal Linking,Search Console API
+Image Optimization,Image SEO,Technical SEO,Image Optimization,6,Medium,이미지 최적화가 순위에 미치는 영향. Alt 텍스트와 압축이 중요합니다. PageSpeed API의 Lighthouse audits에서 검증 가능합니다.,Image Optimization,PageSpeed API
+Social Signals,Social Media,Social Signals,Social Signals,6,Low,소셜 미디어의 존재가 순위에 미치는 영향. 브랜드 신호와 연관됩니다.,Social Signals,Search Console API
+Local SEO,Local Business,Local SEO,Local SEO,8,High,지역 검색 순위에 미치는 영향. 로컬 비즈니스의 경우 매우 중요합니다.,Local SEO,Search Console API
+URL Index Status,Search Console API,Technical SEO,Indexing,9,High,URL 인덱싱 상태. Search Console API의 UrlInspection.indexStatusResult에서 제공합니다.,Index Status,Search Console API
+Mobile Usability,Search Console API,Technical SEO,Mobile SEO,9,High,모바일 사용성 검사 결과. Search Console API의 UrlInspection.mobileUsabilityResult에서 제공합니다.,Mobile Usability,Search Console API
+AMP Status,Search Console API,Technical SEO,AMP,7,Medium,AMP 페이지 상태. Search Console API의 UrlInspection.ampResult에서 제공합니다.,AMP Status,Search Console API
+Rich Results,Search Console API,Technical SEO,Structured Data,7,Medium,Rich Results 검증 결과. Search Console API의 UrlInspection.richResultsResult에서 제공합니다.,Rich Results,Search Console API

@@ -58,12 +58,20 @@ jQuery(document).ready(function($) {
         var $btn = $(this);
         $btn.prop('disabled', true).text('추천 디자인 시스템 구축 중...');
 
+        // ajaxurl 또는 jj_admin_params.ajax_url 사용
+        var ajaxUrl = (typeof ajaxurl !== 'undefined') ? ajaxurl : 
+                      (typeof jj_admin_params !== 'undefined' && jj_admin_params.ajax_url) ? jj_admin_params.ajax_url : 
+                      '/wp-admin/admin-ajax.php';
+        
+        // nonce 가져오기
+        var nonce = (typeof jj_admin_params !== 'undefined' && jj_admin_params.nonce) ? jj_admin_params.nonce : '';
+
         $.ajax({
-            url: ajaxurl,
+            url: ajaxUrl,
             type: 'POST',
             data: {
                 action: 'jj_apply_recommended_setup',
-                security: jj_admin_params.nonce
+                security: nonce
             },
             success: function(response) {
                 if (response.success) {
@@ -73,12 +81,15 @@ jQuery(document).ready(function($) {
                         location.reload();
                     }, 1000);
                 } else {
-                    alert(response.data.message || '오류가 발생했습니다.');
+                    var errorMsg = (response.data && response.data.message) ? response.data.message : '오류가 발생했습니다.';
+                    alert(errorMsg);
                     $btn.prop('disabled', false).text('지금 바로 시작하기');
                 }
             },
-            error: function() {
-                alert('네트워크 오류가 발생했습니다.');
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', status, error);
+                console.error('Response:', xhr.responseText);
+                alert('네트워크 오류가 발생했습니다. 페이지를 새로고침한 후 다시 시도해주세요.');
                 $btn.prop('disabled', false).text('지금 바로 시작하기');
             }
         });

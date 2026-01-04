@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3J SEO Analyzer - Settings</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div class="options-container">
+        <header class="options-header">
+            <img src="../icons/icon48.png" alt="3J SEO">
+            <h1>3J SEO Analyzer Settings</h1>
+        </header>
+
+        <main class="options-content">
+            <section class="settings-section">
+                <h2>Display Settings</h2>
+                
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <label for="show-serp-overlay">SERP Overlay</label>
+                        <p>Show SEO analysis overlay on Google search results</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="show-serp-overlay" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <label for="auto-analyze">Auto Analyze</label>
+                        <p>Automatically analyze search results when page loads</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="auto-analyze" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>Rank Tracking</h2>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <label for="rank-frequency">Check Frequency</label>
+                        <p>How often to check keyword rankings (times per day)</p>
+                    </div>
+                    <select id="rank-frequency">
+                        <option value="2">2x daily</option>
+                        <option value="4">4x daily</option>
+                        <option value="6">6x daily</option>
+                        <option value="12">12x daily</option>
+                    </select>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <label for="search-country">Default Search Country</label>
+                        <p>Country for rank checking</p>
+                    </div>
+                    <select id="search-country">
+                        <option value="us">United States</option>
+                        <option value="kr">South Korea</option>
+                        <option value="jp">Japan</option>
+                        <option value="gb">United Kingdom</option>
+                        <option value="de">Germany</option>
+                        <option value="fr">France</option>
+                        <option value="au">Australia</option>
+                        <option value="ca">Canada</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>WordPress Sync</h2>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <label for="sync-wordpress">Auto Sync</label>
+                        <p>Automatically sync analysis data to connected WordPress sites</p>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="sync-wordpress" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+
+                <div class="connected-sites">
+                    <h3>Connected Sites</h3>
+                    <div id="sites-list" class="sites-list">
+                        <!-- Sites will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>Data Management</h2>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <label>Export Data</label>
+                        <p>Download all your keywords and ranking history</p>
+                    </div>
+                    <button id="export-data" class="btn btn-secondary">Export JSON</button>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-info">
+                        <label>Import Data</label>
+                        <p>Import previously exported data</p>
+                    </div>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    <button id="import-data" class="btn btn-secondary">Import JSON</button>
+                </div>
+
+                <div class="setting-row danger">
+                    <div class="setting-info">
+                        <label>Clear All Data</label>
+                        <p>Remove all keywords, rankings, and connected sites</p>
+                    </div>
+                    <button id="clear-data" class="btn btn-danger">Clear Data</button>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>About</h2>
+                <div class="about-info">
+                    <p><strong>3J SEO Analyzer</strong> v1.0.0</p>
+                    <p>Developed by <a href="https://3jlabs.com" target="_blank">3J Labs</a></p>
+                    <p>
+                        <a href="https://3jlabs.com/wp-bulk-seo/docs" target="_blank">Documentation</a> |
+                        <a href="https://3jlabs.com/support" target="_blank">Support</a> |
+                        <a href="https://3jlabs.com/privacy" target="_blank">Privacy Policy</a>
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="options-footer">
+            <button id="save-settings" class="btn btn-primary">Save Settings</button>
+            <span class="save-status" id="save-status"></span>
+        </footer>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>

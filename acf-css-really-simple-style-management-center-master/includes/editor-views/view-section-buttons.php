@@ -6,6 +6,11 @@
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// $options 변수가 없으면 기본값 사용
+if ( ! isset( $options ) || ! is_array( $options ) ) {
+    $options = array();
+}
+
 // '제련': 3종 버튼의 옵션 배열을 '모두' '로드'
 $btn_primary_options = $options['buttons']['primary'] ?? array();
 $btn_secondary_options = $options['buttons']['secondary'] ?? array();
@@ -63,7 +68,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
             $first_enabled_tab = $tab_enabled_primary ? 'btn-primary' : ( $tab_enabled_secondary ? 'btn-secondary' : 'btn-text' );
             ?>
             <?php if ( $tab_enabled_primary ) : ?>
-            <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'btn-primary' ) ? 'is-active' : ''; ?>" data-tab="btn-primary">
+            <button type="button" class="jj-tab-button <?php echo ( $first_enabled_tab === 'btn-primary' ) ? 'is-active' : ''; ?>" data-tab="btn-primary" data-tooltip="button-style">
                 <?php _e( '1. Primary Button', 'acf-css-really-simple-style-management-center' ); ?>
             </button>
             <?php endif; ?>
@@ -103,7 +108,19 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                         <div class="jj-control-group"><label><?php _e( '테두리 색상 (Normal & Hover)', 'acf-css-really-simple-style-management-center' ); ?></label><div class="jj-color-group"><input type="text" class="jj-color-field jj-data-field" data-setting-key="buttons[primary][border_color]" value="<?php echo esc_attr( $btn_primary_options['border_color'] ?? '' ); ?>" /><input type="text" class="jj-color-field jj-data-field" data-setting-key="buttons[primary][border_color_hover]" value="<?php echo esc_attr( $btn_primary_options['border_color_hover'] ?? '' ); ?>" /></div></div>
                     </fieldset>
                     <fieldset class="jj-control-group jj-fieldset-group jj-grid-2-col jj-section-subsection" id="jj-btn-primary-layout"><legend><?php _e( 'Layout', 'acf-css-really-simple-style-management-center' ); ?></legend>
-                        <div class="jj-control-group"><label for="jj-btn-primary-border-radius"><?php _e( 'Border Radius (px)', 'acf-css-really-simple-style-management-center' ); ?></label><input type="number" id="jj-btn-primary-border-radius" class="jj-data-field" data-setting-key="buttons[primary][border_radius]" value="<?php echo esc_attr( $btn_primary_options['border_radius'] ?? '' ); ?>" placeholder="예: 4" /></div>
+                        <div class="jj-control-group">
+                            <label for="jj-btn-primary-border-radius">
+                                <?php _e( 'Border Radius (px)', 'acf-css-really-simple-style-management-center' ); ?>
+                                <span class="dashicons dashicons-editor-help" style="font-size: 16px; color: #2271b1; cursor: help; margin-left: 4px;" data-tooltip="button-style"></span>
+                            </label>
+                            <input type="number" 
+                                   id="jj-btn-primary-border-radius" 
+                                   class="jj-data-field" 
+                                   data-setting-key="buttons[primary][border_radius]" 
+                                   value="<?php echo esc_attr( $btn_primary_options['border_radius'] ?? '' ); ?>" 
+                                   placeholder="예: 4"
+                                   data-tooltip="버튼의 모서리 둥글기를 설정합니다. 0px는 사각형, 값이 클수록 더 둥글어집니다." />
+                        </div>
                         <div class="jj-control-group"><label><?php _e( 'Padding (px)', 'acf-css-really-simple-style-management-center' ); ?></label><div class="jj-dimensions-group"><input type="number" class="jj-data-field" data-setting-key="buttons[primary][padding][top]" value="<?php echo esc_attr( $btn_primary_options['padding']['top'] ?? '' ); ?>" title="Top" placeholder="Top"><input type="number" class="jj-data-field" data-setting-key="buttons[primary][padding][right]" value="<?php echo esc_attr( $btn_primary_options['padding']['right'] ?? '' ); ?>" title="Right" placeholder="Right"><input type="number" class="jj-data-field" data-setting-key="buttons[primary][padding][bottom]" value="<?php echo esc_attr( $btn_primary_options['padding']['bottom'] ?? '' ); ?>" title="Bottom" placeholder="Bottom"><input type="number" class="jj-data-field" data-setting-key="buttons[primary][padding][left]" value="<?php echo esc_attr( $btn_primary_options['padding']['left'] ?? '' ); ?>" title="Left" placeholder="Left"></div></div>
                     </fieldset>
                     <fieldset class="jj-control-group jj-fieldset-group jj-section-subsection" id="jj-btn-primary-shadow"><legend><?php _e( 'Button Shadow', 'acf-css-really-simple-style-management-center' ); ?></legend>

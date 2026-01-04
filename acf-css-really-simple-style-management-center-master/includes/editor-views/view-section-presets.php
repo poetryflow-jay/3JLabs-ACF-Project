@@ -28,7 +28,10 @@ $presets = JJ_Style_Presets::instance()->get_presets();
                             <span style="width: 20px; height: 20px; border-radius: 50%; background: <?php echo esc_attr( $color ); ?>; border: 1px solid rgba(0,0,0,0.05);"></span>
                         <?php endforeach; ?>
                     </div>
-                    <button type="button" class="button button-primary jj-import-preset-btn" style="width: 100%; height: 40px; border-radius: 8px; font-weight: 600;">
+                    <button type="button" 
+                            class="button button-primary jj-import-preset-btn" 
+                            style="width: 100%; height: 40px; border-radius: 8px; font-weight: 600;"
+                            data-tooltip="preset-apply">
                         <?php _e( '프리셋 적용하기', 'acf-css-really-simple-style-management-center' ); ?>
                     </button>
                 </div>

@@ -34,6 +34,7 @@ class ACF_CSB_Presets {
     /**
      * 초기화
      * [v2.3.3] 프리셋 토글 기능 추가
+     * [v4.2.0] 검색 및 필터 기능 추가
      */
     public function init() {
         add_action( 'wp_ajax_acf_csb_get_presets', array( $this, 'ajax_get_presets' ) );
@@ -41,6 +42,8 @@ class ACF_CSB_Presets {
         add_action( 'wp_ajax_acf_csb_check_preset_exists', array( $this, 'ajax_check_preset_exists' ) );
         add_action( 'wp_ajax_acf_csb_create_preset_snippet', array( $this, 'ajax_create_preset_snippet' ) );
         add_action( 'wp_ajax_acf_csb_toggle_preset', array( $this, 'ajax_toggle_preset' ) );
+        add_action( 'wp_ajax_acf_csb_search_presets', array( $this, 'ajax_search_presets' ) );
+        add_action( 'wp_ajax_acf_csb_get_preset_categories', array( $this, 'ajax_get_categories' ) );
     }
     
     /**
@@ -116,7 +119,7 @@ class ACF_CSB_Presets {
                 $presets = self::get_js_presets();
                 break;
             case 'php':
-                $presets = self::get_php_presets();
+                $presets = self::get_php_presets(); // 우커머스 프리셋 포함
                 break;
             case 'woocommerce_php':
                 $presets = self::get_woocommerce_php_presets();
@@ -135,11 +138,11 @@ class ACF_CSB_Presets {
         
         $preset = $presets[ $preset_id ];
         
-        // 새 스니펫 생성
+        // 새 스니펫 생성 (원클릭 추가: 바로 활성화)
         $post_id = wp_insert_post( array(
             'post_title'   => $preset['name'],
             'post_type'    => 'acf_code_snippet',
-            'post_status'  => 'draft', // 초기 비활성화 상태
+            'post_status'  => 'publish', // 바로 발행
         ) );
         
         if ( is_wp_error( $post_id ) ) {
@@ -151,9 +154,13 @@ class ACF_CSB_Presets {
         update_post_meta( $post_id, '_acf_csb_code_type', $preset_type );
         update_post_meta( $post_id, '_acf_csb_preset_id', $preset_id );
         update_post_meta( $post_id, '_acf_csb_preset_type', $preset_type );
-        update_post_meta( $post_id, '_acf_csb_enabled', '0' ); // 초기 비활성화
+        update_post_meta( $post_id, '_acf_csb_enabled', '1' ); // 원클릭 추가: 바로 활성화
         
-        wp_send_json_success( array( 'post_id' => $post_id ) );
+        wp_send_json_success( array( 
+            'post_id' => $post_id,
+            'enabled' => true,
+            'message' => __( '프리셋이 활성화되었습니다.', 'acf-code-snippets-box' )
+        ) );
     }
     
     /**
@@ -261,6 +268,7 @@ class ACF_CSB_Presets {
                 'name'        => __( '스크롤바 숨기기', 'acf-code-snippets-box' ),
                 'description' => __( '스크롤바를 숨기면서 스크롤은 유지합니다.', 'acf-code-snippets-box' ),
                 'category'    => 'ux',
+                'tags'        => array( 'scrollbar', 'hide', 'ux', 'design' ),
                 'code'        => "/* 스크롤바 숨기기 */\n::-webkit-scrollbar {\n    display: none;\n}\nbody {\n    -ms-overflow-style: none;\n    scrollbar-width: none;\n}",
             ),
             'text-selection' => array(
@@ -363,11 +371,11 @@ class ACF_CSB_Presets {
                 'code'        => "// 이미지 지연 로딩\nif ('IntersectionObserver' in window) {\n    const imgObserver = new IntersectionObserver((entries) => {\n        entries.forEach(entry => {\n            if (entry.isIntersecting) {\n                const img = entry.target;\n                if (img.dataset.src) {\n                    img.src = img.dataset.src;\n                    img.removeAttribute('data-src');\n                    imgObserver.unobserve(img);\n                }\n            }\n        });\n    });\n    \n    document.querySelectorAll('img[data-src]').forEach(img => {\n        imgObserver.observe(img);\n    });\n}",
             ),
             'wc-minicart-ui-fix' => array(
-                'name'        => __( 'RealDeal 미니카트 UI 최종 해결사 v15.0', 'acf-code-snippets-box' ),
-                'description' => __( '미니카트의 내용물 과다 문제 해결 및 번역어 교체 (저장→절약).', 'acf-code-snippets-box' ),
+                'name'        => __( '미니카트 UI 개선 v15.0', 'acf-code-snippets-box' ),
+                'description' => __( '미니카트 상품 담기 과다 문제 원천 방지 및 할인가 상품 절약 표시 기능을 제공합니다.', 'acf-code-snippets-box' ),
                 'category'    => 'woocommerce',
                 'pro_only'    => false,
-                'code'        => "jQuery(function($) {\n    function runFinalFix() {\n        const slideoutContainer = $('#generate-slideout-menu');\n        if (!slideoutContainer.length) return;\n\n        // 1. 내용물 과다 문제 해결 (외과수술)\n        const cartItems = slideoutContainer.find('.woocommerce-mini-cart-item');\n        cartItems.each(function() {\n            const item = $(this);\n            const productNameElement = item.find('.product-name');\n            if (productNameElement.length) {\n                const productLink = productNameElement.find('a').first();\n                if (productLink.length) {\n                    productNameElement.html(productLink);\n                }\n            }\n        });\n\n        // 2. '저장' -> '절약' 번역 문제 해결\n        slideoutContainer.find('*').contents().filter(function() {\n            return this.nodeType === 3 && this.nodeValue.includes('저장');\n        }).each(function() {\n            this.nodeValue = this.nodeValue.replace(/저장/g, '절약');\n        });\n    }\n\n    $(document.body).on('added_to_cart', function() {\n        setTimeout(runFinalFix, 150);\n    });\n\n    $(document.body).on('qaac_added_to_cart', function() {\n        setTimeout(runFinalFix, 150);\n    });\n    \n    $(document).on('click', '.slideout-toggle', function() {\n        setTimeout(runFinalFix, 250);\n    });\n\n    const observer = new MutationObserver(function() {\n        runFinalFix();\n    });\n    const targetNode = document.getElementById('generate-slideout-menu');\n    if (targetNode) {\n        observer.observe(targetNode, {\n            childList: true,\n            subtree: true\n        });\n    }\n\n    setTimeout(runFinalFix, 500);\n});",
+                'code'        => "jQuery(function($) {\n    function runMinicartFix() {\n        const slideoutContainer = $('#generate-slideout-menu');\n        if (!slideoutContainer.length) return;\n\n        // 1. 미니카트 상품명 영역 정리 (불필요한 요소 제거)\n        const cartItems = slideoutContainer.find('.woocommerce-mini-cart-item');\n        cartItems.each(function() {\n            const item = $(this);\n            const productNameElement = item.find('.product-name');\n            if (productNameElement.length) {\n                const productLink = productNameElement.find('a').first();\n                if (productLink.length) {\n                    productNameElement.html(productLink);\n                }\n            }\n        });\n\n        // 2. 할인가 상품의 '저장' 텍스트를 '절약'으로 교체\n        slideoutContainer.find('*').contents().filter(function() {\n            return this.nodeType === 3 && this.nodeValue.includes('저장');\n        }).each(function() {\n            this.nodeValue = this.nodeValue.replace(/저장/g, '절약');\n        });\n    }\n\n    $(document.body).on('added_to_cart', function() {\n        setTimeout(runMinicartFix, 150);\n    });\n\n    $(document.body).on('qaac_added_to_cart', function() {\n        setTimeout(runMinicartFix, 150);\n    });\n    \n    $(document).on('click', '.slideout-toggle', function() {\n        setTimeout(runMinicartFix, 250);\n    });\n\n    const observer = new MutationObserver(function() {\n        runMinicartFix();\n    });\n    const targetNode = document.getElementById('generate-slideout-menu');\n    if (targetNode) {\n        observer.observe(targetNode, {\n            childList: true,\n            subtree: true\n        });\n    }\n\n    setTimeout(runMinicartFix, 500);\n});",
             ),
             'wc-variation-selector' => array(
                 'name'        => __( '옵션상품 변형 선택 기능', 'acf-code-snippets-box' ),
@@ -413,6 +421,28 @@ class ACF_CSB_Presets {
                 'description' => __( '관리자 페이지 하단 텍스트를 변경합니다.', 'acf-code-snippets-box' ),
                 'category'    => 'branding',
                 'code'        => "// 관리자 푸터 텍스트 변경\nadd_filter('admin_footer_text', function() {\n    return '© ' . date('Y') . ' ' . get_bloginfo('name') . ' - Powered by <a href=\"https://3j-labs.com\">3J Labs</a>';\n});",
+            ),
+            // WooCommerce 가격 시스템 프리셋 통합
+            'wc-product-edit-installment-calculator' => array(
+                'name'        => __( '상품 편집: 할부 개월 수 및 할인 계산기', 'acf-code-snippets-box' ),
+                'description' => __( '상품 편집 메타박스에 할부 개월 수 설정(12개월 포함)과 할인 계산기를 추가합니다. 퍼센트 또는 금액 기반 할인을 실시간으로 계산할 수 있습니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => false,
+                'code'        => "<?php\n// 상품 편집 메타박스에 추가할 필드들\nadd_action('woocommerce_product_options_pricing', 'add_advanced_pricing_fields');\nfunction add_advanced_pricing_fields() {\n    ?>\n    <div class=\"options_group pricing show_if_simple\">\n        <?php\n        // 할부 개월 수 설정\n        woocommerce_wp_select([\n            'id' => '_installment_months',\n            'label' => __('할부 개월 수', 'acf-code-snippets-box'),\n            'options' => [\n                '1' => '일시불',\n                '3' => '3개월',\n                '6' => '6개월',\n                '12' => '12개월',\n                '24' => '24개월'\n            ],\n            'desc_tip' => true,\n            'description' => __('정가와 할인가 모두에 적용됩니다', 'acf-code-snippets-box')\n        ]);\n        ?>\n        \n        <!-- 할인 계산기 섹션 -->\n        <div class=\"discount-calculator\" style=\"border: 1px solid #ddd; padding: 10px; margin: 10px 0;\">\n            <h4>할인 계산기</h4>\n            <p>\n                <label>할인 적용:</label>\n                <input type=\"number\" id=\"discount_percent\" placeholder=\"%\" style=\"width: 60px;\">\n                <button type=\"button\" class=\"button apply-percent-discount\">% 적용</button>\n                <span style=\"margin: 0 10px;\">또는</span>\n                <input type=\"number\" id=\"discount_amount\" placeholder=\"원\" style=\"width: 100px;\">\n                <button type=\"button\" class=\"button apply-amount-discount\">금액 차감</button>\n            </p>\n            <div id=\"discount-preview\" style=\"background: #f5f5f5; padding: 8px; margin-top: 10px; display: none;\">\n                <strong>계산 결과:</strong>\n                <span id=\"preview-text\"></span>\n            </div>\n        </div>\n    </div>\n    \n    <script>\n    jQuery(document).ready(function(\$) {\n        // 퍼센트 할인 적용\n        \$('.apply-percent-discount').click(function() {\n            var regular = parseFloat(\$('#_regular_price').val());\n            var percent = parseFloat(\$('#discount_percent').val());\n            \n            if (regular && percent) {\n                var discount_amount = regular * (percent / 100);\n                var sale_price = regular - discount_amount;\n                \n                \$('#_sale_price').val(sale_price.toFixed(0));\n                \n                // 미리보기 업데이트\n                \$('#discount-preview').show();\n                \$('#preview-text').html(\n                    '정가 ' + regular.toLocaleString() + '원에서 ' +\n                    percent + '% 할인 → ' +\n                    '<strong style=\"color: #e74c3c;\">' + sale_price.toLocaleString() + '원</strong>' +\n                    ' (할인액: ' + discount_amount.toLocaleString() + '원)'\n                );\n                \n                // 할부 가격도 함께 표시\n                var months = \$('#_installment_months').val();\n                if (months > 1) {\n                    var monthly = sale_price / months;\n                    \$('#preview-text').append(\n                        '<br>월 ' + monthly.toLocaleString() + '원 × ' + months + '개월'\n                    );\n                }\n            }\n        });\n        \n        // 금액 할인 적용\n        \$('.apply-amount-discount').click(function() {\n            var regular = parseFloat(\$('#_regular_price').val());\n            var discount = parseFloat(\$('#discount_amount').val());\n            \n            if (regular && discount) {\n                var sale_price = regular - discount;\n                var percent = (discount / regular) * 100;\n                \n                \$('#_sale_price').val(sale_price.toFixed(0));\n                \n                \$('#discount-preview').show();\n                \$('#preview-text').html(\n                    '정가 ' + regular.toLocaleString() + '원에서 ' +\n                    discount.toLocaleString() + '원 할인 → ' +\n                    '<strong style=\"color: #e74c3c;\">' + sale_price.toLocaleString() + '원</strong>' +\n                    ' (' + percent.toFixed(1) + '% 할인)'\n                );\n            }\n        });\n    });\n    </script>\n    <?php\n}",
+            ),
+            'wc-universal-installment-display' => array(
+                'name'        => __( '할부 및 할인 가격 표시 v6.0 (12개월 할부 포함)', 'acf-code-snippets-box' ),
+                'description' => __( '할인 가격 기준 할부 계산, 할인율 자동 계산, 정가/할인가 표기, 12개월 할부 표시를 포함한 통합 가격 표시 시스템입니다.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => false,
+                'code'        => "<?php\n/**\n * WooCommerce 할부 및 할인 가격 표시 시스템 v6.0\n * 할인율, 정가/할인가 표기, 12개월 할부 표시 포함\n */\n\n// 프론트엔드 가격 표시 로직 필터링\nadd_filter( 'woocommerce_get_price_html', 'wc_advanced_price_display_v6', 100, 2 );\n\nfunction wc_advanced_price_display_v6( \$price_html, \$product ) {\n    if ( is_admin() || \$product->is_type('variable') ) {\n        return \$price_html;\n    }\n\n    \$months = get_post_meta( \$product->get_id(), 'installment_months', true );\n    \$installment_html = '';\n\n    \$regular_price = (float) \$product->get_regular_price();\n    \$sale_price = (float) \$product->get_sale_price();\n\n    if ( ! empty( \$months ) && is_numeric( \$months ) && \$months > 0 ) {\n        \$price_for_installment = !empty(\$sale_price) && \$product->is_on_sale() ? \$sale_price : \$regular_price;\n        \n        if (\$price_for_installment > 0) {\n            \$installment_price = round( ( \$price_for_installment / \$months ), -2 );\n            \$installment_html = '<br><small class=\"wc-installment-price\">(월 ' . number_format_i18n( \$installment_price ) . '원 / ' . esc_html( \$months ) . '개월)</small>';\n        }\n    }\n\n    if ( \$product->is_on_sale() && !empty(\$sale_price) && \$regular_price > \$sale_price ) {\n        \$saved_amount = \$regular_price - \$sale_price;\n        \$discount_percentage = round( ( \$saved_amount / \$regular_price ) * 100 );\n\n        \$new_price_html = sprintf(\n            '<div class=\"wc-price-wrapper\">' .\n            '<span class=\"wc-discount-badge\">%s%% OFF</span>' .\n            '<del aria-hidden=\"true\">%s</del> <ins>%s</ins>' .\n            '%s' .\n            '</div>',\n            \$discount_percentage,\n            wc_price( \$regular_price ),\n            wc_price( \$sale_price ),\n            \$installment_html\n        );\n        return \$new_price_html;\n    } \n    elseif (\$regular_price > 0) {\n        return wc_price( \$regular_price ) . \$installment_html;\n    }\n\n    return \$price_html;\n}\n\n// 관리자 페이지에 할인 정보 표시\nadd_action( 'woocommerce_product_options_pricing', 'wc_display_discount_info_in_admin' );\n\nfunction wc_display_discount_info_in_admin() {\n    global \$product_object;\n\n    if ( ! \$product_object ) {\n        return;\n    }\n\n    \$regular_price = (float) \$product_object->get_regular_price();\n    \$sale_price = (float) \$product_object->get_sale_price();\n\n    echo '<div class=\"options_group show_if_simple\">';\n\n    if ( \$product_object->is_on_sale() && !empty(\$sale_price) && \$regular_price > \$sale_price ) {\n        \$saved_amount = \$regular_price - \$sale_price;\n        \$discount_percentage = round( ( \$saved_amount / \$regular_price ) * 100 );\n        \n        \$admin_info_html = sprintf(\n            '<p class=\"form-field\">' .\n            '<label style=\"color: #0383FE; font-weight: bold;\">할인 정보</label>' .\n            '<span style=\"display: block; padding-top: 5px;\">' .\n            '<strong>%d%% 할인</strong> / %s 절약' .\n            '</span>' .\n            '</p>',\n            \$discount_percentage,\n            wp_strip_all_tags( wc_price( \$saved_amount ) )\n        );\n        echo \$admin_info_html;\n    } else {\n        echo '<p class=\"form-field\"><label style=\"color: #6B7280;\">할인 정보</label><span style=\"display: block; padding-top: 5px;\">현재 할인 중인 상품이 아닙니다.</span></p>';\n    }\n\n    echo '</div>';\n}",
+            ),
+            'wc-realdeal-price-system' => array(
+                'name'        => __( 'WooCommerce 가격 시스템 v11.0 (통합)', 'acf-code-snippets-box' ),
+                'description' => __( '빠른 편집, 가격 계산 엔진, 모듈형 숏코드, 통합 숏코드를 포함한 완전한 가격 시스템입니다. 할인율, 정가/할인가, 12개월 할부 표기 포함.', 'acf-code-snippets-box' ),
+                'category'    => 'woocommerce',
+                'pro_only'    => false,
+                'code'        => "<?php\n/**\n * WooCommerce 가격 시스템 v11.0\n *\n * 관리자 경험과 고객 경험 모두를 위한 모든 가격 관련 기능을 포함합니다.\n * - PART 1: 관리자 '빠른 편집' 기능 강화\n * - PART 2: 모든 가격 계산을 처리하는 핵심 엔진 함수\n * - PART 3: 유연한 디자인을 위한 모듈형(Atomic) 숏코드\n * - PART 4: 빠르고 간편한 적용을 위한 통합(All-in-One) 숏코드\n */\n\n// PART 1: 관리자 '빠른 편집' 기능 강화 =================================\nadd_action( 'woocommerce_product_quick_edit_end', 'wc_add_quick_edit_fields' );\nif ( ! function_exists('wc_add_quick_edit_fields') ) {\n    function wc_add_quick_edit_fields() {\n        wp_nonce_field( 'wc_quick_edit_nonce', 'wc_quick_edit_nonce_field' );\n        ?>\n        <div class=\"quick-edit-custom-fields\">\n            <h4>가격 상세 설정</h4>\n            <label>\n                <span class=\"title\">할인 가격</span>\n                <span class=\"input-text-wrap\">\n                    <input type=\"text\" name=\"_sale_price\" class=\"wc_input_price\" placeholder=\"할인 가격\">\n                </span>\n            </label>\n            <label>\n                <span class=\"title\">할부 개월 수</span>\n                <span class=\"input-text-wrap\">\n                    <input type=\"number\" name=\"installment_months\" placeholder=\"개월 수 (숫자만)\">\n                </span>\n            </label>\n        </div>\n        <?php\n    }\n}\n\nadd_action( 'woocommerce_product_quick_edit_save', 'wc_save_quick_edit_fields' );\nif ( ! function_exists('wc_save_quick_edit_fields') ) {\n    function wc_save_quick_edit_fields( \$product ) {\n        if ( ! isset( \$_POST['wc_quick_edit_nonce_field'] ) || ! wp_verify_nonce( \$_POST['wc_quick_edit_nonce_field'], 'wc_quick_edit_nonce' ) ) return;\n        if ( isset( \$_POST['_sale_price'] ) ) {\n            \$product->set_sale_price( wc_clean( \$_POST['_sale_price'] ) );\n        }\n        if ( isset( \$_POST['installment_months'] ) ) {\n            \$product->update_meta_data( 'installment_months', absint( \$_POST['installment_months'] ) );\n        }\n        \$product->save();\n    }\n}\n\nadd_action( 'manage_product_posts_custom_column', 'wc_quick_edit_data_column', 10, 2 );\nif ( ! function_exists('wc_quick_edit_data_column') ) {\n    function wc_quick_edit_data_column( \$column, \$post_id ) {\n        if (\$column == 'price') {\n            \$product = wc_get_product(\$post_id);\n            if (\$product) {\n                echo '<div class=\"hidden installment_months\">' . esc_html(\$product->get_meta('installment_months')) . '</div>';\n                echo '<div class=\"hidden sale_price\">' . esc_html(\$product->get_sale_price()) . '</div>';\n            }\n        }\n    }\n}\n\n// PART 2: 핵심 계산 엔진 함수 ==========================================\nif ( ! function_exists( 'wc_get_price_data' ) ) {\n    function wc_get_price_data( \$product ) {\n        if ( ! is_a( \$product, 'WC_Product' ) ) return null;\n        \$data = [\n            'regular_price'       => (float) \$product->get_regular_price(),\n            'sale_price'          => (float) \$product->get_sale_price(),\n            'is_on_sale'          => \$product->is_on_sale(),\n            'saved_amount'        => 0,\n            'discount_percentage' => 0,\n            'installment_months'  => (int) get_post_meta( \$product->get_id(), 'installment_months', true ),\n            'installment_price'   => 0,\n        ];\n        if ( \$data['is_on_sale'] && ! empty( \$data['sale_price'] ) && \$data['regular_price'] > \$data['sale_price'] ) {\n            \$data['saved_amount'] = \$data['regular_price'] - \$data['sale_price'];\n            if (\$data['regular_price'] > 0) {\n                \$data['discount_percentage'] = round( ( \$data['saved_amount'] / \$data['regular_price'] ) * 100 );\n            }\n        }\n        if ( \$data['installment_months'] > 0 ) {\n            \$price_for_installment = \$data['is_on_sale'] && !empty(\$data['sale_price']) ? \$data['sale_price'] : \$data['regular_price'];\n            if ( \$price_for_installment > 0 ) {\n                \$data['installment_price'] = round( ( \$price_for_installment / \$data['installment_months'] ), -2 );\n            }\n        }\n        return \$data;\n    }\n}\n\n// PART 3: 유연한 디자인을 위한 모듈형(Atomic) 숏코드 ======================\n\$modular_shortcodes = [\n    'wc_badge' => function(\$data) {\n        if ( \$data['discount_percentage'] > 0 ) return '<span class=\"wc-discount-badge\">' . \$data['discount_percentage'] . '% OFF</span>';\n    },\n    'wc_summary' => function(\$data) {\n        if ( \$data['saved_amount'] > 0 ) return '<div class=\"wc-discount-summary\">✨ ' . wp_strip_all_tags( wc_price( \$data['saved_amount'] ) ) . ' 절약</div>';\n    },\n    'wc_regular_price' => function(\$data) {\n        if ( \$data['is_on_sale'] ) return '<del aria-hidden=\"true\">' . wc_price( \$data['regular_price'] ) . '</del>';\n    },\n    'wc_sale_price' => function(\$data) {\n        return '<ins>' . wc_price( \$data['is_on_sale'] ? \$data['sale_price'] : \$data['regular_price'] ) . '</ins>';\n    },\n    'wc_installments' => function(\$data) {\n        if ( \$data['installment_price'] > 0 ) return '<small class=\"wc-installment-price\">(월 ' . number_format_i18n( \$data['installment_price'] ) . '원 / ' . \$data['installment_months'] . '개월)</small>';\n    }\n];\n\nforeach ( \$modular_shortcodes as \$code => \$function ) {\n    if ( ! shortcode_exists( \$code ) ) {\n        add_shortcode( \$code, function() use ( \$function ) {\n            global \$product;\n            if ( ! \$product ) \$product = wc_get_product( get_the_ID() );\n            if ( ! \$product ) return '';\n            \$price_data = wc_get_price_data( \$product );\n            return \$price_data ? \$function( \$price_data ) : '';\n        });\n    }\n}\n\n// PART 4: 빠르고 간편한 적용을 위한 통합(All-in-One) 숏코드 ============\nif ( ! shortcode_exists( 'wc_price' ) ) {\n    add_shortcode( 'wc_price', function() {\n        global \$product;\n        if ( ! \$product ) \$product = wc_get_product( get_the_ID() );\n        if ( ! \$product ) return '';\n\n        \$data = wc_get_price_data( \$product );\n        if ( !\$data ) return '';\n\n        \$badge_html = \$data['discount_percentage'] > 0 ? '<span class=\"wc-discount-badge\">' . \$data['discount_percentage'] . '% OFF</span>' : '';\n        \$summary_html = \$data['saved_amount'] > 0 ? '<div class=\"wc-discount-summary\">✨ ' . wp_strip_all_tags( wc_price( \$data['saved_amount'] ) ) . ' 절약</div>' : '';\n        \$installments_html = \$data['installment_price'] > 0 ? '<br><small class=\"wc-installment-price\">(월 ' . number_format_i18n( \$data['installment_price'] ) . '원 / ' . \$data['installment_months'] . '개월)</small>' : '';\n\n        if ( \$data['is_on_sale'] ) {\n            \$price_html = '<del>' . wc_price( \$data['regular_price'] ) . '</del> <ins>' . wc_price( \$data['sale_price'] ) . '</ins>';\n        } else {\n            \$price_html = '<ins>' . wc_price( \$data['regular_price'] ) . '</ins>';\n        }\n        \n        return sprintf('<div class=\"wc-price-wrapper price\">%s%s%s%s</div>', \$badge_html, \$summary_html, \$price_html, \$installments_html);\n    });\n}\n\n// 번역어 교체 (저장 -> 절약)\nadd_filter( 'gettext', 'wc_fix_translation', 20, 3 );\nfunction wc_fix_translation( \$translated_text, \$text, \$domain ) {\n    if ( 'Saved' === \$text && '저장' === \$translated_text ) {\n        \$translated_text = '절약';\n    }\n    return \$translated_text;\n}\n\n// 장바구니 UI 정리\nadd_filter( 'woocommerce_cart_item_name', 'wc_cleanup_cart_item_name', 100, 3 );\nfunction wc_cleanup_cart_item_name( \$product_name, \$cart_item, \$cart_item_key ) {\n    if ( is_cart() || is_checkout() || ( defined('WOOCOMMERCE_CART') && WOOCOMMERCE_CART ) ) {\n        \$_product = apply_filters( 'woocommerce_cart_item_product', \$cart_item['data'], \$cart_item, \$cart_item_key );\n        \$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', \$_product->is_visible() ? \$_product->get_permalink( \$cart_item ) : '', \$cart_item, \$cart_item_key );\n        if ( \$product_permalink ) {\n            return sprintf( '<a href=\"%s\">%s</a>', esc_url( \$product_permalink ), \$_product->get_name() );\n        } else {\n            return \$_product->get_name();\n        }\n    }\n    return \$product_name;\n}",
             ),
         );
     }
@@ -460,10 +490,10 @@ class ACF_CSB_Presets {
             ),
             'wc-product-edit-installment-calculator' => array(
                 'name'        => __( '상품 편집: 할부 개월 수 및 할인 계산기', 'acf-code-snippets-box' ),
-                'description' => __( '상품 편집 메타박스에 할부 개월 수 설정과 할인 계산기를 추가합니다.', 'acf-code-snippets-box' ),
+                'description' => __( '상품 편집 메타박스에 할부 개월 수 설정과 할인 계산기를 추가합니다. 퍼센트 또는 금액 기반 할인을 실시간으로 계산할 수 있습니다.', 'acf-code-snippets-box' ),
                 'category'    => 'woocommerce',
                 'pro_only'    => false,
-                'code'        => "<?php\n// 상품 편집 메타박스에 추가할 필드들\nadd_action('woocommerce_product_options_pricing', 'add_advanced_pricing_fields');\nfunction add_advanced_pricing_fields() {\n    ?>\n    <div class=\"options_group pricing show_if_simple\">\n        <?php\n        // 할부 개월 수 설정\n        woocommerce_wp_select([\n            'id' => '_installment_months',\n            'label' => __('할부 개월 수', 'realdeal'),\n            'options' => [\n                '1' => '일시불',\n                '3' => '3개월',\n                '6' => '6개월',\n                '12' => '12개월',\n                '24' => '24개월'\n            ],\n            'desc_tip' => true,\n            'description' => __('정가와 할인가 모두에 적용됩니다', 'realdeal')\n        ]);\n        ?>\n        \n        <!-- 할인 계산기 섹션 -->\n        <div class=\"discount-calculator\" style=\"border: 1px solid #ddd; padding: 10px; margin: 10px 0;\">\n            <h4>할인 계산기</h4>\n            <p>\n                <label>할인 적용:</label>\n                <input type=\"number\" id=\"discount_percent\" placeholder=\"%\" style=\"width: 60px;\">\n                <button type=\"button\" class=\"button apply-percent-discount\">% 적용</button>\n                <span style=\"margin: 0 10px;\">또는</span>\n                <input type=\"number\" id=\"discount_amount\" placeholder=\"원\" style=\"width: 100px;\">\n                <button type=\"button\" class=\"button apply-amount-discount\">금액 차감</button>\n            </p>\n            <div id=\"discount-preview\" style=\"background: #f5f5f5; padding: 8px; margin-top: 10px; display: none;\">\n                <strong>계산 결과:</strong>\n                <span id=\"preview-text\"></span>\n            </div>\n        </div>\n    </div>\n    \n    <script>\n    jQuery(document).ready(function(\$) {\n        // 퍼센트 할인 적용\n        \$('.apply-percent-discount').click(function() {\n            var regular = parseFloat(\$('#_regular_price').val());\n            var percent = parseFloat(\$('#discount_percent').val());\n            \n            if (regular && percent) {\n                var discount_amount = regular * (percent / 100);\n                var sale_price = regular - discount_amount;\n                \n                \$('#_sale_price').val(sale_price.toFixed(0));\n                \n                // 미리보기 업데이트\n                \$('#discount-preview').show();\n                \$('#preview-text').html(\n                    '정가 ' + regular.toLocaleString() + '원에서 ' +\n                    percent + '% 할인 → ' +\n                    '<strong style=\"color: #e74c3c;\">' + sale_price.toLocaleString() + '원</strong>' +\n                    ' (할인액: ' + discount_amount.toLocaleString() + '원)'\n                );\n                \n                // 할부 가격도 함께 표시\n                var months = \$('#_installment_months').val();\n                if (months > 1) {\n                    var monthly = sale_price / months;\n                    \$('#preview-text').append(\n                        '<br>월 ' + monthly.toLocaleString() + '원 × ' + months + '개월'\n                    );\n                }\n            }\n        });\n        \n        // 금액 할인 적용\n        \$('.apply-amount-discount').click(function() {\n            var regular = parseFloat(\$('#_regular_price').val());\n            var discount = parseFloat(\$('#discount_amount').val());\n            \n            if (regular && discount) {\n                var sale_price = regular - discount;\n                var percent = (discount / regular) * 100;\n                \n                \$('#_sale_price').val(sale_price.toFixed(0));\n                \n                \$('#discount-preview').show();\n                \$('#preview-text').html(\n                    '정가 ' + regular.toLocaleString() + '원에서 ' +\n                    discount.toLocaleString() + '원 할인 → ' +\n                    '<strong style=\"color: #e74c3c;\">' + sale_price.toLocaleString() + '원</strong>' +\n                    ' (' + percent.toFixed(1) + '% 할인)'\n                );\n            }\n        });\n    });\n    </script>\n    <?php\n}",
+                'code'        => "<?php\n// 상품 편집 메타박스에 추가할 필드들\nadd_action('woocommerce_product_options_pricing', 'add_advanced_pricing_fields');\nfunction add_advanced_pricing_fields() {\n    ?>\n    <div class=\"options_group pricing show_if_simple\">\n        <?php\n        // 할부 개월 수 설정\n        woocommerce_wp_select([\n            'id' => '_installment_months',\n            'label' => __('할부 개월 수', 'acf-code-snippets-box'),\n            'options' => [\n                '1' => '일시불',\n                '3' => '3개월',\n                '6' => '6개월',\n                '12' => '12개월',\n                '24' => '24개월'\n            ],\n            'desc_tip' => true,\n            'description' => __('정가와 할인가 모두에 적용됩니다', 'acf-code-snippets-box')\n        ]);\n        ?>\n        \n        <!-- 할인 계산기 섹션 -->\n        <div class=\"discount-calculator\" style=\"border: 1px solid #ddd; padding: 10px; margin: 10px 0;\">\n            <h4>할인 계산기</h4>\n            <p>\n                <label>할인 적용:</label>\n                <input type=\"number\" id=\"discount_percent\" placeholder=\"%\" style=\"width: 60px;\">\n                <button type=\"button\" class=\"button apply-percent-discount\">% 적용</button>\n                <span style=\"margin: 0 10px;\">또는</span>\n                <input type=\"number\" id=\"discount_amount\" placeholder=\"원\" style=\"width: 100px;\">\n                <button type=\"button\" class=\"button apply-amount-discount\">금액 차감</button>\n            </p>\n            <div id=\"discount-preview\" style=\"background: #f5f5f5; padding: 8px; margin-top: 10px; display: none;\">\n                <strong>계산 결과:</strong>\n                <span id=\"preview-text\"></span>\n            </div>\n        </div>\n    </div>\n    \n    <script>\n    jQuery(document).ready(function(\$) {\n        // 퍼센트 할인 적용\n        \$('.apply-percent-discount').click(function() {\n            var regular = parseFloat(\$('#_regular_price').val());\n            var percent = parseFloat(\$('#discount_percent').val());\n            \n            if (regular && percent) {\n                var discount_amount = regular * (percent / 100);\n                var sale_price = regular - discount_amount;\n                \n                \$('#_sale_price').val(sale_price.toFixed(0));\n                \n                // 미리보기 업데이트\n                \$('#discount-preview').show();\n                \$('#preview-text').html(\n                    '정가 ' + regular.toLocaleString() + '원에서 ' +\n                    percent + '% 할인 → ' +\n                    '<strong style=\"color: #e74c3c;\">' + sale_price.toLocaleString() + '원</strong>' +\n                    ' (할인액: ' + discount_amount.toLocaleString() + '원)'\n                );\n                \n                // 할부 가격도 함께 표시\n                var months = \$('#_installment_months').val();\n                if (months > 1) {\n                    var monthly = sale_price / months;\n                    \$('#preview-text').append(\n                        '<br>월 ' + monthly.toLocaleString() + '원 × ' + months + '개월'\n                    );\n                }\n            }\n        });\n        \n        // 금액 할인 적용\n        \$('.apply-amount-discount').click(function() {\n            var regular = parseFloat(\$('#_regular_price').val());\n            var discount = parseFloat(\$('#discount_amount').val());\n            \n            if (regular && discount) {\n                var sale_price = regular - discount;\n                var percent = (discount / regular) * 100;\n                \n                \$('#_sale_price').val(sale_price.toFixed(0));\n                \n                \$('#discount-preview').show();\n                \$('#preview-text').html(\n                    '정가 ' + regular.toLocaleString() + '원에서 ' +\n                    discount.toLocaleString() + '원 할인 → ' +\n                    '<strong style=\"color: #e74c3c;\">' + sale_price.toLocaleString() + '원</strong>' +\n                    ' (' + percent.toFixed(1) + '% 할인)'\n                );\n            }\n        });\n    });\n    </script>\n    <?php\n}",
             ),
             'wc-realdeal-price-system' => array(
                 'name'        => __( 'RealDeal 가격 시스템 v11.0 (통합)', 'acf-code-snippets-box' ),
@@ -473,11 +503,11 @@ class ACF_CSB_Presets {
                 'code'        => "<?php\n/**\n * RealDeal Platform: 가격 시스템 최종판 v11.0\n *\n * 이 코드는 관리자 경험과 고객 경험 모두를 위한 모든 가격 관련 기능을 포함합니다.\n * - PART 1: 관리자 '빠른 편집' 기능 강화\n * - PART 2: 모든 가격 계산을 처리하는 핵심 엔진 함수\n * - PART 3: 유연한 디자인을 위한 모듈형(Atomic) 숏코드\n * - PART 4: 빠르고 간편한 적용을 위한 통합(All-in-One) 숏코드\n */\n\n// PART 1: 관리자 '빠른 편집' 기능 강화 =================================\nadd_action( 'woocommerce_product_quick_edit_end', 'realdeal_add_quick_edit_fields' );\nif ( ! function_exists('realdeal_add_quick_edit_fields') ) {\n    function realdeal_add_quick_edit_fields() {\n        wp_nonce_field( 'realdeal_quick_edit_nonce', 'realdeal_quick_edit_nonce_field' );\n        ?>\n        <div class=\"quick-edit-custom-fields\">\n            <h4>가격 상세 설정</h4>\n            <label>\n                <span class=\"title\">할인 가격</span>\n                <span class=\"input-text-wrap\">\n                    <input type=\"text\" name=\"_sale_price\" class=\"wc_input_price\" placeholder=\"할인 가격\">\n                </span>\n            </label>\n            <label>\n                <span class=\"title\">할부 개월 수</span>\n                <span class=\"input-text-wrap\">\n                    <input type=\"number\" name=\"installment_months\" placeholder=\"개월 수 (숫자만)\">\n                </span>\n            </label>\n        </div>\n        <?php\n    }\n}\n\nadd_action( 'woocommerce_product_quick_edit_save', 'realdeal_save_quick_edit_fields' );\nif ( ! function_exists('realdeal_save_quick_edit_fields') ) {\n    function realdeal_save_quick_edit_fields( \$product ) {\n        if ( ! isset( \$_POST['realdeal_quick_edit_nonce_field'] ) || ! wp_verify_nonce( \$_POST['realdeal_quick_edit_nonce_field'], 'realdeal_quick_edit_nonce' ) ) return;\n        if ( isset( \$_POST['_sale_price'] ) ) {\n            \$product->set_sale_price( wc_clean( \$_POST['_sale_price'] ) );\n        }\n        if ( isset( \$_POST['installment_months'] ) ) {\n            \$product->update_meta_data( 'installment_months', absint( \$_POST['installment_months'] ) );\n        }\n        \$product->save();\n    }\n}\n\nadd_action( 'manage_product_posts_custom_column', 'realdeal_quick_edit_data_column', 10, 2 );\nif ( ! function_exists('realdeal_quick_edit_data_column') ) {\n    function realdeal_quick_edit_data_column( \$column, \$post_id ) {\n        if (\$column == 'price') {\n            \$product = wc_get_product(\$post_id);\n            if (\$product) {\n                echo '<div class=\"hidden installment_months\">' . esc_html(\$product->get_meta('installment_months')) . '</div>';\n                echo '<div class=\"hidden sale_price\">' . esc_html(\$product->get_sale_price()) . '</div>';\n            }\n        }\n    }\n}\n\n// PART 2: 핵심 계산 엔진 함수 ==========================================\nif ( ! function_exists( 'realdeal_get_price_data' ) ) {\n    function realdeal_get_price_data( \$product ) {\n        if ( ! is_a( \$product, 'WC_Product' ) ) return null;\n        \$data = [\n            'regular_price'       => (float) \$product->get_regular_price(),\n            'sale_price'          => (float) \$product->get_sale_price(),\n            'is_on_sale'          => \$product->is_on_sale(),\n            'saved_amount'        => 0,\n            'discount_percentage' => 0,\n            'installment_months'  => (int) get_post_meta( \$product->get_id(), 'installment_months', true ),\n            'installment_price'   => 0,\n        ];\n        if ( \$data['is_on_sale'] && ! empty( \$data['sale_price'] ) && \$data['regular_price'] > \$data['sale_price'] ) {\n            \$data['saved_amount'] = \$data['regular_price'] - \$data['sale_price'];\n            if (\$data['regular_price'] > 0) {\n                \$data['discount_percentage'] = round( ( \$data['saved_amount'] / \$data['regular_price'] ) * 100 );\n            }\n        }\n        if ( \$data['installment_months'] > 0 ) {\n            \$price_for_installment = \$data['is_on_sale'] && !empty(\$data['sale_price']) ? \$data['sale_price'] : \$data['regular_price'];\n            if ( \$price_for_installment > 0 ) {\n                \$data['installment_price'] = round( ( \$price_for_installment / \$data['installment_months'] ), -2 );\n            }\n        }\n        return \$data;\n    }\n}\n\n// PART 3: 유연한 디자인을 위한 모듈형(Atomic) 숏코드 ======================\n\$modular_shortcodes = [\n    'rd_badge' => function(\$data) {\n        if ( \$data['discount_percentage'] > 0 ) return '<span class=\"realdeal-discount-badge\">' . \$data['discount_percentage'] . '% OFF</span>';\n    },\n    'rd_summary' => function(\$data) {\n        if ( \$data['saved_amount'] > 0 ) return '<div class=\"realdeal-discount-summary\">✨ ' . wp_strip_all_tags( wc_price( \$data['saved_amount'] ) ) . ' 절약</div>';\n    },\n    'rd_regular_price' => function(\$data) {\n        if ( \$data['is_on_sale'] ) return '<del aria-hidden=\"true\">' . wc_price( \$data['regular_price'] ) . '</del>';\n    },\n    'rd_sale_price' => function(\$data) {\n        return '<ins>' . wc_price( \$data['is_on_sale'] ? \$data['sale_price'] : \$data['regular_price'] ) . '</ins>';\n    },\n    'rd_installments' => function(\$data) {\n        if ( \$data['installment_price'] > 0 ) return '<small class=\"realdeal-installment-price\">(월 ' . number_format_i18n( \$data['installment_price'] ) . '원 / ' . \$data['installment_months'] . '개월)</small>';\n    }\n];\n\nforeach ( \$modular_shortcodes as \$code => \$function ) {\n    if ( ! shortcode_exists( \$code ) ) {\n        add_shortcode( \$code, function() use ( \$function ) {\n            global \$product;\n            if ( ! \$product ) \$product = wc_get_product( get_the_ID() );\n            if ( ! \$product ) return '';\n            \$price_data = realdeal_get_price_data( \$product );\n            return \$price_data ? \$function( \$price_data ) : '';\n        });\n    }\n}\n\n// PART 4: 빠르고 간편한 적용을 위한 통합(All-in-One) 숏코드 ============\nif ( ! shortcode_exists( 'realdeal_price' ) ) {\n    add_shortcode( 'realdeal_price', function() {\n        global \$product;\n        if ( ! \$product ) \$product = wc_get_product( get_the_ID() );\n        if ( ! \$product ) return '';\n\n        \$data = realdeal_get_price_data( \$product );\n        if ( !\$data ) return '';\n\n        \$badge_html = \$data['discount_percentage'] > 0 ? '<span class=\"realdeal-discount-badge\">' . \$data['discount_percentage'] . '% OFF</span>' : '';\n        \$summary_html = \$data['saved_amount'] > 0 ? '<div class=\"realdeal-discount-summary\">✨ ' . wp_strip_all_tags( wc_price( \$data['saved_amount'] ) ) . ' 절약</div>' : '';\n        \$installments_html = \$data['installment_price'] > 0 ? '<br><small class=\"realdeal-installment-price\">(월 ' . number_format_i18n( \$data['installment_price'] ) . '원 / ' . \$data['installment_months'] . '개월)</small>' : '';\n\n        if ( \$data['is_on_sale'] ) {\n            \$price_html = '<del>' . wc_price( \$data['regular_price'] ) . '</del> <ins>' . wc_price( \$data['sale_price'] ) . '</ins>';\n        } else {\n            \$price_html = '<ins>' . wc_price( \$data['regular_price'] ) . '</ins>';\n        }\n        \n        return sprintf('<div class=\"realdeal-price-wrapper price\">%s%s%s%s</div>', \$badge_html, \$summary_html, \$price_html, \$installments_html);\n    });\n}\n\n// 번역어 교체\nadd_filter( 'gettext', 'realdeal_change_weird_translation', 20, 3 );\nfunction realdeal_change_weird_translation( \$translated_text, \$text, \$domain ) {\n    if ( 'Saved' === \$text && '저장' === \$translated_text ) {\n        \$translated_text = '절약';\n    }\n    return \$translated_text;\n}\n\n// 장바구니 UI 정리\nadd_filter( 'woocommerce_cart_item_name', 'realdeal_cleanup_cart_item_name', 100, 3 );\nfunction realdeal_cleanup_cart_item_name( \$product_name, \$cart_item, \$cart_item_key ) {\n    if ( is_cart() || is_checkout() || ( defined('WOOCOMMERCE_CART') && WOOCOMMERCE_CART ) ) {\n        \$_product = apply_filters( 'woocommerce_cart_item_product', \$cart_item['data'], \$cart_item, \$cart_item_key );\n        \$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', \$_product->is_visible() ? \$_product->get_permalink( \$cart_item ) : '', \$cart_item, \$cart_item_key );\n        if ( \$product_permalink ) {\n            return sprintf( '<a href=\"%s\">%s</a>', esc_url( \$product_permalink ), \$_product->get_name() );\n        } else {\n            return \$_product->get_name();\n        }\n    }\n    return \$product_name;\n}",
             ),
             'wc-universal-installment-display' => array(
-                'name'        => __( 'RealDeal 할부 및 할인 표시 v6.0', 'acf-code-snippets-box' ),
-                'description' => __( '할인 가격 기준 할부 계산, 할인율 자동 계산, 관리자 할인 정보 표시를 포함합니다.', 'acf-code-snippets-box' ),
+                'name'        => __( '할부 및 할인 가격 표시 v6.0', 'acf-code-snippets-box' ),
+                'description' => __( '할인 가격 기준 할부 계산, 할인율 자동 계산, 관리자 할인 정보 표시를 포함한 통합 가격 표시 시스템입니다.', 'acf-code-snippets-box' ),
                 'category'    => 'woocommerce',
                 'pro_only'    => true,
-                'code'        => "<?php\n/**\n * RealDeal Platform: Universal Installment & Discount Display v6.0\n */\n\n// 프론트엔드 가격 표시 로직 필터링\nadd_filter( 'woocommerce_get_price_html', 'realdeal_advanced_price_display_v6', 100, 2 );\n\nfunction realdeal_advanced_price_display_v6( \$price_html, \$product ) {\n    if ( is_admin() || \$product->is_type('variable') ) {\n        return \$price_html;\n    }\n\n    \$months = get_post_meta( \$product->get_id(), 'installment_months', true );\n    \$installment_html = '';\n\n    \$regular_price = (float) \$product->get_regular_price();\n    \$sale_price = (float) \$product->get_sale_price();\n\n    if ( ! empty( \$months ) && is_numeric( \$months ) && \$months > 0 ) {\n        \$price_for_installment = !empty(\$sale_price) && \$product->is_on_sale() ? \$sale_price : \$regular_price;\n        \n        if (\$price_for_installment > 0) {\n            \$installment_price = round( ( \$price_for_installment / \$months ), -2 );\n            \$installment_html = '<br><small class=\"realdeal-installment-price\">(월 ' . number_format_i18n( \$installment_price ) . '원 / ' . esc_html( \$months ) . '개월)</small>';\n        }\n    }\n\n    if ( \$product->is_on_sale() && !empty(\$sale_price) && \$regular_price > \$sale_price ) {\n        \$saved_amount = \$regular_price - \$sale_price;\n        \$discount_percentage = round( ( \$saved_amount / \$regular_price ) * 100 );\n\n        \$new_price_html = sprintf(\n            '<div class=\"realdeal-price-wrapper\">' .\n            '<span class=\"realdeal-discount-badge\">%s%% OFF</span>' .\n            '<del aria-hidden=\"true\">%s</del> <ins>%s</ins>' .\n            '%s' .\n            '</div>',\n            \$discount_percentage,\n            wc_price( \$regular_price ),\n            wc_price( \$sale_price ),\n            \$installment_html\n        );\n        return \$new_price_html;\n    } \n    elseif (\$regular_price > 0) {\n        return wc_price( \$regular_price ) . \$installment_html;\n    }\n\n    return \$price_html;\n}\n\n// 관리자 페이지에 할인 정보 표시\nadd_action( 'woocommerce_product_options_pricing', 'realdeal_display_discount_info_in_admin' );\n\nfunction realdeal_display_discount_info_in_admin() {\n    global \$product_object;\n\n    if ( ! \$product_object ) {\n        return;\n    }\n\n    \$regular_price = (float) \$product_object->get_regular_price();\n    \$sale_price = (float) \$product_object->get_sale_price();\n\n    echo '<div class=\"options_group show_if_simple\">';\n\n    if ( \$product_object->is_on_sale() && !empty(\$sale_price) && \$regular_price > \$sale_price ) {\n        \$saved_amount = \$regular_price - \$sale_price;\n        \$discount_percentage = round( ( \$saved_amount / \$regular_price ) * 100 );\n        \n        \$admin_info_html = sprintf(\n            '<p class=\"form-field\">' .\n            '<label style=\"color: #0383FE; font-weight: bold;\">할인 정보</label>' .\n            '<span style=\"display: block; padding-top: 5px;\">' .\n            '<strong>%d%% 할인</strong> / %s 절약' .\n            '</span>' .\n            '</p>',\n            \$discount_percentage,\n            wp_strip_all_tags( wc_price( \$saved_amount ) )\n        );\n        echo \$admin_info_html;\n    } else {\n        echo '<p class=\"form-field\"><label style=\"color: #6B7280;\">할인 정보</label><span style=\"display: block; padding-top: 5px;\">현재 할인 중인 상품이 아닙니다.</span></p>';\n    }\n\n    echo '</div>';\n}",
+                'code'        => "<?php\n/**\n * WooCommerce 할부 및 할인 가격 표시 시스템 v6.0\n */\n\n// 프론트엔드 가격 표시 로직 필터링\nadd_filter( 'woocommerce_get_price_html', 'wc_advanced_price_display_v6', 100, 2 );\n\nfunction wc_advanced_price_display_v6( \$price_html, \$product ) {\n    if ( is_admin() || \$product->is_type('variable') ) {\n        return \$price_html;\n    }\n\n    \$months = get_post_meta( \$product->get_id(), 'installment_months', true );\n    \$installment_html = '';\n\n    \$regular_price = (float) \$product->get_regular_price();\n    \$sale_price = (float) \$product->get_sale_price();\n\n    if ( ! empty( \$months ) && is_numeric( \$months ) && \$months > 0 ) {\n        \$price_for_installment = !empty(\$sale_price) && \$product->is_on_sale() ? \$sale_price : \$regular_price;\n        \n        if (\$price_for_installment > 0) {\n            \$installment_price = round( ( \$price_for_installment / \$months ), -2 );\n            \$installment_html = '<br><small class=\"wc-installment-price\">(월 ' . number_format_i18n( \$installment_price ) . '원 / ' . esc_html( \$months ) . '개월)</small>';\n        }\n    }\n\n    if ( \$product->is_on_sale() && !empty(\$sale_price) && \$regular_price > \$sale_price ) {\n        \$saved_amount = \$regular_price - \$sale_price;\n        \$discount_percentage = round( ( \$saved_amount / \$regular_price ) * 100 );\n\n        \$new_price_html = sprintf(\n            '<div class=\"wc-price-wrapper\">' .\n            '<span class=\"wc-discount-badge\">%s%% OFF</span>' .\n            '<del aria-hidden=\"true\">%s</del> <ins>%s</ins>' .\n            '%s' .\n            '</div>',\n            \$discount_percentage,\n            wc_price( \$regular_price ),\n            wc_price( \$sale_price ),\n            \$installment_html\n        );\n        return \$new_price_html;\n    } \n    elseif (\$regular_price > 0) {\n        return wc_price( \$regular_price ) . \$installment_html;\n    }\n\n    return \$price_html;\n}\n\n// 관리자 페이지에 할인 정보 표시\nadd_action( 'woocommerce_product_options_pricing', 'wc_display_discount_info_in_admin' );\n\nfunction wc_display_discount_info_in_admin() {\n    global \$product_object;\n\n    if ( ! \$product_object ) {\n        return;\n    }\n\n    \$regular_price = (float) \$product_object->get_regular_price();\n    \$sale_price = (float) \$product_object->get_sale_price();\n\n    echo '<div class=\"options_group show_if_simple\">';\n\n    if ( \$product_object->is_on_sale() && !empty(\$sale_price) && \$regular_price > \$sale_price ) {\n        \$saved_amount = \$regular_price - \$sale_price;\n        \$discount_percentage = round( ( \$saved_amount / \$regular_price ) * 100 );\n        \n        \$admin_info_html = sprintf(\n            '<p class=\"form-field\">' .\n            '<label style=\"color: #0383FE; font-weight: bold;\">할인 정보</label>' .\n            '<span style=\"display: block; padding-top: 5px;\">' .\n            '<strong>%d%% 할인</strong> / %s 절약' .\n            '</span>' .\n            '</p>',\n            \$discount_percentage,\n            wp_strip_all_tags( wc_price( \$saved_amount ) )\n        );\n        echo \$admin_info_html;\n    } else {\n        echo '<p class=\"form-field\"><label style=\"color: #6B7280;\">할인 정보</label><span style=\"display: block; padding-top: 5px;\">현재 할인 중인 상품이 아닙니다.</span></p>';\n    }\n\n    echo '</div>';\n}",
             ),
         );
     }
@@ -493,7 +523,7 @@ class ACF_CSB_Presets {
                 'description' => __( '상품 목록에서 할부 가격과 할인 배지를 스타일링합니다.', 'acf-code-snippets-box' ),
                 'category'    => 'woocommerce',
                 'pro_only'    => true,
-                'code'        => "/* RealDeal 가격 표시 스타일 */\n.realdeal-price-wrapper {\n  line-height: 1.5;\n}\n\n.realdeal-discount-badge,\n.onsale {\n    display: inline-block !important;\n    padding: 6px 12px !important;\n    background-color: var(--accent-red, #FF0033) !important;\n    color: white !important;\n    font-size: 0.9em !important;\n    font-weight: 700 !important;\n    border-radius: 4px !important;\n    position: absolute !important;\n    top: 10px !important;\n    right: 10px !important;\n    z-index: 999 !important;\n}\n\n.price del {\n  opacity: 0.8;\n  font-size: 0.9em;\n  margin-right: 5px;\n}\n\n.price ins {\n  font-weight: bold;\n  font-size: 1em;\n  text-decoration: none;\n}\n\n.realdeal-installment-price {\n  display: block;\n  font-size: 15px;\n  font-weight: 400;\n  margin-top: 4px;\n}\n\n.realdeal-discount-summary {\n  font-size: 14px;\n  font-weight: 500;\n  background-color: rgba(3, 131, 254, 0.1);\n  padding: 4px 8px;\n  border-radius: 4px;\n  margin: 5px 0;\n  display: inline-block;\n}",
+                'code'        => "/* WooCommerce 가격 표시 스타일 */\n.wc-price-wrapper {\n  line-height: 1.5;\n}\n\n.wc-discount-badge,\n.onsale {\n    display: inline-block !important;\n    padding: 6px 12px !important;\n    background-color: var(--accent-red, #FF0033) !important;\n    color: white !important;\n    font-size: 0.9em !important;\n    font-weight: 700 !important;\n    border-radius: 4px !important;\n    position: absolute !important;\n    top: 10px !important;\n    right: 10px !important;\n    z-index: 999 !important;\n}\n\n.price del {\n  opacity: 0.8;\n  font-size: 0.9em;\n  margin-right: 5px;\n}\n\n.price ins {\n  font-weight: bold;\n  font-size: 1em;\n  text-decoration: none;\n}\n\n.wc-installment-price {\n  display: block;\n  font-size: 15px;\n  font-weight: 400;\n  margin-top: 4px;\n}\n\n.wc-discount-summary {\n  font-size: 14px;\n  font-weight: 500;\n  background-color: rgba(3, 131, 254, 0.1);\n  padding: 4px 8px;\n  border-radius: 4px;\n  margin: 5px 0;\n  display: inline-block;\n}",
             ),
             'wc-button-style' => array(
                 'name'        => __( 'WooCommerce 버튼 스타일', 'acf-code-snippets-box' ),
@@ -507,14 +537,14 @@ class ACF_CSB_Presets {
                 'description' => __( '상품 목록의 배경, 별점 정렬, 장바구니 버튼을 개선합니다.', 'acf-code-snippets-box' ),
                 'category'    => 'woocommerce',
                 'pro_only'    => true,
-                'code'        => "/* 상품 목록 디자인 개선 */\n\n/* 상품 상세 정보 컨테이너 배경색: 목록에서만 투명 유지 */\nbody:not(.single-product) .products .product .product-details,\nbody:not(.single-product) .products .product .product-details.content-bg {\n    background-color: transparent !important;\n}\n\n/* 별점 정렬 수정: 목록에만 적용 */\nbody:not(.single-product) .products .product .glsr {\n    text-align: left !important;\n    margin: 0 auto 0 0 !important;\n}\n\n/* 할인 배지 위치 수정: 목록에서만 적용 */\nbody:not(.single-product) .realdeal-discount-badge,\nbody:not(.single-product) .onsale {\n    position: absolute !important;\n    top: 10px !important;\n    right: 10px !important;\n    z-index: 999 !important;\n}\n\n/* 장바구니 버튼 수정: 목록에만 적용 */\n.products .product .add_to_cart_button {\n    background-color: var(--accent-orange, #FF6400) !important;\n    color: white !important;\n    border: none !important;\n    padding: 10px 15px !important;\n    font-weight: 600 !important;\n}\n\n/* 장바구니 버튼 내부 아이콘 색상도 흰색으로 통일 */\n.products .product .add_to_cart_button .kadence-svg-iconset svg {\n    fill: white !important;\n}",
+                'code'        => "/* 상품 목록 디자인 개선 */\n\n/* 상품 상세 정보 컨테이너 배경색: 목록에서만 투명 유지 */\nbody:not(.single-product) .products .product .product-details,\nbody:not(.single-product) .products .product .product-details.content-bg {\n    background-color: transparent !important;\n}\n\n/* 별점 정렬 수정: 목록에만 적용 */\nbody:not(.single-product) .products .product .glsr {\n    text-align: left !important;\n    margin: 0 auto 0 0 !important;\n}\n\n/* 할인 배지 위치 수정: 목록에서만 적용 */\nbody:not(.single-product) .wc-discount-badge,\nbody:not(.single-product) .onsale {\n    position: absolute !important;\n    top: 10px !important;\n    right: 10px !important;\n    z-index: 999 !important;\n}\n\n/* 장바구니 버튼 수정: 목록에만 적용 */\n.products .product .add_to_cart_button {\n    background-color: var(--accent-orange, #FF6400) !important;\n    color: white !important;\n    border: none !important;\n    padding: 10px 15px !important;\n    font-weight: 600 !important;\n}\n\n/* 장바구니 버튼 내부 아이콘 색상도 흰색으로 통일 */\n.products .product .add_to_cart_button .kadence-svg-iconset svg {\n    fill: white !important;\n}",
             ),
             'wc-realdeal-integrated-css' => array(
-                'name'        => __( 'RealDeal WooCommerce 통합 CSS v3.0', 'acf-code-snippets-box' ),
-                'description' => __( '가격 표시, 할인 배지, 상품 목록 디자인, 장바구니 UI 개선을 포함한 통합 CSS.', 'acf-code-snippets-box' ),
+                'name'        => __( 'WooCommerce 통합 CSS v3.0', 'acf-code-snippets-box' ),
+                'description' => __( '가격 표시, 할인 배지, 상품 목록 디자인, 장바구니 UI 개선을 포함한 통합 CSS입니다.', 'acf-code-snippets-box' ),
                 'category'    => 'woocommerce',
                 'pro_only'    => true,
-                'code'        => "/* === RealDeal WooCommerce 통합 CSS (v3.0) === */\n\n/* [섹션 1]: RealDeal 가격 표시 v10.0 스타일 (목록에만 적용되도록 격리) */\n.realdeal-price-wrapper {\n  line-height: 1.5;\n}\n\n.realdeal-discount-badge, \n.onsale { \n    .products .product & {\n        display: inline-block !important; \n        padding: 6px 12px !important; \n        background-color: var(--accent-red, #FF0033) !important;\n        color: white !important;\n        font-size: 0.9em !important; \n        font-weight: 700 !important; \n        border-radius: 4px !important;\n        position: absolute !important; \n        top: 10px !important; \n        right: 10px !important; \n        z-index: 999 !important;\n    }\n}\n\n.price del {\n  opacity: 0.8;\n  font-size: 0.9em;\n  margin-right: 5px;\n}\n\n.price ins {\n  font-weight: bold;\n  font-size: 1em;\n  text-decoration: none;\n}\n\n.realdeal-installment-price {\n  display: block;\n  font-size: 15px;\n  font-weight: 400;\n  margin-top: 4px;\n}\n\n.realdeal-discount-summary {\n  font-size: 14px;\n  font-weight: 500;\n  background-color: rgba(3, 131, 254, 0.1);\n  padding: 4px 8px;\n  border-radius: 4px;\n  margin: 5px 0;\n  display: inline-block;\n}\n\n.single-product.post-type-course .summary > .price:not(.realdeal-price-wrapper) {\n    display: none !important;\n}\n\n/* [섹션 2]: WooCommerce 상품 목록 디자인 개선 (상세 페이지 격리) */\nbody:not(.single-product) .products .product .product-details,\nbody:not(.single-product) .products .product .product-details.content-bg {\n    background-color: transparent !important;\n}\n\nbody:not(.single-product) .products .product .glsr {\n    text-align: left !important;\n    margin: 0 auto 0 0 !important; \n}\n\nbody:not(.single-product) .realdeal-discount-badge, \nbody:not(.single-product) .onsale { \n    position: absolute !important; \n    top: 10px !important;\n    right: 10px !important; \n    z-index: 999 !important;\n}\n\n.products .product .add_to_cart_button {\n    background-color: var(--accent-orange, #FF6400) !important; \n    color: white !important; \n    border: none !important;\n    padding: 10px 15px !important;\n    font-weight: 600 !important;\n}\n\n.products .product .add_to_cart_button .kadence-svg-iconset svg {\n    fill: white !important;\n}\n\n/* [섹션 3]: 장바구니 및 미리보기 UI 개선 */\n.woocommerce-mini-cart-item .product-name img {\n    display: none !important;\n}\n\n.cart_item .product-name img,\n.cart_item .product-name p,\n.cart_item .product-name .wp-block-image {\n    display: none !important;\n}",
+                'code'        => "/* === WooCommerce 통합 CSS (v3.0) === */\n\n/* [섹션 1]: WooCommerce 가격 표시 스타일 (목록에만 적용되도록 격리) */\n.wc-price-wrapper {\n  line-height: 1.5;\n}\n\n.wc-discount-badge, \n.onsale { \n    .products .product & {\n        display: inline-block !important; \n        padding: 6px 12px !important; \n        background-color: var(--accent-red, #FF0033) !important;\n        color: white !important;\n        font-size: 0.9em !important; \n        font-weight: 700 !important; \n        border-radius: 4px !important;\n        position: absolute !important; \n        top: 10px !important; \n        right: 10px !important; \n        z-index: 999 !important;\n    }\n}\n\n.price del {\n  opacity: 0.8;\n  font-size: 0.9em;\n  margin-right: 5px;\n}\n\n.price ins {\n  font-weight: bold;\n  font-size: 1em;\n  text-decoration: none;\n}\n\n.wc-installment-price {\n  display: block;\n  font-size: 15px;\n  font-weight: 400;\n  margin-top: 4px;\n}\n\n.wc-discount-summary {\n  font-size: 14px;\n  font-weight: 500;\n  background-color: rgba(3, 131, 254, 0.1);\n  padding: 4px 8px;\n  border-radius: 4px;\n  margin: 5px 0;\n  display: inline-block;\n}\n\n.single-product.post-type-course .summary > .price:not(.wc-price-wrapper) {\n    display: none !important;\n}\n\n/* [섹션 2]: WooCommerce 상품 목록 디자인 개선 (상세 페이지 격리) */\nbody:not(.single-product) .products .product .product-details,\nbody:not(.single-product) .products .product .product-details.content-bg {\n    background-color: transparent !important;\n}\n\nbody:not(.single-product) .products .product .glsr {\n    text-align: left !important;\n    margin: 0 auto 0 0 !important; \n}\n\nbody:not(.single-product) .wc-discount-badge, \nbody:not(.single-product) .onsale { \n    position: absolute !important; \n    top: 10px !important;\n    right: 10px !important; \n    z-index: 999 !important;\n}\n\n.products .product .add_to_cart_button {\n    background-color: var(--accent-orange, #FF6400) !important; \n    color: white !important; \n    border: none !important;\n    padding: 10px 15px !important;\n    font-weight: 600 !important;\n}\n\n.products .product .add_to_cart_button .kadence-svg-iconset svg {\n    fill: white !important;\n}\n\n/* [섹션 3]: 장바구니 및 미리보기 UI 개선 */\n.woocommerce-mini-cart-item .product-name img {\n    display: none !important;\n}\n\n.cart_item .product-name img,\n.cart_item .product-name p,\n.cart_item .product-name .wp-block-image {\n    display: none !important;\n}",
             ),
             'wc-cart-preview-ui-fix' => array(
                 'name'        => __( '장바구니 및 미리보기 UI 개선 v11.1', 'acf-code-snippets-box' ),
@@ -725,5 +755,207 @@ class ACF_CSB_Presets {
         }
         
         return $result;
+    }
+
+    /**
+     * 프리셋 검색
+     * [v4.2.0] 이름, 설명, 태그, 코드 내용으로 검색
+     * 
+     * @param string $query 검색어
+     * @param string $type 프리셋 타입 (all, css, js, php 등)
+     * @param string $category 카테고리 필터
+     * @return array 검색 결과
+     */
+    public static function search_presets( $query, $type = 'all', $category = '' ) {
+        $all_presets = $type === 'all' ? self::get_all_presets() : array( $type => self::get_presets_by_type( $type ) );
+        $results = array();
+        $query_lower = strtolower( $query );
+
+        foreach ( $all_presets as $preset_type => $presets ) {
+            foreach ( $presets as $id => $preset ) {
+                // 카테고리 필터
+                if ( ! empty( $category ) && isset( $preset['category'] ) && $preset['category'] !== $category ) {
+                    continue;
+                }
+
+                // 검색어 매칭
+                $match = false;
+
+                // 이름 검색
+                if ( isset( $preset['name'] ) && stripos( $preset['name'], $query ) !== false ) {
+                    $match = true;
+                }
+
+                // 설명 검색
+                if ( ! $match && isset( $preset['description'] ) && stripos( $preset['description'], $query ) !== false ) {
+                    $match = true;
+                }
+
+                // 태그 검색
+                if ( ! $match && isset( $preset['tags'] ) && is_array( $preset['tags'] ) ) {
+                    foreach ( $preset['tags'] as $tag ) {
+                        if ( stripos( $tag, $query ) !== false ) {
+                            $match = true;
+                            break;
+                        }
+                    }
+                }
+
+                // 코드 내용 검색 (간단한 키워드만)
+                if ( ! $match && isset( $preset['code'] ) && strlen( $query ) > 3 ) {
+                    if ( stripos( $preset['code'], $query ) !== false ) {
+                        $match = true;
+                    }
+                }
+
+                if ( $match ) {
+                    if ( ! isset( $results[ $preset_type ] ) ) {
+                        $results[ $preset_type ] = array();
+                    }
+                    $results[ $preset_type ][ $id ] = $preset;
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * 타입별 프리셋 가져오기
+     */
+    private static function get_presets_by_type( $type ) {
+        switch ( $type ) {
+            case 'css':
+                return self::get_css_presets();
+            case 'js':
+                return self::get_js_presets();
+            case 'php':
+                return self::get_php_presets();
+            case 'woocommerce_php':
+                return self::get_woocommerce_php_presets();
+            case 'woocommerce_css':
+                return self::get_woocommerce_css_presets();
+            case 'utility':
+                return self::get_utility_presets();
+            default:
+                return array();
+        }
+    }
+
+    /**
+     * 모든 카테고리 목록 가져오기
+     * [v4.2.0]
+     */
+    public static function get_all_categories() {
+        $all_presets = self::get_all_presets();
+        $categories = array();
+
+        foreach ( $all_presets as $presets ) {
+            foreach ( $presets as $preset ) {
+                if ( isset( $preset['category'] ) && ! in_array( $preset['category'], $categories, true ) ) {
+                    $categories[] = $preset['category'];
+                }
+            }
+        }
+
+        return $categories;
+    }
+
+    /**
+     * 카테고리별 프리셋 개수
+     * [v4.2.0]
+     */
+    public static function get_category_counts() {
+        $all_presets = self::get_all_presets();
+        $counts = array();
+
+        foreach ( $all_presets as $presets ) {
+            foreach ( $presets as $preset ) {
+                if ( isset( $preset['category'] ) ) {
+                    $category = $preset['category'];
+                    if ( ! isset( $counts[ $category ] ) ) {
+                        $counts[ $category ] = 0;
+                    }
+                    $counts[ $category ]++;
+                }
+            }
+        }
+
+        return $counts;
+    }
+
+    /**
+     * AJAX: 프리셋 검색
+     * [v4.2.0]
+     */
+    public function ajax_search_presets() {
+        check_ajax_referer( 'acf_csb_nonce', 'nonce' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( '권한이 없습니다.', 'acf-code-snippets-box' ) );
+        }
+
+        $query = isset( $_POST['query'] ) ? sanitize_text_field( $_POST['query'] ) : '';
+        $type = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'all';
+        $category = isset( $_POST['category'] ) ? sanitize_text_field( $_POST['category'] ) : '';
+
+        if ( empty( $query ) ) {
+            wp_send_json_error( __( '검색어를 입력해주세요.', 'acf-code-snippets-box' ) );
+        }
+
+        $results = self::search_presets( $query, $type, $category );
+
+        wp_send_json_success( array(
+            'results' => $results,
+            'count'   => array_sum( array_map( 'count', $results ) ),
+        ) );
+    }
+
+    /**
+     * AJAX: 카테고리 목록
+     * [v4.2.0]
+     */
+    public function ajax_get_categories() {
+        check_ajax_referer( 'acf_csb_nonce', 'nonce' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( '권한이 없습니다.', 'acf-code-snippets-box' ) );
+        }
+
+        $categories = self::get_all_categories();
+        $counts = self::get_category_counts();
+
+        $category_data = array();
+        foreach ( $categories as $category ) {
+            $category_data[] = array(
+                'slug'  => $category,
+                'name'  => self::get_category_name( $category ),
+                'count' => isset( $counts[ $category ] ) ? $counts[ $category ] : 0,
+            );
+        }
+
+        wp_send_json_success( $category_data );
+    }
+
+    /**
+     * 카테고리 이름 반환
+     * [v4.2.0]
+     */
+    public static function get_category_name( $slug ) {
+        $names = array(
+            'ux'            => __( '사용자 경험', 'acf-code-snippets-box' ),
+            'design'        => __( '디자인', 'acf-code-snippets-box' ),
+            'accessibility' => __( '접근성', 'acf-code-snippets-box' ),
+            'typography'    => __( '타이포그래피', 'acf-code-snippets-box' ),
+            'performance'  => __( '성능', 'acf-code-snippets-box' ),
+            'utility'      => __( '유틸리티', 'acf-code-snippets-box' ),
+            'woocommerce'  => __( 'WooCommerce', 'acf-code-snippets-box' ),
+            'admin'        => __( '관리자', 'acf-code-snippets-box' ),
+            'security'     => __( '보안', 'acf-code-snippets-box' ),
+            'branding'     => __( '브랜딩', 'acf-code-snippets-box' ),
+            'debug'        => __( '디버깅', 'acf-code-snippets-box' ),
+        );
+
+        return isset( $names[ $slug ] ) ? $names[ $slug ] : ucfirst( $slug );
     }
 }

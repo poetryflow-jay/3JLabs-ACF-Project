@@ -79,12 +79,12 @@ class JJ_Required_Plugins {
      */
     private function get_plugins_array() {
         return array(
-            // 필수 플러그인
+            // 권장 플러그인 (필수 아님)
             array(
                 'name'               => '3J 라이센스 (ACF CSS Woo License Bridge)',
                 'slug'               => 'acf-css-woo-license',
                 'source'             => 'external',
-                'required'           => true,
+                'required'           => false, // 필수에서 권장으로 변경
                 'version'            => '23.0.0',
                 'force_activation'   => false,
                 'force_deactivation' => false,
@@ -261,11 +261,12 @@ class JJ_Required_Plugins {
         $required_plugins = $this->get_required_plugins_list();
         $missing_plugins = array();
         
-        foreach ( $required_plugins as $plugin ) {
-            if ( $plugin['required'] && ! $this->is_plugin_active( $plugin['slug'] ) ) {
-                $missing_plugins[] = $plugin['name'];
-            }
-        }
+        // 필수 플러그인 체크 제거 - 모든 플러그인을 권장으로 처리
+        // foreach ( $required_plugins as $plugin ) {
+        //     if ( $plugin['required'] && ! $this->is_plugin_active( $plugin['slug'] ) ) {
+        //         $missing_plugins[] = $plugin['name'];
+        //     }
+        // }
         
         if ( ! empty( $missing_plugins ) ) {
             ?>
@@ -315,7 +316,7 @@ class JJ_Required_Plugins {
             array(
                 'name' => '3J 라이센스 (ACF CSS Woo License Bridge)',
                 'slug' => 'acf-css-woo-license',
-                'required' => true,
+                'required' => false, // 필수에서 권장으로 변경
             ),
             array(
                 'name' => '코드 박스 (ACF Code Snippets Box)',
@@ -360,14 +361,14 @@ class JJ_Required_Plugins {
          */
         $plugins = array(
             
-            // 필수 플러그인 (Required)
+            // 권장 플러그인 (Recommended) - 모든 플러그인을 권장으로 변경
             
-            // 3J 라이센스 - 라이센스 관리 (필수)
+            // 3J 라이센스 - 라이센스 관리 (권장)
             array(
                 'name'               => '3J 라이센스 (ACF CSS Woo License Bridge)',
                 'slug'               => 'acf-css-woo-license',
                 'source'             => 'external',
-                'required'           => true,
+                'required'           => false, // 필수에서 권장으로 변경
                 'version'            => '23.0.0',
                 'force_activation'   => false,
                 'force_deactivation' => false,

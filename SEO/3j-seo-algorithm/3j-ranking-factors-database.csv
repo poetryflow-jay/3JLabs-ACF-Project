@@ -1,0 +1,91 @@
+ModuleName,AttributeName,DescriptionEN,DescriptionKR,Weight,SEOCategory,ImpactType,Priority,AlgorithmKey,ScoringMethod,MaxScore
+NavBoost,goodClicks,Long dwell time clicks indicating user satisfaction,사용자가 만족한 클릭 (긴 체류시간),10,User Engagement,Positive,P0,navboost.good_clicks,engagement_score,100
+NavBoost,badClicks,Quick return clicks (pogo-sticking),빠르게 이탈한 클릭 (포고스틱),10,User Engagement,Negative,P0,navboost.bad_clicks,pogo_risk,100
+NavBoost,lastLongestClicks,Final dwelled-upon result signaling search completion,검색 세션의 마지막이자 가장 오래 머문 클릭,10,User Engagement,Positive,P0,navboost.last_longest,session_completion,100
+NavBoost,unsquashedClicks,Verified genuine user interactions,검증된 실제 클릭,9,User Engagement,Positive,P0,navboost.unsquashed,click_quality,100
+NavBoost,impressions,Search result impressions count,검색 결과 노출 횟수,7,Visibility,Neutral,P1,navboost.impressions,visibility_score,100
+NavBoost,ctr,Click-through rate,클릭률,9,User Engagement,Positive,P0,navboost.ctr,ctr_potential,100
+CompressedQualitySignals,siteAuthority,Domain-level trust and authority score,도메인 레벨 신뢰도/권위도 점수,10,Domain Authority,Positive,P0,quality.site_authority,authority_score,100
+CompressedQualitySignals,pandaDemotion,Panda algorithm demotion for low-quality content,저품질 콘텐츠 Panda 강등,9,Content Quality,Negative,P0,quality.panda_demotion,thin_content_risk,100
+CompressedQualitySignals,navDemotion,Navigation/UX issues demotion,네비게이션/UX 문제 강등,8,User Experience,Negative,P0,quality.nav_demotion,ux_issues_risk,100
+CompressedQualitySignals,originalContentScore,Content originality score (0-512 scale),콘텐츠 원본성 점수,9,Content Quality,Positive,P0,quality.original_content,originality_score,512
+CompressedQualitySignals,ugcDiscussionEffortScore,UGC page quality signal,UGC 페이지 품질 신호,6,Content Quality,Positive,P2,quality.ugc_effort,ugc_quality,100
+CompressedQualitySignals,productReviewPDemoteSite,Product review site demotion,제품 리뷰 사이트 강등,8,Content Quality,Negative,P1,quality.review_demotion,review_quality_risk,100
+PerDocData,hostAge,Domain registration age for sandbox detection,샌드박스 감지용 도메인 나이,7,Domain Authority,Positive,P1,perdoc.host_age,domain_age_score,100
+PerDocData,homepagePagerankNs,Homepage PageRank,홈페이지 페이지랭크,9,Link Authority,Positive,P0,perdoc.homepage_pr,pagerank_score,100
+PerDocData,homePageInfo,Trust level (NOT_TRUSTED to FULLY_TRUSTED),신뢰도 단계,8,Trust,Positive,P1,perdoc.trust_level,trust_score,100
+QualityNsrNsr,titlematchScore,Title to query match score,제목과 쿼리 일치도,8,On-Page SEO,Positive,P0,nsr.title_match,title_score,100
+QualityNsrNsr,ugcScore,User generated content score,사용자 생성 콘텐츠 점수,6,Content Quality,Variable,P2,nsr.ugc_score,ugc_score,100
+QualityNsrNsr,spambrainLavcScores,Spam detection scores,스팸 감지 점수,9,Spam Detection,Negative,P0,nsr.spambrain,spam_risk,100
+ContentAnalysis,OriginalContentScore,Content originality score normalized,콘텐츠 원본성 점수 (정규화),9,Content Quality,Positive,P0,content.originality,originality_normalized,100
+ContentAnalysis,keywordStuffingScore,Keyword over-optimization penalty,키워드 과다 최적화 페널티,8,Spam Detection,Negative,P0,content.keyword_stuffing,stuffing_penalty,100
+ContentAnalysis,avgTermWeight,Average weighted font size of terms,용어의 평균 가중 폰트 크기,5,On-Page SEO,Positive,P2,content.term_weight,emphasis_score,100
+ContentAnalysis,numTokens,Token count with max cap,토큰 개수 (최대값 제한),5,Content Length,Neutral,P2,content.token_count,length_score,100
+SiteTopics,siteEmbeddings,Vector embeddings of site core topics,사이트 핵심 주제 벡터 임베딩,8,Topical Authority,Positive,P0,topics.embeddings,topic_vector,100
+SiteTopics,siteFocusScore,Topic focus concentration score,주제 집중도 점수,8,Topical Authority,Positive,P0,topics.focus,topic_focus,100
+SiteTopics,siteRadius,Deviation from core site embeddings,핵심 주제로부터의 편차,7,Topical Authority,Negative,P1,topics.radius,topic_deviation,100
+SiteTopics,site2vec,Site-wide topic vector representation,사이트 전체 주제 벡터 표현,7,Topical Authority,Positive,P1,topics.site2vec,site_vector,100
+Freshness,bylineDate,Explicitly set publication date,명시적 작성 날짜,7,Content Freshness,Positive,P1,freshness.byline,date_clarity,100
+Freshness,syntacticDate,Date extracted from URL or title,URL/제목에서 추출한 날짜,6,Content Freshness,Positive,P1,freshness.syntactic,url_date,100
+Freshness,semanticDate,Date derived from content context,콘텐츠에서 해석된 날짜,6,Content Freshness,Positive,P1,freshness.semantic,content_date,100
+Freshness,lastSignificantUpdate,Last meaningful content update,마지막 의미있는 업데이트,8,Content Freshness,Positive,P0,freshness.last_update,freshness_score,100
+Freshness,FreshnessTwiddler,Freshness-based re-ranking function,신선도 기반 재랭킹 함수,7,Content Freshness,Positive,P1,freshness.twiddler,freshness_boost,100
+Chrome,chromeInTotal,Total Chrome browser page views,Chrome 총 페이지뷰,7,User Engagement,Positive,P1,chrome.total,chrome_traffic,100
+Chrome,topUrl,Most visited URL from Chrome data,Chrome 데이터 기반 최다 방문 URL,7,User Engagement,Positive,P1,chrome.top_url,popularity_score,100
+Chrome,chrome_trans_clicks,Chrome transition clicks,Chrome 전환 클릭,6,User Engagement,Positive,P2,chrome.transitions,navigation_score,100
+LinkSignals,PageRankNS,Namespace PageRank variant,네임스페이스 PageRank 변형,9,Link Authority,Positive,P0,links.pagerank_ns,pr_score,100
+LinkSignals,sourceType,Anchor source quality (HIGH/MEDIUM/LOW),앵커 소스 품질,8,Link Quality,Positive,P0,links.source_type,anchor_quality,100
+LinkSignals,IndyRank,Independent rank calculation,독립 랭크 계산,7,Link Authority,Positive,P1,links.indyrank,indy_score,100
+LinkSignals,linkDiversity,Link source diversity,링크 소스 다양성,8,Link Quality,Positive,P0,links.diversity,diversity_score,100
+LinkSignals,indexTier,Link quality tier classification,링크 품질 티어,8,Link Quality,Positive,P0,links.tier,tier_score,100
+AnchorSpam,anchorMismatchDemotion,Anchor-target mismatch penalty (-0.15),앵커-타겟 불일치 페널티,7,Link Spam,Negative,P1,anchor.mismatch,mismatch_penalty,100
+AnchorSpam,phraseAnchorSpamCount,Spam phrase count in anchors,앵커의 스팸 구문 개수,8,Link Spam,Negative,P0,anchor.spam_count,spam_phrase_count,100
+AnchorSpam,phraseAnchorSpamFraq,Spam anchor ratio,스팸 앵커 비율,8,Link Spam,Negative,P0,anchor.spam_ratio,spam_ratio,100
+AnchorSpam,droppedLocalAnchorCount,Internal links excluded by Penguin,Penguin으로 제외된 내부 링크,6,Link Spam,Negative,P2,anchor.dropped,dropped_links,100
+Author,isAuthor,Entity identified as author,엔티티가 저자인지 여부,7,E-E-A-T,Positive,P1,author.is_author,author_exists,100
+Author,author,Document author text,문서 저자 텍스트,6,E-E-A-T,Positive,P1,author.text,author_text,100
+Author,authorEntity,Author entity connection,저자 엔티티 연결,7,E-E-A-T,Positive,P1,author.entity,entity_score,100
+TechnicalSEO,crawlStatus,Crawling status,크롤링 상태,9,Crawlability,Positive,P0,tech.crawl_status,crawl_score,100
+TechnicalSEO,indexable,Indexability flag,인덱싱 가능 여부,10,Indexability,Positive,P0,tech.indexable,index_score,100
+TechnicalSEO,robotsMeta,Robots meta tag,robots 메타 태그,9,Crawl Directives,Variable,P0,tech.robots,robots_score,100
+TechnicalSEO,canonicalUrl,Canonical URL setting,캐노니컬 URL,8,Duplicate Content,Positive,P0,tech.canonical,canonical_score,100
+TechnicalSEO,mobileScore,Mobile optimization score,모바일 최적화 점수,8,Mobile SEO,Positive,P0,tech.mobile,mobile_score,100
+TechnicalSEO,pagespeed,Page loading speed,페이지 로딩 속도,7,User Experience,Positive,P1,tech.speed,speed_score,100
+TechnicalSEO,httpsStatus,HTTPS security status,HTTPS 보안 상태,7,Security,Positive,P1,tech.https,https_score,100
+TechnicalSEO,clutterScore,Page clutter and ads score,페이지 혼잡도/광고 점수,7,User Experience,Negative,P1,tech.clutter,clutter_penalty,100
+TechnicalSEO,violatesMobileInterstitialPolicy,Mobile interstitial policy violation,모바일 인터스티셜 정책 위반,7,Mobile UX,Negative,P1,tech.interstitial,interstitial_penalty,100
+Schema,richSnippets,Rich snippet eligibility,리치 스니펫 적격성,6,Structured Data,Positive,P2,schema.rich,rich_eligible,100
+Schema,schemaOrg,Schema.org markup presence,Schema.org 마크업 존재,7,Structured Data,Positive,P1,schema.org,schema_score,100
+Schema,faqSchema,FAQ schema markup,FAQ 스키마 마크업,6,Structured Data,Positive,P2,schema.faq,faq_score,100
+Schema,productSchema,Product schema markup,제품 스키마 마크업,7,Structured Data,Positive,P1,schema.product,product_schema,100
+Schema,reviewSchema,Review schema markup,리뷰 스키마 마크업,7,Structured Data,Positive,P1,schema.review,review_schema,100
+Schema,localBusinessSchema,Local business schema,로컬 비즈니스 스키마,8,Local SEO,Positive,P1,schema.local,local_schema,100
+Demotions,exactMatchDomainDemotion,Exact match domain penalty,정확 일치 도메인 페널티,7,Domain Penalty,Negative,P1,demotion.emd,emd_penalty,100
+Demotions,localMismatch,Local relevance mismatch,지역 관련성 불일치,7,Local SEO,Negative,P1,demotion.local,local_mismatch,100
+Demotions,productReviewDemotion,Low-quality product review penalty,저품질 제품 리뷰 페널티,8,Content Quality,Negative,P0,demotion.review,review_penalty,100
+Demotions,spamBrain,AI spam detection system,AI 스팸 감지 시스템,9,Spam Detection,Negative,P0,demotion.spambrain,spam_score,100
+Demotions,manualAction,Manual penalty,수동 페널티,10,Penalty,Negative,P0,demotion.manual,manual_penalty,100
+SpecialModules,isElectionAuthority,Election authority whitelist,선거 권위 사이트 화이트리스트,8,YMYL Trust,Positive,P1,special.election,election_auth,100
+SpecialModules,isCovidLocalAuthority,COVID authority whitelist,코로나 권위 사이트 화이트리스트,8,YMYL Trust,Positive,P1,special.covid,covid_auth,100
+SpecialModules,smallPersonalSite,Small personal site flag,소규모 개인 사이트 플래그,6,Site Classification,Variable,P2,special.personal,personal_flag,100
+SpecialModules,isYMYL,Your Money Your Life flag,YMYL 콘텐츠 플래그,8,YMYL,Variable,P0,special.ymyl,ymyl_flag,100
+RankingSystems,Mustang,Primary scoring and ranking system,1차 스코어링 및 랭킹 시스템,10,Core Algorithm,Core,P0,system.mustang,mustang_score,100
+RankingSystems,Twiddlers,Re-ranking functions post-Ascorer,Ascorer 이후 재랭킹 함수,9,Core Algorithm,Core,P0,system.twiddlers,twiddler_boost,100
+RankingSystems,Ascorer,Initial relevance scoring,초기 관련성 점수,10,Core Algorithm,Core,P0,system.ascorer,relevance_score,100
+RankingSystems,Glue,Universal search vertical ranking,유니버설 검색 버티컬 랭킹,8,Core Algorithm,Core,P1,system.glue,vertical_score,100
+RealTime,RealTimeBoost,Real-time trending boost,실시간 트렌딩 부스트,7,Trending,Positive,P1,realtime.boost,trending_score,100
+RealTime,twitterData,Twitter/X data signals,Twitter/X 데이터 신호,6,Social Signals,Positive,P2,realtime.twitter,social_score,100
+RealTime,instantNavboost,Instant Navboost updates,즉시 Navboost 업데이트,7,User Engagement,Positive,P1,realtime.instant,instant_score,100
+OnPage,titleOptimization,Title tag optimization score,타이틀 태그 최적화 점수,8,On-Page SEO,Positive,P0,onpage.title,title_opt_score,100
+OnPage,metaDescription,Meta description quality,메타 설명 품질,7,On-Page SEO,Positive,P1,onpage.meta_desc,meta_desc_score,100
+OnPage,headingStructure,Heading hierarchy quality,제목 구조 품질,6,On-Page SEO,Positive,P1,onpage.headings,heading_score,100
+OnPage,imageOptimization,Image alt text and compression,이미지 최적화,6,On-Page SEO,Positive,P1,onpage.images,image_score,100
+OnPage,internalLinking,Internal link structure,내부 링크 구조,7,On-Page SEO,Positive,P1,onpage.internal,internal_link_score,100
+OnPage,externalLinking,External link quality,외부 링크 품질,6,On-Page SEO,Positive,P2,onpage.external,external_link_score,100
+ContentDepth,wordCount,Word count adequacy,단어 수 적정성,5,Content Length,Positive,P2,depth.word_count,word_count_score,100
+ContentDepth,readability,Readability score,가독성 점수,6,Content Quality,Positive,P2,depth.readability,readability_score,100
+ContentDepth,entityCoverage,Entity and topic coverage,엔티티 및 주제 커버리지,6,Topical Authority,Positive,P2,depth.entities,entity_score,100
+EEAT,authorCredentials,Author credentials visibility,저자 자격 가시성,7,E-E-A-T,Positive,P1,eeat.author,author_cred_score,100
+EEAT,expertiseSignals,Expertise demonstration,전문성 표시,7,E-E-A-T,Positive,P1,eeat.expertise,expertise_score,100
+EEAT,trustSignals,Trust indicators presence,신뢰 지표 존재,8,E-E-A-T,Positive,P1,eeat.trust,trust_indicator_score,100
+EEAT,experienceSignals,First-hand experience indicators,직접 경험 지표,7,E-E-A-T,Positive,P1,eeat.experience,experience_score,100

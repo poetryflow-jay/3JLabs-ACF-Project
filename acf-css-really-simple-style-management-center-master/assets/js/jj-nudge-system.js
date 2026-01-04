@@ -31,7 +31,12 @@
 
             this.createContainers();
             this.bindEvents();
-            this.showActiveNudges();
+            
+            // [v23.0.4] 약간의 지연 후 넛지 표시 (페이지 로드 완료 후)
+            setTimeout(function() {
+                self.showActiveNudges();
+            }, 500);
+            
             this.checkUrlSpotlight(); // URL 파라미터로 스포트라이트 실행
         },
 
@@ -143,6 +148,15 @@
         showActiveNudges: function() {
             const self = this;
 
+            // window.jjNudgeSystem에서 활성 넛지 가져오기
+            if (window.jjNudgeSystem && window.jjNudgeSystem.active_nudges) {
+                this.activeNudges = window.jjNudgeSystem.active_nudges;
+            }
+
+            if (!this.activeNudges || this.activeNudges.length === 0) {
+                return;
+            }
+
             // 우선순위로 정렬
             this.activeNudges.sort(function(a, b) {
                 return (b.priority || 0) - (a.priority || 0);
@@ -154,7 +168,7 @@
             nudgesToShow.forEach(function(nudge, index) {
                 setTimeout(function() {
                     self.showNudge(nudge);
-                }, index * 300);
+                }, index * 500); // 간격을 500ms로 증가
             });
         },
 
@@ -167,11 +181,28 @@
             const $container = $('.jj-nudge-container.' + position);
 
             if (!$container.length) {
-                return;
+                // 컨테이너가 없으면 생성
+                $('body').append('<div class="jj-nudge-container ' + position + '"></div>');
+                const $newContainer = $('.jj-nudge-container.' + position);
+                if ($newContainer.length) {
+                    $container = $newContainer;
+                } else {
+                    return; // 생성 실패 시 종료
+                }
+            }
+
+            // 이미 표시된 넛지인지 확인
+            if ($container.find('[data-nudge-id="' + nudge.id + '"]').length) {
+                return; // 이미 표시됨
             }
 
             const $nudge = this.createNudgeElement(nudge);
             $container.append($nudge);
+
+            // 애니메이션으로 표시
+            setTimeout(function() {
+                $nudge.addClass('jj-nudge-visible');
+            }, 100);
 
             // 타겟 요소가 있으면 스크롤 + 하이라이트 + 스포트라이트
             if (nudge.target) {
@@ -186,6 +217,13 @@
                         }
                     });
                 }
+            }
+
+            // 자동 닫기 (duration이 설정된 경우)
+            if (nudge.duration && nudge.duration > 0) {
+                setTimeout(function() {
+                    self.dismissNudge(nudge.id, $nudge);
+                }, nudge.duration);
             }
         },
 
@@ -426,17 +464,20 @@
             const dismissible = nudge.dismissible !== false;
             const closeBtn = dismissible ? '<button type="button" class="jj-nudge-close" aria-label="' + (this.config.strings?.dismiss || 'Close') + '"><span class="dashicons dashicons-no-alt"></span></button>' : '';
 
+            // [v23.0.4] 넛지 타입별 클래스 추가
+            const typeClass = 'jj-nudge-' + (nudge.type || 'info');
+            
             return $(`
-                <div class="jj-nudge" data-nudge-id="${nudge.id}" data-type="${nudge.type}">
+                <div class="jj-nudge ${typeClass}" data-nudge-id="${nudge.id}" data-type="${nudge.type || 'info'}">
                     <div class="jj-nudge-header">
                         <div class="jj-nudge-header-content">
-                            <h4 class="jj-nudge-title">${this.escapeHtml(nudge.title)}</h4>
-                            <span class="jj-nudge-type-badge">${typeBadgeText}</span>
+                            <h4 class="jj-nudge-title">${this.escapeHtml(nudge.title || '')}</h4>
+                            ${typeBadgeText ? '<span class="jj-nudge-type-badge">' + this.escapeHtml(typeBadgeText) + '</span>' : ''}
                         </div>
                         ${closeBtn}
                     </div>
                     <div class="jj-nudge-body">
-                        <p class="jj-nudge-message">${this.escapeHtml(nudge.message)}</p>
+                        <p class="jj-nudge-message">${this.escapeHtml(nudge.message || '')}</p>
                     </div>
                     ${actionsHtml}
                 </div>
@@ -452,9 +493,13 @@
                 'incomplete': '미완료 설정',
                 'optimization': '최적화 팁',
                 'new_feature': '새 기능',
-                'tip': '팁'
+                'tip': '팁',
+                'info': '정보',
+                'warning': '경고',
+                'error': '오류',
+                'success': '성공'
             };
-            return types[type] || type;
+            return types[type] || '';
         },
 
         /**
@@ -463,22 +508,45 @@
         dismissNudge: function(nudgeId, $nudge) {
             const self = this;
 
+            if (!$nudge || !$nudge.length) {
+                $nudge = $('[data-nudge-id="' + nudgeId + '"]');
+            }
+
+            if (!$nudge.length) {
+                return;
+            }
+
             // 애니메이션
-            $nudge.addClass('jj-nudge-exiting');
+            $nudge.removeClass('jj-nudge-visible').addClass('jj-nudge-exiting');
+            $nudge.css({
+                opacity: 0,
+                transform: 'translateX(100%)'
+            });
 
             // 하이라이트 제거
-            $('.jj-nudge-highlight').removeClass('jj-nudge-highlight');
+            $('.jj-nudge-highlight').removeClass('jj-nudge-highlight jj-nudge-pulse jj-nudge-glow jj-nudge-bounce');
 
             setTimeout(function() {
                 $nudge.remove();
             }, 300);
 
             // 서버에 닫힘 상태 저장
-            $.post(this.config.ajax_url, {
-                action: 'jj_nudge_dismiss',
-                nonce: this.config.nonce,
-                nudge_id: nudgeId
-            });
+            if (this.config && this.config.ajax_url && this.config.nonce) {
+                $.post(this.config.ajax_url, {
+                    action: 'jj_nudge_dismiss',
+                    nonce: this.config.nonce,
+                    nudge_id: nudgeId
+                });
+            }
+
+            // 사용자 메타에 저장 (로컬)
+            if (nudgeId) {
+                const dismissed = JSON.parse(localStorage.getItem('jj_nudges_dismissed') || '[]');
+                if (dismissed.indexOf(nudgeId) === -1) {
+                    dismissed.push(nudgeId);
+                    localStorage.setItem('jj_nudges_dismissed', JSON.stringify(dismissed));
+                }
+            }
 
             // 활성 목록에서 제거
             this.activeNudges = this.activeNudges.filter(function(n) {

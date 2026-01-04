@@ -1,6 +1,6 @@
 <?php
 /**
- * JJ Simple Style Guide - 메인 스타일 가이드 클래스
+ * 3J Labs Simple Style Guide - 메인 스타일 가이드 클래스
  * 
  * WordPress 스타일 관리의 핵심 클래스입니다.
  * 옵션 관리, 스타일 적용, 프론트엔드/백엔드 통합을 담당합니다.
@@ -172,6 +172,7 @@ class JJ_Simple_Style_Guide {
         add_action( 'wp_ajax_jj_style_guide_reset', array( $this, 'ajax_reset_options' ) );
         add_action( 'wp_ajax_jj_style_guide_export', array( $this, 'ajax_export_options' ) );
         add_action( 'wp_ajax_jj_style_guide_import', array( $this, 'ajax_import_options' ) );
+        add_action( 'wp_ajax_jj_apply_recommended_setup', array( $this, 'ajax_apply_recommended_setup' ) );
 
         // [v22.1.2] 스타일 센터 에셋 로드 (Admin Center에서 로드하지 않을 경우 대비)
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_style_guide_assets' ) );
@@ -282,7 +283,7 @@ class JJ_Simple_Style_Guide {
                         ?>
                     </div>
 
-                    <!-- [v22.4.1] 세부 커스텀 스타일링 섹션 - 카드 기반 레이아웃 -->
+                    <!-- [v22.4.1] 세부 커스텀 스타일링 섹션 - 탭 기반 레이아웃 -->
                     <div class="jj-style-guide-sections" id="jj-sections-sortable" style="margin-top: 40px;">
                         <div class="jj-card" style="margin-bottom: 30px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
                             <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 10px;">
@@ -295,42 +296,40 @@ class JJ_Simple_Style_Guide {
                         </div>
                         <?php
                         // [v22.1.2] 저장된 섹션 레이아웃 순서대로 렌더링 (안전한 처리)
+                        // [v23.0.2] 기본 레이아웃 정의 (항상 폴백으로 사용)
+                        $default_layout = array(
+                            'colors' => array( 'label' => '1. 팔레트 시스템', 'enabled' => 1, 'order' => 10 ),
+                            'typography' => array( 'label' => '2. 타이포그래피', 'enabled' => 1, 'order' => 20 ),
+                            'buttons' => array( 'label' => '3. 버튼', 'enabled' => 1, 'order' => 30 ),
+                            'forms' => array( 'label' => '4. 폼', 'enabled' => 1, 'order' => 40 ),
+                            'fields' => array( 'label' => '5. 필드', 'enabled' => 1, 'order' => 50 ),
+                        );
+
                         $layout = array();
                         try {
                             if ( class_exists( 'JJ_Admin_Center' ) && method_exists( 'JJ_Admin_Center', 'instance' ) ) {
                                 $admin_center = JJ_Admin_Center::instance();
                                 if ( method_exists( $admin_center, 'get_sections_layout' ) ) {
                                     $layout = $admin_center->get_sections_layout();
-                                    
-                                    // 순서대로 정렬
-                                    if ( is_array( $layout ) && ! empty( $layout ) ) {
-                                        uasort( $layout, function( $a, $b ) {
-                                            $order_a = isset( $a['order'] ) ? (int) $a['order'] : 999;
-                                            $order_b = isset( $b['order'] ) ? (int) $b['order'] : 999;
-                                            return $order_a <=> $order_b;
-                                        } );
-                                    }
                                 }
                             }
                         } catch ( Exception $e ) {
                             error_log( '[JJ Style Guide] Layout loading failed: ' . $e->getMessage() );
-                            // 기본 레이아웃 사용
-                            $layout = array(
-                                'colors' => array( 'enabled' => true, 'order' => 1 ),
-                                'typography' => array( 'enabled' => true, 'order' => 2 ),
-                                'buttons' => array( 'enabled' => true, 'order' => 3 ),
-                                'forms' => array( 'enabled' => true, 'order' => 4 ),
-                            );
                         } catch ( Error $e ) {
                             error_log( '[JJ Style Guide] Layout loading fatal: ' . $e->getMessage() );
-                            // 기본 레이아웃 사용
-                            $layout = array(
-                                'colors' => array( 'enabled' => true, 'order' => 1 ),
-                                'typography' => array( 'enabled' => true, 'order' => 2 ),
-                                'buttons' => array( 'enabled' => true, 'order' => 3 ),
-                                'forms' => array( 'enabled' => true, 'order' => 4 ),
-                            );
                         }
+
+                        // [v23.0.2] 레이아웃이 비어있거나 유효하지 않으면 기본값 사용
+                        if ( empty( $layout ) || ! is_array( $layout ) ) {
+                            $layout = $default_layout;
+                        }
+
+                        // 순서대로 정렬
+                        uasort( $layout, function( $a, $b ) {
+                            $order_a = isset( $a['order'] ) ? (int) $a['order'] : 999;
+                            $order_b = isset( $b['order'] ) ? (int) $b['order'] : 999;
+                            return $order_a <=> $order_b;
+                        } );
 
                         // 섹션 매핑
                         $section_files = array(
@@ -338,28 +337,108 @@ class JJ_Simple_Style_Guide {
                             'typography'    => 'includes/editor-views/view-section-typography.php',
                             'buttons'       => 'includes/editor-views/view-section-buttons.php',
                             'forms'         => 'includes/editor-views/view-section-forms.php',
+                            'fields'        => 'includes/editor-views/view-section-fields.php',
                             'temp-palette'  => 'includes/editor-views/view-section-temp-palette.php',
                         );
 
+                        // [v23.0.2] 탭 네비게이션 생성 - enabled 체크 개선 (0, false, '' 모두 처리)
+                        $enabled_sections = array();
                         foreach ( $layout as $slug => $meta ) {
-                            if ( empty( $meta['enabled'] ) ) continue;
-                            
-                            $rel_path = isset( $section_files[ $slug ] ) ? $section_files[ $slug ] : '';
-                            if ( ! $rel_path ) continue;
+                            // enabled가 명시적으로 0이 아니면 활성화 (기본값 = 활성화)
+                            $is_enabled = ! isset( $meta['enabled'] ) || ( isset( $meta['enabled'] ) && $meta['enabled'] );
+                            if ( $is_enabled && isset( $section_files[ $slug ] ) ) {
+                                $enabled_sections[ $slug ] = $meta;
+                            }
+                        }
 
+                        // [v23.0.2] 활성화된 섹션이 없으면 기본 섹션 모두 활성화
+                        if ( empty( $enabled_sections ) ) {
+                            foreach ( $default_layout as $slug => $meta ) {
+                                if ( isset( $section_files[ $slug ] ) ) {
+                                    $enabled_sections[ $slug ] = $meta;
+                                }
+                            }
+                        }
+
+                        // 탭이 2개 이상일 때만 탭 UI 표시
+                        if ( count( $enabled_sections ) > 1 ) {
+                            echo '<div class="jj-sections-tabs-wrapper" style="margin-bottom: 30px;">';
+                            echo '<div class="jj-sections-tabs-nav" style="display: flex; gap: 8px; border-bottom: 2px solid #e2e8f0; margin-bottom: 0; padding: 0 20px; background: #fff; border-radius: 12px 12px 0 0;">';
+                            
+                            $first_tab = true;
+                            foreach ( $enabled_sections as $slug => $meta ) {
+                                // 한국어 라벨 매핑
+                                $label_map = array(
+                                    'colors' => '1. 팔레트 시스템',
+                                    'typography' => '2. 타이포그래피',
+                                    'buttons' => '3. 버튼',
+                                    'forms' => '4. 폼',
+                                    'fields' => '5. 필드',
+                                );
+                                $label = isset( $meta['label'] ) ? $meta['label'] : ( isset( $label_map[ $slug ] ) ? $label_map[ $slug ] : ucfirst( $slug ) );
+                                $active_class = $first_tab ? ' jj-tab-active' : '';
+                                $active_style = $first_tab ? 'color: #667eea; border-bottom-color: #667eea; background: rgba(102, 126, 234, 0.05);' : 'color: #64748b; border-bottom-color: transparent; background: transparent;';
+                                echo '<button type="button" class="jj-section-tab-button' . esc_attr( $active_class ) . '" data-tab-section="' . esc_attr( $slug ) . '" style="padding: 12px 24px; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.2s ease; margin-bottom: -2px; ' . esc_attr( $active_style ) . '">';
+                                echo esc_html( $label );
+                                echo '</button>';
+                                $first_tab = false;
+                            }
+                            
+                            echo '</div>';
+                            echo '</div>';
+                        }
+
+                        // 섹션 콘텐츠 렌더링
+                        $first_section = true;
+                        foreach ( $enabled_sections as $slug => $meta ) {
+                            $rel_path = $section_files[ $slug ];
                             $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
+                            
                             if ( file_exists( $file_path ) ) {
-                                echo '<div class="jj-section-wrapper jj-card" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '" style="margin-bottom: 25px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); transition: all 0.3s ease;">';
+                                // [v23.0.3] 탭이 여러 개일 때만 첫 번째 외에는 숨김 (클래스로 제어)
+                                $tab_class = ( count( $enabled_sections ) > 1 ) ? ' jj-section-tab-content' : '';
+                                $hidden_class = ( count( $enabled_sections ) > 1 && ! $first_section ) ? ' jj-section-hidden' : '';
+                                $visible_class = ( count( $enabled_sections ) > 1 && $first_section ) ? ' jj-section-visible' : '';
+                                
+                                // 인라인 스타일은 최소화하고 클래스로 제어 (JavaScript에서 제어 가능하도록)
+                                $inline_style = ( count( $enabled_sections ) > 1 && ! $first_section ) ? 'display: none;' : '';
+                                echo '<div class="jj-section-wrapper jj-card' . esc_attr( $tab_class ) . esc_attr( $hidden_class ) . esc_attr( $visible_class ) . '" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '" style="' . esc_attr( $inline_style ) . ' margin-bottom: 25px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); transition: all 0.3s ease;">';
                                 try {
+                                    // 옵션 변수 전달 (확실하게 전달)
+                                    $options = $this->options; // 로컬 변수로 명시적 할당
+                                    if ( ! is_array( $options ) ) {
+                                        $options = array();
+                                    }
                                     include $file_path;
                                 } catch ( Exception $e ) {
                                     error_log( '[JJ Style Guide] Section include failed (' . $slug . '): ' . $e->getMessage() );
-                                    echo '<p style="color: #ef4444;">' . esc_html__( '섹션을 로드하는 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
+                                    echo '<div style="padding: 20px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;">';
+                                    echo '<p style="color: #ef4444; margin: 0; font-weight: 600;">' . esc_html__( '섹션을 로드하는 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
+                                    echo '<p style="color: #991b1b; margin: 10px 0 0 0; font-size: 13px;">' . esc_html( $e->getMessage() ) . '</p>';
+                                    echo '</div>';
                                 } catch ( Error $e ) {
                                     error_log( '[JJ Style Guide] Section include fatal (' . $slug . '): ' . $e->getMessage() );
-                                    echo '<p style="color: #ef4444;">' . esc_html__( '섹션을 로드하는 중 치명적 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
+                                    echo '<div style="padding: 20px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;">';
+                                    echo '<p style="color: #ef4444; margin: 0; font-weight: 600;">' . esc_html__( '섹션을 로드하는 중 치명적 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
+                                    echo '<p style="color: #991b1b; margin: 10px 0 0 0; font-size: 13px;">' . esc_html( $e->getMessage() ) . '</p>';
+                                    echo '</div>';
                                 }
                                 echo '</div>';
+                                $first_section = false;
+                            } else {
+                                // [v23.0.3] 파일이 없을 때도 에러 메시지 표시 (탭 클래스 추가)
+                                error_log( '[JJ Style Guide] Section file not found: ' . $file_path );
+                                $tab_class = ( count( $enabled_sections ) > 1 ) ? ' jj-section-tab-content' : '';
+                                $hidden_class = ( count( $enabled_sections ) > 1 && ! $first_section ) ? ' jj-section-hidden' : '';
+                                $visible_class = ( count( $enabled_sections ) > 1 && $first_section ) ? ' jj-section-visible' : '';
+                                $display_style = ( count( $enabled_sections ) > 1 && ! $first_section ) ? 'display: none;' : '';
+                                echo '<div class="jj-section-wrapper jj-card' . esc_attr( $tab_class ) . esc_attr( $hidden_class ) . esc_attr( $visible_class ) . '" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '" style="' . esc_attr( $display_style ) . ' margin-bottom: 25px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">';
+                                echo '<div style="padding: 20px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;">';
+                                echo '<p style="color: #ef4444; margin: 0; font-weight: 600;">섹션 파일을 찾을 수 없습니다: ' . esc_html( $rel_path ) . '</p>';
+                                echo '<p style="color: #991b1b; margin: 10px 0 0 0; font-size: 13px;">파일 경로: ' . esc_html( $file_path ) . '</p>';
+                                echo '</div>';
+                                echo '</div>';
+                                $first_section = false;
                             }
                         }
 
@@ -422,8 +501,13 @@ class JJ_Simple_Style_Guide {
             return;
         }
 
-        $base_url = defined( 'JJ_STYLE_GUIDE_URL' ) ? JJ_STYLE_GUIDE_URL : plugin_dir_url( dirname( __FILE__ ) ) . '../';
-        $version  = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '22.1.2';
+        // 상수 정의 확인
+        if ( ! defined( 'JJ_STYLE_GUIDE_URL' ) || ! defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
+            return; // 상수가 정의되지 않았으면 에셋 로드 중단
+        }
+
+        $base_url = JJ_STYLE_GUIDE_URL;
+        $version  = defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '22.5.2';
 
         // [v22.1.2] Spectrum Color Picker (Modern Upgrade)
         wp_enqueue_style( 'spectrum-colorpicker', 'https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.1/spectrum.min.css' );
@@ -454,12 +538,38 @@ class JJ_Simple_Style_Guide {
                 'nonce'    => wp_create_nonce( 'jj_style_guide_nonce' ),
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'settings' => $this->options,
+                'locale'   => get_locale(),
+                'show_shortcuts_hint' => true, // 키보드 단축키 힌트 표시 여부
                 'i18n'     => array(
                     'saving' => __( '저장 중...', 'acf-css-really-simple-style-management-center' ),
                     'saved'  => __( '저장 완료!', 'acf-css-really-simple-style-management-center' ),
                 ),
             )
         );
+        
+        // WordPress 기본 ajaxurl도 로드 (온보딩 모달에서 사용)
+        wp_localize_script(
+            'jj-onboarding-tour',
+            'ajaxurl',
+            admin_url( 'admin-ajax.php' )
+        );
+        
+        // 온보딩 모달에서도 jj_admin_params 사용 가능하도록
+        // 주의: wp_localize_script는 각 스크립트 핸들마다 별도 변수를 생성하므로
+        // 같은 변수명을 사용해도 문제없지만, 일관성을 위해 동일한 데이터 구조 사용
+        wp_localize_script(
+            'jj-onboarding-tour',
+            'jj_admin_params',
+            array(
+                'nonce'    => wp_create_nonce( 'jj_style_guide_nonce' ),
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'locale'   => get_locale(),
+                'show_shortcuts_hint' => true,
+            )
+        );
+        
+        // 키보드 단축키 스크립트는 class-jj-admin-center.php에서 이미 로드되므로
+        // 여기서는 중복 로드하지 않음 (충돌 방지)
 
         // [v22.2.1] UI System 2026 Enhanced CSS 로드
         if ( defined( 'JJ_STYLE_GUIDE_URL' ) && defined( 'JJ_STYLE_GUIDE_PATH' ) ) {
@@ -819,6 +929,53 @@ class JJ_Simple_Style_Guide {
             ) );
         } else {
             wp_send_json_error( __( '가져오기에 실패했습니다.', 'acf-css-really-simple-style-management-center' ) );
+        }
+    }
+
+    /**
+     * AJAX: 추천 설정 적용
+     */
+    public function ajax_apply_recommended_setup() {
+        // nonce 검증 (jj_admin_params.nonce 사용)
+        if ( ! isset( $_POST['security'] ) || ! wp_verify_nonce( $_POST['security'], 'jj_style_guide_nonce' ) ) {
+            wp_send_json_error( array( 'message' => __( '보안 검증에 실패했습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        // 추천 설정 적용 (기본 색상 팔레트 및 타이포그래피 설정)
+        $recommended_options = array(
+            'colors' => array(
+                'primary' => '#3b82f6',
+                'secondary' => '#8b5cf6',
+                'accent' => '#f59e0b',
+                'success' => '#10b981',
+                'warning' => '#f59e0b',
+                'error' => '#ef4444',
+            ),
+            'typography' => array(
+                'font_family' => 'system-ui, -apple-system, sans-serif',
+                'font_size_base' => '16px',
+                'line_height' => '1.6',
+            ),
+        );
+        
+        // 기존 옵션과 병합
+        $merged_options = array_merge( $this->options, $recommended_options );
+        $result = $this->save_options( $merged_options );
+        
+        if ( $result ) {
+            // 온보딩 완료 플래그 설정
+            update_user_meta( get_current_user_id(), 'jj_css_onboarding_completed', time() );
+            
+            wp_send_json_success( array(
+                'message' => __( '추천 디자인 시스템이 적용되었습니다!', 'acf-css-really-simple-style-management-center' ),
+                'options' => $this->options,
+            ) );
+        } else {
+            wp_send_json_error( array( 'message' => __( '설정 적용에 실패했습니다.', 'acf-css-really-simple-style-management-center' ) ) );
         }
     }
 

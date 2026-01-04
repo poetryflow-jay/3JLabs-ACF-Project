@@ -92,14 +92,21 @@ class JJ_Plugin_List_Enhancer {
         $new_meta = array();
         $text_domain = $this->plugin_config['text_domain'];
 
-        // 1. 3J Labs 공식 사이트 (툴팁 포함)
-        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com/' ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '3J Labs 공식 웹사이트 방문', $text_domain ) . '" style="font-size: 13px; color: #2271b1; font-weight: 700;">🌐 <strong>' . __( '공식 사이트', $text_domain ) . '</strong></a>';
+        // 1. 3J Labs 공식 사이트 (툴팁 포함, 강조)
+        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com/' ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '3J Labs 공식 웹사이트 방문', $text_domain ) . '" style="font-size: 14px; color: #2271b1; font-weight: 800; text-decoration: none; border-bottom: 2px solid #2271b1; padding-bottom: 2px; margin-right: 10px;">🌐 <strong>' . __( '공식 사이트', $text_domain ) . '</strong></a>';
 
-        // 2. 문서 (툴팁 포함)
-        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['docs_url'] ) . '" class="jj-tooltip" data-tooltip="' . esc_attr__( '플러그인 문서 및 사용 가이드', $text_domain ) . '" style="font-size: 13px; color: #135e96; font-weight: 700;">📚 <strong>' . __( '문서', $text_domain ) . '</strong></a>';
+        // 2. 문서 (툴팁 포함, 강조)
+        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['docs_url'] ) . '" class="jj-tooltip" data-tooltip="' . esc_attr__( '플러그인 문서 및 사용 가이드', $text_domain ) . '" style="font-size: 14px; color: #135e96; font-weight: 800; text-decoration: none; border-bottom: 2px solid #135e96; padding-bottom: 2px; margin-right: 10px;">📚 <strong>' . __( '문서', $text_domain ) . '</strong></a>';
 
-        // 3. 지원 (툴팁 포함)
-        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['support_url'] ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '기술 지원 및 문의', $text_domain ) . '" style="font-size: 13px; color: #50575e; font-weight: 700;">💬 <strong>' . __( '지원', $text_domain ) . '</strong></a>';
+        // 3. 지원 (툴팁 포함, 강조)
+        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['support_url'] ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '기술 지원 및 문의', $text_domain ) . '" style="font-size: 14px; color: #50575e; font-weight: 800; text-decoration: none; border-bottom: 2px solid #50575e; padding-bottom: 2px; margin-right: 10px;">💬 <strong>' . __( '지원', $text_domain ) . '</strong></a>';
+        
+        // 4. 추가 리소스 링크들 (강조)
+        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['upgrade_url'] ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '업그레이드 및 프리미엄 기능', $text_domain ) . '" style="font-size: 14px; color: #00a32a; font-weight: 800; text-decoration: none; margin-right: 10px;">⭐ <strong>' . __( '업그레이드', $text_domain ) . '</strong></a>';
+        
+        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['docs_url'] ) . '#changelog" class="jj-tooltip" data-tooltip="' . esc_attr__( '최신 변경사항 및 릴리즈 노트', $text_domain ) . '" style="font-size: 14px; color: #856404; font-weight: 800; text-decoration: none; margin-right: 10px;">📝 <strong>' . __( '변경사항', $text_domain ) . '</strong></a>';
+        
+        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['support_url'] ) . '/community" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '커뮤니티에 참여하세요', $text_domain ) . '" style="font-size: 14px; color: #f5576c; font-weight: 800; text-decoration: none; margin-right: 10px;">👥 <strong>' . __( '커뮤니티', $text_domain ) . '</strong></a>';
 
         // 4. 필수 플러그인 안내 (필요시)
         $required_plugins = $this->get_required_plugins();
@@ -129,7 +136,7 @@ class JJ_Plugin_List_Enhancer {
             }
         }
 
-        // 6. 자동 업데이트 상태 표시 및 토글 버튼
+        // 6. 자동 업데이트 상태 표시 및 토글 버튼 (모든 플러그인에 필수, 마스터 버전이든 아니든)
         $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
         $is_auto_update_enabled = in_array( $this->plugin_basename, $auto_updates, true );
         
@@ -137,24 +144,29 @@ class JJ_Plugin_List_Enhancer {
         $auto_update_nonce = wp_create_nonce( 'jj_toggle_auto_update_' . $this->plugin_basename );
         $auto_update_text = $is_auto_update_enabled ? __( '자동 업데이트 활성화', $text_domain ) : __( '자동 업데이트 비활성화', $text_domain );
         $auto_update_icon = $is_auto_update_enabled ? '✅' : '⚪';
-        $auto_update_color = $is_auto_update_enabled ? '#00a32a' : '#646970';
+        $auto_update_color = $is_auto_update_enabled ? '#00a32a' : '#d63638';
         
         $new_meta[] = sprintf(
-            '<a href="#" class="%s" data-plugin="%s" data-nonce="%s" data-enabled="%s" style="color: %s; font-weight: 700; text-decoration: none; cursor: pointer;" title="%s">%s %s</a>',
+            '<a href="#" class="%s jj-tooltip" data-plugin="%s" data-nonce="%s" data-enabled="%s" data-tooltip="%s" style="font-size: 14px; font-weight: 800; color: %s; text-decoration: none; cursor: pointer; border: 1px solid %s; padding: 4px 10px; border-radius: 4px; background: %s; display: inline-block; margin-left: 5px;">%s <strong>%s</strong></a>',
             esc_attr( $auto_update_class ),
             esc_attr( $this->plugin_basename ),
             esc_attr( $auto_update_nonce ),
             $is_auto_update_enabled ? '1' : '0',
-            esc_attr( $auto_update_color ),
             esc_attr( __( '클릭하여 자동 업데이트를 토글합니다', $text_domain ) ),
+            esc_attr( $auto_update_color ),
+            esc_attr( $auto_update_color ),
+            $is_auto_update_enabled ? 'rgba(0, 163, 42, 0.1)' : 'rgba(214, 54, 56, 0.1)',
             $auto_update_icon,
             esc_html( $auto_update_text )
         );
 
-        // 7. 라이센스 키 필요 안내 (Free 버전인 경우)
+        // 7. 라이센스 키 필요 안내 (Free 버전인 경우, 강조)
         if ( ! $this->is_premium() ) {
-            $new_meta[] = '<a href="' . esc_url( $this->plugin_config['settings_url'] ) . '#license" class="jj-tooltip" data-tooltip="' . esc_attr__( '라이센스 키를 입력하여 Pro 기능을 활성화하세요', $text_domain ) . '" style="font-size: 13px; color: #2271b1; font-weight: 700;">🔑 <strong>' . __( '라이센스 키 입력', $text_domain ) . '</strong></a>';
+            $new_meta[] = '<a href="' . esc_url( $this->plugin_config['settings_url'] ) . '#license" class="jj-tooltip" data-tooltip="' . esc_attr__( '라이센스 키를 입력하여 Pro 기능을 활성화하세요', $text_domain ) . '" style="font-size: 14px; color: #2271b1; font-weight: 800; text-decoration: none; border: 2px solid #2271b1; padding: 4px 10px; border-radius: 4px; background: rgba(34, 113, 177, 0.1); display: inline-block; margin-left: 5px;">🔑 <strong>' . __( '라이센스 키 입력', $text_domain ) . '</strong></a>';
         }
+        
+        // 8. 비활성화 링크 강조 (기존 링크에 스타일 추가를 위해)
+        // WordPress 기본 비활성화 링크는 이미 있으므로, 여기서는 추가 메타 정보만 제공
 
         return array_merge( $plugin_meta, $new_meta );
     }
@@ -162,7 +174,7 @@ class JJ_Plugin_List_Enhancer {
     /**
      * 플러그인 동작 링크 향상
      * 
-     * [v23.0.1] 볼드, 아이콘, 색상, 큰 글꼴, 기능별 숏컷 링크로 대폭 개선
+     * [v23.0.2] 모든 플러그인에 적용, 볼드, 아이콘, 색상, 큰 글꼴, 기능별 숏컷 링크로 대폭 개선
      */
     public function enhance_plugin_action_links( $links ) {
         $new_links = array();
@@ -171,8 +183,19 @@ class JJ_Plugin_List_Enhancer {
         // 플러그인별 기능 링크 정의
         $feature_links = $this->get_feature_links();
         
-        // 1. 주요 기능 링크들 (플러그인별로 다름)
+        // 1. 설정 링크 (모든 플러그인에 필수)
+        if ( ! empty( $this->plugin_config['settings_url'] ) ) {
+            $new_links['settings'] = sprintf(
+                '<a href="%s" class="jj-tooltip" data-tooltip="%s" style="font-size: 15px; font-weight: 800; color: #2271b1; text-decoration: none; margin-right: 10px; display: inline-block; border-bottom: 2px solid #2271b1; padding-bottom: 2px;">⚙️ <strong>%s</strong></a>',
+                esc_url( $this->plugin_config['settings_url'] ),
+                esc_attr__( '플러그인 설정 페이지로 이동', $text_domain ),
+                __( '설정', $text_domain )
+            );
+        }
+        
+        // 2. 주요 기능 링크들 (플러그인별로 다름)
         foreach ( $feature_links as $key => $link_config ) {
+            if ( $key === 'settings' ) continue; // 이미 추가됨
             $new_links[ $key ] = sprintf(
                 '<a href="%s" class="jj-tooltip" data-tooltip="%s" style="font-size: 14px; font-weight: 700; color: %s; text-decoration: none; margin-right: 8px; display: inline-block;">%s <strong>%s</strong></a>',
                 esc_url( $link_config['url'] ),
@@ -183,17 +206,17 @@ class JJ_Plugin_List_Enhancer {
             );
         }
 
-        // 2. 롤백 링크 (필수)
+        // 3. 롤백 링크 (모든 플러그인에 필수)
         $rollback_nonce = wp_create_nonce( 'jj_rollback_plugin_' . $this->plugin_basename );
         $new_links['rollback'] = sprintf(
-            '<a href="#" class="jj-rollback-trigger jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" style="font-size: 14px; font-weight: 700; color: #856404; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block;">🔄 <strong>%s</strong></a>',
+            '<a href="#" class="jj-rollback-trigger jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" style="font-size: 14px; font-weight: 800; color: #856404; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block; background: linear-gradient(135deg, #fbbf24 0%%, #f59e0b 100%%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🔄 <strong>%s</strong></a>',
             esc_attr__( '이전 버전으로 되돌리기', $text_domain ),
             esc_attr( $this->plugin_basename ),
             esc_attr( $rollback_nonce ),
             __( '롤백', $text_domain )
         );
 
-        // 3. 업그레이드 유도 (마스터/파트너/언리미티드 제외)
+        // 4. 업그레이드 유도 (마스터/파트너/언리미티드 제외)
         $license_type = $this->get_license_type();
         if ( ! in_array( strtoupper( $license_type ), array( 'MASTER', 'PARTNER', 'UNLIMITED' ), true ) ) {
             $upgrade_text = $this->get_upgrade_text( $license_type );
@@ -207,22 +230,25 @@ class JJ_Plugin_List_Enhancer {
             );
         }
 
-        // 4. 자동 업데이트 상태 표시 (필수)
+        // 5. 자동 업데이트 토글 버튼 (모든 플러그인에 필수, 마스터 버전이든 아니든)
         $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
         $is_auto_update_enabled = in_array( $this->plugin_basename, $auto_updates, true );
         $auto_update_nonce = wp_create_nonce( 'jj_toggle_auto_update_' . $this->plugin_basename );
         
-        $auto_update_text = $is_auto_update_enabled ? __( '자동 업데이트 켜짐', $text_domain ) : __( '자동 업데이트 꺼짐', $text_domain );
+        // 텍스트를 "자동 업데이트 활성화" / "자동 업데이트 비활성화"로 명확하게 표시
+        $auto_update_text = $is_auto_update_enabled ? __( '자동 업데이트 활성화', $text_domain ) : __( '자동 업데이트 비활성화', $text_domain );
         $auto_update_color = $is_auto_update_enabled ? '#00a32a' : '#d63638';
         $auto_update_icon = $is_auto_update_enabled ? '✅' : '⚪';
         
         $new_links['auto_update'] = sprintf(
-            '<a href="#" class="jj-auto-update-toggle jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" data-enabled="%s" style="font-size: 13px; font-weight: 700; color: %s; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block;">%s <strong>%s</strong></a>',
+            '<a href="#" class="jj-auto-update-toggle jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" data-enabled="%s" style="font-size: 14px; font-weight: 800; color: %s; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block; border: 1px solid %s; padding: 4px 8px; border-radius: 4px; background: %s;">%s <strong>%s</strong></a>',
             esc_attr__( '클릭하여 자동 업데이트를 토글합니다', $text_domain ),
             esc_attr( $this->plugin_basename ),
             esc_attr( $auto_update_nonce ),
             $is_auto_update_enabled ? '1' : '0',
             esc_attr( $auto_update_color ),
+            esc_attr( $auto_update_color ),
+            $is_auto_update_enabled ? 'rgba(0, 163, 42, 0.1)' : 'rgba(214, 54, 56, 0.1)',
             $auto_update_icon,
             esc_html( $auto_update_text )
         );
@@ -304,6 +330,53 @@ class JJ_Plugin_List_Enhancer {
                 'icon' => '🔍',
                 'color' => '#f5576c',
                 'tooltip' => __( '벌크 SEO 분석 도구', $text_domain ),
+            );
+        }
+        // 넛지 플로우
+        elseif ( strpos( $this->plugin_basename, 'acf-nudge-flow' ) !== false ) {
+            $links['workflows'] = array(
+                'url' => admin_url( 'admin.php?page=acf-nudge-flow-workflows' ),
+                'label' => __( '워크플로우', $text_domain ),
+                'icon' => '⚡',
+                'color' => '#667eea',
+                'tooltip' => __( '워크플로우 관리', $text_domain ),
+            );
+            $links['templates'] = array(
+                'url' => admin_url( 'admin.php?page=acf-nudge-flow-templates' ),
+                'label' => __( '템플릿', $text_domain ),
+                'icon' => '📋',
+                'color' => '#f5576c',
+                'tooltip' => __( '템플릿 센터', $text_domain ),
+            );
+        }
+        // Neural Link
+        elseif ( strpos( $this->plugin_basename, 'acf-css-neural-link' ) !== false ) {
+            $links['licenses'] = array(
+                'url' => admin_url( 'admin.php?page=jj-license-manager' ),
+                'label' => __( '라이센스 관리', $text_domain ),
+                'icon' => '🔑',
+                'color' => '#f59e0b',
+                'tooltip' => __( '라이센스 관리 페이지', $text_domain ),
+            );
+        }
+        // WooCommerce Toolkit
+        elseif ( strpos( $this->plugin_basename, 'acf-css-woocommerce-toolkit' ) !== false ) {
+            $links['settings'] = array(
+                'url' => admin_url( 'admin.php?page=acf-css-wc-settings' ),
+                'label' => __( 'WooCommerce 설정', $text_domain ),
+                'icon' => '🛒',
+                'color' => '#7f54b3',
+                'tooltip' => __( 'WooCommerce Toolkit 설정', $text_domain ),
+            );
+        }
+        // AI Extension
+        elseif ( strpos( $this->plugin_basename, 'acf-css-ai-extension' ) !== false ) {
+            $links['ai_dashboard'] = array(
+                'url' => admin_url( 'admin.php?page=jj-ai-extension' ),
+                'label' => __( 'AI 대시보드', $text_domain ),
+                'icon' => '🤖',
+                'color' => '#10b981',
+                'tooltip' => __( 'AI 스타일 생성기', $text_domain ),
             );
         }
         // 기본 설정 링크 (다른 플러그인들)
@@ -512,8 +585,9 @@ class JJ_Plugin_List_Enhancer {
      */
     private function get_inline_css() {
         return '
-        /* [v23.0.1] 플러그인 목록 페이지 UI/UX 대폭 개선 */
+        /* [v23.0.2] 플러그인 목록 페이지 UI/UX 대폭 개선 - 모든 플러그인에 적용 */
         .jj-auto-update-toggle:hover,
+        .jj-auto-update-toggle-global:hover,
         .jj-rollback-trigger:hover,
         .jj-tooltip:hover {
             opacity: 0.8;
@@ -522,14 +596,42 @@ class JJ_Plugin_List_Enhancer {
             transition: all 0.2s ease;
         }
         
-        /* 플러그인 액션 링크 스타일 개선 */
+        /* 플러그인 액션 링크 스타일 개선 - 볼드, 큰 글꼴, 색상 강조 */
         .wp-list-table.plugins .plugin-title strong {
-            font-size: 14px !important;
+            font-size: 15px !important;
+            font-weight: 800 !important;
+        }
+        
+        /* 비활성화 링크 강조 */
+        .wp-list-table.plugins .row-actions a[href*="action=deactivate"],
+        .wp-list-table.plugins .row-actions .deactivate a {
+            font-size: 15px !important;
+            font-weight: 800 !important;
+            color: #d63638 !important;
+            border-bottom: 2px solid #d63638 !important;
+            padding-bottom: 2px !important;
         }
         
         .wp-list-table.plugins .row-actions a {
-            font-size: 14px !important;
-            font-weight: 700 !important;
+            font-size: 15px !important;
+            font-weight: 800 !important;
+        }
+        
+        /* 플러그인 메타 링크 스타일 개선 */
+        .wp-list-table.plugins .plugin-description p {
+            margin-bottom: 8px;
+        }
+        
+        .wp-list-table.plugins .plugin-description .jj-tooltip {
+            margin-right: 12px;
+        }
+        
+        /* 플러그인 행 메타 정보 영역 강조 */
+        .wp-list-table.plugins .plugin-description p + .row-meta,
+        .wp-list-table.plugins .plugin-description + .row-meta {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e5e5e5;
         }
         .jj-nudge-overlay {
             position: fixed;
@@ -660,7 +762,7 @@ class JJ_Plugin_List_Enhancer {
         
         return "
         jQuery(document).ready(function($) {
-            // 자동 업데이트 토글
+            // 자동 업데이트 토글 (플러그인별)
             $(document).on('click', '.jj-auto-update-toggle', function(e) {
                 e.preventDefault();
                 var \$link = $(this);
@@ -677,6 +779,39 @@ class JJ_Plugin_List_Enhancer {
                     type: 'POST',
                     data: {
                         action: '" . esc_js( $ajax_action ) . "',
+                        nonce: nonce,
+                        plugin: plugin
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert(response.data.message || '오류가 발생했습니다.');
+                        }
+                    },
+                    error: function() {
+                        alert('서버 통신 오류가 발생했습니다.');
+                    }
+                });
+            });
+            
+            // 전역 자동 업데이트 토글 (모든 플러그인)
+            $(document).on('click', '.jj-auto-update-toggle-global', function(e) {
+                e.preventDefault();
+                var \$link = $(this);
+                var plugin = \$link.data('plugin');
+                var nonce = \$link.data('nonce');
+                var enabled = \$link.data('enabled') === '1';
+                
+                if (!confirm(enabled ? '자동 업데이트를 비활성화하시겠습니까?' : '자동 업데이트를 활성화하시겠습니까?')) {
+                    return;
+                }
+                
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'jj_toggle_auto_update_global',
                         nonce: nonce,
                         plugin: plugin
                     },
@@ -830,6 +965,248 @@ class JJ_Plugin_List_Enhancer {
         
         return false;
     }
+}
+
+/**
+ * [v23.0.2] 모든 플러그인에 자동 업데이트 버튼 및 향상된 링크 추가 (전역 필터)
+ * 마스터 버전이든 아니든 모든 플러그인에 적용
+ */
+class JJ_Global_Plugin_List_Enhancer {
+    
+    private static $instance = null;
+    
+    public static function instance() {
+        if ( is_null( self::$instance ) ) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+    
+    private function __construct() {
+        // 모든 플러그인에 자동 업데이트 버튼 추가
+        add_filter( 'plugin_action_links', array( $this, 'add_auto_update_to_all_plugins' ), 10, 2 );
+        
+        // 모든 플러그인에 향상된 메타 링크 추가
+        add_filter( 'plugin_row_meta', array( $this, 'enhance_all_plugin_meta' ), 10, 2 );
+        
+        // 자동 업데이트 토글 AJAX (전역)
+        add_action( 'wp_ajax_jj_toggle_auto_update_global', array( $this, 'ajax_toggle_auto_update_global' ) );
+        
+        // 스타일 및 스크립트 로드
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_global_assets' ) );
+    }
+    
+    /**
+     * 모든 플러그인에 자동 업데이트 버튼 추가
+     */
+    public function add_auto_update_to_all_plugins( $links, $plugin_file ) {
+        // WordPress 코어 플러그인 제외
+        if ( strpos( $plugin_file, 'wordpress-seo' ) !== false || 
+             strpos( $plugin_file, 'akismet' ) !== false ||
+             strpos( $plugin_file, 'hello.php' ) !== false ) {
+            return $links;
+        }
+        
+        $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
+        $is_auto_update_enabled = in_array( $plugin_file, $auto_updates, true );
+        $auto_update_nonce = wp_create_nonce( 'jj_toggle_auto_update_global_' . $plugin_file );
+        
+        // 텍스트를 "자동 업데이트 활성화" / "자동 업데이트 비활성화"로 명확하게 표시
+        $auto_update_text = $is_auto_update_enabled ? __( '자동 업데이트 활성화', 'acf-css-really-simple-style-management-center' ) : __( '자동 업데이트 비활성화', 'acf-css-really-simple-style-management-center' );
+        $auto_update_color = $is_auto_update_enabled ? '#00a32a' : '#d63638';
+        $auto_update_icon = $is_auto_update_enabled ? '✅' : '⚪';
+        
+        $auto_update_link = sprintf(
+            '<a href="#" class="jj-auto-update-toggle-global jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" data-enabled="%s" style="font-size: 14px; font-weight: 800; color: %s; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block; border: 1px solid %s; padding: 4px 8px; border-radius: 4px; background: %s;">%s <strong>%s</strong></a>',
+            esc_attr__( '클릭하여 자동 업데이트를 토글합니다', 'acf-css-really-simple-style-management-center' ),
+            esc_attr( $plugin_file ),
+            esc_attr( $auto_update_nonce ),
+            $is_auto_update_enabled ? '1' : '0',
+            esc_attr( $auto_update_color ),
+            esc_attr( $auto_update_color ),
+            $is_auto_update_enabled ? 'rgba(0, 163, 42, 0.1)' : 'rgba(214, 54, 56, 0.1)',
+            $auto_update_icon,
+            esc_html( $auto_update_text )
+        );
+        
+        // 기존 링크 앞에 추가
+        array_unshift( $links, $auto_update_link );
+        
+        return $links;
+    }
+    
+    /**
+     * 모든 플러그인에 향상된 메타 링크 추가
+     * [v23.0.2] 플러그인 설명 아래에 다양한 링크 추가 (볼드, 색상, 아이콘 강조)
+     */
+    public function enhance_all_plugin_meta( $plugin_meta, $plugin_file ) {
+        // WordPress 코어 플러그인 제외
+        if ( strpos( $plugin_file, 'wordpress-seo' ) !== false || 
+             strpos( $plugin_file, 'akismet' ) !== false ||
+             strpos( $plugin_file, 'hello.php' ) !== false ) {
+            return $plugin_meta;
+        }
+        
+        $new_meta = array();
+        
+        // 플러그인 데이터 가져오기
+        $plugin_data = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_file );
+        
+        // 자동 업데이트 버튼 (메타 영역에도 추가, 모든 플러그인에 필수)
+        $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
+        $is_auto_update_enabled = in_array( $plugin_file, $auto_updates, true );
+        $auto_update_nonce = wp_create_nonce( 'jj_toggle_auto_update_global_' . $plugin_file );
+        
+        $auto_update_text = $is_auto_update_enabled ? __( '자동 업데이트 활성화', 'acf-css-really-simple-style-management-center' ) : __( '자동 업데이트 비활성화', 'acf-css-really-simple-style-management-center' );
+        $auto_update_color = $is_auto_update_enabled ? '#00a32a' : '#d63638';
+        $auto_update_icon = $is_auto_update_enabled ? '✅' : '⚪';
+        
+        $new_meta[] = sprintf(
+            '<a href="#" class="jj-auto-update-toggle-global jj-tooltip" data-plugin="%s" data-nonce="%s" data-enabled="%s" data-tooltip="%s" style="font-size: 14px; font-weight: 800; color: %s; text-decoration: none; cursor: pointer; border: 1px solid %s; padding: 4px 10px; border-radius: 4px; background: %s; display: inline-block; margin-left: 5px;">%s <strong>%s</strong></a>',
+            esc_attr( $plugin_file ),
+            esc_attr( $auto_update_nonce ),
+            $is_auto_update_enabled ? '1' : '0',
+            esc_attr__( '클릭하여 자동 업데이트를 토글합니다', 'acf-css-really-simple-style-management-center' ),
+            esc_attr( $auto_update_color ),
+            esc_attr( $auto_update_color ),
+            $is_auto_update_enabled ? 'rgba(0, 163, 42, 0.1)' : 'rgba(214, 54, 56, 0.1)',
+            $auto_update_icon,
+            esc_html( $auto_update_text )
+        );
+        
+        // 플러그인 URI가 있으면 추가 링크 제공 (강조)
+        if ( ! empty( $plugin_data['PluginURI'] ) ) {
+            $new_meta[] = sprintf(
+                '<a href="%s" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="%s" style="font-size: 14px; color: #2271b1; font-weight: 800; text-decoration: none; border-bottom: 2px solid #2271b1; padding-bottom: 2px; margin-right: 10px;">🌐 <strong>%s</strong></a>',
+                esc_url( $plugin_data['PluginURI'] ),
+                esc_attr__( '플러그인 공식 사이트 방문', 'acf-css-really-simple-style-management-center' ),
+                __( '공식 사이트', 'acf-css-really-simple-style-management-center' )
+            );
+        }
+        
+        // 추가 리소스 링크들 (모든 플러그인에 적용, 강조)
+        if ( ! empty( $plugin_data['AuthorURI'] ) ) {
+            $new_meta[] = sprintf(
+                '<a href="%s" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="%s" style="font-size: 14px; color: #135e96; font-weight: 800; text-decoration: none; border-bottom: 2px solid #135e96; padding-bottom: 2px; margin-right: 10px;">👤 <strong>%s</strong></a>',
+                esc_url( $plugin_data['AuthorURI'] ),
+                esc_attr__( '작성자 사이트 방문', 'acf-css-really-simple-style-management-center' ),
+                __( '작성자', 'acf-css-really-simple-style-management-center' )
+            );
+        }
+        
+        // 버전 정보 강조
+        if ( ! empty( $plugin_data['Version'] ) ) {
+            $new_meta[] = sprintf(
+                '<span style="font-size: 14px; color: #50575e; font-weight: 800; margin-right: 10px;">📦 <strong>v%s</strong></span>',
+                esc_html( $plugin_data['Version'] )
+            );
+        }
+        
+        return array_merge( $plugin_meta, $new_meta );
+    }
+    
+    /**
+     * 전역 자동 업데이트 토글 AJAX
+     */
+    public function ajax_toggle_auto_update_global() {
+        $nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+        $plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( $_POST['plugin'] ) : '';
+        
+        if ( ! wp_verify_nonce( $nonce, 'jj_toggle_auto_update_global_' . $plugin ) ) {
+            wp_send_json_error( array( 'message' => __( '보안 검증 실패', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        if ( ! current_user_can( 'update_plugins' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) ) );
+        }
+        
+        $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
+        $is_enabled = in_array( $plugin, $auto_updates, true );
+        
+        if ( $is_enabled ) {
+            // 비활성화
+            $auto_updates = array_diff( $auto_updates, array( $plugin ) );
+            $message = __( '자동 업데이트가 비활성화되었습니다.', 'acf-css-really-simple-style-management-center' );
+        } else {
+            // 활성화
+            if ( ! in_array( $plugin, $auto_updates, true ) ) {
+                $auto_updates[] = $plugin;
+            }
+            $message = __( '자동 업데이트가 활성화되었습니다.', 'acf-css-really-simple-style-management-center' );
+        }
+        
+        update_site_option( 'auto_update_plugins', array_values( $auto_updates ) );
+        
+        wp_send_json_success( array(
+            'message' => $message,
+            'enabled' => ! $is_enabled,
+        ) );
+    }
+    
+    /**
+     * 전역 스타일 및 스크립트 로드
+     */
+    public function enqueue_global_assets( $hook ) {
+        if ( 'plugins.php' !== $hook ) {
+            return;
+        }
+        
+        // 전역 JavaScript 추가
+        wp_add_inline_script( 'jquery', "
+        jQuery(document).ready(function($) {
+            // 전역 자동 업데이트 토글
+            $(document).on('click', '.jj-auto-update-toggle-global', function(e) {
+                e.preventDefault();
+                var \$link = $(this);
+                var plugin = \$link.data('plugin');
+                var nonce = \$link.data('nonce');
+                var enabled = \$link.data('enabled') === '1';
+                
+                if (!confirm(enabled ? '자동 업데이트를 비활성화하시겠습니까?' : '자동 업데이트를 활성화하시겠습니까?')) {
+                    return;
+                }
+                
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'jj_toggle_auto_update_global',
+                        nonce: nonce,
+                        plugin: plugin
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert(response.data.message || '오류가 발생했습니다.');
+                        }
+                    },
+                    error: function() {
+                        alert('서버 통신 오류가 발생했습니다.');
+                    }
+                });
+            });
+            
+            // 비활성화 링크 강조 (WordPress 기본 링크에 스타일 추가)
+            $('.row-actions a[href*=\"action=deactivate\"], .row-actions .deactivate a').each(function() {
+                if (!$(this).hasClass('jj-enhanced')) {
+                    $(this).addClass('jj-enhanced').css({
+                        'font-size': '15px',
+                        'font-weight': '800',
+                        'color': '#d63638',
+                        'border-bottom': '2px solid #d63638',
+                        'padding-bottom': '2px'
+                    });
+                }
+            });
+        });
+        " );
+    }
+}
+
+// 전역 플러그인 목록 향상기 초기화 (모든 플러그인에 적용)
+if ( is_admin() ) {
+    add_action( 'plugins_loaded', array( 'JJ_Global_Plugin_List_Enhancer', 'instance' ), 5 );
 }
 
 // ACF CSS Manager용 인스턴스 초기화

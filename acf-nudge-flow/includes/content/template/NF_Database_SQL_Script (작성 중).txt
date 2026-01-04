@@ -1,0 +1,111 @@
+﻿– ============================================
+– IFDO 오토메시지 데이터베이스 SQL 스크립트
+– 생성일: 2026-01-04
+– 용도: 마케팅 자동화 세그먼트 및 디자인 관리
+– ============================================
+
+
+– 1. 세그먼트 스토어 테이블
+DROP TABLE IF EXISTS segment_store;
+CREATE TABLE segment_store (
+    id INT PRIMARY KEY,
+    category VARCHAR(50) NOT NULL,
+    segment_name VARCHAR(200) NOT NULL,
+    parameters VARCHAR(200),
+    description VARCHAR(100)
+);
+
+
+INSERT INTO segment_store VALUES
+(1, ‘방문이 시작되었을 때’, ‘사이트를 처음 방문한 방문객’, ‘-’, ‘첫 방문자 타겟팅’),
+(2, ‘방문이 시작되었을 때’, ‘사이트를 다시 방문한 방문객’, ‘-’, ‘재방문자 타겟팅’),
+(3, ‘방문이 시작되었을 때’, ‘누적 방문수가 OO회 이하인 방문객’, ‘visit_count_max’, ‘방문 횟수 제한’),
+(4, ‘방문이 시작되었을 때’, ‘누적 방문수가 OO회 이상인 방문객’, ‘visit_count_min’, ‘충성 방문자’),
+(5, ‘방문이 시작되었을 때’, ‘마지막 방문 이후 OO일 만에 다시 방문’, ‘days_since_last_visit’, ‘재방문 주기’),
+(6, ‘방문이 시작되었을 때’, ‘평균 체류시간이 OO초 이내인 방문객’, ‘avg_stay_seconds_max’, ‘이탈 위험’),
+(7, ‘방문이 시작되었을 때’, ‘PC로 방문한 방문객’, ‘-’, ‘디바이스 필터’),
+(8, ‘방문이 시작되었을 때’, ‘모바일로 방문한 방문객’, ‘-’, ‘디바이스 필터’),
+(9, ‘다른 사이트에서 방문했을 때’, ‘#검색엔진에서 방문한 방문객’, ‘search_engine’, ‘검색유입’),
+(10, ‘다른 사이트에서 방문했을 때’, ‘#캠페인으로 방문한 방문객’, ‘campaign’, ‘캠페인 추적’);
+
+
+– 2. 디자인 스토어 테이블
+DROP TABLE IF EXISTS design_store;
+CREATE TABLE design_store (
+    id INT PRIMARY KEY,
+    design_type VARCHAR(50) NOT NULL,
+    template_name VARCHAR(100) NOT NULL,
+    cta_type VARCHAR(50),
+    sample_text VARCHAR(200)
+);
+
+
+INSERT INTO design_store VALUES
+(1, ‘라운드 플로팅’, ‘스타벅스 상품권’, ‘클릭 없음’, ‘스타벅스 상품권 받아가세요’),
+(2, ‘라운드 플로팅’, ‘카카오톡 채널’, ‘카카오채널 추가’, ‘카톡채널 추가하고 경품받기’),
+(3, ‘라운드 플로팅’, ‘카카오톡 상담’, ‘카카오톡 상담’, ‘카톡으로 문의주시면’),
+(4, ‘라운드 플로팅’, ‘전화 연결’, ‘전화 연결’, ‘무료 상담 전화 안내’),
+(5, ‘리치팝업’, ‘동영상 전용’, ‘동영상 재생’, ‘오늘의 이벤트’),
+(6, ‘푸시노트’, ‘기본형’, ‘확인’, ‘알림 메시지’),
+(7, ‘쿠폰박스’, ‘할인쿠폰’, ‘쿠폰 다운로드’, ‘할인 쿠폰 증정’);
+
+
+– 3. RFM 세그먼트 테이블
+DROP TABLE IF EXISTS rfm_segments;
+CREATE TABLE rfm_segments (
+    id INT PRIMARY KEY,
+    segment_name VARCHAR(50) NOT NULL,
+    segment_name_en VARCHAR(50),
+    recency_score VARCHAR(10),
+    frequency_score VARCHAR(10),
+    monetary_level VARCHAR(10),
+    description VARCHAR(200),
+    marketing_action VARCHAR(200)
+);
+
+
+INSERT INTO rfm_segments VALUES
+(1, ‘다이아몬드’, ‘Diamond’, ‘5’, ‘5’, ‘높음’, ‘최근 구매 + 고빈도 + 고금액’, ‘VIP 관리’),
+(2, ‘충성 고객’, ‘Loyal Customer’, ‘4-5’, ‘4-5’, ‘높음’, ‘지속 구매 우수 고객’, ‘멤버십 혜택’),
+(3, ‘절대 놓치지 마세요’, ‘Cannot Lose’, ‘1-2’, ‘4-5’, ‘높음’, ‘과거 VIP, 최근 구매 없음’, ‘긴급 재활성화’),
+(4, ‘잠재적인 충성 고객’, ‘Potential Loyalist’, ‘4-5’, ‘2-3’, ‘중간’, ‘최근 구매 활발’, ‘빈도 증가 유도’),
+(5, ‘유망주’, ‘Promising’, ‘3-4’, ‘2-3’, ‘중간’, ‘성장 잠재력’, ‘크로스셀/업셀’),
+(6, ‘갈림길 고객’, ‘At Risk’, ‘2-3’, ‘3-4’, ‘중간’, ‘이탈 위험’, ‘리텐션 캠페인’),
+(7, ‘신규 고객’, ‘New Customer’, ‘5’, ‘1’, ‘낮음’, ‘최근 첫 구매’, ‘웰컴 시리즈’),
+(8, ‘1회성 고객’, ‘One-time Buyer’, ‘2-3’, ‘1’, ‘낮음’, ‘단발성 구매’, ‘재구매 인센티브’),
+(9, ‘겨울잠 고객’, ‘Hibernating’, ‘1’, ‘1-2’, ‘낮음’, ‘장기간 미구매’, ‘재활성화 캠페인’),
+(10, ‘리마인드가 필요해요’, ‘About to Sleep’, ‘2’, ‘1-2’, ‘낮음’, ‘이탈 직전’, ‘리마인드 메시지’),
+(11, ‘위기 관리 필요’, ‘Need Attention’, ‘1-2’, ‘2-3’, ‘중간’, ‘구매 감소 추세’, ‘재구매 유도’);
+
+
+– 4. 고객 세분화 필터 테이블
+DROP TABLE IF EXISTS customer_filters;
+CREATE TABLE customer_filters (
+    id INT PRIMARY KEY,
+    category VARCHAR(50) NOT NULL,
+    filter_name VARCHAR(100) NOT NULL,
+    description VARCHAR(200),
+    use_case VARCHAR(100)
+);
+
+
+INSERT INTO customer_filters VALUES
+(1, ‘RFM 세그먼트’, ‘절대 놓치지 마세요’, ‘과거 VIP’, ‘긴급 재활성화’),
+(2, ‘RFM 세그먼트’, ‘충성 고객’, ‘지속 구매 고객’, ‘멤버십 혜택’),
+(3, ‘RFM 세그먼트’, ‘다이아몬드’, ‘최상위 VIP’, ‘VIP 관리’),
+(4, ‘트래픽’, ‘방문 횟수’, ‘누적 방문 횟수’, ‘충성도 분석’),
+(5, ‘트래픽’, ‘방문 시간대’, ‘시간대별 분석’, ‘시간대 타겟팅’),
+(6, ‘트래픽’, ‘첫방문/재방문’, ‘신규/기존 구분’, ‘신규/기존 분리’),
+(7, ‘유입’, ‘유입출처’, ‘유입 채널’, ‘채널 분석’),
+(8, ‘유입’, ‘검색엔진’, ‘검색엔진 유입’, ‘SEO 분석’),
+(9, ‘유입’, ‘캠페인’, ‘캠페인 유입’, ‘캠페인 분석’),
+(10, ‘구매’, ‘누적 구매수’, ‘총 구매 횟수’, ‘구매력 분석’),
+(11, ‘구매’, ‘누적 구매액’, ‘총 구매 금액’, ‘고객 가치’),
+(12, ‘상품’, ‘최근 조회한 상품’, ‘조회 상품’, ‘상품 관심’),
+(13, ‘장바구니’, ‘최근 담긴 상품수’, ‘장바구니 수’, ‘구매 의향’),
+(14, ‘회원’, ‘로그인’, ‘로그인 여부’, ‘회원 구분’),
+(15, ‘사용 환경’, ‘기기 구분’, ‘PC/모바일’, ‘디바이스 분석’);
+
+
+– 전체 스프레드시트 링크
+– https://docs.google.com/spreadsheets/d/1qpBth6BG26T8mGk801Y-D9gDgQJeZoBOh0nf_l2caUo/edit

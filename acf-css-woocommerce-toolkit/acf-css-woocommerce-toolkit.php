@@ -24,11 +24,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSS_WC_VERSION', '2.4.0' ); // [v2.4.0] Phase 37: 보안 강화 및 UI/UX 개선
+define( 'ACF_CSS_WC_VERSION', '2.5.0' ); // [v2.5.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
 define( 'ACF_CSS_WC_PLUGIN_FILE', __FILE__ );
 define( 'ACF_CSS_WC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSS_WC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACF_CSS_WC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'ACF_CSS_WC_SLUG', 'acf-css-woocommerce-toolkit' );
+
+// [v25.0.0] 보안 모듈 및 라이센스 관리 로드
+$shared_path = dirname( dirname( __FILE__ ) ) . '/shared-ui-assets';
+if ( file_exists( $shared_path . '/class-jj-security-module-v25.php' ) ) {
+    require_once $shared_path . '/class-jj-security-module-v25.php';
+    if ( class_exists( 'JJ_Security_Module_V25_Loader' ) ) {
+        JJ_Security_Module_V25_Loader::instance( ACF_CSS_WC_PLUGIN_DIR, ACF_CSS_WC_PLUGIN_URL, ACF_CSS_WC_VERSION, ACF_CSS_WC_SLUG );
+    }
+}
+if ( file_exists( $shared_path . '/class-jj-license-manager-shared.php' ) ) {
+    require_once $shared_path . '/class-jj-license-manager-shared.php';
+    if ( class_exists( 'JJ_License_Manager_Shared' ) ) {
+        JJ_License_Manager_Shared::instance( ACF_CSS_WC_SLUG );
+    }
+}
 
 /**
  * 메인 플러그인 클래스
@@ -60,16 +76,43 @@ class ACF_CSS_WooCommerce_Toolkit {
     private function __construct() {
         $this->check_dependencies();
         $this->init_hooks();
+        $this->init_plugin_list_enhancer();
+    }
+    
+    /**
+     * 플러그인 목록 페이지 향상 초기화
+     */
+    private function init_plugin_list_enhancer() {
+        $plugin_list_enhancer_file = dirname( dirname( __FILE__ ) ) . '/acf-css-really-simple-style-management-center-master/includes/class-jj-plugin-list-enhancer.php';
+        if ( file_exists( $plugin_list_enhancer_file ) ) {
+            require_once $plugin_list_enhancer_file;
+        }
+        
+        if ( class_exists( 'JJ_Plugin_List_Enhancer' ) ) {
+            $enhancer = new JJ_Plugin_List_Enhancer();
+            $enhancer->init( array(
+                'plugin_file' => __FILE__,
+                'plugin_name' => 'ACF CSS WooCommerce Toolkit',
+                'settings_url' => admin_url( 'admin.php?page=acf-css-wc-settings' ),
+                'text_domain' => 'acf-css-woocommerce-toolkit',
+                'version_constant' => 'ACF_CSS_WC_VERSION',
+                'license_constant' => 'ACF_CSS_WC_LICENSE_TYPE',
+                'upgrade_url' => 'https://3j-labs.com/',
+                'docs_url' => admin_url( 'admin.php?page=acf-css-wc-settings' ),
+                'support_url' => 'https://3j-labs.com/support',
+            ) );
+        }
     }
 
     /**
      * 의존성 체크
      */
     private function check_dependencies() {
-        // WooCommerce 활성화 체크
+        // WooCommerce 활성화 체크 (경고만 표시, 활성화는 허용)
         if ( ! class_exists( 'WooCommerce' ) ) {
             add_action( 'admin_notices', array( $this, 'woocommerce_missing_notice' ) );
-            return;
+            // WooCommerce가 없어도 플러그인은 활성화 가능하도록 계속 진행
+            // return; // 주석 처리하여 활성화 허용
         }
 
         // ACF CSS 메인 플러그인 체크 (권장)
@@ -77,7 +120,10 @@ class ACF_CSS_WooCommerce_Toolkit {
             add_action( 'admin_notices', array( $this, 'acf_css_missing_notice' ) );
         }
 
-        $this->load_dependencies();
+        // WooCommerce가 있을 때만 의존성 파일 로드
+        if ( class_exists( 'WooCommerce' ) ) {
+            $this->load_dependencies();
+        }
     }
 
     /**
@@ -349,18 +395,34 @@ class ACF_CSS_WooCommerce_Toolkit {
  * 플러그인 활성화 시 실행
  */
 function acf_css_wc_activate() {
-    // 활성화 시 필요한 설정 초기화
-    if ( ! get_option( 'acf_css_wc_settings' ) ) {
-        update_option( 'acf_css_wc_settings', array(
-            'enable_price_engine'        => true,
-            'enable_discount_calculator' => true,
-            'enable_quick_edit'          => true,
-            'enable_cart_enhancer'       => true,
-            'enable_installment_display' => true,
-        ) );
+    try {
+        // 활성화 시 필요한 설정 초기화
+        if ( function_exists('get_option') && function_exists('update_option') ) {
+            if ( ! get_option( 'acf_css_wc_settings' ) ) {
+                update_option( 'acf_css_wc_settings', array(
+                    'enable_price_engine'        => true,
+                    'enable_discount_calculator' => true,
+                    'enable_quick_edit'          => true,
+                    'enable_cart_enhancer'       => true,
+                    'enable_installment_display' => true,
+                ) );
+            }
+        }
+        
+        if (function_exists('flush_rewrite_rules')) {
+            flush_rewrite_rules();
+        }
+    } catch (Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('ACF CSS WooCommerce Toolkit Activation Error: ' . $e->getMessage());
+        }
+        // 오류가 발생해도 플러그인은 활성화되도록 함
+    } catch (Error $e) {
+        if (function_exists('error_log')) {
+            error_log('ACF CSS WooCommerce Toolkit Activation Fatal Error: ' . $e->getMessage());
+        }
+        // 치명적 오류가 발생해도 플러그인은 활성화되도록 함
     }
-    
-    flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'acf_css_wc_activate' );
 
@@ -368,7 +430,15 @@ register_activation_hook( __FILE__, 'acf_css_wc_activate' );
  * 플러그인 비활성화 시 실행
  */
 function acf_css_wc_deactivate() {
-    flush_rewrite_rules();
+    try {
+        if (function_exists('flush_rewrite_rules')) {
+            flush_rewrite_rules();
+        }
+    } catch (Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('ACF CSS WooCommerce Toolkit Deactivation Error: ' . $e->getMessage());
+        }
+    }
 }
 register_deactivation_hook( __FILE__, 'acf_css_wc_deactivate' );
 
@@ -376,7 +446,21 @@ register_deactivation_hook( __FILE__, 'acf_css_wc_deactivate' );
  * 플러그인 초기화
  */
 function acf_css_wc_init() {
-    return ACF_CSS_WooCommerce_Toolkit::instance();
+    try {
+        return ACF_CSS_WooCommerce_Toolkit::instance();
+    } catch (Exception $e) {
+        if (function_exists('error_log')) {
+            error_log('ACF CSS WooCommerce Toolkit Init Error: ' . $e->getMessage());
+        }
+        // 오류가 발생해도 플러그인은 활성화되도록 함
+        return null;
+    } catch (Error $e) {
+        if (function_exists('error_log')) {
+            error_log('ACF CSS WooCommerce Toolkit Init Fatal Error: ' . $e->getMessage());
+        }
+        // 치명적 오류가 발생해도 플러그인은 활성화되도록 함
+        return null;
+    }
 }
 
 // WooCommerce 로드 후 플러그인 초기화

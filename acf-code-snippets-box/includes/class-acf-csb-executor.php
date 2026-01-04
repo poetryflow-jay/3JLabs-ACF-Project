@@ -235,6 +235,8 @@ class ACF_CSB_Executor {
 
     /**
      * PHP 스니펫 실행
+     * 
+     * [v4.2.0] 샌드박스 환경에서 실행
      */
     public function execute_php_snippets() {
         // 보안: PHP 실행이 활성화되어 있는지 확인
@@ -245,26 +247,32 @@ class ACF_CSB_Executor {
 
         $snippets = $this->get_active_snippets( 'php', 'everywhere' );
         
+        // 샌드박스 인스턴스
+        $sandbox = ACF_CSB_Sandbox::instance();
+        
         foreach ( $snippets as $snippet ) {
             $code = get_post_meta( $snippet->ID, '_acf_csb_code', true );
             if ( ! empty( $code ) ) {
-                try {
-                    // 에러 로깅 활성화
-                    if ( ! empty( $settings['enable_error_logging'] ) ) {
-                        set_error_handler( array( $this, 'php_error_handler' ) );
+                // 샌드박스 옵션
+                $sandbox_options = array(
+                    'max_execution_time' => isset( $settings['php_max_execution_time'] ) ? intval( $settings['php_max_execution_time'] ) : 5,
+                    'max_memory'         => isset( $settings['php_max_memory'] ) ? $settings['php_max_memory'] : '32M',
+                );
+
+                // 샌드박스에서 실행
+                $result = $sandbox->execute( $code, $sandbox_options );
+
+                if ( $result['success'] ) {
+                    // 성능 모니터링
+                    if ( class_exists( 'ACF_CSB_Performance_Monitor' ) ) {
+                        $monitor = ACF_CSB_Performance_Monitor::instance();
+                        $monitor->end_timing( $snippet->ID );
                     }
-                    
-                    eval( $code );
-                    
-                    if ( ! empty( $settings['enable_error_logging'] ) ) {
-                        restore_error_handler();
-                    }
-                    
+
                     $this->executed_snippets[] = $snippet->ID;
-                } catch ( Exception $e ) {
-                    $this->log_error( $snippet->ID, $e->getMessage() );
-                } catch ( Error $e ) {
-                    $this->log_error( $snippet->ID, $e->getMessage() );
+                } else {
+                    // 오류 로깅
+                    $this->log_error( $snippet->ID, $result['error'] );
                 }
             }
         }

@@ -1,0 +1,684 @@
+/**
+ * 3J Labs Design System v25.0.0
+ * 현대적 디자인 시스템 - 대규모 확장
+ * 
+ * @version 25.0.0
+ * @author Jenny (Lead Designer) x Jason (Implementation)
+ * @created 2026-01-03
+ * 
+ * Design Philosophy:
+ * - "첫 눈에 쓰고 싶어지는 플러그인" (Jenny's Vision)
+ * - 현대적이고 세련된 디자인
+ * - 풍부한 색상과 시각적 계층
+ * - 부드러운 애니메이션과 전환
+ * - 완벽한 접근성
+ */
+
+/* ===========================
+   CSS Variables (Design Tokens) - v25 확장
+   =========================== */
+:root {
+    /* Primary Colors - 확장 */
+    --jj-primary: #FF6B35;
+    --jj-primary-dark: #E85A2A;
+    --jj-primary-light: #FF8B5E;
+    --jj-primary-50: #FFF5F2;
+    --jj-primary-100: #FFE5DB;
+    --jj-primary-200: #FFC5B3;
+    --jj-primary-300: #FFA58B;
+    --jj-primary-400: #FF855F;
+    --jj-primary-500: #FF6B35;
+    --jj-primary-600: #E85A2A;
+    --jj-primary-700: #CC4A1F;
+    --jj-primary-800: #B03A14;
+    --jj-primary-900: #942A09;
+    
+    /* Accent Colors - 확장 */
+    --jj-accent-blue: #3B82F6;
+    --jj-accent-blue-light: #60A5FA;
+    --jj-accent-blue-dark: #2563EB;
+    --jj-accent-green: #10B981;
+    --jj-accent-green-light: #34D399;
+    --jj-accent-green-dark: #059669;
+    --jj-accent-purple: #8B5CF6;
+    --jj-accent-purple-light: #A78BFA;
+    --jj-accent-purple-dark: #7C3AED;
+    --jj-accent-amber: #F59E0B;
+    --jj-accent-amber-light: #FBBF24;
+    --jj-accent-amber-dark: #D97706;
+    --jj-accent-pink: #EC4899;
+    --jj-accent-pink-light: #F472B6;
+    --jj-accent-pink-dark: #DB2777;
+    --jj-accent-cyan: #06B6D4;
+    --jj-accent-cyan-light: #22D3EE;
+    --jj-accent-cyan-dark: #0891B2;
+    --jj-accent-indigo: #6366F1;
+    --jj-accent-indigo-light: #818CF8;
+    --jj-accent-indigo-dark: #4F46E5;
+    
+    /* Neutrals - 확장 */
+    --jj-gray-50: #FAFAFA;
+    --jj-gray-100: #F5F5F5;
+    --jj-gray-200: #E5E5E5;
+    --jj-gray-300: #D4D4D4;
+    --jj-gray-400: #A3A3A3;
+    --jj-gray-500: #737373;
+    --jj-gray-600: #525252;
+    --jj-gray-700: #404040;
+    --jj-gray-800: #262626;
+    --jj-gray-900: #171717;
+    
+    /* Semantic Colors */
+    --jj-success: #10B981;
+    --jj-success-light: #34D399;
+    --jj-success-dark: #059669;
+    --jj-warning: #F59E0B;
+    --jj-warning-light: #FBBF24;
+    --jj-warning-dark: #D97706;
+    --jj-error: #EF4444;
+    --jj-error-light: #F87171;
+    --jj-error-dark: #DC2626;
+    --jj-info: #3B82F6;
+    --jj-info-light: #60A5FA;
+    --jj-info-dark: #2563EB;
+    
+    /* Spacing - 확장 */
+    --jj-space-xs: 4px;
+    --jj-space-sm: 8px;
+    --jj-space-md: 16px;
+    --jj-space-lg: 24px;
+    --jj-space-xl: 32px;
+    --jj-space-2xl: 48px;
+    --jj-space-3xl: 64px;
+    --jj-space-4xl: 96px;
+    
+    /* Border Radius - 확장 */
+    --jj-radius-sm: 4px;
+    --jj-radius-md: 8px;
+    --jj-radius-lg: 12px;
+    --jj-radius-xl: 16px;
+    --jj-radius-2xl: 20px;
+    --jj-radius-full: 9999px;
+    
+    /* Shadows - 확장 */
+    --jj-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --jj-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --jj-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --jj-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --jj-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --jj-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --jj-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    --jj-shadow-colored: 0 10px 15px -3px rgba(255, 107, 53, 0.3), 0 4px 6px -2px rgba(255, 107, 53, 0.2);
+    
+    /* Transitions - 확장 */
+    --jj-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --jj-transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --jj-transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    --jj-transition-bounce: 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --jj-transition-elastic: 800ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    
+    /* Typography - 확장 */
+    --jj-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --jj-font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+    --jj-font-serif: Georgia, "Times New Roman", Times, serif;
+    
+    /* Font Sizes - 확장 */
+    --jj-text-xs: 0.75rem;    /* 12px */
+    --jj-text-sm: 0.875rem;   /* 14px */
+    --jj-text-base: 1rem;     /* 16px */
+    --jj-text-lg: 1.125rem;   /* 18px */
+    --jj-text-xl: 1.25rem;    /* 20px */
+    --jj-text-2xl: 1.5rem;    /* 24px */
+    --jj-text-3xl: 1.875rem;  /* 30px */
+    --jj-text-4xl: 2.25rem;   /* 36px */
+    --jj-text-5xl: 3rem;      /* 48px */
+    --jj-text-6xl: 3.75rem;   /* 60px */
+    
+    /* Line Heights */
+    --jj-leading-none: 1;
+    --jj-leading-tight: 1.25;
+    --jj-leading-snug: 1.375;
+    --jj-leading-normal: 1.5;
+    --jj-leading-relaxed: 1.625;
+    --jj-leading-loose: 2;
+    
+    /* Z-Index Scale */
+    --jj-z-base: 1;
+    --jj-z-dropdown: 1000;
+    --jj-z-sticky: 1020;
+    --jj-z-fixed: 1030;
+    --jj-z-modal-backdrop: 1040;
+    --jj-z-modal: 1050;
+    --jj-z-popover: 1060;
+    --jj-z-tooltip: 1070;
+    --jj-z-notification: 1080;
+}
+
+/* ===========================
+   다크 모드 변수
+   =========================== */
+[data-theme="dark"],
+.jj-theme-dark {
+    /* Primary Colors (다크 모드) */
+    --jj-primary: #FF8B5E;
+    --jj-primary-dark: #FF6B35;
+    --jj-primary-light: #FFB38A;
+    
+    /* Background Colors */
+    --jj-bg-primary: #0F172A;
+    --jj-bg-secondary: #1E293B;
+    --jj-bg-tertiary: #334155;
+    
+    /* Text Colors */
+    --jj-text-primary: #F1F5F9;
+    --jj-text-secondary: #CBD5E1;
+    --jj-text-tertiary: #94A3B8;
+    
+    /* Border Colors */
+    --jj-border-primary: #334155;
+    --jj-border-secondary: #475569;
+    
+    /* Shadows (다크 모드용) */
+    --jj-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --jj-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --jj-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
+
+/* ===========================
+   그라데이션 시스템
+   =========================== */
+.jj-gradient-primary {
+    background: linear-gradient(135deg, var(--jj-primary) 0%, var(--jj-primary-dark) 100%);
+}
+
+.jj-gradient-accent-blue {
+    background: linear-gradient(135deg, var(--jj-accent-blue) 0%, var(--jj-accent-blue-dark) 100%);
+}
+
+.jj-gradient-accent-purple {
+    background: linear-gradient(135deg, var(--jj-accent-purple) 0%, var(--jj-accent-purple-dark) 100%);
+}
+
+.jj-gradient-rainbow {
+    background: linear-gradient(135deg, 
+        var(--jj-primary) 0%,
+        var(--jj-accent-pink) 25%,
+        var(--jj-accent-purple) 50%,
+        var(--jj-accent-blue) 75%,
+        var(--jj-accent-cyan) 100%
+    );
+}
+
+.jj-gradient-glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===========================
+   버튼 시스템 확장
+   =========================== */
+.jj-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--jj-space-sm) var(--jj-space-lg);
+    font-size: var(--jj-text-base);
+    font-weight: 600;
+    line-height: var(--jj-leading-normal);
+    border-radius: var(--jj-radius-md);
+    border: none;
+    cursor: pointer;
+    transition: all var(--jj-transition-base);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.jj-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.jj-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.jj-btn-primary {
+    background: var(--jj-gradient-primary);
+    color: #FFFFFF;
+    box-shadow: var(--jj-shadow-md);
+}
+
+.jj-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--jj-shadow-lg);
+}
+
+.jj-btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--jj-shadow-sm);
+}
+
+.jj-btn-secondary {
+    background: var(--jj-gray-100);
+    color: var(--jj-gray-800);
+    border: 1px solid var(--jj-gray-300);
+}
+
+.jj-btn-secondary:hover {
+    background: var(--jj-gray-200);
+    border-color: var(--jj-gray-400);
+}
+
+.jj-btn-accent-blue {
+    background: var(--jj-gradient-accent-blue);
+    color: #FFFFFF;
+}
+
+.jj-btn-accent-purple {
+    background: var(--jj-gradient-accent-purple);
+    color: #FFFFFF;
+}
+
+.jj-btn-ghost {
+    background: transparent;
+    color: var(--jj-primary);
+    border: 2px solid var(--jj-primary);
+}
+
+.jj-btn-ghost:hover {
+    background: var(--jj-primary);
+    color: #FFFFFF;
+}
+
+.jj-btn-lg {
+    padding: var(--jj-space-md) var(--jj-space-xl);
+    font-size: var(--jj-text-lg);
+}
+
+.jj-btn-sm {
+    padding: var(--jj-space-xs) var(--jj-space-md);
+    font-size: var(--jj-text-sm);
+}
+
+/* ===========================
+   카드 시스템 확장
+   =========================== */
+.jj-card {
+    background: #FFFFFF;
+    border: 1px solid var(--jj-gray-200);
+    border-radius: var(--jj-radius-lg);
+    padding: var(--jj-space-lg);
+    box-shadow: var(--jj-shadow-sm);
+    transition: all var(--jj-transition-base);
+}
+
+.jj-card:hover {
+    box-shadow: var(--jj-shadow-md);
+    transform: translateY(-2px);
+}
+
+.jj-card-gradient {
+    background: var(--jj-gradient-primary);
+    color: #FFFFFF;
+    border: none;
+}
+
+.jj-card-glass {
+    background: var(--jj-gradient-glass);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.jj-card-elevated {
+    box-shadow: var(--jj-shadow-xl);
+}
+
+/* ===========================
+   애니메이션 시스템
+   =========================== */
+@keyframes jj-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes jj-slide-up {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes jj-slide-down {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes jj-scale-in {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes jj-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes jj-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes jj-shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.jj-animate-fade-in {
+    animation: jj-fade-in var(--jj-transition-base) ease-out;
+}
+
+.jj-animate-slide-up {
+    animation: jj-slide-up var(--jj-transition-base) ease-out;
+}
+
+.jj-animate-slide-down {
+    animation: jj-slide-down var(--jj-transition-base) ease-out;
+}
+
+.jj-animate-scale-in {
+    animation: jj-scale-in var(--jj-transition-base) ease-out;
+}
+
+.jj-animate-pulse {
+    animation: jj-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.jj-animate-bounce {
+    animation: jj-bounce 1s infinite;
+}
+
+/* ===========================
+   로딩 애니메이션
+   =========================== */
+.jj-loader {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--jj-gray-200);
+    border-top-color: var(--jj-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.jj-loader-dots {
+    display: inline-flex;
+    gap: 4px;
+}
+
+.jj-loader-dots span {
+    width: 8px;
+    height: 8px;
+    background: var(--jj-primary);
+    border-radius: 50%;
+    animation: jj-bounce 1.4s infinite ease-in-out both;
+}
+
+.jj-loader-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.jj-loader-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+/* ===========================
+   툴팁 시스템 확장
+   =========================== */
+.jj-tooltip-v25 {
+    position: absolute;
+    z-index: var(--jj-z-tooltip);
+    padding: var(--jj-space-sm) var(--jj-space-md);
+    background: var(--jj-gray-900);
+    color: #FFFFFF;
+    border-radius: var(--jj-radius-md);
+    font-size: var(--jj-text-sm);
+    line-height: var(--jj-leading-tight);
+    box-shadow: var(--jj-shadow-lg);
+    max-width: 300px;
+    animation: jj-fade-in var(--jj-transition-fast) ease-out;
+    pointer-events: none;
+}
+
+.jj-tooltip-v25::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+}
+
+.jj-tooltip-v25.jj-tooltip-top::after {
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-color: var(--jj-gray-900);
+}
+
+.jj-tooltip-v25.jj-tooltip-bottom::after {
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-color: var(--jj-gray-900);
+}
+
+.jj-tooltip-v25.jj-tooltip-left::after {
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left-color: var(--jj-gray-900);
+}
+
+.jj-tooltip-v25.jj-tooltip-right::after {
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-right-color: var(--jj-gray-900);
+}
+
+/* ===========================
+   인웹 팝업 시스템 확장
+   =========================== */
+.jj-inweb-popup {
+    position: fixed;
+    z-index: var(--jj-z-notification);
+    padding: var(--jj-space-lg);
+    background: #FFFFFF;
+    border-radius: var(--jj-radius-xl);
+    box-shadow: var(--jj-shadow-2xl);
+    max-width: 400px;
+    animation: jj-scale-in var(--jj-transition-bounce) ease-out;
+}
+
+.jj-inweb-popup-success {
+    background: linear-gradient(135deg, var(--jj-success) 0%, var(--jj-success-dark) 100%);
+    color: #FFFFFF;
+}
+
+.jj-inweb-popup-info {
+    background: linear-gradient(135deg, var(--jj-info) 0%, var(--jj-info-dark) 100%);
+    color: #FFFFFF;
+}
+
+.jj-inweb-popup-warning {
+    background: linear-gradient(135deg, var(--jj-warning) 0%, var(--jj-warning-dark) 100%);
+    color: #FFFFFF;
+}
+
+.jj-inweb-popup-error {
+    background: linear-gradient(135deg, var(--jj-error) 0%, var(--jj-error-dark) 100%);
+    color: #FFFFFF;
+}
+
+/* ===========================
+   접근성 강화
+   =========================== */
+.jj-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.jj-focus-visible {
+    outline: 2px solid var(--jj-primary);
+    outline-offset: 2px;
+}
+
+/* ===========================
+   반응형 디자인
+   =========================== */
+@media (max-width: 768px) {
+    :root {
+        --jj-space-lg: 16px;
+        --jj-space-xl: 24px;
+        --jj-text-base: 0.9375rem; /* 15px */
+    }
+
+    .jj-card {
+        padding: var(--jj-space-md);
+    }
+
+    .jj-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ===========================
+   고대비 모드
+   =========================== */
+@media (prefers-contrast: high) {
+    :root {
+        --jj-gray-200: #000000;
+        --jj-gray-800: #FFFFFF;
+    }
+
+    .jj-card {
+        border-width: 2px;
+    }
+
+    .jj-btn {
+        border-width: 2px;
+    }
+}
+
+/* ===========================
+   다크 모드 전환 애니메이션
+   =========================== */
+.jj-theme-transitioning * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* ===========================
+   다크 모드 토글 버튼
+   =========================== */
+.jj-dark-mode-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--jj-primary);
+    color: #FFFFFF;
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--jj-shadow-lg);
+    z-index: var(--jj-z-fixed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all var(--jj-transition-base);
+}
+
+.jj-dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--jj-shadow-xl);
+}
+
+.jj-dark-mode-toggle:active {
+    transform: scale(0.95);
+}
+
+[data-theme="dark"] .jj-dark-mode-toggle {
+    background: var(--jj-accent-amber);
+}
+
+/* ===========================
+   애니메이션 감소 모드
+   =========================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

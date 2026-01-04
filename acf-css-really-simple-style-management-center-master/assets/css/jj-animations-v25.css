@@ -1,0 +1,614 @@
+/**
+ * JJ Animations System v25.0.0
+ * 고급 애니메이션 및 전환 효과 시스템
+ * 
+ * @version 25.0.0
+ * @author Jenny (Lead Designer) x Jason (Implementation)
+ * @created 2026-01-03
+ * 
+ * 주요 기능:
+ * - 마이크로 인터랙션
+ * - 고급 로딩 애니메이션
+ * - 페이지 전환 효과
+ * - 스크롤 애니메이션
+ * - 호버 효과
+ */
+
+/* ===========================
+   마이크로 인터랙션
+   =========================== */
+
+/* 버튼 리플 효과 */
+.jj-btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.jj-btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.jj-btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* 카드 호버 효과 */
+.jj-card-hover {
+    transition: all var(--jj-transition-base);
+    cursor: pointer;
+}
+
+.jj-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--jj-shadow-lg);
+}
+
+.jj-card-hover:active {
+    transform: translateY(-2px);
+    box-shadow: var(--jj-shadow-md);
+}
+
+/* 입력 필드 포커스 효과 */
+.jj-input-focus {
+    transition: all var(--jj-transition-base);
+}
+
+.jj-input-focus:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+/* 체크박스/라디오 애니메이션 */
+.jj-checkbox-animated,
+.jj-radio-animated {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--jj-gray-400);
+    border-radius: 4px;
+    transition: all var(--jj-transition-base);
+}
+
+.jj-checkbox-animated:checked,
+.jj-radio-animated:checked {
+    background: var(--jj-primary);
+    border-color: var(--jj-primary);
+}
+
+.jj-checkbox-animated:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    animation: checkmark 0.3s ease-out forwards;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+}
+
+/* ===========================
+   고급 로딩 애니메이션
+   =========================== */
+
+/* 스피너 변형들 */
+.jj-loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--jj-gray-200);
+    border-top-color: var(--jj-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.jj-loader-dots {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.jj-loader-dots span {
+    width: 10px;
+    height: 10px;
+    background: var(--jj-primary);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.jj-loader-dots span:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.jj-loader-dots span:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+.jj-loader-dots span:nth-child(3) {
+    animation-delay: 0s;
+}
+
+/* 펄스 로더 */
+.jj-loader-pulse {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--jj-primary);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+/* 스켈레톤 로더 */
+.jj-skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--jj-gray-200) 0%,
+        var(--jj-gray-100) 50%,
+        var(--jj-gray-200) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* 프로그레스 바 */
+.jj-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--jj-gray-200);
+    border-radius: var(--jj-radius-full);
+    overflow: hidden;
+    position: relative;
+}
+
+.jj-progress-bar-fill {
+    height: 100%;
+    background: var(--jj-gradient-primary);
+    border-radius: var(--jj-radius-full);
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.jj-progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ===========================
+   페이지 전환 효과
+   =========================== */
+
+.jj-page-transition {
+    position: relative;
+    overflow: hidden;
+}
+
+.jj-page-transition-enter {
+    animation: pageEnter 0.4s ease-out;
+}
+
+.jj-page-transition-exit {
+    animation: pageExit 0.3s ease-in;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pageExit {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* 슬라이드 전환 */
+.jj-slide-in-right {
+    animation: slideInRight 0.4s ease-out;
+}
+
+.jj-slide-in-left {
+    animation: slideInLeft 0.4s ease-out;
+}
+
+.jj-slide-in-up {
+    animation: slideInUp 0.4s ease-out;
+}
+
+.jj-slide-in-down {
+    animation: slideInDown 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===========================
+   스크롤 애니메이션
+   =========================== */
+
+.jj-fade-in-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.jj-fade-in-on-scroll.jj-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.jj-scale-in-on-scroll {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.jj-scale-in-on-scroll.jj-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ===========================
+   호버 효과
+   =========================== */
+
+/* 글리터 효과 */
+.jj-glitter {
+    position: relative;
+    overflow: hidden;
+}
+
+.jj-glitter::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    transition: transform 0.6s;
+}
+
+.jj-glitter:hover::before {
+    transform: rotate(45deg) translate(100%, 100%);
+}
+
+/* 그라데이션 이동 효과 */
+.jj-gradient-shift {
+    background: linear-gradient(135deg, var(--jj-primary) 0%, var(--jj-accent-purple) 100%);
+    background-size: 200% 200%;
+    transition: background-position 0.5s ease;
+}
+
+.jj-gradient-shift:hover {
+    background-position: 100% 0;
+}
+
+/* 그림자 확대 효과 */
+.jj-shadow-grow {
+    transition: box-shadow var(--jj-transition-base);
+}
+
+.jj-shadow-grow:hover {
+    box-shadow: var(--jj-shadow-2xl);
+}
+
+/* ===========================
+   모달 애니메이션
+   =========================== */
+
+.jj-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: var(--jj-z-modal-backdrop);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.jj-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: #FFFFFF;
+    border-radius: var(--jj-radius-xl);
+    box-shadow: var(--jj-shadow-2xl);
+    z-index: var(--jj-z-modal);
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow: auto;
+    animation: modalEnter 0.3s ease-out forwards;
+}
+
+.jj-modal.jj-modal-visible {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* ===========================
+   토스트/알림 애니메이션
+   =========================== */
+
+.jj-toast {
+    position: fixed;
+    padding: var(--jj-space-md) var(--jj-space-lg);
+    background: #FFFFFF;
+    border-radius: var(--jj-radius-lg);
+    box-shadow: var(--jj-shadow-xl);
+    z-index: var(--jj-z-notification);
+    animation: toastSlideIn 0.3s ease-out;
+}
+
+.jj-toast.jj-toast-exit {
+    animation: toastSlideOut 0.3s ease-in forwards;
+}
+
+@keyframes toastSlideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toastSlideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* ===========================
+   탭 전환 애니메이션
+   =========================== */
+
+.jj-tab-content {
+    position: relative;
+    min-height: 200px;
+}
+
+.jj-tab-pane {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.jj-tab-pane.jj-active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* ===========================
+   드롭다운 애니메이션
+   =========================== */
+
+.jj-dropdown {
+    position: relative;
+}
+
+.jj-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #FFFFFF;
+    border-radius: var(--jj-radius-md);
+    box-shadow: var(--jj-shadow-lg);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all var(--jj-transition-base);
+    z-index: var(--jj-z-dropdown);
+}
+
+.jj-dropdown.jj-open .jj-dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ===========================
+   툴팁 애니메이션
+   =========================== */
+
+.jj-tooltip-v25 {
+    animation: tooltipFadeIn 0.2s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   성능 최적화
+   =========================== */
+
+/* GPU 가속 */
+.jj-gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* 애니메이션 감소 모드 대응 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===========================
+   다크 모드 애니메이션
+   =========================== */
+
+[data-theme="dark"] .jj-skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--jj-gray-800) 0%,
+        var(--jj-gray-700) 50%,
+        var(--jj-gray-800) 100%
+    );
+    background-size: 200% 100%;
+}
+
+[data-theme="dark"] .jj-modal {
+    background: var(--jj-bg-secondary);
+    color: var(--jj-text-primary);
+}
+
+[data-theme="dark"] .jj-toast {
+    background: var(--jj-bg-secondary);
+    color: var(--jj-text-primary);
+}
+
+[data-theme="dark"] .jj-dropdown-menu {
+    background: var(--jj-bg-secondary);
+    color: var(--jj-text-primary);
+}

@@ -1,0 +1,343 @@
+/**
+ * JJ Accessibility System v25.0.0
+ * 접근성 강화 시스템
+ * 
+ * @version 25.0.0
+ * @author 3J Labs
+ * 
+ * 주요 기능:
+ * - 스크린 리더 지원
+ * - 키보드 네비게이션
+ * - 고대비 모드
+ * - 포커스 관리
+ * - ARIA 속성
+ */
+
+/* ===========================
+   스크린 리더 전용 콘텐츠
+   =========================== */
+
+.jj-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.jj-sr-only-focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ===========================
+   키보드 네비게이션
+   =========================== */
+
+/* 포커스 스타일 */
+.jj-focus-visible,
+*:focus-visible {
+    outline: 2px solid var(--jj-primary);
+    outline-offset: 2px;
+    border-radius: var(--jj-radius-sm);
+}
+
+/* 포커스 트랩 (모달 내부) */
+.jj-focus-trap {
+    position: relative;
+}
+
+.jj-focus-trap-start,
+.jj-focus-trap-end {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* 키보드 접근 가능한 요소 */
+.jj-keyboard-accessible {
+    position: relative;
+}
+
+.jj-keyboard-accessible:focus {
+    outline: 2px solid var(--jj-primary);
+    outline-offset: 2px;
+}
+
+/* 스킵 링크 */
+.jj-skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--jj-primary);
+    color: #FFFFFF;
+    padding: var(--jj-space-sm) var(--jj-space-md);
+    text-decoration: none;
+    z-index: 999999;
+    border-radius: 0 0 var(--jj-radius-md) 0;
+}
+
+.jj-skip-link:focus {
+    top: 0;
+}
+
+/* ===========================
+   ARIA 속성 스타일
+   =========================== */
+
+/* 숨김 콘텐츠 */
+[aria-hidden="true"] {
+    display: none !important;
+}
+
+/* 라이브 영역 */
+[role="status"],
+[role="alert"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+[role="status"]:focus,
+[role="alert"]:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: var(--jj-space-sm);
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: var(--jj-gray-100);
+    border: 1px solid var(--jj-gray-300);
+    border-radius: var(--jj-radius-md);
+}
+
+/* ===========================
+   고대비 모드
+   =========================== */
+
+@media (prefers-contrast: high) {
+    :root {
+        --jj-gray-200: #000000;
+        --jj-gray-800: #FFFFFF;
+        --jj-primary: #0000FF;
+    }
+
+    .jj-card {
+        border-width: 2px;
+        border-color: #000000;
+    }
+
+    .jj-btn {
+        border-width: 2px;
+        border-color: #000000;
+    }
+
+    .jj-input-focus:focus {
+        border-width: 3px;
+        border-color: #0000FF;
+    }
+}
+
+/* ===========================
+   포커스 관리
+   =========================== */
+
+/* 포커스 링 표시 */
+.jj-focus-ring {
+    position: relative;
+}
+
+.jj-focus-ring:focus::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid var(--jj-primary);
+    border-radius: var(--jj-radius-md);
+    pointer-events: none;
+}
+
+/* 포커스 가시성 */
+.jj-focus-visible-only:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* ===========================
+   키보드 단축키 표시
+   =========================== */
+
+.jj-keyboard-shortcut {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-left: var(--jj-space-sm);
+}
+
+.jj-keyboard-shortcut kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--jj-gray-700);
+    background: var(--jj-gray-100);
+    border: 1px solid var(--jj-gray-300);
+    border-radius: var(--jj-radius-sm);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    font-family: var(--jj-font-mono);
+}
+
+[data-theme="dark"] .jj-keyboard-shortcut kbd {
+    color: var(--jj-text-primary);
+    background: var(--jj-gray-800);
+    border-color: var(--jj-gray-700);
+}
+
+/* ===========================
+   애니메이션 감소 모드
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ===========================
+   다크 모드 접근성
+   =========================== */
+
+[data-theme="dark"] {
+    /* 다크 모드에서도 충분한 대비 유지 */
+    --jj-text-primary: #F1F5F9;
+    --jj-text-secondary: #CBD5E1;
+    --jj-bg-primary: #0F172A;
+    --jj-bg-secondary: #1E293B;
+}
+
+/* ===========================
+   폰트 크기 조정
+   =========================== */
+
+@media (prefers-reduced-motion: no-preference) {
+    .jj-text-resize {
+        transition: font-size 0.2s ease;
+    }
+}
+
+/* ===========================
+   색상 대비 강화
+   =========================== */
+
+.jj-high-contrast {
+    --jj-primary: #0066CC;
+    --jj-success: #008000;
+    --jj-warning: #FF8C00;
+    --jj-error: #CC0000;
+}
+
+/* ===========================
+   터치 타겟 크기
+   =========================== */
+
+.jj-touch-target {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===========================
+   라벨 연결
+   =========================== */
+
+.jj-label-linked {
+    cursor: pointer;
+}
+
+.jj-label-linked:hover {
+    color: var(--jj-primary);
+}
+
+/* ===========================
+   오류 메시지 접근성
+   =========================== */
+
+.jj-error-message {
+    color: var(--jj-error);
+    font-size: var(--jj-text-sm);
+    margin-top: var(--jj-space-xs);
+    display: block;
+}
+
+.jj-error-message[role="alert"] {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: var(--jj-space-xs) 0 0 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ===========================
+   로딩 상태 접근성
+   =========================== */
+
+.jj-loading[aria-busy="true"]::after {
+    content: '로딩 중...';
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.jj-loading[aria-busy="true"]:focus::after {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: var(--jj-space-sm);
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background: var(--jj-gray-100);
+    border-radius: var(--jj-radius-md);
+}

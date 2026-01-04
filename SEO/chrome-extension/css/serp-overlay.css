@@ -1,0 +1,400 @@
+/**
+ * 3J SEO Analyzer - SERP Overlay Styles
+ */
+
+/* Overlay Container */
+.jjseo-overlay {
+    position: absolute;
+    top: 0;
+    right: -280px;
+    width: 260px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    font-size: 12px;
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+.jjseo-overlay:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.jjseo-overlay.jjseo-expanded {
+    width: 320px;
+}
+
+/* Position Badge */
+.jjseo-position {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    background: #2271b1;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* Score Display */
+.jjseo-score {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.jjseo-score-value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.jjseo-score-grade {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #fff;
+}
+
+/* Grade Colors */
+.jjseo-score.grade-a-plus .jjseo-score-value,
+.jjseo-score.grade-a-plus .jjseo-score-grade { color: #00a32a; }
+.jjseo-score.grade-a-plus .jjseo-score-grade { background: #00a32a; color: #fff; }
+
+.jjseo-score.grade-a .jjseo-score-value { color: #4ab866; }
+.jjseo-score.grade-a .jjseo-score-grade { background: #4ab866; }
+
+.jjseo-score.grade-b .jjseo-score-value { color: #7ad03a; }
+.jjseo-score.grade-b .jjseo-score-grade { background: #7ad03a; }
+
+.jjseo-score.grade-c .jjseo-score-value { color: #dba617; }
+.jjseo-score.grade-c .jjseo-score-grade { background: #dba617; color: #1d2327; }
+
+.jjseo-score.grade-d .jjseo-score-value { color: #f56e28; }
+.jjseo-score.grade-d .jjseo-score-grade { background: #f56e28; }
+
+.jjseo-score.grade-f .jjseo-score-value { color: #d63638; }
+.jjseo-score.grade-f .jjseo-score-grade { background: #d63638; }
+
+/* Quick Metrics */
+.jjseo-quick-metrics {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 8px;
+}
+
+.jjseo-metric {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #646970;
+    font-size: 11px;
+}
+
+.jjseo-metric svg {
+    opacity: 0.7;
+}
+
+.jjseo-metric.jjseo-good {
+    color: #00a32a;
+}
+
+.jjseo-metric.jjseo-good svg {
+    opacity: 1;
+}
+
+/* Expand Button */
+.jjseo-expand-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f1;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.jjseo-expand-btn:hover {
+    background: #dcdcde;
+}
+
+.jjseo-expanded .jjseo-expand-btn svg {
+    transform: rotate(180deg);
+}
+
+/* Details Section (hidden by default) */
+.jjseo-details {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.jjseo-expanded .jjseo-details {
+    display: block;
+}
+
+.jjseo-detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 11px;
+}
+
+.jjseo-label {
+    color: #646970;
+    font-weight: 500;
+}
+
+.jjseo-value {
+    color: #1d2327;
+    text-align: right;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Factors */
+.jjseo-factors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 10px 0;
+}
+
+.jjseo-factor {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background: #f0f0f1;
+    color: #1d2327;
+}
+
+.jjseo-factor.jjseo-good {
+    background: #d7f4d7;
+    color: #00a32a;
+}
+
+.jjseo-factor.jjseo-warning {
+    background: #fcf0c3;
+    color: #996800;
+}
+
+.jjseo-factor.jjseo-bad {
+    background: #fcdddd;
+    color: #d63638;
+}
+
+/* Action Buttons */
+.jjseo-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.jjseo-btn {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.jjseo-track-btn {
+    background: #2271b1;
+    color: #fff;
+}
+
+.jjseo-track-btn:hover {
+    background: #135e96;
+}
+
+.jjseo-track-btn:disabled {
+    background: #a0a5aa;
+    cursor: not-allowed;
+}
+
+.jjseo-compare-btn {
+    background: #f0f0f1;
+    color: #1d2327;
+}
+
+.jjseo-compare-btn:hover {
+    background: #dcdcde;
+}
+
+/* Loading State */
+.jjseo-loading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #646970;
+}
+
+.jjseo-spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #dcdcde;
+    border-top-color: #2271b1;
+    border-radius: 50%;
+    animation: jjseo-spin 0.8s linear infinite;
+}
+
+@keyframes jjseo-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.jjseo-error {
+    color: #d63638;
+    font-size: 11px;
+}
+
+/* Responsive - Move overlay below on smaller screens */
+@media (max-width: 1400px) {
+    .jjseo-overlay {
+        position: relative;
+        right: 0;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .jjseo-overlay.jjseo-expanded {
+        width: 100%;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    .jjseo-overlay {
+        background: #1d2327;
+        border-color: #3c434a;
+        color: #f0f0f1;
+    }
+    
+    .jjseo-score-value {
+        color: inherit;
+    }
+    
+    .jjseo-quick-metrics,
+    .jjseo-details {
+        border-color: #3c434a;
+    }
+    
+    .jjseo-metric {
+        color: #a7aaad;
+    }
+    
+    .jjseo-label {
+        color: #a7aaad;
+    }
+    
+    .jjseo-value {
+        color: #f0f0f1;
+    }
+    
+    .jjseo-factor {
+        background: #3c434a;
+        color: #f0f0f1;
+    }
+    
+    .jjseo-expand-btn,
+    .jjseo-compare-btn {
+        background: #3c434a;
+        color: #f0f0f1;
+    }
+    
+    .jjseo-expand-btn:hover,
+    .jjseo-compare-btn:hover {
+        background: #50575e;
+    }
+}
+
+/* SERP Summary Bar (injected at top of results) */
+.jjseo-serp-summary {
+    background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.jjseo-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.jjseo-summary-keyword {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.jjseo-summary-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.jjseo-summary-stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.jjseo-summary-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.jjseo-summary-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.jjseo-summary-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Feature Badges */
+.jjseo-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.jjseo-feature-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+}

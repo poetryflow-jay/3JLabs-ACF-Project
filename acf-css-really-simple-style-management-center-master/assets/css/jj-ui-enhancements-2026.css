@@ -1,0 +1,494 @@
+/**
+ * JJ UI Enhancements 2026 - 스타일
+ * 
+ * @package ACF_CSS_Style_Guide
+ * @version 23.0.4
+ */
+
+/* ===========================
+   빠른 검색 모달
+   =========================== */
+.jj-quick-search-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+    display: none;
+}
+
+.jj-quick-search-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.jj-quick-search-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.jj-quick-search-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.jj-quick-search-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1e3a5f;
+}
+
+.jj-quick-search-input:focus {
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.jj-quick-search-close {
+    margin-left: 10px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    transition: all 0.2s;
+}
+
+.jj-quick-search-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.jj-quick-search-results {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.jj-quick-search-results-list {
+    padding: 10px;
+}
+
+.jj-quick-search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.jj-quick-search-result-item:hover {
+    background: #f0f6fc;
+    transform: translateX(4px);
+}
+
+.jj-quick-search-icon {
+    margin-right: 12px;
+    font-size: 20px;
+}
+
+.jj-quick-search-title {
+    flex: 1;
+    font-size: 14px;
+    color: #1e3a5f;
+}
+
+.jj-quick-search-no-results {
+    padding: 40px 20px;
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* ===========================
+   단축키 모달
+   =========================== */
+.jj-shortcuts-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+    display: none;
+}
+
+.jj-shortcuts-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.jj-shortcuts-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.jj-shortcuts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.jj-shortcuts-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.jj-shortcuts-close {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    transition: all 0.2s;
+}
+
+.jj-shortcuts-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.jj-shortcuts-list {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.jj-shortcuts-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.jj-shortcuts-item:last-child {
+    border-bottom: none;
+}
+
+.jj-shortcuts-key {
+    padding: 4px 12px;
+    background: #f0f0f1;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #1e3a5f;
+    font-weight: 600;
+}
+
+.jj-shortcuts-desc {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* ===========================
+   컨텍스트 메뉴
+   =========================== */
+.jj-context-menu {
+    position: fixed;
+    z-index: 100000;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 4px;
+    min-width: 200px;
+    display: none;
+}
+
+.jj-context-menu-item {
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #1e3a5f;
+    transition: all 0.2s;
+}
+
+.jj-context-menu-item:hover {
+    background: #f0f6fc;
+    color: #667eea;
+}
+
+/* ===========================
+   자동 저장 표시기
+   =========================== */
+.jj-auto-save-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background: #46b450;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(70, 180, 80, 0.3);
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 99999;
+    animation: slideInUp 0.3s ease;
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===========================
+   넛지 메시지 확장 스타일
+   =========================== */
+.jj-nudge {
+    position: relative;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    animation: slideIn 0.3s ease;
+    max-width: 400px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.jj-nudge-success {
+    background: linear-gradient(135deg, #46b450 0%, #2d7d32 100%);
+    color: #fff;
+}
+
+.jj-nudge-info {
+    background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+    color: #fff;
+}
+
+.jj-nudge-warning {
+    background: linear-gradient(135deg, #ffb900 0%, #dba617 100%);
+    color: #fff;
+}
+
+.jj-nudge-error {
+    background: linear-gradient(135deg, #dc3232 0%, #b52727 100%);
+    color: #fff;
+}
+
+.jj-nudge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.jj-nudge-header-content {
+    flex: 1;
+}
+
+.jj-nudge-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0 0 4px 0;
+}
+
+.jj-nudge-type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-left: 8px;
+}
+
+.jj-nudge-message {
+    font-size: 13px;
+    opacity: 0.95;
+    line-height: 1.5;
+}
+
+.jj-nudge-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.jj-nudge-action {
+    padding: 6px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.jj-nudge-action:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.jj-nudge-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    transition: all 0.2s;
+}
+
+.jj-nudge-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+/* ===========================
+   하이라이트 효과
+   =========================== */
+.jj-nudge-highlight {
+    position: relative;
+    z-index: 1;
+}
+
+.jj-nudge-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+    }
+}
+
+.jj-nudge-glow {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+    }
+}
+
+.jj-nudge-bounce {
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* ===========================
+   섹션 플레이스홀더 (드래그 앤 드롭)
+   =========================== */
+.jj-section-placeholder {
+    background: #f0f6fc;
+    border: 2px dashed #2271b1;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    height: 100px;
+    opacity: 0.5;
+}
+
+/* ===========================
+   반응형
+   =========================== */
+@media (max-width: 782px) {
+    .jj-quick-search-container,
+    .jj-shortcuts-container {
+        width: 95%;
+        top: 10%;
+    }
+
+    .jj-nudge {
+        max-width: calc(100% - 40px);
+    }
+
+    .jj-nudge-container {
+        left: 20px !important;
+        right: 20px !important;
+        transform: none !important;
+    }
+
+    .jj-context-menu {
+        min-width: 180px;
+        font-size: 13px;
+    }
+}

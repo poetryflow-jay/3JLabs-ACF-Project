@@ -23,11 +23,17 @@
 - ✅ Code Snippets Box 프리셋 시스템 완성 (토글, 목록 표시, RealDeal 프리셋)
 - ✅ Nudge Flow 워크플로우 빌더 및 템플릿 시스템 완성
 
-### 다음 단계
-- 🔄 바이럴 루프 구현 (레퍼럴 시스템)
-- 🔄 마케팅 전략 실행 (오가닉, 레퍼럴)
-- 🔄 요금제 시스템 구축
-- 🔄 커뮤니티 구축
+### 다음 단계 (우선순위 재조정)
+1. **레퍼럴 시스템 구현** (Phase 40.2) - 3주
+   - 상세 구현 계획: `REFERRAL_SYSTEM_IMPLEMENTATION.md` 참조
+   - 통합 전략: `PHASE_40_ENHANCED_STRATEGY.md` Part 1 참조
+2. **랜딩 페이지 구현** (Phase 40.3) - 4주
+   - 3가지 버전 전략: Version A (기능), B (스토리텔링), C (인터랙티브)
+   - 통합 전략: `PHASE_40_ENHANCED_STRATEGY.md` Part 2 참조
+3. **마케팅 자동화** (Phase 40.4) - 2주
+   - 워크플로우 자동화
+   - Marketing Dashboard 연동
+4. **커뮤니티 구축** (Phase 40.5) - 지속적
 
 ---
 
@@ -231,11 +237,18 @@ Level 3: 90일 Premium 무료
 6. ✅ 요금제 구조 확정
 7. ✅ 구현 계획 상세화
 
-### 다음 단계 (오늘 오후)
-1. 레퍼럴 추적 시스템 구현 시작
-2. 공유 기능 UI 구현
-3. 인센티브 시스템 기본 구조
-4. 게이미피케이션 기본 구조
+### 다음 단계 (구체화 완료)
+**상세 계획**: `PHASE_40.2_EXECUTION_SUMMARY.md` 참조
+
+#### Week 1 (18시간)
+- Day 1-2: 레퍼럴 시스템 기반 구축 (DB 스키마, 기본 클래스)
+- Day 3-4: 공유 기능 UI (소셜 공유, 대시보드 통합)
+- Day 5: 인센티브 시스템 (Neural Link 연동, WooCommerce 쿠폰)
+
+#### Week 2 (20시간)
+- Day 6-7: 게이미피케이션 (레벨/XP, 배지, 리더보드)
+- Day 8-9: 마케팅 자동화 (Google Analytics, 캠페인)
+- Day 10: Analytics Dashboard 연동
 
 ---
 
@@ -245,6 +258,24 @@ Level 3: 90일 Premium 무료
 2. **PHASE_40_MARKETING_IMPLEMENTATION.md**: 마케팅 및 바이럴 루프 구현 상세 설계
 3. **PHASE_40_EXECUTION_ROADMAP.md**: 실행 로드맵 및 타임라인
 4. **PHASE_40_COMPREHENSIVE_REPORT.md**: 종합 보고서 (본 문서)
+5. **PHASE_40_ENHANCED_STRATEGY.md**: ⭐ **5개 문서 통합 보강 전략**
+   - REFERRAL_SYSTEM_IMPLEMENTATION.md 통합
+   - LANDING_PAGE_IMPLEMENTATION.md 통합
+   - LANDING_PAGE_VERSION_B_STORYTELLING.md 통합
+   - LANDING_PAGE_VERSION_C_INTERACTIVE.md 통합
+   - PHASE_40_COMPREHENSIVE_REPORT.md 보강
+6. **PHASE_40.2_UNIFIED_IMPLEMENTATION_PLAN.md**: ⭐ **통합 구현 계획서** (최신)
+   - 8개 기존 문서 핵심 내용 통합
+   - Phase 40.2-40.7 실행 로드맵
+   - 기술 아키텍처 통합 가이드
+7. **PHASE_40.2_EXECUTION_SUMMARY.md**: ⭐ **실행 요약 및 구체화된 계획** (최신)
+   - Week 1-2 일일 작업 계획
+   - 구체화된 타임라인 (38시간)
+   - 즉시 실행 가능한 액션 아이템
+8. **REFERRAL_SYSTEM_IMPLEMENTATION.md**: v2.0 (Phase 40.2 보강)
+   - 프로젝트 통합 컨텍스트 추가
+   - Neural Link, Nudge Flow, Analytics 연동 상세
+9. **PRODUCT_READINESS_PLAN.md**: v2.0 (Phase 40.1 완료 반영)
 
 ---
 
@@ -252,15 +283,38 @@ Level 3: 90일 Premium 무료
 
 ### 승인 필요 항목
 1. **요금제 구조**: Starter, Professional, Business, Agency, Lifetime
-2. **레퍼럴 인센티브**: Level 1-3 보상 구조
-3. **바이럴 루프 설계**: 공유 기능, 게이미피케이션
+   - 상세 내용: `PHASE_40_ENHANCED_STRATEGY.md` Part 3 참조
+2. **레퍼럴 인센티브**: 티어별 보상, 2차 추천 보상
+   - 상세 내용: `PHASE_40_ENHANCED_STRATEGY.md` Part 1.2 참조
+3. **바이럴 루프 설계**: 공유 기능, 게이미피케이션, 커뮤니티
+   - 상세 내용: `PHASE_40_ENHANCED_STRATEGY.md` Part 3.3 참조
 4. **마케팅 전략**: 오가닉, 레퍼럴, 소셜 미디어
+   - 상세 내용: `PHASE_40_ENHANCED_STRATEGY.md` Part 4 참조
+5. **랜딩 페이지 전략**: 3가지 버전 하이브리드 접근
+   - 상세 내용: `PHASE_40_ENHANCED_STRATEGY.md` Part 2 참조
 
 ### 의사결정 필요 항목
-1. **우선순위 재조정**: 긴급 항목 중 어떤 것부터?
+1. **우선순위 재조정**: 레퍼럴 시스템 vs 랜딩 페이지
+   - 권장: 레퍼럴 시스템 먼저 (Phase 40.2)
+   - 상세: `PHASE_40_ENHANCED_STRATEGY.md` Part 7 참조
 2. **타임라인 확정**: 각 Phase별 완료 시점
+   - 상세: `PHASE_40_ENHANCED_STRATEGY.md` Part 5 참조
 3. **예산 배정**: 마케팅 예산, 개발 리소스
-4. **팀 역할 분담**: Jason, Jenny, Mikael 역할 재정의
+4. **팀 역할 분담**: Jason, Jenny, Mikael 구체적 책임
+   - 상세: `PHASE_40_ENHANCED_STRATEGY.md` Part 9 참조
+
+### 📖 상세 전략 문서
+**`PHASE_40_ENHANCED_STRATEGY.md`** 문서를 참조하시면 다음 내용을 확인하실 수 있습니다:
+- Part 1: 레퍼럴 시스템 통합 전략 (DB 구조, 클래스, 보상, 게이미피케이션)
+- Part 2: 랜딩 페이지 통합 전략 (3가지 버전 비교, 하이브리드 접근)
+- Part 3: 요금제 및 바이럴 루프 통합
+- Part 4: 마케팅 전략 통합
+- Part 5: 통합 실행 로드맵
+- Part 6: 통합 KPI 및 성과 목표
+- Part 7: 우선순위 및 의사결정 가이드
+- Part 8: 리스크 관리 및 대응 계획
+- Part 9: 팀 역할 및 책임
+- Part 10: 다음 액션 아이템
 
 ---
 

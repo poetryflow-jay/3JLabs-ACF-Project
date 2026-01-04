@@ -34,9 +34,16 @@ if ( ! defined( 'ACF_CSS_WOO_LICENSE_EDITION' ) ) {
     define( 'ACF_CSS_WOO_LICENSE_EDITION', 'master' ); // master or partner
 }
 
-// WooCommerce 활성화 확인
+// WooCommerce 활성화 확인 (경고만 표시, 활성화는 허용)
 if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-    return;
+    add_action( 'admin_notices', function() {
+        echo '<div class="notice notice-warning"><p>';
+        echo '<strong>' . esc_html__( 'ACF CSS License Bridge for WooCommerce', 'acf-css-woo-license' ) . '</strong>: ';
+        echo esc_html__( 'WooCommerce가 설치되고 활성화되어야 정상적으로 작동합니다.', 'acf-css-woo-license' );
+        echo '</p></div>';
+    } );
+    // WooCommerce가 없어도 플러그인은 활성화 가능하도록 계속 진행
+    // return; // 주석 처리하여 활성화 허용
 }
 
 /**
@@ -525,6 +532,29 @@ class ACF_CSS_Woo_License {
 if ( class_exists( 'ACF_CSS_Woo_License' ) ) {
     add_action( 'plugins_loaded', array( 'ACF_CSS_Woo_License', 'instance' ) );
 }
+
+// 플러그인 목록 페이지 향상 초기화
+add_action( 'plugins_loaded', function () {
+    $plugin_list_enhancer_file = dirname( dirname( __FILE__ ) ) . '/acf-css-really-simple-style-management-center-master/includes/class-jj-plugin-list-enhancer.php';
+    if ( file_exists( $plugin_list_enhancer_file ) ) {
+        require_once $plugin_list_enhancer_file;
+    }
+    
+    if ( class_exists( 'JJ_Plugin_List_Enhancer' ) ) {
+        $enhancer = new JJ_Plugin_List_Enhancer();
+        $enhancer->init( array(
+            'plugin_file' => __FILE__,
+            'plugin_name' => 'ACF CSS License Bridge for WooCommerce',
+            'settings_url' => admin_url( 'admin.php?page=acf-css-woo-license' ),
+            'text_domain' => 'acf-css-woo-license',
+            'version_constant' => 'ACF_CSS_WOO_LICENSE_VERSION',
+            'license_constant' => 'ACF_CSS_WOO_LICENSE_EDITION',
+            'upgrade_url' => 'https://3j-labs.com/',
+            'docs_url' => admin_url( 'admin.php?page=acf-css-woo-license' ),
+            'support_url' => 'https://3j-labs.com/support',
+        ) );
+    }
+}, 25 );
 
 // AJAX 핸들러: 연결 테스트
 add_action( 'wp_ajax_acf_css_test_neural_link', function() {

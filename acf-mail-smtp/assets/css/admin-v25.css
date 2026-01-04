@@ -1,0 +1,110 @@
+/**
+ * ACF Mail SMTP Admin Styles (v25 Design System)
+ * 
+ * @package ACF_Mail_SMTP
+ * @version 1.0.0
+ * @author 3J Labs
+ */
+
+/* Import v25 Design System */
+@import url('../../acf-css-really-simple-style-management-center-master/assets/css/jj-design-system-v25.css');
+
+/* Custom Admin Styles */
+.acf-mail-smtp-forms-v25,
+.acf-mail-smtp-smtp-v25,
+.acf-mail-smtp-submissions-v25,
+.acf-mail-smtp-automation-v25,
+.acf-mail-smtp-logs-v25,
+.acf-mail-smtp-settings-v25 {
+    max-width: 1400px;
+}
+
+/* Form Builder */
+#form-fields-builder {
+    margin: 20px 0;
+}
+
+.field-item {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.field-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Status badges */
+.status-new,
+.status-read,
+.status-sent,
+.status-failed,
+.status-active,
+.status-inactive {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-new {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-read {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-sent {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-failed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-inactive {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wp-bulk-seo-suggestion-card-v25 {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .wp-bulk-seo-score-grid-v25 {
+        grid-template-columns: 1fr;
+    }
+    
+    .wp-bulk-seo-suggestions-grid-v25 {
+        grid-template-columns: 1fr;
+    }
+}

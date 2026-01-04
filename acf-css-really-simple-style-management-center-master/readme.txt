@@ -3,7 +3,7 @@ Contributors: 3jlabs, jay, jason, jenny
 Tags: css, styles, typography, colors, fonts, design system, gutenberg, elementor, figma
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: 13.2.0
+Stable tag: 23.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -61,6 +61,20 @@ WordPress 웹사이트의 모든 스타일 요소를 중앙에서 일관되게 �
 5. Figma 연동
 
 == Changelog ==
+
+= 23.0.2 (2026-01-04) =
+* 🔧 스타일 센터 섹션 표시 문제 수정
+  - 팔레트 외 탭(타이포그래피, 버튼, 폼, 필드)이 빈 화면으로 표시되던 문제 해결
+  - 섹션 레이아웃 기본값 폴백 로직 추가
+  - 활성화 상태 체크 로직 개선 (0 값 처리 문제 수정)
+* 🛡️ 안정성 향상: 섹션 설정이 비어있어도 기본 섹션 모두 표시
+
+= 23.0.1 (2026-01-03) =
+* 🔗 플러그인 리스트 링크 개선 및 웹사이트 주소 통일
+* 🛠️ 스타일 센터 탭 표시 수정
+
+= 23.0.0 (2026-01-03) =
+* 📦 필수 플러그인 관리 시스템 추가 (TGMPA 통합)
 
 = 13.2.0 (2026-01-01) =
 * 🎯 툴팁 시스템 확장 - 모든 UI 요소에 상황별 도움말
