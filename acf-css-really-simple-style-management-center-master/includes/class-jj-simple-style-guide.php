@@ -205,23 +205,35 @@ class JJ_Simple_Style_Guide {
         }
 
         ?>
+        <!-- [v22.4.1] UI System 2026 적용 - 현대적이고 완성도 높은 GUI -->
         <div class="wrap jj-style-guide-wrap">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h1 style="margin: 0;"><?php _e( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ); ?></h1>
-                <div class="jj-header-actions" style="display: flex; gap: 10px;">
-                    <button type="button" id="jj-live-preview-toggle" class="button button-secondary">
-                        <span class="dashicons dashicons-visibility" style="margin-top: 4px;"></span> <?php _e( '실시간 미리보기', 'acf-css-really-simple-style-management-center' ); ?>
-                    </button>
-                    <button type="button" class="button button-primary" id="jj-save-style-guide-header">
-                        <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
-                    </button>
+            <!-- 헤더 섹션 -->
+            <div class="jj-card" style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 16px; box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1 style="margin: 0; color: #fff; font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 12px;">
+                            <span class="dashicons dashicons-art" style="font-size: 32px; width: 32px; height: 32px; line-height: 32px;"></span>
+                            <?php _e( 'ACF CSS 스타일 센터', 'acf-css-really-simple-style-management-center' ); ?>
+                        </h1>
+                        <p style="margin: 8px 0 0 0; color: rgba(255, 255, 255, 0.9); font-size: 14px;">
+                            <?php _e( '웹사이트의 모든 스타일을 중앙에서 일관되게 관리하세요', 'acf-css-really-simple-style-management-center' ); ?>
+                        </p>
+                    </div>
+                    <div class="jj-header-actions" style="display: flex; gap: 12px;">
+                        <button type="button" id="jj-live-preview-toggle" class="jj-btn-secondary" style="background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);">
+                            <span class="dashicons dashicons-visibility" style="margin-top: 4px;"></span> <?php _e( '실시간 미리보기', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                        <button type="button" class="jj-btn-primary" id="jj-save-style-guide-header" style="background: #fff; color: #667eea; border: none; font-weight: 600;">
+                            <span class="dashicons dashicons-yes-alt" style="margin-top: 4px;"></span> <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <hr class="wp-header-end">
+            <hr class="wp-header-end" style="margin: 0;">
 
-            <!-- [v22.1.2] 2컬럼 레이아웃 지원 (에디터 + 프리뷰) -->
+            <!-- [v22.4.1] 2컬럼 레이아웃 지원 (에디터 + 프리뷰) - UI System 2026 적용 -->
             <div class="jj-style-guide-main-layout" style="display: flex; gap: 30px; margin-top: 20px;">
-                <div class="jj-style-guide-editor-pane" style="flex: 1; max-width: 100%;">
+                <div class="jj-style-guide-editor-pane" style="flex: 1; max-width: 100%; min-width: 0;">
                     <!-- [v22.1.2] 시스템 인사이트 (Stats) -->
                     <?php 
                     $stats_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-stats.php';
@@ -240,8 +252,17 @@ class JJ_Simple_Style_Guide {
                         ?>
                     </div>
 
-                    <div class="jj-style-guide-sections" id="jj-sections-sortable" style="margin-top: 40px; border-top: 2px solid #e2e8f0; padding-top: 40px;">
-                        <h2 style="margin-bottom: 30px;"><?php _e( '🛠️ 세부 커스텀 스타일링', 'acf-css-really-simple-style-management-center' ); ?></h2>
+                    <!-- [v22.4.1] 세부 커스텀 스타일링 섹션 - 카드 기반 레이아웃 -->
+                    <div class="jj-style-guide-sections" id="jj-sections-sortable" style="margin-top: 40px;">
+                        <div class="jj-card" style="margin-bottom: 30px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
+                            <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 10px;">
+                                <span class="dashicons dashicons-admin-customizer" style="font-size: 24px; color: #667eea;"></span>
+                                <?php _e( '세부 커스텀 스타일링', 'acf-css-really-simple-style-management-center' ); ?>
+                            </h2>
+                            <p style="margin: 10px 0 0 0; color: #64748b; font-size: 14px;">
+                                <?php _e( '색상, 타이포그래피, 버튼, 폼 등 모든 스타일 요소를 세밀하게 조정할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
+                            </p>
+                        </div>
                         <?php
                         // [v22.1.2] 저장된 섹션 레이아웃 순서대로 렌더링
                         $layout = array();
@@ -271,7 +292,7 @@ class JJ_Simple_Style_Guide {
 
                             $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
                             if ( file_exists( $file_path ) ) {
-                                echo '<div class="jj-section-wrapper" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '">';
+                                echo '<div class="jj-section-wrapper jj-card" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '" style="margin-bottom: 25px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); transition: all 0.3s ease;">';
                                 include $file_path;
                                 echo '</div>';
                             }
@@ -302,11 +323,20 @@ class JJ_Simple_Style_Guide {
                 </div>
             </div>
             
-            <div class="jj-style-guide-footer" style="margin-top: 30px; padding: 15px; background: #fff; border: 1px solid #c3c4c7;">
-                <button type="button" class="button button-primary button-large" id="jj-save-style-guide">
-                    <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
-                </button>
-                <span class="spinner" style="float: none; margin: 0 10px;"></span>
+            <!-- [v22.4.1] 푸터 섹션 - 고정 스타일 저장 버튼 -->
+            <div class="jj-style-guide-footer jj-card" style="margin-top: 30px; padding: 20px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); position: sticky; bottom: 20px; z-index: 10;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: #1e293b; font-size: 14px;"><?php _e( '변경사항을 저장하시겠습니까?', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                        <p style="margin: 5px 0 0 0; color: #64748b; font-size: 12px;"><?php _e( '저장하지 않으면 변경사항이 사라집니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <span class="spinner" style="float: none; margin: 0; display: none;"></span>
+                        <button type="button" class="jj-btn-primary button-large" id="jj-save-style-guide" style="padding: 12px 30px; font-size: 15px; font-weight: 600; border-radius: 8px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+                            <span class="dashicons dashicons-yes-alt" style="margin-top: 4px;"></span> <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         <?php
