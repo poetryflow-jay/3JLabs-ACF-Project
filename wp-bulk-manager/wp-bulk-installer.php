@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Really Simple WordPress Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com/
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           23.0.1
+ * Version:           23.1.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -17,10 +17,11 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '23.1.0' ); // [v23.1.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
+define( 'WP_BULK_MANAGER_VERSION', '23.1.1' ); // [v23.1.1] 마스터 에디션 감지 수정
 define( 'WP_BULK_MANAGER_SLUG', 'wp-bulk-manager' );
 define( 'WP_BULK_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_BULK_MANAGER_URL', plugin_dir_url( __FILE__ ) );
+define( 'WP_BULK_MANAGER_EDITION', 'master' ); // [v23.1.1] 마스터 에디션 명시
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -394,10 +395,16 @@ class JJ_Bulk_Installer {
         // [v5.0.1] Master Edition 감지 로직 고도화
         // [v22.4.0] 보안 강화: 단순 상수나 폴더명만으로는 MASTER 인정하지 않음
         // [v22.4.5] WP Bulk Manager 자체 버전에 -master가 포함된 경우 마스터로 인식
+        // [v23.1.1] WP_BULK_MANAGER_EDITION 상수 추가 지원
         $is_master = false;
 
-        // 0. WP Bulk Manager 자체 버전 확인 (최우선 - 플러그인 자체가 마스터 버전인지 확인)
-        if ( defined( 'WP_BULK_MANAGER_VERSION' ) ) {
+        // 0-1. WP_BULK_MANAGER_EDITION 상수 확인 (최우선 - 명시적 에디션 지정)
+        if ( defined( 'WP_BULK_MANAGER_EDITION' ) && 'master' === WP_BULK_MANAGER_EDITION ) {
+            $is_master = true;
+        }
+
+        // 0-2. WP Bulk Manager 자체 버전 확인 (플러그인 자체가 마스터 버전인지 확인)
+        if ( ! $is_master && defined( 'WP_BULK_MANAGER_VERSION' ) ) {
             $version = WP_BULK_MANAGER_VERSION;
             // 버전 문자열에 -master가 포함되어 있으면 마스터 버전으로 인식
             if ( false !== strpos( $version, '-master' ) ) {

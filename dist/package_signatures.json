@@ -8,7 +8,7 @@
     "edition": "master",
     "version": "22.5.1"
   },
-  "_updated_at": "2026-01-05T03:22:55.418853",
+  "_updated_at": "2026-01-05T03:30:48.544620",
   "_version": "1.0.0",
   "wp-bulk-manager-master-v22.5.2.zip": {
     "signature": "69fb2d0d6f051bd708632466fbc08622024ca2ef17d5d7c590dcb5fc346a28dc",
@@ -243,5 +243,14 @@
     "plugin_id": "acf-css-manager",
     "edition": "master",
     "version": "23.0.4"
+  },
+  "wp-bulk-manager-master-v23.1.1.zip": {
+    "signature": "0dd62d7105d87ec8622cecd93016aaed98e7e843a698e384fa12ec21b63e37ef",
+    "md5": "976b4d072184beb62c2e7547b3821924",
+    "size": 44712,
+    "generated_at": "2026-01-05T03:30:48.544462",
+    "plugin_id": "wp-bulk-manager",
+    "edition": "master",
+    "version": "23.1.1"
   }
 }
