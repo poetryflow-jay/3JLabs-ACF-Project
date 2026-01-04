@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════════
-  3J Labs ACF CSS Plugin Build Manager v22.4.0
+  3J Labs ACF CSS Plugin Build Manager v23.0.0
   플러그인 빌드, 버전 관리, 에디션 관리를 위한 통합 관리 프로그램
 ═══════════════════════════════════════════════════════════════════════════════
 
@@ -16,8 +16,8 @@ Features:
 - 외부 대시보드 연동 및 업데이트
 
 @author: 3J Labs (Jay & Jason & Jenny)
-@version: 22.4.1 (Phase 39.3: Package Signature Generation)
-@date: 2026-01-04
+@version: 23.0.0 (Phase 43: Complete Rollback System & Full Audit)
+@date: 2026-01-05
 """
 
 import tkinter as tk
@@ -856,7 +856,7 @@ class JJBuildManager(tk.Tk):
         # 버전 배지 (macOS 스타일 pill 배지)
         version_badge = tk.Frame(status_frame, bg=self.colors['accent'], padx=12, pady=4)
         version_badge.pack(anchor="e", pady=(0, 4))
-        tk.Label(version_badge, text="v3.2.0", font=self.fonts['caption'], fg="#FFFFFF", bg=self.colors['accent']).pack()
+        tk.Label(version_badge, text="v23.0.0", font=self.fonts['caption'], fg="#FFFFFF", bg=self.colors['accent']).pack()
         
         # 상태 표시
         if HAS_PYWIN32:
@@ -1564,7 +1564,7 @@ class JJBuildManager(tk.Tk):
 def cli_build(plugins=None, editions=None):
     """CLI에서 빌드 실행"""
     print("=" * 70)
-    print("  3J Labs ACF CSS Plugin Build Manager v22.1 - CLI Mode")
+    print("  3J Labs ACF CSS Plugin Build Manager v23.0.0 - CLI Mode")
     print("=" * 70)
     
     if editions is None:
