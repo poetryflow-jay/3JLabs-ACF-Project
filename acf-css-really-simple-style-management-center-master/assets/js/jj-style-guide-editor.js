@@ -1969,13 +1969,18 @@ jQuery(document).ready(function($) {
     }
     
     // [v23.0.3] 페이지 로드 시 탭 초기화 개선
-    $(document).ready(function() {
-        // DOM이 완전히 로드된 후 탭 초기화
+    // DOM이 완전히 로드된 후 탭 초기화 (즉시 실행)
+    setTimeout(function() {
+        initSectionTabs();
+    }, 100);
+
+    // window.onload에서도 초기화 (이미지 등 모든 리소스 로드 후)
+    $(window).on('load', function() {
         setTimeout(function() {
             initSectionTabs();
-        }, 100);
+        }, 200);
     });
-    
+
     // AJAX 콘텐츠 로드 후에도 탭 초기화
     $(document).on('jj-style-guide-content-loaded', function() {
         setTimeout(function() {

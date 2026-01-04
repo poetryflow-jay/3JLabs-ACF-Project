@@ -482,7 +482,7 @@ class JJ_Simple_Style_Guide {
                     </div>
                     <div style="display: flex; align-items: center; gap: 15px;">
                         <span class="spinner" style="float: none; margin: 0; display: none;"></span>
-                        <button type="button" class="jj-btn-primary button-large" id="jj-save-style-guide" style="padding: 12px 30px; font-size: 15px; font-weight: 600; border-radius: 8px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
+                        <button type="button" class="jj-btn-primary button-large" id="jj-save-style-guide" style="padding: 12px 30px; font-size: 15px; font-weight: 600; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); cursor: pointer;">
                             <span class="dashicons dashicons-yes-alt" style="margin-top: 4px;"></span> <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                     </div>

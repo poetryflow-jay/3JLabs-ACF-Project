@@ -626,15 +626,17 @@
     background: rgba(102, 126, 234, 0.05);
 }
 
+/* [v23.1.1] 탭 콘텐츠 기본 스타일 - JavaScript로 제어 */
 .jj-section-wrapper.jj-section-tab-content {
     display: none;
 }
 
-.jj-section-wrapper.jj-section-tab-content:first-of-type {
-    display: block !important;
+/* [v23.1.1] JavaScript가 로드되기 전 첫 번째 탭만 표시 (폴백) */
+.jj-section-wrapper.jj-section-tab-content:first-of-type:not(.jj-section-hidden) {
+    display: block;
 }
 
-/* [v23.0.3] 탭 표시 개선 - 첫 번째 탭은 항상 표시 */
+/* [v23.1.1] 탭 표시/숨김 - JavaScript 클래스로 최종 제어 (최우선) */
 .jj-section-wrapper.jj-section-tab-content.jj-section-visible {
     display: block !important;
 }
