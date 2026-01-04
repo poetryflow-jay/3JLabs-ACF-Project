@@ -2,7 +2,7 @@
 
 프로젝트 경로: `C:\Users\computer\Desktop\3J-Labs-Projects\3J-ACF-CSS`
 메인 플러그인 버전: **v23.0.4** (ACF CSS Manager Master)
-최신 업데이트: 2026년 1월 5일 (Phase 43 완료 - 완전한 프로젝트 전수 검사 및 롤백 시스템 완성)
+최신 업데이트: 2026년 1월 5일 (Phase 44 완료 - WP Bulk Manager 에디션 감지 수정 및 대시보드 업그레이드)
 
 ---
 
@@ -14,9 +14,9 @@
 |----------|------|------|
 | **ACF CSS Manager (Master)** | **v23.0.4** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + 롤백 기능 완전 구현 |
 | ACF MBA (Nudge Flow) | **v22.10.1** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + 템플릿 탭 수정 |
-| ACF Code Snippets Box | **v2.3.4** | CSS/JS/PHP 코드 스니펫 관리 + 프리셋 토글 |
+| ACF Code Snippets Box | **v4.0.0** | CSS/JS/PHP 코드 스니펫 관리 + 프리셋 토글 |
 | ACF CSS Neural Link | **v6.3.5** | 패턴 학습 및 업데이트 관리 + 보안 강화 |
-| WP Bulk Manager | **v22.5.2** | 플러그인/테마 대량 설치 및 관리 |
+| WP Bulk Manager | **v23.1.1** | 플러그인/테마 대량 설치 및 관리 + 마스터 에디션 감지 수정 |
 
 ### 확장 플러그인 (Extensions)
 
@@ -133,6 +133,24 @@ python 3j_build_manager.py --cli --all --editions free premium master
 ---
 
 ## 최근 변경사항
+
+### Phase 44 (2026-01-05) - WP Bulk Manager 에디션 감지 수정 및 대시보드 업그레이드
+
+**WP Bulk Manager v23.1.1 (Critical Bug Fix)**
+- 마스터 에디션 감지 실패 수정 (WP_BULK_MANAGER_EDITION 상수 추가)
+- "Premium 이상 기능" 제한 메시지 표시 버그 해결
+- 에디션 감지 로직 우선순위 재정립
+
+**HTML 대시보드 v25.0.1**
+- 완전 재작성 (모던 UI/UX)
+- 14개 플러그인 최신 버전 반영
+- 글래스모피즘, 그라데이션 애니메이션
+- Quick Stats 섹션, 필터 탭 추가
+- HMAC-SHA256 보안 정보 표시
+
+**빌드 매니저 v23.0.0**
+- 버전 표시 업데이트 (v22.4.0 → v23.0.0)
+- Phase 44 변경사항 반영
 
 ### Phase 43 (2026-01-05) - 완전한 프로젝트 전수 검사 및 롤백 시스템 완성
 
