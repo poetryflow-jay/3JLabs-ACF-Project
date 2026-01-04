@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * 관리자 페이지
+ * [v22.4.3] 클래스 중복 선언 방지 추가
  */
+if ( ! class_exists( 'ACF_Nudge_Flow_Admin' ) ) {
 class ACF_Nudge_Flow_Admin {
 
     /**
@@ -1019,7 +1021,11 @@ class ACF_Nudge_Flow_Admin {
         $manager = new ACF_Nudge_Action_Manager();
         wp_send_json_success( $manager->get_all() );
     }
-}
+} // End of class ACF_Nudge_Flow_Admin
+
+} // End of class_exists check
 
 // 관리자 인스턴스 생성
-new ACF_Nudge_Flow_Admin();
+if ( class_exists( 'ACF_Nudge_Flow_Admin' ) ) {
+    new ACF_Nudge_Flow_Admin();
+}

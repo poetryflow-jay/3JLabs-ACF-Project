@@ -11,7 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * 프론트엔드 렌더링
+ * [v22.4.3] 클래스 중복 선언 방지 추가
  */
+if ( ! class_exists( 'ACF_Nudge_Flow_Frontend' ) ) {
 class ACF_Nudge_Flow_Frontend {
 
     /**
@@ -124,7 +126,11 @@ class ACF_Nudge_Flow_Frontend {
         </script>
         <?php
     }
-}
+} // End of class ACF_Nudge_Flow_Frontend
+
+} // End of class_exists check
 
 // 프론트엔드 인스턴스 생성
-new ACF_Nudge_Flow_Frontend();
+if ( class_exists( 'ACF_Nudge_Flow_Frontend' ) ) {
+    new ACF_Nudge_Flow_Frontend();
+}

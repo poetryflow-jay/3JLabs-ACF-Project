@@ -62,7 +62,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v5.1.6] Comprehensive review and error prevention: Safe file loader added, all versions' require_once safely handled, purchase prompts added, plugin list page quick links added
 // [v1.0.2] 모든 버전 플러그인 활성화 안전성 최종 확보, WordPress 함수 호출 안전 처리
 if ( ! defined( 'JJ_STYLE_GUIDE_VERSION' ) ) {
-    define( 'JJ_STYLE_GUIDE_VERSION', '22.4.8' ); // [v22.4.8] 긴급 수정 - 배열을 문자열로 변환하는 오류 수정
+    define( 'JJ_STYLE_GUIDE_VERSION', '22.4.9' ); // [v22.4.9] 공유 유틸리티 로드 및 AJAX 보안 강화
 }
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
@@ -171,6 +171,15 @@ if ( ! function_exists( 'jj_safe_require' ) ) {
 
 // 편의 변수
 $jj_safe_require = 'jj_safe_require';
+
+// [v22.4.9] 공유 유틸리티 로드 (shared-ui-assets에서)
+$shared_loader_path = dirname( JJ_STYLE_GUIDE_PATH ) . '/shared-ui-assets/php/class-jj-shared-loader.php';
+if ( file_exists( $shared_loader_path ) ) {
+    require_once $shared_loader_path;
+    if ( class_exists( 'JJ_Shared_Loader' ) ) {
+        JJ_Shared_Loader::load_all();
+    }
+}
 
 // 1. 헬퍼/유틸리티 로드 (가장 먼저)
 $jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-common-utils.php', true );

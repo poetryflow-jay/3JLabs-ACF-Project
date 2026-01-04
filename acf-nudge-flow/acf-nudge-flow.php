@@ -3,7 +3,7 @@
  * Plugin Name:       넛지 플로우 - ACF MBA (Advanced Custom Funnels for Marketing Boosting Accelerator)
  * Plugin URI:        https://3j-labs.com
  * Description:       넛지 플로우 (Nudge Flow) - ACF MBA (Advanced Custom Funnels for Marketing Boosting Accelerator). 트리거 기반 넛지 마케팅 자동화 플러그인입니다. IF-DO 방식의 시각적 워크플로우 빌더로 방문자 행동에 따른 팝업, 알림, 할인, 업셀링을 자동화합니다. WooCommerce와 완벽 연동됩니다.
- * Version:           22.4.2
+ * Version:           22.4.3
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_NUDGE_FLOW_VERSION', '22.4.2' ); // [v22.4.2] 플러그인 헤더 타이틀 및 디스크립션 수정 - 넛지 플로우 및 풀 명칭 추가
+define( 'ACF_NUDGE_FLOW_VERSION', '22.4.3' ); // [v22.4.3] 긴급 수정 - 클래스 중복 선언 방지 추가
 define( 'ACF_NUDGE_FLOW_PLUGIN_FILE', __FILE__ );
 define( 'ACF_NUDGE_FLOW_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_NUDGE_FLOW_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -33,7 +33,9 @@ define( 'ACF_NUDGE_FLOW_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * 메인 플러그인 클래스
+ * [v22.4.3] 클래스 중복 선언 방지 추가
  */
+if ( ! class_exists( 'ACF_Nudge_Flow' ) ) {
 final class ACF_Nudge_Flow {
 
     /**
@@ -456,14 +458,23 @@ final class ACF_Nudge_Flow {
             update_option( 'acf_nudge_flow_settings', $defaults );
         }
     }
-}
+} // End of class ACF_Nudge_Flow
+
+} // End of class_exists check
 
 /**
  * 플러그인 인스턴스 반환
  */
-function acf_nudge_flow() {
-    return ACF_Nudge_Flow::get_instance();
+if ( ! function_exists( 'acf_nudge_flow' ) ) {
+    function acf_nudge_flow() {
+        if ( class_exists( 'ACF_Nudge_Flow' ) ) {
+            return ACF_Nudge_Flow::get_instance();
+        }
+        return null;
+    }
 }
 
 // 플러그인 시작
-acf_nudge_flow();
+if ( class_exists( 'ACF_Nudge_Flow' ) ) {
+    acf_nudge_flow();
+}

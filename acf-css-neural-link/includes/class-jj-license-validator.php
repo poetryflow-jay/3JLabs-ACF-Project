@@ -55,6 +55,29 @@ class JJ_License_Validator {
                 );
             }
         }
+
+        // [v6.3.3] 비정상 사용 패턴 감지
+        if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'detect_abnormal_usage' ) ) {
+            $abnormal_usage = JJ_License_Security::detect_abnormal_usage( $license_key );
+            if ( ! empty( $abnormal_usage['suspicious'] ) && $abnormal_usage['suspicious'] === true ) {
+                // 비정상 사용이 감지되면 로그 기록 (즉시 차단하지 않고 경고)
+                if ( method_exists( 'JJ_License_Security', 'log_security_event' ) ) {
+                    JJ_License_Security::log_security_event( 'abnormal_usage_detected', array(
+                        'license_key' => substr( $license_key, 0, 8 ) . '****',
+                        'reasons'     => $abnormal_usage['reasons'] ?? array(),
+                        'site_url'    => $site_url,
+                    ) );
+                }
+                // 심각한 경우에만 차단 (3개 이상의 이상 징후)
+                if ( isset( $abnormal_usage['reasons'] ) && count( $abnormal_usage['reasons'] ) >= 3 ) {
+                    return array(
+                        'valid'   => false,
+                        'message' => __( '비정상적인 사용 패턴이 감지되었습니다. 지원팀에 문의해주세요.', 'jj-license-manager' ),
+                        'reason'  => 'abnormal_usage',
+                    );
+                }
+            }
+        }
         
         $table_licenses = JJ_License_Database::get_table_name( 'licenses' );
         $table_activations = JJ_License_Database::get_table_name( 'activations' );
@@ -180,7 +203,41 @@ class JJ_License_Validator {
         
         // 활성화 기록
         $this->record_activation( $license['id'], $site_id, $site_url );
-        
+
+        // [v6.3.3] 라이센스 DB 무결성 검사 (성공 후 백그라운드 검사)
+        $integrity_warning = null;
+        if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'verify_license_integrity' ) ) {
+            $integrity_check = JJ_License_Security::verify_license_integrity( $license_key, $site_url );
+            if ( ! $integrity_check['valid'] ) {
+                // 무결성 검사 실패 시 경고 로그 (차단하지 않고 경고만)
+                if ( method_exists( 'JJ_License_Security', 'log_security_event' ) ) {
+                    JJ_License_Security::log_security_event( 'license_integrity_warning', array(
+                        'license_key' => substr( $license_key, 0, 8 ) . '****',
+                        'reason'      => $integrity_check['reason'] ?? 'unknown',
+                        'site_url'    => $site_url,
+                    ) );
+                }
+                $integrity_warning = $integrity_check['reason'] ?? 'integrity_check_failed';
+            }
+        }
+
+        // [v6.3.3] 파일 무결성 검사 (Neural Link 플러그인 파일)
+        $file_integrity_warning = null;
+        if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'verify_file_integrity' ) ) {
+            $file_check = JJ_License_Security::verify_file_integrity( JJ_NEURAL_LINK_PATH );
+            if ( ! $file_check['valid'] ) {
+                // 파일 변조 감지 시 경고 로그
+                if ( method_exists( 'JJ_License_Security', 'log_security_event' ) ) {
+                    JJ_License_Security::log_security_event( 'file_integrity_warning', array(
+                        'license_key'    => substr( $license_key, 0, 8 ) . '****',
+                        'modified_files' => $file_check['modified_files'] ?? array(),
+                        'site_url'       => $site_url,
+                    ) );
+                }
+                $file_integrity_warning = 'file_modified';
+            }
+        }
+
         return array(
             'valid' => true,
             'type' => $license['license_type'],
@@ -190,6 +247,8 @@ class JJ_License_Validator {
             'valid_until' => ! empty( $license['expires_at'] ) ? strtotime( $license['expires_at'] ) : null,
             'days_until_expiry' => $days_until_expiry,
             'expiring_soon' => $days_until_expiry !== null && $days_until_expiry <= 14,
+            'integrity_warning' => $integrity_warning,
+            'file_integrity_warning' => $file_integrity_warning,
         );
     }
     
