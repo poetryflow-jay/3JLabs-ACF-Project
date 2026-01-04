@@ -142,6 +142,11 @@ class JJ_Style_Guide_Frontend {
             $css .= "\n  /* Typography */\n";
             foreach ( $options['typography'] as $name => $value ) {
                 $var_name = str_replace( '_', '-', $name );
+                // [v22.4.8] 배열을 문자열로 변환하는 오류 수정 - 배열인 경우 처리
+                if ( is_array( $value ) ) {
+                    // 배열인 경우 JSON으로 변환하거나 첫 번째 값 사용
+                    $value = ! empty( $value ) ? ( is_string( $value[0] ) ? $value[0] : json_encode( $value ) ) : '';
+                }
                 $css .= "  --jj-{$var_name}: {$value};\n";
             }
         }

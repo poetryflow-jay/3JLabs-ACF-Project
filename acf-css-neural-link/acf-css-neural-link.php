@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v2.1.2] 플러그인 버전별 자동 업데이트 제어 기능 추가, dev 버전과의 호환성 개선
 // [v2.1.3] 플러그인 폴더명 및 슬러그 업데이트
 // [v2.1.4] Pro 버전 원격 활성화 시스템 지원
-define( 'JJ_NEURAL_LINK_VERSION', '6.3.2' ); // [v6.3.2] class-jj-license-validator.php 중괄호 닫기 오류 수정
+define( 'JJ_NEURAL_LINK_VERSION', '6.3.3' ); // [v6.3.3] 파일 해시 초기화 훅 연결 (activation/update)
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
 if ( ! defined( 'JJ_NEURAL_LINK_PATH' ) ) {
@@ -214,6 +214,15 @@ function jj_license_manager_activate() {
         
         // dev 버전과의 호환성: dev 버전이 활성화되어 있어도 문제없이 작동하도록
         // WooCommerce 의존성은 plugins_loaded에서 체크하므로 활성화 시에는 체크하지 않음
+
+        // [v6.3.3] 파일 무결성 해시 초기화 - 라이센스 변조 감지용
+        $security_file = JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-security.php';
+        if ( file_exists( $security_file ) ) {
+            require_once $security_file;
+            if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'store_file_hashes' ) ) {
+                JJ_License_Security::store_file_hashes( JJ_NEURAL_LINK_PATH );
+            }
+        }
     } catch ( Exception $e ) {
         if ( function_exists( 'error_log' ) ) {
             error_log( 'JJ License Manager: 활성화 중 오류 - ' . $e->getMessage() );
@@ -273,7 +282,7 @@ if ( file_exists( JJ_NEURAL_LINK_PATH . 'includes/class-jj-plugin-updater.php' )
         if ( class_exists( 'JJ_Plugin_Updater' ) ) {
             $license_key = get_option( 'jj_license_manager_license_key', '' );
             $api_url = get_option( 'jj_license_manager_server_url', 'https://3j-labs.com' );
-            
+
             new JJ_Plugin_Updater(
                 $api_url,
                 __FILE__,
@@ -287,4 +296,62 @@ if ( file_exists( JJ_NEURAL_LINK_PATH . 'includes/class-jj-plugin-updater.php' )
             );
         }
     } );
+}
+
+/**
+ * [v6.3.3] 플러그인 업데이트 완료 후 파일 해시 갱신
+ *
+ * WordPress의 upgrader_process_complete 훅을 사용하여
+ * Neural Link 또는 관련 플러그인이 업데이트될 때 파일 해시를 갱신합니다.
+ */
+add_action( 'upgrader_process_complete', 'jj_neural_link_refresh_file_hashes', 10, 2 );
+function jj_neural_link_refresh_file_hashes( $upgrader_object, $options ) {
+    // 플러그인 업데이트인지 확인
+    if ( $options['action'] !== 'update' || $options['type'] !== 'plugin' ) {
+        return;
+    }
+
+    // JJ_License_Security 클래스 로드
+    $security_file = JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-security.php';
+    if ( ! file_exists( $security_file ) ) {
+        return;
+    }
+
+    require_once $security_file;
+    if ( ! class_exists( 'JJ_License_Security' ) || ! method_exists( 'JJ_License_Security', 'store_file_hashes' ) ) {
+        return;
+    }
+
+    // 업데이트된 플러그인 목록 확인
+    $plugins = isset( $options['plugins'] ) ? $options['plugins'] : array();
+    if ( isset( $options['plugin'] ) ) {
+        $plugins = array( $options['plugin'] );
+    }
+
+    // 3J Labs 플러그인 경로 패턴
+    $jj_plugin_patterns = array(
+        'acf-css-neural-link/',
+        'acf-css-really-simple-style-management-center-master/',
+        'wp-bulk-manager/',
+        'acf-code-snippets-box/',
+        'acf-mba-nudge-flow/',
+        'acf-css-woo-toolkit/',
+    );
+
+    foreach ( $plugins as $plugin ) {
+        foreach ( $jj_plugin_patterns as $pattern ) {
+            if ( strpos( $plugin, $pattern ) !== false ) {
+                // 해당 플러그인 경로의 해시 갱신
+                $plugin_dir = WP_PLUGIN_DIR . '/' . dirname( $plugin ) . '/';
+                if ( is_dir( $plugin_dir ) ) {
+                    JJ_License_Security::store_file_hashes( $plugin_dir );
+
+                    if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                        error_log( '[Neural Link] File hashes refreshed for: ' . $plugin );
+                    }
+                }
+                break;
+            }
+        }
+    }
 }

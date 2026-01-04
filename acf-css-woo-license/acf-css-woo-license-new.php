@@ -48,6 +48,8 @@ add_action( 'before_woocommerce_init', function() {
     }
 } );
 
+// [v22.0.2] 임시 파일 - 클래스 중복 선언 방지
+if ( ! class_exists( 'ACF_CSS_Woo_License' ) ) {
 class ACF_CSS_Woo_License {
 
     /**
@@ -612,10 +614,14 @@ class ACF_CSS_Woo_License {
         </section>
         <?php
     }
-}
+} // End of class ACF_CSS_Woo_License
+
+} // End of class_exists check
 
 // 초기화
-add_action( 'plugins_loaded', array( 'ACF_CSS_Woo_License', 'instance' ) );
+if ( class_exists( 'ACF_CSS_Woo_License' ) ) {
+    add_action( 'plugins_loaded', array( 'ACF_CSS_Woo_License', 'instance' ) );
+}
 
 // AJAX 핸들러: 연결 테스트
 add_action( 'wp_ajax_acf_css_test_neural_link', function() {
