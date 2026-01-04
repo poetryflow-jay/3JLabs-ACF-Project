@@ -511,15 +511,33 @@ jQuery(document).ready(function($) {
     
     // 선택 정보 업데이트
     function updateSelectionInfo() {
-        var checkedCount = $('.jj-file-item-completed .jj-file-checkbox:checked').length;
-        var totalCount = $('.jj-file-item-completed .jj-file-checkbox:not(:disabled)').length;
+        // 완료 목록의 선택된 항목 수
+        var completedCheckedCount = $('.jj-file-item-completed .jj-file-checkbox:checked').length;
         
-        $('#jj-selection-info').text(checkedCount + '개 선택됨');
+        // 설치 전 목록의 선택된 항목 수
+        var pendingCheckedCount = $('.jj-file-item-pending .jj-file-checkbox:checked').length;
         
-        if (checkedCount > 0) {
-            $('#jj-activate-selected-plugins').show().text('선택한 플러그인 자동 활성화 (' + checkedCount + '개)');
+        // 전체 선택된 항목 수
+        var totalCheckedCount = completedCheckedCount + pendingCheckedCount;
+        
+        // 선택 정보 표시 업데이트
+        $('#jj-selection-info').text(totalCheckedCount + '개 선택됨');
+        
+        // 완료 목록에 선택된 항목이 있으면 활성화 버튼 표시
+        if (completedCheckedCount > 0) {
+            $('#jj-activate-selected-plugins').show().text('선택한 플러그인 활성화 (' + completedCheckedCount + '개)');
         } else {
             $('#jj-activate-selected-plugins').hide();
+        }
+        
+        // 설치 전 목록에 선택된 항목이 있으면 설치 시작 버튼 업데이트
+        if (pendingCheckedCount > 0) {
+            $('#jj-start-install').prop('disabled', false).text('설치 시작 (' + pendingCheckedCount + '개)');
+        } else if (filesQueue.length > 0) {
+            // 선택된 항목이 없어도 대기 목록이 있으면 전체 개수 표시
+            $('#jj-start-install').prop('disabled', false).text('설치 시작 (' + filesQueue.length + '개)');
+        } else {
+            $('#jj-start-install').prop('disabled', true).text('설치 시작하기');
         }
     }
     
@@ -689,7 +707,7 @@ jQuery(document).ready(function($) {
 
             if (filesQueue.length > 0) {
                 $('#jj-actions-area').show();
-                $('#jj-start-install').prop('disabled', false).text('설치 시작 (' + filesQueue.length + '개)');
+                updateSelectionInfo(); // 선택 정보 업데이트 (실시간 반영)
             }
         }
 
@@ -772,7 +790,7 @@ jQuery(document).ready(function($) {
         function processQueue(index, targets) {
             if (index >= filesQueue.length) {
                 isProcessing = false;
-                $('#jj-start-install').prop('disabled', false).text('설치 시작 (' + filesQueue.length + '개)');
+                updateSelectionInfo(); // 선택 정보 업데이트 (실시간 반영)
                 
                 $('.jj-progress-fill').css('width', '100%');
                 $('.jj-status-text').text('모든 작업 완료 (' + filesQueue.length + '/' + filesQueue.length + ')');

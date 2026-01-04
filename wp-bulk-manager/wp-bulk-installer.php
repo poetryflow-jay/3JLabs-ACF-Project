@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '23.0.0' ); // [v23.0.0] Major Version Release
+define( 'WP_BULK_MANAGER_VERSION', '23.0.1' ); // [v23.0.1] 선택 개수 실시간 업데이트 및 문구 수정
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -648,7 +648,7 @@ class JJ_Bulk_Installer {
                         </div>
                         <div class="jj-activate-controls" style="margin-top: 10px;">
                             <button type="button" class="button button-primary" id="jj-activate-selected-plugins" style="display: none;">
-                                선택한 플러그인 자동 활성화
+                                선택한 플러그인 활성화
                             </button>
                             <span class="description" style="margin-left: 10px; color: #646970;">
                                 💡 <strong>팁:</strong> Ctrl 키를 누른 채로 클릭하면 여러 개 선택, Shift 키를 누른 채로 클릭하면 범위 선택이 가능합니다.

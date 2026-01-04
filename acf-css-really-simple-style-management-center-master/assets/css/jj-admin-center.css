@@ -271,6 +271,16 @@
     display: block !important;
 }
 
+/* [v23.0.1] 탭 content 기본 표시 수정 - 모든 탭이 표시되도록 */
+.jj-admin-center-tab-content[data-tab] {
+    display: block;
+}
+
+/* [v23.0.1] active가 아닌 탭은 숨김 */
+.jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content:not(.active) {
+    display: none !important;
+}
+
 /* [v13.4.6] JavaScript 로드 실패 시 폴백: general 탭 기본 표시 */
 /* active 클래스가 없을 때만 적용되도록 :not(.active) 제외 */
 .jj-admin-center-wrap:not(.js-loaded) .jj-admin-center-tab-content:not(.active)[data-tab="general"] {
@@ -278,10 +288,6 @@
 }
 
 /* [v13.4.6] JS가 정상 로드되었을 때는 일반 동작 */
-.jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content {
-    display: none;
-}
-
 .jj-admin-center-wrap.js-loaded .jj-admin-center-tab-content.active {
     display: block !important;
 }
