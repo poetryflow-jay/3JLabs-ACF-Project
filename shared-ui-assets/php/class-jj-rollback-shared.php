@@ -25,19 +25,12 @@ if ( ! class_exists( 'JJ_Rollback_Shared' ) ) {
      */
     class JJ_Rollback_Shared {
 
-        use JJ_Singleton_Trait;
-
         /**
-         * 트레이트 로드 확인
+         * 싱글톤 인스턴스
+         *
+         * @var JJ_Rollback_Shared|null
          */
-        private function __construct() {
-            // JJ_Singleton_Trait 로드 확인
-            if ( ! trait_exists( 'JJ_Singleton_Trait' ) ) {
-                $trait_path = dirname( __FILE__ ) . '/trait-jj-singleton.php';
-                if ( file_exists( $trait_path ) ) {
-                    require_once $trait_path;
-                }
-            }
+        private static $instance = null;
 
         /**
          * 롤백 히스토리 옵션 키
@@ -54,11 +47,24 @@ if ( ! class_exists( 'JJ_Rollback_Shared' ) ) {
         const MAX_HISTORY = 50;
 
         /**
+         * 싱글톤 인스턴스 반환
+         *
+         * @since 1.0.0
+         * @return JJ_Rollback_Shared
+         */
+        public static function instance() {
+            if ( null === self::$instance ) {
+                self::$instance = new self();
+            }
+            return self::$instance;
+        }
+
+        /**
          * 생성자
          *
          * @since 1.0.0
          */
-        protected function __construct() {
+        private function __construct() {
             // WordPress Core 업데이트 클래스 로드
             if ( ! class_exists( 'Plugin_Upgrader' ) ) {
                 require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';

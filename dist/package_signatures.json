@@ -8,7 +8,7 @@
     "edition": "master",
     "version": "22.5.1"
   },
-  "_updated_at": "2026-01-05T01:37:20.660321",
+  "_updated_at": "2026-01-05T03:04:02.422567",
   "_version": "1.0.0",
   "wp-bulk-manager-master-v22.5.2.zip": {
     "signature": "69fb2d0d6f051bd708632466fbc08622024ca2ef17d5d7c590dcb5fc346a28dc",
@@ -23,7 +23,7 @@
     "signature": "134ada0d112dac3f531fbea8b91a3809b8c8acf9e659d4bd9bb709949f624f4f",
     "md5": "70912adaf51d3520afb392b0a84f31b6",
     "size": 103545,
-    "generated_at": "2026-01-05T01:37:20.218110",
+    "generated_at": "2026-01-05T03:04:02.041569",
     "plugin_id": "acf-neural-link",
     "edition": "master",
     "version": "6.3.5"
@@ -50,7 +50,7 @@
     "signature": "283d50d8f3596ffa6a321549338d380bb31368ab23d3bbd18ad34160d817ccdf",
     "md5": "3b75f62b579d3dea1cbbef2d31ffd3a8",
     "size": 90471,
-    "generated_at": "2026-01-05T01:37:20.467350",
+    "generated_at": "2026-01-05T03:04:02.260106",
     "plugin_id": "acf-woocommerce",
     "edition": "master",
     "version": "2.4.1"
@@ -59,7 +59,7 @@
     "signature": "f5880b8d69179a253ee4ef5e2d9deaf409df215b7a6af5555707e8c2dff25faa",
     "md5": "ec417bdbb4740c74112eab5b7d6434a2",
     "size": 34844,
-    "generated_at": "2026-01-05T01:37:20.494029",
+    "generated_at": "2026-01-05T03:04:02.284758",
     "plugin_id": "acf-ai-extension",
     "edition": "master",
     "version": "3.3.1"
@@ -68,7 +68,7 @@
     "signature": "84a7a439e2d523de79137f5de8c68a9c4b35518771749d08a41222d7d017f5d3",
     "md5": "7e6bfaea0cbdc7308ce74be06ef55541",
     "size": 5402,
-    "generated_at": "2026-01-05T01:37:20.504678",
+    "generated_at": "2026-01-05T03:04:02.293630",
     "plugin_id": "admin-menu-editor",
     "edition": "master",
     "version": "2.0.2"
@@ -95,7 +95,7 @@
     "signature": "ab2ca355f304e5bf748434ba8a14f0fba299a1826750a3dd35af84d6750b1468",
     "md5": "7db0c8ffdab6c6fd744aee36cfecdccd",
     "size": 162472,
-    "generated_at": "2026-01-05T01:37:20.422770",
+    "generated_at": "2026-01-05T03:04:02.211600",
     "plugin_id": "acf-code-snippets",
     "edition": "master",
     "version": "4.0.0"
@@ -131,7 +131,7 @@
     "signature": "87f914e677943899adb461a491aa224e52515c3536be7f0676969a4496b10ee2",
     "md5": "5cc9b6ee17a32b145e54d9448bc8f9cf",
     "size": 44626,
-    "generated_at": "2026-01-05T01:37:20.163279",
+    "generated_at": "2026-01-05T03:04:02.004035",
     "plugin_id": "wp-bulk-manager",
     "edition": "master",
     "version": "23.0.1"
@@ -140,7 +140,7 @@
     "signature": "5abde93313876cc8c6549f4afa1d60bddf6c4f05018d24a3a60731a190b13ad1",
     "md5": "da2110c1b61c37d721c52870bf12226a",
     "size": 19725,
-    "generated_at": "2026-01-05T01:37:20.517016",
+    "generated_at": "2026-01-05T03:04:02.304705",
     "plugin_id": "acf-css-woo-license",
     "edition": "master",
     "version": "23.0.0"
@@ -167,7 +167,7 @@
     "signature": "398e1c173a1be0baa53818e6815161fad46862ab6a9443fb4ff63e300fb14505",
     "md5": "a264ef391d48e540e0435220799d2e75",
     "size": 130676,
-    "generated_at": "2026-01-05T01:37:20.589733",
+    "generated_at": "2026-01-05T03:04:02.348843",
     "plugin_id": "wp-bulk-seo",
     "edition": "master",
     "version": "2.1.0"
@@ -176,7 +176,7 @@
     "signature": "5175563f29f67d861fe9a980eecf1a40fffcb8b362180602d9b333792c7e8bd7",
     "md5": "8e4d862cd69e5653dd52eb462500544c",
     "size": 39425,
-    "generated_at": "2026-01-05T01:37:20.616056",
+    "generated_at": "2026-01-05T03:04:02.373963",
     "plugin_id": "acf-mail-smtp",
     "edition": "master",
     "version": "1.0.0"
@@ -194,7 +194,7 @@
     "signature": "a1442efbf9821f2b422b8f89c403bc1451b3921f153fefd985edd333f656f80d",
     "md5": "a8f9f93d8aa40fb67d87415548938eed",
     "size": 11347,
-    "generated_at": "2026-01-05T01:37:20.644608",
+    "generated_at": "2026-01-05T03:04:02.405939",
     "plugin_id": "jj-analytics-dashboard",
     "edition": "master",
     "version": "1.0.1"
@@ -203,9 +203,36 @@
     "signature": "85e459eb7c60bb2cdbbb73d99543809744af758117ee446904263d6b7ec7f2d5",
     "md5": "54fe084962b28049806c1fe1bc23cc2a",
     "size": 21306,
-    "generated_at": "2026-01-05T01:37:20.660149",
+    "generated_at": "2026-01-05T03:04:02.422425",
     "plugin_id": "jj-marketing-automation-dashboard",
     "edition": "master",
     "version": "2.0.0"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.0.1.zip": {
+    "signature": "4e4dc32e5b05dbc3120ec9340a0bf31d77fd03c58da87c0e538089744f480fc6",
+    "md5": "800bb0eb393aead1107013ef48ae09a5",
+    "size": 965880,
+    "generated_at": "2026-01-05T03:04:01.962331",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.0.1"
+  },
+  "acf-nudge-flow-master-v22.10.1.zip": {
+    "signature": "588e2b3f2e9ab4c0823313c90ad0a48e539a40fdeed8fa8618a7063f78c1b590",
+    "md5": "f5cf35025665f0608ecea39039ee3aa5",
+    "size": 708304,
+    "generated_at": "2026-01-05T03:04:02.154731",
+    "plugin_id": "acf-nudge-flow",
+    "edition": "master",
+    "version": "22.10.1"
+  },
+  "acf-user-journey-analytics-master-v1.0.1.zip": {
+    "signature": "a887ed44b69abb02df0f02ead18449578480b17f8f1463fa5f2ae99ed670ad2c",
+    "md5": "17c43fe003412363021be34f91f049df",
+    "size": 37993,
+    "generated_at": "2026-01-05T03:04:02.394936",
+    "plugin_id": "acf-user-journey-analytics",
+    "edition": "master",
+    "version": "1.0.1"
   }
 }

@@ -1756,130 +1756,130 @@ class JJ_Global_Plugin_List_Enhancer {
             });
             
             // 전역 롤백 트리거 - [v23.0.3] 완전한 롤백 기능 구현
-            $(document).on('click', '.jj-rollback-trigger', function(e) {
+            \$(document).on('click', '.jj-rollback-trigger', function(e) {
                 e.preventDefault();
-                var $trigger = $(this);
-                var plugin = $trigger.data('plugin');
-                var nonce = $trigger.data('nonce');
+                var \$trigger = \$(this);
+                var plugin = \$trigger.data('plugin');
+                var nonce = \$trigger.data('nonce');
                 var versions = [];
-                
+
                 try {
-                    versions = JSON.parse($trigger.data('versions') || '[]');
+                    versions = JSON.parse(\$trigger.data('versions') || '[]');
                 } catch (e) {
                     console.error('버전 데이터 파싱 실패:', e);
                 }
-                
+
                 if (versions.length === 0) {
                     alert('롤백 가능한 버전을 찾을 수 없습니다.');
                     return;
                 }
-                
+
                 // 버전 선택 모달 표시
                 showRollbackModal(plugin, nonce, versions);
             });
-            
+
             // 롤백 모달 표시 함수
             function showRollbackModal(plugin, nonce, versions) {
                 // 모달 HTML 생성
-                var modalHtml = '<div id="jj-rollback-modal" class="jj-rollback-modal-overlay">' +
-                    '<div class="jj-rollback-modal">' +
-                    '<div class="jj-rollback-modal-header">' +
+                var modalHtml = '<div id=\"jj-rollback-modal\" class=\"jj-rollback-modal-overlay\">' +
+                    '<div class=\"jj-rollback-modal\">' +
+                    '<div class=\"jj-rollback-modal-header\">' +
                     '<h2>🔄 플러그인 롤백</h2>' +
-                    '<button type="button" class="jj-rollback-modal-close" aria-label="닫기">×</button>' +
+                    '<button type=\"button\" class=\"jj-rollback-modal-close\" aria-label=\"닫기\">×</button>' +
                     '</div>' +
-                    '<div class="jj-rollback-modal-body">' +
+                    '<div class=\"jj-rollback-modal-body\">' +
                     '<p>롤백할 버전을 선택하세요:</p>' +
-                    '<div class="jj-rollback-versions-list">';
-                
+                    '<div class=\"jj-rollback-versions-list\">';
+
                 // versions가 배열인 경우와 객체인 경우 모두 처리
                 if (Array.isArray(versions)) {
                     versions.forEach(function(version) {
-                        modalHtml += '<label class="jj-rollback-version-item">' +
-                            '<input type="radio" name="rollback_version" value="' + version + '">' +
-                            '<span class="version-label">v' + version + '</span>' +
+                        modalHtml += '<label class=\"jj-rollback-version-item\">' +
+                            '<input type=\"radio\" name=\"rollback_version\" value=\"' + version + '\">' +
+                            '<span class=\"version-label\">v' + version + '</span>' +
                             '</label>';
                     });
                 } else if (typeof versions === 'object') {
                     // 객체인 경우 키(버전)만 사용
                     Object.keys(versions).forEach(function(version) {
-                        modalHtml += '<label class="jj-rollback-version-item">' +
-                            '<input type="radio" name="rollback_version" value="' + version + '">' +
-                            '<span class="version-label">v' + version + '</span>' +
+                        modalHtml += '<label class=\"jj-rollback-version-item\">' +
+                            '<input type=\"radio\" name=\"rollback_version\" value=\"' + version + '\">' +
+                            '<span class=\"version-label\">v' + version + '</span>' +
                             '</label>';
                     });
                 }
-                
+
                 modalHtml += '</div>' +
-                    '<div class="jj-rollback-warning">' +
+                    '<div class=\"jj-rollback-warning\">' +
                     '<p><strong>⚠️ 주의:</strong> 롤백 시 현재 버전의 데이터는 백업됩니다. 롤백 후 플러그인을 다시 활성화해야 할 수 있습니다.</p>' +
                     '</div>' +
                     '</div>' +
-                    '<div class="jj-rollback-modal-footer">' +
-                    '<button type="button" class="button jj-rollback-cancel">취소</button>' +
-                    '<button type="button" class="button button-primary jj-rollback-confirm">롤백 실행</button>' +
+                    '<div class=\"jj-rollback-modal-footer\">' +
+                    '<button type=\"button\" class=\"button jj-rollback-cancel\">취소</button>' +
+                    '<button type=\"button\" class=\"button button-primary jj-rollback-confirm\">롤백 실행</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>';
-                
+
                 // 기존 모달 제거
-                $('#jj-rollback-modal').remove();
-                
+                \$('#jj-rollback-modal').remove();
+
                 // 모달 추가
-                $('body').append(modalHtml);
-                var $modal = $('#jj-rollback-modal');
-                
+                \$('body').append(modalHtml);
+                var \$modal = \$('#jj-rollback-modal');
+
                 // 모달 표시
                 setTimeout(function() {
-                    $modal.addClass('active');
+                    \$modal.addClass('active');
                 }, 10);
-                
+
                 // 닫기 버튼
-                $modal.find('.jj-rollback-modal-close, .jj-rollback-cancel').on('click', function() {
-                    $modal.removeClass('active');
+                \$modal.find('.jj-rollback-modal-close, .jj-rollback-cancel').on('click', function() {
+                    \$modal.removeClass('active');
                     setTimeout(function() {
-                        $modal.remove();
+                        \$modal.remove();
                     }, 300);
                 });
-                
+
                 // 롤백 실행
-                $modal.find('.jj-rollback-confirm').on('click', function() {
-                    var selectedVersion = $modal.find('input[name=\"rollback_version\"]:checked').val();
-                    
+                \$modal.find('.jj-rollback-confirm').on('click', function() {
+                    var selectedVersion = \$modal.find('input[name=\"rollback_version\"]:checked').val();
+
                     if (!selectedVersion) {
                         alert('버전을 선택해주세요.');
                         return;
                     }
-                    
+
                     if (!confirm('정말로 버전 ' + selectedVersion + '으로 롤백하시겠습니까?\\n\\n이 작업은 되돌릴 수 없습니다.')) {
                         return;
                     }
-                    
+
                     // 롤백 실행
-                    executeRollback(plugin, nonce, selectedVersion, $modal);
+                    executeRollback(plugin, nonce, selectedVersion, \$modal);
                 });
             }
-            
+
             // 롤백 실행 함수
-            function executeRollback(plugin, nonce, version, $modal) {
-                var $confirmBtn = $modal.find('.jj-rollback-confirm');
-                var originalText = $confirmBtn.text();
-                
+            function executeRollback(plugin, nonce, version, \$modal) {
+                var \$confirmBtn = \$modal.find('.jj-rollback-confirm');
+                var originalText = \$confirmBtn.text();
+
                 // 버튼 비활성화 및 로딩 표시
-                $confirmBtn.prop('disabled', true).text('롤백 중...');
-                $modal.find('.jj-rollback-modal-body').append('<div class=\"jj-rollback-progress\"><div class=\"spinner is-active\"></div> <span>롤백을 실행하고 있습니다...</span></div>');
-                
+                \$confirmBtn.prop('disabled', true).text('롤백 중...');
+                \$modal.find('.jj-rollback-modal-body').append('<div class=\"jj-rollback-progress\"><div class=\"spinner is-active\"></div> <span>롤백을 실행하고 있습니다...</span></div>');
+
                 // AJAX 액션 결정 (전역 또는 개별)
                 var action = 'jj_rollback_plugin_global';
-                var actionSuffix = plugin.replace(/[\/\\\\]/g, '_');
-                
+                var actionSuffix = plugin.replace(/[\\/\\\\]/g, '_');
+
                 // 개별 AJAX 액션이 있는지 확인
-                if ($('[data-plugin=\"' + plugin + '\"]').length > 0) {
+                if (\$('[data-plugin=\"' + plugin + '\"]').length > 0) {
                     // 개별 플러그인용 롤백 액션 사용
                     action = 'jj_rollback_plugin_' + actionSuffix;
                 }
-                
+
                 // AJAX 요청
-                $.ajax({
+                \$.ajax({
                     url: ajaxurl,
                     type: 'POST',
                     data: {
@@ -1891,8 +1891,8 @@ class JJ_Global_Plugin_List_Enhancer {
                     timeout: 300000, // 5분 타임아웃
                     success: function(response) {
                         if (response.success) {
-                            $modal.find('.jj-rollback-progress').html('<div class=\"notice notice-success\"><p>✅ ' + response.data.message + '</p></div>');
-                            
+                            \$modal.find('.jj-rollback-progress').html('<div class=\"notice notice-success\"><p>✅ ' + response.data.message + '</p></div>');
+
                             setTimeout(function() {
                                 // 페이지 새로고침
                                 if (response.data.reload !== false) {
@@ -1900,8 +1900,8 @@ class JJ_Global_Plugin_List_Enhancer {
                                 }
                             }, 2000);
                         } else {
-                            $modal.find('.jj-rollback-progress').html('<div class=\"notice notice-error\"><p>❌ ' + (response.data.message || '롤백에 실패했습니다.') + '</p></div>');
-                            $confirmBtn.prop('disabled', false).text(originalText);
+                            \$modal.find('.jj-rollback-progress').html('<div class=\"notice notice-error\"><p>❌ ' + (response.data.message || '롤백에 실패했습니다.') + '</p></div>');
+                            \$confirmBtn.prop('disabled', false).text(originalText);
                         }
                     },
                     error: function(xhr, status, error) {
@@ -1911,9 +1911,9 @@ class JJ_Global_Plugin_List_Enhancer {
                         } else if (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
                             errorMsg = xhr.responseJSON.data.message;
                         }
-                        
-                        $modal.find('.jj-rollback-progress').html('<div class=\"notice notice-error\"><p>❌ ' + errorMsg + '</p></div>');
-                        $confirmBtn.prop('disabled', false).text(originalText);
+
+                        \$modal.find('.jj-rollback-progress').html('<div class=\"notice notice-error\"><p>❌ ' + errorMsg + '</p></div>');
+                        \$confirmBtn.prop('disabled', false).text(originalText);
                     }
                 });
             }

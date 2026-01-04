@@ -1243,7 +1243,7 @@ class ACF_Nudge_Flow_Admin {
                     </div>
                     <?php endforeach; ?>
                 </div>
-            <?php else : ?>
+            <?php elseif ( $active_tab === 'nudge' ) : ?>
                 <div class="acf-nudge-market-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; margin-top:20px;">
                     <?php if ( empty( $nudge_templates ) ) : ?>
                         <div class="postbox" style="padding: 40px; text-align: center; grid-column: 1 / -1;">
@@ -1255,7 +1255,7 @@ class ACF_Nudge_Flow_Admin {
                             </p>
                         </div>
                     <?php else : ?>
-                        <?php foreach ( $nudge_templates as $id => $data ) : 
+                        <?php foreach ( $nudge_templates as $id => $data ) :
                             $is_premium = ( $data['type'] === 'premium' );
                         ?>
                         <div class="postbox" style="border-radius:8px; overflow:hidden;">

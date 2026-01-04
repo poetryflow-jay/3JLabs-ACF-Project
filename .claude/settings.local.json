@@ -21,7 +21,10 @@
       "Bash(php:*)",
       "Bash(done)",
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Phase 42.2 - 보안 강화, 롤백 기능, 성능 최적화\n\nUser Journey Analytics:\n- AJAX 추적 nonce 검증 추가 (보안 강화)\n- Transient 캐싱 시스템 도입 (1분~1시간 TTL)\n- 캐시 무효화 메서드 추가\n\n롤백 기능 완전 구현 (class-jj-plugin-list-enhancer.php):\n- WordPress Plugin_Upgrader 활용\n- 3J Labs 및 WordPress.org 플러그인 지원\n- 자동 백업/복원 로직\n- 활성화 상태 자동 복원\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
-      "Bash(for file in SEO/oneclick-seo-pro/oneclick-seo-pro.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-analyzer.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-scorer.php)"
+      "Bash(for file in SEO/oneclick-seo-pro/oneclick-seo-pro.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-analyzer.php SEO/oneclick-seo-pro/includes/algorithm/class-seo-scorer.php)",
+      "Bash(git commit:*)",
+      "Bash(for plugin in \"acf-css-really-simple-style-management-center-master/acf-css-really-simple-style-guide.php\" \"acf-nudge-flow/acf-nudge-flow.php\" \"acf-code-snippets-box/acf-code-snippets-box.php\" \"acf-css-neural-link/acf-css-neural-link.php\" \"wp-bulk-manager/wp-bulk-installer.php\" \"acf-css-woocommerce-toolkit/acf-css-woocommerce-toolkit.php\" \"acf-css-ai-extension/acf-css-ai-extension.php\" \"acf-user-journey-analytics/acf-user-journey-analytics.php\" \"admin-menu-editor-pro/admin-menu-editor-pro.php\" \"jj-analytics-dashboard/jj-analytics-dashboard.php\" \"jj-marketing-automation-dashboard/jj-marketing-dashboard.php\")",
+      "Bash(do echo \"=== $plugin ===\")"
     ]
   }
 }
