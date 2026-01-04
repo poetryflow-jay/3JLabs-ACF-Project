@@ -80,11 +80,19 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
 
         <?php if ( $tab_enabled_label ) : ?>
         <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'form-label' ) ? 'is-active' : ''; ?>" data-tab-content="form-label">
+            <!-- [v22.4.7] 퀵 네비게이션 -->
+            <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
+                <ul class="jj-tab-quick-nav-list">
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-form-label-typography" class="jj-tab-quick-nav-link"><?php _e( '타이포그래피', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-form-label-colors" class="jj-tab-quick-nav-link"><?php _e( '색상', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                </ul>
+            </div>
+            
             <p class="description" style="margin-bottom: 25px;">
                 <?php _e( '모든 폼의 <code>&lt;label&gt;</code> 태그 스타일을 제어합니다. (기본값: \'2. 타이포그래피\'의 \'P\' 스타일 일부를 따름)', 'acf-css-really-simple-style-management-center' ); ?>
             </p>
             
-            <div class="jj-contextual-typography-controls" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+            <div class="jj-contextual-typography-controls jj-section-subsection" id="jj-form-label-typography" style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
                 
                 <div class="jj-control-group">
                     <label for="jj-form-label-font-weight"><?php _e( 'Weight', 'acf-css-really-simple-style-management-center' ); ?></label>
@@ -125,7 +133,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                            placeholder="예: 15" />
                 </div>
 
-                <div class="jj-control-group jj-color-card" style="padding: 10px;">
+                <div class="jj-control-group jj-color-card jj-section-subsection" id="jj-form-label-colors" style="padding: 10px;">
                     <label for="jj-form-label-text-color"><?php _e( '텍스트 색상', 'acf-css-really-simple-style-management-center' ); ?></label>
                     <input type="text" 
                            id="jj-form-label-text-color" 
@@ -140,6 +148,14 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
 
         <?php if ( $tab_enabled_field ) : ?>
         <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'form-field' ) ? 'is-active' : ''; ?>" data-tab-content="form-field">
+            <!-- [v22.4.7] 퀵 네비게이션 -->
+            <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
+                <ul class="jj-tab-quick-nav-list">
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-form-field-colors" class="jj-tab-quick-nav-link"><?php _e( 'Colors', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-form-field-layout" class="jj-tab-quick-nav-link"><?php _e( 'Layout', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-form-field-padding" class="jj-tab-quick-nav-link"><?php _e( 'Padding', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                </ul>
+            </div>
             <div class="jj-button-preview-grid">
                 
                 <div class="jj-button-preview" style="background: #f0f0f1; display: block; padding: 20px;">
@@ -151,7 +167,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 </div>
                 
                 <div class="jj-button-controls">
-                    <fieldset class="jj-control-group jj-fieldset-group">
+                    <fieldset class="jj-control-group jj-fieldset-group jj-section-subsection" id="jj-form-field-colors">
                         <legend><?php _e( 'Colors', 'acf-css-really-simple-style-management-center' ); ?></legend>
                         <div class="jj-style-guide-grid jj-grid-4-col" style="gap: 10px;">
                             <div class="jj-control-group"><label><?php _e( '배경', 'acf-css-really-simple-style-management-center' ); ?></label><input type="text" class="jj-color-field jj-data-field" data-setting-key="forms[field][background_color]" value="<?php echo esc_attr( $field_options['background_color'] ?? '' ); ?>" /></div>
@@ -161,7 +177,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                         </div>
                     </fieldset>
                     
-                    <fieldset class="jj-control-group jj-fieldset-group jj-grid-2-col">
+                    <fieldset class="jj-control-group jj-fieldset-group jj-grid-2-col jj-section-subsection" id="jj-form-field-layout">
                         <legend><?php _e( 'Layout', 'acf-css-really-simple-style-management-center' ); ?></legend>
                         <div class="jj-control-group">
                             <label for="jj-form-field-border-radius"><?php _e( 'Border Radius (px)', 'acf-css-really-simple-style-management-center' ); ?></label>
@@ -173,7 +189,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                         </div>
                     </fieldset>
 
-                     <fieldset class="jj-control-group jj-fieldset-group">
+                     <fieldset class="jj-control-group jj-fieldset-group jj-section-subsection" id="jj-form-field-padding">
                         <legend><?php _e( 'Padding (px)', 'acf-css-really-simple-style-management-center' ); ?></legend>
                         <div class="jj-dimensions-group">
                             <input type="number" class="jj-data-field" data-setting-key="forms[field][padding][top]" value="<?php echo esc_attr( $field_options['padding']['top'] ?? '' ); ?>" title="Top" placeholder="Top">
