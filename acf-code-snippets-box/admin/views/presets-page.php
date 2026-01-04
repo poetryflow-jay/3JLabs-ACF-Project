@@ -40,10 +40,37 @@ $php_presets = ACF_CSB_Presets::get_php_presets();
                 <div style="padding: 20px;">
                     <p style="color: #646970; margin: 0 0 15px;"><?php echo esc_html( $preset['description'] ); ?></p>
                     <pre style="background: #f6f7f7; padding: 15px; border-radius: 6px; font-size: 12px; overflow-x: auto; max-height: 150px;"><code><?php echo esc_html( $preset['code'] ); ?></code></pre>
-                    <div style="margin-top: 15px; display: flex; gap: 10px;">
-                        <button type="button" class="button button-primary acf-csb-use-preset" data-type="css" data-id="<?php echo esc_attr( $id ); ?>">
-                            <?php esc_html_e( '스니펫으로 추가', 'acf-code-snippets-box' ); ?>
-                        </button>
+                    <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                        <?php
+                        // 기존 스니펫이 있는지 확인
+                        $existing_snippet = get_posts( array(
+                            'post_type'      => 'acf_code_snippet',
+                            'meta_key'       => '_acf_csb_preset_id',
+                            'meta_value'     => $id,
+                            'posts_per_page' => 1,
+                            'post_status'    => 'any',
+                        ) );
+                        $has_snippet = ! empty( $existing_snippet );
+                        $snippet_id = $has_snippet ? $existing_snippet[0]->ID : 0;
+                        $is_enabled = $has_snippet ? ( get_post_meta( $snippet_id, '_acf_csb_enabled', true ) === '1' ) : false;
+                        ?>
+                        <?php if ( $has_snippet ) : ?>
+                            <button type="button" 
+                                    class="button <?php echo $is_enabled ? 'button-secondary' : 'button-primary'; ?> acf-csb-toggle-preset" 
+                                    data-type="css" 
+                                    data-id="<?php echo esc_attr( $id ); ?>"
+                                    data-post-id="<?php echo esc_attr( $snippet_id ); ?>"
+                                    data-enabled="<?php echo $is_enabled ? '1' : '0'; ?>">
+                                <?php echo $is_enabled ? '🔴 비활성화' : '🟢 활성화'; ?>
+                            </button>
+                            <a href="<?php echo admin_url( 'post.php?post=' . $snippet_id . '&action=edit' ); ?>" class="button">
+                                <?php esc_html_e( '✏️ 수정', 'acf-code-snippets-box' ); ?>
+                            </a>
+                        <?php else : ?>
+                            <button type="button" class="button button-primary acf-csb-use-preset" data-type="css" data-id="<?php echo esc_attr( $id ); ?>">
+                                <?php esc_html_e( '스니펫으로 추가', 'acf-code-snippets-box' ); ?>
+                            </button>
+                        <?php endif; ?>
                         <button type="button" class="button acf-csb-copy-code" data-code="<?php echo esc_attr( $preset['code'] ); ?>">
                             <?php esc_html_e( '코드 복사', 'acf-code-snippets-box' ); ?>
                         </button>
@@ -65,10 +92,36 @@ $php_presets = ACF_CSB_Presets::get_php_presets();
                 <div style="padding: 20px;">
                     <p style="color: #646970; margin: 0 0 15px;"><?php echo esc_html( $preset['description'] ); ?></p>
                     <pre style="background: #f6f7f7; padding: 15px; border-radius: 6px; font-size: 12px; overflow-x: auto; max-height: 150px;"><code><?php echo esc_html( $preset['code'] ); ?></code></pre>
-                    <div style="margin-top: 15px; display: flex; gap: 10px;">
-                        <button type="button" class="button button-primary acf-csb-use-preset" data-type="js" data-id="<?php echo esc_attr( $id ); ?>">
-                            <?php esc_html_e( '스니펫으로 추가', 'acf-code-snippets-box' ); ?>
-                        </button>
+                    <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                        <?php
+                        $existing_snippet = get_posts( array(
+                            'post_type'      => 'acf_code_snippet',
+                            'meta_key'       => '_acf_csb_preset_id',
+                            'meta_value'     => $id,
+                            'posts_per_page' => 1,
+                            'post_status'    => 'any',
+                        ) );
+                        $has_snippet = ! empty( $existing_snippet );
+                        $snippet_id = $has_snippet ? $existing_snippet[0]->ID : 0;
+                        $is_enabled = $has_snippet ? ( get_post_meta( $snippet_id, '_acf_csb_enabled', true ) === '1' ) : false;
+                        ?>
+                        <?php if ( $has_snippet ) : ?>
+                            <button type="button" 
+                                    class="button <?php echo $is_enabled ? 'button-secondary' : 'button-primary'; ?> acf-csb-toggle-preset" 
+                                    data-type="js" 
+                                    data-id="<?php echo esc_attr( $id ); ?>"
+                                    data-post-id="<?php echo esc_attr( $snippet_id ); ?>"
+                                    data-enabled="<?php echo $is_enabled ? '1' : '0'; ?>">
+                                <?php echo $is_enabled ? '🔴 비활성화' : '🟢 활성화'; ?>
+                            </button>
+                            <a href="<?php echo admin_url( 'post.php?post=' . $snippet_id . '&action=edit' ); ?>" class="button">
+                                <?php esc_html_e( '✏️ 수정', 'acf-code-snippets-box' ); ?>
+                            </a>
+                        <?php else : ?>
+                            <button type="button" class="button button-primary acf-csb-use-preset" data-type="js" data-id="<?php echo esc_attr( $id ); ?>">
+                                <?php esc_html_e( '스니펫으로 추가', 'acf-code-snippets-box' ); ?>
+                            </button>
+                        <?php endif; ?>
                         <button type="button" class="button acf-csb-copy-code" data-code="<?php echo esc_attr( $preset['code'] ); ?>">
                             <?php esc_html_e( '코드 복사', 'acf-code-snippets-box' ); ?>
                         </button>
@@ -99,10 +152,36 @@ $php_presets = ACF_CSB_Presets::get_php_presets();
                 <div style="padding: 20px;">
                     <p style="color: #646970; margin: 0 0 15px;"><?php echo esc_html( $preset['description'] ); ?></p>
                     <pre style="background: #f6f7f7; padding: 15px; border-radius: 6px; font-size: 12px; overflow-x: auto; max-height: 150px;"><code><?php echo esc_html( $preset['code'] ); ?></code></pre>
-                    <div style="margin-top: 15px; display: flex; gap: 10px;">
-                        <button type="button" class="button button-primary acf-csb-use-preset" data-type="php" data-id="<?php echo esc_attr( $id ); ?>">
-                            <?php esc_html_e( '스니펫으로 추가', 'acf-code-snippets-box' ); ?>
-                        </button>
+                    <div style="margin-top: 15px; display: flex; gap: 10px; align-items: center;">
+                        <?php
+                        $existing_snippet = get_posts( array(
+                            'post_type'      => 'acf_code_snippet',
+                            'meta_key'       => '_acf_csb_preset_id',
+                            'meta_value'     => $id,
+                            'posts_per_page' => 1,
+                            'post_status'    => 'any',
+                        ) );
+                        $has_snippet = ! empty( $existing_snippet );
+                        $snippet_id = $has_snippet ? $existing_snippet[0]->ID : 0;
+                        $is_enabled = $has_snippet ? ( get_post_meta( $snippet_id, '_acf_csb_enabled', true ) === '1' ) : false;
+                        ?>
+                        <?php if ( $has_snippet ) : ?>
+                            <button type="button" 
+                                    class="button <?php echo $is_enabled ? 'button-secondary' : 'button-primary'; ?> acf-csb-toggle-preset" 
+                                    data-type="php" 
+                                    data-id="<?php echo esc_attr( $id ); ?>"
+                                    data-post-id="<?php echo esc_attr( $snippet_id ); ?>"
+                                    data-enabled="<?php echo $is_enabled ? '1' : '0'; ?>">
+                                <?php echo $is_enabled ? '🔴 비활성화' : '🟢 활성화'; ?>
+                            </button>
+                            <a href="<?php echo admin_url( 'post.php?post=' . $snippet_id . '&action=edit' ); ?>" class="button">
+                                <?php esc_html_e( '✏️ 수정', 'acf-code-snippets-box' ); ?>
+                            </a>
+                        <?php else : ?>
+                            <button type="button" class="button button-primary acf-csb-use-preset" data-type="php" data-id="<?php echo esc_attr( $id ); ?>">
+                                <?php esc_html_e( '스니펫으로 추가', 'acf-code-snippets-box' ); ?>
+                            </button>
+                        <?php endif; ?>
                         <button type="button" class="button acf-csb-copy-code" data-code="<?php echo esc_attr( $preset['code'] ); ?>">
                             <?php esc_html_e( '코드 복사', 'acf-code-snippets-box' ); ?>
                         </button>
@@ -136,13 +215,82 @@ jQuery(document).ready(function($) {
         });
     });
 
-    // 프리셋 사용
+    // 프리셋 사용 - 새 스니펫 생성
     $('.acf-csb-use-preset').on('click', function() {
         const type = $(this).data('type');
         const id = $(this).data('id');
+        const $btn = $(this);
         
-        // 새 스니펫 추가 페이지로 이동 (프리셋 ID 전달)
-        window.location.href = '<?php echo esc_url( admin_url( 'post-new.php?post_type=acf_code_snippet' ) ); ?>&preset_type=' + type + '&preset_id=' + id;
+        $btn.prop('disabled', true).text('<?php echo esc_js( __( "생성 중...", "acf-code-snippets-box" ) ); ?>');
+        
+        // 새 스니펫 생성
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'acf_csb_create_preset_snippet',
+                nonce: '<?php echo wp_create_nonce( "acf_csb_nonce" ); ?>',
+                preset_type: type,
+                preset_id: id
+            },
+            success: function(response) {
+                if (response.success) {
+                    window.location.href = '<?php echo esc_url( admin_url( "post.php" ) ); ?>?post=' + response.data.post_id + '&action=edit';
+                } else {
+                    alert('오류: ' + (response.data || '<?php echo esc_js( __( "스니펫 생성 실패", "acf-code-snippets-box" ) ); ?>'));
+                    $btn.prop('disabled', false).text('<?php echo esc_js( __( "스니펫으로 추가", "acf-code-snippets-box" ) ); ?>');
+                }
+            },
+            error: function() {
+                alert('<?php echo esc_js( __( "서버 통신 오류가 발생했습니다.", "acf-code-snippets-box" ) ); ?>');
+                $btn.prop('disabled', false).text('<?php echo esc_js( __( "스니펫으로 추가", "acf-code-snippets-box" ) ); ?>');
+            }
+        });
+    });
+    
+    // 프리셋 토글 (활성화/비활성화)
+    $('.acf-csb-toggle-preset').on('click', function() {
+        const type = $(this).data('type');
+        const id = $(this).data('id');
+        const postId = $(this).data('post-id');
+        const currentEnabled = $(this).data('enabled') === '1';
+        const $btn = $(this);
+        
+        $btn.prop('disabled', true);
+        
+        $.ajax({
+            url: ajaxurl,
+            type: 'POST',
+            data: {
+                action: 'acf_csb_toggle_preset',
+                nonce: '<?php echo wp_create_nonce( "acf_csb_nonce" ); ?>',
+                preset_type: type,
+                preset_id: id,
+                action_type: 'toggle'
+            },
+            success: function(response) {
+                if (response.success) {
+                    // 버튼 상태 업데이트
+                    if (response.data.enabled) {
+                        $btn.removeClass('button-primary').addClass('button-secondary')
+                            .data('enabled', '1')
+                            .html('🔴 비활성화');
+                    } else {
+                        $btn.removeClass('button-secondary').addClass('button-primary')
+                            .data('enabled', '0')
+                            .html('🟢 활성화');
+                    }
+                    $btn.prop('disabled', false);
+                } else {
+                    alert('오류: ' + (response.data || '<?php echo esc_js( __( "토글 실패", "acf-code-snippets-box" ) ); ?>'));
+                    $btn.prop('disabled', false);
+                }
+            },
+            error: function() {
+                alert('<?php echo esc_js( __( "서버 통신 오류가 발생했습니다.", "acf-code-snippets-box" ) ); ?>');
+                $btn.prop('disabled', false);
+            }
+        });
     });
 });
 </script>

@@ -389,6 +389,8 @@ class ACF_CSB_Post_Type {
             wp_enqueue_script( 'acf-csb-editor', ACF_CSB_URL . 'assets/js/editor.js', array( 'jquery', 'wp-theme-plugin-editor' ), ACF_CSB_VERSION, true );
             wp_localize_script( 'acf-csb-editor', 'acfCsbEditor', array(
                 'codeEditorSettings' => $settings,
+                'nonce'              => wp_create_nonce( 'acf_csb_nonce' ),
+                'ajaxUrl'            => admin_url( 'admin-ajax.php' ),
             ) );
         }
 

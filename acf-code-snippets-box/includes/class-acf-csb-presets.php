@@ -33,10 +33,217 @@ class ACF_CSB_Presets {
 
     /**
      * 초기화
+     * [v2.3.3] 프리셋 토글 기능 추가
      */
     public function init() {
         add_action( 'wp_ajax_acf_csb_get_presets', array( $this, 'ajax_get_presets' ) );
         add_action( 'wp_ajax_acf_csb_apply_preset', array( $this, 'ajax_apply_preset' ) );
+        add_action( 'wp_ajax_acf_csb_check_preset_exists', array( $this, 'ajax_check_preset_exists' ) );
+        add_action( 'wp_ajax_acf_csb_create_preset_snippet', array( $this, 'ajax_create_preset_snippet' ) );
+        add_action( 'wp_ajax_acf_csb_toggle_preset', array( $this, 'ajax_toggle_preset' ) );
+    }
+    
+    /**
+     * AJAX: 프리셋 존재 여부 확인
+     * [v2.3.3] 기존 스니펫이 있는지 확인
+     */
+    public function ajax_check_preset_exists() {
+        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+        if ( ! wp_verify_nonce( $nonce, 'acf_csb_nonce' ) ) {
+            wp_send_json_error( __( '보안 검증에 실패했습니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( '권한이 없습니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        $preset_type = isset( $_POST['preset_type'] ) ? sanitize_text_field( $_POST['preset_type'] ) : '';
+        $preset_id = isset( $_POST['preset_id'] ) ? sanitize_text_field( $_POST['preset_id'] ) : '';
+        
+        if ( empty( $preset_type ) || empty( $preset_id ) ) {
+            wp_send_json_error( __( '잘못된 요청입니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        // 프리셋 ID로 기존 스니펫 검색
+        $existing = get_posts( array(
+            'post_type'      => 'acf_code_snippet',
+            'meta_key'       => '_acf_csb_preset_id',
+            'meta_value'     => $preset_id,
+            'meta_compare'   => '=',
+            'posts_per_page' => 1,
+            'post_status'    => 'any',
+        ) );
+        
+        if ( ! empty( $existing ) ) {
+            wp_send_json_success( array(
+                'exists'  => true,
+                'post_id' => $existing[0]->ID,
+                'title'   => $existing[0]->post_title,
+            ) );
+        }
+        
+        wp_send_json_success( array( 'exists' => false ) );
+    }
+    
+    /**
+     * AJAX: 프리셋 스니펫 생성
+     * [v2.3.3] 프리셋으로 새 스니펫 생성
+     */
+    public function ajax_create_preset_snippet() {
+        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+        if ( ! wp_verify_nonce( $nonce, 'acf_csb_nonce' ) ) {
+            wp_send_json_error( __( '보안 검증에 실패했습니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( '권한이 없습니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        $preset_type = isset( $_POST['preset_type'] ) ? sanitize_text_field( $_POST['preset_type'] ) : '';
+        $preset_id = isset( $_POST['preset_id'] ) ? sanitize_text_field( $_POST['preset_id'] ) : '';
+        
+        if ( empty( $preset_type ) || empty( $preset_id ) ) {
+            wp_send_json_error( __( '잘못된 요청입니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        // 프리셋 데이터 가져오기
+        $presets = array();
+        switch ( $preset_type ) {
+            case 'css':
+                $presets = self::get_css_presets();
+                break;
+            case 'js':
+                $presets = self::get_js_presets();
+                break;
+            case 'php':
+                $presets = self::get_php_presets();
+                break;
+            case 'woocommerce_php':
+                $presets = self::get_woocommerce_php_presets();
+                break;
+            case 'woocommerce_css':
+                $presets = self::get_woocommerce_css_presets();
+                break;
+            case 'utility':
+                $presets = self::get_utility_presets();
+                break;
+        }
+        
+        if ( ! isset( $presets[ $preset_id ] ) ) {
+            wp_send_json_error( __( '프리셋을 찾을 수 없습니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        $preset = $presets[ $preset_id ];
+        
+        // 새 스니펫 생성
+        $post_id = wp_insert_post( array(
+            'post_title'   => $preset['name'],
+            'post_type'    => 'acf_code_snippet',
+            'post_status'  => 'draft', // 초기 비활성화 상태
+        ) );
+        
+        if ( is_wp_error( $post_id ) ) {
+            wp_send_json_error( $post_id->get_error_message() );
+        }
+        
+        // 메타 데이터 저장
+        update_post_meta( $post_id, '_acf_csb_code', $preset['code'] );
+        update_post_meta( $post_id, '_acf_csb_code_type', $preset_type );
+        update_post_meta( $post_id, '_acf_csb_preset_id', $preset_id );
+        update_post_meta( $post_id, '_acf_csb_preset_type', $preset_type );
+        update_post_meta( $post_id, '_acf_csb_enabled', '0' ); // 초기 비활성화
+        
+        wp_send_json_success( array( 'post_id' => $post_id ) );
+    }
+    
+    /**
+     * AJAX: 프리셋 토글 (활성화/비활성화)
+     * [v2.3.3] 토글 방식으로 프리셋 활성화/비활성화
+     */
+    public function ajax_toggle_preset() {
+        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : '';
+        if ( ! wp_verify_nonce( $nonce, 'acf_csb_nonce' ) ) {
+            wp_send_json_error( __( '보안 검증에 실패했습니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( '권한이 없습니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        $preset_id = isset( $_POST['preset_id'] ) ? sanitize_text_field( $_POST['preset_id'] ) : '';
+        $action = isset( $_POST['action_type'] ) ? sanitize_text_field( $_POST['action_type'] ) : 'toggle'; // 'toggle', 'enable', 'disable'
+        
+        if ( empty( $preset_id ) ) {
+            wp_send_json_error( __( '프리셋 ID가 필요합니다.', 'acf-code-snippets-box' ) );
+        }
+        
+        // 프리셋 ID로 스니펫 찾기
+        $snippets = get_posts( array(
+            'post_type'      => 'acf_code_snippet',
+            'meta_key'       => '_acf_csb_preset_id',
+            'meta_value'     => $preset_id,
+            'posts_per_page' => 1,
+            'post_status'    => 'any',
+        ) );
+        
+        if ( empty( $snippets ) ) {
+            // 스니펫이 없으면 생성
+            $preset_type = isset( $_POST['preset_type'] ) ? sanitize_text_field( $_POST['preset_type'] ) : 'css';
+            $presets = array();
+            switch ( $preset_type ) {
+                case 'css': $presets = self::get_css_presets(); break;
+                case 'js': $presets = self::get_js_presets(); break;
+                case 'php': $presets = self::get_php_presets(); break;
+            }
+            
+            if ( ! isset( $presets[ $preset_id ] ) ) {
+                wp_send_json_error( __( '프리셋을 찾을 수 없습니다.', 'acf-code-snippets-box' ) );
+            }
+            
+            $preset = $presets[ $preset_id ];
+            $post_id = wp_insert_post( array(
+                'post_title'   => $preset['name'],
+                'post_type'    => 'acf_code_snippet',
+                'post_status'  => 'publish',
+            ) );
+            
+            if ( is_wp_error( $post_id ) ) {
+                wp_send_json_error( $post_id->get_error_message() );
+            }
+            
+            update_post_meta( $post_id, '_acf_csb_code', $preset['code'] );
+            update_post_meta( $post_id, '_acf_csb_code_type', $preset_type );
+            update_post_meta( $post_id, '_acf_csb_preset_id', $preset_id );
+            update_post_meta( $post_id, '_acf_csb_enabled', '1' );
+            
+            wp_send_json_success( array( 
+                'post_id' => $post_id,
+                'enabled' => true,
+                'message' => __( '프리셋이 활성화되었습니다.', 'acf-code-snippets-box' )
+            ) );
+        } else {
+            // 기존 스니펫 토글
+            $snippet = $snippets[0];
+            $current_status = get_post_meta( $snippet->ID, '_acf_csb_enabled', true );
+            
+            if ( $action === 'toggle' ) {
+                $new_status = ( $current_status === '1' ) ? '0' : '1';
+            } elseif ( $action === 'enable' ) {
+                $new_status = '1';
+            } else {
+                $new_status = '0';
+            }
+            
+            update_post_meta( $snippet->ID, '_acf_csb_enabled', $new_status );
+            
+            wp_send_json_success( array(
+                'post_id' => $snippet->ID,
+                'enabled' => ( $new_status === '1' ),
+                'message' => ( $new_status === '1' ) ? 
+                    __( '프리셋이 활성화되었습니다.', 'acf-code-snippets-box' ) : 
+                    __( '프리셋이 비활성화되었습니다.', 'acf-code-snippets-box' )
+            ) );
+        }
     }
 
     /**
@@ -375,9 +582,14 @@ class ACF_CSB_Presets {
 
     /**
      * AJAX: 프리셋 적용
+     * [v2.3.3] nonce 검증 개선
      */
     public function ajax_apply_preset() {
-        check_ajax_referer( 'acf_csb_nonce', 'nonce' );
+        // [v2.3.3] nonce 검증 개선 - POST 또는 GET에서 nonce 확인
+        $nonce = isset( $_POST['nonce'] ) ? $_POST['nonce'] : ( isset( $_GET['nonce'] ) ? $_GET['nonce'] : '' );
+        if ( ! wp_verify_nonce( $nonce, 'acf_csb_nonce' ) ) {
+            wp_send_json_error( __( '보안 검증에 실패했습니다.', 'acf-code-snippets-box' ) );
+        }
 
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json_error( __( '권한이 없습니다.', 'acf-code-snippets-box' ) );

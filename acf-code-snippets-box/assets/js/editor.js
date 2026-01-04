@@ -118,6 +118,7 @@
 
     /**
      * 프리셋 자동 로드
+     * [v2.3.3] 개선된 프리셋 로드 로직
      */
     function loadPresetIfExists() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -125,37 +126,56 @@
         const presetId = urlParams.get('preset_id');
 
         if (presetType && presetId) {
-            // AJAX로 프리셋 코드 가져오기
-            $.ajax({
-                url: ajaxurl,
-                type: 'POST',
-                data: {
-                    action: 'acf_csb_apply_preset',
-                    nonce: acfCsbEditor.nonce || '',
-                    type: presetType,
-                    preset_id: presetId
-                },
-                success: function(response) {
-                    if (response.success && response.data) {
-                        // 제목 설정
-                        $('#title').val(response.data.name);
-                        
-                        // 코드 타입 설정
-                        $('#acf_csb_code_type').val(presetType).trigger('change');
-                        
-                        // 코드 설정
-                        if (editor && editor.codemirror) {
-                            editor.codemirror.setValue(response.data.code);
-                        } else {
-                            $('#acf_csb_code').val(response.data.code);
-                        }
+            // 에디터가 준비될 때까지 대기
+            const checkEditor = setInterval(function() {
+                if (editor && editor.codemirror) {
+                    clearInterval(checkEditor);
+                    
+                    // AJAX로 프리셋 코드 가져오기
+                    $.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'acf_csb_apply_preset',
+                            nonce: (typeof acfCsbEditor !== 'undefined' && acfCsbEditor.nonce) ? acfCsbEditor.nonce : '',
+                            type: presetType,
+                            preset_id: presetId
+                        },
+                        success: function(response) {
+                            if (response.success && response.data) {
+                                // 제목 설정
+                                $('#title').val(response.data.name);
+                                
+                                // 코드 타입 설정
+                                $('#acf_csb_code_type').val(presetType).trigger('change');
+                                
+                                // 코드 설정 (에디터가 준비된 후)
+                                setTimeout(function() {
+                                    if (editor && editor.codemirror) {
+                                        editor.codemirror.setValue(response.data.code);
+                                    } else {
+                                        $('#acf_csb_code').val(response.data.code);
+                                    }
+                                }, 100);
 
-                        // URL 정리
-                        const cleanUrl = window.location.href.split('?')[0] + '?post_type=acf_code_snippet';
-                        window.history.replaceState({}, document.title, cleanUrl);
-                    }
+                                // URL 정리
+                                const cleanUrl = window.location.href.split('?')[0] + '?post_type=acf_code_snippet';
+                                window.history.replaceState({}, document.title, cleanUrl);
+                            } else {
+                                console.error('프리셋 로드 실패:', response);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('프리셋 로드 오류:', error);
+                        }
+                    });
                 }
-            });
+            }, 100);
+            
+            // 5초 후 타임아웃
+            setTimeout(function() {
+                clearInterval(checkEditor);
+            }, 5000);
         }
     }
 
