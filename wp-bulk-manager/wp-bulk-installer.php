@@ -953,12 +953,20 @@ class JJ_Bulk_Installer {
      * Bulk Editor: 설치된 플러그인/테마 목록 조회
      */
     public function ajax_get_installed_items() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        if ( ! current_user_can( 'install_plugins' ) ) {
-            wp_send_json_error( '권한이 없습니다.' );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_request( 'jj_bulk_install', 'nonce', 'install_plugins' ) ) {
+                return;
+            }
+            $site_id = $ajax->get_post_param( 'site_id', 0, 'int' );
+        } else {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            if ( ! current_user_can( 'install_plugins' ) ) {
+                wp_send_json_error( '권한이 없습니다.' );
+            }
+            $site_id = isset( $_POST['site_id'] ) ? (int) $_POST['site_id'] : 0;
         }
-
-        $site_id = isset( $_POST['site_id'] ) ? (int) $_POST['site_id'] : 0;
         if ( $site_id && is_multisite() ) {
             switch_to_blog( $site_id );
         }
@@ -1088,11 +1096,21 @@ class JJ_Bulk_Installer {
      * @return void
      */
     public function ajax_bulk_manage_action() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
-
-        $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( $_POST['item_type'] ) : '';
-        $operation = isset( $_POST['operation'] ) ? sanitize_text_field( $_POST['operation'] ) : '';
-        $items = isset( $_POST['items'] ) ? $_POST['items'] : array();
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_request( 'jj_bulk_install', 'nonce', 'manage_options' ) ) {
+                return;
+            }
+            $item_type = $ajax->get_post_param( 'item_type', '' );
+            $operation = $ajax->get_post_param( 'operation', '' );
+            $items     = $ajax->get_post_param( 'items', array(), 'array' );
+        } else {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( $_POST['item_type'] ) : '';
+            $operation = isset( $_POST['operation'] ) ? sanitize_text_field( $_POST['operation'] ) : '';
+            $items     = isset( $_POST['items'] ) ? $_POST['items'] : array();
+        }
 
         if ( ! in_array( $item_type, array( 'plugin', 'theme' ), true ) ) {
             wp_send_json_error( '잘못된 item_type 입니다.' );
@@ -1348,14 +1366,30 @@ class JJ_Bulk_Installer {
      * [Phase 19.1] 자동 업데이트 일괄 변경
      */
     public function ajax_bulk_auto_update_toggle() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        if ( ! current_user_can( 'update_plugins' ) && ! current_user_can( 'update_themes' ) ) {
-            wp_send_json_error( '권한이 없습니다.' );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        // Note: update_plugins 또는 update_themes 권한이 필요 (특수 케이스)
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_nonce( 'jj_bulk_install', 'nonce' ) ) {
+                return;
+            }
+            // 특수 권한 체크: update_plugins 또는 update_themes 중 하나 필요
+            if ( ! current_user_can( 'update_plugins' ) && ! current_user_can( 'update_themes' ) ) {
+                $ajax->send_error( '권한이 없습니다.', 'no_permission' );
+                return;
+            }
+            $item_type = $ajax->get_post_param( 'item_type', '' );
+            $operation = $ajax->get_post_param( 'operation', '' ); // 'enable' or 'disable'
+            $items     = $ajax->get_post_param( 'items', array(), 'array' );
+        } else {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            if ( ! current_user_can( 'update_plugins' ) && ! current_user_can( 'update_themes' ) ) {
+                wp_send_json_error( '권한이 없습니다.' );
+            }
+            $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( wp_unslash( $_POST['item_type'] ) ) : '';
+            $operation = isset( $_POST['operation'] ) ? sanitize_text_field( wp_unslash( $_POST['operation'] ) ) : '';
+            $items     = isset( $_POST['items'] ) ? $_POST['items'] : array();
         }
-
-        $item_type = isset( $_POST['item_type'] ) ? sanitize_text_field( wp_unslash( $_POST['item_type'] ) ) : '';
-        $operation = isset( $_POST['operation'] ) ? sanitize_text_field( wp_unslash( $_POST['operation'] ) ) : ''; // 'enable' or 'disable'
-        $items = isset( $_POST['items'] ) ? $_POST['items'] : array();
 
         if ( ! in_array( $item_type, array( 'plugin', 'theme' ), true ) ) {
             wp_send_json_error( '잘못된 item_type 입니다.' );
@@ -1776,15 +1810,26 @@ class JJ_Bulk_Installer {
      * [v5.0.0] Multisite: 파일 설치 (Ajax Proxy)
      */
     public function ajax_multisite_install() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( '권한이 없습니다.' );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_request( 'jj_bulk_install', 'nonce', 'manage_options' ) ) {
+                return;
+            }
+            $site_id   = $ajax->get_post_param( 'site_id', 0, 'int' );
+            $file_path = $ajax->get_post_param( 'path', '' );
+            $type      = $ajax->get_post_param( 'type', 'plugin' );
+            $activate  = 'true' === $ajax->get_post_param( 'activate', 'false' );
+        } else {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( '권한이 없습니다.' );
+            }
+            $site_id   = isset( $_POST['site_id'] ) ? (int) $_POST['site_id'] : 0;
+            $file_path = isset( $_POST['path'] ) ? sanitize_text_field( $_POST['path'] ) : '';
+            $type      = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'plugin';
+            $activate  = isset( $_POST['activate'] ) && 'true' === $_POST['activate'];
         }
-
-        $site_id = isset( $_POST['site_id'] ) ? (int) $_POST['site_id'] : 0;
-        $file_path = isset( $_POST['path'] ) ? sanitize_text_field( $_POST['path'] ) : '';
-        $type = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'plugin';
-        $activate = isset( $_POST['activate'] ) && 'true' === $_POST['activate'];
 
         if ( ! $site_id || ! $file_path || ! file_exists( $file_path ) ) {
             wp_send_json_error( '정보가 부족합니다.' );
@@ -1915,13 +1960,22 @@ class JJ_Bulk_Installer {
      * [v5.0.0] 원격 사이트 연결 테스트 (AJAX)
      */
     public function ajax_remote_connect() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( '권한이 없습니다.' );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_request( 'jj_bulk_install', 'nonce', 'manage_options' ) ) {
+                return;
+            }
+            $remote_url = $ajax->get_post_param( 'remote_url', '', 'url' );
+            $remote_key = $ajax->get_post_param( 'remote_key', '' );
+        } else {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            if ( ! current_user_can( 'manage_options' ) ) {
+                wp_send_json_error( '권한이 없습니다.' );
+            }
+            $remote_url = isset( $_POST['remote_url'] ) ? esc_url_raw( $_POST['remote_url'] ) : '';
+            $remote_key = isset( $_POST['remote_key'] ) ? sanitize_text_field( $_POST['remote_key'] ) : '';
         }
-
-        $remote_url = isset( $_POST['remote_url'] ) ? esc_url_raw( $_POST['remote_url'] ) : '';
-        $remote_key = isset( $_POST['remote_key'] ) ? sanitize_text_field( $_POST['remote_key'] ) : '';
 
         if ( ! $remote_url || ! $remote_key ) {
             wp_send_json_error( 'URL과 키를 입력해주세요.' );

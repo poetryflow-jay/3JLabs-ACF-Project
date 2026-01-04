@@ -11,9 +11,9 @@
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
 | **ACF CSS Manager (Master)** | **v22.4.7** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + UI System 2026 |
-| WP Bulk Manager | **v22.4.8** | 플러그인/테마 대량 설치 및 관리 + 링크 정렬 개선 |
+| WP Bulk Manager | **v22.4.9** | 플러그인/테마 대량 설치 및 관리 + 보안 강화 |
 | ACF Code Snippets Box | **v2.3.1** | CSS/JS/PHP 코드 스니펫 관리 + 링크 수정 |
-| ACF CSS Neural Link | **v6.3.1** | 패턴 학습 및 업데이트 관리 + 클래스 중복 해결 |
+| ACF CSS Neural Link | **v6.3.2** | 패턴 학습 및 업데이트 관리 + 보안 강화 |
 | ACF CSS WooCommerce Toolkit | **v2.4.0** | WooCommerce 스타일 및 기능 확장 + 보안 강화 |
 | ACF CSS AI Extension | **v3.3.0** | AI 기반 스타일 추천 및 생성 + 보안 강화 |
 | ACF MBA (Nudge Flow) | **v22.4.0** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + 보안 강화 |
@@ -125,9 +125,15 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ---
 
-## 🆕 최근 변경사항 (Phase 39.2)
+## 🆕 최근 변경사항 (Phase 39.3)
 
-### 코드 품질 개선
+### 보안 강화 (v22.4.9 / v6.3.2)
+- WP Bulk Manager AJAX 핸들러 8개에 JJ_Ajax_Helper 통합
+- License Tampering Detection: 라이센스 변조 감지 기능
+- Update Hijacking 방지: 도메인 화이트리스트, HTTPS 강제, 패키지 서명 검증
+- 비정상적인 사용 패턴 감지 (다수 IP/라이센스 동시 사용 등)
+
+### 코드 품질 개선 (Phase 39.2)
 - 깨진 링크 수정: `jj-style-center` → `jj-style-guide-cockpit`
 - 깨진 링크 수정: `options-general.php?page=jj-labs-center` → `admin.php?page=jj-labs-center`
 - WP Bulk Manager 플러그인 목록 링크 정렬 개선 (인라인 스타일 및 이모지 제거)

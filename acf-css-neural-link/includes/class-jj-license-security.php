@@ -265,8 +265,261 @@ class JJ_License_Security {
     }
     
     /**
+     * [v6.3.2] 라이센스 데이터 무결성 검증
+     *
+     * DB에 저장된 라이센스 데이터와 실제 사용 환경을 비교하여
+     * 변조 여부를 감지합니다.
+     *
+     * @param string $license_key 라이센스 키
+     * @param string $site_url 사이트 URL
+     * @return array 검증 결과 ['valid' => bool, 'reason' => string]
+     */
+    public static function verify_license_integrity( $license_key, $site_url = '' ) {
+        $result = array(
+            'valid'  => true,
+            'reason' => '',
+        );
+
+        if ( empty( $site_url ) ) {
+            $site_url = home_url();
+        }
+
+        // 1. DB에서 라이센스 데이터 조회
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'jj_licenses';
+
+        // 테이블 존재 확인
+        if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) !== $table_name ) {
+            // 테이블이 없으면 검증 스킵 (초기 설치 상태)
+            return $result;
+        }
+
+        $license = $wpdb->get_row( $wpdb->prepare(
+            "SELECT * FROM {$table_name} WHERE license_key = %s",
+            $license_key
+        ) );
+
+        if ( ! $license ) {
+            $result['valid']  = false;
+            $result['reason'] = 'license_not_found';
+            self::log_security_event( 'integrity_check_failed', array(
+                'license_key' => substr( $license_key, 0, 8 ) . '****',
+                'reason'      => 'not_found_in_db',
+            ) );
+            return $result;
+        }
+
+        // 2. 라이센스 상태 확인
+        if ( $license->status !== 'active' ) {
+            $result['valid']  = false;
+            $result['reason'] = 'license_inactive';
+            return $result;
+        }
+
+        // 3. 만료일 확인
+        if ( ! empty( $license->expires_at ) && strtotime( $license->expires_at ) < time() ) {
+            $result['valid']  = false;
+            $result['reason'] = 'license_expired';
+            return $result;
+        }
+
+        // 4. 사이트 URL 매칭 확인 (활성화된 사이트 목록과 비교)
+        $activations_table = $wpdb->prefix . 'jj_license_activations';
+        if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $activations_table ) ) === $activations_table ) {
+            $site_hash = md5( $site_url );
+            $activation = $wpdb->get_row( $wpdb->prepare(
+                "SELECT * FROM {$activations_table}
+                 WHERE license_id = %d AND (site_url = %s OR site_id = %s) AND status = 'active'",
+                $license->id,
+                $site_url,
+                $site_hash
+            ) );
+
+            if ( ! $activation ) {
+                $result['valid']  = false;
+                $result['reason'] = 'site_not_activated';
+                self::log_security_event( 'integrity_check_failed', array(
+                    'license_key' => substr( $license_key, 0, 8 ) . '****',
+                    'site_url'    => $site_url,
+                    'reason'      => 'unauthorized_site',
+                ) );
+                return $result;
+            }
+        }
+
+        // 5. 사용량 검증 (최대 활성화 수 초과 확인)
+        if ( isset( $license->max_activations ) && $license->max_activations > 0 ) {
+            $active_count = $wpdb->get_var( $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$activations_table} WHERE license_id = %d AND status = 'active'",
+                $license->id
+            ) );
+
+            if ( $active_count > $license->max_activations ) {
+                $result['valid']  = false;
+                $result['reason'] = 'activation_limit_exceeded';
+                self::log_security_event( 'tampering_suspected', array(
+                    'license_key'     => substr( $license_key, 0, 8 ) . '****',
+                    'max_activations' => $license->max_activations,
+                    'active_count'    => $active_count,
+                ) );
+                return $result;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * [v6.3.2] 플러그인 파일 무결성 검증
+     *
+     * 핵심 파일들의 해시를 비교하여 변조 여부를 감지합니다.
+     *
+     * @param string $plugin_path 플러그인 경로
+     * @return array 검증 결과 ['valid' => bool, 'modified_files' => array]
+     */
+    public static function verify_file_integrity( $plugin_path ) {
+        $result = array(
+            'valid'          => true,
+            'modified_files' => array(),
+        );
+
+        // 검사할 핵심 파일 목록
+        $core_files = array(
+            'acf-css-neural-link.php',
+            'includes/class-jj-license-manager-main.php',
+            'includes/class-jj-license-validator.php',
+            'includes/class-jj-license-security.php',
+            'includes/api/class-jj-license-api.php',
+        );
+
+        // 저장된 해시 가져오기
+        $stored_hashes = get_option( 'jj_neural_link_file_hashes', array() );
+
+        foreach ( $core_files as $file ) {
+            $file_path = trailingslashit( $plugin_path ) . $file;
+
+            if ( ! file_exists( $file_path ) ) {
+                continue; // 파일이 없으면 스킵 (선택적 파일일 수 있음)
+            }
+
+            $current_hash = md5_file( $file_path );
+
+            // 해시가 저장되어 있고 다르면 변조 의심
+            if ( isset( $stored_hashes[ $file ] ) && $stored_hashes[ $file ] !== $current_hash ) {
+                $result['valid'] = false;
+                $result['modified_files'][] = $file;
+            }
+        }
+
+        if ( ! $result['valid'] ) {
+            self::log_security_event( 'file_tampering_detected', array(
+                'modified_files' => $result['modified_files'],
+            ) );
+        }
+
+        return $result;
+    }
+
+    /**
+     * [v6.3.2] 플러그인 파일 해시 저장 (설치/업데이트 시 호출)
+     *
+     * @param string $plugin_path 플러그인 경로
+     */
+    public static function store_file_hashes( $plugin_path ) {
+        $core_files = array(
+            'acf-css-neural-link.php',
+            'includes/class-jj-license-manager-main.php',
+            'includes/class-jj-license-validator.php',
+            'includes/class-jj-license-security.php',
+            'includes/api/class-jj-license-api.php',
+        );
+
+        $hashes = array();
+        foreach ( $core_files as $file ) {
+            $file_path = trailingslashit( $plugin_path ) . $file;
+            if ( file_exists( $file_path ) ) {
+                $hashes[ $file ] = md5_file( $file_path );
+            }
+        }
+
+        update_option( 'jj_neural_link_file_hashes', $hashes );
+    }
+
+    /**
+     * [v6.3.2] 비정상적인 사용 패턴 감지
+     *
+     * @param string $license_key 라이센스 키
+     * @return array 감지 결과 ['suspicious' => bool, 'flags' => array]
+     */
+    public static function detect_abnormal_usage( $license_key ) {
+        $result = array(
+            'suspicious' => false,
+            'flags'      => array(),
+        );
+
+        $ip = self::get_client_ip();
+        $logs = get_option( 'jj_license_security_logs', array() );
+
+        // 최근 24시간 로그만 분석
+        $recent_logs = array_filter( $logs, function( $log ) {
+            return isset( $log['timestamp'] ) && strtotime( $log['timestamp'] ) > ( time() - 86400 );
+        } );
+
+        // 1. 동일 IP에서 다수 라이센스 키 사용 시도 감지
+        $different_keys_from_ip = array();
+        foreach ( $recent_logs as $log ) {
+            if ( isset( $log['ip'] ) && $log['ip'] === $ip && isset( $log['data']['license_key'] ) ) {
+                $different_keys_from_ip[] = $log['data']['license_key'];
+            }
+        }
+        $different_keys_from_ip = array_unique( $different_keys_from_ip );
+        if ( count( $different_keys_from_ip ) > 3 ) {
+            $result['suspicious'] = true;
+            $result['flags'][]    = 'multiple_keys_same_ip';
+        }
+
+        // 2. 동일 라이센스 키로 다수 IP에서 접근 시도 감지
+        $different_ips_for_key = array();
+        foreach ( $recent_logs as $log ) {
+            if ( isset( $log['data']['license_key'] ) &&
+                 strpos( $log['data']['license_key'], substr( $license_key, 0, 8 ) ) === 0 &&
+                 isset( $log['ip'] ) ) {
+                $different_ips_for_key[] = $log['ip'];
+            }
+        }
+        $different_ips_for_key = array_unique( $different_ips_for_key );
+        if ( count( $different_ips_for_key ) > 10 ) {
+            $result['suspicious'] = true;
+            $result['flags'][]    = 'multiple_ips_same_key';
+        }
+
+        // 3. 빈번한 실패 시도 감지
+        $failure_count = 0;
+        foreach ( $recent_logs as $log ) {
+            if ( isset( $log['event'] ) &&
+                 in_array( $log['event'], array( 'tampering_detected', 'integrity_check_failed', 'auth_failed' ) ) &&
+                 isset( $log['ip'] ) && $log['ip'] === $ip ) {
+                $failure_count++;
+            }
+        }
+        if ( $failure_count > 5 ) {
+            $result['suspicious'] = true;
+            $result['flags'][]    = 'frequent_failures';
+        }
+
+        if ( $result['suspicious'] ) {
+            self::log_security_event( 'abnormal_usage_detected', array(
+                'license_key' => substr( $license_key, 0, 8 ) . '****',
+                'flags'       => $result['flags'],
+            ) );
+        }
+
+        return $result;
+    }
+
+    /**
      * SQL Injection 방지를 위한 추가 검증
-     * 
+     *
      * @param string $query SQL 쿼리
      * @param array $values 값 배열
      * @return bool 안전 여부

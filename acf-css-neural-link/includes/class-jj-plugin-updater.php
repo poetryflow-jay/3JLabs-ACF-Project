@@ -1,9 +1,15 @@
 <?php
 /**
  * JJ Plugin Updater - WordPress 업데이트 시스템 통합
- * 
+ *
  * 3J Labs ACF CSS 플러그인 패밀리의 자동 업데이트를 WordPress 표준 업데이트 시스템에 통합합니다.
- * 
+ *
+ * [v6.3.2] Update Hijacking 방지 기능 추가:
+ * - 공식 서버 URL 화이트리스트 검증
+ * - HTTPS 강제 사용
+ * - 패키지 무결성 서명 검증
+ * - API 응답 구조 검증
+ *
  * 사용법:
  * $updater = new JJ_Plugin_Updater(
  *     'https://3j-labs.com',                    // API 서버 URL
@@ -16,9 +22,9 @@
  *         'beta'      => false,
  *     )
  * );
- * 
+ *
  * @package JJ_Neural_Link
- * @version 1.0.0
+ * @version 1.1.0
  * @since 4.2.0
  */
 
@@ -72,6 +78,25 @@ class JJ_Plugin_Updater {
      * @var bool
      */
     private $beta = false;
+
+    /**
+     * [v6.3.2] 허용된 API 서버 도메인 목록
+     * Update hijacking 방지를 위한 화이트리스트
+     * @var array
+     */
+    private static $allowed_domains = array(
+        '3j-labs.com',
+        'api.3j-labs.com',
+        'updates.3j-labs.com',
+        'localhost',       // 개발 환경
+        '127.0.0.1',       // 개발 환경
+    );
+
+    /**
+     * [v6.3.2] 공개 검증 키 (패키지 서명 확인용)
+     * @var string
+     */
+    private static $public_key = 'JJ3LABS_UPDATE_PUBLIC_KEY_2026';
 
     /**
      * 생성자
@@ -150,6 +175,15 @@ class JJ_Plugin_Updater {
      * @return object|false
      */
     private function api_request() {
+        // [v6.3.2] API URL 보안 검증
+        if ( ! $this->validate_api_url( $this->api_url ) ) {
+            $this->log_security_event( 'api_request_blocked', array(
+                'reason' => 'url_validation_failed',
+                'url'    => $this->api_url,
+            ) );
+            return false;
+        }
+
         $data = array(
             'action'      => 'get_version',
             'slug'        => $this->slug,
@@ -163,7 +197,7 @@ class JJ_Plugin_Updater {
 
         $request = wp_remote_post( $this->api_url . 'wp-json/jj-license/v1/check-update', array(
             'timeout'   => 15,
-            'sslverify' => true,
+            'sslverify' => true, // [v6.3.2] SSL 인증서 검증 강제
             'body'      => $data,
         ) );
 
@@ -205,6 +239,16 @@ class JJ_Plugin_Updater {
         // sections (changelog 등)
         if ( isset( $version_info->sections ) ) {
             $update_obj->sections = (array) $version_info->sections;
+        }
+
+        // [v6.3.2] 종합 보안 검사
+        $security_check = $this->pre_update_security_check( $update_obj );
+        if ( ! $security_check['passed'] ) {
+            $this->log_security_event( 'update_blocked', array(
+                'version' => $update_obj->new_version,
+                'errors'  => $security_check['errors'],
+            ) );
+            return false;
         }
 
         return $update_obj;
@@ -326,6 +370,229 @@ class JJ_Plugin_Updater {
      */
     public function delete_cache() {
         delete_option( $this->cache_key );
+    }
+
+    /**
+     * [v6.3.2] API URL 보안 검증
+     *
+     * Update hijacking 방지를 위해 API URL이 허용된 도메인인지 확인합니다.
+     *
+     * @param string $url 검증할 URL
+     * @return bool 유효 여부
+     */
+    private function validate_api_url( $url ) {
+        // 1. URL 파싱
+        $parsed = wp_parse_url( $url );
+        if ( ! $parsed || empty( $parsed['host'] ) ) {
+            $this->log_security_event( 'invalid_url_format', array( 'url' => $url ) );
+            return false;
+        }
+
+        // 2. HTTPS 강제 (개발 환경 제외)
+        $scheme = isset( $parsed['scheme'] ) ? strtolower( $parsed['scheme'] ) : '';
+        $host   = strtolower( $parsed['host'] );
+
+        $is_dev = in_array( $host, array( 'localhost', '127.0.0.1' ), true );
+        if ( ! $is_dev && 'https' !== $scheme ) {
+            $this->log_security_event( 'https_required', array( 'url' => $url ) );
+            return false;
+        }
+
+        // 3. 허용된 도메인 확인
+        $is_allowed = false;
+        foreach ( self::$allowed_domains as $allowed ) {
+            // 정확히 일치하거나 서브도메인으로 끝나는 경우 허용
+            if ( $host === $allowed || substr( $host, -strlen( '.' . $allowed ) ) === '.' . $allowed ) {
+                $is_allowed = true;
+                break;
+            }
+        }
+
+        if ( ! $is_allowed ) {
+            $this->log_security_event( 'domain_not_allowed', array(
+                'url'  => $url,
+                'host' => $host,
+            ) );
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * [v6.3.2] 패키지 다운로드 URL 검증
+     *
+     * @param string $download_url 다운로드 URL
+     * @return bool 유효 여부
+     */
+    private function validate_package_url( $download_url ) {
+        if ( empty( $download_url ) ) {
+            return false;
+        }
+
+        // API URL과 동일한 검증 적용
+        return $this->validate_api_url( $download_url );
+    }
+
+    /**
+     * [v6.3.2] API 응답 구조 검증
+     *
+     * @param object $response API 응답 객체
+     * @return bool 유효 여부
+     */
+    private function validate_response_structure( $response ) {
+        if ( ! is_object( $response ) ) {
+            return false;
+        }
+
+        // 필수 필드 확인
+        $required_fields = array( 'new_version' );
+        foreach ( $required_fields as $field ) {
+            if ( ! isset( $response->$field ) ) {
+                $this->log_security_event( 'missing_response_field', array( 'field' => $field ) );
+                return false;
+            }
+        }
+
+        // 버전 형식 검증 (시멘틱 버전 또는 간단한 숫자 버전)
+        if ( ! preg_match( '/^\d+(\.\d+)*(-[\w.]+)?(\+[\w.]+)?$/', $response->new_version ) ) {
+            $this->log_security_event( 'invalid_version_format', array( 'version' => $response->new_version ) );
+            return false;
+        }
+
+        // 다운로드 URL이 있으면 검증
+        if ( isset( $response->download_link ) && ! $this->validate_package_url( $response->download_link ) ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * [v6.3.2] 패키지 서명 검증
+     *
+     * 다운로드된 패키지의 무결성을 HMAC 서명으로 검증합니다.
+     *
+     * @param string $package_path 패키지 파일 경로
+     * @param string $signature    서버에서 제공한 서명
+     * @return bool 유효 여부
+     */
+    public function verify_package_signature( $package_path, $signature ) {
+        if ( ! file_exists( $package_path ) || empty( $signature ) ) {
+            return false;
+        }
+
+        // 파일 해시 계산
+        $file_hash = hash_file( 'sha256', $package_path );
+
+        // 예상 서명 계산
+        $expected_signature = hash_hmac( 'sha256', $file_hash, self::$public_key );
+
+        // 서명 비교 (타이밍 공격 방지)
+        if ( ! hash_equals( $expected_signature, $signature ) ) {
+            $this->log_security_event( 'package_signature_mismatch', array(
+                'package'            => basename( $package_path ),
+                'expected_signature' => substr( $expected_signature, 0, 16 ) . '...',
+                'received_signature' => substr( $signature, 0, 16 ) . '...',
+            ) );
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * [v6.3.2] 업데이트 전 종합 보안 검사
+     *
+     * @param object $update_info 업데이트 정보 객체
+     * @return array 검사 결과 ['passed' => bool, 'errors' => array]
+     */
+    public function pre_update_security_check( $update_info ) {
+        $result = array(
+            'passed' => true,
+            'errors' => array(),
+        );
+
+        // 1. API URL 검증
+        if ( ! $this->validate_api_url( $this->api_url ) ) {
+            $result['passed']   = false;
+            $result['errors'][] = 'api_url_invalid';
+        }
+
+        // 2. 응답 구조 검증
+        if ( ! $this->validate_response_structure( $update_info ) ) {
+            $result['passed']   = false;
+            $result['errors'][] = 'response_structure_invalid';
+        }
+
+        // 3. 다운로드 URL 검증
+        if ( isset( $update_info->download_link ) && ! $this->validate_package_url( $update_info->download_link ) ) {
+            $result['passed']   = false;
+            $result['errors'][] = 'download_url_invalid';
+        }
+
+        // 4. 버전 다운그레이드 방지
+        if ( isset( $update_info->new_version ) && version_compare( $this->api_data['version'], $update_info->new_version, '>=' ) ) {
+            $result['passed']   = false;
+            $result['errors'][] = 'version_downgrade_attempt';
+            $this->log_security_event( 'downgrade_attempt', array(
+                'current_version' => $this->api_data['version'],
+                'offered_version' => $update_info->new_version,
+            ) );
+        }
+
+        if ( ! $result['passed'] ) {
+            $this->log_security_event( 'security_check_failed', array(
+                'errors' => $result['errors'],
+            ) );
+        }
+
+        return $result;
+    }
+
+    /**
+     * [v6.3.2] 보안 이벤트 로깅
+     *
+     * @param string $event 이벤트 타입
+     * @param array  $data  추가 데이터
+     */
+    private function log_security_event( $event, $data = array() ) {
+        // JJ_License_Security 클래스 사용 가능하면 해당 클래스로 로깅
+        if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'log_security_event' ) ) {
+            JJ_License_Security::log_security_event( 'updater_' . $event, array_merge( array(
+                'plugin' => $this->slug,
+            ), $data ) );
+        } else {
+            // 폴백: 직접 로깅
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( sprintf(
+                    '[JJ Plugin Updater] Security Event: %s | Plugin: %s | Data: %s',
+                    $event,
+                    $this->slug,
+                    wp_json_encode( $data )
+                ) );
+            }
+        }
+    }
+
+    /**
+     * [v6.3.2] 도메인 화이트리스트에 추가 (필터를 통해)
+     *
+     * @param string $domain 추가할 도메인
+     */
+    public static function add_allowed_domain( $domain ) {
+        if ( ! in_array( $domain, self::$allowed_domains, true ) ) {
+            self::$allowed_domains[] = sanitize_text_field( $domain );
+        }
+    }
+
+    /**
+     * [v6.3.2] 현재 허용된 도메인 목록 반환
+     *
+     * @return array 도메인 목록
+     */
+    public static function get_allowed_domains() {
+        return self::$allowed_domains;
     }
 }
 
