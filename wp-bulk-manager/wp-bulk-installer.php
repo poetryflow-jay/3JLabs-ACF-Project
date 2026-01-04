@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.4.0-master
+ * Version:           22.4.2-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.4.0-master' ); // [v22.4.0] Phase 37: UI/UX 개선 및 보안 강화 - 멀티 사이트 탭 항상 표시, 메뉴 명칭 수정, 보안 검증 강화
+define( 'WP_BULK_MANAGER_VERSION', '22.4.2-master' ); // [v22.4.2] Phase 37.1 Hotfix: Master Edition 감지 로직 개선 - 폴더명 변형 지원 (-master, -master-master 모두 인식)
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -323,16 +323,24 @@ class JJ_Bulk_Installer {
         }
 
         // 2. 특정 마스터 파일 존재 여부 확인 (보조 검증)
+        // [v22.4.2] 폴더명 변형 지원: -master 또는 -master-master 모두 인식
         if ( ! $is_master ) {
-            $master_plugin_dir = WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master/';
-            if ( is_dir( $master_plugin_dir ) ) {
-                // [v22.4.0] 추가 검증: 마스터 플러그인의 핵심 파일 존재 확인
-                $master_main_file = $master_plugin_dir . 'acf-css-really-simple-style-guide.php';
-                if ( file_exists( $master_main_file ) ) {
-                    // 파일 내용에서 실제 MASTER 버전인지 확인 (간단한 검증)
-                    $file_content = file_get_contents( $master_main_file );
-                    if ( false !== strpos( $file_content, 'Master' ) && false !== strpos( $file_content, 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
-                        $is_master = true;
+            $possible_dirs = array(
+                WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master/',
+                WP_PLUGIN_DIR . '/acf-css-really-simple-style-management-center-master-master/',
+            );
+            
+            foreach ( $possible_dirs as $master_plugin_dir ) {
+                if ( is_dir( $master_plugin_dir ) ) {
+                    // [v22.4.0] 추가 검증: 마스터 플러그인의 핵심 파일 존재 확인
+                    $master_main_file = $master_plugin_dir . 'acf-css-really-simple-style-guide.php';
+                    if ( file_exists( $master_main_file ) ) {
+                        // 파일 내용에서 실제 MASTER 버전인지 확인 (간단한 검증)
+                        $file_content = @file_get_contents( $master_main_file );
+                        if ( false !== $file_content && false !== strpos( $file_content, 'Master' ) && false !== strpos( $file_content, 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
+                            $is_master = true;
+                            break; // 하나라도 찾으면 중단
+                        }
                     }
                 }
             }
