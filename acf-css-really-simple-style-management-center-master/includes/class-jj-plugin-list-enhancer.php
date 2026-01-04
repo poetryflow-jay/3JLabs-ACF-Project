@@ -206,13 +206,27 @@ class JJ_Plugin_List_Enhancer {
             );
         }
 
-        // 3. 롤백 링크 (모든 플러그인에 필수)
+        // 3. 롤백 링크 (모든 플러그인에 필수) - [v23.0.3] 완전한 롤백 기능
         $rollback_nonce = wp_create_nonce( 'jj_rollback_plugin_' . $this->plugin_basename );
+        
+        // 롤백 가능한 버전 목록 가져오기
+        $shared_path = dirname( dirname( __FILE__ ) ) . '/../shared-ui-assets/php/';
+        $available_versions = array();
+        if ( file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+            require_once $shared_path . 'class-jj-shared-loader.php';
+            JJ_Shared_Loader::load( 'class-jj-rollback-shared' );
+            if ( class_exists( 'JJ_Rollback_Shared' ) ) {
+                $rollback = JJ_Rollback_Shared::instance();
+                $available_versions = $rollback->get_available_rollback_versions( $this->plugin_basename );
+            }
+        }
+        
         $new_links['rollback'] = sprintf(
-            '<a href="#" class="jj-rollback-trigger jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" style="font-size: 14px; font-weight: 800; color: #856404; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block; background: linear-gradient(135deg, #fbbf24 0%%, #f59e0b 100%%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🔄 <strong>%s</strong></a>',
+            '<a href="#" class="jj-rollback-trigger jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" data-versions=\'%s\' style="font-size: 14px; font-weight: 800; color: #856404; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block; background: linear-gradient(135deg, #fbbf24 0%%, #f59e0b 100%%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🔄 <strong>%s</strong></a>',
             esc_attr__( '이전 버전으로 되돌리기', $text_domain ),
             esc_attr( $this->plugin_basename ),
             esc_attr( $rollback_nonce ),
+            esc_attr( wp_json_encode( $available_versions ) ),
             __( '롤백', $text_domain )
         );
 
@@ -517,24 +531,277 @@ class JJ_Plugin_List_Enhancer {
 
     /**
      * AJAX: 플러그인 롤백
+     *
+     * 3J Labs 플러그인 또는 WordPress.org 플러그인의 이전 버전으로 롤백
      */
     public function ajax_rollback_plugin() {
         $nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
         $plugin = isset( $_POST['plugin'] ) ? sanitize_text_field( $_POST['plugin'] ) : '';
         $version = isset( $_POST['version'] ) ? sanitize_text_field( $_POST['version'] ) : '';
-        
+
         if ( ! wp_verify_nonce( $nonce, 'jj_rollback_plugin_' . $plugin ) ) {
             wp_send_json_error( array( 'message' => __( '보안 검증 실패', $this->plugin_config['text_domain'] ) ) );
         }
-        
+
         if ( ! current_user_can( 'update_plugins' ) ) {
             wp_send_json_error( array( 'message' => __( '권한이 없습니다.', $this->plugin_config['text_domain'] ) ) );
         }
-        
-        // 실제 롤백 로직은 복잡하므로 여기서는 시뮬레이션
-        // WP Core의 업데이트/설치 클래스를 활용해야 함
-        
-        wp_send_json_success( array( 'message' => __( '롤백 기능은 준비 중입니다.', $this->plugin_config['text_domain'] ) ) );
+
+        if ( empty( $plugin ) || empty( $version ) ) {
+            wp_send_json_error( array( 'message' => __( '플러그인 또는 버전이 지정되지 않았습니다.', $this->plugin_config['text_domain'] ) ) );
+        }
+
+        // 플러그인 슬러그 추출 (plugin-folder/plugin-file.php -> plugin-folder)
+        $plugin_slug = dirname( $plugin );
+        if ( empty( $plugin_slug ) || $plugin_slug === '.' ) {
+            $plugin_slug = str_replace( '.php', '', basename( $plugin ) );
+        }
+
+        // 롤백 실행
+        $result = $this->perform_rollback( $plugin_slug, $version, $plugin );
+
+        if ( is_wp_error( $result ) ) {
+            wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+        }
+
+        wp_send_json_success( array(
+            'message' => sprintf(
+                __( '%s이(가) 버전 %s으로 성공적으로 롤백되었습니다.', $this->plugin_config['text_domain'] ),
+                $plugin_slug,
+                $version
+            ),
+            'reload' => true
+        ) );
+    }
+
+    /**
+     * 실제 롤백 수행
+     *
+     * @param string $plugin_slug 플러그인 슬러그
+     * @param string $version 대상 버전
+     * @param string $plugin_file 플러그인 파일 경로
+     * @return true|WP_Error
+     */
+    private function perform_rollback( $plugin_slug, $version, $plugin_file ) {
+        // WordPress 업그레이더 클래스 로드
+        require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        require_once ABSPATH . 'wp-admin/includes/misc.php';
+
+        // 3J Labs 플러그인인지 확인
+        $is_3j_plugin = $this->is_3j_labs_plugin( $plugin_slug );
+
+        if ( $is_3j_plugin ) {
+            // 3J Labs 플러그인은 자체 저장소에서 다운로드
+            $download_url = $this->get_3j_labs_download_url( $plugin_slug, $version );
+        } else {
+            // WordPress.org 플러그인은 SVN에서 다운로드
+            $download_url = $this->get_wporg_download_url( $plugin_slug, $version );
+        }
+
+        if ( is_wp_error( $download_url ) ) {
+            return $download_url;
+        }
+
+        // 현재 플러그인 상태 저장 (활성화 여부)
+        $was_active = is_plugin_active( $plugin_file );
+        $was_network_active = is_plugin_active_for_network( $plugin_file );
+
+        // 플러그인 비활성화 (안전을 위해)
+        if ( $was_active ) {
+            deactivate_plugins( $plugin_file );
+        }
+
+        // 업그레이더 초기화 (조용한 스킨 사용)
+        $skin = new WP_Ajax_Upgrader_Skin();
+        $upgrader = new Plugin_Upgrader( $skin );
+
+        // 플러그인 디렉토리 백업
+        $plugin_dir = WP_PLUGIN_DIR . '/' . $plugin_slug;
+        $backup_dir = WP_PLUGIN_DIR . '/' . $plugin_slug . '-backup-' . time();
+
+        if ( is_dir( $plugin_dir ) ) {
+            // 백업 생성
+            if ( ! $this->copy_directory( $plugin_dir, $backup_dir ) ) {
+                return new WP_Error( 'backup_failed', __( '플러그인 백업 생성에 실패했습니다.', $this->plugin_config['text_domain'] ) );
+            }
+
+            // 기존 플러그인 삭제
+            $this->delete_directory( $plugin_dir );
+        }
+
+        // 지정된 버전 설치
+        $result = $upgrader->install( $download_url );
+
+        if ( is_wp_error( $result ) ) {
+            // 설치 실패 시 백업 복원
+            if ( is_dir( $backup_dir ) ) {
+                $this->copy_directory( $backup_dir, $plugin_dir );
+                $this->delete_directory( $backup_dir );
+            }
+            return $result;
+        }
+
+        if ( $result === false ) {
+            // 설치 실패 시 백업 복원
+            if ( is_dir( $backup_dir ) ) {
+                $this->copy_directory( $backup_dir, $plugin_dir );
+                $this->delete_directory( $backup_dir );
+            }
+            return new WP_Error( 'install_failed', __( '플러그인 설치에 실패했습니다.', $this->plugin_config['text_domain'] ) );
+        }
+
+        // 백업 디렉토리 삭제
+        if ( is_dir( $backup_dir ) ) {
+            $this->delete_directory( $backup_dir );
+        }
+
+        // 이전 활성화 상태 복원
+        if ( $was_network_active ) {
+            activate_plugin( $plugin_file, '', true );
+        } elseif ( $was_active ) {
+            activate_plugin( $plugin_file );
+        }
+
+        return true;
+    }
+
+    /**
+     * 3J Labs 플러그인인지 확인
+     */
+    private function is_3j_labs_plugin( $plugin_slug ) {
+        $jj_plugins = array(
+            'acf-css-really-simple-style-management-center-master',
+            'acf-nudge-flow',
+            'acf-code-snippets-box',
+            'acf-css-neural-link',
+            'acf-css-ai-extension',
+            'acf-css-woocommerce-toolkit',
+            'acf-css-woo-license',
+            'wp-bulk-manager',
+            'admin-menu-editor-pro',
+            'acf-user-journey-analytics',
+            'oneclick-seo-pro',
+        );
+
+        return in_array( $plugin_slug, $jj_plugins, true );
+    }
+
+    /**
+     * 3J Labs 다운로드 URL 가져오기
+     */
+    private function get_3j_labs_download_url( $plugin_slug, $version ) {
+        // 3J Labs 업데이트 서버 URL
+        $api_url = 'https://update.3j-labs.com/api/v1/download';
+
+        $response = wp_remote_get( add_query_arg( array(
+            'plugin' => $plugin_slug,
+            'version' => $version,
+            'site_url' => home_url(),
+        ), $api_url ), array( 'timeout' => 30 ) );
+
+        if ( is_wp_error( $response ) ) {
+            // 폴백: 로컬 dist 폴더에서 확인
+            $local_zip = WP_PLUGIN_DIR . '/../3J-ACF-CSS/dist/' . $plugin_slug . '-v' . $version . '.zip';
+            if ( file_exists( $local_zip ) ) {
+                return $local_zip;
+            }
+            return new WP_Error( 'api_error', __( '업데이트 서버에 연결할 수 없습니다.', $this->plugin_config['text_domain'] ) );
+        }
+
+        $body = json_decode( wp_remote_retrieve_body( $response ), true );
+
+        if ( empty( $body['download_url'] ) ) {
+            return new WP_Error( 'no_version', sprintf( __( '버전 %s을(를) 찾을 수 없습니다.', $this->plugin_config['text_domain'] ), $version ) );
+        }
+
+        return $body['download_url'];
+    }
+
+    /**
+     * WordPress.org 다운로드 URL 가져오기
+     */
+    private function get_wporg_download_url( $plugin_slug, $version ) {
+        // WordPress.org SVN 저장소에서 특정 버전 다운로드
+        $download_url = sprintf(
+            'https://downloads.wordpress.org/plugin/%s.%s.zip',
+            $plugin_slug,
+            $version
+        );
+
+        // URL 유효성 확인
+        $response = wp_remote_head( $download_url, array( 'timeout' => 10 ) );
+
+        if ( is_wp_error( $response ) ) {
+            return new WP_Error( 'connection_error', __( 'WordPress.org에 연결할 수 없습니다.', $this->plugin_config['text_domain'] ) );
+        }
+
+        $status_code = wp_remote_retrieve_response_code( $response );
+
+        if ( $status_code !== 200 ) {
+            return new WP_Error( 'no_version', sprintf( __( '버전 %s을(를) WordPress.org에서 찾을 수 없습니다.', $this->plugin_config['text_domain'] ), $version ) );
+        }
+
+        return $download_url;
+    }
+
+    /**
+     * 디렉토리 복사 (재귀)
+     */
+    private function copy_directory( $source, $dest ) {
+        if ( ! is_dir( $source ) ) {
+            return false;
+        }
+
+        if ( ! is_dir( $dest ) ) {
+            wp_mkdir_p( $dest );
+        }
+
+        $dir = opendir( $source );
+        if ( ! $dir ) {
+            return false;
+        }
+
+        while ( ( $file = readdir( $dir ) ) !== false ) {
+            if ( $file === '.' || $file === '..' ) {
+                continue;
+            }
+
+            $src_path = $source . '/' . $file;
+            $dest_path = $dest . '/' . $file;
+
+            if ( is_dir( $src_path ) ) {
+                $this->copy_directory( $src_path, $dest_path );
+            } else {
+                copy( $src_path, $dest_path );
+            }
+        }
+
+        closedir( $dir );
+        return true;
+    }
+
+    /**
+     * 디렉토리 삭제 (재귀)
+     */
+    private function delete_directory( $dir ) {
+        if ( ! is_dir( $dir ) ) {
+            return false;
+        }
+
+        $files = array_diff( scandir( $dir ), array( '.', '..' ) );
+
+        foreach ( $files as $file ) {
+            $path = $dir . '/' . $file;
+            if ( is_dir( $path ) ) {
+                $this->delete_directory( $path );
+            } else {
+                unlink( $path );
+            }
+        }
+
+        return rmdir( $dir );
     }
 
     /**

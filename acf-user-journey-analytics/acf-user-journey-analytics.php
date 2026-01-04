@@ -142,6 +142,12 @@ final class ACF_User_Journey_Analytics {
      * 방문 추적 AJAX
      */
     public function ajax_track_visit() {
+        // nonce 검증 (프론트엔드 추적이므로 실패 시에도 조용히 처리)
+        if ( ! wp_verify_nonce( $_POST['nonce'] ?? '', 'acf_uja_nonce' ) ) {
+            wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
+            return;
+        }
+
         $tracker = ACF_UJA_Traffic_Tracker::instance();
         $tracker->track_visit( $_POST );
         wp_send_json_success();

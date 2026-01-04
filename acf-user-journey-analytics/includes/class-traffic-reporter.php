@@ -2,6 +2,8 @@
 /**
  * 트래픽 리포터 클래스
  *
+ * 성능 최적화: Transient 캐싱 적용
+ *
  * @package ACF_User_Journey_Analytics
  * @since 1.0.0
  */
@@ -14,6 +16,14 @@ class ACF_UJA_Traffic_Reporter {
 
     private static $instance = null;
 
+    /**
+     * 캐시 만료 시간 (초)
+     */
+    const CACHE_REALTIME = 60;       // 1분
+    const CACHE_SUMMARY = 300;       // 5분
+    const CACHE_BREAKDOWN = 600;     // 10분
+    const CACHE_DAILY = 3600;        // 1시간
+
     public static function instance() {
         if ( null === self::$instance ) {
             self::$instance = new self();
@@ -22,9 +32,61 @@ class ACF_UJA_Traffic_Reporter {
     }
 
     /**
-     * 실시간 데이터
+     * 캐시 키 생성
+     */
+    private function get_cache_key( $type, $params = array() ) {
+        $key = 'acf_uja_' . $type;
+        if ( ! empty( $params ) ) {
+            $key .= '_' . md5( serialize( $params ) );
+        }
+        return $key;
+    }
+
+    /**
+     * 캐시에서 데이터 가져오기
+     */
+    private function get_cached( $key ) {
+        return get_transient( $key );
+    }
+
+    /**
+     * 캐시에 데이터 저장
+     */
+    private function set_cached( $key, $data, $expiration ) {
+        set_transient( $key, $data, $expiration );
+    }
+
+    /**
+     * 캐시 무효화
+     */
+    public function invalidate_cache( $type = null ) {
+        global $wpdb;
+
+        if ( $type ) {
+            // 특정 타입만 삭제
+            $wpdb->query( $wpdb->prepare(
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE %s",
+                '_transient_acf_uja_' . $type . '%'
+            ) );
+        } else {
+            // 모든 캐시 삭제
+            $wpdb->query(
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_acf_uja_%'"
+            );
+        }
+    }
+
+    /**
+     * 실시간 데이터 (1분 캐싱)
      */
     public function get_realtime_data() {
+        $cache_key = $this->get_cache_key( 'realtime' );
+        $cached = $this->get_cached( $cache_key );
+
+        if ( false !== $cached ) {
+            return $cached;
+        }
+
         global $wpdb;
 
         $db = ACF_UJA_Database::instance();
@@ -63,19 +125,30 @@ class ACF_UJA_Traffic_Reporter {
             $today_start
         ) );
 
-        return array(
+        $data = array(
             'realtime_users' => (int) $realtime_users,
             'today_visitors' => (int) $today_visitors,
             'today_sessions' => (int) $today_sessions,
             'top_sources' => $top_sources,
             'timestamp' => $now,
         );
+
+        $this->set_cached( $cache_key, $data, self::CACHE_REALTIME );
+
+        return $data;
     }
 
     /**
-     * 트래픽 요약
+     * 트래픽 요약 (5분 캐싱)
      */
     public function get_traffic_summary( $start_date, $end_date ) {
+        $cache_key = $this->get_cache_key( 'summary', array( $start_date, $end_date ) );
+        $cached = $this->get_cached( $cache_key );
+
+        if ( false !== $cached ) {
+            return $cached;
+        }
+
         global $wpdb;
 
         $db = ACF_UJA_Database::instance();
@@ -102,7 +175,7 @@ class ACF_UJA_Traffic_Reporter {
             $conversion_rate = ( $summary->conversions / $summary->sessions ) * 100;
         }
 
-        return array(
+        $data = array(
             'unique_visitors' => (int) $summary->unique_visitors,
             'sessions' => (int) $summary->sessions,
             'pageviews' => (int) $summary->pageviews,
@@ -112,18 +185,29 @@ class ACF_UJA_Traffic_Reporter {
             'total_conversion_value' => (float) $summary->total_conversion_value,
             'conversion_rate' => round( $conversion_rate, 2 ),
         );
+
+        $this->set_cached( $cache_key, $data, self::CACHE_SUMMARY );
+
+        return $data;
     }
 
     /**
-     * 리퍼러 분석
+     * 리퍼러 분석 (10분 캐싱)
      */
     public function get_referrer_breakdown( $start_date, $end_date ) {
+        $cache_key = $this->get_cache_key( 'breakdown', array( $start_date, $end_date ) );
+        $cached = $this->get_cached( $cache_key );
+
+        if ( false !== $cached ) {
+            return $cached;
+        }
+
         global $wpdb;
 
         $db = ACF_UJA_Database::instance();
         $table = $db->get_tracking_table();
 
-        return $wpdb->get_results( $wpdb->prepare(
+        $data = $wpdb->get_results( $wpdb->prepare(
             "SELECT
                 referrer_type,
                 referrer_source,
@@ -139,18 +223,29 @@ class ACF_UJA_Traffic_Reporter {
             $start_date,
             $end_date
         ) );
+
+        $this->set_cached( $cache_key, $data, self::CACHE_BREAKDOWN );
+
+        return $data;
     }
 
     /**
-     * 일별 트래픽
+     * 일별 트래픽 (1시간 캐싱)
      */
     public function get_daily_traffic( $start_date, $end_date ) {
+        $cache_key = $this->get_cache_key( 'daily', array( $start_date, $end_date ) );
+        $cached = $this->get_cached( $cache_key );
+
+        if ( false !== $cached ) {
+            return $cached;
+        }
+
         global $wpdb;
 
         $db = ACF_UJA_Database::instance();
         $table = $db->get_tracking_table();
 
-        return $wpdb->get_results( $wpdb->prepare(
+        $data = $wpdb->get_results( $wpdb->prepare(
             "SELECT
                 DATE(first_touch_at) as date,
                 COUNT(DISTINCT visitor_id) as visitors,
@@ -163,6 +258,10 @@ class ACF_UJA_Traffic_Reporter {
             $start_date,
             $end_date
         ) );
+
+        $this->set_cached( $cache_key, $data, self::CACHE_DAILY );
+
+        return $data;
     }
 
     /**
