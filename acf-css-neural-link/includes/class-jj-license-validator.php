@@ -396,5 +396,7 @@ class JJ_License_Validator {
         // 형식: XXXX-XXXX-XXXX-XXXX (4 groups)
         return preg_match( '/^[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}$/', $license_key );
     }
+} // End of class JJ_License_Validator
+
 } // End of class_exists check
 

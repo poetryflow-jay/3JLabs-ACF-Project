@@ -3,7 +3,7 @@
  * Plugin Name: ACF CSS License Bridge for WooCommerce
  * Plugin URI: https://3j-labs.com
  * Description: WooCommerce 결제 완료 시 Neural Link 서버에 라이센스 발행 요청을 전송합니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, 개발사 내부에서만 사용하는 라이센스 및 업데이트 관리 플러그인입니다.
- * Version:           22.0.1
+ * Version:           22.0.2
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI: https://3j-labs.com
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 플러그인 상수 정의
  */
 if ( ! defined( 'ACF_CSS_WOO_LICENSE_VERSION' ) ) {
-    define( 'ACF_CSS_WOO_LICENSE_VERSION', '22.0.0' ); // [v22.0.0] 에디션별 대시보드 및 Neural Link 연동 메이저 업데이트
+    define( 'ACF_CSS_WOO_LICENSE_VERSION', '22.0.2' ); // [v22.0.2] 클래스 중복 선언 방지 추가
 }
 
 /**
@@ -47,6 +47,9 @@ add_action( 'before_woocommerce_init', function() {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
     }
 } );
+
+// [v22.0.1] 클래스 중복 선언 방지
+if ( ! class_exists( 'ACF_CSS_Woo_License' ) ) {
 
 class ACF_CSS_Woo_License {
 
@@ -514,10 +517,14 @@ class ACF_CSS_Woo_License {
         </section>
         <?php
     }
-}
+} // End of class ACF_CSS_Woo_License
+
+} // End of class_exists check
 
 // 초기화
-add_action( 'plugins_loaded', array( 'ACF_CSS_Woo_License', 'instance' ) );
+if ( class_exists( 'ACF_CSS_Woo_License' ) ) {
+    add_action( 'plugins_loaded', array( 'ACF_CSS_Woo_License', 'instance' ) );
+}
 
 // AJAX 핸들러: 연결 테스트
 add_action( 'wp_ajax_acf_css_test_neural_link', function() {

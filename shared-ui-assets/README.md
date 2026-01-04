@@ -1,6 +1,6 @@
 # 3J Labs Shared UI Assets
 
-**버전**: 1.0.0
+**버전**: 1.1.0
 **마지막 업데이트**: 2026년 1월 4일
 **유지보수자**: Jason (CTO, 3J Labs)
 
@@ -8,9 +8,9 @@
 
 ## 개요
 
-Shared UI Assets 폴더는 3J Labs 플러그인 패밀리 전체에 공통으로 사용되는 UI/UX 자산을 관리합니다.
+Shared UI Assets 폴더는 3J Labs 플러그인 패밀리 전체에 공통으로 사용되는 UI/UX 자산과 PHP 유틸리티를 관리합니다.
 
-이 폴더의 CSS와 JS 파일들은 모든 플러그인에서 공통으로 로드되어 일관된 디자인 언어를 유지하고, 중복 코드를 제거하며, 유지보수 효율성을 높입니다.
+이 폴더의 CSS, JS, PHP 파일들은 모든 플러그인에서 공통으로 로드되어 일관된 디자인 언어를 유지하고, 중복 코드를 제거하며, 유지보수 효율성을 높입니다.
 
 ---
 
@@ -22,8 +22,14 @@ shared-ui-assets/
 ├── css/
 │   ├── jj-ui-system-2026.css (메인 UI 시스템)
 │   └── jj-section-enhancements-2026.css (섹션 강화)
-└── js/
-    └── jj-ui-system-2026.js (UI 인터랙션)
+├── js/
+│   └── jj-ui-system-2026.js (UI 인터랙션)
+└── php/
+    ├── index.php (보안 파일)
+    ├── class-jj-shared-loader.php (공통 로더)
+    ├── class-jj-ajax-helper.php (AJAX 보안 헬퍼)
+    ├── class-jj-file-validator.php (파일 검증 유틸리티)
+    └── trait-jj-singleton.php (싱글톤 트레이트)
 ```
 
 ---
@@ -195,6 +201,81 @@ JJ_UI.Modal.open({
 1. **하위 호환성**: 기존 스타일을 깨지 않도록 주의하세요.
 2. **선택자 특이성**: 너무 일반적인 선택자를 피하고, 플러그인 고유 클래스를 사용하세요.
 3. **성능**: 불필요한 CSS/JS를 제거하여 파일 크기를 줄이세요.
+
+---
+
+---
+
+## PHP 유틸리티 (v1.1.0 추가)
+
+### 공통 로더 사용법
+
+```php
+// 플러그인 초기화 시 공통 유틸리티 로드
+$shared_path = plugin_dir_path( __FILE__ ) . '../shared-ui-assets/php/';
+if ( file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+    require_once $shared_path . 'class-jj-shared-loader.php';
+    JJ_Shared_Loader::load_all();
+}
+```
+
+### AJAX 헬퍼 (JJ_Ajax_Helper)
+
+AJAX 요청의 보안 검증을 간소화합니다.
+
+```php
+// AJAX 핸들러에서 사용
+public function ajax_my_action() {
+    $ajax = JJ_Shared_Loader::ajax();
+
+    // nonce + 권한 한 번에 검증
+    if ( ! $ajax->verify_request( 'my_nonce_action', 'nonce' ) ) {
+        return; // 자동으로 wp_send_json_error 호출됨
+    }
+
+    // 파라미터 안전하게 가져오기
+    $id = $ajax->get_post_param( 'id', 0, 'int' );
+    $email = $ajax->get_post_param( 'email', '', 'email' );
+
+    // 성공 응답
+    $ajax->send_success( '작업이 완료되었습니다.', array( 'id' => $id ) );
+}
+```
+
+### 파일 검증기 (JJ_File_Validator)
+
+ZIP 파일 업로드 검증을 간소화합니다.
+
+```php
+// 파일 업로드 핸들러에서 사용
+$validator = JJ_Shared_Loader::file_validator();
+
+$result = $validator->validate_zip( $_FILES['plugin_file'] );
+if ( is_wp_error( $result ) ) {
+    wp_send_json_error( $result->get_error_message() );
+}
+
+// 플러그인/테마 타입 감지
+$type = $validator->detect_package_type( $result['tmp_name'] );
+// 'plugin', 'theme', 또는 'unknown'
+```
+
+### 싱글톤 트레이트 (JJ_Singleton_Trait)
+
+클래스에 싱글톤 패턴을 쉽게 적용합니다.
+
+```php
+class My_Plugin_Class {
+    use JJ_Singleton_Trait;
+
+    protected function __construct() {
+        // 초기화 로직
+    }
+}
+
+// 사용
+$instance = My_Plugin_Class::instance();
+```
 
 ---
 

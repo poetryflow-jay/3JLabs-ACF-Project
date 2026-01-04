@@ -1,7 +1,7 @@
 # ACF CSS - 개발자 가이드
 
-**버전**: 9.5.0  
-**작성일**: 2026년 1월 1일
+**버전**: 22.4.7
+**작성일**: 2026년 1월 4일 (Phase 39.2 업데이트)
 
 ---
 
@@ -242,6 +242,82 @@ WordPress 플러그인 ZIP 파일은 **플러그인 폴더가 포함**되어야 
 - **UI 시인성 개선**: "선택 업데이트" 버튼에 브랜드 컬러(Blue)와 로켓 아이콘(🚀)을 적용하여 눈에 띄게 개선했습니다.
 - **자동 활성화 옵션 복구**: 인스톨러에서 누락되었던 "설치 후 자동 활성화" 체크박스를 단일 위치로 복구하고 로직을 점검했습니다.
 - **다국어 명칭 표시**: 플러그인 목록에서 번역된 이름과 기술적 ID(폴더명)가 함께 표시되도록 UI를 조정했습니다.
+
+---
+
+---
+
+## Phase 39.2: 공통 유틸리티 클래스
+
+### 개요
+
+Phase 39.2에서 코드 중복을 줄이고 유지보수성을 높이기 위해 `shared-ui-assets/php/` 폴더에 공통 유틸리티 클래스를 추가했습니다.
+
+### 사용 방법
+
+```php
+// 플러그인 초기화 시 공통 유틸리티 로드
+$shared_path = plugin_dir_path( __FILE__ ) . '../shared-ui-assets/php/';
+if ( file_exists( $shared_path . 'class-jj-shared-loader.php' ) ) {
+    require_once $shared_path . 'class-jj-shared-loader.php';
+    JJ_Shared_Loader::load_all();
+}
+```
+
+### JJ_Ajax_Helper
+
+AJAX 핸들러에서 반복되는 보안 검증 코드를 단순화합니다.
+
+```php
+public function ajax_my_action() {
+    $ajax = JJ_Shared_Loader::ajax();
+
+    // nonce + 권한 한 번에 검증 (실패 시 자동으로 wp_send_json_error)
+    if ( ! $ajax->verify_request( 'my_nonce_action', 'nonce' ) ) {
+        return;
+    }
+
+    // 안전한 파라미터 가져오기
+    $id = $ajax->get_post_param( 'id', 0, 'int' );
+    $email = $ajax->get_post_param( 'email', '', 'email' );
+    $items = $ajax->get_post_param( 'items', array(), 'array' );
+
+    // 작업 수행 후 응답
+    $ajax->send_success( '완료!', array( 'id' => $id ) );
+}
+```
+
+### JJ_File_Validator
+
+ZIP 파일 업로드 검증을 간소화합니다.
+
+```php
+$validator = JJ_Shared_Loader::file_validator();
+$result = $validator->validate_zip( $_FILES['plugin_file'] );
+
+if ( is_wp_error( $result ) ) {
+    wp_send_json_error( $result->get_error_message() );
+}
+
+// 플러그인/테마 타입 자동 감지
+$type = $validator->detect_package_type( $result['tmp_name'] );
+```
+
+### JJ_Singleton_Trait
+
+싱글톤 패턴을 간단하게 구현합니다.
+
+```php
+class My_Plugin_Class {
+    use JJ_Singleton_Trait;
+
+    protected function __construct() {
+        // 초기화
+    }
+}
+
+$instance = My_Plugin_Class::instance();
+```
 
 ---
 
