@@ -58,6 +58,31 @@ PLUGINS = {
         'name': 'WP Bulk Manager - Really Simple WordPress Plugin & Theme Bulk Installer and Editor',
         'main_file': 'wp-bulk-installer.php',
         'zip_prefix': 'wp-bulk-manager'
+    },
+    'acf-css-neural-link': {
+        'name': 'ACF CSS Neural Link - License & Update Manager',
+        'main_file': 'acf-css-neural-link.php',
+        'zip_prefix': 'acf-css-neural-link'
+    },
+    'acf-nudge-flow': {
+        'name': '넛지 플로우 - ACF MBA (Marketing Boosting Accelerator)',
+        'main_file': 'acf-nudge-flow.php',
+        'zip_prefix': 'acf-nudge-flow'
+    },
+    'acf-css-woocommerce-toolkit': {
+        'name': 'ACF CSS WooCommerce Toolkit',
+        'main_file': 'acf-css-woocommerce-toolkit.php',
+        'zip_prefix': 'acf-css-woocommerce-toolkit'
+    },
+    'acf-css-ai-extension': {
+        'name': 'ACF CSS AI Extension - Intelligent Style Generator',
+        'main_file': 'acf-css-ai-extension.php',
+        'zip_prefix': 'acf-css-ai-extension'
+    },
+    'admin-menu-editor-pro': {
+        'name': 'ACF Admin Menu Editor Pro',
+        'main_file': 'admin-menu-editor-pro.php',
+        'zip_prefix': 'admin-menu-editor-pro'
     }
 }
 

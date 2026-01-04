@@ -43,7 +43,7 @@ class JJ_Plugin_List_Enhancer {
             'text_domain' => 'acf-css-really-simple-style-management-center',
             'version_constant' => 'JJ_STYLE_GUIDE_VERSION',
             'license_constant' => 'JJ_STYLE_GUIDE_LICENSE_TYPE',
-            'upgrade_url' => 'https://3j-labs.com',
+            'upgrade_url' => 'https://3j-labs.com/',
             'docs_url' => admin_url( 'options-general.php?page=jj-admin-center#system-status' ),
             'support_url' => 'https://3j-labs.com/support',
         ) );
@@ -93,13 +93,13 @@ class JJ_Plugin_List_Enhancer {
         $text_domain = $this->plugin_config['text_domain'];
 
         // 1. 3J Labs 공식 사이트 (툴팁 포함)
-        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com' ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '3J Labs 공식 웹사이트 방문', $text_domain ) . '" style="color: #2271b1; font-weight: 600;">🌐 ' . __( '공식 사이트', $text_domain ) . '</a>';
+        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com/' ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '3J Labs 공식 웹사이트 방문', $text_domain ) . '" style="font-size: 13px; color: #2271b1; font-weight: 700;">🌐 <strong>' . __( '공식 사이트', $text_domain ) . '</strong></a>';
 
         // 2. 문서 (툴팁 포함)
-        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['docs_url'] ) . '" class="jj-tooltip" data-tooltip="' . esc_attr__( '플러그인 문서 및 사용 가이드', $text_domain ) . '" style="color: #135e96; font-weight: 600;">📚 ' . __( '문서', $text_domain ) . '</a>';
+        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['docs_url'] ) . '" class="jj-tooltip" data-tooltip="' . esc_attr__( '플러그인 문서 및 사용 가이드', $text_domain ) . '" style="font-size: 13px; color: #135e96; font-weight: 700;">📚 <strong>' . __( '문서', $text_domain ) . '</strong></a>';
 
         // 3. 지원 (툴팁 포함)
-        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['support_url'] ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '기술 지원 및 문의', $text_domain ) . '" style="color: #50575e; font-weight: 600;">💬 ' . __( '지원', $text_domain ) . '</a>';
+        $new_meta[] = '<a href="' . esc_url( $this->plugin_config['support_url'] ) . '" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="' . esc_attr__( '기술 지원 및 문의', $text_domain ) . '" style="font-size: 13px; color: #50575e; font-weight: 700;">💬 <strong>' . __( '지원', $text_domain ) . '</strong></a>';
 
         // 4. 필수 플러그인 안내 (필요시)
         $required_plugins = $this->get_required_plugins();
@@ -153,7 +153,7 @@ class JJ_Plugin_List_Enhancer {
 
         // 7. 라이센스 키 필요 안내 (Free 버전인 경우)
         if ( ! $this->is_premium() ) {
-            $new_meta[] = '<a href="' . esc_url( $this->plugin_config['settings_url'] ) . '#license" style="color: #2271b1; font-weight: 700;">🔑 ' . __( '라이센스 키 입력', $text_domain ) . '</a>';
+            $new_meta[] = '<a href="' . esc_url( $this->plugin_config['settings_url'] ) . '#license" class="jj-tooltip" data-tooltip="' . esc_attr__( '라이센스 키를 입력하여 Pro 기능을 활성화하세요', $text_domain ) . '" style="font-size: 13px; color: #2271b1; font-weight: 700;">🔑 <strong>' . __( '라이센스 키 입력', $text_domain ) . '</strong></a>';
         }
 
         return array_merge( $plugin_meta, $new_meta );
@@ -162,71 +162,207 @@ class JJ_Plugin_List_Enhancer {
     /**
      * 플러그인 동작 링크 향상
      * 
-     * [Phase 19.1] 아이콘, 색상, 볼드체로 개선
+     * [v23.0.1] 볼드, 아이콘, 색상, 큰 글꼴, 기능별 숏컷 링크로 대폭 개선
      */
     public function enhance_plugin_action_links( $links ) {
         $new_links = array();
         $text_domain = $this->plugin_config['text_domain'];
-
-        // 1. 설정 (Admin Center 메인) - 주요 링크이므로 강조 (툴팁 포함)
-        $new_links['settings'] = sprintf(
-            '<a href="%s" class="jj-tooltip" data-tooltip="%s" style="font-weight: 800; color: #2271b1; text-decoration: none;">⚙️ <strong>%s</strong></a>',
-            esc_url( $this->plugin_config['settings_url'] ),
-            esc_attr__( '플러그인 설정 페이지로 이동', $text_domain ),
-            __( '설정 열기', $text_domain )
-        );
-
-        // 2. 스타일 (Style Guide) - 색상 적용
-        if ( strpos( $this->plugin_basename, 'acf-css-really-simple-style-guide' ) !== false ) {
-            $new_links['styles'] = sprintf(
-                '<a href="%s" style="color: #135e96; font-weight: 700; text-decoration: none;">🎨 <strong>%s</strong></a>',
-                esc_url( admin_url( 'options-general.php?page=acf-css-really-simple-style-guide' ) ),
-                __( '스타일 관리', $text_domain )
+        
+        // 플러그인별 기능 링크 정의
+        $feature_links = $this->get_feature_links();
+        
+        // 1. 주요 기능 링크들 (플러그인별로 다름)
+        foreach ( $feature_links as $key => $link_config ) {
+            $new_links[ $key ] = sprintf(
+                '<a href="%s" class="jj-tooltip" data-tooltip="%s" style="font-size: 14px; font-weight: 700; color: %s; text-decoration: none; margin-right: 8px; display: inline-block;">%s <strong>%s</strong></a>',
+                esc_url( $link_config['url'] ),
+                esc_attr( $link_config['tooltip'] ),
+                esc_attr( $link_config['color'] ),
+                $link_config['icon'],
+                esc_html( $link_config['label'] )
             );
         }
 
-        // 3. 백업/롤백 링크
+        // 2. 롤백 링크 (필수)
         $rollback_nonce = wp_create_nonce( 'jj_rollback_plugin_' . $this->plugin_basename );
         $new_links['rollback'] = sprintf(
-            '<a href="#" class="jj-rollback-trigger" data-plugin="%s" data-nonce="%s" style="color: #856404; font-weight: 700; text-decoration: none; cursor: pointer;">🔄 <strong>%s</strong></a>',
+            '<a href="#" class="jj-rollback-trigger jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" style="font-size: 14px; font-weight: 700; color: #856404; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block;">🔄 <strong>%s</strong></a>',
+            esc_attr__( '이전 버전으로 되돌리기', $text_domain ),
             esc_attr( $this->plugin_basename ),
             esc_attr( $rollback_nonce ),
-            __( '이전 버전으로 롤백', $text_domain )
+            __( '롤백', $text_domain )
         );
 
-        // 4. 시스템 상태 (System Status Tab)
-        if ( strpos( $this->plugin_basename, 'acf-css-really-simple-style-guide' ) !== false ) {
-            $new_links['system'] = sprintf(
-                '<a href="%s" style="color: #646970; font-weight: 600; text-decoration: none;">📊 %s</a>',
-                esc_url( admin_url( 'options-general.php?page=jj-admin-center#system-status' ) ),
-                __( '시스템 진단', $text_domain )
+        // 3. 업그레이드 유도 (마스터/파트너/언리미티드 제외)
+        $license_type = $this->get_license_type();
+        if ( ! in_array( strtoupper( $license_type ), array( 'MASTER', 'PARTNER', 'UNLIMITED' ), true ) ) {
+            $upgrade_text = $this->get_upgrade_text( $license_type );
+            $upgrade_url = $this->plugin_config['upgrade_url'] . '/upgrade?from=' . strtolower( $license_type );
+            
+            $new_links['upgrade'] = sprintf(
+                '<a href="%s" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="%s" style="font-size: 15px; font-weight: 800; color: #00a32a; text-decoration: none; margin-right: 8px; display: inline-block; background: linear-gradient(135deg, #00a32a 0%%, #3fb950 100%%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🚀 <strong>%s</strong></a>',
+                esc_url( $upgrade_url ),
+                esc_attr__( '더 많은 기능을 사용하려면 업그레이드하세요', $text_domain ),
+                esc_html( $upgrade_text )
             );
         }
 
-        // 5. 업그레이드 링크 또는 Pro 뱃지 표시
-        if ( ! $this->is_premium() ) {
-            $new_links['upgrade'] = sprintf(
-                '<a href="%s" target="_blank" rel="noopener noreferrer" style="color: #00a32a; font-weight: 800; text-decoration: none;">🚀 <strong>%s</strong></a>',
-                esc_url( $this->plugin_config['upgrade_url'] ),
-                __( 'PRO로 업그레이드', $text_domain )
-            );
-        } else {
-            // Pro 사용자에게 만족감을 주는 뱃지 표시
-            $new_links['pro_badge'] = sprintf(
-                '<span style="color: #00a32a; font-weight: 900; cursor: default; background: linear-gradient(135deg, #00a32a 0%%, #3fb950 100%%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;" title="%s">⭐ <strong>%s</strong></span>',
-                esc_attr__( '현재 Pro 버전을 사용 중입니다.', $text_domain ),
-                __( 'Pro 버전', $text_domain )
-            );
-        }
+        // 4. 자동 업데이트 상태 표시 (필수)
+        $auto_updates = (array) get_site_option( 'auto_update_plugins', array() );
+        $is_auto_update_enabled = in_array( $this->plugin_basename, $auto_updates, true );
+        $auto_update_nonce = wp_create_nonce( 'jj_toggle_auto_update_' . $this->plugin_basename );
+        
+        $auto_update_text = $is_auto_update_enabled ? __( '자동 업데이트 켜짐', $text_domain ) : __( '자동 업데이트 꺼짐', $text_domain );
+        $auto_update_color = $is_auto_update_enabled ? '#00a32a' : '#d63638';
+        $auto_update_icon = $is_auto_update_enabled ? '✅' : '⚪';
+        
+        $new_links['auto_update'] = sprintf(
+            '<a href="#" class="jj-auto-update-toggle jj-tooltip" data-tooltip="%s" data-plugin="%s" data-nonce="%s" data-enabled="%s" style="font-size: 13px; font-weight: 700; color: %s; text-decoration: none; cursor: pointer; margin-right: 8px; display: inline-block;">%s <strong>%s</strong></a>',
+            esc_attr__( '클릭하여 자동 업데이트를 토글합니다', $text_domain ),
+            esc_attr( $this->plugin_basename ),
+            esc_attr( $auto_update_nonce ),
+            $is_auto_update_enabled ? '1' : '0',
+            esc_attr( $auto_update_color ),
+            $auto_update_icon,
+            esc_html( $auto_update_text )
+        );
 
         // 새 링크를 기존 링크(비활성화 등) 앞에 추가
         return array_merge( $new_links, $links );
+    }
+    
+    /**
+     * 플러그인별 기능 링크 정의
+     */
+    private function get_feature_links() {
+        $links = array();
+        $text_domain = $this->plugin_config['text_domain'];
+        
+        // ACF CSS Manager
+        if ( strpos( $this->plugin_basename, 'acf-css-really-simple-style-guide' ) !== false ) {
+            $links['style_center'] = array(
+                'url' => admin_url( 'admin.php?page=jj-style-guide-cockpit' ),
+                'label' => __( '스타일 센터', $text_domain ),
+                'icon' => '🎨',
+                'color' => '#2271b1',
+                'tooltip' => __( '스타일 센터로 이동하여 색상, 타이포그래피, 버튼 등을 관리하세요', $text_domain ),
+            );
+            $links['admin_center'] = array(
+                'url' => admin_url( 'admin.php?page=jj-admin-center' ),
+                'label' => __( '설정 관리자', $text_domain ),
+                'icon' => '⚙️',
+                'color' => '#135e96',
+                'tooltip' => __( '플러그인 설정 및 시스템 관리', $text_domain ),
+            );
+        }
+        // 마케팅 대시보드
+        elseif ( strpos( $this->plugin_basename, 'jj-marketing-dashboard' ) !== false ) {
+            $links['dashboard'] = array(
+                'url' => admin_url( 'admin.php?page=jj-marketing-dashboard' ),
+                'label' => __( '마케팅 대시보드', $text_domain ),
+                'icon' => '📊',
+                'color' => '#667eea',
+                'tooltip' => __( '종합 마케팅 대시보드 열기', $text_domain ),
+            );
+            $links['analytics'] = array(
+                'url' => admin_url( 'admin.php?page=jj-marketing-analytics' ),
+                'label' => __( '통계 분석', $text_domain ),
+                'icon' => '📈',
+                'color' => '#f5576c',
+                'tooltip' => __( '통계 분석 페이지로 이동', $text_domain ),
+            );
+        }
+        // 코드 박스
+        elseif ( strpos( $this->plugin_basename, 'acf-code-snippets-box' ) !== false ) {
+            $links['snippets'] = array(
+                'url' => admin_url( 'admin.php?page=acf-code-snippets' ),
+                'label' => __( '코드 박스', $text_domain ),
+                'icon' => '📦',
+                'color' => '#4facfe',
+                'tooltip' => __( '코드 스니펫 관리 페이지로 이동', $text_domain ),
+            );
+            $links['presets'] = array(
+                'url' => admin_url( 'admin.php?page=acf-code-snippets-presets' ),
+                'label' => __( '프리셋 라이브러리', $text_domain ),
+                'icon' => '📚',
+                'color' => '#00f2fe',
+                'tooltip' => __( '프리셋 라이브러리 열기', $text_domain ),
+            );
+        }
+        // 원 클릭 SEO
+        elseif ( strpos( $this->plugin_basename, 'wp-bulk-seo-aeo' ) !== false ) {
+            $links['dashboard'] = array(
+                'url' => admin_url( 'admin.php?page=wp-bulk-seo-aeo' ),
+                'label' => __( '원 클릭 SEO', $text_domain ),
+                'icon' => '📈',
+                'color' => '#f093fb',
+                'tooltip' => __( 'SEO 대시보드로 이동', $text_domain ),
+            );
+            $links['analyzer'] = array(
+                'url' => admin_url( 'admin.php?page=wp-bulk-seo-aeo-analyzer' ),
+                'label' => __( '벌크 분석', $text_domain ),
+                'icon' => '🔍',
+                'color' => '#f5576c',
+                'tooltip' => __( '벌크 SEO 분석 도구', $text_domain ),
+            );
+        }
+        // 기본 설정 링크 (다른 플러그인들)
+        else {
+            $links['settings'] = array(
+                'url' => $this->plugin_config['settings_url'],
+                'label' => __( '설정', $text_domain ),
+                'icon' => '⚙️',
+                'color' => '#2271b1',
+                'tooltip' => __( '플러그인 설정 페이지로 이동', $text_domain ),
+            );
+        }
+        
+        return $links;
+    }
+    
+    /**
+     * 라이센스 타입 가져오기
+     */
+    private function get_license_type() {
+        if ( class_exists( 'JJ_Edition_Controller' ) ) {
+            try {
+                $controller = JJ_Edition_Controller::instance();
+                return $controller->get_edition();
+            } catch ( Exception $e ) {
+                // ignore
+            }
+        }
+        
+        if ( defined( $this->plugin_config['license_constant'] ) ) {
+            return constant( $this->plugin_config['license_constant'] );
+        }
+        
+        return 'free';
+    }
+    
+    /**
+     * 업그레이드 텍스트 가져오기
+     */
+    private function get_upgrade_text( $current_license ) {
+        $text_domain = $this->plugin_config['text_domain'];
+        $license_upper = strtoupper( $current_license );
+        
+        switch ( $license_upper ) {
+            case 'FREE':
+                return __( 'PRO로 업그레이드', $text_domain );
+            case 'BASIC':
+                return __( 'Premium으로 업그레이드', $text_domain );
+            case 'PREMIUM':
+                return __( 'Unlimited으로 업그레이드', $text_domain );
+            default:
+                return __( '업그레이드', $text_domain );
+        }
     }
 
     /**
      * 작성자 정보 영역 개선
      * 
-     * [Phase 19.1] 작성자 정보에 추가 메타데이터 추가
+     * [v23.0.1] 작성자 정보에 추가 메타데이터 추가 (볼드, 큰 글꼴, 색상)
      */
     public function enhance_author_info( $plugin_meta, $plugin_file ) {
         if ( $plugin_file !== $this->plugin_basename ) {
@@ -239,22 +375,12 @@ class JJ_Plugin_List_Enhancer {
         $new_meta = array();
         $text_domain = $this->plugin_config['text_domain'];
         
-        // 작성자 정보 강화
-        if ( ! empty( $plugin_data['Author'] ) ) {
-            $author_uri = ! empty( $plugin_data['AuthorURI'] ) ? $plugin_data['AuthorURI'] : 'https://3j-labs.com';
-            $new_meta[] = sprintf(
-                '<span style="color: #646970; font-weight: 600;" title="%s">👨‍💻 %s</span>',
-                esc_attr( __( '플러그인 개발자', $text_domain ) ),
-                esc_html( $plugin_data['Author'] )
-            );
-        }
-        
         // 버전 정보 강화
         if ( ! empty( $plugin_data['Version'] ) ) {
             $version_constant = $this->plugin_config['version_constant'];
             $version = defined( $version_constant ) ? constant( $version_constant ) : $plugin_data['Version'];
             $new_meta[] = sprintf(
-                '<span style="color: #2271b1; font-weight: 700;" title="%s">📦 v%s</span>',
+                '<span style="font-size: 13px; color: #2271b1; font-weight: 700;" title="%s">📦 <strong>v%s</strong></span>',
                 esc_attr( __( '현재 플러그인 버전', $text_domain ) ),
                 esc_html( $version )
             );
@@ -263,8 +389,9 @@ class JJ_Plugin_List_Enhancer {
         // 플러그인 URI
         if ( ! empty( $plugin_data['PluginURI'] ) ) {
             $new_meta[] = sprintf(
-                '<a href="%s" target="_blank" rel="noopener noreferrer" style="color: #135e96; font-weight: 600;" title="%s">🔗 %s</a>',
+                '<a href="%s" target="_blank" rel="noopener noreferrer" class="jj-tooltip" data-tooltip="%s" style="font-size: 13px; color: #135e96; font-weight: 700;" title="%s">🔗 <strong>%s</strong></a>',
                 esc_url( $plugin_data['PluginURI'] ),
+                esc_attr( __( '플러그인 공식 사이트 방문', $text_domain ) ),
                 esc_attr( __( '플러그인 공식 사이트 방문', $text_domain ) ),
                 __( '공식 사이트', $text_domain )
             );
@@ -385,14 +512,24 @@ class JJ_Plugin_List_Enhancer {
      */
     private function get_inline_css() {
         return '
-        /* [Phase 19.1] 플러그인 목록 페이지 UI/UX 개선 */
-        .jj-auto-update-toggle:hover {
+        /* [v23.0.1] 플러그인 목록 페이지 UI/UX 대폭 개선 */
+        .jj-auto-update-toggle:hover,
+        .jj-rollback-trigger:hover,
+        .jj-tooltip:hover {
             opacity: 0.8;
             text-decoration: underline !important;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
         }
-        .jj-rollback-trigger:hover {
-            opacity: 0.8;
-            text-decoration: underline !important;
+        
+        /* 플러그인 액션 링크 스타일 개선 */
+        .wp-list-table.plugins .plugin-title strong {
+            font-size: 14px !important;
+        }
+        
+        .wp-list-table.plugins .row-actions a {
+            font-size: 14px !important;
+            font-weight: 700 !important;
         }
         .jj-nudge-overlay {
             position: fixed;

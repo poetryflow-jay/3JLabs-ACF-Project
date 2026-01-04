@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:       3J Labs Marketing Automation Dashboard
- * Plugin URI:        https://3j-labs.com
+ * Plugin URI:        https://3j-labs.com/
  * Description:       3J Labs 플러그인 패밀리의 종합 마케팅 자동화 대시보드입니다. 모든 플러그인의 사용 데이터를 통합 분석하고, SEO 최적화, 캠페 추적, 마케팅 성과 측정을 제공합니다. Google Analytics, Search Console, 소셜 미디어 통합을 지원합니다.
  * Version:           2.0.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
- * Author URI:        https://3j-labs.com
+ * Author URI:        https://3j-labs.com/
  * Text Domain:       jj-marketing-dashboard
  * Domain Path:       /languages
  * Requires at least: 6.0
@@ -90,7 +90,7 @@ final class JJ_Marketing_Dashboard {
                 'text_domain' => 'jj-marketing-dashboard',
                 'version_constant' => 'JJ_MARKETING_DASHBOARD_VERSION',
                 'license_constant' => 'JJ_MARKETING_DASHBOARD_LICENSE',
-                'upgrade_url' => 'https://3j-labs.com',
+                'upgrade_url' => 'https://3j-labs.com/',
                 'docs_url' => 'https://3j-labs.com/docs',
                 'support_url' => 'https://3j-labs.com/support',
             ) );

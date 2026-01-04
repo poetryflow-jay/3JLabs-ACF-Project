@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: WP Bulk SEO & AEO(AIO) - WordPress Really Simple and Easy Search Engine Optimization and AI Optimization Automation. 1, 2, 3 Click Auto Optimization.
- * Plugin URI: https://3j-labs.com/plugins/wp-bulk-seo-aeo
+ * Plugin URI: https://3j-labs.com/
  * Description: AI-powered SEO & AEO optimization based on real Google ranking factors from the 2024 algorithm leak. Integrates Google Search Console API, Google Analytics API, and PageSpeed Insights API v5 for comprehensive SEO analysis. Features 1-Click SEO, 2-Click AI optimization, and 3-Click full automation.
  * Version: 2.0.0
  * Author: 3J Labs (제이x제니x제이슨 연구소)
- * Author URI: https://3j-labs.com
+ * Author URI: https://3j-labs.com/
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-bulk-seo-aeo
@@ -658,6 +658,32 @@ final class WP_Bulk_SEO_AEO {
         // Initialize Admin
         if (is_admin() && class_exists('WP_Bulk_SEO_AEO_Admin')) {
             new WP_Bulk_SEO_AEO_Admin($this);
+        }
+        
+        // [v2.0.0] 플러그인 리스트 향상 (JJ_Plugin_List_Enhancer)
+        if (is_admin()) {
+            $this->init_plugin_list_enhancer();
+        }
+    }
+    
+    /**
+     * [v2.0.0] 플러그인 목록 페이지 향상 초기화
+     */
+    private function init_plugin_list_enhancer() {
+        // ACF CSS Manager의 Plugin List Enhancer 클래스 사용
+        if (class_exists('JJ_Plugin_List_Enhancer')) {
+            $enhancer = new JJ_Plugin_List_Enhancer();
+            $enhancer->init(array(
+                'plugin_file' => __FILE__,
+                'plugin_name' => '원 클릭 SEO',
+                'settings_url' => admin_url('admin.php?page=wp-bulk-seo-aeo'),
+                'text_domain' => 'wp-bulk-seo-aeo',
+                'version_constant' => 'WP_BULK_SEO_AEO_VERSION',
+                'license_constant' => 'WP_BULK_SEO_AEO_LICENSE_TYPE',
+                'upgrade_url' => 'https://3j-labs.com/',
+                'docs_url' => 'https://3j-labs.com/docs',
+                'support_url' => 'https://3j-labs.com/support',
+            ));
         }
     }
 

@@ -1,12 +1,12 @@
 <?php
 /**
  * Plugin Name:       ACF Code Snippets Box - Advanced Custom Function Code Box Snippets Manager
- * Plugin URI:        https://3j-labs.com
+ * Plugin URI:        https://3j-labs.com/
  * Description:       ACF Code Snippets Box (Advanced Custom Function) - WordPress 코어를 수정하지 않고 JS, CSS, PHP, HTML 코드 스니펫을 저장하고 조건에 따라 실행하는 강력한 코드 관리 플러그인입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, 스타일 변수와 디자인 토큰을 쉽게 참조할 수 있습니다.
  * Version:           4.0.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
- * Author URI:        https://3j-labs.com
+ * Author URI:        https://3j-labs.com/
  * Text Domain:       acf-code-snippets-box
  * Domain Path:       /languages
  * Requires at least: 6.0
@@ -76,7 +76,7 @@ final class ACF_Code_Snippets_Box {
                 'text_domain' => 'acf-code-snippets-box',
                 'version_constant' => 'ACF_CSB_VERSION',
                 'license_constant' => 'ACF_CSB_LICENSE_TYPE',
-                'upgrade_url' => 'https://3j-labs.com',
+                'upgrade_url' => 'https://3j-labs.com/',
                 'docs_url' => admin_url( 'admin.php?page=acf-code-snippets' ),
                 'support_url' => 'https://3j-labs.com/support',
             ) );
