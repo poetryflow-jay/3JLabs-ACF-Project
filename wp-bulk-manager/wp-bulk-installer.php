@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.4.2-master
+ * Version:           22.4.3-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.4.2-master' ); // [v22.4.2] Phase 37.1 Hotfix: Master Edition 감지 로직 개선 - 폴더명 변형 지원 (-master, -master-master 모두 인식)
+define( 'WP_BULK_MANAGER_VERSION', '22.4.3-master' ); // [v22.4.3] Phase 37.1 Hotfix: ajax_handle_install 및 ajax_handle_upload 전면적인 오류 처리 강화 (500 에러 및 심각한 오류 방지)
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -1323,11 +1323,22 @@ class JJ_Bulk_Installer {
     }
 
     // 1. 파일 업로드 핸들러
+    // [v22.4.2] Phase 37.1 Hotfix: 전면적인 오류 처리 강화
     public function ajax_handle_upload() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        try {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Upload nonce verification failed: ' . $e->getMessage() );
+            wp_send_json_error( '보안 검증 실패' );
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] Upload nonce verification fatal: ' . $e->getMessage() );
+            wp_send_json_error( '보안 검증 실패' );
+        }
+        
         if ( ! current_user_can( 'install_plugins' ) ) {
             wp_send_json_error( '권한이 없습니다.' );
         }
+        
         if ( empty( $_FILES['file'] ) ) {
             wp_send_json_error( '파일이 전송되지 않았습니다.' );
         }
@@ -1355,101 +1366,238 @@ class JJ_Bulk_Installer {
             wp_send_json_error( 'ZIP 파일만 업로드할 수 있습니다.' );
         }
 
-        $upload_dir = wp_upload_dir();
-        $temp_dir = $upload_dir['basedir'] . '/jj-bulk-temp/';
-        
-        // 임시 디렉토리 생성
-        if ( ! file_exists( $temp_dir ) ) {
-            $created = wp_mkdir_p( $temp_dir );
-            if ( ! $created ) {
-                wp_send_json_error( '임시 폴더를 생성할 수 없습니다. 서버 권한을 확인하세요.' );
+        // [v22.4.2] 안전한 업로드 디렉토리 처리
+        try {
+            $upload_dir = wp_upload_dir();
+            if ( is_wp_error( $upload_dir ) ) {
+                wp_send_json_error( '업로드 디렉토리를 가져올 수 없습니다: ' . $upload_dir->get_error_message() );
             }
-        }
-        
-        $target_path = $temp_dir . basename( $file['name'] );
-        
-        // 파일 이동
-        if ( move_uploaded_file( $file['tmp_name'], $target_path ) ) {
-            wp_send_json_success( array( 
-                'path' => $target_path,
-                'name' => $file['name'],
-                'type' => $this->detect_type( $target_path )
-            ) );
-        } else {
-            $error_detail = '';
-            if ( ! is_writable( $temp_dir ) ) {
-                $error_detail = ' (임시 폴더에 쓰기 권한이 없습니다: ' . $temp_dir . ')';
+            
+            $temp_dir = $upload_dir['basedir'] . '/jj-bulk-temp/';
+            
+            // 임시 디렉토리 생성
+            if ( ! file_exists( $temp_dir ) ) {
+                $created = wp_mkdir_p( $temp_dir );
+                if ( ! $created ) {
+                    wp_send_json_error( '임시 폴더를 생성할 수 없습니다. 서버 권한을 확인하세요.' );
+                }
             }
-            wp_send_json_error( '파일 업로드 실패' . $error_detail );
+            
+            $target_path = $temp_dir . basename( $file['name'] );
+            
+            // 파일 이동
+            if ( move_uploaded_file( $file['tmp_name'], $target_path ) ) {
+                // [v22.4.2] 안전한 타입 감지
+                $detected_type = 'plugin'; // 기본값
+                try {
+                    if ( method_exists( $this, 'detect_type' ) ) {
+                        $detected_type = $this->detect_type( $target_path );
+                    }
+                } catch ( Exception $e ) {
+                    error_log( '[WP Bulk Manager] Type detection failed: ' . $e->getMessage() );
+                    // 기본값 사용
+                } catch ( Error $e ) {
+                    error_log( '[WP Bulk Manager] Type detection fatal: ' . $e->getMessage() );
+                    // 기본값 사용
+                }
+                
+                wp_send_json_success( array( 
+                    'path' => $target_path,
+                    'name' => $file['name'],
+                    'type' => $detected_type
+                ) );
+            } else {
+                $error_detail = '';
+                if ( ! is_writable( $temp_dir ) ) {
+                    $error_detail = ' (임시 폴더에 쓰기 권한이 없습니다: ' . $temp_dir . ')';
+                }
+                wp_send_json_error( '파일 업로드 실패' . $error_detail );
+            }
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Upload processing failed: ' . $e->getMessage() );
+            error_log( '[WP Bulk Manager] Stack trace: ' . $e->getTraceAsString() );
+            wp_send_json_error( '파일 업로드 처리 중 오류가 발생했습니다: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] Upload processing fatal: ' . $e->getMessage() );
+            error_log( '[WP Bulk Manager] Stack trace: ' . $e->getTraceAsString() );
+            wp_send_json_error( '파일 업로드 처리 중 치명적 오류가 발생했습니다: ' . $e->getMessage() );
         }
     }
 
     // 2. 설치 핸들러
+    // [v22.4.2] Phase 37.1 Hotfix: 전면적인 오류 처리 강화
     public function ajax_handle_install() {
-        check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        try {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Nonce verification failed: ' . $e->getMessage() );
+            wp_send_json_error( '보안 검증 실패' );
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] Nonce verification fatal: ' . $e->getMessage() );
+            wp_send_json_error( '보안 검증 실패' );
+        }
         
         $file_path = isset( $_POST['path'] ) ? sanitize_text_field( $_POST['path'] ) : '';
         $type = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'plugin';
         $auto_activate = isset( $_POST['activate'] ) && 'true' === $_POST['activate'];
 
-        if ( ! file_exists( $file_path ) ) wp_send_json_error( '파일을 찾을 수 없습니다.' );
+        if ( empty( $file_path ) ) {
+            wp_send_json_error( '파일 경로가 제공되지 않았습니다.' );
+        }
 
-        include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
-        include_once ABSPATH . 'wp-admin/includes/plugin.php';
-        include_once ABSPATH . 'wp-admin/includes/theme.php';
+        if ( ! file_exists( $file_path ) ) {
+            wp_send_json_error( '파일을 찾을 수 없습니다: ' . esc_html( $file_path ) );
+        }
+
+        // [v22.4.2] 안전한 파일 include
+        try {
+            if ( ! class_exists( 'WP_Upgrader' ) ) {
+                include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+            }
+            if ( ! function_exists( 'get_plugins' ) ) {
+                include_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+            if ( ! function_exists( 'wp_get_themes' ) ) {
+                include_once ABSPATH . 'wp-admin/includes/theme.php';
+            }
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] File include failed: ' . $e->getMessage() );
+            wp_send_json_error( '필수 파일을 로드할 수 없습니다: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] File include fatal: ' . $e->getMessage() );
+            wp_send_json_error( '필수 파일을 로드할 수 없습니다: ' . $e->getMessage() );
+        }
 
         // [v22.1.1] 설치 전 플러그인 목록 확보 (Diff 비교용)
         $plugins_before = array();
         if ( $type === 'plugin' ) {
-            // 캐시 강제 초기화
-            wp_clean_plugins_cache();
-            $plugins_before = get_plugins();
+            try {
+                // 캐시 강제 초기화
+                if ( function_exists( 'wp_clean_plugins_cache' ) ) {
+                    wp_clean_plugins_cache();
+                }
+                if ( function_exists( 'get_plugins' ) ) {
+                    $plugins_before = get_plugins();
+                }
+            } catch ( Exception $e ) {
+                error_log( '[WP Bulk Manager] Plugin list fetch failed: ' . $e->getMessage() );
+                // 계속 진행 (필수는 아님)
+            } catch ( Error $e ) {
+                error_log( '[WP Bulk Manager] Plugin list fetch fatal: ' . $e->getMessage() );
+                // 계속 진행 (필수는 아님)
+            }
         }
 
-        ob_start();
-        $skin = new WP_Ajax_Upgrader_Skin();
-        $upgrader = ( $type === 'theme' ) ? new Theme_Upgrader( $skin ) : new Plugin_Upgrader( $skin );
-        $result = $upgrader->install( $file_path );
-        ob_end_clean();
-
-        if ( is_wp_error( $result ) ) {
-            @unlink( $file_path );
-            wp_send_json_error( $result->get_error_message() );
-        }
-
-        $plugin_slug = '';
-        if ( $type === 'plugin' ) {
-            $plugin_slug = $upgrader->plugin_info();
+        // [v22.4.2] 안전한 Upgrader 인스턴스 생성 및 설치
+        try {
+            ob_start();
             
-            // [v22.1.1] plugin_info() 실패 시, 플러그인 목록 비교로 추적
-            if ( ! $plugin_slug ) {
-                wp_clean_plugins_cache();
-                $plugins_after = get_plugins();
+            if ( ! class_exists( 'WP_Ajax_Upgrader_Skin' ) ) {
+                include_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+            }
+            
+            $skin = new WP_Ajax_Upgrader_Skin();
+            $upgrader = ( $type === 'theme' ) ? new Theme_Upgrader( $skin ) : new Plugin_Upgrader( $skin );
+            
+            if ( ! is_object( $upgrader ) || ! method_exists( $upgrader, 'install' ) ) {
+                ob_end_clean();
+                wp_send_json_error( 'Upgrader 클래스를 초기화할 수 없습니다.' );
+            }
+            
+            $result = $upgrader->install( $file_path );
+            ob_end_clean();
+
+            if ( is_wp_error( $result ) ) {
+                @unlink( $file_path );
+                wp_send_json_error( $result->get_error_message() );
+            }
+        } catch ( Exception $e ) {
+            ob_end_clean();
+            @unlink( $file_path );
+            error_log( '[WP Bulk Manager] Installation failed: ' . $e->getMessage() );
+            error_log( '[WP Bulk Manager] Stack trace: ' . $e->getTraceAsString() );
+            wp_send_json_error( '설치 중 오류가 발생했습니다: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            ob_end_clean();
+            @unlink( $file_path );
+            error_log( '[WP Bulk Manager] Installation fatal: ' . $e->getMessage() );
+            error_log( '[WP Bulk Manager] Stack trace: ' . $e->getTraceAsString() );
+            wp_send_json_error( '설치 중 치명적 오류가 발생했습니다: ' . $e->getMessage() );
+        }
+
+        // [v22.4.2] 안전한 플러그인 슬러그 추출
+        $plugin_slug = '';
+        try {
+            if ( $type === 'plugin' ) {
+                if ( method_exists( $upgrader, 'plugin_info' ) ) {
+                    $plugin_slug = $upgrader->plugin_info();
+                }
                 
-                // 새로 추가된 키 찾기
-                $new_plugins = array_diff_key( $plugins_after, $plugins_before );
-                if ( ! empty( $new_plugins ) ) {
-                    // 첫 번째 발견된 키를 사용 (보통 하나만 설치되므로)
-                    $plugin_slug = key( $new_plugins );
+                // [v22.1.1] plugin_info() 실패 시, 플러그인 목록 비교로 추적
+                if ( empty( $plugin_slug ) && function_exists( 'get_plugins' ) ) {
+                    try {
+                        wp_clean_plugins_cache();
+                        $plugins_after = get_plugins();
+                        
+                        // 새로 추가된 키 찾기
+                        $new_plugins = array_diff_key( $plugins_after, $plugins_before );
+                        if ( ! empty( $new_plugins ) ) {
+                            // 첫 번째 발견된 키를 사용 (보통 하나만 설치되므로)
+                            $plugin_slug = key( $new_plugins );
+                        }
+                    } catch ( Exception $e ) {
+                        error_log( '[WP Bulk Manager] Plugin slug detection failed: ' . $e->getMessage() );
+                    } catch ( Error $e ) {
+                        error_log( '[WP Bulk Manager] Plugin slug detection fatal: ' . $e->getMessage() );
+                    }
+                }
+            } else {
+                // 테마의 경우 theme_info() 사용
+                if ( method_exists( $upgrader, 'theme_info' ) ) {
+                    $plugin_slug = $upgrader->theme_info();
                 }
             }
-        } else {
-            // 테마의 경우 theme_info() 사용
-            $plugin_slug = $upgrader->theme_info();
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Slug extraction failed: ' . $e->getMessage() );
+            // 계속 진행 (슬러그가 없어도 설치는 완료됨)
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] Slug extraction fatal: ' . $e->getMessage() );
+            // 계속 진행 (슬러그가 없어도 설치는 완료됨)
         }
 
-        @unlink( $file_path );
+        // [v22.4.2] 안전한 파일 삭제
+        try {
+            @unlink( $file_path );
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Temp file deletion failed: ' . $e->getMessage() );
+            // 계속 진행 (임시 파일 삭제 실패는 치명적이지 않음)
+        }
 
         $response = array( 'status' => 'installed', 'slug' => $plugin_slug );
 
-        // 자동 활성화 옵션이 켜져있으면 바로 활성화 시도
-        if ( $auto_activate && $plugin_slug ) {
-            $activate_result = activate_plugin( $plugin_slug );
-            if ( is_wp_error( $activate_result ) ) {
+        // [v22.4.2] 안전한 자동 활성화
+        if ( $auto_activate && $plugin_slug && $type === 'plugin' ) {
+            try {
+                if ( function_exists( 'activate_plugin' ) ) {
+                    $activate_result = activate_plugin( $plugin_slug );
+                    if ( is_wp_error( $activate_result ) ) {
+                        $response['activated'] = false;
+                        $response['error'] = $activate_result->get_error_message();
+                    } else {
+                        $response['activated'] = true;
+                    }
+                } else {
+                    $response['activated'] = false;
+                    $response['error'] = 'activate_plugin 함수를 사용할 수 없습니다.';
+                }
+            } catch ( Exception $e ) {
+                error_log( '[WP Bulk Manager] Auto-activation failed: ' . $e->getMessage() );
                 $response['activated'] = false;
-                $response['error'] = $activate_result->get_error_message();
-            } else {
-                $response['activated'] = true;
+                $response['error'] = $e->getMessage();
+            } catch ( Error $e ) {
+                error_log( '[WP Bulk Manager] Auto-activation fatal: ' . $e->getMessage() );
+                $response['activated'] = false;
+                $response['error'] = $e->getMessage();
             }
         }
 
