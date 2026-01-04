@@ -308,7 +308,26 @@ $text_transforms    = array('' => 'Default', 'none' => 'None', 'uppercase' => 'U
         $letter_spacing = $settings['letter_spacing'] ?? '';
         $text_transform = $settings['text_transform'] ?? '';
     ?>
-        <div class="jj-typography-row" data-type="<?php echo esc_attr( $tag ); ?>">
+        <div class="jj-typography-row jj-section-subsection" data-type="<?php echo esc_attr( $tag ); ?>" id="jj-typography-<?php echo esc_attr( $tag ); ?>">
+            <!-- [v22.4.7] 실시간 미리보기 추가 -->
+            <div class="jj-typography-preview" data-tag="<?php echo esc_attr( $tag ); ?>" style="margin-bottom: 20px; padding: 20px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 8px;">
+                <div class="jj-typography-preview-label"><?php echo esc_html( strtoupper( $tag ) ); ?> 미리보기</div>
+                <<?php echo esc_attr( $tag ); ?> style="margin: 0; font-family: <?php echo esc_attr( $font_family ?: 'inherit' ); ?>; font-weight: <?php echo esc_attr( $font_weight ); ?>; font-style: <?php echo esc_attr( $font_style ); ?>; line-height: <?php echo esc_attr( $line_height ?: '1.5' ); ?>; letter-spacing: <?php echo esc_attr( $letter_spacing ? $letter_spacing . 'px' : 'normal' ); ?>; font-size: <?php echo esc_attr( isset( $font_sizes['desktop'] ) && $font_sizes['desktop'] ? $font_sizes['desktop'] . 'px' : 'inherit' ); ?>; text-transform: <?php echo esc_attr( $text_transform ?: 'none' ); ?>;">
+                    <?php 
+                    $preview_texts = array(
+                        'h1' => '제목 1 스타일 미리보기',
+                        'h2' => '제목 2 스타일 미리보기',
+                        'h3' => '제목 3 스타일 미리보기',
+                        'h4' => '제목 4 스타일 미리보기',
+                        'h5' => '제목 5 스타일 미리보기',
+                        'h6' => '제목 6 스타일 미리보기',
+                        'p' => '본문 텍스트 스타일 미리보기입니다. 이 텍스트가 실제로 어떻게 보이는지 확인할 수 있습니다.',
+                    );
+                    echo esc_html( $preview_texts[ $tag ] ?? '미리보기 텍스트' );
+                    ?>
+                </<?php echo esc_attr( $tag ); ?>>
+            </div>
+            
             <div class="tag"><?php echo esc_html( strtoupper( $tag ) ); ?></div>
             
             <div class="controls jj-typography-controls">

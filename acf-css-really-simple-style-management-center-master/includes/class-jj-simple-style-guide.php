@@ -490,6 +490,23 @@ class JJ_Simple_Style_Guide {
             $js_version = $version . '.' . filemtime( $ui_system_js_path );
             wp_enqueue_script( 'jj-ui-system-2026-js', $ui_system_js_url, array( 'jquery' ), $js_version, true );
         }
+
+        // [v22.4.7] GUI 개선 CSS 및 JS
+        $gui_enhancements_css_url = defined( 'JJ_STYLE_GUIDE_URL' ) ? JJ_STYLE_GUIDE_URL . 'assets/css/jj-style-guide-gui-enhancements.css' : '';
+        $gui_enhancements_css_path = defined( 'JJ_STYLE_GUIDE_PATH' ) ? JJ_STYLE_GUIDE_PATH . 'assets/css/jj-style-guide-gui-enhancements.css' : '';
+
+        if ( file_exists( $gui_enhancements_css_path ) ) {
+            $css_version = $version . '.' . filemtime( $gui_enhancements_css_path );
+            wp_enqueue_style( 'jj-style-guide-gui-enhancements', $gui_enhancements_css_url, array( 'jj-ui-system-2026', 'jj-section-enhancements-2026' ), $css_version );
+        }
+
+        $gui_enhancements_js_url = defined( 'JJ_STYLE_GUIDE_URL' ) ? JJ_STYLE_GUIDE_URL . 'assets/js/jj-style-guide-gui-enhancements.js' : '';
+        $gui_enhancements_js_path = defined( 'JJ_STYLE_GUIDE_PATH' ) ? JJ_STYLE_GUIDE_PATH . 'assets/js/jj-style-guide-gui-enhancements.js' : '';
+
+        if ( file_exists( $gui_enhancements_js_path ) ) {
+            $js_version = $version . '.' . filemtime( $gui_enhancements_js_path );
+            wp_enqueue_script( 'jj-style-guide-gui-enhancements', $gui_enhancements_js_url, array( 'jquery', 'spectrum-colorpicker', 'jj-style-guide-editor' ), $js_version, true );
+        }
     }
 
     /**

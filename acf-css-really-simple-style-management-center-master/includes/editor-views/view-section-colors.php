@@ -114,8 +114,18 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
 
         <?php if ( $tab_enabled_brand ) : ?>
         <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'brand' ) ? 'is-active' : ''; ?>" data-tab-content="brand">
+            <!-- [v22.4.7] 퀵 네비게이션 (탭 내부 섹션 바로가기) -->
+            <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
+                <ul class="jj-tab-quick-nav-list">
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-palette-quickstart" class="jj-tab-quick-nav-link"><?php _e( '빠른 시작', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-palette-colors" class="jj-tab-quick-nav-link"><?php _e( '색상 설정', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-palette-apply" class="jj-tab-quick-nav-link"><?php _e( '일괄 적용', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                    <li class="jj-tab-quick-nav-item"><a href="#jj-palette-export" class="jj-tab-quick-nav-link"><?php _e( '내보내기/불러오기', 'acf-css-really-simple-style-management-center' ); ?></a></li>
+                </ul>
+            </div>
+            
             <?php if ( ! $version_features || $version_features->can_use_section_refresh() ) : ?>
-            <div class="jj-section-refresh-control" style="margin-bottom: 20px; padding: 15px; background: #f0f6fc; border: 1px solid #c3c4c7; border-radius: 4px;">
+            <div class="jj-section-refresh-control jj-section-subsection" id="jj-palette-refresh" style="margin-bottom: 20px; padding: 15px; background: #f0f6fc; border: 1px solid #c3c4c7; border-radius: 4px;">
                 <button type="button" class="button button-secondary jj-refresh-colors" data-palette-type="brand" style="margin-bottom: 8px;">
                     <span class="dashicons dashicons-update" style="margin-top: 4px;"></span>
                     <?php _e( '새로고침', 'acf-css-really-simple-style-management-center' ); ?>
@@ -128,6 +138,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
             <?php endif; ?>
 
             <!-- [UI/UX] 빠른 시작: 추천 팔레트 + 인라인 프리뷰 -->
+            <div class="jj-section-subsection" id="jj-palette-quickstart">
             <div class="jj-palette-quickstart">
                 <h3><?php _e( '빠른 시작: 추천 팔레트', 'acf-css-really-simple-style-management-center' ); ?></h3>
                 <p class="description" style="margin-top: 6px;">
@@ -158,7 +169,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 </div>
             </div>
 
-            <div class="jj-style-guide-grid jj-grid-4-col">
+            <div class="jj-style-guide-grid jj-grid-4-col jj-section-subsection" id="jj-palette-colors">
                 <div class="jj-control-group jj-color-card">
                     <label for="jj-brand-primary_color">Primary Color</label>
                     <input type="text" 
@@ -200,7 +211,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
                 </div>
             </div>
 
-            <div class="jj-fieldset-group jj-brand-palette-tools" style="margin-top: 24px;">
+            <div class="jj-fieldset-group jj-brand-palette-tools jj-section-subsection" id="jj-palette-apply" style="margin-top: 24px;">
                 <h3><?php _e( '브랜드 팔레트 일괄 적용', 'acf-css-really-simple-style-management-center' ); ?></h3>
                 <p class="description">
                     <?php _e( '아래 버튼을 사용하면 현재 설정된 브랜드 팔레트 값을 기반으로 버튼, 폼, 링크 색상을 한 번에 맞출 수 있습니다. 적용 후에도 세부 값은 개별 섹션에서 자유롭게 조정하실 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
@@ -212,7 +223,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
             </div>
 
             <?php if ( ! $version_features || $version_features->can_use_section_export_import() ) : ?>
-            <div class="jj-section-export-import-control" style="margin-top: 24px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px;">
+            <div class="jj-section-export-import-control jj-section-subsection" id="jj-palette-export" style="margin-top: 24px; padding: 15px; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px;">
                 <h3 style="margin-top: 0;"><?php _e( '브랜드 팔레트 내보내기/불러오기', 'acf-css-really-simple-style-management-center' ); ?></h3>
                 <p class="description" style="margin-bottom: 10px;">
                     <?php _e( '브랜드 팔레트 설정만 선택적으로 내보내거나 불러올 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>

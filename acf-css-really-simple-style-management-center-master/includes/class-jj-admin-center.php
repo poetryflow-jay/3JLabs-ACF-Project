@@ -617,12 +617,13 @@ final class JJ_Admin_Center {
         ) );
 
         // [v5.5.0] 서브: 실험실 센터 (Premium 이상)
+        // [v22.4.4] 페이지 경로 수정: options-general.php → admin.php (서브메뉴 구조 변경 반영)
         if ( class_exists( 'JJ_Edition_Controller' ) && JJ_Edition_Controller::instance()->is_at_least( 'basic' ) ) {
             $wp_admin_bar->add_node( array(
                 'id'     => 'jj-style-guide-labs',
                 'parent' => 'jj-style-guide',
                 'title'  => __( '실험실 센터 (Labs)', 'acf-css-really-simple-style-management-center' ),
-                'href'   => admin_url( 'options-general.php?page=jj-labs-center' ),
+                'href'   => admin_url( 'admin.php?page=jj-labs-center' ),
             ) );
         }
 
@@ -834,7 +835,8 @@ final class JJ_Admin_Center {
                     <?php if ( class_exists( 'JJ_Edition_Controller' ) && JJ_Edition_Controller::instance()->is_at_least( 'basic' ) ) : ?>
                     <li class="jj-sidebar-nav-divider" style="margin: 10px 0; border-top: 1px solid #333;"></li>
                     <li>
-                        <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-labs-center' ) ); ?>">
+                        <!-- [v22.4.4] 페이지 경로 수정: options-general.php → admin.php -->
+                        <a href="<?php echo esc_url( admin_url( 'admin.php?page=jj-labs-center' ) ); ?>">
                             <span class="dashicons dashicons-beaker"></span>
                             <?php esc_html_e( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
@@ -851,8 +853,9 @@ final class JJ_Admin_Center {
                            style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
                             <?php esc_html_e( '스타일 센터', 'acf-css-really-simple-style-management-center' ); ?>
                         </a>
-                    <a href="<?php echo esc_url( admin_url( 'options-general.php?page=jj-labs-center' ) ); ?>" 
-                       class="button button-secondary" 
+                    <!-- [v22.4.4] 페이지 경로 수정: options-general.php → admin.php -->
+                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=jj-labs-center' ) ); ?>"
+                       class="button button-secondary"
                        style="font-size: 13px; padding: 0 12px; height: 32px; line-height: 30px;">
                         <?php esc_html_e( 'ACF CSS 실험실 센터', 'acf-css-really-simple-style-management-center' ); ?>
                     </a>

@@ -1,0 +1,406 @@
+/**
+ * [v22.4.7] 스타일 센터 GUI 개선 - 실시간 미리보기, 퀵 네비게이션, 스크롤 최적화
+ * Phase 37.3: GUI 품질 개선
+ */
+
+/* ============================================
+   1. 탭 내부 퀵 네비게이션 (Quick Navigation)
+   ============================================ */
+.jj-tab-quick-nav {
+    position: sticky;
+    top: 32px; /* WordPress admin bar height */
+    z-index: 100;
+    background: #fff;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 12px 20px;
+    margin: -25px -25px 25px -25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.jj-tab-quick-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jj-tab-quick-nav-item {
+    margin: 0;
+}
+
+.jj-tab-quick-nav-link {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: #64748b;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.jj-tab-quick-nav-link:hover {
+    background: #f1f5f9;
+    color: #334155;
+    border-color: #cbd5e1;
+}
+
+.jj-tab-quick-nav-link.active {
+    background: #667eea;
+    color: #fff;
+    border-color: #667eea;
+    font-weight: 600;
+}
+
+/* ============================================
+   2. 실시간 미리보기 강화
+   ============================================ */
+
+/* 팔레트 미리보기 카드 */
+.jj-palette-inline-preview {
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.jj-prev-surface {
+    min-height: 200px;
+    padding: 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.jj-prev-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1e293b;
+}
+
+.jj-prev-desc {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    color: #475569;
+}
+
+.jj-prev-desc a {
+    text-decoration: underline;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.jj-prev-desc a:hover {
+    opacity: 0.8;
+}
+
+.jj-prev-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.jj-prev-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.jj-prev-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.jj-prev-btn.primary {
+    background: var(--jj-preview-primary-bg, #667eea);
+    color: var(--jj-preview-primary-text, #fff);
+}
+
+.jj-prev-btn.secondary {
+    background: var(--jj-preview-secondary-bg, #94a3b8);
+    color: var(--jj-preview-secondary-text, #fff);
+}
+
+.jj-prev-kv {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.jj-prev-kv span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.jj-prev-kv code {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: #1e293b;
+    margin-left: 4px;
+}
+
+/* 버튼 미리보기 */
+.jj-button-preview-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.jj-button-preview {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    padding: 30px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.jj-button-preview-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: default;
+}
+
+.jj-button-preview-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.jj-preview-primary {
+    background: var(--jj-btn-primary-bg, #667eea);
+    color: var(--jj-btn-primary-text, #fff);
+    border-color: var(--jj-btn-primary-border, #667eea);
+}
+
+.jj-preview-secondary {
+    background: var(--jj-btn-secondary-bg, #94a3b8);
+    color: var(--jj-btn-secondary-text, #fff);
+    border-color: var(--jj-btn-secondary-border, #94a3b8);
+}
+
+.jj-preview-text {
+    background: transparent;
+    color: var(--jj-btn-text-color, #667eea);
+    border: 2px solid var(--jj-btn-text-border, #667eea);
+}
+
+/* 타이포그래피 미리보기 */
+.jj-typography-preview {
+    position: sticky;
+    top: 100px;
+    padding: 30px;
+    background: #fff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    min-height: 300px;
+}
+
+.jj-typography-preview h1,
+.jj-typography-preview h2,
+.jj-typography-preview h3,
+.jj-typography-preview h4,
+.jj-typography-preview h5,
+.jj-typography-preview h6,
+.jj-typography-preview p {
+    margin: 0 0 16px 0;
+    transition: all 0.3s ease;
+}
+
+.jj-typography-preview-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+/* 색상 선택기 개선 */
+.jj-color-field-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.jj-color-field {
+    width: 100%;
+    padding-left: 50px !important;
+}
+
+.jj-color-preview {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: 2px solid #e2e8f0;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.jj-color-preview:hover {
+    border-color: #667eea;
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+
+/* Spectrum.js 커스터마이징 */
+.sp-container {
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e2e8f0;
+}
+
+.sp-picker-container {
+    border-radius: 8px;
+}
+
+/* ============================================
+   3. 스크롤 최적화 및 고정 네비게이션
+   ============================================ */
+
+.jj-section-anchor {
+    scroll-margin-top: 120px; /* 퀵 네비게이션 높이 + 여유 공간 */
+}
+
+.jj-section-subsection {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.jj-section-subsection:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.jj-section-subsection-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.jj-section-subsection-title::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: #667eea;
+    border-radius: 2px;
+}
+
+/* ============================================
+   4. 반응형 디자인
+   ============================================ */
+
+@media screen and (max-width: 1024px) {
+    .jj-button-preview-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .jj-button-preview,
+    .jj-typography-preview {
+        position: relative;
+        top: 0;
+    }
+    
+    .jj-tab-quick-nav {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .jj-tab-quick-nav-list {
+        flex-direction: column;
+    }
+    
+    .jj-tab-quick-nav-link {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .jj-prev-actions {
+        flex-direction: column;
+    }
+    
+    .jj-prev-btn {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   5. 애니메이션 및 전환 효과
+   ============================================ */
+
+.jj-section-wrapper {
+    scroll-behavior: smooth;
+}
+
+.jj-tab-content {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 스크롤 인디케이터 */
+.jj-scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #e2e8f0;
+    z-index: 9999;
+}
+
+.jj-scroll-indicator-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    transition: width 0.1s ease;
+}

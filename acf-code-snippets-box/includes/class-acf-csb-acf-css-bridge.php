@@ -165,12 +165,18 @@ class ACF_CSB_ACF_CSS_Bridge {
 
     /**
      * ACF CSS 스타일 가이드 URL 가져오기
+     *
+     * @since 2.3.0
+     * @since 2.3.1 페이지 슬러그 수정 (jj-style-center → jj-style-guide-cockpit)
+     *
+     * @return string 스타일 가이드 관리 페이지 URL (비활성화 시 빈 문자열)
      */
     public function get_style_guide_url() {
         if ( ! ACF_Code_Snippets_Box::is_acf_css_active() ) {
             return '';
         }
 
-        return admin_url( 'admin.php?page=jj-style-center' );
+        // [v2.3.1] 올바른 페이지 슬러그 사용
+        return admin_url( 'admin.php?page=jj-style-guide-cockpit' );
     }
 }

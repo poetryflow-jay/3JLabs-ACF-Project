@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.4.6-master
+ * Version:           22.4.8-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.4.6-master' ); // [v22.4.6] 활성화 오류 수정 - ajax_handle_activate 메서드 구현 추가
+define( 'WP_BULK_MANAGER_VERSION', '22.4.8-master' ); // [v22.4.8] 플러그인 목록 링크 정렬 개선 - 인라인 스타일 및 이모지 제거
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -104,27 +104,63 @@ class JJ_Bulk_Installer {
     }
     
     /**
-     * [Phase 19.1] 기본 플러그인 액션 링크 (ACF CSS Manager가 없을 경우)
+     * 플러그인 액션 링크 추가
+     *
+     * 플러그인 목록 페이지에서 '활성화/비활성화' 옆에 표시되는 링크입니다.
+     * WordPress 표준 스타일을 따르며, 다른 플러그인과 일관된 정렬을 유지합니다.
+     *
+     * @since 19.1
+     * @since 22.4.7 링크 정렬 개선 - 인라인 스타일 최소화
+     * @since 22.4.8 링크 URL 수정 - 메인 메뉴 페이지로 연결
+     *
+     * @param array $links 기존 액션 링크 배열
+     * @return array 수정된 액션 링크 배열
      */
     public function add_plugin_action_links( $links ) {
         $new_links = array();
-        $new_links['settings'] = '<a href="' . esc_url( admin_url( 'tools.php?page=jj-bulk-installer' ) ) . '" style="font-weight: 800; color: #2271b1; text-decoration: none;">⚙️ <strong>' . __( '설정 열기', 'wp-bulk-manager' ) . '</strong></a>';
+        // [v22.4.8] 메인 관리 페이지로 연결
+        $new_links['settings'] = sprintf(
+            '<a href="%s">%s</a>',
+            esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '-main' ) ),
+            esc_html__( '설정', 'wp-bulk-manager' )
+        );
         return array_merge( $new_links, $links );
     }
-    
+
     /**
-     * [Phase 19.1] 기본 플러그인 행 메타 (ACF CSS Manager가 없을 경우)
+     * 플러그인 행 메타 링크 추가
+     *
+     * 플러그인 목록 페이지에서 설명 아래 표시되는 부가 링크입니다.
+     * WordPress 표준 스타일을 따르며, 다른 플러그인과 일관된 정렬을 유지합니다.
+     *
+     * @since 19.1
+     * @since 22.4.4 줄바꿈 방지 스타일 추가
+     * @since 22.4.8 세로 정렬 문제 해결 - 인라인 스타일 및 이모지 제거
+     *
+     * @param array  $plugin_meta 기존 메타 링크 배열
+     * @param string $plugin_file 플러그인 파일 경로
+     * @return array 수정된 메타 링크 배열
      */
     public function add_plugin_row_meta( $plugin_meta, $plugin_file ) {
         if ( $plugin_file !== plugin_basename( __FILE__ ) ) {
             return $plugin_meta;
         }
-        
-        // [v22.4.4] 링크 텍스트가 줄바꿈되지 않도록 스타일 개선 (white-space: nowrap, display: inline-block)
-        $new_meta = array();
-        $new_meta[] = '<a href="' . esc_url( 'https://3j-labs.com' ) . '" target="_blank" rel="noopener noreferrer" style="color: #2271b1; font-weight: 600; white-space: nowrap; display: inline-block;">🌐 ' . esc_html__( '공식 사이트', 'wp-bulk-manager' ) . '</a>';
-        $new_meta[] = '<a href="' . esc_url( admin_url( 'tools.php?page=jj-bulk-installer' ) ) . '" style="color: #135e96; font-weight: 600; white-space: nowrap; display: inline-block;">📚 ' . esc_html__( '문서', 'wp-bulk-manager' ) . '</a>';
-        
+
+        // [v22.4.8] WordPress 표준 스타일 준수 - 인라인 스타일 및 이모지 제거
+        // 이모지와 인라인 스타일이 세로 정렬 문제를 일으킴
+        $new_meta = array(
+            sprintf(
+                '<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>',
+                esc_url( 'https://3j-labs.com' ),
+                esc_html__( '공식 사이트', 'wp-bulk-manager' )
+            ),
+            sprintf(
+                '<a href="%s">%s</a>',
+                esc_url( admin_url( 'admin.php?page=' . $this->page_slug . '-main' ) ),
+                esc_html__( '문서', 'wp-bulk-manager' )
+            ),
+        );
+
         return array_merge( $plugin_meta, $new_meta );
     }
 
@@ -133,9 +169,11 @@ class JJ_Bulk_Installer {
      * - 에메랄드 그린 배경색 (#10b981)
      * - 볼드 텍스트
      * - 호버 시 더 진한 색상
+     * [v22.4.7] 플러그인 목록 액션 링크 정렬 개선 추가
      */
     public function add_menu_highlight_styles() {
         $menu_slug = $this->page_slug . '-main';
+        $plugin_basename = plugin_basename( __FILE__ );
         ?>
         <style>
             /* WP Bulk Manager 메뉴 강조 - 에메랄드 그린 */
@@ -157,6 +195,30 @@ class JJ_Bulk_Installer {
             #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"] > a .wp-menu-image:before,
             #adminmenu li.toplevel_page_<?php echo esc_attr( $menu_slug ); ?> > a .wp-menu-image:before {
                 color: #fff !important;
+            }
+            
+            /* [v22.4.7] 플러그인 목록 액션 링크 정렬 개선 */
+            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .row-actions {
+                position: relative !important;
+                visibility: visible !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                line-height: 1.5 !important;
+            }
+            
+            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .row-actions span {
+                display: inline !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .row-actions a {
+                display: inline !important;
+                white-space: nowrap !important;
+                vertical-align: baseline !important;
+                line-height: 1.5 !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
             /* 현재 선택된 상태 */
             #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"].current > a,
