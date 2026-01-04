@@ -3,7 +3,7 @@
  * Plugin Name:       3J Labs Marketing Automation Dashboard
  * Plugin URI:        https://3j-labs.com
  * Description:       3J Labs 플러그인 패밀리의 종합 마케팅 자동화 대시보드입니다. 모든 플러그인의 사용 데이터를 통합 분석하고, SEO 최적화, 캠페 추적, 마케팅 성과 측정을 제공합니다. Google Analytics, Search Console, 소셜 미디어 통합을 지원합니다.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'JJ_MARKETING_DASHBOARD_VERSION', '1.0.0' );
+define( 'JJ_MARKETING_DASHBOARD_VERSION', '1.0.1' ); // [v1.0.1] 누락된 파일 추가 - class-jj-campaign-tracker.php 등
 define( 'JJ_MARKETING_DASHBOARD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'JJ_MARKETING_DASHBOARD_URL', plugin_dir_url( __FILE__ ) );
 define( 'JJ_MARKETING_DASHBOARD_BASENAME', plugin_basename( __FILE__ ) );
@@ -55,6 +55,14 @@ final class JJ_Marketing_Dashboard {
         require_once JJ_MARKETING_DASHBOARD_PATH . 'includes/class-jj-campaign-tracker.php';
         require_once JJ_MARKETING_DASHBOARD_PATH . 'includes/class-jj-dashboard-admin.php';
         require_once JJ_MARKETING_DASHBOARD_PATH . 'includes/class-jj-integration-manager.php';
+        
+        // 클래스 인스턴스 초기화
+        if ( class_exists( 'JJ_Campaign_Tracker' ) ) {
+            new JJ_Campaign_Tracker();
+        }
+        if ( class_exists( 'JJ_Integration_Manager' ) ) {
+            new JJ_Integration_Manager();
+        }
     }
 
     private function init_hooks() {

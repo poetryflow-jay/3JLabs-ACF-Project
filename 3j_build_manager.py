@@ -16,8 +16,8 @@ Features:
 - 외부 대시보드 연동 및 업데이트
 
 @author: 3J Labs (Jay & Jason & Jenny)
-@version: 22.4.0 (Phase 37: Security & UX Enhancement)
-@date: 2026-01-03
+@version: 22.4.1 (Phase 39.3: Package Signature Generation)
+@date: 2026-01-04
 """
 
 import tkinter as tk
@@ -398,10 +398,22 @@ class BuildEngine:
                     if item.is_file():
                         arcname = Path(output_folder_name) / item.relative_to(output_dir)
                         zipf.write(item, arcname)
-            
+
+            # [v22.4.1] 패키지 서명 생성 및 저장
+            sig_info = generate_package_signature(zip_path)
+            if sig_info:
+                sig_info['plugin_id'] = plugin['id']
+                sig_info['edition'] = edition
+                sig_info['version'] = version
+                save_package_signatures(
+                    Path(self.config['output_dir']),
+                    {zip_filename: sig_info}
+                )
+                self.log(f"   SIG: {zip_filename} signature generated")
+
             # 빌드 후 폴더 삭제 (ZIP만 유지)
             shutil.rmtree(output_dir)
-            
+
             self.log(f"   ZIP: {edition.upper()}: {file_count} files -> {zip_filename}")
             return True
             
