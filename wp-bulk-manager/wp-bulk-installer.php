@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.5.0-master
+ * Version:           22.5.1-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.5.0-master' ); // [v22.5.0] 버전 업데이트 - 모든 플러그인 재빌드
+define( 'WP_BULK_MANAGER_VERSION', '22.5.1-master' ); // [v22.5.1] 플러그인 목록 액션 링크 복구 - CSS 보수적 수정
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -206,60 +206,23 @@ class JJ_Bulk_Installer {
                 color: #fff !important;
             }
             
-            /* [v22.4.9] 플러그인 목록 액션 링크 정렬 개선 - 행갈이 방지 */
-            /* 플러그인 이름과 액션 링크가 같은 행에 표시되도록 */
+            /* [v22.5.1] 플러그인 목록 액션 링크 정렬 개선 - 행갈이 방지 (보수적 접근) */
+            /* 기본 WordPress 액션 링크(비활성화, 롤백, 설정 등)를 보존하면서 행갈이만 방지 */
             .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-title {
-                white-space: nowrap !important;
-                overflow: visible !important;
+                white-space: nowrap;
+                overflow: visible;
             }
             
-            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-title strong {
-                display: inline !important;
-                margin-right: 8px !important;
-                white-space: nowrap !important;
-            }
-            
+            /* 플러그인 이름과 액션 링크가 같은 행에 표시되도록 (기본 WordPress 스타일 유지) */
             .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-title .row-actions {
-                display: inline !important;
-                position: relative !important;
                 visibility: visible !important;
-                margin: 0 0 0 8px !important;
-                padding: 0 !important;
-                line-height: 1.5 !important;
-                white-space: nowrap !important;
-                float: none !important;
-            }
-            
-            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-title .row-actions span {
                 display: inline !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                white-space: nowrap !important;
-            }
-            
-            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-title .row-actions a {
-                display: inline !important;
-                white-space: nowrap !important;
-                vertical-align: baseline !important;
-                line-height: 1.5 !important;
-                margin: 0 !important;
-                padding: 0 !important;
+                white-space: nowrap;
             }
             
             /* 플러그인 설명 아래의 메타 링크 (plugin_row_meta) - 행갈이 방지 */
-            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-description {
-                white-space: normal !important;
-            }
-            
-            .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-description p {
-                display: inline !important;
-                margin: 0 !important;
-                white-space: normal !important;
-            }
-            
             .wp-list-table.plugins tr[data-plugin="<?php echo esc_attr( $plugin_basename ); ?>"] .plugin-description p a {
-                display: inline !important;
-                white-space: nowrap !important;
+                white-space: nowrap;
             }
             /* 현재 선택된 상태 */
             #adminmenu li.menu-top[class*="<?php echo esc_attr( $menu_slug ); ?>"].current > a,

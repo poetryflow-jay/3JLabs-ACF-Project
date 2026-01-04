@@ -31,6 +31,8 @@ import json
 import shutil
 import zipfile
 import re
+import hashlib
+import hmac
 from pathlib import Path
 
 # pywin32는 선택적 (없으면 숏컷 기능 비활성화)
@@ -52,10 +54,71 @@ BUILDS_DIR = BASE_DIR / "builds"
 EXCLUDE_PATTERNS = [
     r'^\.git', r'^\.vscode', r'^\.idea', r'__pycache__', r'\.DS_Store$',
     r'^tests', r'^phpunit\.xml', r'^composer\.json', r'node_modules',
-    r'^package\.json', r'^package-lock\.json', r'^gulpfile\.js', 
+    r'^package\.json', r'^package-lock\.json', r'^gulpfile\.js',
     r'^\.editorconfig', r'\.bak$', r'^\.env', r'Thumbs\.db$',
     r'local-server/venv', r'^README\.md$', r'^CHANGELOG\.md$'
 ]
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# [v22.4.1] 패키지 서명 (Package Signature) - 업데이트 하이재킹 방지
+# ═══════════════════════════════════════════════════════════════════════════════
+SIGNATURE_SECRET_KEY = "JJ3LABS_UPDATE_SECRET_KEY_2026"  # 서버와 동일한 키
+SIGNATURES_FILE = "package_signatures.json"
+
+def generate_package_signature(zip_path):
+    """
+    ZIP 파일의 HMAC-SHA256 서명 생성
+
+    이 서명은 Neural Link의 verify_package_signature() 메서드와 호환됩니다.
+    업데이트 패키지의 무결성을 검증하는 데 사용됩니다.
+    """
+    try:
+        with open(zip_path, 'rb') as f:
+            file_content = f.read()
+
+        # HMAC-SHA256 서명 생성
+        signature = hmac.new(
+            SIGNATURE_SECRET_KEY.encode('utf-8'),
+            file_content,
+            hashlib.sha256
+        ).hexdigest()
+
+        # MD5 체크섬도 함께 저장 (추가 검증용)
+        md5_hash = hashlib.md5(file_content).hexdigest()
+
+        return {
+            'signature': signature,
+            'md5': md5_hash,
+            'size': len(file_content),
+            'generated_at': datetime.datetime.now().isoformat()
+        }
+    except Exception as e:
+        print(f"Error generating signature: {e}")
+        return None
+
+def save_package_signatures(output_dir, signatures):
+    """패키지 서명을 JSON 파일로 저장"""
+    signatures_path = Path(output_dir) / SIGNATURES_FILE
+    try:
+        # 기존 서명 파일 로드
+        existing = {}
+        if signatures_path.exists():
+            with open(signatures_path, 'r', encoding='utf-8') as f:
+                existing = json.load(f)
+
+        # 새 서명 병합
+        existing.update(signatures)
+        existing['_updated_at'] = datetime.datetime.now().isoformat()
+        existing['_version'] = '1.0.0'
+
+        # 저장
+        with open(signatures_path, 'w', encoding='utf-8') as f:
+            json.dump(existing, f, indent=2, ensure_ascii=False)
+
+        return True
+    except Exception as e:
+        print(f"Error saving signatures: {e}")
+        return False
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 플러그인 정보 (Plugin Registry)
