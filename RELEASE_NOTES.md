@@ -24,6 +24,26 @@
 
 ### 버전 업데이트
 - WP Bulk Manager: v22.4.2-master → **v22.4.3-master**
+- ACF CSS Neural Link: v6.3.0 → **v6.3.1**
+
+---
+
+## 🐛 긴급 수정 (v6.3.1)
+
+### Neural Link 클래스 중복 선언 오류 수정
+- ✅ **class-jj-license-validator.php 클래스 중복 선언 제거**:
+  - 첫 번째 클래스 선언 (static 메서드) 제거
+  - 두 번째 클래스 선언 (인스턴스 메서드) 유지 및 `class_exists` 체크 추가
+  - 첫 번째 클래스의 `validate_format` 메서드를 두 번째 클래스에 통합
+  - 변조 감지 로직 통합
+- ✅ **verify() 메서드 개선**:
+  - 라이센스 키 형식 검증 추가
+  - 변조 감지 로직 추가
+  - 안전한 메서드 호출 (class_exists, method_exists 체크)
+- ✅ **E_COMPILE_ERROR 완전 해결**: 클래스 중복 선언으로 인한 심각한 오류 방지
+
+### 버전 업데이트
+- ACF CSS Neural Link: v6.3.0 → **v6.3.1**
 
 ---
 
