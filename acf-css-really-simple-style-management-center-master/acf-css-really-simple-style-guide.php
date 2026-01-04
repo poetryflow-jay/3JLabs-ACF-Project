@@ -240,9 +240,21 @@ add_action( 'init', function() {
     );
 }, 1 ); 
 
+// [v23.0.0] 필수 플러그인 관리자 로드 (TGMPA)
+$jj_safe_require( JJ_STYLE_GUIDE_PATH . 'includes/class-jj-required-plugins.php', false );
+
 // [v20.2.2] 모든 클래스 초기화 시점을 init(10)으로 늦춤 (번역 로딩 후 실행되도록)
 add_action( 'init', function() {
     global $jj_style_guide, $admin_center, $live_page;
+    
+    // 필수 플러그인 관리자 초기화
+    if ( class_exists( 'JJ_Required_Plugins' ) ) {
+        try {
+            JJ_Required_Plugins::instance();
+        } catch ( Exception $e ) {
+            if ( function_exists( 'error_log' ) ) error_log( 'JJ Required Plugins Init Failed: ' . $e->getMessage() );
+        }
+    }
 
     // 1. 메인 클래스 초기화
     if ( class_exists( 'JJ_Simple_Style_Guide' ) ) {
