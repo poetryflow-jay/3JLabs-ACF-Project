@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v2.1.2] 플러그인 버전별 자동 업데이트 제어 기능 추가, dev 버전과의 호환성 개선
 // [v2.1.3] 플러그인 폴더명 및 슬러그 업데이트
 // [v2.1.4] Pro 버전 원격 활성화 시스템 지원
-define( 'JJ_NEURAL_LINK_VERSION', '6.3.1' ); // [v6.3.1] Phase 37.1 Hotfix: 클래스 중복 선언 오류 수정
+define( 'JJ_NEURAL_LINK_VERSION', '6.3.2' ); // [v6.3.2] class-jj-license-validator.php 중괄호 닫기 오류 수정
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
 if ( ! defined( 'JJ_NEURAL_LINK_PATH' ) ) {

@@ -34,6 +34,15 @@ class JJ_Bulk_Installer {
     }
 
     private function __construct() {
+        // [v22.4.8] Load shared utilities from shared-ui-assets
+        $shared_loader = dirname( plugin_dir_path( __FILE__ ) ) . '/shared-ui-assets/php/class-jj-shared-loader.php';
+        if ( file_exists( $shared_loader ) ) {
+            require_once $shared_loader;
+            if ( class_exists( 'JJ_Shared_Loader' ) ) {
+                JJ_Shared_Loader::load_all();
+            }
+        }
+
         // Load HMAC Auth class
         $hmac_file = plugin_dir_path( __FILE__ ) . 'includes/class-jj-bulk-hmac-auth.php';
         if ( file_exists( $hmac_file ) ) {
@@ -1430,20 +1439,28 @@ class JJ_Bulk_Installer {
     // 1. 파일 업로드 핸들러
     // [v22.4.2] Phase 37.1 Hotfix: 전면적인 오류 처리 강화
     public function ajax_handle_upload() {
-        try {
-            check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        } catch ( Exception $e ) {
-            error_log( '[WP Bulk Manager] Upload nonce verification failed: ' . $e->getMessage() );
-            wp_send_json_error( '보안 검증 실패' );
-        } catch ( Error $e ) {
-            error_log( '[WP Bulk Manager] Upload nonce verification fatal: ' . $e->getMessage() );
-            wp_send_json_error( '보안 검증 실패' );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_request( 'jj_bulk_install', 'nonce', 'install_plugins' ) ) {
+                return;
+            }
+        } else {
+            // 폴백: 기존 방식
+            try {
+                check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            } catch ( Exception $e ) {
+                error_log( '[WP Bulk Manager] Upload nonce verification failed: ' . $e->getMessage() );
+                wp_send_json_error( '보안 검증 실패' );
+            } catch ( Error $e ) {
+                error_log( '[WP Bulk Manager] Upload nonce verification fatal: ' . $e->getMessage() );
+                wp_send_json_error( '보안 검증 실패' );
+            }
+            if ( ! current_user_can( 'install_plugins' ) ) {
+                wp_send_json_error( '권한이 없습니다.' );
+            }
         }
-        
-        if ( ! current_user_can( 'install_plugins' ) ) {
-            wp_send_json_error( '권한이 없습니다.' );
-        }
-        
+
         if ( empty( $_FILES['file'] ) ) {
             wp_send_json_error( '파일이 전송되지 않았습니다.' );
         }
@@ -1532,19 +1549,30 @@ class JJ_Bulk_Installer {
     // 2. 설치 핸들러
     // [v22.4.2] Phase 37.1 Hotfix: 전면적인 오류 처리 강화
     public function ajax_handle_install() {
-        try {
-            check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        } catch ( Exception $e ) {
-            error_log( '[WP Bulk Manager] Nonce verification failed: ' . $e->getMessage() );
-            wp_send_json_error( '보안 검증 실패' );
-        } catch ( Error $e ) {
-            error_log( '[WP Bulk Manager] Nonce verification fatal: ' . $e->getMessage() );
-            wp_send_json_error( '보안 검증 실패' );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_request( 'jj_bulk_install', 'nonce', 'install_plugins' ) ) {
+                return;
+            }
+            $file_path     = $ajax->get_post_param( 'path', '' );
+            $type          = $ajax->get_post_param( 'type', 'plugin' );
+            $auto_activate = 'true' === $ajax->get_post_param( 'activate', 'false' );
+        } else {
+            // 폴백: 기존 방식
+            try {
+                check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            } catch ( Exception $e ) {
+                error_log( '[WP Bulk Manager] Nonce verification failed: ' . $e->getMessage() );
+                wp_send_json_error( '보안 검증 실패' );
+            } catch ( Error $e ) {
+                error_log( '[WP Bulk Manager] Nonce verification fatal: ' . $e->getMessage() );
+                wp_send_json_error( '보안 검증 실패' );
+            }
+            $file_path     = isset( $_POST['path'] ) ? sanitize_text_field( $_POST['path'] ) : '';
+            $type          = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'plugin';
+            $auto_activate = isset( $_POST['activate'] ) && 'true' === $_POST['activate'];
         }
-        
-        $file_path = isset( $_POST['path'] ) ? sanitize_text_field( $_POST['path'] ) : '';
-        $type = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'plugin';
-        $auto_activate = isset( $_POST['activate'] ) && 'true' === $_POST['activate'];
 
         if ( empty( $file_path ) ) {
             wp_send_json_error( '파일 경로가 제공되지 않았습니다.' );
@@ -2306,21 +2334,29 @@ class JJ_Bulk_Installer {
      * 설치된 플러그인을 활성화하는 기능
      */
     public function ajax_handle_activate() {
-        try {
-            check_ajax_referer( 'jj_bulk_install', 'nonce' );
-        } catch ( Exception $e ) {
-            error_log( '[WP Bulk Manager] Activate nonce verification failed: ' . $e->getMessage() );
-            wp_send_json_error( '보안 검증 실패' );
-        } catch ( Error $e ) {
-            error_log( '[WP Bulk Manager] Activate nonce verification fatal: ' . $e->getMessage() );
-            wp_send_json_error( '보안 검증 실패' );
+        // [v22.4.9] JJ_Ajax_Helper 사용으로 보안 검증 코드 간소화
+        if ( class_exists( 'JJ_Ajax_Helper' ) ) {
+            $ajax = JJ_Ajax_Helper::instance()->set_log_prefix( '[WP Bulk Manager]' );
+            if ( ! $ajax->verify_request( 'jj_bulk_install', 'nonce', 'activate_plugins' ) ) {
+                return;
+            }
+            $slug = $ajax->get_post_param( 'slug', '' );
+        } else {
+            // 폴백: 기존 방식
+            try {
+                check_ajax_referer( 'jj_bulk_install', 'nonce' );
+            } catch ( Exception $e ) {
+                error_log( '[WP Bulk Manager] Activate nonce verification failed: ' . $e->getMessage() );
+                wp_send_json_error( '보안 검증 실패' );
+            } catch ( Error $e ) {
+                error_log( '[WP Bulk Manager] Activate nonce verification fatal: ' . $e->getMessage() );
+                wp_send_json_error( '보안 검증 실패' );
+            }
+            if ( ! current_user_can( 'activate_plugins' ) ) {
+                wp_send_json_error( '권한이 없습니다. (activate_plugins 필요)' );
+            }
+            $slug = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
         }
-
-        if ( ! current_user_can( 'activate_plugins' ) ) {
-            wp_send_json_error( '권한이 없습니다. (activate_plugins 필요)' );
-        }
-
-        $slug = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
 
         if ( empty( $slug ) ) {
             wp_send_json_error( '플러그인 슬러그가 제공되지 않았습니다.' );

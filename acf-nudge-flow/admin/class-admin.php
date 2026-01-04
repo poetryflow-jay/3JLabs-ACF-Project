@@ -261,7 +261,7 @@ class ACF_Nudge_Flow_Admin {
         // 최상위 메뉴 (마케팅 메뉴 하위로 배치 시도)
         add_menu_page(
             __( '넛지 플로우', 'acf-nudge-flow' ),
-            __( '🚀 넛지 플로우', 'acf-nudge-flow' ),
+            __( '넛지 플로우 🚀', 'acf-nudge-flow' ),
             $capability,
             'acf-nudge-flow',
             array( $this, 'render_dashboard' ),
