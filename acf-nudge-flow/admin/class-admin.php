@@ -30,8 +30,23 @@ class ACF_Nudge_Flow_Admin {
         // [v22.3.1] Chart.js and dashboard assets
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_dashboard_assets' ) );
         
+        // [v22.4.6] 초기화 시 프리셋 템플릿 생성 (admin_init에서 호출)
+        add_action( 'admin_init', array( $this, 'maybe_ensure_preset_templates' ) );
+        
         // 빌더 UI 템플릿 출력
         add_action( 'admin_footer', array( $this, 'output_builder_templates' ) );
+    }
+    
+    /**
+     * [v22.4.6] 프리셋 템플릿 자동 생성 (admin_init 훅)
+     */
+    public function maybe_ensure_preset_templates() {
+        // 넛지 템플릿 페이지에서만 실행
+        if ( ! isset( $_GET['page'] ) || $_GET['page'] !== 'acf-nudge-templates' ) {
+            return;
+        }
+        
+        $this->ensure_preset_templates_internal();
     }
     
     /**
@@ -254,30 +269,30 @@ class ACF_Nudge_Flow_Admin {
 
     /**
      * 관리자 메뉴 추가
-     * [v21.0.0] WooCommerce '마케팅' 메뉴 하위 배치 및 서브메뉴 구조화
+     * [v22.4.6] 대시보드를 첫 화면으로 설정, 메뉴 순서 수정
      */
     public function add_admin_menu() {
         $parent_slug = 'woocommerce-marketing'; // WooCommerce 마케팅 메뉴 슬러그
         $capability  = 'manage_options';
 
-        // 최상위 메뉴 (마케팅 메뉴 하위로 배치 시도)
+        // 최상위 메뉴 - 대시보드를 기본 화면으로 설정
         add_menu_page(
             __( '넛지 플로우', 'acf-nudge-flow' ),
             __( '넛지 플로우 🚀', 'acf-nudge-flow' ),
             $capability,
             'acf-nudge-flow',
-            array( $this, 'render_dashboard' ),
+            array( $this, 'render_dashboard' ), // [v22.4.6] 대시보드를 첫 화면으로
             'dashicons-chart-area',
             58 // WooCommerce Marketing (58) 인근
         );
 
-        // (1) 대시보드
+        // (1) 대시보드 - 첫 번째 서브메뉴 (WordPress가 자동으로 메인 메뉴와 같은 슬러그로 처리)
         add_submenu_page(
             'acf-nudge-flow',
             __( '대시보드', 'acf-nudge-flow' ),
             __( '📊 대시보드', 'acf-nudge-flow' ),
             $capability,
-            'acf-nudge-flow',
+            'acf-nudge-flow', // [v22.4.6] 메인 메뉴와 동일한 슬러그로 첫 화면 보장
             array( $this, 'render_dashboard' )
         );
 
@@ -291,7 +306,17 @@ class ACF_Nudge_Flow_Admin {
             array( $this, 'render_workflows' )
         );
 
-        // (3) 분석
+        // (3) 넛지 템플릿 - 프리셋 템플릿 관리
+        add_submenu_page(
+            'acf-nudge-flow',
+            __( '넛지 템플릿', 'acf-nudge-flow' ),
+            __( '📋 넛지 템플릿', 'acf-nudge-flow' ),
+            $capability,
+            'acf-nudge-templates',
+            array( $this, 'render_nudge_templates' ) // [v22.4.6] 프리셋 템플릿 페이지
+        );
+
+        // (4) 분석
         add_submenu_page(
             'acf-nudge-flow',
             __( '분석', 'acf-nudge-flow' ),
@@ -301,17 +326,17 @@ class ACF_Nudge_Flow_Admin {
             array( $this, 'render_analytics' )
         );
 
-        // (4) 템플릿 센터 (전략적 프리셋)
+        // (5) 템플릿 센터 (전략적 프리셋)
         add_submenu_page(
             'acf-nudge-flow',
             __( '템플릿 센터', 'acf-nudge-flow' ),
             __( '🎁 템플릿 센터', 'acf-nudge-flow' ),
             $capability,
-            'acf-nudge-templates',
+            'acf-nudge-template-center',
             array( $this, 'render_template_center' )
         );
 
-        // (5) 설정
+        // (6) 설정
         add_submenu_page(
             'acf-nudge-flow',
             __( '설정', 'acf-nudge-flow' ),
@@ -607,31 +632,68 @@ class ACF_Nudge_Flow_Admin {
                 <div class="acf-nudge-quick-actions">
                     <h2><?php esc_html_e( '빠른 시작', 'acf-nudge-flow' ); ?></h2>
                     <div class="quick-action-cards">
-                        <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-builder&template=welcome_popup' ); ?>" class="quick-action-card">
+                        <a href="#" class="quick-action-card" data-preset="welcome_curation" onclick="return acfNudgeInstallPreset('welcome_curation', this);">
                             <span class="icon">👋</span>
                             <span class="title"><?php esc_html_e( '환영 팝업', 'acf-nudge-flow' ); ?></span>
                             <span class="desc"><?php esc_html_e( '첫 방문자에게 환영 메시지', 'acf-nudge-flow' ); ?></span>
                         </a>
                         
-                        <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-builder&template=exit_intent' ); ?>" class="quick-action-card">
+                        <a href="#" class="quick-action-card" data-preset="cart_recovery" onclick="return acfNudgeInstallPreset('cart_recovery', this);">
                             <span class="icon">🚪</span>
                             <span class="title"><?php esc_html_e( '이탈 방지 팝업', 'acf-nudge-flow' ); ?></span>
                             <span class="desc"><?php esc_html_e( '이탈 시 할인 제안', 'acf-nudge-flow' ); ?></span>
                         </a>
                         
-                        <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-builder&template=newsletter' ); ?>" class="quick-action-card">
+                        <a href="#" class="quick-action-card" data-preset="signup_nudge" onclick="return acfNudgeInstallPreset('signup_nudge', this);">
                             <span class="icon">📧</span>
                             <span class="title"><?php esc_html_e( '뉴스레터 구독', 'acf-nudge-flow' ); ?></span>
                             <span class="desc"><?php esc_html_e( '이메일 수집 팝업', 'acf-nudge-flow' ); ?></span>
                         </a>
                         
-                        <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-builder&template=cart_reminder' ); ?>" class="quick-action-card">
+                        <a href="#" class="quick-action-card" data-preset="cart_recovery" onclick="return acfNudgeInstallPreset('cart_recovery', this);">
                             <span class="icon">🛒</span>
                             <span class="title"><?php esc_html_e( '장바구니 리마인더', 'acf-nudge-flow' ); ?></span>
                             <span class="desc"><?php esc_html_e( '장바구니 이탈 고객 유도', 'acf-nudge-flow' ); ?></span>
                         </a>
                     </div>
                 </div>
+                
+                <script>
+                // [v22.4.6] 빠른 시작 카드 클릭 핸들러
+                function acfNudgeInstallPreset(presetId, element) {
+                    var $card = jQuery(element).closest('.quick-action-card');
+                    var originalText = $card.find('.title').text();
+                    
+                    $card.css('opacity', '0.6').find('.title').text('<?php echo esc_js( __( '설치 중...', 'acf-nudge-flow' ) ); ?>');
+                    
+                    jQuery.ajax({
+                        url: ajaxurl,
+                        type: 'POST',
+                        data: {
+                            action: 'jj_install_nudge_preset',
+                            preset_id: presetId,
+                            nonce: '<?php echo wp_create_nonce( "acf_nudge_flow_nonce" ); ?>'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                $card.css('opacity', '1').find('.title').text('<?php echo esc_js( __( '설치 완료!', 'acf-nudge-flow' ) ); ?>');
+                                setTimeout(function() {
+                                    window.location.href = '<?php echo admin_url( "admin.php?page=acf-nudge-flow-workflows" ); ?>';
+                                }, 1000);
+                            } else {
+                                alert('오류: ' + (response.data || '<?php echo esc_js( __( "설치 실패", "acf-nudge-flow" ) ); ?>'));
+                                $card.css('opacity', '1').find('.title').text(originalText);
+                            }
+                        },
+                        error: function() {
+                            alert('<?php echo esc_js( __( "서버 통신 오류가 발생했습니다.", "acf-nudge-flow" ) ); ?>');
+                            $card.css('opacity', '1').find('.title').text(originalText);
+                        }
+                    });
+                    
+                    return false;
+                }
+                </script>
             </div>
         </div>
         
@@ -772,27 +834,343 @@ class ACF_Nudge_Flow_Admin {
 
     /**
      * 워크플로우 빌더 렌더링
+     * [v22.4.6] 드래그 앤 드롭 기능 구현
      */
     public function render_builder() {
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
         }
         $workflow_id = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : 0;
-
-
         $template = isset( $_GET['template'] ) ? sanitize_text_field( $_GET['template'] ) : '';
+        
+        // 트리거/액션 데이터 전달
+        $triggers = array();
+        $actions = array();
+        if ( class_exists( 'ACF_Nudge_Trigger_Manager' ) ) {
+            $trigger_manager = new ACF_Nudge_Trigger_Manager();
+            $triggers = $trigger_manager->get_all();
+        }
+        if ( class_exists( 'ACF_Nudge_Action_Manager' ) ) {
+            $action_manager = new ACF_Nudge_Action_Manager();
+            $actions = $action_manager->get_all();
+        }
         ?>
         <div class="wrap acf-nudge-flow-admin">
+            <h1>
+                <?php esc_html_e( '워크플로우 빌더', 'acf-nudge-flow' ); ?>
+                <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-workflows' ); ?>" class="page-title-action">
+                    <?php esc_html_e( '목록으로', 'acf-nudge-flow' ); ?>
+                </a>
+            </h1>
+            
             <div id="acf-nudge-workflow-builder" 
                  data-workflow-id="<?php echo esc_attr( $workflow_id ); ?>"
-                 data-template="<?php echo esc_attr( $template ); ?>">
-                <!-- React App will mount here -->
-                <div class="acf-nudge-builder-loading">
-                    <p><?php esc_html_e( '워크플로우 빌더 로딩 중...', 'acf-nudge-flow' ); ?></p>
+                 data-template="<?php echo esc_attr( $template ); ?>"
+                 data-triggers='<?php echo wp_json_encode( $triggers ); ?>'
+                 data-actions='<?php echo wp_json_encode( $actions ); ?>'>
+                
+                <!-- 워크플로우 이름 입력 -->
+                <div class="acf-nudge-builder-header" style="background: #fff; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" 
+                           id="workflow-name" 
+                           placeholder="<?php esc_attr_e( '예: 첫 방문자 환영 팝업', 'acf-nudge-flow' ); ?>" 
+                           class="regular-text" 
+                           style="width: 400px; margin-right: 10px;">
+                    <button type="button" class="button button-primary" id="save-workflow">
+                        <?php esc_html_e( '저장', 'acf-nudge-flow' ); ?>
+                    </button>
+                </div>
+                
+                <!-- 빌더 영역 -->
+                <div class="acf-nudge-builder-container" style="display: flex; gap: 20px;">
+                    <!-- 좌측: 트리거/액션 패널 -->
+                    <div class="acf-nudge-builder-panel" style="width: 280px; background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 4px;">
+                        <h3 style="margin-top: 0;"><?php esc_html_e( '⚡ 트리거 (Triggers)', 'acf-nudge-flow' ); ?></h3>
+                        <p style="color: #666; font-size: 12px; margin-bottom: 15px;">
+                            <?php esc_html_e( '드래그하여 캔버스에 추가', 'acf-nudge-flow' ); ?>
+                        </p>
+                        <div id="triggers-list" class="acf-draggable-list">
+                            <?php foreach ( $triggers as $id => $trigger ) : ?>
+                                <div class="acf-draggable-item" 
+                                     data-type="trigger" 
+                                     data-id="<?php echo esc_attr( $id ); ?>"
+                                     style="padding: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 8px; cursor: move; user-select: none;">
+                                    <strong><?php echo esc_html( $trigger['icon'] ?? '⚡' ); ?> <?php echo esc_html( $trigger['label'] ?? $id ); ?></strong>
+                                    <p style="margin: 4px 0 0; font-size: 11px; color: #666;">
+                                        <?php echo esc_html( $trigger['description'] ?? '' ); ?>
+                                    </p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        
+                        <h3 style="margin-top: 30px;"><?php esc_html_e( '🎯 액션 (Actions)', 'acf-nudge-flow' ); ?></h3>
+                        <p style="color: #666; font-size: 12px; margin-bottom: 15px;">
+                            <?php esc_html_e( '드래그하여 캔버스에 추가', 'acf-nudge-flow' ); ?>
+                        </p>
+                        <div id="actions-list" class="acf-draggable-list">
+                            <?php foreach ( $actions as $id => $action ) : ?>
+                                <div class="acf-draggable-item" 
+                                     data-type="action" 
+                                     data-id="<?php echo esc_attr( $id ); ?>"
+                                     style="padding: 12px; background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 8px; cursor: move; user-select: none;">
+                                    <strong><?php echo esc_html( $action['icon'] ?? '🎯' ); ?> <?php echo esc_html( $action['label'] ?? $id ); ?></strong>
+                                    <p style="margin: 4px 0 0; font-size: 11px; color: #666;">
+                                        <?php echo esc_html( $action['description'] ?? '' ); ?>
+                                    </p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    
+                    <!-- 중앙: 캔버스 -->
+                    <div class="acf-nudge-builder-canvas" 
+                         style="flex: 1; min-height: 600px; background: #f0f2f5; padding: 40px; border: 1px solid #ddd; border-radius: 4px; position: relative;">
+                        <div id="canvas-content" style="text-align: center; padding-top: 100px;">
+                            <div style="font-size: 64px; margin-bottom: 20px;">🚀</div>
+                            <h3 style="color: #4a5568; margin-bottom: 10px;">
+                                <?php esc_html_e( '워크플로우를 만들어보세요', 'acf-nudge-flow' ); ?>
+                            </h3>
+                            <p style="color: #718096;">
+                                <?php esc_html_e( '왼쪽 패널에서 트리거와 액션을 드래그하여 자동화를 구성하세요.', 'acf-nudge-flow' ); ?>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- 우측: 설정 패널 -->
+                    <div class="acf-nudge-builder-settings" 
+                         style="width: 320px; background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 4px;">
+                        <h3 style="margin-top: 0;"><?php esc_html_e( '설정', 'acf-nudge-flow' ); ?></h3>
+                        <p style="color: #666; font-size: 12px;">
+                            <?php esc_html_e( '노드를 선택하면 상세 설정이 표시됩니다.', 'acf-nudge-flow' ); ?>
+                        </p>
+                        <div id="settings-content" style="margin-top: 20px;">
+                            <p style="color: #999; font-style: italic;">
+                                <?php esc_html_e( '노드를 선택해주세요', 'acf-nudge-flow' ); ?>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <script>
+        // [v22.4.6] 드래그 앤 드롭 기능 구현
+        jQuery(document).ready(function($) {
+            var draggedElement = null;
+            
+            // 드래그 시작
+            $('.acf-draggable-item').on('mousedown', function(e) {
+                draggedElement = $(this);
+                $(this).css('opacity', '0.5');
+            });
+            
+            // 드래그 중
+            $(document).on('mousemove', function(e) {
+                if (draggedElement) {
+                    // 드래그 중인 요소를 마우스 위치에 따라 이동 (시각적 피드백)
+                }
+            });
+            
+            // 드롭
+            $('.acf-nudge-builder-canvas').on('mouseup', function(e) {
+                if (draggedElement) {
+                    var type = draggedElement.data('type');
+                    var id = draggedElement.data('id');
+                    
+                    // 캔버스에 노드 추가
+                    addNodeToCanvas(type, id, e.pageX - $(this).offset().left, e.pageY - $(this).offset().top);
+                    
+                    draggedElement.css('opacity', '1');
+                    draggedElement = null;
+                }
+            });
+            
+            // 노드 추가 함수
+            function addNodeToCanvas(type, id, x, y) {
+                var nodeHtml = '<div class="acf-workflow-node" data-type="' + type + '" data-id="' + id + '" style="position: absolute; left: ' + x + 'px; top: ' + y + 'px; background: #fff; border: 2px solid #667eea; border-radius: 8px; padding: 15px; min-width: 150px; cursor: move; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">' +
+                    '<div style="font-weight: 600; margin-bottom: 5px;">' + (type === 'trigger' ? '⚡' : '🎯') + ' ' + id + '</div>' +
+                    '<div style="font-size: 11px; color: #666;">' + (type === 'trigger' ? '트리거' : '액션') + '</div>' +
+                    '<button class="button button-small" onclick="removeNode(this)" style="margin-top: 8px;">삭제</button>' +
+                    '</div>';
+                
+                $('#canvas-content').html($('#canvas-content').html() + nodeHtml);
+                
+                // 노드 클릭 시 설정 패널 업데이트
+                $('.acf-workflow-node').off('click').on('click', function() {
+                    $('.acf-workflow-node').removeClass('selected');
+                    $(this).addClass('selected');
+                    updateSettingsPanel(type, id);
+                });
+            }
+            
+            // 설정 패널 업데이트
+            function updateSettingsPanel(type, id) {
+                var data = type === 'trigger' ? 
+                    JSON.parse($('#acf-nudge-workflow-builder').data('triggers'))[id] :
+                    JSON.parse($('#acf-nudge-workflow-builder').data('actions'))[id];
+                
+                var settingsHtml = '<h4>' + (data.label || id) + '</h4>' +
+                    '<p style="color: #666; font-size: 12px;">' + (data.description || '') + '</p>';
+                
+                $('#settings-content').html(settingsHtml);
+            }
+            
+            // 노드 삭제
+            window.removeNode = function(button) {
+                $(button).closest('.acf-workflow-node').remove();
+            };
+            
+            // 워크플로우 저장
+            $('#save-workflow').on('click', function() {
+                var workflowName = $('#workflow-name').val();
+                if (!workflowName) {
+                    alert('<?php echo esc_js( __( "워크플로우 이름을 입력해주세요.", "acf-nudge-flow" ) ); ?>');
+                    return;
+                }
+                
+                // 노드 데이터 수집
+                var nodes = [];
+                $('.acf-workflow-node').each(function() {
+                    nodes.push({
+                        type: $(this).data('type'),
+                        id: $(this).data('id'),
+                        x: $(this).position().left,
+                        y: $(this).position().top
+                    });
+                });
+                
+                // AJAX로 저장
+                $.ajax({
+                    url: ajaxurl,
+                    type: 'POST',
+                    data: {
+                        action: 'acf_nudge_save_workflow',
+                        nonce: '<?php echo wp_create_nonce( "acf_nudge_flow_nonce" ); ?>',
+                        workflow_id: <?php echo $workflow_id; ?>,
+                        data: JSON.stringify({
+                            title: workflowName,
+                            nodes: nodes
+                        })
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('<?php echo esc_js( __( "워크플로우가 저장되었습니다.", "acf-nudge-flow" ) ); ?>');
+                            if (response.data && response.data.id) {
+                                window.location.href = '<?php echo admin_url( "admin.php?page=acf-nudge-flow-builder&id=" ); ?>' + response.data.id;
+                            }
+                        } else {
+                            alert('<?php echo esc_js( __( "저장 중 오류가 발생했습니다.", "acf-nudge-flow" ) ); ?>');
+                        }
+                    }
+                });
+            });
+        });
+        </script>
         <?php
+    }
+
+    /**
+     * 넛지 템플릿 페이지 렌더링
+     * [v22.4.6] 프리셋 템플릿 목록 표시
+     */
+    public function render_nudge_templates() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( __( '권한이 없습니다.', 'acf-nudge-flow' ) );
+        }
+        
+        // 프리셋 템플릿을 템플릿 CPT에 자동 생성 (없는 경우)
+        $this->ensure_preset_templates_internal();
+        
+        $templates = get_posts( array(
+            'post_type'      => 'acf_nudge_template',
+            'posts_per_page' => -1,
+            'post_status'    => 'any',
+        ) );
+        ?>
+        <div class="wrap acf-nudge-flow-admin">
+            <h1>
+                <?php esc_html_e( '넛지 템플릿', 'acf-nudge-flow' ); ?>
+                <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-template-center' ); ?>" class="page-title-action">
+                    <?php esc_html_e( '템플릿 센터에서 더 보기', 'acf-nudge-flow' ); ?>
+                </a>
+            </h1>
+            
+            <div class="notice notice-info">
+                <p><?php esc_html_e( '프리셋 템플릿을 선택하여 워크플로우를 빠르게 생성할 수 있습니다.', 'acf-nudge-flow' ); ?></p>
+            </div>
+            
+            <?php if ( empty( $templates ) ) : ?>
+                <div class="notice notice-warning">
+                    <p><?php esc_html_e( '템플릿이 없습니다. 템플릿 센터에서 프리셋을 설치하세요.', 'acf-nudge-flow' ); ?></p>
+                </div>
+            <?php else : ?>
+                <div class="acf-nudge-template-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <?php foreach ( $templates as $template ) : 
+                        $preset_id = get_post_meta( $template->ID, '_preset_id', true );
+                        $presets = $this->get_preset_templates();
+                        $preset_data = isset( $presets[ $preset_id ] ) ? $presets[ $preset_id ] : null;
+                    ?>
+                        <div class="postbox" style="border-radius: 8px; overflow: hidden;">
+                            <div style="padding: 20px; background: #f8fafc; border-bottom: 1px solid #eee; text-align: center;">
+                                <span class="dashicons <?php echo esc_attr( $preset_data['icon'] ?? 'dashicons-admin-generic' ); ?>" 
+                                      style="font-size: 40px; width: 40px; height: 40px; color: #667eea;"></span>
+                            </div>
+                            <div style="padding: 15px;">
+                                <h3 style="margin: 0 0 10px; font-size: 16px;">
+                                    <?php echo esc_html( $template->post_title ); ?>
+                                </h3>
+                                <p style="font-size: 12px; color: #666; height: 60px; overflow: hidden;">
+                                    <?php echo esc_html( $template->post_content ?: ( $preset_data['description'] ?? '' ) ); ?>
+                                </p>
+                                <div style="margin-top: 15px;">
+                                    <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-builder&template=' . esc_attr( $preset_id ) ); ?>" 
+                                       class="button button-primary">
+                                        <?php esc_html_e( '워크플로우 생성', 'acf-nudge-flow' ); ?>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+    
+    /**
+     * 프리셋 템플릿을 템플릿 CPT에 자동 생성
+     * [v22.4.6] 초기화 시 프리셋 템플릿 생성
+     * @access private (내부 호출용)
+     */
+    private function ensure_preset_templates_internal() {
+        $presets = $this->get_preset_templates();
+        
+        foreach ( $presets as $preset_id => $preset_data ) {
+            // 이미 존재하는지 확인
+            $existing = get_posts( array(
+                'post_type'      => 'acf_nudge_template',
+                'meta_key'       => '_preset_id',
+                'meta_value'     => $preset_id,
+                'posts_per_page' => 1,
+                'post_status'    => 'any',
+            ) );
+            
+            if ( empty( $existing ) ) {
+                // 템플릿 생성
+                $post_id = wp_insert_post( array(
+                    'post_title'   => $preset_data['title'],
+                    'post_content' => $preset_data['description'],
+                    'post_type'    => 'acf_nudge_template',
+                    'post_status'  => 'publish',
+                ) );
+                
+                if ( $post_id && ! is_wp_error( $post_id ) ) {
+                    update_post_meta( $post_id, '_preset_id', $preset_id );
+                    update_post_meta( $post_id, '_preset_type', $preset_data['type'] ?? 'free' );
+                    update_post_meta( $post_id, '_preset_category', $preset_data['category'] ?? 'general' );
+                }
+            }
+        }
     }
 
     /**
@@ -1011,15 +1389,39 @@ class ACF_Nudge_Flow_Admin {
     public function ajax_get_triggers() {
         check_ajax_referer( 'acf_nudge_flow_nonce', 'nonce' );
 
+        if ( ! class_exists( 'ACF_Nudge_Trigger_Manager' ) ) {
+            require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-trigger-manager.php';
+        }
+        
         $manager = new ACF_Nudge_Trigger_Manager();
-        wp_send_json_success( $manager->get_all() );
+        $triggers = $manager->get_all();
+        
+        // [v22.4.6] 빈 배열이 아닌 실제 데이터 반환 보장
+        if ( empty( $triggers ) ) {
+            // 기본 트리거가 없으면 에러 반환
+            wp_send_json_error( array( 'message' => __( '트리거를 불러올 수 없습니다.', 'acf-nudge-flow' ) ) );
+        }
+        
+        wp_send_json_success( $triggers );
     }
 
     public function ajax_get_actions() {
         check_ajax_referer( 'acf_nudge_flow_nonce', 'nonce' );
 
+        if ( ! class_exists( 'ACF_Nudge_Action_Manager' ) ) {
+            require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-action-manager.php';
+        }
+        
         $manager = new ACF_Nudge_Action_Manager();
-        wp_send_json_success( $manager->get_all() );
+        $actions = $manager->get_all();
+        
+        // [v22.4.6] 빈 배열이 아닌 실제 데이터 반환 보장
+        if ( empty( $actions ) ) {
+            // 기본 액션이 없으면 에러 반환
+            wp_send_json_error( array( 'message' => __( '액션을 불러올 수 없습니다.', 'acf-nudge-flow' ) ) );
+        }
+        
+        wp_send_json_success( $actions );
     }
 } // End of class ACF_Nudge_Flow_Admin
 

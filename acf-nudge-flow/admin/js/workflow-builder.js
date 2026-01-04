@@ -32,16 +32,22 @@
         const loadData = async () => {
             try {
                 // 트리거/액션 목록 로드
-                const triggersRes = await fetch(`${ajaxurl}?action=acf_nudge_get_triggers&nonce=${acfNudgeFlow.nonce}`);
+                const triggersRes = await fetch(`${ajaxurl}?action=acf_nudge_get_triggers&nonce=${acfNudgeFlow?.nonce || ''}`);
                 const triggersData = await triggersRes.json();
                 if (triggersData.success) {
                     setTriggers(triggersData.data);
+                } else {
+                    // 폴백: 빈 객체라도 설정
+                    setTriggers({});
                 }
 
-                const actionsRes = await fetch(`${ajaxurl}?action=acf_nudge_get_actions&nonce=${acfNudgeFlow.nonce}`);
+                const actionsRes = await fetch(`${ajaxurl}?action=acf_nudge_get_actions&nonce=${acfNudgeFlow?.nonce || ''}`);
                 const actionsData = await actionsRes.json();
                 if (actionsData.success) {
                     setActions(actionsData.data);
+                } else {
+                    // 폴백: 빈 객체라도 설정
+                    setActions({});
                 }
 
                 // 기존 워크플로우 로드
