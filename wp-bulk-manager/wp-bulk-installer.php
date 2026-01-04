@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           22.4.5-master
+ * Version:           22.4.6-master
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '22.4.5-master' ); // [v22.4.5] 마스터 버전 감지 로직 개선 - WP Bulk Manager 자체 버전에 -master가 포함된 경우 마스터로 인식
+define( 'WP_BULK_MANAGER_VERSION', '22.4.6-master' ); // [v22.4.6] 활성화 오류 수정 - ajax_handle_activate 메서드 구현 추가
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -2205,6 +2205,98 @@ class JJ_Bulk_Installer {
             $zip->close();
         }
         return 'plugin';
+    }
+
+    /**
+     * [v22.4.5] 플러그인 활성화 핸들러 (AJAX)
+     * 설치된 플러그인을 활성화하는 기능
+     */
+    public function ajax_handle_activate() {
+        try {
+            check_ajax_referer( 'jj_bulk_install', 'nonce' );
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Activate nonce verification failed: ' . $e->getMessage() );
+            wp_send_json_error( '보안 검증 실패' );
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] Activate nonce verification fatal: ' . $e->getMessage() );
+            wp_send_json_error( '보안 검증 실패' );
+        }
+
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+            wp_send_json_error( '권한이 없습니다. (activate_plugins 필요)' );
+        }
+
+        $slug = isset( $_POST['slug'] ) ? sanitize_text_field( $_POST['slug'] ) : '';
+
+        if ( empty( $slug ) ) {
+            wp_send_json_error( '플러그인 슬러그가 제공되지 않았습니다.' );
+        }
+
+        // [v22.4.5] 안전한 파일 include
+        try {
+            if ( ! function_exists( 'activate_plugin' ) ) {
+                include_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Plugin file include failed: ' . $e->getMessage() );
+            wp_send_json_error( '필수 파일을 로드할 수 없습니다: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] Plugin file include fatal: ' . $e->getMessage() );
+            wp_send_json_error( '필수 파일을 로드할 수 없습니다: ' . $e->getMessage() );
+        }
+
+        // 플러그인이 설치되어 있는지 확인
+        $plugins = get_plugins();
+        $plugin_file = null;
+
+        // 슬러그로 플러그인 파일 찾기
+        foreach ( $plugins as $file => $data ) {
+            // 슬러그가 플러그인 파일 경로에 포함되어 있거나, 플러그인 디렉토리명과 일치하는지 확인
+            if ( $slug === $file || strpos( $file, $slug . '/' ) === 0 || strpos( $file, $slug . '.php' ) !== false ) {
+                $plugin_file = $file;
+                break;
+            }
+        }
+
+        if ( ! $plugin_file ) {
+            wp_send_json_error( '플러그인을 찾을 수 없습니다: ' . esc_html( $slug ) );
+        }
+
+        // 이미 활성화되어 있는지 확인
+        if ( is_plugin_active( $plugin_file ) ) {
+            wp_send_json_success( array(
+                'message' => '플러그인이 이미 활성화되어 있습니다.',
+                'slug' => $plugin_file,
+                'already_active' => true,
+            ) );
+        }
+
+        // 플러그인 활성화 시도
+        try {
+            $result = activate_plugin( $plugin_file );
+
+            if ( is_wp_error( $result ) ) {
+                $error_message = $result->get_error_message();
+                error_log( '[WP Bulk Manager] Plugin activation failed: ' . $error_message );
+                wp_send_json_error( '활성화 실패: ' . $error_message );
+            }
+
+            // 활성화 성공
+            wp_send_json_success( array(
+                'message' => '플러그인이 성공적으로 활성화되었습니다.',
+                'slug' => $plugin_file,
+                'name' => isset( $plugins[ $plugin_file ]['Name'] ) ? $plugins[ $plugin_file ]['Name'] : $slug,
+            ) );
+
+        } catch ( Exception $e ) {
+            error_log( '[WP Bulk Manager] Plugin activation exception: ' . $e->getMessage() );
+            error_log( '[WP Bulk Manager] Stack trace: ' . $e->getTraceAsString() );
+            wp_send_json_error( '활성화 중 오류가 발생했습니다: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            error_log( '[WP Bulk Manager] Plugin activation fatal: ' . $e->getMessage() );
+            error_log( '[WP Bulk Manager] Stack trace: ' . $e->getTraceAsString() );
+            wp_send_json_error( '활성화 중 치명적 오류가 발생했습니다: ' . $e->getMessage() );
+        }
     }
 }
 
