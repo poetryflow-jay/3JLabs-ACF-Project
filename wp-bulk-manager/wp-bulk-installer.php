@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       WP Bulk Manager - Plugin & Theme Bulk Installer and Editor
+ * Plugin Name:       WP Bulk Manager - Really Simple WordPress Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
  * Version:           22.5.2-master

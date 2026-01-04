@@ -53,6 +53,11 @@ PLUGINS = {
         'name': 'ACF CSS Woo License Bridge (3J 라이센스)',
         'main_file': 'acf-css-woo-license.php',
         'zip_prefix': 'acf-css-woo-license'
+    },
+    'wp-bulk-manager': {
+        'name': 'WP Bulk Manager - Really Simple WordPress Plugin & Theme Bulk Installer and Editor',
+        'main_file': 'wp-bulk-installer.php',
+        'zip_prefix': 'wp-bulk-manager'
     }
 }
 
