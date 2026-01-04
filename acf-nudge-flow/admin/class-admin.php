@@ -244,26 +244,15 @@ class ACF_Nudge_Flow_Admin {
 
     /**
      * 빌더 템플릿 출력 (좌측 패널 트리거/액션 목록 드래그 앤 드롭 지원)
+     * [v22.4.6] 빌더 페이지에서만 출력하도록 수정
      */
     public function output_builder_templates() {
-        $screen = get_current_screen();
-        if ( ! $screen || 'acf_nudge_workflow' !== $screen->post_type ) {
+        // 빌더 페이지에서만 출력
+        if ( ! isset( $_GET['page'] ) || $_GET['page'] !== 'acf-nudge-flow-builder' ) {
             return;
         }
         ?>
-        <div id="acf-nudge-builder-sidebar-source" style="display:none;">
-            <div class="acf-builder-panel">
-                <h3><?php esc_html_e( '⚡ 트리거 (Triggers)', 'acf-nudge-flow' ); ?></h3>
-                <div class="acf-draggable-item" data-type="trigger" data-id="first_visit"><?php esc_html_e( '첫 방문', 'acf-nudge-flow' ); ?></div>
-                <div class="acf-draggable-item" data-type="trigger" data-id="visit_count"><?php esc_html_e( '방문 횟수', 'acf-nudge-flow' ); ?></div>
-                <div class="acf-draggable-item" data-type="trigger" data-id="exit_intent"><?php esc_html_e( '이탈 감지', 'acf-nudge-flow' ); ?></div>
-                
-                <h3><?php esc_html_e( '🎯 액션 (Actions)', 'acf-nudge-flow' ); ?></h3>
-                <div class="acf-draggable-item" data-type="action" data-id="popup"><?php esc_html_e( '팝업 노출', 'acf-nudge-flow' ); ?></div>
-                <div class="acf-draggable-item" data-type="action" data-id="toast"><?php esc_html_e( '토스트 알림', 'acf-nudge-flow' ); ?></div>
-                <div class="acf-draggable-item" data-type="action" data-id="coupon"><?php esc_html_e( '쿠폰 지급', 'acf-nudge-flow' ); ?></div>
-            </div>
-        </div>
+        <!-- [v22.4.6] 빌더 템플릿은 render_builder()에서 직접 렌더링하므로 여기서는 제거 -->
         <?php
     }
 
@@ -505,9 +494,9 @@ class ACF_Nudge_Flow_Admin {
         <div class="wrap acf-nudge-flow-admin">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                 <h1><?php esc_html_e( '🎁 전략적 넛지 템플릿 센터', 'acf-nudge-flow' ); ?></h1>
-                <button class="button button-primary" style="background:#6366f1; border-color:#4f46e5;">
-                    <?php esc_html_e( '내 시나리오 판매 등록', 'acf-nudge-flow' ); ?>
-                </button>
+                <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-workflows' ); ?>" class="button">
+                    <?php esc_html_e( '워크플로우 목록', 'acf-nudge-flow' ); ?>
+                </a>
             </div>
 
             <div class="notice notice-info">
@@ -778,6 +767,9 @@ class ACF_Nudge_Flow_Admin {
                 <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-builder' ); ?>" class="page-title-action">
                     <?php esc_html_e( '새 워크플로우', 'acf-nudge-flow' ); ?>
                 </a>
+                <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-template-center' ); ?>" class="page-title-action">
+                    <?php esc_html_e( '템플릿에서 선택', 'acf-nudge-flow' ); ?>
+                </a>
             </h1>
             
             <table class="wp-list-table widefat fixed striped">
@@ -846,13 +838,28 @@ class ACF_Nudge_Flow_Admin {
         // 트리거/액션 데이터 전달
         $triggers = array();
         $actions = array();
-        if ( class_exists( 'ACF_Nudge_Trigger_Manager' ) ) {
-            $trigger_manager = new ACF_Nudge_Trigger_Manager();
-            $triggers = $trigger_manager->get_all();
+        
+        // [v22.4.6] 클래스 자동 로드
+        if ( ! class_exists( 'ACF_Nudge_Trigger_Manager' ) ) {
+            require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-trigger-manager.php';
         }
-        if ( class_exists( 'ACF_Nudge_Action_Manager' ) ) {
-            $action_manager = new ACF_Nudge_Action_Manager();
-            $actions = $action_manager->get_all();
+        if ( ! class_exists( 'ACF_Nudge_Action_Manager' ) ) {
+            require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-action-manager.php';
+        }
+        
+        $trigger_manager = new ACF_Nudge_Trigger_Manager();
+        $triggers = $trigger_manager->get_all();
+        
+        $action_manager = new ACF_Nudge_Action_Manager();
+        $actions = $action_manager->get_all();
+        
+        // [v22.4.6] 템플릿이 지정된 경우 프리셋 데이터 로드
+        $preset_data = null;
+        if ( ! empty( $template ) ) {
+            $presets = $this->get_preset_templates();
+            if ( isset( $presets[ $template ] ) ) {
+                $preset_data = $presets[ $template ];
+            }
         }
         ?>
         <div class="wrap acf-nudge-flow-admin">
@@ -873,12 +880,18 @@ class ACF_Nudge_Flow_Admin {
                 <div class="acf-nudge-builder-header" style="background: #fff; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px;">
                     <input type="text" 
                            id="workflow-name" 
+                           value="<?php echo $preset_data ? esc_attr( $preset_data['title'] ) : ''; ?>"
                            placeholder="<?php esc_attr_e( '예: 첫 방문자 환영 팝업', 'acf-nudge-flow' ); ?>" 
                            class="regular-text" 
                            style="width: 400px; margin-right: 10px;">
                     <button type="button" class="button button-primary" id="save-workflow">
                         <?php esc_html_e( '저장', 'acf-nudge-flow' ); ?>
                     </button>
+                    <?php if ( $preset_data ) : ?>
+                        <span style="margin-left: 10px; color: #10b981; font-size: 12px;">
+                            ✓ 프리셋 템플릿: <?php echo esc_html( $preset_data['title'] ); ?>
+                        </span>
+                    <?php endif; ?>
                 </div>
                 
                 <!-- 빌더 영역 -->

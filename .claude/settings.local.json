@@ -4,7 +4,8 @@
       "Bash(ls:*)",
       "Bash(find:*)",
       "Bash(while read file)",
-      "Bash(do echo \"=== $file ===\" grep -o \"wp_ajax_[a-z_]*\" \"$file\")"
+      "Bash(do echo \"=== $file ===\" grep -o \"wp_ajax_[a-z_]*\" \"$file\")",
+      "Bash(php -l:*)"
     ]
   }
 }
