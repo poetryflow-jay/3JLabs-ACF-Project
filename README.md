@@ -1,8 +1,8 @@
 # 3J Labs ACF CSS Plugin Family
 
 프로젝트 경로: `C:\Users\computer\Desktop\3J-Labs-Projects\3J-ACF-CSS`
-메인 플러그인 버전: **v22.4.7** (ACF CSS Manager Master)
-최신 업데이트: 2026년 1월 4일 (Phase 39.2 완료)
+메인 플러그인 버전: **v22.5.1** (ACF CSS Manager Master)
+최신 업데이트: 2026년 1월 4일 (Phase 39.4 완료)
 
 ---
 
@@ -10,16 +10,17 @@
 
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
-| **ACF CSS Manager (Master)** | **v22.4.7** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + UI System 2026 |
-| WP Bulk Manager | **v22.4.9** | 플러그인/테마 대량 설치 및 관리 + 보안 강화 |
-| ACF Code Snippets Box | **v2.3.1** | CSS/JS/PHP 코드 스니펫 관리 + 링크 수정 |
-| ACF CSS Neural Link | **v6.3.2** | 패턴 학습 및 업데이트 관리 + 보안 강화 |
-| ACF CSS WooCommerce Toolkit | **v2.4.0** | WooCommerce 스타일 및 기능 확장 + 보안 강화 |
-| ACF CSS AI Extension | **v3.3.0** | AI 기반 스타일 추천 및 생성 + 보안 강화 |
-| ACF MBA (Nudge Flow) | **v22.4.0** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + 보안 강화 |
-| Admin Menu Editor Pro | **v2.0.1** | 관리자 메뉴 커스터마이저 |
-| ACF CSS Woo License Bridge | **v22.0.1** | WooCommerce 라이센스 브릿지 |
-| JJ Analytics Dashboard | **v1.0.0** | 전체 플러그인 통합 분석 대시보드 (신규) |
+| **ACF CSS Manager (Master)** | **v22.5.1** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + UI System 2026 |
+| WP Bulk Manager | **v22.5.2-master** | 플러그인/테마 대량 설치 및 관리 + 보안 강화 |
+| ACF Code Snippets Box | **v2.3.2** | CSS/JS/PHP 코드 스니펫 관리 + 링크 수정 |
+| ACF CSS Neural Link | **v6.3.5** | 패턴 학습 및 업데이트 관리 + 보안 강화 |
+| ACF CSS WooCommerce Toolkit | **v2.4.1** | WooCommerce 스타일 및 기능 확장 + 보안 강화 |
+| ACF CSS AI Extension | **v3.3.1** | AI 기반 스타일 추천 및 생성 + 보안 강화 |
+| ACF MBA (Nudge Flow) | **v22.4.5** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + 보안 강화 |
+| Admin Menu Editor Pro | **v2.0.2** | 관리자 메뉴 커스터마이저 |
+| ACF CSS Woo License Bridge | **v22.0.5** | WooCommerce 라이센스 브릿지 |
+| JJ Analytics Dashboard | **v1.0.1** | 전체 플러그인 통합 분석 대시보드 |
+| JJ Marketing Automation Dashboard | **v1.0.2** | 종합 마케팅 자동화 대시보드 |
 
 ---
 
@@ -125,7 +126,16 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ---
 
-## 🆕 최근 변경사항 (Phase 39.3)
+## 🆕 최근 변경사항 (Phase 39.4)
+
+### 문서 업데이트 및 버전 관리 (2026-01-04)
+- 전체 플러그인 버전 0.1 업데이트 (11개 플러그인)
+- 모든 플러그인 압축 파일 재생성
+- RELEASE_NOTES.md, DEVELOPER_GUIDE.md, README.md 업데이트
+- WP Bulk Manager 플러그인 목록 액션 링크 복구 (v22.5.1)
+- JJ Marketing Automation Dashboard 누락된 파일 추가 (v1.0.1)
+
+### 보안 강화 (Phase 39.3)
 
 ### 보안 강화 (v22.4.9 / v6.3.2)
 - WP Bulk Manager AJAX 핸들러 8개에 JJ_Ajax_Helper 통합

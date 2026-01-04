@@ -3,7 +3,7 @@
  * Plugin Name:       JJ Analytics Dashboard
  * Plugin URI:        https://3j-labs.com
  * Description:       3J Labs 플러그인 스위트 전체 성과, 활용 현황, 버전 관리를 한눈에 확인할 수 있는 대시보드입니다.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.0.0' );
+define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.0.1' ); // [v1.0.1] 버전 업데이트 - 문서 및 빌드 업데이트
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_FILE', __FILE__ );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
