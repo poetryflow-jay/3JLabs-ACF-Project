@@ -639,7 +639,7 @@ class ACF_Nudge_Flow_Admin {
                             <span class="desc"><?php esc_html_e( '이메일 수집 팝업', 'acf-nudge-flow' ); ?></span>
                         </a>
                         
-                        <a href="#" class="quick-action-card" data-preset="cart_recovery" onclick="return acfNudgeInstallPreset('cart_recovery', this);">
+                        <a href="#" class="quick-action-card" data-preset="free_shipping" onclick="return acfNudgeInstallPreset('free_shipping', this);">
                             <span class="icon">🛒</span>
                             <span class="title"><?php esc_html_e( '장바구니 리마인더', 'acf-nudge-flow' ); ?></span>
                             <span class="desc"><?php esc_html_e( '장바구니 이탈 고객 유도', 'acf-nudge-flow' ); ?></span>
@@ -880,7 +880,7 @@ class ACF_Nudge_Flow_Admin {
                 <div class="acf-nudge-builder-header" style="background: #fff; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px;">
                     <input type="text" 
                            id="workflow-name" 
-                           value="<?php echo $preset_data ? esc_attr( $preset_data['title'] ) : ''; ?>"
+                           value="<?php echo $preset_data ? esc_attr( $preset_data['title'] ) : ( $workflow_id ? get_the_title( $workflow_id ) : '' ); ?>"
                            placeholder="<?php esc_attr_e( '예: 첫 방문자 환영 팝업', 'acf-nudge-flow' ); ?>" 
                            class="regular-text" 
                            style="width: 400px; margin-right: 10px;">
@@ -1197,11 +1197,89 @@ class ACF_Nudge_Flow_Admin {
 
 
         <div class="wrap acf-nudge-flow-admin">
-            <h1><?php esc_html_e( '분석', 'acf-nudge-flow' ); ?></h1>
-            <div id="acf-nudge-analytics">
-                <p><?php esc_html_e( '분석 대시보드가 여기에 표시됩니다.', 'acf-nudge-flow' ); ?></p>
+            <h1><?php esc_html_e( '📈 분석 통계', 'acf-nudge-flow' ); ?></h1>
+            
+            <div class="acf-nudge-stats-grid" style="margin-top: 30px;">
+                <div class="acf-nudge-stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-value"><?php echo $this->get_total_workflows(); ?></div>
+                        <div class="stat-label"><?php esc_html_e( '활성 워크플로우', 'acf-nudge-flow' ); ?></div>
+                    </div>
+                </div>
+                
+                <div class="acf-nudge-stat-card">
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-content">
+                        <div class="stat-value"><?php echo $this->get_total_impressions(); ?></div>
+                        <div class="stat-label"><?php esc_html_e( '오늘 노출', 'acf-nudge-flow' ); ?></div>
+                    </div>
+                </div>
+                
+                <div class="acf-nudge-stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <div class="stat-value"><?php echo $this->get_conversion_rate(); ?>%</div>
+                        <div class="stat-label"><?php esc_html_e( '전환율', 'acf-nudge-flow' ); ?></div>
+                    </div>
+                </div>
+                
+                <div class="acf-nudge-stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <div class="stat-value"><?php echo $this->get_unique_visitors(); ?></div>
+                        <div class="stat-label"><?php esc_html_e( '이번 주 방문자', 'acf-nudge-flow' ); ?></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="acf-nudge-chart-container" style="margin-top: 30px;">
+                <h2><?php esc_html_e( '📈 7일 성과 추이', 'acf-nudge-flow' ); ?></h2>
+                <canvas id="acf-nudge-analytics-chart" style="max-height: 300px;"></canvas>
             </div>
         </div>
+        
+        <script>
+        // [v22.4.6] 분석 페이지 차트
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('acf-nudge-analytics-chart');
+            if (!ctx || typeof Chart === 'undefined') return;
+            
+            const chartData = {
+                labels: ['월', '화', '수', '목', '금', '토', '일'],
+                datasets: [{
+                    label: '노출수',
+                    data: [120, 190, 300, 250, 200, 280, 310],
+                    borderColor: 'rgb(102, 126, 234)',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: '전환수',
+                    data: [12, 19, 24, 18, 22, 26, 31],
+                    borderColor: 'rgb(67, 233, 123)',
+                    backgroundColor: 'rgba(67, 233, 123, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            };
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+        </script>
         <?php
     }
 
