@@ -1,120 +1,9 @@
 <?php
 /**
+ * 라이센스 검증 클래스
+ * 
  * [v22.3.2] License Validator with Tampering Detection
  * Mikael's Algorithm + Security Hardening
- */
-
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
-
-class JJ_License_Validator {
-    
-    /**
-     * 라이센스 검증 메인 메서드
-     * [v22.3.2] 변조 감지 추가
-     */
-    public static function verify( $license_key, $site_id, $site_url ) {
-        // 1. 기본 형식 검증
-        if ( ! self::validate_format( $license_key ) ) {
-            return array(
-                'valid' => false,
-                'message' => 'Invalid license format',
-                'reason' => 'format_error'
-            );
-        }
-        
-        // 2. 변조 감지 (Mikael's algorithm)
-        if ( ! class_exists( 'JJ_License_Security' ) ) {
-            require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-security.php';
-        }
-        if ( ! JJ_License_Security::detect_tampering( $license_key ) ) {
-            return array(
-                'valid' => false,
-                'message' => 'License tampering detected',
-                'reason' => 'tampering_detected'
-            );
-        }
-        
-        // 3. 데이터베이스 조회
-        global $wpdb;
-        $table = $wpdb->prefix . 'jj_licenses';
-        
-        $license = $wpdb->get_row( $wpdb->prepare(
-            "SELECT * FROM $table WHERE license_key = %s AND status = 'active'",
-            $license_key
-        ) );
-        
-        if ( ! $license ) {
-            return array(
-                'valid' => false,
-                'message' => 'License not found',
-                'reason' => 'not_found'
-            );
-        }
-        
-        // 4. 사이트 한도 검증
-        $activations_table = $wpdb->prefix . 'jj_license_activations';
-        $active_sites = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM $activations_table WHERE license_id = %d AND is_active = 1",
-            $license->id
-        ) );
-        
-        $max_sites = 0;
-        switch ( $license->license_type ) {
-            case 'FREE':
-                $max_sites = 1;
-                break;
-            case 'BASIC':
-                $max_sites = 3;
-                break;
-            case 'PREM':
-                $max_sites = 5;
-                break;
-            case 'UNLIM':
-                $max_sites = 999;
-                break;
-        }
-        
-        if ( $active_sites >= $max_sites && $max_sites < 999 ) {
-            return array(
-                'valid' => false,
-                'message' => "License limit reached ({$active_sites}/{$max_sites})",
-                'reason' => 'limit_exceeded'
-            );
-        }
-        
-        // 5. 만료 검증
-        if ( $license->expires_at && $license->expires_at < date( 'Y-m-d H:i:s' ) ) {
-            $days_until_expiry = ceil( ( strtotime( $license->expires_at ) - time() ) / DAY_IN_SECONDS );
-            return array(
-                'valid' => false,
-                'message' => "License expired ({$days_until_expiry} days ago)",
-                'reason' => 'expired',
-                'days_until_expiry' => $days_until_expiry
-            );
-        }
-        
-        return array(
-            'valid' => true,
-            'type' => $license->license_type,
-            'max_sites' => $max_sites,
-            'active_sites' => $active_sites,
-            'expires_at' => $license->expires_at,
-            'message' => 'License is valid'
-        );
-    }
-    
-    /**
-     * [v22.3.2] 라이선스 키 형식 검증
-     */
-    private static function validate_format( $license_key ) {
-        // 형식: XXXX-XXXX-XXXX-XXXX-XXXX (4 groups)
-        return preg_match( '/^[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}$/', $license_key );
-    }
-}
-/**
- * 라이센스 검증 클래스
  * 
  * @package JJ_LicenseManagerincludes
  */
@@ -122,6 +11,9 @@ class JJ_License_Validator {
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
+// [v6.3.1] 클래스 중복 선언 방지
+if ( ! class_exists( 'JJ_License_Validator' ) ) {
 
 class JJ_License_Validator {
     
@@ -134,18 +26,45 @@ class JJ_License_Validator {
      * @return array 검증 결과
      */
     public function verify( $license_key, $site_id, $site_url ) {
-        require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-security.php';
-        require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-cache.php';
+        // [v6.3.1] 안전한 파일 include
+        if ( ! class_exists( 'JJ_License_Security' ) ) {
+            require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-security.php';
+        }
+        if ( ! class_exists( 'JJ_License_Cache' ) ) {
+            require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-cache.php';
+        }
         
         global $wpdb;
+        
+        // [v6.3.1] 라이센스 키 형식 검증 (첫 번째 클래스에서 통합)
+        if ( ! $this->validate_format( $license_key ) ) {
+            return array(
+                'valid' => false,
+                'message' => __( '유효하지 않은 라이센스 키 형식입니다.', 'jj-license-manager' ),
+                'reason' => 'format_error'
+            );
+        }
+        
+        // [v6.3.1] 변조 감지 (Mikael's algorithm)
+        if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'detect_tampering' ) ) {
+            if ( ! JJ_License_Security::detect_tampering( $license_key ) ) {
+                return array(
+                    'valid' => false,
+                    'message' => __( '라이센스 변조가 감지되었습니다.', 'jj-license-manager' ),
+                    'reason' => 'tampering_detected'
+                );
+            }
+        }
         
         $table_licenses = JJ_License_Database::get_table_name( 'licenses' );
         $table_activations = JJ_License_Database::get_table_name( 'activations' );
         
         // 입력값 재검증
-        $license_key = JJ_License_Security::validate_input( $license_key, 'license_key' );
-        $site_id = JJ_License_Security::validate_input( $site_id, 'site_id' );
-        $site_url = JJ_License_Security::validate_input( $site_url, 'site_url' );
+        if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'validate_input' ) ) {
+            $license_key = JJ_License_Security::validate_input( $license_key, 'license_key' );
+            $site_id = JJ_License_Security::validate_input( $site_id, 'site_id' );
+            $site_url = JJ_License_Security::validate_input( $site_url, 'site_url' );
+        }
         
         if ( ! $license_key || ! $site_id || ! $site_url ) {
             return array(
@@ -154,17 +73,21 @@ class JJ_License_Validator {
             );
         }
         
-        // SQL Injection 방지
+        // [v6.3.1] SQL Injection 방지 (안전한 메서드 호출)
         $query = "SELECT * FROM {$table_licenses} WHERE license_key = %s";
-        if ( ! JJ_License_Security::validate_sql_query( $query ) ) {
-            JJ_License_Security::log_security_event( 'sql_injection_attempt', array(
-                'ip' => JJ_License_Security::get_client_ip(),
-                'query' => $query,
-            ) );
-            return array(
-                'valid' => false,
-                'message' => __( '보안 검증에 실패했습니다.', 'jj-license-manager' ),
-            );
+        if ( class_exists( 'JJ_License_Security' ) && method_exists( 'JJ_License_Security', 'validate_sql_query' ) ) {
+            if ( ! JJ_License_Security::validate_sql_query( $query ) ) {
+                if ( method_exists( 'JJ_License_Security', 'log_security_event' ) && method_exists( 'JJ_License_Security', 'get_client_ip' ) ) {
+                    JJ_License_Security::log_security_event( 'sql_injection_attempt', array(
+                        'ip' => JJ_License_Security::get_client_ip(),
+                        'query' => $query,
+                    ) );
+                }
+                return array(
+                    'valid' => false,
+                    'message' => __( '보안 검증에 실패했습니다.', 'jj-license-manager' ),
+                );
+            }
         }
         
         // 라이센스 조회
@@ -462,5 +385,16 @@ class JJ_License_Validator {
         
         return isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
     }
-}
+    
+    /**
+     * [v6.3.1] 라이선스 키 형식 검증 (첫 번째 클래스에서 통합)
+     * 
+     * @param string $license_key 라이센스 키
+     * @return bool 형식이 유효한지 여부
+     */
+    private function validate_format( $license_key ) {
+        // 형식: XXXX-XXXX-XXXX-XXXX (4 groups)
+        return preg_match( '/^[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}$/', $license_key );
+    }
+} // End of class_exists check
 
