@@ -520,7 +520,7 @@ final class JJ_Admin_Center {
             $main_slug,
             array( JJ_Simple_Style_Guide::instance(), 'render_page' ), // [Fix] JJ_Simple_Style_Guide의 render_page 호출
             'dashicons-art',
-            2.6 
+            2.1 // [v22.4.1] 알림판(Dashboard) 바로 아래 위치 (2.0 = Dashboard, 2.1 = 바로 아래)
         );
 
         // 2. 서브메뉴: 스타일 센터 (대시보드) - 최상위 메뉴와 동일하게 연결하여 첫 화면으로 설정
