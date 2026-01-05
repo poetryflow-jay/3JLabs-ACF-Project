@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 ═══════════════════════════════════════════════════════════════════════════════
-  3J Labs ACF CSS Plugin Build Manager v23.0.0
+  3J Labs ACF CSS Plugin Build Manager v23.0.1
   플러그인 빌드, 버전 관리, 에디션 관리를 위한 통합 관리 프로그램
+  Phase 45: 버전 추출 및 대시보드 연동 개선
 ═══════════════════════════════════════════════════════════════════════════════
 
 Features:
@@ -16,9 +17,18 @@ Features:
 - 외부 대시보드 연동 및 업데이트
 
 @author: 3J Labs (Jay & Jason & Jenny)
-@version: 23.0.0 (Phase 43: Complete Rollback System & Full Audit)
+@version: 23.0.1 (Phase 45: Version Extraction & Dashboard Sync Improvement)
 @date: 2026-01-05
 """
+# Windows 콘솔 인코딩 설정 (UTF-8)
+import sys
+import io
+if sys.platform == 'win32':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+    except:
+        pass
 
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext, filedialog
@@ -368,17 +378,32 @@ def format_kst_time(iso_string):
             return "없음"
 
 def get_version_from_file(file_path):
-    """PHP 파일에서 버전 추출"""
+    """PHP 파일에서 버전 추출 (플러그인 헤더 및 상수 정의 모두 확인)"""
     if not file_path.exists():
         return "N/A"
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read(2000)  # 처음 2000자만 읽기
+            content = f.read(5000)  # 처음 5000자 읽기 (상수 정의까지 포함)
+            
+            # 1. 플러그인 헤더에서 Version 추출 (우선순위 1)
             match = re.search(r'\*\s*Version:\s*([\d.]+)', content)
             if match:
                 return match.group(1)
-    except:
-        pass
+            
+            # 2. 상수 정의에서 버전 추출 (우선순위 2)
+            # 예: define('PLUGIN_VERSION', '1.0.0') 또는 define('JJ_STYLE_GUIDE_VERSION', '23.0.10')
+            patterns = [
+                r"define\s*\(\s*['\"]\w*VERSION\w*['\"]\s*,\s*['\"]([\d.]+)['\"]",
+                r"define\s*\(\s*['\"]\w*_VERSION['\"]\s*,\s*['\"]([\d.]+)['\"]",
+                r"define\s*\(\s*['\"]VERSION['\"]\s*,\s*['\"]([\d.]+)['\"]",
+            ]
+            for pattern in patterns:
+                match = re.search(pattern, content, re.IGNORECASE)
+                if match:
+                    return match.group(1)
+            
+    except Exception as e:
+        print(f"Warning: Failed to extract version from {file_path}: {e}")
     return "N/A"
 
 def should_exclude(path, base_path):
@@ -605,6 +630,9 @@ class BuildEngine:
         kst_time = datetime.datetime.now(kst_timezone)
         self.config['last_build_time'] = kst_time.isoformat()
         save_config(self.config)
+        
+        # CLI 모드에서만 여기서 대시보드 업데이트 (GUI 모드는 _auto_update_dashboard에서 처리)
+        # GUI 모드에서는 progress_callback이 있으므로 여기서는 건너뜀
         
         return success == total
 
@@ -856,7 +884,7 @@ class JJBuildManager(tk.Tk):
         # 버전 배지 (macOS 스타일 pill 배지)
         version_badge = tk.Frame(status_frame, bg=self.colors['accent'], padx=12, pady=4)
         version_badge.pack(anchor="e", pady=(0, 4))
-        tk.Label(version_badge, text="v23.0.0", font=self.fonts['caption'], fg="#FFFFFF", bg=self.colors['accent']).pack()
+        tk.Label(version_badge, text="v23.0.1", font=self.fonts['caption'], fg="#FFFFFF", bg=self.colors['accent']).pack()
         
         # 상태 표시
         if HAS_PYWIN32:
@@ -1124,8 +1152,9 @@ class JJBuildManager(tk.Tk):
         dashboard_frame.pack(fill="x", pady=10)
         
         ttk.Label(dashboard_frame, text="대시보드 경로:", width=15).pack(side="left")
-        self.dashboard_path_var = tk.StringVar(value=self.config_data.get('dashboard_path', 
-            str(BASE_DIR / 'dashboard.html')))
+        # 기본 대시보드 경로 설정 (프로젝트 루트의 dashboard.html)
+        default_dashboard = str(BASE_DIR / 'dashboard.html')
+        self.dashboard_path_var = tk.StringVar(value=self.config_data.get('dashboard_path', default_dashboard))
         ttk.Entry(dashboard_frame, textvariable=self.dashboard_path_var, width=60).pack(side="left", padx=5, fill="x", expand=True)
         ttk.Button(dashboard_frame, text="찾아보기", command=self.browse_dashboard_path).pack(side="left", padx=5)
         
@@ -1306,17 +1335,29 @@ class JJBuildManager(tk.Tk):
     
     def _auto_update_dashboard(self):
         """빌드 완료 후 자동 대시보드 업데이트 (조용히)"""
-        dashboard_path = Path(self.dashboard_path_var.get())
+        # 대시보드 경로 확인 (설정된 경로 또는 기본 경로)
+        dashboard_path_str = self.dashboard_path_var.get()
+        if not dashboard_path_str or dashboard_path_str == '.':
+            dashboard_path = BASE_DIR / 'dashboard.html'
+        else:
+            dashboard_path = Path(dashboard_path_str)
         
-        if not dashboard_path.parent.exists():
-            return  # 조용히 실패
+        # 대시보드 파일이 없으면 기본 경로 확인
+        if not dashboard_path.exists():
+            dashboard_path = BASE_DIR / 'dashboard.html'
+            if not dashboard_path.exists():
+                self.log_text.insert(tk.END, f"\n⚠️ 대시보드 파일을 찾을 수 없습니다: {dashboard_path}\n")
+                self.log_text.see(tk.END)
+                return
         
         try:
-            # 플러그인 정보 수집
+            # 플러그인 정보 수집 (최신 버전으로)
             plugins_info = {}
             for plugin_id, plugin_data in PLUGINS.items():
                 source_path = BASE_DIR / plugin_data['folder']
                 main_file = source_path / plugin_data['main_file']
+                
+                # 개선된 버전 추출 함수 사용
                 version = get_version_from_file(main_file) if main_file.exists() else "N/A"
                 
                 plugins_info[plugin_id] = {
@@ -1329,11 +1370,13 @@ class JJBuildManager(tk.Tk):
                     'exists': source_path.exists()
                 }
             
+            # 대시보드 HTML 업데이트
             self._generate_dashboard_html(dashboard_path, plugins_info)
-            self.log_text.insert(tk.END, f"\n📊 대시보드 자동 업데이트 완료: {dashboard_path}\n")
+            self.log_text.insert(tk.END, f"\n📊 대시보드 자동 업데이트 완료: {dashboard_path.name}\n")
             self.log_text.see(tk.END)
         except Exception as e:
             self.log_text.insert(tk.END, f"\n⚠️ 대시보드 업데이트 실패: {e}\n")
+            self.log_text.see(tk.END)
     
     def set_status(self, message):
         """상태바 업데이트"""
@@ -1471,31 +1514,95 @@ class JJBuildManager(tk.Tk):
                 content = f.read()
 
             # 1. 전체 빌드 버전 및 날짜 업데이트
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d")
-            build_id = f"RELEASE-{timestamp.replace('-', '')}-AUTO"
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+            build_id = f"RELEASE-{datetime.datetime.now().strftime('%Y%m%d')}-AUTO"
             
-            content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{timestamp.replace("-", ".")} (Build)</span>', content, 1)
-            content = re.sub(r'id="last-updated">.*?</span>', f'id="last-updated">{timestamp}</span>', content)
-            content = re.sub(r'id="build-id">.*?</span>', f'id="build-id">{build_id}</span>', content)
+            # 헤더 버전 업데이트 (Phase 정보 유지)
+            header_version_pattern = r'<span>v\d+\.\d+\.\d+.*?</span>\s*Phase\s*\d+'
+            if re.search(header_version_pattern, content):
+                # Phase 정보는 유지하고 날짜만 업데이트
+                content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, 1)
+            else:
+                content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, 1)
+            
+            # last-updated 업데이트
+            content = re.sub(r'id="last-updated"[^>]*>.*?</span>', f'id="last-updated">{timestamp}</span>', content)
+            
+            # build-id 업데이트 (있는 경우)
+            if 'id="build-id"' in content:
+                content = re.sub(r'id="build-id"[^>]*>.*?</span>', f'id="build-id">{build_id}</span>', content)
 
-            # 2. 개별 플러그인 카드 버전 및 링크 업데이트
+            # 2. 개별 플러그인 카드 버전 및 링크 업데이트 (개선된 패턴)
             for plugin_id, info in plugins_info.items():
-                # 카드 내 버전 태그 업데이트
-                # 예: <div class="plugin-name">WP Bulk Manager</div> ... <span class="version-tag">v5.0.3</span>
-                pattern = f'({re.escape(info["name"])})</div>\\s*<span class="version-tag">v.*?</span>'
-                content = re.sub(pattern, f'\\1</div>\n                        <span class="version-tag">v{info["version"]}</span>', content)
+                if info['version'] == "N/A":
+                    continue
+                
+                # plugin-fullname으로 플러그인 카드 찾기 (가장 정확한 방법)
+                folder_escaped = re.escape(info["folder"])
+                
+                # 플러그인 카드 블록 찾기
+                card_pattern = f'<div class="plugin-fullname">{folder_escaped}</div>'
+                card_match = re.search(card_pattern, content)
+                
+                if card_match:
+                    # 카드 시작 위치 찾기
+                    card_start = content.rfind('<div class="plugin-card', 0, card_match.start())
+                    if card_start == -1:
+                        card_start = card_match.start() - 500  # 대략적인 시작 위치
+                    
+                    # 카드 끝 위치 찾기
+                    card_end = content.find('</div>\n            </div>', card_match.end())
+                    if card_end == -1:
+                        card_end = card_match.end() + 1000  # 대략적인 끝 위치
+                    
+                    if card_start < card_end:
+                        card_content = content[card_start:card_end]
+                        
+                        # version-tag 업데이트
+                        version_pattern = r'<span class="version-tag">v[\d.]+</span>'
+                        if re.search(version_pattern, card_content):
+                            new_version_tag = f'<span class="version-tag">v{info["version"]}</span>'
+                            card_content = re.sub(version_pattern, new_version_tag, card_content)
+                        
+                        # 다운로드 링크 업데이트
+                        link_pattern = r'href="dist/[^"]+-master-v[\d.]+\.zip"'
+                        if re.search(link_pattern, card_content):
+                            # 폴더명으로 링크 찾기
+                            folder_link_pattern = f'href="dist/{re.escape(info["folder"])}-master-v[\\d.]+\\.zip"'
+                            new_link = f'href="dist/{info["folder"]}-master-v{info["version"]}.zip"'
+                            card_content = re.sub(folder_link_pattern, new_link, card_content)
+                        
+                        # 업데이트된 카드 내용으로 교체
+                        content = content[:card_start] + card_content + content[card_end:]
+                else:
+                    # plugin-fullname으로 찾지 못한 경우, 이름으로 찾기
+                    name_pattern = f'({re.escape(info["name"])})</div>\\s*<span class="version-tag">v[\\d.]+</span>'
+                    if re.search(name_pattern, content):
+                        replacement = f'\\1</div>\n                        <span class="version-tag">v{info["version"]}</span>'
+                        content = re.sub(name_pattern, replacement, content)
+                    
+                    # 다운로드 링크는 항상 업데이트 시도
+                    folder_link_pattern = f'href="dist/{re.escape(info["folder"])}-master-v[\\d.]+\\.zip"'
+                    new_link = f'href="dist/{info["folder"]}-master-v{info["version"]}.zip"'
+                    content = re.sub(folder_link_pattern, new_link, content)
 
-                # 다운로드 링크 업데이트
-                # 예: href="dist/wp-bulk-manager-master-v5.0.3.zip"
-                link_pattern = f'href="dist/{re.escape(info["folder"])}-master-v.*?\\.zip"'
-                new_link = f'href="dist/{info["folder"]}-master-v{info["version"]}.zip"'
-                content = re.sub(link_pattern, new_link, content)
-
-            # 3. 빌드 정보 테이블 업데이트
+            # 3. 빌드 정보 테이블 업데이트 (Build Registry 테이블)
             # <tr><td>WP Bulk Manager</td><td>v5.0.3</td>...
             for plugin_id, info in plugins_info.items():
-                table_pattern = f'<tr><td>{re.escape(info["name"])}</td><td>v.*?</td>'
-                content = re.sub(table_pattern, f'<tr><td>{info["name"]}</td><td>v{info["version"]}</td>', content)
+                if info['version'] == "N/A":
+                    continue
+                
+                # 테이블 행 패턴 (더 정확한 매칭)
+                table_patterns = [
+                    f'<tr>\\s*<td>{re.escape(info["name"])}</td>\\s*<td>v[\\d.]+</td>',
+                    f'<tr>\\s*<td>{re.escape(info["full_name"])}</td>\\s*<td>v[\\d.]+</td>',
+                ]
+                
+                for table_pattern in table_patterns:
+                    if re.search(table_pattern, content):
+                        replacement = f'<tr>\n                            <td>{info["name"]}</td>\n                            <td>v{info["version"]}</td>'
+                        content = re.sub(table_pattern, replacement, content)
+                        break
 
             with open(output_path, 'w', encoding='utf-8') as f:
                 f.write(content)
@@ -1564,16 +1671,129 @@ class JJBuildManager(tk.Tk):
 def cli_build(plugins=None, editions=None):
     """CLI에서 빌드 실행"""
     print("=" * 70)
-    print("  3J Labs ACF CSS Plugin Build Manager v23.0.0 - CLI Mode")
+    print("  3J Labs ACF CSS Plugin Build Manager v23.0.1 - CLI Mode")
     print("=" * 70)
     
     if editions is None:
         editions = ['master']
     
-    engine = BuildEngine(log_callback=lambda msg: print(msg, end=''))
+    def log_callback(msg):
+        print(msg, end='')
+    
+    engine = BuildEngine(log_callback=log_callback)
     success = engine.build_all(plugins, editions)
     
+    # CLI 모드에서도 대시보드 자동 업데이트
+    if success:
+        try:
+            dashboard_path = BASE_DIR / 'dashboard.html'
+            if dashboard_path.exists():
+                plugins_info = {}
+                for plugin_id, plugin_data in PLUGINS.items():
+                    source_path = BASE_DIR / plugin_data['folder']
+                    main_file = source_path / plugin_data['main_file']
+                    version = get_version_from_file(main_file) if main_file.exists() else "N/A"
+                    
+                    plugins_info[plugin_id] = {
+                        'name': plugin_data['name'],
+                        'full_name': plugin_data['full_name'],
+                        'version': version,
+                        'editions': plugin_data['editions'],
+                        'description': plugin_data['description'],
+                        'folder': plugin_data['folder'],
+                        'exists': source_path.exists()
+                    }
+                
+                # 간단한 대시보드 업데이트 함수
+                _update_dashboard_simple(dashboard_path, plugins_info)
+                # Windows 콘솔 인코딩 문제 방지
+                try:
+                    print("\n[OK] Dashboard auto-update completed")
+                except UnicodeEncodeError:
+                    print("\n[OK] Dashboard auto-update completed")
+        except Exception as e:
+            try:
+                print(f"\n[WARNING] Dashboard auto-update failed: {e}")
+            except UnicodeEncodeError:
+                print(f"\n[WARNING] Dashboard auto-update failed")
+    
     return success
+
+def _update_dashboard_simple(output_path, plugins_info):
+    """간단한 대시보드 업데이트 (CLI용) - _generate_dashboard_html과 동일한 로직 사용"""
+    try:
+        # GUI 클래스의 메서드를 직접 호출할 수 없으므로, 동일한 로직을 구현
+        with open(output_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        build_id = f"RELEASE-{datetime.datetime.now().strftime('%Y%m%d')}-AUTO"
+        
+        # 헤더 버전 업데이트
+        header_version_pattern = r'<span>v\d+\.\d+\.\d+.*?</span>\s*Phase\s*\d+'
+        if re.search(header_version_pattern, content):
+            content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, 1)
+        else:
+            content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, 1)
+        
+        # last-updated 업데이트
+        content = re.sub(r'id="last-updated"[^>]*>.*?</span>', f'id="last-updated">{timestamp}</span>', content)
+        
+        # 개별 플러그인 카드 버전 및 링크 업데이트
+        for plugin_id, info in plugins_info.items():
+            if info['version'] == "N/A":
+                continue
+            
+            folder_escaped = re.escape(info["folder"])
+            card_pattern = f'<div class="plugin-fullname">{folder_escaped}</div>'
+            card_match = re.search(card_pattern, content)
+            
+            if card_match:
+                card_start = content.rfind('<div class="plugin-card', 0, card_match.start())
+                if card_start == -1:
+                    card_start = card_match.start() - 500
+                
+                card_end = content.find('</div>\n            </div>', card_match.end())
+                if card_end == -1:
+                    card_end = card_match.end() + 1000
+                
+                if card_start < card_end:
+                    card_content = content[card_start:card_end]
+                    
+                    # version-tag 업데이트
+                    version_pattern = r'<span class="version-tag">v[\d.]+</span>'
+                    if re.search(version_pattern, card_content):
+                        new_version_tag = f'<span class="version-tag">v{info["version"]}</span>'
+                        card_content = re.sub(version_pattern, new_version_tag, card_content)
+                    
+                    # 다운로드 링크 업데이트
+                    folder_link_pattern = f'href="dist/{re.escape(info["folder"])}-master-v[\\d.]+\\.zip"'
+                    new_link = f'href="dist/{info["folder"]}-master-v{info["version"]}.zip"'
+                    card_content = re.sub(folder_link_pattern, new_link, card_content)
+                    
+                    content = content[:card_start] + card_content + content[card_end:]
+            else:
+                # 이름으로 찾기
+                name_pattern = f'({re.escape(info["name"])})</div>\\s*<span class="version-tag">v[\\d.]+</span>'
+                if re.search(name_pattern, content):
+                    replacement = f'\\1</div>\n                        <span class="version-tag">v{info["version"]}</span>'
+                    content = re.sub(name_pattern, replacement, content)
+                
+                # 다운로드 링크 업데이트
+                folder_link_pattern = f'href="dist/{re.escape(info["folder"])}-master-v[\\d.]+\\.zip"'
+                new_link = f'href="dist/{info["folder"]}-master-v{info["version"]}.zip"'
+                content = re.sub(folder_link_pattern, new_link, content)
+        
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+            
+    except Exception as e:
+        import traceback
+        error_msg = f"Dashboard update error: {e}\n{traceback.format_exc()}"
+        try:
+            print(error_msg)
+        except UnicodeEncodeError:
+            print(f"Dashboard update error: {str(e)}")
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # 메인 실행
