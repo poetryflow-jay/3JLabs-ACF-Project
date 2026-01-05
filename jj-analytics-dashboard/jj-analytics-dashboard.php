@@ -291,3 +291,10 @@ final class JJ_Analytics_Dashboard {
         <?php
     }
 }
+
+
+// 플러그인 초기화
+add_action( "plugins_loaded", function() {
+    JJ_Analytics_Dashboard::instance();
+} );
+
