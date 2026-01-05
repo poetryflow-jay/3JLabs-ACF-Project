@@ -1831,9 +1831,9 @@ class JJBuildManager(tk.Tk):
             header_version_pattern = r'<span>v\d+\.\d+\.\d+.*?</span>\s*Phase\s*\d+'
             if re.search(header_version_pattern, content):
                 # Phase 정보는 유지하고 날짜만 업데이트
-            content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, count=1)
-        else:
-            content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, count=1)
+                content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, count=1)
+            else:
+                content = re.sub(r'<span>v\d+\.\d+\.\d+.*?</span>', f'<span>v{datetime.datetime.now().strftime("%Y.%m.%d")}</span>', content, count=1)
             
             # last-updated 업데이트
             content = re.sub(r'id="last-updated"[^>]*>.*?</span>', f'id="last-updated">{timestamp}</span>', content)
