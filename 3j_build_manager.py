@@ -1110,28 +1110,63 @@ class JJBuildManager(tk.Tk):
         self.log_text.pack(fill="both", expand=True)
     
     def create_version_tab(self):
-        """버전 관리 탭"""
-        # 버전 정보 (macOS 스타일)
-        version_frame = ttk.LabelFrame(self.tab_version, text=" 플러그인 버전 정보 ", padding=10)
-        version_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        """버전 관리 탭 (개선: 자동/수동 모드 지원)"""
+        # 상단 컨트롤
+        control_frame = ttk.LabelFrame(self.tab_version, text=" 버전 관리 모드 ", padding=10)
+        control_frame.pack(fill="x", padx=10, pady=10)
         
-        self.version_text = scrolledtext.ScrolledText(
-            version_frame,
-            bg='#FAFAF8',                           # 밝은 베이지 배경
-            fg=self.colors['text_primary'],          # 어두운 텍스트
-            font=self.fonts['mono'],
-            relief="solid",
-            borderwidth=1,
-            padx=12,
-            pady=8
-        )
-        self.version_text.pack(fill="both", expand=True)
+        mode_frame = ttk.Frame(control_frame)
+        mode_frame.pack(fill="x", pady=5)
         
-        # 버튼
+        ttk.Label(mode_frame, text="모드 선택:", width=12).pack(side="left", padx=5)
+        self.version_mode_var = tk.StringVar(value="auto")
+        ttk.Radiobutton(mode_frame, text="자동 (0.1씩 증가)", variable=self.version_mode_var, value="auto").pack(side="left", padx=10)
+        ttk.Radiobutton(mode_frame, text="수동 (직접 입력)", variable=self.version_mode_var, value="manual").pack(side="left", padx=10)
+        
+        ttk.Button(mode_frame, text="🔄 새로고침", command=self.refresh_version_info).pack(side="right", padx=5)
+        
+        # 플러그인 버전 목록 (Treeview)
+        list_frame = ttk.LabelFrame(self.tab_version, text=" 플러그인 버전 목록 ", padding=10)
+        list_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # Treeview with scrollbar
+        columns = ('name', 'current_version', 'new_version', 'mode', 'action')
+        self.version_tree = ttk.Treeview(list_frame, columns=columns, show='headings', height=15)
+        
+        self.version_tree.heading('name', text='플러그인 이름')
+        self.version_tree.heading('current_version', text='현재 버전')
+        self.version_tree.heading('new_version', text='새 버전')
+        self.version_tree.heading('mode', text='모드')
+        self.version_tree.heading('action', text='작업')
+        
+        self.version_tree.column('name', width=250)
+        self.version_tree.column('current_version', width=100, anchor='center')
+        self.version_tree.column('new_version', width=120, anchor='center')
+        self.version_tree.column('mode', width=80, anchor='center')
+        self.version_tree.column('action', width=100, anchor='center')
+        
+        scrollbar = ttk.Scrollbar(list_frame, orient="vertical", command=self.version_tree.yview)
+        self.version_tree.configure(yscrollcommand=scrollbar.set)
+        
+        self.version_tree.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        
+        # 버전 입력 필드 (수동 모드용)
+        self.version_input_frame = ttk.Frame(self.tab_version)
+        self.version_input_frame.pack(fill="x", padx=10, pady=5)
+        
+        # 하단 버튼
         btn_frame = ttk.Frame(self.tab_version)
         btn_frame.pack(fill="x", padx=10, pady=10)
         
-        ttk.Button(btn_frame, text="🔄 새로고침", command=self.refresh_version_info).pack(side="left", padx=5)
+        ttk.Button(btn_frame, text="⬆️ 선택된 플러그인 버전 업데이트", command=self.update_selected_version).pack(side="left", padx=5)
+        ttk.Button(btn_frame, text="⬆️ 전체 플러그인 버전 업데이트", command=self.update_all_versions).pack(side="left", padx=5)
+        
+        # 버전 모드 변경 이벤트
+        self.version_mode_var.trace('w', self.on_version_mode_changed)
+        
+        # 초기 로드
+        self.refresh_version_info()
     
     def create_settings_tab(self):
         """설정 탭"""
@@ -1215,37 +1250,312 @@ class JJBuildManager(tk.Tk):
         self.set_status(f"플러그인 목록 새로고침 완료 ({len(PLUGINS)}개)")
     
     def refresh_version_info(self):
-        """버전 정보 새로고침"""
-        self.version_text.delete("1.0", tk.END)
+        """버전 정보 새로고침 (개선: Treeview 사용)"""
+        # 기존 항목 삭제
+        for item in self.version_tree.get_children():
+            self.version_tree.delete(item)
         
-        lines = []
-        lines.append("═" * 70)
-        lines.append("  3J Labs ACF CSS Plugin Family - Version Information")
-        lines.append("═" * 70)
-        lines.append("")
+        mode = self.version_mode_var.get()
         
         for plugin_id, plugin_info in PLUGINS.items():
             source_path = BASE_DIR / plugin_info['folder']
             main_file = source_path / plugin_info['main_file']
             
-            lines.append(f"📦 {plugin_info['name']}")
-            lines.append(f"   ID: {plugin_id}")
-            lines.append(f"   폴더: {plugin_info['folder']}")
-            
-            if source_path.exists():
-                version = get_version_from_file(main_file)
-                lines.append(f"   버전: {version}")
-                lines.append(f"   상태: ✅ 존재함")
+            if source_path.exists() and main_file.exists():
+                current_version = get_version_from_file(main_file)
+                
+                if current_version == "N/A":
+                    current_version = "1.0.0"
+                
+                # 새 버전 계산
+                if mode == "auto":
+                    new_version = self.increment_version(current_version)
+                    mode_text = "자동"
+                    action_text = "⬆️ +0.1"
+                else:  # manual
+                    new_version = current_version  # 수동 모드에서는 현재 버전 표시
+                    mode_text = "수동"
+                    action_text = "입력 필요"
+                
+                self.version_tree.insert('', 'end', 
+                    values=(plugin_info['name'], current_version, new_version, mode_text, action_text),
+                    tags=(plugin_id,))
             else:
-                lines.append(f"   상태: ❌ 폴더 없음")
+                self.version_tree.insert('', 'end',
+                    values=(plugin_info['name'], "N/A", "N/A", "-", "-"),
+                    tags=(plugin_id,))
+        
+        # 수동 모드일 때 입력 필드 표시
+        self.on_version_mode_changed()
+    
+    def increment_version(self, version_str):
+        """버전을 0.1씩 증가시키고 소수점 두 자리까지만 유지
+        
+        예:
+        - 23.0.10 -> 23.0.11 (마지막 숫자에 1 추가)
+        - 23.1.3 -> 23.1.4
+        - 1.0.0 -> 1.0.1
+        - 2.5 -> 2.6
+        """
+        try:
+            # 버전 문자열 파싱 (예: "23.0.10" -> [23, 0, 10])
+            parts = version_str.split('.')
             
-            lines.append(f"   에디션: {', '.join(plugin_info['editions'])}")
-            lines.append(f"   설명: {plugin_info['description']}")
-            lines.append("")
+            # 최소 2개 부분이 있어야 함 (major.minor)
+            if len(parts) < 2:
+                parts = [parts[0] if parts else "1", "0"]
+            
+            # 마지막 부분(패치 버전)을 1 증가 (0.1씩 증가 = 마지막 숫자에 1 추가)
+            try:
+                last_part = int(parts[-1])
+                last_part += 1
+                parts[-1] = str(last_part)
+            except ValueError:
+                # 숫자가 아니면 1로 시작
+                parts[-1] = "1"
+            
+            # 소수점 두 자리까지만 유지 (major.minor.patch 형식)
+            # 3개 이상이면 3개까지만 유지
+            if len(parts) > 3:
+                parts = parts[:3]
+            
+            return '.'.join(parts)
+        except Exception as e:
+            # 오류 발생 시 원본 버전 반환
+            return version_str
+    
+    def on_version_mode_changed(self, *args):
+        """버전 모드 변경 시 호출"""
+        mode = self.version_mode_var.get()
         
-        lines.append("═" * 70)
+        # 기존 입력 필드 제거
+        for widget in self.version_input_frame.winfo_children():
+            widget.destroy()
         
-        self.version_text.insert("1.0", "\n".join(lines))
+        if mode == "manual":
+            # 수동 모드: 선택된 항목의 버전 입력 필드 표시
+            selected = self.version_tree.selection()
+            if selected:
+                item = self.version_tree.item(selected[0])
+                values = item['values']
+                plugin_name = values[0]
+                current_version = values[1]
+                
+                input_frame = ttk.Frame(self.version_input_frame)
+                input_frame.pack(fill="x", padx=10, pady=5)
+                
+                ttk.Label(input_frame, text=f"{plugin_name} 새 버전:").pack(side="left", padx=5)
+                self.manual_version_var = tk.StringVar(value=current_version)
+                version_entry = ttk.Entry(input_frame, textvariable=self.manual_version_var, width=15)
+                version_entry.pack(side="left", padx=5)
+                
+                ttk.Label(input_frame, text=f"(현재: {current_version})").pack(side="left", padx=5)
+                
+                # 선택 변경 이벤트
+                self.version_tree.bind('<<TreeviewSelect>>', self.on_version_selected)
+    
+    def on_version_selected(self, event):
+        """플러그인 선택 시 호출 (수동 모드)"""
+        if self.version_mode_var.get() == "manual":
+            selected = self.version_tree.selection()
+            if selected:
+                item = self.version_tree.item(selected[0])
+                values = item['values']
+                current_version = values[1]
+                
+                # 입력 필드 업데이트
+                for widget in self.version_input_frame.winfo_children():
+                    widget.destroy()
+                
+                plugin_name = values[0]
+                input_frame = ttk.Frame(self.version_input_frame)
+                input_frame.pack(fill="x", padx=10, pady=5)
+                
+                ttk.Label(input_frame, text=f"{plugin_name} 새 버전:").pack(side="left", padx=5)
+                self.manual_version_var = tk.StringVar(value=current_version)
+                version_entry = ttk.Entry(input_frame, textvariable=self.manual_version_var, width=15)
+                version_entry.pack(side="left", padx=5)
+                
+                ttk.Label(input_frame, text=f"(현재: {current_version})").pack(side="left", padx=5)
+    
+    def update_selected_version(self):
+        """선택된 플러그인의 버전 업데이트"""
+        selected = self.version_tree.selection()
+        if not selected:
+            messagebox.showwarning("경고", "플러그인을 선택해주세요.")
+            return
+        
+        item = self.version_tree.item(selected[0])
+        tags = item['tags']
+        if not tags:
+            return
+        
+        plugin_id = tags[0]
+        plugin_info = PLUGINS.get(plugin_id)
+        if not plugin_info:
+            return
+        
+        mode = self.version_mode_var.get()
+        
+        if mode == "auto":
+            # 자동 모드: 새 버전은 이미 계산됨
+            values = item['values']
+            new_version = values[2]
+        else:
+            # 수동 모드: 입력 필드에서 가져오기
+            if not hasattr(self, 'manual_version_var'):
+                messagebox.showwarning("경고", "새 버전을 입력해주세요.")
+                return
+            new_version = self.manual_version_var.get().strip()
+            
+            # 버전 검증
+            if not self.validate_version(new_version):
+                messagebox.showerror("오류", "올바른 버전 형식이 아닙니다. (예: 23.0.10)")
+                return
+            
+            # 버전 내리기 방지
+            current_version = values[1]
+            if not self.is_version_greater(new_version, current_version):
+                messagebox.showerror("오류", "버전을 내릴 수 없습니다. 현재 버전보다 높은 버전을 입력해주세요.")
+                return
+        
+        # 버전 업데이트 실행
+        if self.update_plugin_version(plugin_id, new_version):
+            messagebox.showinfo("성공", f"{plugin_info['name']}의 버전이 {new_version}으로 업데이트되었습니다.")
+            self.refresh_version_info()
+        else:
+            messagebox.showerror("오류", "버전 업데이트에 실패했습니다.")
+    
+    def update_all_versions(self):
+        """모든 플러그인의 버전 업데이트 (자동 모드만)"""
+        mode = self.version_mode_var.get()
+        
+        if mode == "manual":
+            messagebox.showwarning("경고", "전체 업데이트는 자동 모드에서만 사용할 수 있습니다.")
+            return
+        
+        if not messagebox.askyesno("확인", "모든 플러그인의 버전을 자동으로 업데이트하시겠습니까?"):
+            return
+        
+        success_count = 0
+        fail_count = 0
+        
+        for item_id in self.version_tree.get_children():
+            item = self.version_tree.item(item_id)
+            tags = item['tags']
+            if not tags:
+                continue
+            
+            plugin_id = tags[0]
+            values = item['values']
+            current_version = values[1]
+            
+            if current_version == "N/A":
+                continue
+            
+            new_version = values[2]  # 자동 계산된 버전
+            
+            if self.update_plugin_version(plugin_id, new_version):
+                success_count += 1
+            else:
+                fail_count += 1
+        
+        messagebox.showinfo("완료", f"버전 업데이트 완료:\n성공: {success_count}개\n실패: {fail_count}개")
+        self.refresh_version_info()
+    
+    def validate_version(self, version_str):
+        """버전 형식 검증"""
+        if not version_str:
+            return False
+        # 예: 23.0.10, 1.0.0, 2.1.3 등
+        pattern = r'^\d+(\.\d+){1,2}$'
+        return bool(re.match(pattern, version_str))
+    
+    def is_version_greater(self, version1, version2):
+        """version1이 version2보다 큰지 확인"""
+        try:
+            v1_parts = [int(x) for x in version1.split('.')]
+            v2_parts = [int(x) for x in version2.split('.')]
+            
+            # 길이 맞추기
+            max_len = max(len(v1_parts), len(v2_parts))
+            v1_parts.extend([0] * (max_len - len(v1_parts)))
+            v2_parts.extend([0] * (max_len - len(v2_parts)))
+            
+            for v1, v2 in zip(v1_parts, v2_parts):
+                if v1 > v2:
+                    return True
+                elif v1 < v2:
+                    return False
+            return False  # 같음
+        except:
+            return False
+    
+    def update_plugin_version(self, plugin_id, new_version):
+        """플러그인의 버전을 실제 파일에 업데이트 (헤더 및 상수 정의 모두)"""
+        plugin_info = PLUGINS.get(plugin_id)
+        if not plugin_info:
+            return False
+        
+        source_path = BASE_DIR / plugin_info['folder']
+        main_file = source_path / plugin_info['main_file']
+        
+        if not main_file.exists():
+            return False
+        
+        try:
+            with open(main_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            original_content = content
+            updated = False
+            
+            # 1. 플러그인 헤더의 Version 업데이트
+            header_pattern = r'(\*\s*Version:\s*)([\d.]+)'
+            if re.search(header_pattern, content):
+                content = re.sub(header_pattern, f'\\1{new_version}', content, count=1)
+                updated = True
+            
+            # 2. 상수 정의의 버전 업데이트 (모든 패턴 시도)
+            constant_patterns = [
+                (r"(define\s*\(\s*['\"]\w*VERSION\w*['\"]\s*,\s*['\"])([\d.]+)(['\"])", re.IGNORECASE),
+                (r"(define\s*\(\s*['\"]\w*_VERSION['\"]\s*,\s*['\"])([\d.]+)(['\"])", re.IGNORECASE),
+                (r"(define\s*\(\s*['\"]VERSION['\"]\s*,\s*['\"])([\d.]+)(['\"])", re.IGNORECASE),
+            ]
+            
+            for pattern, flags in constant_patterns:
+                matches = list(re.finditer(pattern, content, flags))
+                if matches:
+                    # 모든 매치를 업데이트 (보통 1개지만 여러 개일 수 있음)
+                    for match in reversed(matches):  # 뒤에서부터 업데이트하여 인덱스 변경 방지
+                        start, end = match.span()
+                        replacement = match.group(1) + new_version + match.group(3)
+                        content = content[:start] + replacement + content[end:]
+                        updated = True
+                    break  # 첫 번째 패턴에서 찾으면 종료
+            
+            # 변경사항이 있으면 파일 저장
+            if updated and content != original_content:
+                with open(main_file, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                # 로그는 GUI 모드에서만 (log_text가 있는 경우)
+                if hasattr(self, 'log_text'):
+                    self.log_text.insert(tk.END, f"✅ 버전 업데이트 성공: {plugin_info['name']} -> {new_version}\n")
+                    self.log_text.see(tk.END)
+                return True
+            elif not updated:
+                if hasattr(self, 'log_text'):
+                    self.log_text.insert(tk.END, f"⚠️ 버전 패턴을 찾을 수 없음: {plugin_info['name']}\n")
+                    self.log_text.see(tk.END)
+                return False
+            else:
+                return False
+                
+        except Exception as e:
+            if hasattr(self, 'log_text'):
+                self.log_text.insert(tk.END, f"❌ 버전 업데이트 오류 ({plugin_id}): {e}\n")
+                self.log_text.see(tk.END)
+            return False
     
     def toggle_all_plugins(self, value):
         """전체 플러그인 선택/해제"""
