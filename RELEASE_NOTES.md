@@ -149,6 +149,15 @@
 
 ---
 
+## 📚 관련 문서
+
+- [Phase 46 상세 보고서](memory%20%26%20context/20260105-Phase-46-버전-관리-및-대시보드-연동-개선.md)
+- [버전 추출 및 대시보드 연동 개선 보고서](PHASE_45_VERSION_SYNC_COMPLETE.md)
+- [버전 관리 기능 개선 보고서](VERSION_MANAGEMENT_FEATURE.md)
+- [Phase 45 플러그인 활성화 문제 해결 보고서](PHASE_45_PLUGIN_ACTIVATION_FIX.md)
+
+---
+
 ## 🚀 Phase 44 - WP Bulk Manager 에디션 감지 수정 및 대시보드 업그레이드 (2026-01-05)
 
 ### WP Bulk Manager v23.1.1 (Critical Bug Fix)
