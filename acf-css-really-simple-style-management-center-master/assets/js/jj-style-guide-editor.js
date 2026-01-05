@@ -1889,7 +1889,7 @@ jQuery(document).ready(function($) {
         // 탭이 있는지 확인
         var $tabsWrapper = $('.jj-sections-tabs-wrapper');
         var $tabButtons = $('.jj-section-tab-button');
-        var $tabContents = $('.jj-section-wrapper.jj-section-tab-content');
+        var $tabContents = $('.jj-section-wrapper[data-section]');
         
         // 탭이 없으면 초기화하지 않음
         if ($tabButtons.length === 0 || $tabContents.length === 0) {
@@ -1898,7 +1898,9 @@ jQuery(document).ready(function($) {
         }
         
         // 모든 탭 콘텐츠 숨기기 (클래스와 인라인 스타일 모두 처리)
-        $tabContents.hide().removeClass('jj-section-visible').addClass('jj-section-hidden').css('display', 'none');
+        $tabContents.each(function() {
+            $(this).addClass('jj-section-tab-content jj-section-hidden').removeClass('jj-section-visible').css('display', 'none');
+        });
         
         // 첫 번째 탭 버튼 자동 활성화
         var $firstTab = $tabButtons.first();
@@ -2016,7 +2018,7 @@ jQuery(document).ready(function($) {
         });
         
         // 모든 섹션 콘텐츠 숨기기 (인라인 스타일과 클래스 모두 처리)
-        $('.jj-section-wrapper.jj-section-tab-content')
+        $('.jj-section-wrapper[data-section]')
             .hide()
             .removeClass('jj-section-visible')
             .addClass('jj-section-hidden')

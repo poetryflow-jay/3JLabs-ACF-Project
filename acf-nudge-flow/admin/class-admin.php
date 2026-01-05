@@ -1618,7 +1618,7 @@ class ACF_Nudge_Flow_Admin {
 
     /**
      * 워크플로우 빌더 렌더링
-     * [v22.5.0] IF-DO 방식 폼 기반 빌더로 변경 (드래그 앤 드롭 제거)
+     * [v23.0.0] 드래그 앤 드롭 + IF-DO 하이브리드 빌더
      */
     public function render_builder() {
         if ( ! current_user_can( 'manage_options' ) ) {
@@ -1626,11 +1626,11 @@ class ACF_Nudge_Flow_Admin {
         }
         $workflow_id = isset( $_GET['id'] ) ? intval( $_GET['id'] ) : 0;
         $template = isset( $_GET['template'] ) ? sanitize_text_field( $_GET['template'] ) : '';
-        
+
         // 트리거/액션 데이터 전달
         $triggers = array();
         $actions = array();
-        
+
         // 클래스 자동 로드
         if ( ! class_exists( 'ACF_Nudge_Trigger_Manager' ) ) {
             require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-trigger-manager.php';
@@ -1638,13 +1638,13 @@ class ACF_Nudge_Flow_Admin {
         if ( ! class_exists( 'ACF_Nudge_Action_Manager' ) ) {
             require_once ACF_NUDGE_FLOW_PLUGIN_DIR . 'includes/class-action-manager.php';
         }
-        
+
         $trigger_manager = new ACF_Nudge_Trigger_Manager();
         $triggers = $trigger_manager->get_all();
-        
+
         $action_manager = new ACF_Nudge_Action_Manager();
         $actions = $action_manager->get_all();
-        
+
         // 템플릿이 지정된 경우 프리셋 데이터 로드
         $preset_data = null;
         if ( ! empty( $template ) ) {
@@ -1653,7 +1653,7 @@ class ACF_Nudge_Flow_Admin {
                 $preset_data = $presets[ $template ];
             }
         }
-        
+
         // 기존 워크플로우 데이터 로드
         $workflow_data = array(
             'trigger_id' => '',
@@ -1674,496 +1674,745 @@ class ACF_Nudge_Flow_Admin {
             $workflow_data['action_id'] = $preset_data['action'] ?? '';
             $workflow_data['action_settings'] = $preset_data['action_settings'] ?? array();
         }
+
+        // 카테고리별 트리거 분류
+        $trigger_categories = array();
+        foreach ( $triggers as $id => $trigger ) {
+            $cat = $trigger['category'] ?? 'general';
+            if ( ! isset( $trigger_categories[ $cat ] ) ) {
+                $trigger_categories[ $cat ] = array();
+            }
+            $trigger_categories[ $cat ][ $id ] = $trigger;
+        }
+
+        // 카테고리별 액션 분류
+        $action_categories = array();
+        foreach ( $actions as $id => $action ) {
+            $cat = $action['category'] ?? 'general';
+            if ( ! isset( $action_categories[ $cat ] ) ) {
+                $action_categories[ $cat ] = array();
+            }
+            $action_categories[ $cat ][ $id ] = $action;
+        }
+
+        $category_labels = array(
+            'visitor' => __( '방문자', 'acf-nudge-flow' ),
+            'traffic' => __( '트래픽 소스', 'acf-nudge-flow' ),
+            'user' => __( '사용자 상태', 'acf-nudge-flow' ),
+            'woocommerce' => __( 'WooCommerce', 'acf-nudge-flow' ),
+            'time' => __( '시간', 'acf-nudge-flow' ),
+            'general' => __( '일반', 'acf-nudge-flow' ),
+            'popup' => __( '팝업/모달', 'acf-nudge-flow' ),
+            'bar' => __( '바/배너', 'acf-nudge-flow' ),
+            'notification' => __( '토스트/알림', 'acf-nudge-flow' ),
+            'form' => __( '폼/리드', 'acf-nudge-flow' ),
+            'redirect' => __( '리다이렉트', 'acf-nudge-flow' ),
+            'page' => __( '페이지', 'acf-nudge-flow' ),
+        );
         ?>
-        <div class="wrap acf-nudge-flow-admin">
-            <h1>
-                <?php esc_html_e( '워크플로우 빌더', 'acf-nudge-flow' ); ?>
-                <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-workflows' ); ?>" class="page-title-action">
-                    <?php esc_html_e( '목록으로', 'acf-nudge-flow' ); ?>
+        <style>
+        /* [v23.0.0] 드래그 앤 드롭 빌더 스타일 */
+        .nf-builder-wrap { background: #f0f2f5; min-height: calc(100vh - 100px); margin-left: -20px; padding: 20px; }
+        .nf-builder-header { background: #fff; padding: 15px 20px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .nf-builder-header input[type="text"] { flex: 1; max-width: 400px; padding: 10px 15px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 15px; transition: border-color 0.2s; }
+        .nf-builder-header input[type="text"]:focus { border-color: #667eea; outline: none; }
+        .nf-builder-header .nf-btn { padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s; border: none; }
+        .nf-builder-header .nf-btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+        .nf-builder-header .nf-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4); }
+        .nf-builder-header .nf-btn-secondary { background: #fff; color: #374151; border: 2px solid #e2e8f0; }
+        .nf-builder-header .nf-btn-secondary:hover { border-color: #667eea; color: #667eea; }
+        .nf-builder-header .nf-toggle { display: flex; align-items: center; gap: 8px; padding: 8px 15px; background: #f8fafc; border-radius: 8px; }
+        .nf-builder-header .nf-toggle input[type="checkbox"] { width: 18px; height: 18px; accent-color: #10b981; }
+
+        .nf-builder-main { display: grid; grid-template-columns: 280px 1fr 320px; gap: 20px; min-height: 600px; }
+
+        /* 좌측 팔레트 */
+        .nf-palette { background: #fff; border-radius: 12px; padding: 20px; overflow-y: auto; max-height: calc(100vh - 200px); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .nf-palette h3 { margin: 0 0 15px; font-size: 14px; color: #374151; display: flex; align-items: center; gap: 8px; }
+        .nf-palette h3 .icon { font-size: 18px; }
+        .nf-palette-section { margin-bottom: 25px; }
+        .nf-palette-category { font-size: 11px; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.5px; margin: 15px 0 8px; padding-left: 5px; }
+        .nf-palette-item {
+            padding: 12px 15px;
+            background: #f8fafc;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: grab;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nf-palette-item:hover { border-color: #667eea; background: #fff; transform: translateX(3px); }
+        .nf-palette-item.dragging { opacity: 0.5; transform: scale(0.95); }
+        .nf-palette-item .item-icon { font-size: 20px; }
+        .nf-palette-item .item-info { flex: 1; }
+        .nf-palette-item .item-label { font-size: 13px; font-weight: 600; color: #1f2937; }
+        .nf-palette-item .item-desc { font-size: 11px; color: #6b7280; margin-top: 2px; }
+        .nf-palette-item[data-type="trigger"] { border-left: 3px solid #667eea; }
+        .nf-palette-item[data-type="action"] { border-left: 3px solid #f5576c; }
+
+        /* 캔버스 */
+        .nf-canvas {
+            background: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nf-canvas.drag-over { background: #f0f4ff; border: 2px dashed #667eea; }
+        .nf-canvas-empty { text-align: center; color: #9ca3af; padding: 60px 20px; }
+        .nf-canvas-empty .icon { font-size: 60px; margin-bottom: 20px; opacity: 0.5; }
+        .nf-canvas-empty h3 { font-size: 18px; color: #374151; margin-bottom: 10px; }
+        .nf-canvas-empty p { font-size: 14px; line-height: 1.6; }
+
+        /* 캔버스 노드 */
+        .nf-node {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        .nf-node:hover { border-color: #667eea; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .nf-node.selected { border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); }
+        .nf-node-header {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .nf-node-header .node-icon { font-size: 24px; }
+        .nf-node-header .node-info { flex: 1; }
+        .nf-node-header .node-type { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .nf-node-header .node-label { font-size: 15px; font-weight: 600; color: #1f2937; }
+        .nf-node-header .node-remove {
+            width: 28px; height: 28px;
+            border-radius: 6px;
+            border: none;
+            background: #fee2e2;
+            color: #ef4444;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .nf-node-header .node-remove:hover { background: #ef4444; color: #fff; }
+        .nf-node.trigger-node .nf-node-header { background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); }
+        .nf-node.trigger-node .nf-node-header .node-type { color: #667eea; }
+        .nf-node.action-node .nf-node-header { background: linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%); }
+        .nf-node.action-node .nf-node-header .node-type { color: #f5576c; }
+
+        /* 연결선 */
+        .nf-connector {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .nf-connector::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, #667eea, #f5576c);
+            border-radius: 3px;
+        }
+        .nf-connector .connector-icon {
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        /* 우측 설정 패널 */
+        .nf-settings {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .nf-settings-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nf-settings-header .settings-icon { font-size: 24px; }
+        .nf-settings-header h3 { margin: 0; font-size: 16px; color: #1f2937; }
+        .nf-settings-body { padding: 20px; flex: 1; overflow-y: auto; max-height: calc(100vh - 300px); }
+        .nf-settings-empty { text-align: center; color: #9ca3af; padding: 40px 20px; }
+        .nf-settings-empty .icon { font-size: 40px; margin-bottom: 15px; opacity: 0.5; }
+
+        .nf-field { margin-bottom: 20px; }
+        .nf-field label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 8px; }
+        .nf-field input[type="text"],
+        .nf-field input[type="number"],
+        .nf-field input[type="url"],
+        .nf-field select,
+        .nf-field textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        .nf-field input:focus, .nf-field select:focus, .nf-field textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+        .nf-field textarea { min-height: 80px; resize: vertical; }
+        .nf-field input[type="color"] { height: 40px; padding: 5px; }
+        .nf-field .description { font-size: 12px; color: #6b7280; margin-top: 5px; }
+        .nf-field .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .nf-field .checkbox-label input[type="checkbox"] { width: 18px; height: 18px; accent-color: #667eea; }
+
+        /* 드롭존 표시 */
+        .nf-dropzone {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            color: #9ca3af;
+            transition: all 0.2s;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nf-dropzone.active { border-color: #667eea; background: #f0f4ff; color: #667eea; }
+        .nf-dropzone.trigger-zone.has-node, .nf-dropzone.action-zone.has-node { display: none; }
+        </style>
+
+        <div class="wrap nf-builder-wrap">
+            <!-- 헤더 -->
+            <div class="nf-builder-header">
+                <a href="<?php echo admin_url( 'admin.php?page=acf-nudge-flow-workflows' ); ?>" class="nf-btn nf-btn-secondary">
+                    ← <?php esc_html_e( '목록', 'acf-nudge-flow' ); ?>
                 </a>
-            </h1>
-            
-            <form id="acf-nudge-workflow-builder-form" method="post">
-                <?php wp_nonce_field( 'acf_nudge_save_workflow', 'acf_nudge_workflow_nonce' ); ?>
-                <input type="hidden" name="workflow_id" value="<?php echo esc_attr( $workflow_id ); ?>">
-                
-                <!-- 워크플로우 이름 입력 -->
-                <div class="acf-nudge-builder-header" style="background: #fff; padding: 20px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px;">
-                    <input type="text" 
-                           name="workflow_name" 
-                           id="workflow-name" 
-                           value="<?php echo $preset_data ? esc_attr( $preset_data['title'] ) : ( $workflow_id ? get_the_title( $workflow_id ) : '' ); ?>"
-                           placeholder="<?php esc_attr_e( '예: 첫 방문자 환영 팝업', 'acf-nudge-flow' ); ?>" 
-                           class="regular-text" 
-                           style="width: 400px; margin-right: 10px;"
-                           required>
-                    <label style="margin-right: 15px;">
-                        <input type="checkbox" name="workflow_enabled" value="1" <?php checked( $workflow_data['enabled'] ); ?>>
-                        <?php esc_html_e( '활성화', 'acf-nudge-flow' ); ?>
-                    </label>
-                    <button type="submit" class="button button-primary" id="save-workflow">
-                        <?php esc_html_e( '저장', 'acf-nudge-flow' ); ?>
-                    </button>
-                    <?php if ( $preset_data ) : ?>
-                        <span style="margin-left: 10px; color: #10b981; font-size: 12px;">
-                            ✓ 프리셋 템플릿: <?php echo esc_html( $preset_data['title'] ); ?>
-                        </span>
+                <input type="text"
+                       id="workflow-name"
+                       value="<?php echo $preset_data ? esc_attr( $preset_data['title'] ) : ( $workflow_id ? get_the_title( $workflow_id ) : '' ); ?>"
+                       placeholder="<?php esc_attr_e( '워크플로우 이름 입력...', 'acf-nudge-flow' ); ?>">
+                <div class="nf-toggle">
+                    <input type="checkbox" id="workflow-enabled" <?php checked( $workflow_data['enabled'] ); ?>>
+                    <label for="workflow-enabled"><?php esc_html_e( '활성화', 'acf-nudge-flow' ); ?></label>
+                </div>
+                <button type="button" class="nf-btn nf-btn-primary" id="save-workflow">
+                    <?php esc_html_e( '💾 저장', 'acf-nudge-flow' ); ?>
+                </button>
+                <?php if ( $preset_data ) : ?>
+                    <span style="color: #10b981; font-size: 13px;">✓ <?php echo esc_html( $preset_data['title'] ); ?></span>
+                <?php endif; ?>
+            </div>
+
+            <!-- 메인 빌더 영역 -->
+            <div class="nf-builder-main">
+                <!-- 좌측: 팔레트 -->
+                <div class="nf-palette">
+                    <!-- 트리거 팔레트 -->
+                    <div class="nf-palette-section">
+                        <h3><span class="icon">⚡</span> <?php esc_html_e( '트리거 (IF)', 'acf-nudge-flow' ); ?></h3>
+                        <?php foreach ( $trigger_categories as $cat => $cat_triggers ) : ?>
+                            <div class="nf-palette-category"><?php echo esc_html( $category_labels[ $cat ] ?? ucfirst( $cat ) ); ?></div>
+                            <?php foreach ( $cat_triggers as $id => $trigger ) : ?>
+                                <div class="nf-palette-item"
+                                     data-type="trigger"
+                                     data-id="<?php echo esc_attr( $id ); ?>"
+                                     data-fields='<?php echo esc_attr( wp_json_encode( $trigger['fields'] ?? array() ) ); ?>'
+                                     draggable="true">
+                                    <span class="item-icon"><?php echo esc_html( $trigger['icon'] ?? '⚡' ); ?></span>
+                                    <div class="item-info">
+                                        <div class="item-label"><?php echo esc_html( $trigger['label'] ?? $id ); ?></div>
+                                        <div class="item-desc"><?php echo esc_html( mb_strimwidth( $trigger['description'] ?? '', 0, 40, '...' ) ); ?></div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- 액션 팔레트 -->
+                    <div class="nf-palette-section">
+                        <h3><span class="icon">🎯</span> <?php esc_html_e( '액션 (DO)', 'acf-nudge-flow' ); ?></h3>
+                        <?php foreach ( $action_categories as $cat => $cat_actions ) : ?>
+                            <div class="nf-palette-category"><?php echo esc_html( $category_labels[ $cat ] ?? ucfirst( $cat ) ); ?></div>
+                            <?php foreach ( $cat_actions as $id => $action ) : ?>
+                                <div class="nf-palette-item"
+                                     data-type="action"
+                                     data-id="<?php echo esc_attr( $id ); ?>"
+                                     data-fields='<?php echo esc_attr( wp_json_encode( $action['fields'] ?? array() ) ); ?>'
+                                     draggable="true">
+                                    <span class="item-icon"><?php echo esc_html( $action['icon'] ?? '🎯' ); ?></span>
+                                    <div class="item-info">
+                                        <div class="item-label"><?php echo esc_html( $action['label'] ?? $id ); ?></div>
+                                        <div class="item-desc"><?php echo esc_html( mb_strimwidth( $action['description'] ?? '', 0, 40, '...' ) ); ?></div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- 중앙: 캔버스 -->
+                <div class="nf-canvas" id="workflow-canvas">
+                    <?php if ( empty( $workflow_data['trigger_id'] ) && empty( $workflow_data['action_id'] ) ) : ?>
+                        <div class="nf-canvas-empty" id="canvas-empty">
+                            <div class="icon">🚀</div>
+                            <h3><?php esc_html_e( '워크플로우를 만들어보세요', 'acf-nudge-flow' ); ?></h3>
+                            <p><?php esc_html_e( '왼쪽 패널에서 트리거와 액션을 드래그하여<br>자동화 워크플로우를 구성하세요.', 'acf-nudge-flow' ); ?></p>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- 트리거 드롭존/노드 -->
+                    <div class="nf-dropzone trigger-zone <?php echo ! empty( $workflow_data['trigger_id'] ) ? 'has-node' : ''; ?>"
+                         data-accept="trigger" id="trigger-dropzone">
+                        <?php esc_html_e( '⚡ 트리거를 여기에 드롭하세요', 'acf-nudge-flow' ); ?>
+                    </div>
+
+                    <?php if ( ! empty( $workflow_data['trigger_id'] ) && isset( $triggers[ $workflow_data['trigger_id'] ] ) ) :
+                        $t = $triggers[ $workflow_data['trigger_id'] ];
+                    ?>
+                        <div class="nf-node trigger-node" data-type="trigger" data-id="<?php echo esc_attr( $workflow_data['trigger_id'] ); ?>">
+                            <div class="nf-node-header">
+                                <span class="node-icon"><?php echo esc_html( $t['icon'] ?? '⚡' ); ?></span>
+                                <div class="node-info">
+                                    <div class="node-type"><?php esc_html_e( 'IF (트리거)', 'acf-nudge-flow' ); ?></div>
+                                    <div class="node-label"><?php echo esc_html( $t['label'] ?? $workflow_data['trigger_id'] ); ?></div>
+                                </div>
+                                <button type="button" class="node-remove" data-target="trigger">✕</button>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <!-- 연결선 -->
+                    <div class="nf-connector" id="workflow-connector" style="<?php echo ( empty( $workflow_data['trigger_id'] ) || empty( $workflow_data['action_id'] ) ) ? 'display:none;' : ''; ?>">
+                        <span class="connector-icon">→</span>
+                    </div>
+
+                    <!-- 액션 드롭존/노드 -->
+                    <div class="nf-dropzone action-zone <?php echo ! empty( $workflow_data['action_id'] ) ? 'has-node' : ''; ?>"
+                         data-accept="action" id="action-dropzone">
+                        <?php esc_html_e( '🎯 액션을 여기에 드롭하세요', 'acf-nudge-flow' ); ?>
+                    </div>
+
+                    <?php if ( ! empty( $workflow_data['action_id'] ) && isset( $actions[ $workflow_data['action_id'] ] ) ) :
+                        $a = $actions[ $workflow_data['action_id'] ];
+                    ?>
+                        <div class="nf-node action-node" data-type="action" data-id="<?php echo esc_attr( $workflow_data['action_id'] ); ?>">
+                            <div class="nf-node-header">
+                                <span class="node-icon"><?php echo esc_html( $a['icon'] ?? '🎯' ); ?></span>
+                                <div class="node-info">
+                                    <div class="node-type"><?php esc_html_e( 'DO (액션)', 'acf-nudge-flow' ); ?></div>
+                                    <div class="node-label"><?php echo esc_html( $a['label'] ?? $workflow_data['action_id'] ); ?></div>
+                                </div>
+                                <button type="button" class="node-remove" data-target="action">✕</button>
+                            </div>
+                        </div>
                     <?php endif; ?>
                 </div>
-                
-                <!-- IF-DO 방식 빌더 영역 -->
-                <div class="acf-nudge-builder-container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <!-- IF 섹션: 트리거 선택 -->
-                    <div class="acf-nudge-builder-section" style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 4px;">
-                        <h2 style="margin-top: 0; color: #667eea; border-bottom: 2px solid #667eea; padding-bottom: 10px;">
-                            <?php esc_html_e( '⚡ IF (조건)', 'acf-nudge-flow' ); ?>
-                        </h2>
-                        <p style="color: #666; font-size: 13px; margin-bottom: 20px;">
-                            <?php esc_html_e( '이 조건이 충족되면 액션이 실행됩니다.', 'acf-nudge-flow' ); ?>
-                        </p>
-                        
-                        <!-- 트리거 선택 -->
-                        <div class="form-field" style="margin-bottom: 20px;">
-                            <label for="workflow-trigger" style="display: block; margin-bottom: 8px; font-weight: 600;">
-                                <?php esc_html_e( '트리거 선택', 'acf-nudge-flow' ); ?>
-                            </label>
-                            <select name="workflow_trigger" id="workflow-trigger" class="regular-text" style="width: 100%;" required>
-                                <option value=""><?php esc_html_e( '-- 트리거를 선택하세요 --', 'acf-nudge-flow' ); ?></option>
-                                <?php 
-                                // 카테고리별로 그룹화
-                                $trigger_categories = array();
-                                foreach ( $triggers as $id => $trigger ) {
-                                    $cat = $trigger['category'] ?? 'general';
-                                    if ( ! isset( $trigger_categories[ $cat ] ) ) {
-                                        $trigger_categories[ $cat ] = array();
-                                    }
-                                    $trigger_categories[ $cat ][ $id ] = $trigger;
-                                }
-                                
-                                $category_labels = array(
-                                    'visitor' => __( '방문자', 'acf-nudge-flow' ),
-                                    'traffic' => __( '트래픽 소스', 'acf-nudge-flow' ),
-                                    'user' => __( '사용자 상태', 'acf-nudge-flow' ),
-                                    'woocommerce' => __( 'WooCommerce', 'acf-nudge-flow' ),
-                                    'time' => __( '시간', 'acf-nudge-flow' ),
-                                    'general' => __( '일반', 'acf-nudge-flow' ),
-                                );
-                                
-                                foreach ( $trigger_categories as $cat => $cat_triggers ) :
-                                    $cat_label = $category_labels[ $cat ] ?? ucfirst( $cat );
-                                ?>
-                                    <optgroup label="<?php echo esc_attr( $cat_label ); ?>">
-                                        <?php foreach ( $cat_triggers as $id => $trigger ) : ?>
-                                            <option value="<?php echo esc_attr( $id ); ?>" 
-                                                    data-fields='<?php echo wp_json_encode( $trigger['fields'] ?? array() ); ?>'
-                                                    <?php selected( $workflow_data['trigger_id'], $id ); ?>>
-                                                <?php echo esc_html( $trigger['icon'] ?? '⚡' ); ?> <?php echo esc_html( $trigger['label'] ?? $id ); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </optgroup>
-                                <?php endforeach; ?>
-                            </select>
-                            <p class="description" id="trigger-description" style="margin-top: 5px; color: #666; font-size: 12px;">
-                                <?php esc_html_e( '트리거를 선택하면 설정 옵션이 표시됩니다.', 'acf-nudge-flow' ); ?>
-                            </p>
-                        </div>
-                        
-                        <!-- 트리거 설정 필드 (동적 생성) -->
-                        <div id="trigger-settings-container" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-                            <?php if ( ! empty( $workflow_data['trigger_id'] ) && isset( $triggers[ $workflow_data['trigger_id'] ] ) ) : 
-                                $selected_trigger = $triggers[ $workflow_data['trigger_id'] ];
-                                $trigger_fields = $selected_trigger['fields'] ?? array();
-                            ?>
-                                <h4 style="margin-top: 0;"><?php esc_html_e( '트리거 설정', 'acf-nudge-flow' ); ?></h4>
-                                <?php foreach ( $trigger_fields as $field_id => $field_config ) : 
-                                    $field_value = $workflow_data['trigger_settings'][ $field_id ] ?? ( $field_config['default'] ?? '' );
-                                ?>
-                                    <div class="form-field" style="margin-bottom: 15px;">
-                                        <label for="trigger_setting_<?php echo esc_attr( $field_id ); ?>" style="display: block; margin-bottom: 5px; font-weight: 500;">
-                                            <?php echo esc_html( $field_config['label'] ?? $field_id ); ?>
-                                        </label>
-                                        <?php if ( $field_config['type'] === 'select' ) : ?>
-                                            <select name="trigger_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                    id="trigger_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                    class="regular-text" style="width: 100%;">
-                                                <?php foreach ( $field_config['options'] as $opt_value => $opt_label ) : ?>
-                                                    <option value="<?php echo esc_attr( $opt_value ); ?>" <?php selected( $field_value, $opt_value ); ?>>
-                                                        <?php echo esc_html( $opt_label ); ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        <?php elseif ( $field_config['type'] === 'number' ) : ?>
-                                            <input type="number" 
-                                                   name="trigger_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                   id="trigger_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                   value="<?php echo esc_attr( $field_value ); ?>"
-                                                   class="regular-text" 
-                                                   style="width: 100%;"
-                                                   min="<?php echo esc_attr( $field_config['min'] ?? '' ); ?>"
-                                                   max="<?php echo esc_attr( $field_config['max'] ?? '' ); ?>"
-                                                   placeholder="<?php echo esc_attr( $field_config['placeholder'] ?? '' ); ?>">
-                                        <?php else : ?>
-                                            <input type="text" 
-                                                   name="trigger_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                   id="trigger_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                   value="<?php echo esc_attr( $field_value ); ?>"
-                                                   class="regular-text" 
-                                                   style="width: 100%;"
-                                                   placeholder="<?php echo esc_attr( $field_config['placeholder'] ?? '' ); ?>">
-                                        <?php endif; ?>
-                                        <?php if ( ! empty( $field_config['description'] ) ) : ?>
-                                            <p class="description" style="margin-top: 3px; font-size: 11px; color: #999;">
-                                                <?php echo esc_html( $field_config['description'] ); ?>
-                                            </p>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else : ?>
-                                <p style="color: #999; font-style: italic; text-align: center; padding: 20px;">
-                                    <?php esc_html_e( '트리거를 선택하면 설정 옵션이 여기에 표시됩니다.', 'acf-nudge-flow' ); ?>
-                                </p>
-                            <?php endif; ?>
-                        </div>
+
+                <!-- 우측: 설정 패널 -->
+                <div class="nf-settings">
+                    <div class="nf-settings-header">
+                        <span class="settings-icon">⚙️</span>
+                        <h3 id="settings-title"><?php esc_html_e( '설정', 'acf-nudge-flow' ); ?></h3>
                     </div>
-                    
-                    <!-- DO 섹션: 액션 선택 -->
-                    <div class="acf-nudge-builder-section" style="background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 4px;">
-                        <h2 style="margin-top: 0; color: #f5576c; border-bottom: 2px solid #f5576c; padding-bottom: 10px;">
-                            <?php esc_html_e( '🎯 DO (액션)', 'acf-nudge-flow' ); ?>
-                        </h2>
-                        <p style="color: #666; font-size: 13px; margin-bottom: 20px;">
-                            <?php esc_html_e( '조건이 충족되면 실행할 액션을 선택하세요.', 'acf-nudge-flow' ); ?>
-                        </p>
-                        
-                        <!-- 액션 선택 -->
-                        <div class="form-field" style="margin-bottom: 20px;">
-                            <label for="workflow-action" style="display: block; margin-bottom: 8px; font-weight: 600;">
-                                <?php esc_html_e( '액션 선택', 'acf-nudge-flow' ); ?>
-                            </label>
-                            <select name="workflow_action" id="workflow-action" class="regular-text" style="width: 100%;" required>
-                                <option value=""><?php esc_html_e( '-- 액션을 선택하세요 --', 'acf-nudge-flow' ); ?></option>
-                                <?php 
-                                // 카테고리별로 그룹화
-                                $action_categories = array();
-                                foreach ( $actions as $id => $action ) {
-                                    $cat = $action['category'] ?? 'general';
-                                    if ( ! isset( $action_categories[ $cat ] ) ) {
-                                        $action_categories[ $cat ] = array();
-                                    }
-                                    $action_categories[ $cat ][ $id ] = $action;
-                                }
-                                
-                                $action_category_labels = array(
-                                    'popup' => __( '팝업/모달', 'acf-nudge-flow' ),
-                                    'bar' => __( '바/배너', 'acf-nudge-flow' ),
-                                    'notification' => __( '토스트/알림', 'acf-nudge-flow' ),
-                                    'form' => __( '폼/리드', 'acf-nudge-flow' ),
-                                    'woocommerce' => __( 'WooCommerce', 'acf-nudge-flow' ),
-                                    'redirect' => __( '리다이렉트', 'acf-nudge-flow' ),
-                                    'page' => __( '페이지', 'acf-nudge-flow' ),
-                                    'general' => __( '일반', 'acf-nudge-flow' ),
-                                );
-                                
-                                foreach ( $action_categories as $cat => $cat_actions ) :
-                                    $cat_label = $action_category_labels[ $cat ] ?? ucfirst( $cat );
-                                ?>
-                                    <optgroup label="<?php echo esc_attr( $cat_label ); ?>">
-                                        <?php foreach ( $cat_actions as $id => $action ) : ?>
-                                            <option value="<?php echo esc_attr( $id ); ?>" 
-                                                    data-fields='<?php echo wp_json_encode( $action['fields'] ?? array() ); ?>'
-                                                    <?php selected( $workflow_data['action_id'], $id ); ?>>
-                                                <?php echo esc_html( $action['icon'] ?? '🎯' ); ?> <?php echo esc_html( $action['label'] ?? $id ); ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </optgroup>
-                                <?php endforeach; ?>
-                            </select>
-                            <p class="description" id="action-description" style="margin-top: 5px; color: #666; font-size: 12px;">
-                                <?php esc_html_e( '액션을 선택하면 설정 옵션이 표시됩니다.', 'acf-nudge-flow' ); ?>
-                            </p>
-                        </div>
-                        
-                        <!-- 액션 설정 필드 (동적 생성) -->
-                        <div id="action-settings-container" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee;">
-                            <?php if ( ! empty( $workflow_data['action_id'] ) && isset( $actions[ $workflow_data['action_id'] ] ) ) : 
-                                $selected_action = $actions[ $workflow_data['action_id'] ];
-                                $action_fields = $selected_action['fields'] ?? array();
-                            ?>
-                                <h4 style="margin-top: 0;"><?php esc_html_e( '액션 설정', 'acf-nudge-flow' ); ?></h4>
-                                <?php foreach ( $action_fields as $field_id => $field_config ) : 
-                                    $field_value = $workflow_data['action_settings'][ $field_id ] ?? ( $field_config['default'] ?? '' );
-                                ?>
-                                    <div class="form-field" style="margin-bottom: 15px;">
-                                        <label for="action_setting_<?php echo esc_attr( $field_id ); ?>" style="display: block; margin-bottom: 5px; font-weight: 500;">
-                                            <?php echo esc_html( $field_config['label'] ?? $field_id ); ?>
-                                        </label>
-                                        <?php if ( $field_config['type'] === 'select' ) : ?>
-                                            <select name="action_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                    id="action_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                    class="regular-text" style="width: 100%;">
-                                                <?php foreach ( $field_config['options'] as $opt_value => $opt_label ) : ?>
-                                                    <option value="<?php echo esc_attr( $opt_value ); ?>" <?php selected( $field_value, $opt_value ); ?>>
-                                                        <?php echo esc_html( $opt_label ); ?>
-                                                    </option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        <?php elseif ( $field_config['type'] === 'number' ) : ?>
-                                            <input type="number" 
-                                                   name="action_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                   id="action_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                   value="<?php echo esc_attr( $field_value ); ?>"
-                                                   class="regular-text" 
-                                                   style="width: 100%;"
-                                                   min="<?php echo esc_attr( $field_config['min'] ?? '' ); ?>"
-                                                   max="<?php echo esc_attr( $field_config['max'] ?? '' ); ?>"
-                                                   placeholder="<?php echo esc_attr( $field_config['placeholder'] ?? '' ); ?>">
-                                        <?php elseif ( $field_config['type'] === 'textarea' ) : ?>
-                                            <textarea name="action_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                      id="action_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                      class="large-text" 
-                                                      rows="3"
-                                                      style="width: 100%;"><?php echo esc_textarea( $field_value ); ?></textarea>
-                                        <?php elseif ( $field_config['type'] === 'wysiwyg' ) : ?>
-                                            <?php 
-                                            wp_editor( 
-                                                $field_value, 
-                                                'action_setting_' . esc_attr( $field_id ),
-                                                array(
-                                                    'textarea_name' => 'action_settings[' . esc_attr( $field_id ) . ']',
-                                                    'textarea_rows' => 5,
-                                                    'media_buttons' => false,
-                                                )
-                                            ); 
-                                            ?>
-                                        <?php elseif ( $field_config['type'] === 'checkbox' ) : ?>
-                                            <label>
-                                                <input type="checkbox" 
-                                                       name="action_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                       value="1"
-                                                       <?php checked( $field_value, '1' ); ?>>
-                                                <?php echo esc_html( $field_config['description'] ?? '' ); ?>
-                                            </label>
-                                        <?php elseif ( $field_config['type'] === 'color' ) : ?>
-                                            <input type="color" 
-                                                   name="action_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                   id="action_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                   value="<?php echo esc_attr( $field_value ?: ( $field_config['default'] ?? '#000000' ) ); ?>"
-                                                   class="regular-text">
-                                        <?php else : ?>
-                                            <input type="text" 
-                                                   name="action_settings[<?php echo esc_attr( $field_id ); ?>]" 
-                                                   id="action_setting_<?php echo esc_attr( $field_id ); ?>" 
-                                                   value="<?php echo esc_attr( $field_value ); ?>"
-                                                   class="regular-text" 
-                                                   style="width: 100%;"
-                                                   placeholder="<?php echo esc_attr( $field_config['placeholder'] ?? '' ); ?>">
-                                        <?php endif; ?>
-                                        <?php if ( ! empty( $field_config['description'] ) && $field_config['type'] !== 'checkbox' ) : ?>
-                                            <p class="description" style="margin-top: 3px; font-size: 11px; color: #999;">
-                                                <?php echo esc_html( $field_config['description'] ); ?>
-                                            </p>
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else : ?>
-                                <p style="color: #999; font-style: italic; text-align: center; padding: 20px;">
-                                    <?php esc_html_e( '액션을 선택하면 설정 옵션이 여기에 표시됩니다.', 'acf-nudge-flow' ); ?>
-                                </p>
-                            <?php endif; ?>
+                    <div class="nf-settings-body" id="settings-body">
+                        <div class="nf-settings-empty">
+                            <div class="icon">👆</div>
+                            <p><?php esc_html_e( '캔버스에서 노드를 선택하면<br>설정 옵션이 표시됩니다.', 'acf-nudge-flow' ); ?></p>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-        
+
         <script>
-        // [v22.5.0] IF-DO 방식 빌더 - 트리거/액션 선택 시 설정 필드 동적 생성
+        // [v23.0.0] 드래그 앤 드롭 워크플로우 빌더
         jQuery(document).ready(function($) {
             var triggersData = <?php echo wp_json_encode( $triggers ); ?>;
             var actionsData = <?php echo wp_json_encode( $actions ); ?>;
-            
-            // 트리거 선택 시 설정 필드 업데이트
-            $('#workflow-trigger').on('change', function() {
-                var triggerId = $(this).val();
-                var container = $('#trigger-settings-container');
-                
-                if (!triggerId || !triggersData[triggerId]) {
-                    container.html('<p style="color: #999; font-style: italic; text-align: center; padding: 20px;"><?php echo esc_js( __( "트리거를 선택하면 설정 옵션이 여기에 표시됩니다.", "acf-nudge-flow" ) ); ?></p>');
-                    $('#trigger-description').text('<?php echo esc_js( __( "트리거를 선택하면 설정 옵션이 표시됩니다.", "acf-nudge-flow" ) ); ?>');
-                    return;
-                }
-                
-                var trigger = triggersData[triggerId];
-                $('#trigger-description').text(trigger.description || '');
-                
-                var fields = trigger.fields || {};
-                var html = '<h4 style="margin-top: 0;"><?php echo esc_js( __( "트리거 설정", "acf-nudge-flow" ) ); ?></h4>';
-                
-                if (Object.keys(fields).length === 0) {
-                    html += '<p style="color: #999; font-style: italic;"><?php echo esc_js( __( "이 트리거는 추가 설정이 필요하지 않습니다.", "acf-nudge-flow" ) ); ?></p>';
-                } else {
-                    for (var fieldId in fields) {
-                        var field = fields[fieldId];
-                        html += '<div class="form-field" style="margin-bottom: 15px;">';
-                        html += '<label for="trigger_setting_' + fieldId + '" style="display: block; margin-bottom: 5px; font-weight: 500;">' + (field.label || fieldId) + '</label>';
-                        
-                        if (field.type === 'select') {
-                            html += '<select name="trigger_settings[' + fieldId + ']" id="trigger_setting_' + fieldId + '" class="regular-text" style="width: 100%;">';
-                            for (var optValue in field.options) {
-                                html += '<option value="' + optValue + '">' + field.options[optValue] + '</option>';
-                            }
-                            html += '</select>';
-                        } else if (field.type === 'number') {
-                            html += '<input type="number" name="trigger_settings[' + fieldId + ']" id="trigger_setting_' + fieldId + '" value="' + (field.default || '') + '" class="regular-text" style="width: 100%;" min="' + (field.min || '') + '" max="' + (field.max || '') + '" placeholder="' + (field.placeholder || '') + '">';
-                        } else {
-                            html += '<input type="text" name="trigger_settings[' + fieldId + ']" id="trigger_setting_' + fieldId + '" value="' + (field.default || '') + '" class="regular-text" style="width: 100%;" placeholder="' + (field.placeholder || '') + '">';
-                        }
-                        
-                        if (field.description) {
-                            html += '<p class="description" style="margin-top: 3px; font-size: 11px; color: #999;">' + field.description + '</p>';
-                        }
-                        html += '</div>';
-                    }
-                }
-                
-                container.html(html);
+            var workflowId = <?php echo $workflow_id; ?>;
+
+            // 현재 워크플로우 상태
+            var workflowState = {
+                trigger: '<?php echo esc_js( $workflow_data['trigger_id'] ); ?>',
+                triggerSettings: <?php echo wp_json_encode( $workflow_data['trigger_settings'] ); ?>,
+                action: '<?php echo esc_js( $workflow_data['action_id'] ); ?>',
+                actionSettings: <?php echo wp_json_encode( $workflow_data['action_settings'] ); ?>,
+                selectedNode: null
+            };
+
+            // ========================
+            // 드래그 앤 드롭 핸들러
+            // ========================
+
+            // 팔레트 아이템 드래그 시작
+            $('.nf-palette-item').on('dragstart', function(e) {
+                var $item = $(this);
+                $item.addClass('dragging');
+                e.originalEvent.dataTransfer.setData('text/plain', JSON.stringify({
+                    type: $item.data('type'),
+                    id: $item.data('id'),
+                    fields: $item.data('fields')
+                }));
+                e.originalEvent.dataTransfer.effectAllowed = 'copy';
             });
-            
-            // 액션 선택 시 설정 필드 업데이트
-            $('#workflow-action').on('change', function() {
-                var actionId = $(this).val();
-                var container = $('#action-settings-container');
-                
-                if (!actionId || !actionsData[actionId]) {
-                    container.html('<p style="color: #999; font-style: italic; text-align: center; padding: 20px;"><?php echo esc_js( __( "액션을 선택하면 설정 옵션이 여기에 표시됩니다.", "acf-nudge-flow" ) ); ?></p>');
-                    $('#action-description').text('<?php echo esc_js( __( "액션을 선택하면 설정 옵션이 표시됩니다.", "acf-nudge-flow" ) ); ?>');
-                    return;
-                }
-                
-                var action = actionsData[actionId];
-                $('#action-description').text(action.description || '');
-                
-                var fields = action.fields || {};
-                var html = '<h4 style="margin-top: 0;"><?php echo esc_js( __( "액션 설정", "acf-nudge-flow" ) ); ?></h4>';
-                
-                if (Object.keys(fields).length === 0) {
-                    html += '<p style="color: #999; font-style: italic;"><?php echo esc_js( __( "이 액션은 추가 설정이 필요하지 않습니다.", "acf-nudge-flow" ) ); ?></p>';
-                } else {
-                    for (var fieldId in fields) {
-                        var field = fields[fieldId];
-                        html += '<div class="form-field" style="margin-bottom: 15px;">';
-                        html += '<label for="action_setting_' + fieldId + '" style="display: block; margin-bottom: 5px; font-weight: 500;">' + (field.label || fieldId) + '</label>';
-                        
-                        if (field.type === 'select') {
-                            html += '<select name="action_settings[' + fieldId + ']" id="action_setting_' + fieldId + '" class="regular-text" style="width: 100%;">';
-                            for (var optValue in field.options) {
-                                html += '<option value="' + optValue + '">' + field.options[optValue] + '</option>';
-                            }
-                            html += '</select>';
-                        } else if (field.type === 'number') {
-                            html += '<input type="number" name="action_settings[' + fieldId + ']" id="action_setting_' + fieldId + '" value="' + (field.default || '') + '" class="regular-text" style="width: 100%;" min="' + (field.min || '') + '" max="' + (field.max || '') + '" placeholder="' + (field.placeholder || '') + '">';
-                        } else if (field.type === 'textarea') {
-                            html += '<textarea name="action_settings[' + fieldId + ']" id="action_setting_' + fieldId + '" class="large-text" rows="3" style="width: 100%;">' + (field.default || '') + '</textarea>';
-                        } else if (field.type === 'checkbox') {
-                            html += '<label><input type="checkbox" name="action_settings[' + fieldId + ']" value="1"> ' + (field.description || '') + '</label>';
-                        } else if (field.type === 'color') {
-                            html += '<input type="color" name="action_settings[' + fieldId + ']" id="action_setting_' + fieldId + '" value="' + (field.default || '#000000') + '" class="regular-text">';
-                        } else {
-                            html += '<input type="text" name="action_settings[' + fieldId + ']" id="action_setting_' + fieldId + '" value="' + (field.default || '') + '" class="regular-text" style="width: 100%;" placeholder="' + (field.placeholder || '') + '">';
-                        }
-                        
-                        if (field.description && field.type !== 'checkbox') {
-                            html += '<p class="description" style="margin-top: 3px; font-size: 11px; color: #999;">' + field.description + '</p>';
-                        }
-                        html += '</div>';
-                    }
-                }
-                
-                container.html(html);
+
+            $('.nf-palette-item').on('dragend', function() {
+                $(this).removeClass('dragging');
+                $('.nf-dropzone').removeClass('active');
+                $('#workflow-canvas').removeClass('drag-over');
             });
-            
-            // 폼 제출 처리
-            $('#acf-nudge-workflow-builder-form').on('submit', function(e) {
+
+            // 드롭존 드래그오버
+            $('.nf-dropzone, #workflow-canvas').on('dragover', function(e) {
                 e.preventDefault();
-                
+                e.originalEvent.dataTransfer.dropEffect = 'copy';
+
+                var $target = $(this);
+                if ($target.hasClass('nf-dropzone')) {
+                    $target.addClass('active');
+                } else {
+                    $target.addClass('drag-over');
+                }
+            });
+
+            $('.nf-dropzone, #workflow-canvas').on('dragleave', function(e) {
+                $(this).removeClass('active drag-over');
+            });
+
+            // 드롭 처리
+            $('.nf-dropzone, #workflow-canvas').on('drop', function(e) {
+                e.preventDefault();
+                $(this).removeClass('active drag-over');
+
+                var data;
+                try {
+                    data = JSON.parse(e.originalEvent.dataTransfer.getData('text/plain'));
+                } catch (err) {
+                    return;
+                }
+
+                var $target = $(this);
+                var acceptType = $target.data('accept');
+
+                // 캔버스에 드롭된 경우 타입에 따라 적절한 영역에 배치
+                if ($target.attr('id') === 'workflow-canvas') {
+                    acceptType = data.type;
+                }
+
+                if (acceptType && acceptType !== data.type) {
+                    alert('<?php echo esc_js( __( '올바른 영역에 드롭해주세요. 트리거는 트리거 영역에, 액션은 액션 영역에 드롭하세요.', 'acf-nudge-flow' ) ); ?>');
+                    return;
+                }
+
+                addNodeToCanvas(data.type, data.id, data.fields);
+            });
+
+            // ========================
+            // 캔버스 노드 관리
+            // ========================
+
+            function addNodeToCanvas(type, id, fields) {
+                var itemData = type === 'trigger' ? triggersData[id] : actionsData[id];
+                if (!itemData) return;
+
+                // 기존 노드 제거
+                if (type === 'trigger') {
+                    $('.nf-node.trigger-node').remove();
+                    workflowState.trigger = id;
+                    workflowState.triggerSettings = {};
+                    $('#trigger-dropzone').addClass('has-node');
+                } else {
+                    $('.nf-node.action-node').remove();
+                    workflowState.action = id;
+                    workflowState.actionSettings = {};
+                    $('#action-dropzone').addClass('has-node');
+                }
+
+                // 새 노드 생성
+                var nodeClass = type === 'trigger' ? 'trigger-node' : 'action-node';
+                var nodeTypeLabel = type === 'trigger' ? '<?php echo esc_js( __( 'IF (트리거)', 'acf-nudge-flow' ) ); ?>' : '<?php echo esc_js( __( 'DO (액션)', 'acf-nudge-flow' ) ); ?>';
+
+                var $node = $('<div class="nf-node ' + nodeClass + '" data-type="' + type + '" data-id="' + id + '">' +
+                    '<div class="nf-node-header">' +
+                        '<span class="node-icon">' + (itemData.icon || (type === 'trigger' ? '⚡' : '🎯')) + '</span>' +
+                        '<div class="node-info">' +
+                            '<div class="node-type">' + nodeTypeLabel + '</div>' +
+                            '<div class="node-label">' + (itemData.label || id) + '</div>' +
+                        '</div>' +
+                        '<button type="button" class="node-remove" data-target="' + type + '">✕</button>' +
+                    '</div>' +
+                '</div>');
+
+                // 적절한 위치에 삽입
+                if (type === 'trigger') {
+                    $('#trigger-dropzone').after($node);
+                } else {
+                    var $connector = $('#workflow-connector');
+                    if ($connector.length) {
+                        $connector.after($node);
+                    } else {
+                        $('#action-dropzone').after($node);
+                    }
+                }
+
+                // 빈 상태 숨기기
+                $('#canvas-empty').hide();
+
+                // 연결선 표시
+                updateConnector();
+
+                // 새 노드 선택
+                selectNode($node);
+            }
+
+            function removeNode(type) {
+                if (type === 'trigger') {
+                    $('.nf-node.trigger-node').remove();
+                    workflowState.trigger = '';
+                    workflowState.triggerSettings = {};
+                    $('#trigger-dropzone').removeClass('has-node');
+                } else {
+                    $('.nf-node.action-node').remove();
+                    workflowState.action = '';
+                    workflowState.actionSettings = {};
+                    $('#action-dropzone').removeClass('has-node');
+                }
+
+                updateConnector();
+                clearSettings();
+
+                // 빈 상태 표시
+                if (!workflowState.trigger && !workflowState.action) {
+                    $('#canvas-empty').show();
+                }
+            }
+
+            function updateConnector() {
+                if (workflowState.trigger && workflowState.action) {
+                    $('#workflow-connector').show();
+                } else {
+                    $('#workflow-connector').hide();
+                }
+            }
+
+            // ========================
+            // 노드 선택 및 설정 패널
+            // ========================
+
+            $(document).on('click', '.nf-node', function(e) {
+                if ($(e.target).hasClass('node-remove')) return;
+                selectNode($(this));
+            });
+
+            $(document).on('click', '.node-remove', function(e) {
+                e.stopPropagation();
+                var type = $(this).data('target');
+                if (confirm('<?php echo esc_js( __( '이 노드를 삭제하시겠습니까?', 'acf-nudge-flow' ) ); ?>')) {
+                    removeNode(type);
+                }
+            });
+
+            function selectNode($node) {
+                $('.nf-node').removeClass('selected');
+                $node.addClass('selected');
+
+                var type = $node.data('type');
+                var id = $node.data('id');
+                workflowState.selectedNode = { type: type, id: id };
+
+                renderSettings(type, id);
+            }
+
+            function clearSettings() {
+                workflowState.selectedNode = null;
+                $('#settings-title').text('<?php echo esc_js( __( '설정', 'acf-nudge-flow' ) ); ?>');
+                $('#settings-body').html(
+                    '<div class="nf-settings-empty">' +
+                        '<div class="icon">👆</div>' +
+                        '<p><?php echo esc_js( __( '캔버스에서 노드를 선택하면<br>설정 옵션이 표시됩니다.', 'acf-nudge-flow' ) ); ?></p>' +
+                    '</div>'
+                );
+            }
+
+            function renderSettings(type, id) {
+                var data = type === 'trigger' ? triggersData[id] : actionsData[id];
+                var settings = type === 'trigger' ? workflowState.triggerSettings : workflowState.actionSettings;
+
+                if (!data) return;
+
+                $('#settings-title').html((data.icon || '') + ' ' + (data.label || id));
+
+                var fields = data.fields || {};
+                var html = '';
+
+                if (Object.keys(fields).length === 0) {
+                    html = '<div class="nf-settings-empty">' +
+                        '<div class="icon">✓</div>' +
+                        '<p><?php echo esc_js( __( '이 항목은 추가 설정이 필요하지 않습니다.', 'acf-nudge-flow' ) ); ?></p>' +
+                    '</div>';
+                } else {
+                    for (var fieldId in fields) {
+                        var field = fields[fieldId];
+                        var value = settings[fieldId] !== undefined ? settings[fieldId] : (field.default || '');
+
+                        html += '<div class="nf-field">';
+                        html += '<label>' + (field.label || fieldId) + '</label>';
+
+                        if (field.type === 'select') {
+                            html += '<select data-field="' + fieldId + '" data-node-type="' + type + '">';
+                            for (var optValue in field.options) {
+                                var selected = optValue == value ? ' selected' : '';
+                                html += '<option value="' + optValue + '"' + selected + '>' + field.options[optValue] + '</option>';
+                            }
+                            html += '</select>';
+                        } else if (field.type === 'number') {
+                            html += '<input type="number" data-field="' + fieldId + '" data-node-type="' + type + '" value="' + value + '"';
+                            if (field.min !== undefined) html += ' min="' + field.min + '"';
+                            if (field.max !== undefined) html += ' max="' + field.max + '"';
+                            html += '>';
+                        } else if (field.type === 'textarea' || field.type === 'wysiwyg') {
+                            html += '<textarea data-field="' + fieldId + '" data-node-type="' + type + '">' + value + '</textarea>';
+                        } else if (field.type === 'checkbox') {
+                            var checked = value === '1' || value === true ? ' checked' : '';
+                            html += '<label class="checkbox-label">';
+                            html += '<input type="checkbox" data-field="' + fieldId + '" data-node-type="' + type + '" value="1"' + checked + '>';
+                            html += (field.description || '');
+                            html += '</label>';
+                        } else if (field.type === 'color') {
+                            html += '<input type="color" data-field="' + fieldId + '" data-node-type="' + type + '" value="' + (value || '#000000') + '">';
+                        } else {
+                            html += '<input type="text" data-field="' + fieldId + '" data-node-type="' + type + '" value="' + value + '"';
+                            if (field.placeholder) html += ' placeholder="' + field.placeholder + '"';
+                            html += '>';
+                        }
+
+                        if (field.description && field.type !== 'checkbox') {
+                            html += '<p class="description">' + field.description + '</p>';
+                        }
+
+                        html += '</div>';
+                    }
+                }
+
+                $('#settings-body').html(html);
+            }
+
+            // 설정 변경 시 자동 저장
+            $(document).on('change input', '#settings-body input, #settings-body select, #settings-body textarea', function() {
+                var $input = $(this);
+                var fieldId = $input.data('field');
+                var nodeType = $input.data('node-type');
+                var value;
+
+                if ($input.attr('type') === 'checkbox') {
+                    value = $input.is(':checked') ? '1' : '0';
+                } else {
+                    value = $input.val();
+                }
+
+                if (nodeType === 'trigger') {
+                    workflowState.triggerSettings[fieldId] = value;
+                } else {
+                    workflowState.actionSettings[fieldId] = value;
+                }
+            });
+
+            // ========================
+            // 저장
+            // ========================
+
+            $('#save-workflow').on('click', function() {
                 var workflowName = $('#workflow-name').val();
                 if (!workflowName) {
-                    alert('<?php echo esc_js( __( "워크플로우 이름을 입력해주세요.", "acf-nudge-flow" ) ); ?>');
+                    alert('<?php echo esc_js( __( '워크플로우 이름을 입력해주세요.', 'acf-nudge-flow' ) ); ?>');
+                    $('#workflow-name').focus();
                     return;
                 }
-                
-                var triggerId = $('#workflow-trigger').val();
-                var actionId = $('#workflow-action').val();
-                
-                if (!triggerId || !actionId) {
-                    alert('<?php echo esc_js( __( "트리거와 액션을 모두 선택해주세요.", "acf-nudge-flow" ) ); ?>');
+
+                if (!workflowState.trigger || !workflowState.action) {
+                    alert('<?php echo esc_js( __( '트리거와 액션을 모두 추가해주세요.', 'acf-nudge-flow' ) ); ?>');
                     return;
                 }
-                
-                // 설정 데이터 수집
-                var triggerSettings = {};
-                $('#trigger-settings-container input, #trigger-settings-container select').each(function() {
-                    var name = $(this).attr('name');
-                    if (name && name.startsWith('trigger_settings[')) {
-                        var key = name.match(/trigger_settings\[(.+)\]/)[1];
-                        triggerSettings[key] = $(this).val();
-                    }
-                });
-                
-                var actionSettings = {};
-                $('#action-settings-container input, #action-settings-container select, #action-settings-container textarea').each(function() {
-                    var name = $(this).attr('name');
-                    if (name && name.startsWith('action_settings[')) {
-                        var key = name.match(/action_settings\[(.+)\]/)[1];
-                        if ($(this).attr('type') === 'checkbox') {
-                            actionSettings[key] = $(this).is(':checked') ? '1' : '0';
-                        } else {
-                            actionSettings[key] = $(this).val();
-                        }
-                    }
-                });
-                
-                // AJAX로 저장
+
+                var $btn = $(this);
+                $btn.prop('disabled', true).text('<?php echo esc_js( __( '저장 중...', 'acf-nudge-flow' ) ); ?>');
+
                 $.ajax({
                     url: ajaxurl,
                     type: 'POST',
                     data: {
                         action: 'acf_nudge_save_workflow',
                         nonce: '<?php echo wp_create_nonce( "acf_nudge_flow_nonce" ); ?>',
-                        workflow_id: <?php echo $workflow_id; ?>,
+                        workflow_id: workflowId,
                         data: JSON.stringify({
                             title: workflowName,
-                            enabled: $('input[name="workflow_enabled"]').is(':checked'),
-                            trigger: triggerId,
-                            trigger_settings: triggerSettings,
-                            action: actionId,
-                            action_settings: actionSettings
+                            enabled: $('#workflow-enabled').is(':checked'),
+                            trigger: workflowState.trigger,
+                            trigger_settings: workflowState.triggerSettings,
+                            action: workflowState.action,
+                            action_settings: workflowState.actionSettings
                         })
                     },
                     success: function(response) {
                         if (response.success) {
-                            alert('<?php echo esc_js( __( "워크플로우가 저장되었습니다.", "acf-nudge-flow" ) ); ?>');
-                            if (response.data && response.data.id) {
-                                window.location.href = '<?php echo admin_url( "admin.php?page=acf-nudge-flow-builder&id=" ); ?>' + response.data.id;
-                            } else {
-                                window.location.reload();
+                            alert('<?php echo esc_js( __( '워크플로우가 저장되었습니다.', 'acf-nudge-flow' ) ); ?>');
+                            if (response.data && response.data.id && !workflowId) {
+                                window.location.href = '<?php echo admin_url( 'admin.php?page=acf-nudge-flow-builder&id=' ); ?>' + response.data.id;
                             }
                         } else {
-                            alert('<?php echo esc_js( __( "저장 중 오류가 발생했습니다.", "acf-nudge-flow" ) ); ?>');
+                            alert('<?php echo esc_js( __( '저장 중 오류가 발생했습니다.', 'acf-nudge-flow' ) ); ?>');
                         }
                     },
                     error: function() {
-                        alert('<?php echo esc_js( __( "서버 통신 오류가 발생했습니다.", "acf-nudge-flow" ) ); ?>');
+                        alert('<?php echo esc_js( __( '서버 통신 오류가 발생했습니다.', 'acf-nudge-flow' ) ); ?>');
+                    },
+                    complete: function() {
+                        $btn.prop('disabled', false).text('💾 <?php echo esc_js( __( '저장', 'acf-nudge-flow' ) ); ?>');
                     }
                 });
             });
-            
-            // 초기 로드 시 트리거/액션 설명 업데이트
-            if ($('#workflow-trigger').val()) {
-                $('#workflow-trigger').trigger('change');
+
+            // ========================
+            // 초기화
+            // ========================
+
+            // 기존 데이터가 있으면 연결선 표시
+            updateConnector();
+
+            // 기존 노드가 있으면 빈 상태 숨기기
+            if (workflowState.trigger || workflowState.action) {
+                $('#canvas-empty').hide();
             }
-            if ($('#workflow-action').val()) {
-                $('#workflow-action').trigger('change');
+
+            // 기존 노드가 있으면 첫 번째 노드 선택
+            var $firstNode = $('.nf-node').first();
+            if ($firstNode.length) {
+                selectNode($firstNode);
             }
         });
         </script>

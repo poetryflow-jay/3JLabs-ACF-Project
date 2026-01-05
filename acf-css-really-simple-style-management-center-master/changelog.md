@@ -2137,3 +2137,22 @@
 ## Version 3.7.0 (2024)
 
 [이전 버전 변경사항은 이전 changelog 참조]
+
+---
+
+## Version 25.1.0 (2026-01-06) - Phase 47: 스타일 센터 탭 시스템 완전 수정
+
+### 🐛 버그 수정
+- **스타일 센터 탭 문제 해결**: 타이포그래피, 폰트, 폼, 필드 탭이 클릭해도 표시되지 않던 문제 완전 해결
+  - `initSectionTabs()` 함수의 셀렉터를 `.jj-section-wrapper.jj-section-tab-content`에서 `.jj-section-wrapper[data-section]`로 변경
+  - 탭 클릭 시 숨기기/보이기 로직 개선
+  - 동적으로 `jj-section-tab-content` 클래스 추가하여 호환성 확보
+
+### 🛠️ 개선사항
+- **탭 초기화 안정성 강화**: 탭 콘텐츠가 없어도 오류 없이 처리
+- **디버깅 로그 추가**: 탭 초기화 과정에서 상세 로그 출력
+
+### 📁 수정된 파일
+- `assets/js/jj-style-guide-editor.js` (탭 로직 개선)
+- `acf-css-really-simple-style-guide.php` (버전 업데이트)
+

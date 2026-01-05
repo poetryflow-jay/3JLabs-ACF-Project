@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSB_VERSION', '4.0.2' ); // [v4.2.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
+define( 'ACF_CSB_VERSION', '5.0.0' ); // [v5.0.0] 고급 조건부 트리거, 코드 위치 지정, UI/UX 개선
 define( 'ACF_CSB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSB_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACF_CSB_BASENAME', plugin_basename( __FILE__ ) );
