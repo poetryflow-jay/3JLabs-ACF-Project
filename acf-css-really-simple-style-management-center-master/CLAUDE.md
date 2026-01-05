@@ -4,11 +4,28 @@
 ACF CSS (Advanced Custom Fonts & Colors & Styles) is a comprehensive WordPress style management plugin that provides centralized control over colors, typography, buttons, forms, and admin UI.
 
 ## Current Version
-- **Version**: 23.0.8
+- **Version**: 23.0.9
 - **Last Updated**: 2026-01-05
 - **Edition**: Master (includes all features)
 
-## Recent Changes (v23.0.8 - Phase 46)
+## Recent Changes (v23.0.9 - Phase 47)
+
+### TGMPA Recommended Plugins Temporarily Disabled
+**Problem**: ACF CSS v23.0.2 was being auto-installed repeatedly, and other plugins failed to install.
+
+**Root Cause**: TGMPA's `source => 'external'` setting without actual download URLs.
+
+**Solution**: Temporarily disabled TGMPA recommended plugins feature until Neural Link server is updated with latest ZIP files.
+
+**Changes**:
+- `acf-css-really-simple-style-guide.php` - Commented out `JJ_Required_Plugins::instance()` call
+
+**Next Steps**:
+1. Upload latest plugin ZIPs to WordPress server
+2. Update Neural Link server with new download URLs
+3. Re-enable TGMPA feature
+
+## Previous Changes (v23.0.8 - Phase 46)
 
 ### Dashboard & Build System Upgrade
 1. **Timestamp Format**: Changed to 12-hour AM/PM format (YYYY-MM-DD AM/PM H:MM)
@@ -91,11 +108,17 @@ The TGMPA system uses multiple methods to find plugin main files:
 - Master: All features (internal use)
 
 ### Related Plugins (3J Labs Family)
+- **3J Neural Link** (v8.0.0) - 라이센스/업데이트 중앙 관리 시스템
 - ACF Code Snippets Box
 - WP Bulk Manager
 - WP Bulk SEO & AEO
 - JJ Marketing Automation Dashboard
-- ACF CSS Woo License (Neural Link)
+
+### 3J Neural Link (v8.0.0) - 2026-01-05
+다중 플러그인 배포 관리 시스템 완성:
+- 14개 플러그인 중앙 관리 UI (배포 관리 페이지)
+- 메뉴명: "3J 라이센스 관리 🔑" > "📦 배포 관리"
+- 빌드 스크립트: `build-plugin.ps1` (버전 없는 파일명으로 ZIP 생성)
 
 ## Development Principles
 1. Always use `class_exists()`, `function_exists()` before calling classes/functions

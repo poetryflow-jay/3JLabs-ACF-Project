@@ -3,7 +3,7 @@
  * Plugin Name: WP Bulk SEO & AEO(AIO) - WordPress Really Simple and Easy Search Engine Optimization and AI Optimization Automation. 1, 2, 3 Click Auto Optimization.
  * Plugin URI: https://3j-labs.com/
  * Description: AI-powered SEO & AEO optimization based on real Google ranking factors from the 2024 algorithm leak. Integrates Google Search Console API, Google Analytics API, and PageSpeed Insights API v5 for comprehensive SEO analysis. Features 1-Click SEO, 2-Click AI optimization, and 3-Click full automation.
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: 3J Labs (제이x제니x제이슨 연구소)
  * Author URI: https://3j-labs.com/
  * License: GPL v2 or later
@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Plugin constants
-define('WP_BULK_SEO_AEO_VERSION', '2.1.1');
+define('WP_BULK_SEO_AEO_VERSION', '2.1.2');
 define('WP_BULK_SEO_AEO_FILE', __FILE__);
 define('WP_BULK_SEO_AEO_PATH', plugin_dir_path(__FILE__));
 define('WP_BULK_SEO_AEO_URL', plugin_dir_url(__FILE__));

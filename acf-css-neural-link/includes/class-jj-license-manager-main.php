@@ -118,8 +118,8 @@ class JJ_License_Manager_Main {
      */
     public function add_admin_menu() {
         add_menu_page(
-            __( 'JJ License Manager', 'jj-license-manager' ),
-            __( 'JJ Licenses', 'jj-license-manager' ),
+            __( '3J 라이센스 관리', 'jj-license-manager' ),
+            __( '3J 라이센스 관리 🔑', 'jj-license-manager' ),
             'manage_options',
             'jj-license-manager',
             array( $this, 'render_admin_page' ),

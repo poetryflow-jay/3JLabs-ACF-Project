@@ -3,7 +3,7 @@
  * Plugin Name:       ACF User Journey Map Analytics Dashboard - Advanced Customer Funnel and User Journey Map Analytics Dashboard
  * Plugin URI:        https://3j-labs.com/
  * Description:       무료 사용자 여정 분석 대시보드. 트래픽 소스 추적, UTM 파라미터 분석, 광고 플랫폼별 성과 측정, 실시간 방문자 모니터링을 제공합니다. 네이버, 카카오, 구글, 메타, 틱톡 등 모든 광고 플랫폼을 자동 감지합니다.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_UJA_VERSION', '1.0.2' );
+define( 'ACF_UJA_VERSION', '1.0.3' );
 define( 'ACF_UJA_PLUGIN_FILE', __FILE__ );
 define( 'ACF_UJA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_UJA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

@@ -49,12 +49,13 @@ class JJ_License_Manager_Shared {
 
     /**
      * 라이센스 페이지 추가
+     * [v25.0.1] 메뉴 이름을 '3J 라이센스 관리 🔑'로 변경
      */
     public function add_license_page() {
         add_submenu_page(
             'options-general.php',
-            __( '라이센스 설정', '3j-labs-shared' ),
-            __( '라이센스', '3j-labs-shared' ) . ' (' . $this->plugin_slug . ')',
+            __( '3J 라이센스 관리', '3j-labs-shared' ),
+            __( '3J 라이센스 관리', '3j-labs-shared' ) . ' 🔑',
             'manage_options',
             $this->plugin_slug . '-license',
             array( $this, 'render_license_page' )

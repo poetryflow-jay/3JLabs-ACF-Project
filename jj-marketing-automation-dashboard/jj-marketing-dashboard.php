@@ -3,7 +3,7 @@
  * Plugin Name:       3J Labs Marketing Automation Dashboard
  * Plugin URI:        https://3j-labs.com/
  * Description:       3J Labs 플러그인 패밀리의 종합 마케팅 자동화 대시보드입니다. 모든 플러그인의 사용 데이터를 통합 분석하고, SEO 최적화, 캠페 추적, 마케팅 성과 측정을 제공합니다. Google Analytics, Search Console, 소셜 미디어 통합을 지원합니다.
- * Version:           2.0.1
+ * Version:           2.0.2
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'JJ_MARKETING_DASHBOARD_VERSION', '2.0.1' ); // [v2.1.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
+define( 'JJ_MARKETING_DASHBOARD_VERSION', '2.0.2' ); // [v2.1.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
 define( 'JJ_MARKETING_DASHBOARD_PATH', plugin_dir_path( __FILE__ ) );
 define( 'JJ_MARKETING_DASHBOARD_URL', plugin_dir_url( __FILE__ ) );
 define( 'JJ_MARKETING_DASHBOARD_BASENAME', plugin_basename( __FILE__ ) );

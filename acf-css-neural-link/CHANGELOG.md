@@ -1,5 +1,35 @@
 # JJ License & Update Manager - Changelog
 
+## Version 8.0.0 (2026-01-05) - 다중 플러그인 배포 관리 시스템
+
+### [FEATURE] 다중 플러그인 배포 관리 UI
+- **14개 플러그인 중앙 관리**:
+  - ACF CSS Style Management Center (Core)
+  - WP Bulk Manager, Nudge Flow, Code Snippets Box 등 Family 플러그인
+  - Neural Link, WooCommerce Toolkit 등 Addon 플러그인
+  - WP Bulk SEO & AEO 등 SEO 플러그인
+- **카드 기반 직관적 UI**:
+  - 플러그인별 버전 및 ZIP URL 관리
+  - 에디션별 (Free, Basic, Premium, Master 등) 개별 설정
+  - 카테고리 필터링 (Core, Addon, Family, Free, SEO)
+- **AJAX 기반 실시간 저장**
+
+### [FIX] 서브메뉴 등록 우선순위 수정
+- `admin_menu` 훅 우선순위를 20으로 설정하여 메인 메뉴 등록 후 서브메뉴가 정상 등록되도록 수정
+- 배포 관리 메뉴가 '3J 라이센스 관리' 하위에 정상 표시
+
+### [IMPROVEMENT] 플러그인명 및 메뉴 변경
+- 플러그인명: "ACF CSS Neural Link" → "3J Neural Link"
+- 메인 메뉴명: "JJ Licenses" → "3J 라이센스 관리 🔑"
+- 서브메뉴: "📦 배포 관리" 추가
+
+### [IMPROVEMENT] 빌드 시스템 개선
+- `build-plugin.ps1`: 13개 플러그인 통합 빌드 스크립트
+- ZIP 파일명에서 버전 번호 제거 (WordPress 표준 준수)
+- 파일명 자동 변경 지원 (acf-css-neural-link.php → jj-neural-link.php)
+
+---
+
 ## Version 3.1.0 (2025-12-18) - Neural Link Platform Sync
 
 ### [IMPROVEMENT] 배포 버전 동기화

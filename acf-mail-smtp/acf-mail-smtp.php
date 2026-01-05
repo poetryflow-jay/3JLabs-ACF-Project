@@ -3,7 +3,7 @@
  * Plugin Name:       ACF Mail SMTP - Advanced Custom Form & Mail & SMTP
  * Plugin URI:        https://3j-labs.com/
  * Description:       ACF Mail SMTP - Advanced Custom Form & Mail & SMTP. 강력한 폼 빌더, SMTP 이메일 발송, 자동화 기능을 제공하는 올인원 폼 솔루션입니다.
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_MAIL_SMTP_VERSION', '1.0.1' );
+define( 'ACF_MAIL_SMTP_VERSION', '1.0.2' );
 define( 'ACF_MAIL_SMTP_PLUGIN_FILE', __FILE__ );
 define( 'ACF_MAIL_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_MAIL_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
