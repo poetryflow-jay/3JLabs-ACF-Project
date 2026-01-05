@@ -32,6 +32,21 @@ define( 'ACF_UJA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'ACF_UJA_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define( 'ACF_UJA_SLUG', 'acf-user-journey-analytics' );
 
+// [v25.0.1] 보안 모듈 및 라이센스 관리 로드
+$shared_path = dirname( dirname( __FILE__ ) ) . '/shared-ui-assets';
+if ( file_exists( $shared_path . '/class-jj-security-module-v25.php' ) ) {
+    require_once $shared_path . '/class-jj-security-module-v25.php';
+    if ( class_exists( 'JJ_Security_Module_V25_Loader' ) ) {
+        JJ_Security_Module_V25_Loader::instance( ACF_UJA_PLUGIN_DIR, ACF_UJA_PLUGIN_URL, ACF_UJA_VERSION, ACF_UJA_SLUG );
+    }
+}
+if ( file_exists( $shared_path . '/class-jj-license-manager-shared.php' ) ) {
+    require_once $shared_path . '/class-jj-license-manager-shared.php';
+    if ( class_exists( 'JJ_License_Manager_Shared' ) ) {
+        JJ_License_Manager_Shared::instance( ACF_UJA_SLUG );
+    }
+}
+
 /**
  * 메인 플러그인 클래스
  */

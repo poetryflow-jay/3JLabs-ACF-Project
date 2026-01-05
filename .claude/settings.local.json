@@ -38,7 +38,8 @@
       "Bash(powershell -Command \"& {$shell = New-Object -ComObject Shell.Application; $zip = $shell.NameSpace((Resolve-Path ''acf-css-neural-link.zip'').Path); $zip.Items() | ForEach-Object { Write-Host $_Name; $_GetFolder.Items() | ForEach-Object { Write-Host ''  '' $_Name }}}\")",
       "Bash(powershell -Command \"Remove-Item -Path ''temp_check'' -Recurse -Force -ErrorAction SilentlyContinue; Expand-Archive -Path ''acf-css-neural-link.zip'' -DestinationPath ''temp_check'' -Force; Get-ChildItem -Path ''temp_check'' -Recurse | Select-Object FullName\")",
       "Bash(findstr:*)",
-      "Bash(unzip:*)"
+      "Bash(unzip:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: Phase 47 - 3J Neural Link v8.0.1 다중 플러그인 배포 관리 시스템\n\n## Neural Link 주요 변경사항\n- 플러그인명 변경: \"ACF CSS Neural Link\" → \"3J Neural Link\"\n- 메뉴명 변경: \"JJ Licenses\" → \"3J 라이센스 관리 🔑\"\n- 다중 플러그인 배포 관리 UI 완성 (14개 플러그인 지원)\n- 카드 기반 직관적 에디션별 버전/URL 관리\n- admin_menu 훅 우선순위 수정 (서브메뉴 정상 등록)\n\n## 빌드 시스템 개선\n- build-plugin.ps1: 13개 플러그인 통합 빌드 스크립트\n- ZIP 파일명에서 버전 번호 제거 (WordPress 표준 준수)\n- 파일명 자동 변경 지원 (neural-link 폴더/파일 rename)\n\n## 전체 플러그인 버전 업데이트 (+0.1)\n- ACF CSS: 23.0.9 → 23.0.10\n- Neural Link: 8.0.0 → 8.0.1\n- WP Bulk Manager: 23.1.2 → 23.1.3\n- 기타 모든 플러그인 버전 업데이트\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")"
     ]
   }
 }

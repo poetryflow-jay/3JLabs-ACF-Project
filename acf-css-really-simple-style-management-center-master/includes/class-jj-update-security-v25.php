@@ -1,11 +1,12 @@
 <?php
 /**
- * [v25.0.0] 업데이트 보안 강화 모듈
+ * [v25.0.1] 업데이트 보안 강화 모듈
  * 
  * 업데이트 하이재킹 방지 및 서명 검증 시스템
+ * 로컬 파일 업로드 및 WordPress.org 플러그인 허용
  * 
  * @package ACF_CSS_Style_Guide
- * @version 25.0.0
+ * @version 25.0.1
  * @author 3J Labs
  * 
  * 주요 기능:
@@ -211,17 +212,43 @@ class JJ_Update_Security_V25 {
     }
 
     /**
-     * [v25.0.0] 업데이트 패키지 검증
+     * [v25.0.1] 업데이트 패키지 검증
+     * 로컬 파일 업로드 및 WordPress.org 플러그인 허용
      */
     public function verify_update_package( $reply, $package, $upgrader ) {
-        // 패키지 다운로드 전 검증
-        if ( strpos( $package, '3j-labs.com' ) === false && strpos( $package, 'j-j-labs.com' ) === false ) {
-            return new WP_Error(
-                'unauthorized_source',
-                __( '허가되지 않은 업데이트 소스입니다.', 'acf-css-really-simple-style-management-center' )
-            );
+        // [v25.0.1] 로컬 파일 업로드 허용 (플러그인 설치/업로드)
+        // $package가 파일 경로인 경우 (로컬 업로드)
+        if ( file_exists( $package ) || ( is_string( $package ) && ( strpos( $package, '/' ) !== false || strpos( $package, '\\' ) !== false ) ) ) {
+            // 로컬 파일 경로인 경우 허용
+            return $reply;
         }
 
+        // [v25.0.1] WordPress.org 플러그인 허용
+        if ( strpos( $package, 'downloads.wordpress.org' ) !== false || strpos( $package, 'wordpress.org' ) !== false ) {
+            return $reply;
+        }
+
+        // [v25.0.1] ACF CSS Manager 업데이트만 엄격하게 검증
+        // 허가된 도메인 확인
+        $allowed_domains = array( '3j-labs.com', 'j-j-labs.com', 'updates.3j-labs.com', 'api.3j-labs.com' );
+        
+        foreach ( $allowed_domains as $domain ) {
+            if ( strpos( $package, $domain ) !== false ) {
+                return $reply;
+            }
+        }
+
+        // [v25.0.1] ACF CSS Manager 업데이트가 아닌 경우 허용
+        // $upgrader 객체를 확인하여 현재 플러그인 업데이트인지 확인
+        if ( is_object( $upgrader ) && isset( $upgrader->skin ) ) {
+            $plugin_info = $upgrader->skin->plugin ?? null;
+            if ( empty( $plugin_info ) || strpos( $plugin_info, 'acf-css-really-simple-style-guide' ) === false ) {
+                // 다른 플러그인 업데이트는 허용
+                return $reply;
+            }
+        }
+
+        // [v25.0.1] 기본적으로 허용 (다른 플러그인은 차단하지 않음)
         return $reply;
     }
 

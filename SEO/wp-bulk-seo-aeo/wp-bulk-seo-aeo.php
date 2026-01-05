@@ -26,6 +26,22 @@ define('WP_BULK_SEO_AEO_FILE', __FILE__);
 define('WP_BULK_SEO_AEO_PATH', plugin_dir_path(__FILE__));
 define('WP_BULK_SEO_AEO_URL', plugin_dir_url(__FILE__));
 define('WP_BULK_SEO_AEO_BASENAME', plugin_basename(__FILE__));
+define('WP_BULK_SEO_AEO_SLUG', 'wp-bulk-seo-aeo');
+
+// [v25.0.1] 보안 모듈 및 라이센스 관리 로드
+$shared_path = dirname(dirname(__FILE__)) . '/shared-ui-assets';
+if (file_exists($shared_path . '/class-jj-security-module-v25.php')) {
+    require_once $shared_path . '/class-jj-security-module-v25.php';
+    if (class_exists('JJ_Security_Module_V25_Loader')) {
+        JJ_Security_Module_V25_Loader::instance(WP_BULK_SEO_AEO_PATH, WP_BULK_SEO_AEO_URL, WP_BULK_SEO_AEO_VERSION, WP_BULK_SEO_AEO_SLUG);
+    }
+}
+if (file_exists($shared_path . '/class-jj-license-manager-shared.php')) {
+    require_once $shared_path . '/class-jj-license-manager-shared.php';
+    if (class_exists('JJ_License_Manager_Shared')) {
+        JJ_License_Manager_Shared::instance(WP_BULK_SEO_AEO_SLUG);
+    }
+}
 
 /**
  * Main plugin class
