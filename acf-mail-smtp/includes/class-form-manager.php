@@ -46,7 +46,8 @@ class ACF_Mail_SMTP_Form_Manager {
         add_action( 'wp_ajax_acf_mail_smtp_delete_form', array( $this, 'ajax_delete_form' ) );
         add_action( 'wp_ajax_acf_mail_smtp_get_form', array( $this, 'ajax_get_form' ) );
         add_action( 'wp_ajax_acf_mail_smtp_get_forms', array( $this, 'ajax_get_forms' ) );
-        
+        add_action( 'wp_ajax_acf_mail_smtp_duplicate_form', array( $this, 'ajax_duplicate_form' ) );
+
         // Form submission
         add_action( 'wp_ajax_acf_mail_smtp_submit_form', array( $this, 'ajax_submit_form' ) );
         add_action( 'wp_ajax_nopriv_acf_mail_smtp_submit_form', array( $this, 'ajax_submit_form' ) );
@@ -261,7 +262,17 @@ class ACF_Mail_SMTP_Form_Manager {
         }
 
         $form_id = isset( $_POST['form_id'] ) ? intval( $_POST['form_id'] ) : 0;
-        $form_data = isset( $_POST['form_data'] ) ? $_POST['form_data'] : array();
+        $form_data_raw = isset( $_POST['form_data'] ) ? $_POST['form_data'] : '';
+
+        // Handle JSON string from drag & drop form builder
+        if ( is_string( $form_data_raw ) ) {
+            $form_data = json_decode( stripslashes( $form_data_raw ), true );
+            if ( json_last_error() !== JSON_ERROR_NONE ) {
+                wp_send_json_error( array( 'message' => __( '잘못된 폼 데이터입니다.', 'acf-mail-smtp' ) ) );
+            }
+        } else {
+            $form_data = $form_data_raw;
+        }
 
         if ( empty( $form_data['name'] ) ) {
             wp_send_json_error( array( 'message' => __( '폼 이름을 입력하세요.', 'acf-mail-smtp' ) ) );
@@ -277,6 +288,20 @@ class ACF_Mail_SMTP_Form_Manager {
                 isset( $form_data['fields'] ) ? $form_data['fields'] : array(),
                 isset( $form_data['settings'] ) ? $form_data['settings'] : array()
             );
+
+            // Also update title and description for new forms
+            if ( $result ) {
+                $update_data = array();
+                if ( ! empty( $form_data['title'] ) ) {
+                    $update_data['title'] = $form_data['title'];
+                }
+                if ( ! empty( $form_data['description'] ) ) {
+                    $update_data['description'] = $form_data['description'];
+                }
+                if ( ! empty( $update_data ) ) {
+                    $this->update_form( $result, $update_data );
+                }
+            }
         }
 
         if ( $result ) {
@@ -286,6 +311,52 @@ class ACF_Mail_SMTP_Form_Manager {
             ) );
         } else {
             wp_send_json_error( array( 'message' => __( '폼 저장에 실패했습니다.', 'acf-mail-smtp' ) ) );
+        }
+    }
+
+    /**
+     * 폼 복제 (AJAX)
+     */
+    public function ajax_duplicate_form() {
+        check_ajax_referer( 'acf_mail_smtp_nonce', 'nonce' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( '권한이 없습니다.', 'acf-mail-smtp' ) ) );
+        }
+
+        $form_id = isset( $_POST['form_id'] ) ? intval( $_POST['form_id'] ) : 0;
+
+        if ( ! $form_id ) {
+            wp_send_json_error( array( 'message' => __( '잘못된 폼 ID입니다.', 'acf-mail-smtp' ) ) );
+        }
+
+        $form = $this->get_form( $form_id );
+
+        if ( ! $form ) {
+            wp_send_json_error( array( 'message' => __( '폼을 찾을 수 없습니다.', 'acf-mail-smtp' ) ) );
+        }
+
+        // Create duplicated form
+        $new_name = $form['name'] . ' (복사)';
+        $new_form_id = $this->create_form(
+            $new_name,
+            $form['fields'],
+            $form['settings']
+        );
+
+        if ( $new_form_id ) {
+            // Update title and description
+            $this->update_form( $new_form_id, array(
+                'title' => $form['title'] ? $form['title'] . ' (복사)' : '',
+                'description' => $form['description'],
+            ) );
+
+            wp_send_json_success( array(
+                'message' => __( '폼이 복제되었습니다.', 'acf-mail-smtp' ),
+                'form_id' => $new_form_id,
+            ) );
+        } else {
+            wp_send_json_error( array( 'message' => __( '폼 복제에 실패했습니다.', 'acf-mail-smtp' ) ) );
         }
     }
 
@@ -432,28 +503,99 @@ class ACF_Mail_SMTP_Form_Manager {
      * 이메일 메시지 생성
      */
     private function build_email_message( $form, $submission_data ) {
-        $message = '<h2>' . esc_html( $form['title'] ) . '</h2>';
-        $message .= '<table style="width: 100%; border-collapse: collapse;">';
+        // Check if custom email template exists
+        if ( isset( $form['settings']['email_template'] ) && ! empty( $form['settings']['email_template'] ) ) {
+            return $this->process_email_template( $form, $submission_data );
+        }
 
+        // Default email template
+        $message = '<h2>' . esc_html( $form['title'] ) . '</h2>';
+        $message .= $this->build_all_fields_table( $form, $submission_data );
+
+        return $message;
+    }
+
+    /**
+     * 이메일 템플릿 처리
+     */
+    private function process_email_template( $form, $submission_data ) {
+        $template = $form['settings']['email_template'];
+
+        // System variables
+        $replacements = array(
+            '{form_title}'      => isset( $form['title'] ) ? esc_html( $form['title'] ) : '',
+            '{site_name}'       => esc_html( get_bloginfo( 'name' ) ),
+            '{submission_date}' => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ),
+            '{all_fields}'      => $this->build_all_fields_table( $form, $submission_data ),
+        );
+
+        // Field variables
         if ( isset( $form['fields'] ) && is_array( $form['fields'] ) ) {
             foreach ( $form['fields'] as $field ) {
+                $field_name = isset( $field['name'] ) ? $field['name'] : '';
                 $field_id = isset( $field['id'] ) ? $field['id'] : '';
-                $field_label = isset( $field['label'] ) ? $field['label'] : '';
-                $field_value = isset( $submission_data[ $field_id ] ) ? $submission_data[ $field_id ] : '';
+
+                // Try to get value by name first, then by id
+                $field_value = '';
+                if ( isset( $submission_data[ $field_name ] ) ) {
+                    $field_value = $submission_data[ $field_name ];
+                } elseif ( isset( $submission_data[ $field_id ] ) ) {
+                    $field_value = $submission_data[ $field_id ];
+                }
 
                 if ( is_array( $field_value ) ) {
                     $field_value = implode( ', ', $field_value );
                 }
 
-                $message .= '<tr>';
-                $message .= '<td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">' . esc_html( $field_label ) . '</td>';
-                $message .= '<td style="padding: 10px; border: 1px solid #ddd;">' . esc_html( $field_value ) . '</td>';
-                $message .= '</tr>';
+                $replacements[ '{' . $field_name . '}' ] = esc_html( $field_value );
             }
         }
 
-        $message .= '</table>';
+        // Replace all variables
+        $message = str_replace( array_keys( $replacements ), array_values( $replacements ), $template );
 
         return $message;
+    }
+
+    /**
+     * 모든 필드 테이블 생성
+     */
+    private function build_all_fields_table( $form, $submission_data ) {
+        $table = '<table style="width: 100%; border-collapse: collapse; margin: 20px 0;">';
+
+        if ( isset( $form['fields'] ) && is_array( $form['fields'] ) ) {
+            foreach ( $form['fields'] as $field ) {
+                // Skip layout fields
+                $skip_types = array( 'hidden', 'divider', 'heading', 'html' );
+                if ( isset( $field['type'] ) && in_array( $field['type'], $skip_types ) ) {
+                    continue;
+                }
+
+                $field_name = isset( $field['name'] ) ? $field['name'] : '';
+                $field_id = isset( $field['id'] ) ? $field['id'] : '';
+                $field_label = isset( $field['label'] ) ? $field['label'] : $field_name;
+
+                // Try to get value by name first, then by id
+                $field_value = '';
+                if ( isset( $submission_data[ $field_name ] ) ) {
+                    $field_value = $submission_data[ $field_name ];
+                } elseif ( isset( $submission_data[ $field_id ] ) ) {
+                    $field_value = $submission_data[ $field_id ];
+                }
+
+                if ( is_array( $field_value ) ) {
+                    $field_value = implode( ', ', $field_value );
+                }
+
+                $table .= '<tr>';
+                $table .= '<td style="padding: 12px; border: 1px solid #e5e7eb; background: #f9fafb; font-weight: 600; width: 30%;">' . esc_html( $field_label ) . '</td>';
+                $table .= '<td style="padding: 12px; border: 1px solid #e5e7eb;">' . esc_html( $field_value ) . '</td>';
+                $table .= '</tr>';
+            }
+        }
+
+        $table .= '</table>';
+
+        return $table;
     }
 }
