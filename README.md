@@ -168,6 +168,18 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ## 최근 변경사항
 
+### Phase 46 (2026-01-05) - 버전 관리 및 대시보드 연동 개선
+
+**주요 개선 사항**:
+- ✅ 버전 추출 함수 개선 (플러그인 헤더 + 상수 정의 모두 확인)
+- ✅ 빌드 완료 시 자동 대시보드 업데이트 (GUI/CLI 모드 모두 지원)
+- ✅ 대시보드 업데이트 로직 개선 (plugin-fullname 기반 정확한 매칭)
+- ✅ Windows 콘솔 인코딩 문제 해결 (UTF-8 설정)
+- ✅ 버전 관리 기능 대폭 개선 (자동/수동 모드, 버전 내리기 방지)
+- ✅ 모든 플러그인 버전 정보와 대시보드 완벽 동기화
+
+**상세 내용**: `PHASE_45_VERSION_SYNC_COMPLETE.md`, `VERSION_MANAGEMENT_FEATURE.md`, `memory & context/20260105-Phase-46-버전-관리-및-대시보드-연동-개선.md` 참조
+
 ### Phase 45 (2026-01-05) - 플러그인 활성화 문제 해결
 
 **문제**: 스타일 센터, 벌크 매니저, 코드 박스, 라이센스 관리 말고는 그 어떠한 플러그인도 활성화가 되지 않음
