@@ -233,16 +233,16 @@ PLUGINS = {
         'is_core': False,  # 애드온: 결합해서 사용해야 함
         'description': 'WooCommerce 결제 연동 및 라이센스 발행 브릿지 (모든 판매 가능한 플러그인과 연계)'
     },
-    'wp-bulk-seo': {
-        'id': 'wp-bulk-seo',
-        'name': 'WP Bulk SEO & AEO(AIO)',
-        'full_name': 'WP Bulk SEO & AEO(AIO) - WordPress Really Simple and Easy Search Engine Optimization and AI Optimization Automation. 1, 2, 3 Click Auto Optimization.',
-        'folder': 'SEO/wp-bulk-seo-aeo',
-        'main_file': 'wp-bulk-seo-aeo.php',
-        'text_domain': 'wp-bulk-seo-aeo',
+    'wp-1-click-seo-pro': {
+        'id': 'wp-1-click-seo-pro',
+        'name': 'WP 1-Click SEO Pro',
+        'full_name': 'WordPress One Click SEO Manager Pro - All-in-one SEO & AEO optimization with AI-powered content suggestions, 200+ ranking factors, Image SEO, Internal Links, and 404 Monitor.',
+        'folder': 'SEO/oneclick-seo-pro',
+        'main_file': 'oneclick-seo-pro.php',
+        'text_domain': 'oneclick-seo-pro',
         'editions': ['master'],
         'is_core': True,
-        'description': 'WordPress SEO 및 AI 최적화 자동화 (Rank Math Pro 스타일)'
+        'description': 'WordPress One Click SEO Manager Pro - AI 기반 SEO/AEO 최적화, Image SEO, 내부 링크, 404 모니터'
     },
     'acf-mail-smtp': {
         'id': 'acf-mail-smtp',

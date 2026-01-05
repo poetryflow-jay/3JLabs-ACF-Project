@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: 1-Click SEO Pro
- * Plugin URI: https://3j-labs.com/1-click-seo-pro
- * Description: All-in-one SEO & AEO optimization with AI-powered content suggestions, 200+ ranking factors analysis, and Answer Engine Optimization for WordPress. 원클릭으로 SEO 최적화를 완료하세요.
- * Version: 2.0.0
+ * Plugin Name: WordPress One Click SEO Manager Pro
+ * Plugin URI: https://3j-labs.com/wp-1-click-seo-pro
+ * Description: All-in-one SEO & AEO optimization with AI-powered content suggestions, 200+ ranking factors analysis, Answer Engine Optimization, Image SEO, Internal Link Assistant, and 404 Monitor for WordPress. 원클릭으로 SEO 최적화를 완료하세요.
+ * Version: 2.1.0
  * Author: 3J Labs (제이x제니x제이슨 연구소)
  * Author URI: https://3j-labs.com
  * License: GPL v2 or later
@@ -26,7 +26,7 @@ if (defined('ONECLICK_SEO_PRO_VERSION')) {
 }
 
 // Plugin constants
-define('ONECLICK_SEO_PRO_VERSION', '2.0.0');
+define('ONECLICK_SEO_PRO_VERSION', '2.1.0');
 define('ONECLICK_SEO_PRO_FILE', __FILE__);
 define('ONECLICK_SEO_PRO_DIR', plugin_dir_path(__FILE__));
 define('ONECLICK_SEO_PRO_URL', plugin_dir_url(__FILE__));
@@ -104,6 +104,9 @@ final class OneClick_SEO_Pro {
             'includes/class-schema-generator.php',
             'includes/class-sitemap-manager.php',
             'includes/class-frontend.php',
+            'includes/class-image-seo.php',
+            'includes/class-internal-links.php',
+            'includes/class-redirections.php',
         ];
 
         // API Integration
@@ -215,6 +218,21 @@ final class OneClick_SEO_Pro {
             }
             if (class_exists('OneClick_SEO_Pro_Frontend')) {
                 OneClick_SEO_Pro_Frontend::get_instance();
+            }
+
+            // [v2.1.0] Image SEO
+            if (class_exists('OneClick_SEO_Pro_Image_SEO')) {
+                OneClick_SEO_Pro_Image_SEO::get_instance();
+            }
+
+            // [v2.1.0] Internal Links
+            if (class_exists('OneClick_SEO_Pro_Internal_Links')) {
+                OneClick_SEO_Pro_Internal_Links::get_instance();
+            }
+
+            // [v2.1.0] Redirections & 404 Monitor
+            if (class_exists('OneClick_SEO_Pro_Redirections')) {
+                OneClick_SEO_Pro_Redirections::get_instance();
             }
 
             // Admin
