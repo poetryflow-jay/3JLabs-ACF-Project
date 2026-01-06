@@ -2,6 +2,7 @@ jQuery(document).ready(function($) {
     var filesQueue = [];
     var isProcessing = false;
     var installedPlugins = []; // 설치된 플러그인 정보 저장
+    var failedInstalls = []; // [v23.4.0] 실패한 설치 정보 저장
 
     var bulkCache = {
         plugins: null,
@@ -509,27 +510,273 @@ jQuery(document).ready(function($) {
         $('.jj-popup-overlay, .jj-popup-container').remove();
     }
     
+    // ==============================
+    // [v23.4.0] 드래그 앤 드롭 정렬 시스템
+    // ==============================
+    function initDragSort() {
+        var $fileList = $('#jj-file-list');
+        if ($fileList.length === 0) return;
+
+        var draggedItem = null;
+        var placeholder = null;
+
+        // 드래그 핸들 추가 (파일 아이템에 동적으로)
+        $(document).on('mouseenter', '.jj-file-item-pending', function() {
+            if ($(this).find('.jj-drag-handle').length === 0 && !isProcessing) {
+                $(this).find('.file-info').prepend('<span class="jj-drag-handle" title="드래그하여 순서 변경">⋮⋮</span>');
+            }
+        });
+
+        // 드래그 시작
+        $(document).on('mousedown', '.jj-drag-handle', function(e) {
+            if (isProcessing) return;
+
+            e.preventDefault();
+            draggedItem = $(this).closest('.jj-file-item');
+            draggedItem.addClass('jj-dragging');
+
+            // 플레이스홀더 생성
+            placeholder = $('<div class="jj-drag-placeholder"></div>');
+            placeholder.css('height', draggedItem.outerHeight() + 'px');
+
+            // 마우스 이동 이벤트
+            $(document).on('mousemove.dragsort', function(e) {
+                if (!draggedItem) return;
+
+                var $items = $fileList.find('.jj-file-item-pending:not(.jj-dragging)');
+                var mouseY = e.pageY;
+                var insertBefore = null;
+
+                $items.each(function() {
+                    var $item = $(this);
+                    var itemTop = $item.offset().top;
+                    var itemHeight = $item.outerHeight();
+                    var itemMiddle = itemTop + (itemHeight / 2);
+
+                    if (mouseY < itemMiddle) {
+                        insertBefore = $item;
+                        return false;
+                    }
+                });
+
+                // 플레이스홀더 위치 조정
+                placeholder.detach();
+                if (insertBefore) {
+                    placeholder.insertBefore(insertBefore);
+                } else {
+                    $fileList.append(placeholder);
+                }
+            });
+
+            // 마우스 업 이벤트
+            $(document).on('mouseup.dragsort', function() {
+                if (!draggedItem) return;
+
+                // 아이템을 플레이스홀더 위치로 이동
+                if (placeholder && placeholder.parent().length) {
+                    draggedItem.insertBefore(placeholder);
+                }
+
+                // 정리
+                draggedItem.removeClass('jj-dragging');
+                if (placeholder) placeholder.remove();
+                placeholder = null;
+                draggedItem = null;
+
+                $(document).off('mousemove.dragsort mouseup.dragsort');
+
+                // filesQueue 순서 재정렬
+                reorderFilesQueue();
+                showNudge('info', '파일 순서가 변경되었습니다.', 2000);
+            });
+        });
+    }
+
+    // 파일 큐 순서 재정렬
+    function reorderFilesQueue() {
+        var newQueue = [];
+        $('#jj-file-list .jj-file-item-pending').each(function() {
+            var fileName = $(this).data('file-name');
+            var file = filesQueue.find(function(f) { return f.name === fileName; });
+            if (file) {
+                newQueue.push(file);
+            }
+        });
+        filesQueue = newQueue;
+
+        // 인덱스 재할당
+        $('#jj-file-list .jj-file-item-pending').each(function(i) {
+            $(this).attr('id', 'file-' + i).attr('data-index', i);
+            $(this).find('.jj-file-checkbox').attr('data-index', i);
+        });
+    }
+
+    // ==============================
+    // [v23.2.0] 넛지(Nudge) 시스템
+    // ==============================
+    function showNudge(type, message, duration) {
+        duration = duration || 3000;
+        var $container = $('#jj-nudge-container');
+        if ($container.length === 0) {
+            $container = $('<div class="jj-nudge-container" id="jj-nudge-container"></div>');
+            $('.jj-selection-controls').after($container);
+        }
+
+        var iconMap = {
+            'success': '✅',
+            'info': 'ℹ️',
+            'warning': '⚠️',
+            'error': '❌'
+        };
+
+        var $nudge = $('<div class="jj-nudge jj-nudge-' + type + '">' +
+            '<span class="jj-nudge-icon">' + (iconMap[type] || 'ℹ️') + '</span>' +
+            '<span class="jj-nudge-message">' + message + '</span>' +
+            '<button type="button" class="jj-nudge-close">&times;</button>' +
+            '</div>');
+
+        $container.append($nudge);
+
+        // 애니메이션 시작
+        setTimeout(function() {
+            $nudge.addClass('jj-nudge-visible');
+        }, 10);
+
+        // 닫기 버튼
+        $nudge.find('.jj-nudge-close').on('click', function() {
+            closeNudge($nudge);
+        });
+
+        // 자동 닫기
+        if (duration > 0) {
+            setTimeout(function() {
+                closeNudge($nudge);
+            }, duration);
+        }
+
+        return $nudge;
+    }
+
+    function closeNudge($nudge) {
+        $nudge.removeClass('jj-nudge-visible');
+        setTimeout(function() {
+            $nudge.remove();
+        }, 300);
+    }
+
+    // ==============================
+    // [v23.2.0] 토글 버튼 상태 동기화
+    // ==============================
+    function updateToggleButtonState() {
+        var $btn = $('#jj-toggle-select');
+        var $checkboxes = $('.jj-file-checkbox:not(:disabled)');
+        var totalCount = $checkboxes.length;
+        var checkedCount = $checkboxes.filter(':checked').length;
+
+        if (totalCount === 0) {
+            $btn.data('state', 'none');
+            $btn.find('.jj-toggle-icon').text('☐');
+            $btn.find('.jj-toggle-text').text('전체 선택');
+            $btn.removeClass('jj-toggle-active jj-toggle-partial');
+        } else if (checkedCount === 0) {
+            $btn.data('state', 'none');
+            $btn.find('.jj-toggle-icon').text('☐');
+            $btn.find('.jj-toggle-text').text('전체 선택');
+            $btn.removeClass('jj-toggle-active jj-toggle-partial');
+        } else if (checkedCount === totalCount) {
+            $btn.data('state', 'all');
+            $btn.find('.jj-toggle-icon').text('☑️');
+            $btn.find('.jj-toggle-text').text('선택 해제');
+            $btn.addClass('jj-toggle-active').removeClass('jj-toggle-partial');
+        } else {
+            // 일부만 선택됨
+            $btn.data('state', 'partial');
+            $btn.find('.jj-toggle-icon').text('▣');
+            $btn.find('.jj-toggle-text').text('선택 해제');
+            $btn.removeClass('jj-toggle-active').addClass('jj-toggle-partial');
+        }
+
+        // 선택 뱃지 업데이트
+        var $badge = $('#jj-selection-badge');
+        if (checkedCount > 0) {
+            $badge.text(checkedCount + '/' + totalCount).show();
+        } else {
+            $badge.hide();
+        }
+    }
+
     // 선택 정보 업데이트
     function updateSelectionInfo() {
         // 완료 목록의 선택된 항목 수
         var completedCheckedCount = $('.jj-file-item-completed .jj-file-checkbox:checked').length;
-        
+        var completedTotalCount = $('.jj-file-item-completed .jj-file-checkbox').length;
+
         // 설치 전 목록의 선택된 항목 수
         var pendingCheckedCount = $('.jj-file-item-pending .jj-file-checkbox:checked').length;
-        
+        var pendingTotalCount = $('.jj-file-item-pending .jj-file-checkbox').length;
+
         // 전체 선택된 항목 수
         var totalCheckedCount = completedCheckedCount + pendingCheckedCount;
-        
-        // 선택 정보 표시 업데이트
-        $('#jj-selection-info').text(totalCheckedCount + '개 선택됨');
-        
+        var totalItemCount = completedTotalCount + pendingTotalCount;
+
+        // 선택 정보 표시 업데이트 (실시간 반영)
+        var $info = $('#jj-selection-info');
+        if (totalCheckedCount > 0) {
+            $info.html('<span class="jj-selection-count">' + totalCheckedCount + '</span>개 선택됨 <span class="jj-selection-total">(전체 ' + totalItemCount + '개)</span>');
+            $info.addClass('jj-selection-active');
+        } else {
+            $info.text(totalItemCount > 0 ? '선택 안됨 (전체 ' + totalItemCount + '개)' : '파일을 추가해주세요');
+            $info.removeClass('jj-selection-active');
+        }
+
+        // 개별 섹션 선택 상태 표시
+        var $pendingSection = $('#jj-file-list');
+        var $completedSection = $('#jj-file-list-completed');
+
+        // 대기 목록 선택 표시
+        if (pendingTotalCount > 0) {
+            var $pendingHeader = $pendingSection.prev('.jj-section-title');
+            if ($pendingHeader.length === 0) {
+                $pendingHeader = $pendingSection.closest('.jj-file-list-section').find('.jj-section-title');
+            }
+            if ($pendingHeader.length > 0) {
+                var $pendingBadge = $pendingHeader.find('.jj-selection-badge');
+                if ($pendingBadge.length === 0) {
+                    $pendingHeader.append(' <span class="jj-selection-badge"></span>');
+                    $pendingBadge = $pendingHeader.find('.jj-selection-badge');
+                }
+                if (pendingCheckedCount > 0) {
+                    $pendingBadge.text(pendingCheckedCount + '/' + pendingTotalCount + ' 선택').addClass('jj-badge-active').show();
+                } else {
+                    $pendingBadge.text('').removeClass('jj-badge-active').hide();
+                }
+            }
+        }
+
+        // 완료 목록 선택 표시
+        if ($completedSection.length > 0 && completedTotalCount > 0) {
+            var $completedHeader = $completedSection.find('.jj-section-title');
+            if ($completedHeader.length > 0) {
+                var $completedBadge = $completedHeader.find('.jj-selection-badge');
+                if ($completedBadge.length === 0) {
+                    $completedHeader.append(' <span class="jj-selection-badge"></span>');
+                    $completedBadge = $completedHeader.find('.jj-selection-badge');
+                }
+                if (completedCheckedCount > 0) {
+                    $completedBadge.text(completedCheckedCount + '/' + completedTotalCount + ' 선택').addClass('jj-badge-active').show();
+                } else {
+                    $completedBadge.text('').removeClass('jj-badge-active').hide();
+                }
+            }
+        }
+
         // 완료 목록에 선택된 항목이 있으면 활성화 버튼 표시
         if (completedCheckedCount > 0) {
             $('#jj-activate-selected-plugins').show().text('선택한 플러그인 활성화 (' + completedCheckedCount + '개)');
         } else {
             $('#jj-activate-selected-plugins').hide();
         }
-        
+
         // 설치 전 목록에 선택된 항목이 있으면 설치 시작 버튼 업데이트
         if (pendingCheckedCount > 0) {
             $('#jj-start-install').prop('disabled', false).text('설치 시작 (' + pendingCheckedCount + '개)');
@@ -559,21 +806,41 @@ jQuery(document).ready(function($) {
         if (dropzone.length === 0 || fileInput.length === 0) return;
         
         // ==============================
-        // 전체 선택 / 선택 해제 버튼 이벤트
+        // [v23.2.0] 토글 선택 버튼 (전체 선택/해제 통합)
         // ==============================
-        $('#jj-select-all').on('click', function() {
-            $('.jj-file-checkbox:not(:disabled)').prop('checked', true);
+        $('#jj-toggle-select').on('click', function() {
+            var $btn = $(this);
+            var currentState = $btn.data('state');
+            var $checkboxes = $('.jj-file-checkbox:not(:disabled)');
+            var totalCount = $checkboxes.length;
+            var checkedCount = $checkboxes.filter(':checked').length;
+
+            if (currentState === 'none' || checkedCount === 0) {
+                // 전체 선택
+                $checkboxes.prop('checked', true);
+                $btn.data('state', 'all');
+                $btn.find('.jj-toggle-icon').text('☑️');
+                $btn.find('.jj-toggle-text').text('선택 해제');
+                $btn.addClass('jj-toggle-active');
+                showNudge('success', totalCount + '개 항목이 선택되었습니다.', 2000);
+            } else {
+                // 전체 해제
+                $checkboxes.prop('checked', false);
+                $btn.data('state', 'none');
+                $btn.find('.jj-toggle-icon').text('☐');
+                $btn.find('.jj-toggle-text').text('전체 선택');
+                $btn.removeClass('jj-toggle-active');
+                showNudge('info', '선택이 해제되었습니다.', 2000);
+            }
+
             updateSelectionInfo();
+            updateToggleButtonState();
         });
-        
-        $('#jj-select-none').on('click', function() {
-            $('.jj-file-checkbox').prop('checked', false);
-            updateSelectionInfo();
-        });
-        
-        // 체크박스 변경 시 선택 정보 업데이트
+
+        // 체크박스 변경 시 선택 정보 업데이트 (실시간)
         $(document).on('change', '.jj-file-checkbox', function() {
             updateSelectionInfo();
+            updateToggleButtonState();
         });
         
         // [v22.3.1] 개별 플러그인 활성화 버튼 클릭 핸들러
@@ -660,6 +927,179 @@ jQuery(document).ready(function($) {
             lastCheckedFile = $item;
         });
 
+        // ==============================
+        // [v23.4.0] 재시도 버튼 클릭 핸들러
+        // ==============================
+        $(document).on('click', '.jj-retry-install', function(e) {
+            e.preventDefault();
+            var $btn = $(this);
+            var index = parseInt($btn.data('index'), 10);
+            var retryType = $btn.data('type');
+            var $item = $btn.closest('.jj-file-item');
+
+            // 버튼 상태 변경
+            $btn.prop('disabled', true).text('재시도 중...');
+            $item.removeClass('error').addClass('uploading');
+
+            // failedInstalls에서 해당 항목 찾기
+            var failedItem = failedInstalls.find(function(f) { return f.index === index; });
+
+            if (retryType === 'upload' && failedItem && failedItem.file) {
+                // 업로드 재시도
+                var file = failedItem.file;
+                var targets = failedItem.targets || { multisite: [], remote: [] };
+                var autoActivate = (jjBulk && jjBulk.limits && jjBulk.limits.can_auto_activate) && $('#jj-auto-activate-all').is(':checked');
+
+                $item.find('.status').text('업로드 재시도 중...');
+
+                var formData = new FormData();
+                formData.append('action', 'jj_bulk_install_upload');
+                formData.append('nonce', jjBulk.nonce);
+                formData.append('file', file);
+
+                $.ajax({
+                    url: jjBulk.ajax_url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            // failedInstalls에서 제거
+                            failedInstalls = failedInstalls.filter(function(f) { return f.index !== index; });
+                            $item.find('.status').text('설치 중...');
+                            startCrossSiteInstall(response.data, $item, index, autoActivate, targets);
+                            showNudge('success', '재시도 성공! 설치를 진행합니다.', 3000);
+                        } else {
+                            var errorMsg = response.data || '알 수 없는 오류';
+                            $item.addClass('error').removeClass('uploading').find('.status').html(
+                                '❌ 업로드 실패: ' + escapeHtml(errorMsg) + ' ' +
+                                '<button type="button" class="button button-small jj-retry-install" ' +
+                                'data-index="' + index + '" data-type="upload" style="margin-left: 8px;">' +
+                                '🔄 재시도</button>'
+                            );
+                            showNudge('error', '재시도 실패: ' + errorMsg, 4000);
+                        }
+                    },
+                    error: function(jqXHR) {
+                        var errorMsg = '서버 오류 (' + jqXHR.status + ')';
+                        $item.addClass('error').removeClass('uploading').find('.status').html(
+                            '❌ ' + escapeHtml(errorMsg) + ' ' +
+                            '<button type="button" class="button button-small jj-retry-install" ' +
+                            'data-index="' + index + '" data-type="upload" style="margin-left: 8px;">' +
+                            '🔄 재시도</button>'
+                        );
+                        showNudge('error', '재시도 실패: ' + errorMsg, 4000);
+                    }
+                });
+            } else if (retryType === 'install') {
+                // 설치 재시도
+                var path = $btn.data('path');
+                var itemType = $btn.data('item-type') || 'plugin';
+                var autoActivate = failedItem ? failedItem.autoActivate : false;
+
+                $item.find('.status').text('설치 재시도 중...');
+
+                $.ajax({
+                    url: jjBulk.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'jj_bulk_install_process',
+                        nonce: jjBulk.nonce,
+                        path: path,
+                        type: itemType,
+                        activate: autoActivate
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // failedInstalls에서 제거
+                            failedInstalls = failedInstalls.filter(function(f) { return f.index !== index; });
+
+                            var pluginsUrl = (jjBulk.admin_urls && jjBulk.admin_urls.plugins) ? jjBulk.admin_urls.plugins : 'plugins.php';
+
+                            if (itemType === 'plugin' && response.data.slug) {
+                                $item.data('slug', response.data.slug);
+                                $item.find('.jj-file-checkbox').prop('disabled', false);
+                                installedPlugins.push(response.data.slug);
+
+                                if (response.data.activated) {
+                                    $item.find('.status').html(
+                                        '✅ 설치 및 활성화 완료! ' +
+                                        '<a href="' + pluginsUrl + '" class="button button-small" style="margin-left: 8px; font-size: 11px;">플러그인 목록 보기</a>'
+                                    );
+                                    $item.addClass('jj-file-item-activated');
+                                } else {
+                                    $item.find('.status').html(
+                                        '설치 완료 ' +
+                                        '<button type="button" class="button button-small button-primary jj-activate-single" ' +
+                                        'data-slug="' + escapeHtml(response.data.slug) + '" ' +
+                                        'style="margin-left: 8px; font-size: 11px;">🚀 활성화</button>'
+                                    );
+                                }
+                            } else {
+                                $item.find('.status').text('설치 완료');
+                            }
+
+                            $item.removeClass('error uploading jj-file-item-pending').addClass('jj-file-item-completed');
+                            moveToCompletedList($item);
+                            updateCompletedCount();
+                            showNudge('success', '재시도 성공! 설치가 완료되었습니다.', 3000);
+                        } else {
+                            var errorMsg = response.data || '알 수 없는 오류';
+                            $item.addClass('error').removeClass('uploading').find('.status').html(
+                                '❌ 설치 실패: ' + escapeHtml(errorMsg) + ' ' +
+                                '<button type="button" class="button button-small jj-retry-install" ' +
+                                'data-index="' + index + '" data-type="install" data-path="' + escapeHtml(path) + '" ' +
+                                'data-item-type="' + escapeHtml(itemType) + '" style="margin-left: 8px;">' +
+                                '🔄 재시도</button>'
+                            );
+                            showNudge('error', '재시도 실패: ' + errorMsg, 4000);
+                        }
+                    },
+                    error: function() {
+                        $item.addClass('error').removeClass('uploading').find('.status').html(
+                            '❌ 설치 통신 오류 ' +
+                            '<button type="button" class="button button-small jj-retry-install" ' +
+                            'data-index="' + index + '" data-type="install" data-path="' + escapeHtml(path) + '" ' +
+                            'data-item-type="' + escapeHtml(itemType) + '" style="margin-left: 8px;">' +
+                            '🔄 재시도</button>'
+                        );
+                        showNudge('error', '재시도 실패: 통신 오류', 4000);
+                    }
+                });
+            } else {
+                showNudge('error', '재시도 정보를 찾을 수 없습니다.', 3000);
+                $btn.prop('disabled', false).text('🔄 재시도');
+            }
+        });
+
+        // ==============================
+        // [v23.4.0] 실패 전체 재시도 버튼
+        // ==============================
+        $(document).on('click', '#jj-retry-all-failed', function() {
+            if (failedInstalls.length === 0) {
+                showNudge('info', '재시도할 항목이 없습니다.', 2000);
+                return;
+            }
+
+            var $btn = $(this);
+            $btn.prop('disabled', true).text('재시도 중...');
+
+            // 모든 재시도 버튼 클릭
+            var retryCount = 0;
+            $('.jj-retry-install').each(function() {
+                var $retryBtn = $(this);
+                setTimeout(function() {
+                    $retryBtn.click();
+                }, retryCount * 500); // 500ms 간격으로 순차 실행
+                retryCount++;
+            });
+
+            setTimeout(function() {
+                $btn.prop('disabled', false).text('🔄 실패 항목 전체 재시도');
+            }, retryCount * 500 + 1000);
+        });
+
         // 1. 파일 선택 트리거 수정 (클릭 이벤트 버블링 방지)
         dropzone.on('click', function(e) {
             if (e.target !== fileInput[0]) {
@@ -694,16 +1134,44 @@ jQuery(document).ready(function($) {
                 return;
             }
 
+            var duplicatesInQueue = [];
+            var duplicatesInstalled = [];
+
             $.each(files, function(i, file) {
                 if (file.name.split('.').pop().toLowerCase() !== 'zip') return;
 
-                // 중복 체크
-                var isDuplicate = filesQueue.some(function(f) { return f.name === file.name; });
-                if (isDuplicate) return;
+                // 대기 목록 중복 체크
+                var isDuplicateInQueue = filesQueue.some(function(f) { return f.name === file.name; });
+                if (isDuplicateInQueue) {
+                    duplicatesInQueue.push(file.name);
+                    return;
+                }
+
+                // [v23.3.0] 이미 설치된 플러그인 중복 체크
+                var pluginSlug = file.name.replace('.zip', '').toLowerCase();
+                var isAlreadyInstalled = false;
+                if (jjBulk.installed_plugins && Array.isArray(jjBulk.installed_plugins)) {
+                    isAlreadyInstalled = jjBulk.installed_plugins.some(function(p) {
+                        var installedSlug = p.toLowerCase().split('/')[0];
+                        return installedSlug === pluginSlug || installedSlug.indexOf(pluginSlug) === 0 || pluginSlug.indexOf(installedSlug) === 0;
+                    });
+                }
+
+                if (isAlreadyInstalled) {
+                    duplicatesInstalled.push(file.name);
+                }
 
                 filesQueue.push(file);
-                addFileToList(file, filesQueue.length - 1);
+                addFileToList(file, filesQueue.length - 1, isAlreadyInstalled);
             });
+
+            // [v23.3.0] 중복 경고 표시
+            if (duplicatesInQueue.length > 0) {
+                showNudge('warning', '이미 대기 목록에 있는 파일: ' + duplicatesInQueue.join(', '), 4000);
+            }
+            if (duplicatesInstalled.length > 0) {
+                showNudge('warning', '⚠️ 이미 설치된 플러그인 감지: ' + duplicatesInstalled.join(', ') + ' - 덮어쓰기 설치됩니다.', 6000);
+            }
 
             if (filesQueue.length > 0) {
                 $('#jj-actions-area').show();
@@ -711,15 +1179,27 @@ jQuery(document).ready(function($) {
             }
         }
 
-        function addFileToList(file, index) {
+        function addFileToList(file, index, isAlreadyInstalled) {
             var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
-            var html = '<div class="jj-file-item jj-file-item-pending" id="file-' + index + '" data-index="' + index + '" data-file-name="' + escapeHtml(file.name) + '">' +
+            var itemClass = 'jj-file-item jj-file-item-pending';
+            var statusText = '대기 중';
+            var warningBadge = '';
+
+            // [v23.3.0] 중복 설치 경고 표시
+            if (isAlreadyInstalled) {
+                itemClass += ' jj-file-item-duplicate';
+                statusText = '⚠️ 덮어쓰기 예정';
+                warningBadge = '<span class="jj-duplicate-warning">이미 설치됨</span>';
+            }
+
+            var html = '<div class="' + itemClass + '" id="file-' + index + '" data-index="' + index + '" data-file-name="' + escapeHtml(file.name) + '">' +
                        '<div class="file-info">' +
                        '<input type="checkbox" class="jj-file-checkbox" data-index="' + index + '"> ' +
                        '<span class="name">' + escapeHtml(file.name) + '</span> ' +
+                       warningBadge +
                        '<span class="size">(' + sizeMB + ' MB)</span>' +
                        '</div>' +
-                       '<span class="status">대기 중</span>' +
+                       '<span class="status">' + statusText + '</span>' +
                        '</div>';
             $('#jj-file-list').append(html);
             updatePendingCount();
@@ -830,14 +1310,28 @@ jQuery(document).ready(function($) {
                         startCrossSiteInstall(response.data, item, index, autoActivate, targets);
                     } else {
                         var errorMsg = response.data || '알 수 없는 오류';
-                        item.addClass('error').find('.status').text('업로드 실패: ' + errorMsg);
+                        // [v23.4.0] 재시도 버튼 추가
+                        item.addClass('error').find('.status').html(
+                            '❌ 업로드 실패: ' + escapeHtml(errorMsg) + ' ' +
+                            '<button type="button" class="button button-small jj-retry-install" ' +
+                            'data-index="' + index + '" data-type="upload" style="margin-left: 8px;">' +
+                            '🔄 재시도</button>'
+                        );
+                        failedInstalls.push({ index: index, file: file, error: errorMsg, type: 'upload', targets: targets });
                         updateProgress(index, filesQueue.length, '업로드 실패', true);
                         processQueue(index + 1, targets);
                     }
                 },
                 error: function(jqXHR, textStatus) {
                     var errorMsg = '서버 오류 (' + jqXHR.status + ')';
-                    item.addClass('error').find('.status').text(errorMsg);
+                    // [v23.4.0] 재시도 버튼 추가
+                    item.addClass('error').find('.status').html(
+                        '❌ ' + escapeHtml(errorMsg) + ' ' +
+                        '<button type="button" class="button button-small jj-retry-install" ' +
+                        'data-index="' + index + '" data-type="upload" style="margin-left: 8px;">' +
+                        '🔄 재시도</button>'
+                    );
+                    failedInstalls.push({ index: index, file: file, error: errorMsg, type: 'upload', targets: targets });
                     updateProgress(index, filesQueue.length, errorMsg, true);
                     processQueue(index + 1, targets);
                 }
@@ -910,12 +1404,29 @@ jQuery(document).ready(function($) {
                         moveToCompletedList(item);
                         updateCompletedCount();
                     } else {
-                        item.addClass('error').find('.status').text('로컬 설치 실패: ' + response.data);
+                        var errorMsg = response.data || '알 수 없는 오류';
+                        // [v23.4.0] 재시도 버튼 추가
+                        item.addClass('error').find('.status').html(
+                            '❌ 설치 실패: ' + escapeHtml(errorMsg) + ' ' +
+                            '<button type="button" class="button button-small jj-retry-install" ' +
+                            'data-index="' + index + '" data-type="install" data-path="' + escapeHtml(data.path) + '" ' +
+                            'data-item-type="' + escapeHtml(data.type) + '" style="margin-left: 8px;">' +
+                            '🔄 재시도</button>'
+                        );
+                        failedInstalls.push({ index: index, data: data, error: errorMsg, type: 'install', autoActivate: autoActivate });
                     }
                     if (callback) callback();
                 },
                 error: function() {
-                    item.addClass('error').find('.status').text('로컬 통신 오류');
+                    // [v23.4.0] 재시도 버튼 추가
+                    item.addClass('error').find('.status').html(
+                        '❌ 설치 통신 오류 ' +
+                        '<button type="button" class="button button-small jj-retry-install" ' +
+                        'data-index="' + index + '" data-type="install" data-path="' + escapeHtml(data.path) + '" ' +
+                        'data-item-type="' + escapeHtml(data.type) + '" style="margin-left: 8px;">' +
+                        '🔄 재시도</button>'
+                    );
+                    failedInstalls.push({ index: index, data: data, error: '통신 오류', type: 'install', autoActivate: autoActivate });
                     if (callback) callback();
                 }
             });
@@ -1268,16 +1779,29 @@ jQuery(document).ready(function($) {
         var rows = [];
         items.forEach(function(p) {
             var status = p.network_active ? 'network_active' : (p.active ? 'active' : 'inactive');
-            var statusLabel = p.network_active ? '네트워크' : (p.active ? '활성' : '비활성');
-            var statusClass = p.network_active ? 'jj-pill-neutral' : (p.active ? 'jj-pill-good' : 'jj-pill-muted');
             var rowStatus = (p.active || p.network_active) ? 'active' : 'inactive';
+            var rowClass = 'jj-bulk-row';
+
+            // [v23.3.0] 활성화 상태에 따른 행 스타일 클래스
+            if (p.network_active) {
+                rowClass += ' jj-row-network-active';
+            } else if (p.active) {
+                rowClass += ' jj-row-active';
+            } else {
+                rowClass += ' jj-row-inactive';
+            }
+
+            // [v23.3.0] 개선된 상태 표시 - 아이콘 포함
+            var statusIcon = p.network_active ? '🌐' : (p.active ? '✅' : '💤');
+            var statusLabel = p.network_active ? '네트워크 활성' : (p.active ? '활성' : '비활성');
+            var statusClass = p.network_active ? 'jj-pill-neutral' : (p.active ? 'jj-pill-good' : 'jj-pill-muted');
 
             var auLabel = p.auto_update ? 'ON' : 'OFF';
             var auClass = p.auto_update ? 'jj-pill-good' : 'jj-pill-muted';
 
             var updHtml = '<span class="jj-pill jj-pill-muted">없음</span>';
             if (p.update_available) {
-                updHtml = '<span class="jj-pill jj-pill-warn">업데이트</span>' + (p.new_version ? ' <code>' + escapeHtml(p.new_version) + '</code>' : '');
+                updHtml = '<span class="jj-pill jj-pill-warn">⬆️ 업데이트</span>' + (p.new_version ? ' <code>' + escapeHtml(p.new_version) + '</code>' : '');
             }
 
             var requires = '';
@@ -1301,14 +1825,14 @@ jQuery(document).ready(function($) {
             }
 
             rows.push(
-                '<tr class="jj-bulk-row" data-status="' + escapeHtml(rowStatus) + '" data-search="' + escapeHtml((p.name + ' ' + (p.name_translated || '') + ' ' + (p.author || '') + ' ' + p.id).toLowerCase()) + '">' +
+                '<tr class="' + rowClass + '" data-status="' + escapeHtml(rowStatus) + '" data-search="' + escapeHtml((p.name + ' ' + (p.name_translated || '') + ' ' + (p.author || '') + ' ' + p.id).toLowerCase()) + '">' +
                     '<th scope="row" class="check-column"><input type="checkbox" class="jj-bulk-row-check" data-id="' + escapeHtml(p.id) + '"' + checkboxAttrs + '></th>' +
                     '<td>' +
                         displayName + ' <span class="description">v' + escapeHtml(p.version || '-') + '</span>' +
                         (p.author ? '<div class="description">작성자: ' + escapeHtml(p.author) + '</div>' : '') +
                         requires +
                     '</td>' +
-                    '<td><span class="jj-pill ' + statusClass + '">' + escapeHtml(statusLabel) + '</span></td>' +
+                    '<td><span class="jj-pill ' + statusClass + '">' + statusIcon + ' ' + escapeHtml(statusLabel) + '</span></td>' +
                     '<td><span class="jj-pill ' + auClass + '">' + escapeHtml(auLabel) + '</span></td>' +
                     '<td>' + updHtml + '</td>' +
                     '<td><code>' + escapeHtml(p.id) + '</code></td>' +
@@ -1486,4 +2010,5 @@ jQuery(document).ready(function($) {
     initInstaller();
     initTooltipSystem();
     initRemoteConnection();
+    initDragSort(); // [v23.4.0] 드래그 앤 드롭 정렬
 });

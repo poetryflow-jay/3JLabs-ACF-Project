@@ -768,6 +768,54 @@
         });
 
         // ============================================================
+        // [v22.6.0] Dark Mode Presets
+        // ============================================================
+        $wrap.on('click', '.jj-preset-card', function(e) {
+            e.preventDefault();
+            const $card = $(this);
+            const colors = $card.data('colors');
+            const presetName = $card.find('strong').text();
+
+            if (!colors) return;
+
+            // 모든 프리셋 카드에서 선택 상태 제거
+            $('.jj-preset-card').css('border-color', '').removeClass('selected');
+            // 현재 카드 선택 상태로 변경
+            $card.css('border-color', '#22d3ee').addClass('selected');
+
+            // 각 색상 필드에 값 적용
+            Object.keys(colors).forEach(function(key) {
+                const $input = $('input[name="jj_admin_menu_colors[' + key + ']"]');
+                if ($input.length) {
+                    $input.val(colors[key]);
+                    // 색상 미리보기 업데이트
+                    const $preview = $input.closest('.jj-admin-center-color-input').find('.jj-admin-center-color-preview');
+                    $preview.css('background-color', colors[key]);
+                    // wpColorPicker 업데이트
+                    if ($input.data('wpColorPicker')) {
+                        $input.wpColorPicker('color', colors[key]);
+                    }
+                }
+            });
+
+            // 알림 표시
+            if (window.JJUtils && JJUtils.showToast) {
+                JJUtils.showToast('"' + presetName + '" 프리셋이 적용되었습니다. 저장 버튼을 눌러 변경사항을 저장하세요.', 'info');
+            }
+        });
+
+        // 프리셋 카드 호버 효과
+        $wrap.on('mouseenter', '.jj-preset-card', function() {
+            if (!$(this).hasClass('selected')) {
+                $(this).css('transform', 'translateY(-2px)');
+            }
+        }).on('mouseleave', '.jj-preset-card', function() {
+            if (!$(this).hasClass('selected')) {
+                $(this).css('transform', 'translateY(0)');
+            }
+        });
+
+        // ============================================================
         // Backup Tab (AJAX UI)
         // ============================================================
         function renderBackupList(backups) {

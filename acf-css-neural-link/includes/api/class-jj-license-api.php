@@ -164,21 +164,35 @@ class JJ_License_API {
             ), 400 );
         }
         
-        // 캐시 확인
+        // [v8.1.0] 캐시 확인 + 통계 업데이트
         $cached_result = JJ_License_Cache::get_verification_result( $license_key, $site_id );
         if ( $cached_result !== false ) {
+            JJ_License_Cache::update_stats( 'hit' );
             $cached_result['plugin_version'] = $plugin_version;
             $cached_result['cached'] = true;
             return new WP_REST_Response( $cached_result, $cached_result['valid'] ? 200 : 400 );
         }
-        
+
+        // [v8.1.0] 오프라인 그레이스 기간 확인
+        $grace_result = JJ_License_Cache::get_grace_period_cache( $license_key, $site_id );
+        if ( $grace_result !== false ) {
+            JJ_License_Cache::update_stats( 'grace_hit' );
+            $grace_result['plugin_version'] = $plugin_version;
+            $grace_result['cached'] = true;
+            return new WP_REST_Response( $grace_result, 200 );
+        }
+
+        // 캐시 미스 통계
+        JJ_License_Cache::update_stats( 'miss' );
+
         // 라이센스 검증
         $validator = new JJ_License_Validator();
         $result = $validator->verify( $license_key, $site_id, $site_url );
-        
-        // 캐시 저장
+
+        // [v8.1.0] 스마트 캐시 저장 (만료일 기반 동적 캐시 시간)
         if ( isset( $result['valid'] ) ) {
-            JJ_License_Cache::set_verification_result( $license_key, $site_id, $result );
+            $smart_expiration = JJ_License_Cache::calculate_smart_expiration( $result );
+            JJ_License_Cache::set_verification_result( $license_key, $site_id, $result, $smart_expiration );
         }
         
         // 플러그인 버전 정보 추가

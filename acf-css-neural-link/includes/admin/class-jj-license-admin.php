@@ -75,6 +75,15 @@ class JJ_License_Admin {
             wp_redirect( admin_url( 'admin.php?page=jj-license-manager&activated=1' ) );
             exit;
         }
+
+        // [v8.1.0] 캐시 통계 초기화
+        if ( isset( $_GET['action'] ) && $_GET['action'] === 'reset_cache_stats' ) {
+            check_admin_referer( 'reset_cache_stats' );
+            require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-cache.php';
+            JJ_License_Cache::reset_stats();
+            wp_redirect( admin_url( 'admin.php?page=jj-license-manager&cache_reset=1' ) );
+            exit;
+        }
         
         // 라이센스 갱신
         if ( isset( $_POST['jj_renew_license'] ) ) {

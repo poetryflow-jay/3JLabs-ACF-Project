@@ -8,7 +8,7 @@
     "edition": "master",
     "version": "22.5.1"
   },
-  "_updated_at": "2026-01-06T08:03:34.577021",
+  "_updated_at": "2026-01-06T08:50:17.556700",
   "_version": "1.0.0",
   "wp-bulk-manager-master-v22.5.2.zip": {
     "signature": "69fb2d0d6f051bd708632466fbc08622024ca2ef17d5d7c590dcb5fc346a28dc",
@@ -563,5 +563,23 @@
     "plugin_id": "acf-mail-smtp",
     "edition": "master",
     "version": "2.1.0"
+  },
+  "wp-bulk-manager-master-v23.2.0.zip": {
+    "signature": "09221020a3d75438a8a3f2fb08e283a1011d84f79f113474e9596e7fb74bbb25",
+    "md5": "2303d7b8b4ed463023a4abc27d95afce",
+    "size": 46473,
+    "generated_at": "2026-01-06T08:47:31.362001",
+    "plugin_id": "wp-bulk-manager",
+    "edition": "master",
+    "version": "23.2.0"
+  },
+  "acf-mail-smtp-master-v2.1.1.zip": {
+    "signature": "154258700e64a22702d9b5f02eff54f32a847dc3fb274c11a7c487169654aa87",
+    "md5": "a68d5809054855f93b8c943d032ed842",
+    "size": 71309,
+    "generated_at": "2026-01-06T08:50:17.556409",
+    "plugin_id": "acf-mail-smtp",
+    "edition": "master",
+    "version": "2.1.1"
   }
 }

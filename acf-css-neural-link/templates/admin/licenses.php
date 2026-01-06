@@ -20,7 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     <?php
     // 통계 표시
     require_once JJ_NEURAL_LINK_PATH . 'includes/admin/class-jj-license-stats.php';
+    require_once JJ_NEURAL_LINK_PATH . 'includes/class-jj-license-cache.php';
     $stats = JJ_License_Stats::get_stats();
+    $cache_stats = JJ_License_Cache::get_stats();
     ?>
     <div class="jj-license-stats">
         <div class="jj-license-stat-box">
@@ -46,9 +48,63 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="stat-label"><?php esc_html_e( '14일 이내 만료', 'jj-license-manager' ); ?></div>
         </div>
     </div>
+
+    <!-- [v8.1.0] 캐시 상태 대시보드 -->
+    <div class="jj-cache-dashboard">
+        <h3>
+            <span class="dashicons dashicons-performance" style="vertical-align: middle;"></span>
+            <?php esc_html_e( '캐시 성능', 'jj-license-manager' ); ?>
+        </h3>
+        <div class="jj-cache-stats-grid">
+            <div class="jj-cache-stat">
+                <div class="jj-cache-stat-value" style="color: #00a32a;">
+                    <?php echo esc_html( $cache_stats['hit_rate'] ); ?>%
+                </div>
+                <div class="jj-cache-stat-label"><?php esc_html_e( '히트율', 'jj-license-manager' ); ?></div>
+            </div>
+            <div class="jj-cache-stat">
+                <div class="jj-cache-stat-value">
+                    <?php echo esc_html( number_format( $cache_stats['hits'] ) ); ?>
+                </div>
+                <div class="jj-cache-stat-label"><?php esc_html_e( '캐시 히트', 'jj-license-manager' ); ?></div>
+            </div>
+            <div class="jj-cache-stat">
+                <div class="jj-cache-stat-value" style="color: #d63638;">
+                    <?php echo esc_html( number_format( $cache_stats['misses'] ) ); ?>
+                </div>
+                <div class="jj-cache-stat-label"><?php esc_html_e( '캐시 미스', 'jj-license-manager' ); ?></div>
+            </div>
+            <div class="jj-cache-stat">
+                <div class="jj-cache-stat-value" style="color: #dba617;">
+                    <?php echo esc_html( number_format( $cache_stats['grace_hits'] ) ); ?>
+                </div>
+                <div class="jj-cache-stat-label"><?php esc_html_e( '그레이스 히트', 'jj-license-manager' ); ?></div>
+            </div>
+        </div>
+        <div class="jj-cache-info">
+            <small>
+                <?php
+                $last_update = human_time_diff( $cache_stats['last_update'], time() );
+                printf(
+                    /* translators: %s: time ago */
+                    esc_html__( '마지막 업데이트: %s 전', 'jj-license-manager' ),
+                    $last_update
+                );
+                ?>
+                &nbsp;|&nbsp;
+                <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=jj-license-manager&action=reset_cache_stats' ), 'reset_cache_stats' ) ); ?>" class="jj-reset-cache-stats">
+                    <?php esc_html_e( '통계 초기화', 'jj-license-manager' ); ?>
+                </a>
+            </small>
+        </div>
+    </div>
     
     <?php if ( isset( $_GET['deleted'] ) ) : ?>
         <div class="notice notice-success"><p><?php esc_html_e( '라이센스가 삭제되었습니다.', 'jj-license-manager' ); ?></p></div>
+    <?php endif; ?>
+
+    <?php if ( isset( $_GET['cache_reset'] ) ) : ?>
+        <div class="notice notice-success"><p><?php esc_html_e( '캐시 통계가 초기화되었습니다.', 'jj-license-manager' ); ?></p></div>
     <?php endif; ?>
     
     <?php if ( isset( $_GET['deactivated'] ) ) : ?>
@@ -272,5 +328,61 @@ if ( ! defined( 'ABSPATH' ) ) {
 .license-status-active { background: #00a32a; color: #fff; }
 .license-status-inactive { background: #d63638; color: #fff; }
 .license-status-expired { background: #f0b849; color: #fff; }
+
+/* [v8.1.0] 캐시 대시보드 스타일 */
+.jj-cache-dashboard {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2271b1 100%);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    color: #fff;
+}
+.jj-cache-dashboard h3 {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #fff;
+}
+.jj-cache-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+.jj-cache-stat {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    padding: 15px;
+    text-align: center;
+}
+.jj-cache-stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.jj-cache-stat-label {
+    font-size: 12px;
+    opacity: 0.85;
+    margin-top: 5px;
+}
+.jj-cache-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+.jj-cache-info small {
+    opacity: 0.85;
+}
+.jj-cache-info a {
+    color: #ffd700;
+    text-decoration: none;
+}
+.jj-cache-info a:hover {
+    text-decoration: underline;
+}
+@media (max-width: 782px) {
+    .jj-cache-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 </style>
 

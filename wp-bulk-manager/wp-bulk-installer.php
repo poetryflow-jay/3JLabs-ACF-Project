@@ -3,7 +3,7 @@
  * Plugin Name:       WP Bulk Manager - Really Simple WordPress Plugin & Theme Bulk Installer and Editor
  * Plugin URI:        https://3j-labs.com/
  * Description:       WP Bulk Manager - 여러 개의 플러그인/테마 ZIP 파일을 한 번에 설치하고, 설치된 플러그인/테마를 대량 비활성화/삭제까지 관리하는 강력한 도구입니다. ACF CSS (Advanced Custom Fonts & Colors & Styles) 패밀리 플러그인으로, Pro 버전과 연동 시 무제한 기능을 제공합니다.
- * Version:           23.1.3
+ * Version:           23.4.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -17,7 +17,7 @@
  * @package WP_Bulk_Manager
  */
 
-define( 'WP_BULK_MANAGER_VERSION', '23.1.3' ); // [v23.1.2] Phase 46 버전 업데이트
+define( 'WP_BULK_MANAGER_VERSION', '23.4.0' ); // [v23.4.0] 드래그 정렬 및 설치 실패 재시도 기능 추가
 define( 'WP_BULK_MANAGER_SLUG', 'wp-bulk-manager' );
 define( 'WP_BULK_MANAGER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WP_BULK_MANAGER_URL', plugin_dir_url( __FILE__ ) );
@@ -383,10 +383,33 @@ class JJ_Bulk_Installer {
                 'manage_limit_reached' => sprintf( '현재 라이센스에서는 한 번에 최대 %d개까지만 선택할 수 있습니다.', $limits['max_manage_items'] ),
                 'delete_locked' => '삭제 기능은 Basic 이상에서 사용할 수 있습니다.',
                 'deactivate_delete_locked' => '비활성화 후 삭제 기능은 Premium 이상에서 사용할 수 있습니다.',
-            )
+            ),
+            // [v23.3.0] 설치된 플러그인 목록 (중복 설치 경고용)
+            'installed_plugins' => $this->get_installed_plugin_slugs(),
         ) );
     }
     
+    /**
+     * [v23.3.0] 설치된 플러그인 슬러그 목록 조회 (중복 설치 경고용)
+     *
+     * @return array 설치된 플러그인 슬러그 배열
+     */
+    private function get_installed_plugin_slugs() {
+        if ( ! function_exists( 'get_plugins' ) ) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+
+        $plugins = get_plugins();
+        $slugs = array();
+
+        foreach ( $plugins as $plugin_file => $plugin_data ) {
+            // plugin-folder/plugin-file.php 형식에서 plugin-folder만 추출
+            $slugs[] = $plugin_file;
+        }
+
+        return $slugs;
+    }
+
     /**
      * [v2.2.0] ACF CSS 라이센스 등급에 따른 제한 설정 조회
      * [v22.4.0] Phase 37: 보안 강화 - 라이센스 위변조 방지 로직 추가
@@ -663,24 +686,26 @@ class JJ_Bulk_Installer {
                     <!-- 선택 제어 버튼 (파일 목록 위) -->
                     <div class="jj-selection-controls" id="jj-selection-controls" style="display: none; margin-bottom: 15px;">
                         <div class="jj-selection-buttons">
-                            <button type="button" class="button button-small" id="jj-select-all">
-                                ☑️ 전체 선택
-                            </button>
-                            <button type="button" class="button button-small" id="jj-select-none">
-                                ☐ 선택 해제
+                            <button type="button" class="button button-small jj-toggle-select" id="jj-toggle-select" data-state="none">
+                                <span class="jj-toggle-icon">☐</span>
+                                <span class="jj-toggle-text">전체 선택</span>
                             </button>
                             <span class="jj-selection-info" id="jj-selection-info">0개 선택됨</span>
+                            <span class="jj-selection-badge" id="jj-selection-badge" style="display: none;"></span>
                         </div>
                         <div class="jj-activate-controls" style="margin-top: 10px;">
                             <button type="button" class="button button-primary" id="jj-activate-selected-plugins" style="display: none;">
                                 선택한 플러그인 활성화
                             </button>
-                            <span class="description" style="margin-left: 10px; color: #646970;">
-                                💡 <strong>팁:</strong> Ctrl 키를 누른 채로 클릭하면 여러 개 선택, Shift 키를 누른 채로 클릭하면 범위 선택이 가능합니다.
+                            <span class="description jj-tip-text" style="margin-left: 10px; color: #646970;">
+                                💡 <strong>팁:</strong> Ctrl+클릭 = 여러 개 선택, Shift+클릭 = 범위 선택
                                 <a href="#" class="jj-show-tooltip" data-tooltip="selection-help" style="text-decoration: underline; margin-left: 5px;">자세히 보기</a>
                             </span>
                         </div>
                     </div>
+
+                    <!-- 넛지 알림 영역 -->
+                    <div class="jj-nudge-container" id="jj-nudge-container"></div>
 
                     <!-- 액션 버튼 -->
                     <div class="jj-actions" style="margin-top: 20px; display: none;" id="jj-actions-area">

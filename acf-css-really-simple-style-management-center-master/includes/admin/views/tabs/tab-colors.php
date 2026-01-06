@@ -32,6 +32,97 @@ $colors_layout = $this->get_admin_menu_colors();
         </div>
     </div>
 
+    <!-- [v22.6.0] 다크모드 프리셋 선택기 -->
+    <div class="jj-darkmode-presets" style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 8px; color: #fff;">
+        <h4 style="margin-top: 0; color: #fff; display: flex; align-items: center; gap: 8px;">
+            <span class="dashicons dashicons-admin-appearance" style="font-size: 20px;"></span>
+            <?php esc_html_e( '다크모드 프리셋', 'acf-css-really-simple-style-management-center' ); ?>
+        </h4>
+        <p style="margin-bottom: 15px; opacity: 0.85; font-size: 13px;">
+            <?php esc_html_e( '원클릭으로 전문적인 관리자 다크모드 테마를 적용하세요.', 'acf-css-really-simple-style-management-center' ); ?>
+        </p>
+
+        <div class="jj-preset-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px;">
+            <!-- Midnight Blue -->
+            <div class="jj-preset-card" data-preset="midnight_blue"
+                 data-colors='{"sidebar_bg":"#0f172a","sidebar_text":"#94a3b8","sidebar_text_hover":"#f1f5f9","sidebar_bg_hover":"#1e293b","sidebar_bg_active":"#334155","sidebar_text_active":"#ffffff","topbar_bg":"#020617","topbar_text":"#94a3b8","topbar_text_hover":"#ffffff"}'
+                 style="background: #0f172a; border: 2px solid #334155; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #0f172a; border: 1px solid #475569;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #1e293b;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #334155;"></span>
+                </div>
+                <strong style="font-size: 13px;"><?php esc_html_e( 'Midnight Blue', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                <p style="font-size: 11px; opacity: 0.7; margin: 4px 0 0 0;"><?php esc_html_e( '깊고 차분한 네이비', 'acf-css-really-simple-style-management-center' ); ?></p>
+            </div>
+
+            <!-- Carbon Black -->
+            <div class="jj-preset-card" data-preset="carbon_black"
+                 data-colors='{"sidebar_bg":"#171717","sidebar_text":"#a3a3a3","sidebar_text_hover":"#fafafa","sidebar_bg_hover":"#262626","sidebar_bg_active":"#404040","sidebar_text_active":"#ffffff","topbar_bg":"#0a0a0a","topbar_text":"#a3a3a3","topbar_text_hover":"#ffffff"}'
+                 style="background: #171717; border: 2px solid #404040; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #0a0a0a; border: 1px solid #525252;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #171717;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #262626;"></span>
+                </div>
+                <strong style="font-size: 13px;"><?php esc_html_e( 'Carbon Black', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                <p style="font-size: 11px; opacity: 0.7; margin: 4px 0 0 0;"><?php esc_html_e( '순수한 블랙 모노', 'acf-css-really-simple-style-management-center' ); ?></p>
+            </div>
+
+            <!-- Ocean Deep -->
+            <div class="jj-preset-card" data-preset="ocean_deep"
+                 data-colors='{"sidebar_bg":"#0c4a6e","sidebar_text":"#7dd3fc","sidebar_text_hover":"#f0f9ff","sidebar_bg_hover":"#075985","sidebar_bg_active":"#0369a1","sidebar_text_active":"#ffffff","topbar_bg":"#082f49","topbar_text":"#7dd3fc","topbar_text_hover":"#ffffff"}'
+                 style="background: #0c4a6e; border: 2px solid #0369a1; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #082f49; border: 1px solid #0284c7;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #0c4a6e;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #0369a1;"></span>
+                </div>
+                <strong style="font-size: 13px;"><?php esc_html_e( 'Ocean Deep', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                <p style="font-size: 11px; opacity: 0.7; margin: 4px 0 0 0;"><?php esc_html_e( '깊은 바다의 청량함', 'acf-css-really-simple-style-management-center' ); ?></p>
+            </div>
+
+            <!-- Forest Night -->
+            <div class="jj-preset-card" data-preset="forest_night"
+                 data-colors='{"sidebar_bg":"#14532d","sidebar_text":"#86efac","sidebar_text_hover":"#f0fdf4","sidebar_bg_hover":"#166534","sidebar_bg_active":"#15803d","sidebar_text_active":"#ffffff","topbar_bg":"#052e16","topbar_text":"#86efac","topbar_text_hover":"#ffffff"}'
+                 style="background: #14532d; border: 2px solid #15803d; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #052e16; border: 1px solid #22c55e;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #14532d;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #166534;"></span>
+                </div>
+                <strong style="font-size: 13px;"><?php esc_html_e( 'Forest Night', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                <p style="font-size: 11px; opacity: 0.7; margin: 4px 0 0 0;"><?php esc_html_e( '숲의 깊은 녹음', 'acf-css-really-simple-style-management-center' ); ?></p>
+            </div>
+
+            <!-- Purple Haze -->
+            <div class="jj-preset-card" data-preset="purple_haze"
+                 data-colors='{"sidebar_bg":"#3b0764","sidebar_text":"#c4b5fd","sidebar_text_hover":"#faf5ff","sidebar_bg_hover":"#581c87","sidebar_bg_active":"#6b21a8","sidebar_text_active":"#ffffff","topbar_bg":"#2e1065","topbar_text":"#c4b5fd","topbar_text_hover":"#ffffff"}'
+                 style="background: #3b0764; border: 2px solid #6b21a8; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #2e1065; border: 1px solid #a855f7;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #3b0764;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #581c87;"></span>
+                </div>
+                <strong style="font-size: 13px;"><?php esc_html_e( 'Purple Haze', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                <p style="font-size: 11px; opacity: 0.7; margin: 4px 0 0 0;"><?php esc_html_e( '신비로운 보라빛', 'acf-css-really-simple-style-management-center' ); ?></p>
+            </div>
+
+            <!-- Cyber Neon -->
+            <div class="jj-preset-card" data-preset="cyber_neon"
+                 data-colors='{"sidebar_bg":"#020617","sidebar_text":"#22d3ee","sidebar_text_hover":"#f0fdff","sidebar_bg_hover":"#0f172a","sidebar_bg_active":"#1e293b","sidebar_text_active":"#a5f3fc","topbar_bg":"#000000","topbar_text":"#22d3ee","topbar_text_hover":"#a5f3fc"}'
+                 style="background: #020617; border: 2px solid #22d3ee; border-radius: 6px; padding: 12px; cursor: pointer; transition: all 0.2s;">
+                <div style="display: flex; gap: 4px; margin-bottom: 8px;">
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #000000; border: 1px solid #22d3ee;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #06b6d4;"></span>
+                    <span style="width: 16px; height: 16px; border-radius: 50%; background: #a5f3fc;"></span>
+                </div>
+                <strong style="font-size: 13px;"><?php esc_html_e( 'Cyber Neon', 'acf-css-really-simple-style-management-center' ); ?></strong>
+                <p style="font-size: 11px; opacity: 0.7; margin: 4px 0 0 0;"><?php esc_html_e( '미래적 사이버펑크', 'acf-css-really-simple-style-management-center' ); ?></p>
+            </div>
+        </div>
+    </div>
+
     <h3><?php esc_html_e( '관리자 메뉴 / 상단바 색상', 'acf-css-really-simple-style-management-center' ); ?></h3>
     <p class="description">
         <?php esc_html_e( '좌측 관리자 메뉴와 상단 관리자 바에 사용할 배경/텍스트 색상을 지정할 수 있습니다. #RRGGBB 형식으로 입력해 주세요.', 'acf-css-really-simple-style-management-center' ); ?>

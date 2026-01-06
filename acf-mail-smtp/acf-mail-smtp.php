@@ -3,7 +3,7 @@
  * Plugin Name:       ACF Mail SMTP - Advanced Custom Form & Mail & SMTP
  * Plugin URI:        https://3j-labs.com/
  * Description:       ACF Mail SMTP - Advanced Custom Form & Mail & SMTP. 강력한 폼 빌더, SMTP 이메일 발송, 자동화 기능을 제공하는 올인원 폼 솔루션입니다.
- * Version:           2.1.0
+ * Version:           2.2.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_MAIL_SMTP_VERSION', '2.1.0' );
+define( 'ACF_MAIL_SMTP_VERSION', '2.2.0' ); // [v2.2.0] 이메일 로그 테이블 개선 - 상세 모달, 재발송, 삭제, CSV 내보내기
 define( 'ACF_MAIL_SMTP_PLUGIN_FILE', __FILE__ );
 define( 'ACF_MAIL_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_MAIL_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -149,15 +149,15 @@ final class ACF_Mail_SMTP {
      */
     public function init_components() {
         try {
-            // Initialize core components
+            // Initialize core components (싱글톤 패턴 사용)
             if ( class_exists( 'ACF_Mail_SMTP_Form_Manager' ) ) {
-                $this->forms = new ACF_Mail_SMTP_Form_Manager();
+                $this->forms = ACF_Mail_SMTP_Form_Manager::get_instance();
             }
             if ( class_exists( 'ACF_Mail_SMTP_SMTP_Manager' ) ) {
-                $this->smtp = new ACF_Mail_SMTP_SMTP_Manager();
+                $this->smtp = ACF_Mail_SMTP_SMTP_Manager::get_instance();
             }
             if ( class_exists( 'ACF_Mail_SMTP_Automation_Manager' ) ) {
-                $this->automation = new ACF_Mail_SMTP_Automation_Manager();
+                $this->automation = ACF_Mail_SMTP_Automation_Manager::get_instance();
             }
 
             // [v2.1.0] Gmail API OAuth2
