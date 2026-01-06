@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // [v2.1.2] 플러그인 버전별 자동 업데이트 제어 기능 추가, dev 버전과의 호환성 개선
 // [v2.1.3] 플러그인 폴더명 및 슬러그 업데이트
 // [v2.1.4] Pro 버전 원격 활성화 시스템 지원
-define( 'JJ_NEURAL_LINK_VERSION', '8.1.0' ); // [v8.1.0] 스마트 캐싱 + 캐시 상태 대시보드
+define( 'JJ_NEURAL_LINK_VERSION', '8.2.0' ); // [v8.2.0] Phase 50B: 멀티사이트 중앙관리 허브
 
 // WordPress 함수가 로드되었는지 확인 후 상수 정의
 if ( ! defined( 'JJ_NEURAL_LINK_PATH' ) ) {
@@ -104,6 +104,14 @@ if ( defined( 'JJ_NEURAL_LINK_PATH' ) && function_exists( 'class_exists' ) ) {
         $pattern_learner_admin_file = JJ_NEURAL_LINK_PATH . 'includes/admin/class-jj-pattern-learner-admin.php';
         if ( file_exists( $pattern_learner_admin_file ) ) {
             require_once $pattern_learner_admin_file;
+        }
+    }
+
+    // [Phase 50B] 멀티사이트 허브 로드
+    if ( is_multisite() ) {
+        $multisite_hub_file = JJ_NEURAL_LINK_PATH . 'includes/class-jj-multisite-hub.php';
+        if ( file_exists( $multisite_hub_file ) ) {
+            require_once $multisite_hub_file;
         }
     }
     

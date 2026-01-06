@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.1.0' ); // [v1.1.0] Phase 49-3: 실시간 대시보드 위젯 추가
+define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.2.0' ); // [v1.2.0] Phase 50B: 통합 대시보드 Command Center
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_FILE', __FILE__ );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -46,6 +46,9 @@ if ( file_exists( $shared_path . '/class-jj-license-manager-shared.php' ) ) {
 
 // [Phase 49-3] 실시간 대시보드 클래스 로드
 require_once JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR . 'includes/class-realtime-dashboard.php';
+
+// [Phase 50B] 통합 대시보드 Command Center 로드
+require_once JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR . 'includes/class-unified-dashboard.php';
 
 /**
  * 메인 플러그인 클래스
@@ -76,6 +79,11 @@ final class JJ_Analytics_Dashboard {
         // [Phase 49-3] 실시간 대시보드 초기화
         if ( class_exists( 'JJ_Realtime_Dashboard' ) ) {
             JJ_Realtime_Dashboard::get_instance();
+        }
+
+        // [Phase 50B] 통합 대시보드 Command Center 초기화
+        if ( class_exists( 'JJ_Unified_Dashboard' ) ) {
+            JJ_Unified_Dashboard::get_instance();
         }
     }
 
