@@ -40,7 +40,7 @@ if ( ! class_exists( 'JJ_Shared_Loader' ) ) {
          *
          * @var string
          */
-        const VERSION = '1.0.0';
+        const VERSION = '1.1.0';
 
         /**
          * 로드된 파일 목록
@@ -83,6 +83,7 @@ if ( ! class_exists( 'JJ_Shared_Loader' ) ) {
          * 모든 공통 유틸리티 로드
          *
          * @since 1.0.0
+         * @since 1.1.0 REST API, Plugin Registry, Event Bus 추가
          */
         public static function load_all() {
             self::load( 'trait-jj-singleton' );
@@ -90,6 +91,10 @@ if ( ! class_exists( 'JJ_Shared_Loader' ) ) {
             self::load( 'class-jj-file-validator' );
             self::load( 'class-jj-rollback-shared' );
             self::load( 'class-jj-rollback-admin' );
+            // Phase 50A: REST API 및 크로스 플러그인 연동
+            self::load( 'class-3j-rest-api' );
+            self::load( 'class-3j-plugin-registry' );
+            self::load( 'class-3j-event-bus' );
         }
 
         /**
@@ -186,6 +191,60 @@ if ( ! class_exists( 'JJ_Shared_Loader' ) ) {
 
             if ( class_exists( 'JJ_Rollback_Shared' ) ) {
                 return JJ_Rollback_Shared::instance();
+            }
+
+            return null;
+        }
+
+        /**
+         * REST API 인스턴스 반환 (편의 메서드)
+         *
+         * @since 1.1.0
+         * @return JJ_3J_REST_API|null
+         */
+        public static function rest_api() {
+            if ( ! self::is_loaded( 'class-3j-rest-api' ) ) {
+                self::load( 'class-3j-rest-api' );
+            }
+
+            if ( class_exists( 'JJ_3J_REST_API' ) ) {
+                return JJ_3J_REST_API::instance();
+            }
+
+            return null;
+        }
+
+        /**
+         * 플러그인 레지스트리 인스턴스 반환 (편의 메서드)
+         *
+         * @since 1.1.0
+         * @return JJ_3J_Plugin_Registry|null
+         */
+        public static function registry() {
+            if ( ! self::is_loaded( 'class-3j-plugin-registry' ) ) {
+                self::load( 'class-3j-plugin-registry' );
+            }
+
+            if ( class_exists( 'JJ_3J_Plugin_Registry' ) ) {
+                return JJ_3J_Plugin_Registry::instance();
+            }
+
+            return null;
+        }
+
+        /**
+         * 이벤트 버스 인스턴스 반환 (편의 메서드)
+         *
+         * @since 1.1.0
+         * @return JJ_3J_Event_Bus|null
+         */
+        public static function event_bus() {
+            if ( ! self::is_loaded( 'class-3j-event-bus' ) ) {
+                self::load( 'class-3j-event-bus' );
+            }
+
+            if ( class_exists( 'JJ_3J_Event_Bus' ) ) {
+                return JJ_3J_Event_Bus::instance();
             }
 
             return null;

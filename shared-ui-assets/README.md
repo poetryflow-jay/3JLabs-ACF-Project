@@ -1,7 +1,7 @@
 # 3J Labs Shared UI Assets
 
-**버전**: 1.1.0
-**마지막 업데이트**: 2026년 1월 4일
+**버전**: 1.2.0
+**마지막 업데이트**: 2026년 1월 6일
 **유지보수자**: Jason (CTO, 3J Labs)
 
 ---
@@ -26,10 +26,15 @@ shared-ui-assets/
 │   └── jj-ui-system-2026.js (UI 인터랙션)
 └── php/
     ├── index.php (보안 파일)
-    ├── class-jj-shared-loader.php (공통 로더)
+    ├── class-jj-shared-loader.php (공통 로더 v1.1.0)
     ├── class-jj-ajax-helper.php (AJAX 보안 헬퍼)
     ├── class-jj-file-validator.php (파일 검증 유틸리티)
-    └── trait-jj-singleton.php (싱글톤 트레이트)
+    ├── class-jj-rollback-shared.php (롤백 관리)
+    ├── class-jj-rollback-admin.php (롤백 UI)
+    ├── trait-jj-singleton.php (싱글톤 트레이트)
+    ├── class-3j-rest-api.php (REST API v1.0.0 - Phase 50A)
+    ├── class-3j-plugin-registry.php (플러그인 레지스트리 - Phase 50A)
+    └── class-3j-event-bus.php (이벤트 버스 - Phase 50A)
 ```
 
 ---
@@ -279,6 +284,67 @@ $instance = My_Plugin_Class::instance();
 
 ---
 
+## Phase 50A: 크로스 플러그인 인프라 (v1.2.0)
+
+### REST API (JJ_3J_REST_API)
+
+모든 3J Labs 플러그인을 위한 통합 REST API를 제공합니다.
+
+**엔드포인트:**
+```
+GET  /wp-json/3j-labs/v1/plugins          - 플러그인 목록
+GET  /wp-json/3j-labs/v1/plugins/{slug}   - 개별 플러그인 상세
+GET  /wp-json/3j-labs/v1/health           - 시스템 상태
+GET  /wp-json/3j-labs/v1/settings         - 통합 설정
+POST /wp-json/3j-labs/v1/settings         - 설정 업데이트
+GET  /wp-json/3j-labs/v1/analytics        - 크로스 플러그인 분석
+GET  /wp-json/3j-labs/v1/events           - 이벤트 로그
+POST /wp-json/3j-labs/v1/events           - 이벤트 기록
+```
+
+**사용법:**
+```php
+$api_info = JJ_3J_REST_API::get_api_info();
+$rest_api = JJ_Shared_Loader::rest_api();
+```
+
+### 플러그인 레지스트리 (JJ_3J_Plugin_Registry)
+
+플러그인 간 상호 인식 및 의존성 관리를 제공합니다.
+
+```php
+// 플러그인 등록
+jj_registry()->register( 'my-plugin', array(
+    'name'     => 'My Plugin',
+    'version'  => '1.0.0',
+    'provides' => array( 'email' ),
+    'requires' => array( 'acf-css-master' ),
+));
+
+// 상태 확인
+if ( jj_plugin_active( 'acf-css-neural-link' ) ) { /* ... */ }
+if ( jj_has_capability( 'email' ) ) { /* ... */ }
+```
+
+### 이벤트 버스 (JJ_3J_Event_Bus)
+
+플러그인 간 이벤트 발행/구독(Pub/Sub) 패턴을 구현합니다.
+
+```php
+// 이벤트 구독
+jj_subscribe( 'style_updated', function( $data, $event ) {
+    my_clear_cache();
+});
+
+// 이벤트 발행
+jj_publish( 'style_updated', array( 'style_id' => 123 ));
+
+// 한 번만 실행
+jj_event_bus()->once( 'plugin_activated', $callback );
+```
+
+---
+
 ## 라이센스
 
 GPLv2 또는 이후 버전
@@ -286,4 +352,4 @@ GPLv2 또는 이후 버전
 ---
 
 *3J Labs 연구소 - 제이x제니x제이슨*
-*2026년 1월 4일*
+*2026년 1월 6일*
