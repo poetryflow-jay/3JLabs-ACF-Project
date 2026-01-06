@@ -1,9 +1,9 @@
 # 3J Labs ACF CSS Plugin Family
 
 프로젝트 경로: `C:\Users\computer\Desktop\3J-Labs-Projects\3J-ACF-CSS`
-메인 플러그인 버전: **v23.0.10** (ACF CSS Manager Master)
+메인 플러그인 버전: **v25.3.0** (ACF CSS Manager Master)
 빌드 매니저 버전: **v23.0.1**
-최신 업데이트: 2026년 1월 5일 (Phase 46 완료 - 버전 관리 및 대시보드 연동 개선)
+최신 업데이트: 2026년 1월 6일 (Phase 49 완료 - AI/자동화/분석 기능 대폭 강화)
 
 ---
 
@@ -13,59 +13,93 @@
 
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
-| **ACF CSS Manager (Master)** | **v23.0.4** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + 롤백 기능 완전 구현 |
-| ACF MBA (Nudge Flow) | **v22.10.1** | 마케팅 자동화 및 넛지 시스템 (MAB 포함) + 템플릿 탭 수정 |
-| ACF Code Snippets Box | **v4.0.0** | CSS/JS/PHP 코드 스니펫 관리 + 프리셋 토글 |
-| ACF CSS Neural Link | **v6.3.5** | 패턴 학습 및 업데이트 관리 + 보안 강화 |
-| WP Bulk Manager | **v23.1.1** | 플러그인/테마 대량 설치 및 관리 + 마스터 에디션 감지 수정 |
+| **ACF CSS Manager (Master)** | **v25.3.0** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + 다크모드 프리셋 |
+| ACF MBA (Nudge Flow) | **v23.0.0** | 마케팅 자동화 및 넛지 시스템 + 드래그 앤 드롭 워크플로우 빌더 |
+| ACF Code Snippets Box | **v5.1.0** | CSS/JS/PHP 코드 스니펫 관리 + **고급 버전 관리** (태깅/브랜치/스냅샷) |
+| ACF CSS Neural Link | **v8.1.0** | 패턴 학습 및 업데이트 관리 + 스마트 캐싱 시스템 |
+| WP Bulk Manager | **v23.4.0** | 플러그인/테마 대량 설치 및 관리 + 드래그 정렬 + 재시도 버튼 |
 
 ### 확장 플러그인 (Extensions)
 
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
-| ACF CSS WooCommerce Toolkit | **v2.4.1** | WooCommerce 스타일 및 기능 확장 |
-| ACF CSS AI Extension | **v3.3.1** | AI 기반 스타일 추천 및 생성 |
-| ACF CSS Woo License Bridge | **v22.0.6** | WooCommerce 라이센스 브릿지 |
-| Admin Menu Editor Pro | **v2.0.2** | 관리자 메뉴 커스터마이저 |
+| ACF CSS WooCommerce Toolkit | **v2.5.0** | WooCommerce 스타일 및 기능 확장 + **동적 가격 표시** |
+| ACF CSS AI Extension | **v3.4.0** | AI 기반 스타일 추천 및 생성 + **AI 컬러 팔레트 추천** |
+| ACF CSS Woo License Bridge | **v23.0.2** | WooCommerce 라이센스 브릿지 |
+| Admin Menu Editor Pro | **v2.0.4** | 관리자 메뉴 커스터마이저 |
 
-### 신규 플러그인 (New)
-
-| 플러그인 | 버전 | 설명 |
-|----------|------|------|
-| **ACF User Journey Analytics** | **v1.0.1** | **무료** 트래픽 분석 대시보드 + 캐싱 시스템 + 보안 강화 |
-| JJ Analytics Dashboard | **v1.0.1** | 전체 플러그인 통합 분석 대시보드 |
-| JJ Marketing Automation Dashboard | **v1.0.2** | 종합 마케팅 자동화 대시보드 |
-
-### SEO 플러그인 (개발 중)
+### 분석 & 마케팅 플러그인 (Analytics & Marketing)
 
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
-| WP 1-Click SEO Pro | **v0.1.0** | 원클릭 SEO 최적화 (개발 중) |
-| WP Bulk SEO AEO | **v0.1.0** | 대량 SEO/AEO 관리 (개발 중) |
-| 3J SEO Algorithm | - | 고급 SEO 알고리즘 엔진 (기획 중) |
+| **ACF User Journey Analytics** | **v1.0.3** | **무료** 트래픽 분석 대시보드 + 캐싱 시스템 |
+| JJ Analytics Dashboard | **v1.1.0** | 전체 플러그인 통합 분석 대시보드 + **실시간 대시보드 위젯** |
+| JJ Marketing Automation Dashboard | **v2.0.2** | 종합 마케팅 자동화 대시보드 |
+| ACF Mail SMTP | **v2.3.0** | 메일 SMTP + Gmail API + **비주얼 이메일 템플릿 빌더** |
+
+### SEO 플러그인
+
+| 플러그인 | 버전 | 설명 |
+|----------|------|------|
+| WP 1-Click SEO Pro | **v2.1.0** | 원클릭 SEO 최적화 |
+| WP Bulk SEO AEO | **v2.1.0** | 대량 SEO/AEO 관리 |
+
+---
+
+## Phase 49 신규 기능 (2026-01-06)
+
+### P49-1: ACF CSS AI Extension - AI 컬러 팔레트 추천 (v3.4.0)
+- AI 기반 브랜드 컬러 분석 및 자동 팔레트 생성
+- 60-30-10 색상 비율 자동 적용
+- 접근성 대비율 검사 (WCAG AA/AAA)
+- 무드보드 스타일 추천 (모던/클래식/미니멀/대담한)
+- 산업별 최적화 팔레트 제안
+
+### P49-2: ACF Mail SMTP - 비주얼 이메일 템플릿 빌더 (v2.3.0)
+- 드래그 앤 드롭 템플릿 빌더
+- 12+ 블록 타입 (텍스트, 이미지, 버튼, 소셜, 등)
+- 실시간 미리보기
+- 반응형 이메일 출력
+- 템플릿 저장 및 복제
+
+### P49-3: JJ Analytics Dashboard - 실시간 대시보드 위젯 (v1.1.0)
+- 실시간 데이터 모니터링 (AJAX 폴링)
+- 새로고침 간격 설정 (5초~5분)
+- 자동 갱신 타이머 표시
+- 실시간 플러그인 상태 추적
+- 최근 활동 피드
+
+### P49-4: ACF CSS WooCommerce Toolkit - 동적 가격 표시 (v2.5.0)
+- 세일 카운트다운 타이머
+- 재고 긴급도 표시
+- 대량 구매 가격표
+- 가격 히스토리 추적
+- 사용자별 맞춤 가격
+- REST API 지원
+
+### P49-5: ACF Code Snippets Box - 고급 버전 관리 (v5.1.0)
+- 버전 태깅 시스템 (컬러 태그)
+- 브랜치 생성 및 병합
+- 스냅샷 (수동 백업)
+- 자동 백업 스케줄링
+- 버전 통계 분석
+- JSON 내보내기/가져오기
 
 ---
 
 ## 빌드 매니저 (v23.0.1)
 
 ### 주요 기능
-- ✅ 플러그인 빌드 및 ZIP 패키징
-- ✅ 버전 관리 (자동/수동 모드)
-- ✅ 대시보드 자동 업데이트
-- ✅ 이전 버전 자동 아카이브
-- ✅ 서명 생성 및 검증
+- 플러그인 빌드 및 ZIP 패키징
+- 버전 관리 (자동/수동 모드)
+- 대시보드 자동 업데이트
+- 이전 버전 자동 아카이브
+- 서명 생성 및 검증
 
 ### GUI 모드
 ```bash
 python 3j_build_manager.py
 ```
-
-**기능**:
-- 📦 플러그인 목록 및 상태 확인
-- 🚀 빌드 실행 (전체/선택)
-- 📊 버전 관리 (자동/수동 모드)
-- ⚙️ 설정 관리
-- 📈 빌드 히스토리
 
 ### CLI 모드
 ```bash
@@ -78,25 +112,6 @@ python 3j_build_manager.py --cli --plugins acf-css-manager wp-bulk-manager
 # 특정 에디션으로 빌드
 python 3j_build_manager.py --cli --all --editions free premium master
 ```
-
-### 버전 관리 기능
-
-**자동 모드**:
-- 버전을 0.1씩 자동 증가 (마지막 숫자에 1 추가)
-- 예: `23.0.10` → `23.0.11`
-- 전체 플러그인 일괄 업데이트 지원
-
-**수동 모드**:
-- 현재 버전 표시
-- 새 버전 직접 입력
-- 버전 내리기 방지 (현재 버전보다 높은 버전만 허용)
-- 버전 형식 검증
-
-**사용 방법**:
-1. 빌드 매니저 실행
-2. "📦 버전 관리" 탭 클릭
-3. 자동/수동 모드 선택
-4. 플러그인 선택 후 버전 업데이트
 
 ### 에디션
 - **Free**: 무료 버전
@@ -116,19 +131,20 @@ python 3j_build_manager.py --cli --all --editions free premium master
 ├── dev_scripts/                  # 개발용 스크립트
 ├── dist/                         # 빌드된 ZIP 파일
 ├── shared-ui-assets/             # 공유 보안/UI 모듈
-├── memory & context/             # 52개 메모리 파일
+├── memory & context/             # 메모리 파일
 │
 ├── acf-css-really-simple-style-management-center-master/  # 메인 플러그인
 ├── acf-nudge-flow/               # 마케팅 자동화
 ├── acf-code-snippets-box/        # 코드 스니펫
 ├── acf-css-neural-link/          # 업데이트 관리
 ├── wp-bulk-manager/              # 대량 설치
-├── acf-user-journey-analytics/   # 트래픽 분석 (신규, 무료)
+├── acf-user-journey-analytics/   # 트래픽 분석 (무료)
+├── jj-analytics-dashboard/       # 분석 대시보드
+├── acf-mail-smtp/                # 메일 SMTP
 │
-├── SEO/                          # SEO 플러그인 (개발 중)
+├── SEO/                          # SEO 플러그인
 │   ├── oneclick-seo-pro/
-│   ├── wp-bulk-seo-aeo/
-│   └── 3j-seo-algorithm/
+│   └── wp-bulk-seo-aeo/
 │
 └── docs/                         # 문서
 ```
@@ -168,155 +184,28 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ## 최근 변경사항
 
-### Phase 46 (2026-01-05) - 버전 관리 및 대시보드 연동 개선
+### Phase 49 (2026-01-06) - AI/자동화/분석 기능 대폭 강화
 
-**주요 개선 사항**:
-- ✅ 버전 추출 함수 개선 (플러그인 헤더 + 상수 정의 모두 확인)
-- ✅ 빌드 완료 시 자동 대시보드 업데이트 (GUI/CLI 모드 모두 지원)
-- ✅ 대시보드 업데이트 로직 개선 (plugin-fullname 기반 정확한 매칭)
-- ✅ Windows 콘솔 인코딩 문제 해결 (UTF-8 설정)
-- ✅ 버전 관리 기능 대폭 개선 (자동/수동 모드, 버전 내리기 방지)
-- ✅ 모든 플러그인 버전 정보와 대시보드 완벽 동기화
+**주요 신규 기능**:
+- **AI 컬러 팔레트 추천**: 브랜드 컬러 기반 자동 팔레트 생성 (ACF CSS AI Extension v3.4.0)
+- **비주얼 이메일 템플릿 빌더**: 드래그 앤 드롭 템플릿 편집기 (ACF Mail SMTP v2.3.0)
+- **실시간 대시보드 위젯**: AJAX 폴링 기반 실시간 모니터링 (JJ Analytics v1.1.0)
+- **동적 가격 표시**: 카운트다운, 긴급도, 대량구매 가격 (WooCommerce Toolkit v2.5.0)
+- **고급 버전 관리**: 태깅, 브랜치, 스냅샷 기능 (Code Snippets Box v5.1.0)
 
-**상세 내용**: `PHASE_45_VERSION_SYNC_COMPLETE.md`, `VERSION_MANAGEMENT_FEATURE.md`, `memory & context/20260105-Phase-46-버전-관리-및-대시보드-연동-개선.md` 참조
+### Phase 48 (2026-01-06) - 4개 플러그인 기능 추가
 
-### Phase 45 (2026-01-05) - 플러그인 활성화 문제 해결
+- Neural Link: 라이센스 스마트 캐싱 + 캐시 대시보드 (v8.1.0)
+- ACF CSS Master: 다크모드 프리셋 선택기 6종 (v25.3.0)
+- WP Bulk Manager: 드래그 정렬 + 설치 실패 재시도 (v23.4.0)
+- ACF Mail SMTP: 이메일 로그 테이블 개선 (v2.2.0 → v2.3.0)
 
-**문제**: 스타일 센터, 벌크 매니저, 코드 박스, 라이센스 관리 말고는 그 어떠한 플러그인도 활성화가 되지 않음
+### Phase 47 (2026-01-06) - 스타일 센터 탭 시스템 완전 수정
 
-**근본 원인**:
-- 업데이트 보안 모듈(`class-jj-update-security-shared.php`)이 모든 플러그인 업로드를 차단
-- 로컬 파일 업로드 및 WordPress.org 플러그인 차단
-- "허가되지 않은 업데이트 소스입니다." 오류 발생
-
-**해결책**:
-- 업데이트 보안 모듈 v25.0.1로 업데이트
-- 로컬 파일 업로드 허용 (ZIP 파일 직접 업로드)
-- WordPress.org 플러그인 허용
-- 3J Labs 플러그인만 엄격하게 검증, 다른 플러그인은 기본적으로 허용
-- WP Bulk SEO AEO 및 ACF User Journey Analytics에 보안 모듈 추가
-
-**수정된 파일**:
-- `shared-ui-assets/class-jj-update-security-shared.php` (v25.0.0 → v25.0.1)
-- `acf-css-really-simple-style-management-center-master/includes/class-jj-update-security-v25.php` (v25.0.0 → v25.0.1)
-- `SEO/wp-bulk-seo-aeo/wp-bulk-seo-aeo.php` (보안 모듈 추가)
-- `acf-user-journey-analytics/acf-user-journey-analytics.php` (보안 모듈 추가)
-
-**결과**:
-- ✅ 모든 플러그인 정상 활성화 가능
-- ✅ 로컬 파일 업로드 가능
-- ✅ WordPress.org 플러그인 업데이트 가능
-- ✅ 3J Labs 플러그인 보안 검증 유지
-
-### Phase 44 (2026-01-05) - WP Bulk Manager 에디션 감지 수정 및 대시보드 업그레이드
-
-**WP Bulk Manager v23.1.1 (Critical Bug Fix)**
-- 마스터 에디션 감지 실패 수정 (WP_BULK_MANAGER_EDITION 상수 추가)
-- "Premium 이상 기능" 제한 메시지 표시 버그 해결
-- 에디션 감지 로직 우선순위 재정립
-
-**HTML 대시보드 v25.0.1**
-- 완전 재작성 (모던 UI/UX)
-- 14개 플러그인 최신 버전 반영
-- 글래스모피즘, 그라데이션 애니메이션
-- Quick Stats 섹션, 필터 탭 추가
-- HMAC-SHA256 보안 정보 표시
-
-**빌드 매니저 v23.0.0**
-- 버전 표시 업데이트 (v22.4.0 → v23.0.0)
-- Phase 44 변경사항 반영
-
-### Phase 43 (2026-01-05) - 완전한 프로젝트 전수 검사 및 롤백 시스템 완성
-
-**전체 프로젝트 전수 검사**
-- ✅ 모든 PHP 파일 문법 검사 (146개 파일, 오류 0개)
-- ✅ JavaScript 코드 검사 및 이스케이프 처리
-- ✅ 기능 오류 검사 및 수정 (4개 발견 및 수정)
-- ✅ 버전 불일치 수정
-- ✅ 상세한 문서 작성 (README, 릴리즈 노트, 개발자 가이드, 메모리)
-
-**ACF CSS Manager v23.0.4**
-- 롤백 시스템 완전 구현 완료
-- 버전 불일치 수정 (25.0.1 → 23.0.3)
-- JavaScript 변수 이스케이프 처리 완료
-- 모든 플러그인에 롤백 기능 자동 적용
-
-**ACF Nudge Flow v22.10.1**
-- 템플릿 센터 탭 전환 문법 오류 수정
-
-**빌드 매니저 v23.0.0**
-- Phase 43 반영
-- 완전한 롤백 시스템 지원
-
-### Phase 42.2 (2026-01-05) - 보안, 성능, 롤백 완성
-
-**ACF CSS Manager v23.0.3**
-- 플러그인 롤백 기능 완전 구현 (+270줄)
-- WordPress Core Plugin_Upgrader 활용
-- 3J Labs 및 WordPress.org 플러그인 지원
-- JavaScript $ 변수 이스케이프 수정
-
-**ACF User Journey Analytics v1.0.1**
-- AJAX nonce 검증 추가 (보안 강화)
-- Transient 캐싱 시스템 도입 (1분~1시간 TTL)
-- 캐시 무효화 메서드 추가
-
-**ACF Nudge Flow v22.10.1**
-- 템플릿 센터 탭 전환 문법 오류 수정
-
-**Shared Rollback Module**
-- class-jj-rollback-shared.php 클래스 구조 수정
-
-### Phase 42.1 (2026-01-05) - 1-Click SEO Pro v2.0.0 개발
-
-**1-Click SEO Pro v2.0.0**
-- v25 디자인 시스템 통합
-- 공유 보안 모듈 연동
-- 1-Click SEO 설정 버튼
-- 크로스 프로모션 배너
-
-### Phase 42 (2026-01-05) - User Journey Analytics 분리
-
-**ACF User Journey Analytics v1.0.0 (신규, 무료)**
-- 50+ 광고 플랫폼 자동 감지 (Google, Meta, Naver, Kakao, TikTok 등)
-- AI 검색엔진 트래픽 추적 (ChatGPT, Perplexity, Claude)
-- 5단계 전환 퍼널 분석
-- ROI/ROAS/CPA 계산
-- Chart.js 기반 실시간 시각화
-- CSV 내보내기 (UTF-8 BOM)
-
-**ACF Nudge Flow v22.10.0**
-- 트래픽 분석 기능을 User Journey Analytics로 분리
-- "트래픽 분석" 메뉴를 "트래픽 연동"으로 변경
-- User Journey Analytics 연동 인터페이스 구현
-
-### Phase 41 (2026-01-03) - 플러그인 목록 UI/UX 개선
-
-- JJ_Global_Plugin_List_Enhancer 클래스 구현
-- 모든 플러그인에 자동 업데이트 버튼 추가
-- 플러그인별 맞춤 기능 링크
-
-### Phase 40.1 (2026-01-04) - Code Snippets Box & Nudge Flow 개선
-
-- 프리셋 토글 기능 추가
-- RealDeal WooCommerce 프리셋 7개 추가
-- 워크플로우 빌더 드래그 앤 드롭 구현
-
-### 보안 강화 (Phase 39.3)
-
-- WP Bulk Manager AJAX 핸들러 보안 강화
-- License Tampering Detection
-- Update Hijacking 방지
-- 비정상적인 사용 패턴 감지
-
-### 공유 보안 모듈 (shared-ui-assets/)
-
-- `class-jj-security-module-v25.php`: 통합 보안 모듈
-- `class-jj-license-security-shared.php`: 라이센스 보안
-- `class-jj-update-security-shared.php`: 업데이트 보안
-- `class-jj-file-integrity-shared.php`: 파일 무결성
+- 탭 클릭 시 콘텐츠가 표시되지 않던 버그 수정
+- JavaScript 셀렉터 `data-section` 속성 기반으로 변경
 
 ---
 
-*작성일: 2026-01-05*
+*작성일: 2026-01-06*
 *작성자: 3J Labs (제이x제니x제이슨 연구소)*

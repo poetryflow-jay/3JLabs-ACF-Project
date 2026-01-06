@@ -3,7 +3,7 @@
  * Plugin Name:       ACF CSS WooCommerce Toolkit - Advanced Commerce Funnel - Custom Smart Sales
  * Plugin URI:        https://3j-labs.com/
  * Description:       ACF CSS 플러그인의 WooCommerce 특화 확장입니다. 가격 표시 강화, 할인 계산기, 할부 표시, 장바구니 UI 개선 등 우커머스 스타일링과 기능을 제공합니다. ACF CSS Pro 버전 이상의 사용자를 위한 프리미엄 기능입니다.
- * Version:           2.4.3
+ * Version:           2.5.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_CSS_WC_VERSION', '2.4.3' ); // [v2.5.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
+define( 'ACF_CSS_WC_VERSION', '2.5.0' ); // [v2.5.0] Phase 49-4: 동적 가격 표시 기능 추가
 define( 'ACF_CSS_WC_PLUGIN_FILE', __FILE__ );
 define( 'ACF_CSS_WC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_CSS_WC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -150,7 +150,10 @@ class ACF_CSS_WooCommerce_Toolkit {
         
         // Product Page Styler (One-click templates)
         require_once ACF_CSS_WC_PLUGIN_DIR . 'includes/class-product-page-styler.php';
-        
+
+        // [Phase 49-4] Dynamic Price Display
+        require_once ACF_CSS_WC_PLUGIN_DIR . 'includes/class-dynamic-price-display.php';
+
         // 관리자 설정
         if ( is_admin() ) {
             require_once ACF_CSS_WC_PLUGIN_DIR . 'admin/class-admin-settings.php';

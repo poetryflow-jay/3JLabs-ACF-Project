@@ -24,7 +24,7 @@ final class JJ_ACF_CSS_AI_Extension {
 
     private function __construct() {
         $this->load_providers();
-        
+
         add_action( 'admin_menu', array( $this, 'register_admin_page' ), 30 );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
 
@@ -33,6 +33,11 @@ final class JJ_ACF_CSS_AI_Extension {
         add_action( 'wp_ajax_jj_ai_save_settings', array( $this, 'ajax_save_settings' ) );
         add_action( 'wp_ajax_jj_ai_export_cloud', array( $this, 'ajax_export_cloud' ) );
         add_action( 'wp_ajax_jj_ai_save_palette_preset', array( $this, 'ajax_save_palette_preset' ) );
+
+        // [Phase 49-1] Color Recommender 초기화
+        if ( class_exists( 'JJ_AI_Color_Recommender' ) ) {
+            JJ_AI_Color_Recommender::instance();
+        }
     }
 
     private function load_providers() {
@@ -147,6 +152,41 @@ final class JJ_ACF_CSS_AI_Extension {
                 'ai_settings' => array(
                     'provider' => (string) ( get_option( $this->option_key, array() )['provider'] ?? 'openai' ),
                     'webgpu_model_id' => (string) ( get_option( $this->option_key, array() )['webgpu_model_id'] ?? '' ),
+                ),
+            )
+        );
+
+        // [Phase 49-1] Color Recommender 에셋
+        wp_enqueue_style(
+            'jj-color-recommender',
+            JJ_ACF_CSS_AI_EXT_URL . 'assets/css/color-recommender.css',
+            array( 'jj-acf-css-ai-ext' ),
+            JJ_ACF_CSS_AI_EXT_VERSION
+        );
+
+        wp_enqueue_script(
+            'jj-color-recommender',
+            JJ_ACF_CSS_AI_EXT_URL . 'assets/js/color-recommender.js',
+            array( 'jquery', 'jj-acf-css-ai-ext' ),
+            JJ_ACF_CSS_AI_EXT_VERSION,
+            true
+        );
+
+        wp_localize_script(
+            'jj-color-recommender',
+            'jjColorRec',
+            array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'nonce'    => wp_create_nonce( 'jj_ai_color_rec_nonce' ),
+                'i18n'     => array(
+                    'no_palette'     => __( '팔레트를 먼저 선택해주세요.', 'acf-css-ai-extension' ),
+                    'apply_confirm'  => __( '이 팔레트를 사이트에 적용하시겠습니까?', 'acf-css-ai-extension' ),
+                    'applied'        => __( '팔레트가 적용되었습니다!', 'acf-css-ai-extension' ),
+                    'reload_confirm' => __( '변경사항을 보려면 페이지를 새로고침하세요. 지금 새로고침할까요?', 'acf-css-ai-extension' ),
+                    'error'          => __( '오류가 발생했습니다.', 'acf-css-ai-extension' ),
+                    'copied'         => __( '복사됨: ', 'acf-css-ai-extension' ),
+                    'export_format'  => __( '내보내기 형식을 선택하세요:\n1. JSON\n2. CSS Variables\n3. SCSS Variables', 'acf-css-ai-extension' ),
+                    'exported'       => __( '팔레트가 클립보드에 복사되었습니다!', 'acf-css-ai-extension' ),
                 ),
             )
         );
@@ -313,6 +353,56 @@ final class JJ_ACF_CSS_AI_Extension {
                     <h2><?php echo esc_html__( '제안 결과', 'acf-css-ai-extension' ); ?></h2>
                     <div id="jj-ai-explanation" class="jj-ai-explanation"></div>
                     <pre id="jj-ai-patch" class="jj-ai-patch"></pre>
+                </div>
+            </div>
+
+            <!-- [Phase 49-1] Color Recommender Section -->
+            <div class="jj-ai-ext-card" id="jj-color-recommender">
+                <h2><?php echo esc_html__( 'AI 컬러 팔레트 추천', 'acf-css-ai-extension' ); ?></h2>
+                <p class="description">
+                    <?php echo esc_html__( '업종과 분위기를 선택하면 최적의 컬러 팔레트를 추천해드립니다. 클릭 한 번으로 사이트에 적용할 수 있습니다.', 'acf-css-ai-extension' ); ?>
+                </p>
+
+                <h3><?php echo esc_html__( '1. 업종 선택', 'acf-css-ai-extension' ); ?></h3>
+                <div class="jj-industry-cards">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <h3><?php echo esc_html__( '2. 분위기 선택', 'acf-css-ai-extension' ); ?></h3>
+                <div class="jj-mood-selector">
+                    <select id="jj-color-mood">
+                        <option value="professional"><?php echo esc_html__( '프로페셔널 - 신뢰감 있고 전문적인', 'acf-css-ai-extension' ); ?></option>
+                        <option value="playful"><?php echo esc_html__( '플레이풀 - 밝고 활기찬', 'acf-css-ai-extension' ); ?></option>
+                        <option value="elegant"><?php echo esc_html__( '우아함 - 고급스럽고 세련된', 'acf-css-ai-extension' ); ?></option>
+                        <option value="warm"><?php echo esc_html__( '따뜻함 - 친근하고 포근한', 'acf-css-ai-extension' ); ?></option>
+                        <option value="cool"><?php echo esc_html__( '차분함 - 시원하고 깔끔한', 'acf-css-ai-extension' ); ?></option>
+                        <option value="bold"><?php echo esc_html__( '대담함 - 강렬하고 임팩트 있는', 'acf-css-ai-extension' ); ?></option>
+                        <option value="soft"><?php echo esc_html__( '부드러움 - 파스텔톤의 편안한', 'acf-css-ai-extension' ); ?></option>
+                        <option value="dark"><?php echo esc_html__( '다크 - 어둡고 모던한', 'acf-css-ai-extension' ); ?></option>
+                    </select>
+                </div>
+
+                <h3><?php echo esc_html__( '3. 추천 팔레트', 'acf-css-ai-extension' ); ?></h3>
+                <div class="jj-palette-preview">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <div class="jj-harmony-score">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <h3><?php echo esc_html__( '4. 색상 변형', 'acf-css-ai-extension' ); ?></h3>
+                <div class="jj-variations-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+
+                <div class="jj-color-actions">
+                    <button type="button" class="button button-primary" id="jj-apply-palette" disabled>
+                        <?php echo esc_html__( '사이트에 적용', 'acf-css-ai-extension' ); ?>
+                    </button>
+                    <button type="button" class="button button-secondary" id="jj-export-palette" disabled>
+                        <?php echo esc_html__( '팔레트 내보내기', 'acf-css-ai-extension' ); ?>
+                    </button>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
  * Plugin Name:       JJ Analytics Dashboard
  * Plugin URI:        https://3j-labs.com
  * Description:       3J Labs 플러그인 스위트 전체 성과, 활용 현황, 버전 관리를 한눈에 확인할 수 있는 대시보드입니다.
- * Version:           1.0.3
+ * Version:           1.1.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.0.3' ); // [v1.1.0] v25.0.0: 보안 강화 및 라이센스 관리 추가
+define( 'JJ_ANALYTICS_DASHBOARD_VERSION', '1.1.0' ); // [v1.1.0] Phase 49-3: 실시간 대시보드 위젯 추가
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_FILE', __FILE__ );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'JJ_ANALYTICS_DASHBOARD_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -43,6 +43,9 @@ if ( file_exists( $shared_path . '/class-jj-license-manager-shared.php' ) ) {
         JJ_License_Manager_Shared::instance( JJ_ANALYTICS_DASHBOARD_SLUG );
     }
 }
+
+// [Phase 49-3] 실시간 대시보드 클래스 로드
+require_once JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR . 'includes/class-realtime-dashboard.php';
 
 /**
  * 메인 플러그인 클래스
@@ -69,6 +72,11 @@ final class JJ_Analytics_Dashboard {
     private function load_dependencies() {
         // Chart.js 로드
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+
+        // [Phase 49-3] 실시간 대시보드 초기화
+        if ( class_exists( 'JJ_Realtime_Dashboard' ) ) {
+            JJ_Realtime_Dashboard::get_instance();
+        }
     }
 
     /**
@@ -154,6 +162,31 @@ final class JJ_Analytics_Dashboard {
             JJ_ANALYTICS_DASHBOARD_VERSION,
             false
         );
+
+        // [Phase 49-3] 실시간 대시보드 JS
+        wp_enqueue_script(
+            'jj-realtime-dashboard',
+            JJ_ANALYTICS_DASHBOARD_PLUGIN_URL . 'assets/js/realtime-dashboard.js',
+            array( 'jquery', 'chartjs' ),
+            JJ_ANALYTICS_DASHBOARD_VERSION,
+            true
+        );
+
+        wp_localize_script( 'jj-realtime-dashboard', 'jjRealtimeData', array(
+            'ajaxUrl'         => admin_url( 'admin-ajax.php' ),
+            'restUrl'         => rest_url( 'jj-analytics/v1/' ),
+            'nonce'           => wp_create_nonce( 'jj_analytics_nonce' ),
+            'restNonce'       => wp_create_nonce( 'wp_rest' ),
+            'refreshInterval' => get_option( 'jj_analytics_refresh_interval', 30 ) * 1000,
+            'enableRealtime'  => get_option( 'jj_analytics_enable_realtime', true ),
+            'i18n'            => array(
+                'loading'    => __( '로딩 중...', 'jj-analytics-dashboard' ),
+                'error'      => __( '데이터를 불러올 수 없습니다.', 'jj-analytics-dashboard' ),
+                'healthy'    => __( '정상', 'jj-analytics-dashboard' ),
+                'inactive'   => __( '비활성', 'jj-analytics-dashboard' ),
+                'warning'    => __( '주의', 'jj-analytics-dashboard' ),
+            ),
+        ) );
     }
 
     /**
@@ -186,6 +219,10 @@ final class JJ_Analytics_Dashboard {
                         <span class="dashicons dashicons-chart-area"></span>
                         개요
                     </button>
+                    <button class="jj-analytics-tab" data-tab="realtime">
+                        <span class="dashicons dashicons-update"></span>
+                        실시간
+                    </button>
                     <button class="jj-analytics-tab" data-tab="metrics">
                         <span class="dashicons dashicons-performance"></span>
                         성과
@@ -204,6 +241,9 @@ final class JJ_Analytics_Dashboard {
                 <div class="jj-analytics-tab-content">
                     <div id="jj-tab-overview" class="jj-analytics-tab-pane active">
                         <?php require_once JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR . 'admin/views/components/stats-overview.php'; ?>
+                    </div>
+                    <div id="jj-tab-realtime" class="jj-analytics-tab-pane">
+                        <?php $this->render_realtime_tab(); ?>
                     </div>
                     <div id="jj-tab-metrics" class="jj-analytics-tab-pane">
                         <?php require_once JJ_ANALYTICS_DASHBOARD_PLUGIN_DIR . 'admin/views/components/plugin-metrics.php'; ?>
@@ -288,6 +328,483 @@ final class JJ_Analytics_Dashboard {
                 <?php submit_button( '설정 저장' ); ?>
             </form>
         </div>
+        <?php
+    }
+
+    /**
+     * [Phase 49-3] 실시간 탭 렌더링
+     */
+    private function render_realtime_tab() {
+        ?>
+        <div class="jj-realtime-dashboard">
+            <!-- 실시간 헤더 -->
+            <div class="jj-realtime-header">
+                <div class="jj-realtime-title">
+                    <span class="dashicons dashicons-update-alt jj-spin"></span>
+                    <h3>실시간 대시보드</h3>
+                    <span class="jj-last-update"></span>
+                </div>
+                <button type="button" class="button jj-refresh-btn">
+                    <span class="dashicons dashicons-update"></span>
+                    새로고침
+                </button>
+            </div>
+
+            <!-- 로딩 오버레이 -->
+            <div class="jj-realtime-loading">
+                <span class="spinner is-active"></span>
+            </div>
+
+            <!-- 개요 통계 위젯 -->
+            <div class="jj-realtime-section">
+                <h4><span class="dashicons dashicons-chart-pie"></span> 개요</h4>
+                <div id="jj-realtime-overview"></div>
+            </div>
+
+            <!-- 플러그인 상태 위젯 -->
+            <div class="jj-realtime-section">
+                <h4><span class="dashicons dashicons-admin-plugins"></span> 플러그인 상태</h4>
+                <div id="jj-realtime-plugins"></div>
+            </div>
+
+            <!-- 차트 영역 -->
+            <div class="jj-realtime-section jj-chart-section">
+                <h4><span class="dashicons dashicons-chart-line"></span> 트렌드 차트</h4>
+                <div class="jj-chart-controls">
+                    <div class="jj-data-type-btns">
+                        <button type="button" class="jj-data-type-btn active" data-type="emails">이메일</button>
+                        <button type="button" class="jj-data-type-btn" data-type="submissions">폼 제출</button>
+                    </div>
+                    <select class="jj-chart-period" data-chart-type="emails">
+                        <option value="7">7일</option>
+                        <option value="14">14일</option>
+                        <option value="30">30일</option>
+                    </select>
+                </div>
+                <div class="jj-chart-container">
+                    <canvas id="jj-chart-emails" height="250"></canvas>
+                </div>
+            </div>
+
+            <!-- 2열 레이아웃 -->
+            <div class="jj-realtime-row">
+                <!-- 성능 메트릭 -->
+                <div class="jj-realtime-section jj-realtime-col">
+                    <h4><span class="dashicons dashicons-performance"></span> 시스템 성능</h4>
+                    <div id="jj-realtime-performance"></div>
+                </div>
+
+                <!-- 최근 활동 -->
+                <div class="jj-realtime-section jj-realtime-col">
+                    <h4><span class="dashicons dashicons-clock"></span> 최근 활동</h4>
+                    <div id="jj-realtime-activity"></div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        /* 실시간 대시보드 스타일 */
+        .jj-realtime-dashboard {
+            position: relative;
+        }
+
+        .jj-realtime-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .jj-realtime-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .jj-realtime-title h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .jj-realtime-title .dashicons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+            color: #6366f1;
+        }
+
+        .jj-spin {
+            animation: jj-spin 2s linear infinite;
+        }
+
+        @keyframes jj-spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .jj-last-update {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .jj-realtime-loading {
+            position: absolute;
+            top: 0;
+            right: 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .jj-realtime-loading.active {
+            opacity: 1;
+        }
+
+        .jj-realtime-section {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .jj-realtime-section h4 {
+            margin: 0 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .jj-realtime-section h4 .dashicons {
+            color: #6366f1;
+        }
+
+        /* 통계 그리드 */
+        .jj-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .jj-stat-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .jj-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .jj-stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .jj-stat-icon .dashicons {
+            font-size: 24px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .jj-stat-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .jj-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1d2327;
+            line-height: 1.2;
+        }
+
+        .jj-stat-value.animate {
+            animation: jj-pulse 0.5s ease;
+        }
+
+        @keyframes jj-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .jj-stat-label {
+            font-size: 12px;
+            color: #646970;
+        }
+
+        .jj-stat-sub {
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        /* 플러그인 목록 */
+        .jj-plugin-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .jj-plugin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .jj-plugin-item:hover {
+            background: #f0f0f0;
+        }
+
+        .jj-plugin-item.inactive {
+            opacity: 0.6;
+        }
+
+        .jj-plugin-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .jj-plugin-name {
+            font-weight: 500;
+        }
+
+        .jj-plugin-version {
+            font-size: 11px;
+            color: #888;
+            background: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .jj-plugin-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-healthy .status-dot { background: #10b981; }
+        .status-inactive .status-dot { background: #6b7280; }
+        .status-warning .status-dot { background: #f59e0b; }
+
+        /* 차트 */
+        .jj-chart-section .jj-chart-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .jj-data-type-btns {
+            display: flex;
+            gap: 5px;
+        }
+
+        .jj-data-type-btn {
+            padding: 6px 12px;
+            border: 1px solid #e0e0e0;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .jj-data-type-btn:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+        }
+
+        .jj-data-type-btn.active {
+            background: #6366f1;
+            border-color: #6366f1;
+            color: #fff;
+        }
+
+        .jj-chart-container {
+            height: 250px;
+        }
+
+        /* 2열 레이아웃 */
+        .jj-realtime-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* 성능 그리드 */
+        .jj-performance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .jj-perf-item {
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 6px;
+        }
+
+        .jj-perf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .jj-perf-label {
+            font-size: 12px;
+            color: #646970;
+        }
+
+        .jj-perf-value {
+            font-weight: 600;
+            color: #1d2327;
+        }
+
+        .jj-perf-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .jj-perf-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .jj-perf-sub {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* 활동 목록 */
+        .jj-activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .jj-activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 6px;
+        }
+
+        .jj-activity-item .dashicons {
+            color: #6366f1;
+            margin-top: 2px;
+        }
+
+        .jj-activity-content {
+            flex: 1;
+        }
+
+        .jj-activity-message {
+            display: block;
+            font-size: 13px;
+        }
+
+        .jj-activity-time {
+            display: block;
+            font-size: 11px;
+            color: #888;
+            margin-top: 2px;
+        }
+
+        .jj-no-activity {
+            text-align: center;
+            color: #888;
+            padding: 30px;
+        }
+
+        /* 스켈레톤 */
+        .skeleton .skeleton-box,
+        .jj-skeleton-item .skeleton-box {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: jj-skeleton 1.5s infinite;
+        }
+
+        @keyframes jj-skeleton {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* 토스트 */
+        .jj-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            padding: 12px 24px;
+            background: #1d2327;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 100000;
+        }
+
+        .jj-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .jj-toast.error {
+            background: #d63638;
+        }
+
+        /* 반응형 */
+        @media (max-width: 782px) {
+            .jj-stat-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .jj-realtime-row {
+                grid-template-columns: 1fr;
+            }
+
+            .jj-performance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        </style>
         <?php
     }
 }

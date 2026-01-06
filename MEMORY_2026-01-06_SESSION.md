@@ -1,6 +1,6 @@
 # 3J Labs ACF CSS 프로젝트 세션 메모리
 > 작성일: 2026-01-06
-> 세션: Phase 47 - 스타일 센터 탭 시스템 완전 수정
+> 세션: Phase 47-49 완료 - 탭 시스템 수정 및 AI/자동화/분석 기능 대폭 강화
 
 ---
 
@@ -9,171 +9,166 @@
 ### 1.1 프로젝트 구조
 ```
 C:/Users/computer/Desktop/3J-Labs-Projects/3J-ACF-CSS/
-├── acf-css-really-simple-style-management-center-master/  # 메인 플러그인 (v25.1.0)
-├── acf-css-neural-link/                                    # 라이센스/업데이트 서버 (v8.0.1)
-├── acf-css-woocommerce-toolkit/                           # 우커머스 통합 (v2.4.3)
-├── acf-css-ai-extension/                                  # AI 스타일 생성 (v3.3.3)
+├── acf-css-really-simple-style-management-center-master/  # 메인 플러그인 (v25.3.0)
+├── acf-css-neural-link/                                    # 라이센스/업데이트 서버 (v8.1.0)
+├── acf-css-woocommerce-toolkit/                           # 우커머스 통합 (v2.5.0)
+├── acf-css-ai-extension/                                  # AI 스타일 생성 (v3.4.0)
 ├── acf-css-woo-license/                                   # WooCommerce 라이센스 브릿지 (v23.0.2)
-├── acf-code-snippets-box/                                 # 코드 스니펫 관리 (v4.0.2)
+├── acf-code-snippets-box/                                 # 코드 스니펫 관리 (v5.1.0)
 ├── acf-nudge-flow/                                        # 넛지 워크플로우 (v23.0.0)
-├── acf-mail-smtp/                                         # 메일 SMTP + Gmail API (v2.1.0)
+├── acf-mail-smtp/                                         # 메일 SMTP + Gmail API (v2.3.0)
 ├── acf-user-journey-analytics/                            # 사용자 여정 분석 (v1.0.3)
 ├── admin-menu-editor-pro/                                 # 관리자 메뉴 에디터 (v2.0.4)
-├── jj-analytics-dashboard/                                # 분석 대시보드 (v1.0.3)
+├── jj-analytics-dashboard/                                # 분석 대시보드 (v1.1.0)
 ├── jj-marketing-automation-dashboard/                     # 마케팅 자동화 (v2.0.2)
-├── wp-bulk-manager/                                       # 대량 작업 관리 (v23.1.3)
+├── wp-bulk-manager/                                       # 대량 작업 관리 (v23.4.0)
 ├── SEO/oneclick-seo-pro/                                  # SEO 플러그인 (v2.1.0)
 ├── shared-ui-assets/                                      # 공유 UI/보안 모듈
 ├── dist/                                                  # 빌드 출력 폴더
-├── builds/                                                # 빌드 아카이브
 ├── 3j_build_manager.py                                    # Python 빌드 매니저 (v23.0.1)
 └── dashboard.html                                         # 배포 대시보드 (v25)
 ```
 
 ### 1.2 핵심 기술 스택
 - **백엔드**: PHP 7.4+, WordPress 6.0+
-- **프론트엔드**: JavaScript (jQuery), CSS3, Spectrum.js (컬러피커)
+- **프론트엔드**: JavaScript (jQuery), CSS3, Chart.js, Spectrum.js
 - **빌드 시스템**: Python 3.x, tkinter GUI
 - **버전 관리**: Git, GitHub
 - **라이센스**: WooCommerce 연동, Neural Link 서버
 
 ---
 
-## 2. 이번 세션에서 해결한 문제
+## 2. Phase 47 - 스타일 센터 탭 시스템 완전 수정
 
-### 2.1 ACF CSS 스타일 센터 탭 문제 (핵심 버그)
-
-#### 문제 상황
+### 2.1 문제 상황
 - 스타일 센터에서 "팔레트" 탭은 정상 작동
 - "타이포그래피", "폰트", "폼", "필드" 탭 클릭 시 아무것도 표시되지 않음
 
-#### 근본 원인
+### 2.2 근본 원인
 `jj-style-guide-editor.js`의 탭 셀렉터 불일치:
-
 ```javascript
 // 문제의 코드 (수정 전)
 var $tabContents = $('.jj-section-wrapper.jj-section-tab-content');
-
-// 탭 클릭 시 숨기기 (수정 전)
-$('.jj-section-wrapper.jj-section-tab-content').hide()...
 ```
 
-PHP에서 생성되는 섹션 래퍼에는 `jj-section-tab-content` 클래스가 조건부로만 추가되어, 일부 섹션이 셀렉터에 매칭되지 않았음.
+PHP에서 생성되는 섹션 래퍼에는 `jj-section-tab-content` 클래스가 조건부로만 추가됨.
 
-#### 해결 방법
+### 2.3 해결 방법
 ```javascript
 // 수정된 코드
 var $tabContents = $('.jj-section-wrapper[data-section]');
-
-// 탭 클릭 시 숨기기 (수정 후)
-$('.jj-section-wrapper[data-section]').hide()...
-
-// 추가: 동적으로 클래스 추가
-$tabContents.each(function() {
-    $(this).addClass('jj-section-tab-content jj-section-hidden')
-           .removeClass('jj-section-visible')
-           .css('display', 'none');
-});
 ```
-
-#### 수정된 파일
-- `acf-css-really-simple-style-management-center-master/assets/js/jj-style-guide-editor.js`
-  - 라인 1892: `initSectionTabs()` 함수의 `$tabContents` 셀렉터
-  - 라인 2019: 탭 클릭 이벤트의 숨기기 셀렉터
-
-#### 버전 업데이트
-- `acf-css-really-simple-style-guide.php`: 23.0.10 → 25.1.0
 
 ---
 
-## 3. 시스템 아키텍처 상세
+## 3. Phase 48 - 4개 플러그인 기능 추가
 
-### 3.1 탭 시스템 구조
+### 3.1 완료된 작업
 
-#### PHP 측 (class-jj-simple-style-guide.php)
-```php
-// 탭 버튼 생성 (라인 397-418)
-echo '<button type="button" class="jj-section-tab-button' . $active_class . '"
-      data-tab-section="' . esc_attr($slug) . '">' . $label . '</button>';
+| 작업 ID | 플러그인 | 기능 | 버전 |
+|---------|----------|------|------|
+| P48-2 | Neural Link | 라이센스 스마트 캐싱 + 캐시 대시보드 | 8.1.0 |
+| P48-3 | ACF CSS Master | 다크모드 프리셋 선택기 (6종) | 25.3.0 |
+| P48-4 | WP Bulk Manager | 드래그 정렬 기능 | 23.4.0 |
+| P48-5 | WP Bulk Manager | 설치 실패 재시도 버튼 | (위와 동일) |
+| P48-6 | ACF Mail SMTP | 이메일 로그 테이블 개선 | 2.2.0 |
 
-// 섹션 콘텐츠 생성 (라인 427-461)
-echo '<div class="jj-section-wrapper jj-card' . $tab_class . $hidden_class . $visible_class . '"
-      data-section="' . esc_attr($slug) . '"
-      data-section-slug="' . esc_attr($slug) . '">';
-```
+---
 
-#### JavaScript 측 (jj-style-guide-editor.js)
-```javascript
-// 탭 초기화 (라인 1888-1969)
-function initSectionTabs() {
-    var $tabButtons = $('.jj-section-tab-button');
-    var $tabContents = $('.jj-section-wrapper[data-section]');
-    // ...
-}
+## 4. Phase 49 - AI/자동화/분석 기능 대폭 강화
 
-// 탭 클릭 이벤트 (라인 1992-2062)
-$(document).on('click', '.jj-section-tab-button', function(e) {
-    var targetSection = $button.data('tab-section');
-    var $targetSection = $('.jj-section-wrapper[data-section="' + targetSection + '"]');
-    // ...
-});
-```
+### 4.1 P49-1: ACF CSS AI Extension - AI 컬러 팔레트 추천 (v3.4.0)
 
-### 3.2 보안/라이센스 시스템
+**새 파일**: `includes/class-ai-color-palette.php` (~600줄)
 
-#### Neural Link (서버 역할)
-```
-acf-css-neural-link/
-├── acf-css-neural-link.php          # 메인 파일 (v8.0.1)
-├── includes/
-│   ├── class-jj-license-manager-main.php    # 라이센스 관리 메인
-│   ├── class-jj-license-validator.php       # 라이센스 검증
-│   ├── class-jj-license-generator.php       # 라이센스 생성
-│   ├── class-jj-plugin-updater.php          # 플러그인 업데이트
-│   ├── class-jj-license-update-distributor.php  # 업데이트 배포
-│   └── class-jj-pattern-learner.php         # 패턴 학습 (AI)
-```
+**주요 기능**:
+- AI 기반 브랜드 컬러 분석 및 자동 팔레트 생성
+- 60-30-10 색상 비율 자동 적용
+- 접근성 대비율 검사 (WCAG AA/AAA)
+- 무드보드 스타일 추천 (modern/classic/minimal/bold)
+- 산업별 최적화 팔레트 제안
+- 보색/유사색/삼색조 자동 계산
+- REST API: `/acf-ai/v1/palette`
 
-#### shared-ui-assets (클라이언트 역할)
-```
-shared-ui-assets/
-├── class-jj-security-module-v25.php         # 보안 모듈 로더
-├── class-jj-license-manager-shared.php      # 공유 라이센스 UI
-└── ...
-```
+### 4.2 P49-2: ACF Mail SMTP - 비주얼 이메일 템플릿 빌더 (v2.3.0)
 
-#### 연동 흐름
-1. 각 플러그인 → shared-ui-assets 로드
-2. shared-ui-assets → Neural Link 서버에 라이센스 확인 요청
-3. Neural Link → WooCommerce 주문 데이터 확인
-4. 라이센스 유효성 응답 → 플러그인 기능 활성화
+**새 파일들**:
+- `includes/class-template-builder.php` (~700줄)
+- `assets/css/template-builder.css` (~400줄)
+- `assets/js/template-builder.js` (~500줄)
 
-### 3.3 빌드 시스템
+**주요 기능**:
+- 드래그 앤 드롭 템플릿 빌더
+- 12+ 블록 타입 (텍스트, 이미지, 버튼, 소셜, 컬럼 등)
+- 실시간 미리보기
+- 반응형 이메일 출력
+- 템플릿 저장 및 복제
 
-#### 3j_build_manager.py 주요 기능
-```python
-# 플러그인 정의 (PLUGINS 딕셔너리)
-PLUGINS = {
-    'acf-css-master': {
-        'id': 'acf-css-master',
-        'name': 'ACF CSS 설정 관리자',
-        'folder': 'acf-css-really-simple-style-management-center-master',
-        'main_file': 'acf-css-really-simple-style-guide.php',
-        # ...
-    },
-    # ... 14개 플러그인 정의
-}
+### 4.3 P49-3: JJ Analytics Dashboard - 실시간 대시보드 위젯 (v1.1.0)
 
-# 빌드 프로세스
-def build_plugin(self, plugin_id, editions=None):
-    1. 버전 추출 (PHP 헤더에서)
-    2. 기존 ZIP 파일 old 폴더로 이동
-    3. 새 ZIP 파일 생성
-    4. 패키지 서명 생성 (HMAC-SHA256)
-    5. 대시보드 HTML 업데이트
-```
+**새 파일들**:
+- `assets/js/realtime-dashboard.js` (~450줄)
 
-#### CLI 사용법
+**주요 기능**:
+- 실시간 데이터 모니터링 (AJAX 폴링)
+- 새로고침 간격 설정 (5초~5분)
+- 자동 갱신 타이머 표시
+- 실시간 플러그인 상태 추적
+- 최근 활동 피드
+
+### 4.4 P49-4: ACF CSS WooCommerce Toolkit - 동적 가격 표시 (v2.5.0)
+
+**새 파일들**:
+- `includes/class-dynamic-price-display.php` (~850줄)
+- `assets/css/dynamic-price.css` (~300줄)
+- `assets/js/dynamic-price.js` (~280줄)
+
+**주요 기능**:
+- 세일 카운트다운 타이머
+- 재고 긴급도 표시
+- 대량 구매 가격표
+- 가격 히스토리 추적
+- 사용자별 맞춤 가격
+- REST API: `/acf-wc/v1/dynamic-price/{id}`
+
+### 4.5 P49-5: ACF Code Snippets Box - 고급 버전 관리 (v5.1.0)
+
+**확장된 파일**: `includes/class-acf-csb-version-history.php` (+470줄)
+
+**새 기능**:
+- 버전 태깅 시스템 (컬러 태그)
+- 브랜치 생성 및 병합
+- 스냅샷 (수동 백업)
+- 자동 백업 스케줄링
+- 버전 통계 분석
+- JSON 내보내기/가져오기
+
+---
+
+## 5. 플러그인 버전 현황 (2026-01-06)
+
+| 플러그인 | 버전 | Phase 49 변경 |
+|----------|------|---------------|
+| ACF CSS Manager | 25.3.0 | - |
+| ACF CSS Neural Link | 8.1.0 | - |
+| ACF CSS AI Extension | **3.4.0** | AI 컬러 팔레트 추천 |
+| ACF Mail SMTP | **2.3.0** | 비주얼 템플릿 빌더 |
+| JJ Analytics Dashboard | **1.1.0** | 실시간 대시보드 |
+| ACF CSS WooCommerce Toolkit | **2.5.0** | 동적 가격 표시 |
+| ACF Code Snippets Box | **5.1.0** | 고급 버전 관리 |
+| ACF Nudge Flow | 23.0.0 | - |
+| WP Bulk Manager | 23.4.0 | - |
+| Admin Menu Editor Pro | 2.0.4 | - |
+| ACF CSS Woo License | 23.0.2 | - |
+| ACF User Journey Analytics | 1.0.3 | - |
+| JJ Marketing Dashboard | 2.0.2 | - |
+| OneClick SEO Pro | 2.1.0 | - |
+
+---
+
+## 6. 빌드 시스템
+
+### 6.1 CLI 사용법
 ```bash
 # 전체 빌드
 python 3j_build_manager.py --cli --all
@@ -185,191 +180,80 @@ python 3j_build_manager.py --cli --plugins acf-css-master acf-css-neural-link
 python 3j_build_manager.py --cli --all --editions master
 ```
 
-#### 출력 구조
+### 6.2 출력 구조
 ```
 dist/
-├── acf-css-really-simple-style-management-center-master-master-v25.1.0.zip
-├── acf-css-neural-link-master-v8.0.1.zip
+├── acf-css-really-simple-style-management-center-master-master-v25.3.0.zip
+├── acf-css-neural-link-master-v8.1.0.zip
+├── acf-css-ai-extension-master-v3.4.0.zip
+├── acf-mail-smtp-master-v2.3.0.zip
+├── jj-analytics-dashboard-master-v1.1.0.zip
+├── acf-css-woocommerce-toolkit-master-v2.5.0.zip
+├── acf-code-snippets-box-master-v5.1.0.zip
 ├── package_signatures.json
-├── old/
-│   └── 2026-01-06/
-│       ├── acf-css-...-v23.0.10_080333.zip
-│       └── ...
-└── SEO/
-    └── oneclick-seo-pro-master-v2.1.0.zip
+└── old/
+    └── 2026-01-06/
+        └── (이전 버전 ZIP 파일들)
 ```
 
 ---
 
-## 4. 코드 수정 기록
+## 7. 알려진 이슈 및 주의사항
 
-### 4.1 jj-style-guide-editor.js 변경사항
-
-#### 변경 1: initSectionTabs() 셀렉터 (라인 1892)
-```javascript
-// Before
-var $tabContents = $('.jj-section-wrapper.jj-section-tab-content');
-
-// After
-var $tabContents = $('.jj-section-wrapper[data-section]');
-```
-
-#### 변경 2: 숨기기 로직 (라인 1900-1902)
-```javascript
-// Before
-$tabContents.hide().removeClass('jj-section-visible').addClass('jj-section-hidden').css('display', 'none');
-
-// After
-$tabContents.each(function() {
-    $(this).addClass('jj-section-tab-content jj-section-hidden')
-           .removeClass('jj-section-visible')
-           .css('display', 'none');
-});
-```
-
-#### 변경 3: 탭 클릭 숨기기 셀렉터 (라인 2019)
-```javascript
-// Before
-$('.jj-section-wrapper.jj-section-tab-content').hide()...
-
-// After
-$('.jj-section-wrapper[data-section]').hide()...
-```
-
-### 4.2 acf-css-really-simple-style-guide.php 변경사항
-
-```php
-// Before (라인 ~15)
-* Version:           23.0.10
-
-// After
-* Version:           25.1.0
-
-// Before (라인 ~56)
-define( 'JJ_STYLE_GUIDE_VERSION', '23.0.10' );
-
-// After
-define( 'JJ_STYLE_GUIDE_VERSION', '25.1.0' ); // [v25.1.0] 탭 시스템 완전 수정 - data-section 속성 기반 선택으로 변경
-```
-
----
-
-## 5. 이전 세션 작업 이력 (컨텍스트)
-
-### 5.1 ACF Mail SMTP Gmail API 추가 (v2.1.0)
-- `class-gmail-api.php` 생성 (~500줄)
-- Gmail API OAuth2 직접 연동
-- XOAUTH2 SMTP 인증 지원
-
-### 5.2 JJ Analytics Dashboard 초기화 수정 (v1.0.3)
-```php
-// 추가된 코드
-add_action( "plugins_loaded", function() {
-    JJ_Analytics_Dashboard::instance();
-} );
-```
-
-### 5.3 플러그인 분석 결과 (이번 세션 전)
-| 플러그인 | 상태 | 비고 |
-|---------|------|------|
-| ACF CSS WooCommerce Toolkit | ✅ 양호 | v2.4.3 |
-| ACF Admin Menu Editor Pro | ✅ 양호 | v2.0.4 |
-| ACF CSS AI Extension | ✅ 양호 | v3.3.3 |
-| JJ Analytics Dashboard | ✅ 수정됨 | 초기화 코드 추가 |
-| ACF CSS License Bridge | ✅ 양호 | v23.0.2 |
-
----
-
-## 6. 알려진 이슈 및 주의사항
-
-### 6.1 파일 수정 시 주의
+### 7.1 파일 수정 시 주의
 - **Edit 도구 오류**: 파일이 외부에서 수정되면 "file unexpectedly modified" 오류 발생
 - **해결책**: Node.js 스크립트로 파일 수정하거나 git checkout 후 재시도
 
-### 6.2 PowerShell 인코딩 문제
-- PowerShell로 파일 수정 시 한국어가 깨질 수 있음
-- **해결책**: Node.js 사용 또는 git checkout으로 복구
-
-### 6.3 Git GC 오류
-```
-error: Could not read 180fc455798388eb4fdf7a34a75a2a46d302d2d5
-fatal: Failed to traverse parents of commit...
-```
-- 커밋/푸시에는 영향 없음, 무시해도 됨
-
-### 6.4 CRLF 경고
-```
-warning: LF will be replaced by CRLF...
-```
-- Windows 환경에서 정상, 무시해도 됨
+### 7.2 버전 동기화
+- PHP 헤더 `Version:`과 `define()` 상수를 항상 동시에 업데이트
+- 불일치 시 빌드 매니저에서 버전 추출 오류 가능
 
 ---
 
-## 7. 다음 세션을 위한 권장 작업
+## 8. 다음 세션을 위한 권장 작업
 
-### 7.1 단기 과제
-- [ ] 스타일 센터 탭 수정 후 실제 WordPress에서 테스트
-- [ ] Neural Link 서버 업데이트 배포 테스트
-- [ ] TGMPA 추천 플러그인 기능 재활성화 (Neural Link 서버 준비 후)
+### 8.1 단기 과제 (Phase 50)
+- [ ] Phase 49 기능들 WordPress 실제 환경에서 테스트
+- [ ] AI 컬러 팔레트 정확도 검증
+- [ ] 이메일 템플릿 빌더 브라우저 호환성 테스트
+- [ ] 동적 가격 표시 WooCommerce 버전별 테스트
 
-### 7.2 중기 과제
-- [ ] Phase 19: Figma 통합 심화
-- [ ] Phase 20: 테스트 자동화 및 CI/CD
-- [ ] 모든 플러그인 버전 일괄 +1 업데이트
+### 8.2 중기 과제
+- [ ] OneClick SEO Pro 기능 개선
+- [ ] Nudge Flow 프리셋 확장
+- [ ] 전체 플러그인 다국어 지원 확대
+- [ ] CI/CD 파이프라인 구축
 
-### 7.3 장기 과제
+### 8.3 장기 과제
 - [ ] AI 기반 스타일 추천 고도화
-- [ ] 다국어 지원 확대
-- [ ] 성능 최적화
+- [ ] 자동화된 테스트 스위트 구축
+- [ ] 성능 최적화 및 코드 리팩토링
 
 ---
 
-## 8. 유용한 명령어 모음
+## 9. 유용한 명령어 모음
 
-### 8.1 빌드
+### 9.1 빌드
 ```bash
-# 전체 빌드
 cd "C:/Users/computer/Desktop/3J-Labs-Projects/3J-ACF-CSS"
 python 3j_build_manager.py --cli --all
-
-# GUI 모드
-python 3j_build_manager.py
 ```
 
-### 8.2 PHP 문법 검사
+### 9.2 PHP 문법 검사
 ```bash
-# 단일 파일
 php -l file.php
-
-# 폴더 전체
-find /path/to/folder -name "*.php" -exec php -l {} \; 2>&1 | grep -v "No syntax errors"
 ```
 
-### 8.3 Git 작업
+### 9.3 Git 작업
 ```bash
-# 상태 확인
 git status --short
-
-# 커밋
 git add -A && git commit -m "메시지"
-
-# 푸시
 git push origin main
 ```
 
-### 8.4 파일 수정 (Node.js 사용)
-```bash
-node -e "
-const fs = require('fs');
-let content = fs.readFileSync('file.php', 'utf8');
-content = content.replace('old', 'new');
-fs.writeFileSync('file.php', content, 'utf8');
-"
-```
-
 ---
 
-## 9. 연락처 및 리소스
+## 10. 연락처 및 리소스
 
 - **GitHub**: https://github.com/poetryflow-jay/3JLabs-ACF-Project
 - **3J Labs**: https://3j-labs.com/
@@ -379,4 +263,4 @@ fs.writeFileSync('file.php', content, 'utf8');
 
 *이 메모리는 다음 AI 세션의 컨텍스트로 사용됩니다.*
 *작성: Claude Opus 4.5 (Sisyphus Mode v4.0)*
-*최종 업데이트: 2026-01-06 08:10 KST*
+*최종 업데이트: 2026-01-06 (Phase 49 완료)*

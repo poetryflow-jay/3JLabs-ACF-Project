@@ -353,4 +353,465 @@ class ACF_CSB_Version_History {
         $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
         return is_array( $versions ) ? count( $versions ) : 0;
     }
+
+    // ===== [Phase 49-5] 고급 버전 관리 기능 =====
+
+    /**
+     * 버전에 태그 추가
+     *
+     * @param int    $post_id    스니펫 ID
+     * @param int    $version    버전 번호
+     * @param string $tag_name   태그 이름
+     * @param string $tag_color  태그 색상
+     * @return bool
+     */
+    public function add_version_tag( $post_id, $version, $tag_name, $tag_color = '#6366f1' ) {
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return false;
+        }
+
+        $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( ! is_array( $versions ) ) {
+            return false;
+        }
+
+        foreach ( $versions as &$v ) {
+            if ( $v['version'] === $version ) {
+                if ( ! isset( $v['tags'] ) ) {
+                    $v['tags'] = array();
+                }
+                $v['tags'][] = array(
+                    'name'       => sanitize_text_field( $tag_name ),
+                    'color'      => sanitize_hex_color( $tag_color ),
+                    'created_at' => current_time( 'mysql' ),
+                    'user_id'    => get_current_user_id(),
+                );
+                update_post_meta( $post_id, '_acf_csb_versions', $versions );
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 버전 태그 제거
+     *
+     * @param int    $post_id   스니펫 ID
+     * @param int    $version   버전 번호
+     * @param string $tag_name  태그 이름
+     * @return bool
+     */
+    public function remove_version_tag( $post_id, $version, $tag_name ) {
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return false;
+        }
+
+        $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( ! is_array( $versions ) ) {
+            return false;
+        }
+
+        foreach ( $versions as &$v ) {
+            if ( $v['version'] === $version && isset( $v['tags'] ) ) {
+                $v['tags'] = array_filter( $v['tags'], function( $tag ) use ( $tag_name ) {
+                    return $tag['name'] !== $tag_name;
+                } );
+                update_post_meta( $post_id, '_acf_csb_versions', $versions );
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 태그가 있는 버전 찾기
+     *
+     * @param int    $post_id  스니펫 ID
+     * @param string $tag_name 태그 이름
+     * @return array|null
+     */
+    public function find_tagged_version( $post_id, $tag_name ) {
+        $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( ! is_array( $versions ) ) {
+            return null;
+        }
+
+        foreach ( $versions as $v ) {
+            if ( isset( $v['tags'] ) ) {
+                foreach ( $v['tags'] as $tag ) {
+                    if ( $tag['name'] === $tag_name ) {
+                        return $v;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 브랜치 생성
+     *
+     * @param int    $post_id      원본 스니펫 ID
+     * @param int    $version      브랜치 시작 버전
+     * @param string $branch_name  브랜치 이름
+     * @return int|WP_Error 새 스니펫 ID 또는 에러
+     */
+    public function create_branch( $post_id, $version, $branch_name ) {
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return new WP_Error( 'permission_denied', '권한이 없습니다.' );
+        }
+
+        $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( ! is_array( $versions ) ) {
+            return new WP_Error( 'no_versions', '버전을 찾을 수 없습니다.' );
+        }
+
+        // 버전 찾기
+        $target_version = null;
+        foreach ( $versions as $v ) {
+            if ( $v['version'] === $version ) {
+                $target_version = $v;
+                break;
+            }
+        }
+
+        if ( ! $target_version ) {
+            return new WP_Error( 'version_not_found', '버전을 찾을 수 없습니다.' );
+        }
+
+        // 원본 포스트 정보 가져오기
+        $original_post = get_post( $post_id );
+
+        // 새 스니펫 생성
+        $new_post_id = wp_insert_post( array(
+            'post_type'   => 'acf_code_snippet',
+            'post_title'  => $original_post->post_title . ' [Branch: ' . $branch_name . ']',
+            'post_status' => 'draft',
+            'post_author' => get_current_user_id(),
+        ) );
+
+        if ( is_wp_error( $new_post_id ) ) {
+            return $new_post_id;
+        }
+
+        // 메타 복사
+        update_post_meta( $new_post_id, '_acf_csb_code', $target_version['code'] );
+        if ( isset( $target_version['code_type'] ) ) {
+            update_post_meta( $new_post_id, '_acf_csb_code_type', $target_version['code_type'] );
+        }
+
+        // 브랜치 메타데이터
+        update_post_meta( $new_post_id, '_acf_csb_branch_info', array(
+            'parent_id'      => $post_id,
+            'parent_version' => $version,
+            'branch_name'    => $branch_name,
+            'created_at'     => current_time( 'mysql' ),
+            'created_by'     => get_current_user_id(),
+        ) );
+
+        // 원본에 브랜치 정보 추가
+        $branches = get_post_meta( $post_id, '_acf_csb_branches', true );
+        if ( ! is_array( $branches ) ) {
+            $branches = array();
+        }
+        $branches[] = array(
+            'branch_id'   => $new_post_id,
+            'branch_name' => $branch_name,
+            'version'     => $version,
+            'created_at'  => current_time( 'mysql' ),
+        );
+        update_post_meta( $post_id, '_acf_csb_branches', $branches );
+
+        return $new_post_id;
+    }
+
+    /**
+     * 브랜치 머지
+     *
+     * @param int    $branch_id    브랜치 스니펫 ID
+     * @param int    $target_id    대상 스니펫 ID
+     * @param string $merge_mode   머지 모드 (replace, append)
+     * @return bool|WP_Error
+     */
+    public function merge_branch( $branch_id, $target_id, $merge_mode = 'replace' ) {
+        if ( ! current_user_can( 'edit_post', $branch_id ) || ! current_user_can( 'edit_post', $target_id ) ) {
+            return new WP_Error( 'permission_denied', '권한이 없습니다.' );
+        }
+
+        $branch_code = get_post_meta( $branch_id, '_acf_csb_code', true );
+        if ( empty( $branch_code ) ) {
+            return new WP_Error( 'no_code', '브랜치 코드가 비어있습니다.' );
+        }
+
+        if ( $merge_mode === 'replace' ) {
+            // 현재 코드를 백업 태그로 저장
+            $this->add_version_tag( $target_id, $this->get_current_version( $target_id ), 'pre-merge-backup', '#f59e0b' );
+
+            // 코드 교체
+            update_post_meta( $target_id, '_acf_csb_code', $branch_code );
+        } elseif ( $merge_mode === 'append' ) {
+            $target_code = get_post_meta( $target_id, '_acf_csb_code', true );
+            $merged_code = $target_code . "\n\n/* === Merged from Branch === */\n" . $branch_code;
+            update_post_meta( $target_id, '_acf_csb_code', $merged_code );
+        }
+
+        // 머지 기록
+        $merge_history = get_post_meta( $target_id, '_acf_csb_merge_history', true );
+        if ( ! is_array( $merge_history ) ) {
+            $merge_history = array();
+        }
+        $merge_history[] = array(
+            'branch_id'  => $branch_id,
+            'merged_at'  => current_time( 'mysql' ),
+            'merged_by'  => get_current_user_id(),
+            'merge_mode' => $merge_mode,
+        );
+        update_post_meta( $target_id, '_acf_csb_merge_history', $merge_history );
+
+        return true;
+    }
+
+    /**
+     * 현재 버전 번호 가져오기
+     *
+     * @param int $post_id 스니펫 ID
+     * @return int
+     */
+    public function get_current_version( $post_id ) {
+        $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( ! is_array( $versions ) || empty( $versions ) ) {
+            return 0;
+        }
+        $last = end( $versions );
+        return isset( $last['version'] ) ? $last['version'] : 0;
+    }
+
+    /**
+     * 자동 백업 스케줄 설정
+     *
+     * @param int    $post_id  스니펫 ID
+     * @param string $interval 백업 간격 (hourly, twicedaily, daily)
+     */
+    public function schedule_auto_backup( $post_id, $interval = 'daily' ) {
+        $hook = 'acf_csb_auto_backup_' . $post_id;
+
+        // 기존 스케줄 제거
+        wp_clear_scheduled_hook( $hook );
+
+        if ( $interval !== 'disabled' ) {
+            wp_schedule_event( time(), $interval, $hook );
+        }
+
+        update_post_meta( $post_id, '_acf_csb_auto_backup_interval', $interval );
+    }
+
+    /**
+     * 스냅샷 생성 (수동 백업)
+     *
+     * @param int    $post_id     스니펫 ID
+     * @param string $description 스냅샷 설명
+     * @return bool
+     */
+    public function create_snapshot( $post_id, $description = '' ) {
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return false;
+        }
+
+        $code = get_post_meta( $post_id, '_acf_csb_code', true );
+        if ( empty( $code ) ) {
+            return false;
+        }
+
+        $snapshots = get_post_meta( $post_id, '_acf_csb_snapshots', true );
+        if ( ! is_array( $snapshots ) ) {
+            $snapshots = array();
+        }
+
+        $current_user = wp_get_current_user();
+        $snapshots[] = array(
+            'id'          => uniqid( 'snap_' ),
+            'code'        => $code,
+            'code_type'   => get_post_meta( $post_id, '_acf_csb_code_type', true ),
+            'description' => sanitize_text_field( $description ),
+            'user_id'     => $current_user->ID,
+            'user_name'   => $current_user->display_name,
+            'timestamp'   => current_time( 'mysql' ),
+            'code_hash'   => md5( $code ),
+            'code_lines'  => substr_count( $code, "\n" ) + 1,
+        );
+
+        // 최대 50개 스냅샷 유지
+        if ( count( $snapshots ) > 50 ) {
+            $snapshots = array_slice( $snapshots, -50 );
+        }
+
+        update_post_meta( $post_id, '_acf_csb_snapshots', $snapshots );
+        return true;
+    }
+
+    /**
+     * 스냅샷 복원
+     *
+     * @param int    $post_id     스니펫 ID
+     * @param string $snapshot_id 스냅샷 ID
+     * @return bool
+     */
+    public function restore_snapshot( $post_id, $snapshot_id ) {
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return false;
+        }
+
+        $snapshots = get_post_meta( $post_id, '_acf_csb_snapshots', true );
+        if ( ! is_array( $snapshots ) ) {
+            return false;
+        }
+
+        foreach ( $snapshots as $snapshot ) {
+            if ( $snapshot['id'] === $snapshot_id ) {
+                update_post_meta( $post_id, '_acf_csb_code', $snapshot['code'] );
+                if ( isset( $snapshot['code_type'] ) ) {
+                    update_post_meta( $post_id, '_acf_csb_code_type', $snapshot['code_type'] );
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 버전 통계 가져오기
+     *
+     * @param int $post_id 스니펫 ID
+     * @return array
+     */
+    public function get_version_stats( $post_id ) {
+        $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( ! is_array( $versions ) || empty( $versions ) ) {
+            return array(
+                'total_versions'   => 0,
+                'total_edits'      => 0,
+                'unique_editors'   => 0,
+                'avg_code_lines'   => 0,
+                'code_growth'      => 0,
+                'first_version'    => null,
+                'latest_version'   => null,
+                'most_active_day'  => null,
+            );
+        }
+
+        $total = count( $versions );
+        $editors = array();
+        $total_lines = 0;
+        $edits_by_day = array();
+
+        foreach ( $versions as $v ) {
+            if ( isset( $v['user_id'] ) ) {
+                $editors[ $v['user_id'] ] = true;
+            }
+            if ( isset( $v['code_lines'] ) ) {
+                $total_lines += $v['code_lines'];
+            }
+            if ( isset( $v['timestamp'] ) ) {
+                $day = date( 'Y-m-d', strtotime( $v['timestamp'] ) );
+                if ( ! isset( $edits_by_day[ $day ] ) ) {
+                    $edits_by_day[ $day ] = 0;
+                }
+                $edits_by_day[ $day ]++;
+            }
+        }
+
+        $first = reset( $versions );
+        $last = end( $versions );
+        $first_lines = isset( $first['code_lines'] ) ? $first['code_lines'] : 0;
+        $last_lines = isset( $last['code_lines'] ) ? $last['code_lines'] : 0;
+        $code_growth = $first_lines > 0 ? round( ( ( $last_lines - $first_lines ) / $first_lines ) * 100, 1 ) : 0;
+
+        arsort( $edits_by_day );
+        $most_active_day = ! empty( $edits_by_day ) ? key( $edits_by_day ) : null;
+
+        return array(
+            'total_versions'   => $total,
+            'total_edits'      => $total,
+            'unique_editors'   => count( $editors ),
+            'avg_code_lines'   => round( $total_lines / $total ),
+            'code_growth'      => $code_growth,
+            'first_version'    => $first,
+            'latest_version'   => $last,
+            'most_active_day'  => $most_active_day,
+        );
+    }
+
+    /**
+     * 버전 내보내기 (JSON)
+     *
+     * @param int   $post_id  스니펫 ID
+     * @param array $options  내보내기 옵션
+     * @return string JSON 문자열
+     */
+    public function export_versions( $post_id, $options = array() ) {
+        $versions = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( ! is_array( $versions ) ) {
+            $versions = array();
+        }
+
+        $post = get_post( $post_id );
+        $export_data = array(
+            'snippet_id'    => $post_id,
+            'snippet_title' => $post->post_title,
+            'exported_at'   => current_time( 'mysql' ),
+            'versions'      => $versions,
+        );
+
+        if ( ! empty( $options['include_snapshots'] ) ) {
+            $export_data['snapshots'] = get_post_meta( $post_id, '_acf_csb_snapshots', true ) ?: array();
+        }
+
+        if ( ! empty( $options['include_branches'] ) ) {
+            $export_data['branches'] = get_post_meta( $post_id, '_acf_csb_branches', true ) ?: array();
+        }
+
+        return wp_json_encode( $export_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+    }
+
+    /**
+     * 버전 가져오기 (JSON)
+     *
+     * @param int    $post_id   대상 스니펫 ID
+     * @param string $json_data JSON 문자열
+     * @return bool|WP_Error
+     */
+    public function import_versions( $post_id, $json_data ) {
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return new WP_Error( 'permission_denied', '권한이 없습니다.' );
+        }
+
+        $data = json_decode( $json_data, true );
+        if ( json_last_error() !== JSON_ERROR_NONE ) {
+            return new WP_Error( 'invalid_json', 'JSON 파싱 오류: ' . json_last_error_msg() );
+        }
+
+        if ( ! isset( $data['versions'] ) || ! is_array( $data['versions'] ) ) {
+            return new WP_Error( 'no_versions', '버전 데이터가 없습니다.' );
+        }
+
+        // 기존 버전 백업
+        $existing = get_post_meta( $post_id, '_acf_csb_versions', true );
+        if ( is_array( $existing ) && ! empty( $existing ) ) {
+            update_post_meta( $post_id, '_acf_csb_versions_backup', $existing );
+        }
+
+        // 버전 가져오기
+        update_post_meta( $post_id, '_acf_csb_versions', $data['versions'] );
+
+        // 스냅샷 가져오기
+        if ( isset( $data['snapshots'] ) && is_array( $data['snapshots'] ) ) {
+            update_post_meta( $post_id, '_acf_csb_snapshots', $data['snapshots'] );
+        }
+
+        return true;
+    }
 }

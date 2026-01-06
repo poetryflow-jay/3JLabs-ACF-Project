@@ -1,0 +1,407 @@
+/**
+ * ACF WooCommerce Toolkit - Dynamic Price Styles
+ *
+ * Phase 49-4: 동적 가격 표시 스타일
+ *
+ * @package ACF_CSS_WooCommerce_Toolkit
+ * @version 2.5.0
+ */
+
+/* ===== Enhanced Price Container ===== */
+.acf-enhanced-price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.acf-enhanced-price .price {
+    flex: 1;
+}
+
+/* ===== Discount Badge ===== */
+.acf-discount-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.acf-discount-badge:before {
+    content: "";
+}
+
+/* ===== Unit Price ===== */
+.acf-unit-price {
+    display: block;
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* ===== Dynamic Price Info Container ===== */
+.acf-dynamic-price-info {
+    margin: 15px 0;
+}
+
+/* ===== Sale Countdown ===== */
+.acf-sale-countdown {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 1px solid #f59e0b;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.acf-sale-countdown .countdown-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #92400e;
+    margin-bottom: 10px;
+}
+
+.acf-sale-countdown .countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.acf-sale-countdown .countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px 12px;
+    min-width: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.acf-sale-countdown .countdown-unit span:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    font-family: 'SF Mono', Monaco, monospace;
+}
+
+.acf-sale-countdown .unit-label {
+    font-size: 10px;
+    color: #6b7280;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.acf-sale-countdown .countdown-separator {
+    font-size: 20px;
+    font-weight: 700;
+    color: #92400e;
+}
+
+/* Countdown Styles */
+.acf-sale-countdown.modern {
+    background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+    border-color: #4b5563;
+}
+
+.acf-sale-countdown.modern .countdown-label {
+    color: #fcd34d;
+}
+
+.acf-sale-countdown.modern .countdown-separator {
+    color: #fcd34d;
+}
+
+.acf-sale-countdown.minimal {
+    background: #fff;
+    border-color: #e5e7eb;
+}
+
+.acf-sale-countdown.minimal .countdown-label {
+    color: #374151;
+}
+
+.acf-sale-countdown.minimal .countdown-unit {
+    background: #f3f4f6;
+    box-shadow: none;
+}
+
+/* ===== Stock Urgency ===== */
+.acf-stock-urgency {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.acf-stock-urgency.critical {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #ef4444;
+    color: #b91c1c;
+}
+
+.acf-stock-urgency.high {
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 1px solid #f97316;
+    color: #c2410c;
+}
+
+.acf-stock-urgency.medium {
+    background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+    border: 1px solid #eab308;
+    color: #a16207;
+}
+
+.acf-stock-urgency .urgency-icon {
+    font-size: 18px;
+}
+
+.acf-stock-urgency.critical .urgency-icon {
+    animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* ===== Bulk Pricing ===== */
+.acf-bulk-pricing {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.acf-bulk-pricing .bulk-pricing-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.acf-bulk-pricing .bulk-icon {
+    font-size: 20px;
+}
+
+.acf-bulk-pricing .bulk-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.acf-bulk-pricing .bulk-pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.acf-bulk-pricing .bulk-pricing-table th {
+    text-align: left;
+    padding: 8px;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.acf-bulk-pricing .bulk-pricing-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+}
+
+.acf-bulk-pricing .bulk-pricing-table tr:last-child td {
+    border-bottom: none;
+}
+
+.acf-bulk-pricing .bulk-pricing-table .discount-percent {
+    color: #10b981;
+    font-weight: 500;
+    font-size: 11px;
+}
+
+.acf-bulk-pricing .bulk-pricing-table .savings {
+    color: #10b981;
+    font-weight: 600;
+}
+
+/* ===== Price History ===== */
+.acf-price-history {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.acf-price-history.is-lowest {
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    border-color: #10b981;
+}
+
+.acf-price-history .history-icon {
+    font-size: 16px;
+}
+
+.acf-price-history .history-text {
+    color: #4b5563;
+}
+
+.acf-price-history .lowest-badge {
+    margin-left: auto;
+    background: #10b981;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+/* ===== Price Badges (Loop) ===== */
+.acf-price-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.acf-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.acf-badge-urgent {
+    background: #ef4444;
+    color: #fff;
+    animation: flash 1.5s ease-in-out infinite;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.acf-badge-stock {
+    background: #f97316;
+    color: #fff;
+}
+
+.acf-badge-bulk {
+    background: #8b5cf6;
+    color: #fff;
+}
+
+/* ===== Price Animation ===== */
+.price-updating {
+    position: relative;
+}
+
+.price-updating::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: shimmer 1s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.price-changed {
+    animation: priceChange 0.5s ease;
+}
+
+@keyframes priceChange {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); color: #10b981; }
+    100% { transform: scale(1); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .acf-sale-countdown .countdown-timer {
+        flex-wrap: wrap;
+    }
+
+    .acf-sale-countdown .countdown-unit {
+        min-width: 40px;
+        padding: 6px 10px;
+    }
+
+    .acf-sale-countdown .countdown-unit span:first-child {
+        font-size: 16px;
+    }
+
+    .acf-bulk-pricing .bulk-pricing-table {
+        font-size: 12px;
+    }
+
+    .acf-bulk-pricing .bulk-pricing-table th,
+    .acf-bulk-pricing .bulk-pricing-table td {
+        padding: 6px;
+    }
+}
+
+/* ===== Dark Mode Support ===== */
+@media (prefers-color-scheme: dark) {
+    .acf-bulk-pricing {
+        background: #1f2937;
+        border-color: #374151;
+    }
+
+    .acf-bulk-pricing .bulk-pricing-header {
+        border-color: #374151;
+    }
+
+    .acf-bulk-pricing .bulk-title {
+        color: #f9fafb;
+    }
+
+    .acf-bulk-pricing .bulk-pricing-table th {
+        background: #374151;
+        color: #d1d5db;
+    }
+
+    .acf-bulk-pricing .bulk-pricing-table td {
+        border-color: #374151;
+        color: #e5e7eb;
+    }
+
+    .acf-price-history {
+        background: #1f2937;
+        border-color: #374151;
+    }
+
+    .acf-price-history .history-text {
+        color: #d1d5db;
+    }
+}

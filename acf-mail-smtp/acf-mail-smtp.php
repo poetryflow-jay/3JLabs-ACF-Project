@@ -3,7 +3,7 @@
  * Plugin Name:       ACF Mail SMTP - Advanced Custom Form & Mail & SMTP
  * Plugin URI:        https://3j-labs.com/
  * Description:       ACF Mail SMTP - Advanced Custom Form & Mail & SMTP. 강력한 폼 빌더, SMTP 이메일 발송, 자동화 기능을 제공하는 올인원 폼 솔루션입니다.
- * Version:           2.2.0
+ * Version:           2.3.0
  * Author:            3J Labs (제이x제니x제이슨 연구소)
  * Created by:        Jay & Jason & Jenny
  * Author URI:        https://3j-labs.com/
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * 플러그인 상수 정의
  */
-define( 'ACF_MAIL_SMTP_VERSION', '2.2.0' ); // [v2.2.0] 이메일 로그 테이블 개선 - 상세 모달, 재발송, 삭제, CSV 내보내기
+define( 'ACF_MAIL_SMTP_VERSION', '2.3.0' ); // [v2.3.0] Phase 49-2: 비주얼 이메일 템플릿 빌더 추가
 define( 'ACF_MAIL_SMTP_PLUGIN_FILE', __FILE__ );
 define( 'ACF_MAIL_SMTP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ACF_MAIL_SMTP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -102,6 +102,9 @@ final class ACF_Mail_SMTP {
         require_once ACF_MAIL_SMTP_PLUGIN_DIR . 'includes/class-form-submission.php';
         require_once ACF_MAIL_SMTP_PLUGIN_DIR . 'includes/class-email-template.php';
 
+        // [Phase 49-2] Email Template Visual Builder
+        require_once ACF_MAIL_SMTP_PLUGIN_DIR . 'includes/class-email-template-builder.php';
+
         // [v2.1.0] Gmail API OAuth2 연동
         require_once ACF_MAIL_SMTP_PLUGIN_DIR . 'includes/class-gmail-api.php';
         
@@ -163,6 +166,11 @@ final class ACF_Mail_SMTP {
             // [v2.1.0] Gmail API OAuth2
             if ( class_exists( 'ACF_Mail_SMTP_Gmail_API' ) ) {
                 ACF_Mail_SMTP_Gmail_API::get_instance();
+            }
+
+            // [Phase 49-2] Template Builder
+            if ( class_exists( 'ACF_Mail_SMTP_Email_Template_Builder' ) ) {
+                ACF_Mail_SMTP_Email_Template_Builder::get_instance();
             }
 
             // Initialize Admin
@@ -391,6 +399,16 @@ final class ACF_Mail_SMTP {
             array( $this, 'render_logs' )
         );
 
+        // [Phase 49-2] Template Builder
+        add_submenu_page(
+            'acf-mail-smtp',
+            __( 'Email Templates', 'acf-mail-smtp' ),
+            __( 'Email Templates', 'acf-mail-smtp' ),
+            'manage_options',
+            'acf-mail-smtp-templates',
+            array( $this, 'render_templates' )
+        );
+
         add_submenu_page(
             'acf-mail-smtp',
             __( 'Settings', 'acf-mail-smtp' ),
@@ -555,6 +573,18 @@ final class ACF_Mail_SMTP {
             include $file;
         } else {
             echo '<div class="wrap"><h1>' . esc_html__( 'Settings', 'acf-mail-smtp' ) . '</h1><p>' . esc_html__( 'Settings view file not found.', 'acf-mail-smtp' ) . '</p></div>';
+        }
+    }
+
+    /**
+     * [Phase 49-2] 템플릿 빌더 페이지 렌더링
+     */
+    public function render_templates() {
+        $file = ACF_MAIL_SMTP_PLUGIN_DIR . 'admin/views/templates.php';
+        if ( file_exists( $file ) ) {
+            include $file;
+        } else {
+            echo '<div class="wrap"><h1>' . esc_html__( 'Email Templates', 'acf-mail-smtp' ) . '</h1><p>' . esc_html__( 'Templates view file not found.', 'acf-mail-smtp' ) . '</p></div>';
         }
     }
 
