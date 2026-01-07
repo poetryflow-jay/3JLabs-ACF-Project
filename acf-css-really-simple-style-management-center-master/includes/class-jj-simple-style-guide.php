@@ -360,20 +360,13 @@ class JJ_Simple_Style_Guide {
                             }
                         }
 
-                        // [v25.4.3] 순수 CSS 탭 시스템 - JavaScript 없이 작동
+                        // [v25.4.5] 인라인 JavaScript 탭 시스템 - 완전 자체 완결형
                         if ( count( $enabled_sections ) > 1 ) {
                             echo '<div class="jj-css-tabs">';
                             
-                            // 1. 숨겨진 라디오 버튼들 (탭 상태 제어)
-                            $first_tab = true;
-                            foreach ( $enabled_sections as $slug => $meta ) {
-                                $checked = $first_tab ? ' checked' : '';
-                                echo '<input type="radio" id="jj-tab-' . esc_attr( $slug ) . '" name="jj-section-tabs" class="jj-tab-radio"' . $checked . '>';
-                                $first_tab = false;
-                            }
-                            
-                            // 2. 탭 네비게이션 (label 태그)
+                            // 탭 네비게이션 (버튼 기반)
                             echo '<div class="jj-tabs-nav">';
+                            $first_tab = true;
                             foreach ( $enabled_sections as $slug => $meta ) {
                                 $label_map = array(
                                     'colors' => '1. 팔레트 시스템',
@@ -383,19 +376,22 @@ class JJ_Simple_Style_Guide {
                                     'fields' => '5. 필드',
                                 );
                                 $label = isset( $meta['label'] ) ? $meta['label'] : ( isset( $label_map[ $slug ] ) ? $label_map[ $slug ] : ucfirst( $slug ) );
-                                echo '<label for="jj-tab-' . esc_attr( $slug ) . '" class="jj-tab-label">' . esc_html( $label ) . '</label>';
+                                $active_class = $first_tab ? ' active' : '';
+                                echo '<button type="button" class="jj-tab-btn' . $active_class . '" data-target="jj-content-' . esc_attr( $slug ) . '">' . esc_html( $label ) . '</button>';
+                                $first_tab = false;
                             }
                             echo '</div>';
                         }
 
-                        // 3. 섹션 콘텐츠 렌더링
+                        // 3. 섹션 콘텐츠 렌더링 (첫 번째만 표시, 나머지 숨김)
                         $first_section = true;
                         foreach ( $enabled_sections as $slug => $meta ) {
                             $rel_path = $section_files[ $slug ];
                             $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
+                            $display_style = $first_section ? 'display: block;' : 'display: none;';
                             
                             if ( file_exists( $file_path ) ) {
-                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
+                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '" style="' . $display_style . '">';
                                 try {
                                     $options = $this->options;
                                     if ( ! is_array( $options ) ) {
@@ -413,16 +409,49 @@ class JJ_Simple_Style_Guide {
                                 $first_section = false;
                             } else {
                                 error_log( '[JJ Style Guide] Section file not found: ' . $file_path );
-                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
+                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '" style="' . $display_style . '">';
                                 echo '<div class="jj-error-box"><p class="jj-error-title">섹션 파일을 찾을 수 없습니다: ' . esc_html( $rel_path ) . '</p><p class="jj-error-detail">파일 경로: ' . esc_html( $file_path ) . '</p></div>';
                                 echo '</div>';
                                 $first_section = false;
                             }
                         }
                         
-                        // CSS 탭 컨테이너 닫기
+                        // 탭 컨테이너 닫기 + 인라인 JavaScript
                         if ( count( $enabled_sections ) > 1 ) {
                             echo '</div><!-- .jj-css-tabs -->';
+                            ?>
+                            <script>
+                            (function() {
+                                var tabs = document.querySelectorAll('.jj-tab-btn');
+                                var contents = document.querySelectorAll('.jj-tab-content');
+                                
+                                tabs.forEach(function(tab) {
+                                    tab.addEventListener('click', function() {
+                                        var targetId = this.getAttribute('data-target');
+                                        
+                                        // 모든 콘텐츠 숨기기
+                                        contents.forEach(function(content) {
+                                            content.style.display = 'none';
+                                        });
+                                        
+                                        // 선택된 콘텐츠 표시
+                                        var target = document.getElementById(targetId);
+                                        if (target) {
+                                            target.style.display = 'block';
+                                        }
+                                        
+                                        // 모든 탭 비활성화
+                                        tabs.forEach(function(t) {
+                                            t.classList.remove('active');
+                                        });
+                                        
+                                        // 현재 탭 활성화
+                                        this.classList.add('active');
+                                    });
+                                });
+                            })();
+                            </script>
+                            <?php
                         }
 
                         // [v22.1.2] 유지보수 및 보안 섹션 (최하단 고정)
