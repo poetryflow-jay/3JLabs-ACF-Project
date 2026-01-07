@@ -85,7 +85,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         </div>
 
         <?php if ( $tab_enabled_primary ) : ?>
-        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'btn-primary' ) ? 'is-active' : ''; ?>" data-tab-content="btn-primary">
+        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'btn-primary' ) ? 'is-active' : ''; ?>" data-tab-content="btn-primary" style="<?php echo ( $first_enabled_tab === 'btn-primary' ) ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;' : 'display: none !important;'; ?>">
             <!-- [v22.4.7] 퀵 네비게이션 (탭 내부 섹션 바로가기) -->
             <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
                 <ul class="jj-tab-quick-nav-list">
@@ -132,7 +132,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         <?php endif; ?>
 
         <?php if ( $tab_enabled_secondary ) : ?>
-        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'btn-secondary' ) ? 'is-active' : ''; ?>" data-tab-content="btn-secondary">
+        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'btn-secondary' ) ? 'is-active' : ''; ?>" data-tab-content="btn-secondary" style="<?php echo ( $first_enabled_tab === 'btn-secondary' ) ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;' : 'display: none !important;'; ?>">
             <!-- [v22.4.7] 퀵 네비게이션 -->
             <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
                 <ul class="jj-tab-quick-nav-list">
@@ -167,7 +167,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         <?php endif; ?>
 
         <?php if ( $tab_enabled_text ) : ?>
-        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'btn-text' ) ? 'is-active' : ''; ?>" data-tab-content="btn-text">
+        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'btn-text' ) ? 'is-active' : ''; ?>" data-tab-content="btn-text" style="<?php echo ( $first_enabled_tab === 'btn-text' ) ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;' : 'display: none !important;'; ?>">
             <!-- [v22.4.7] 퀵 네비게이션 -->
             <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
                 <ul class="jj-tab-quick-nav-list">
