@@ -184,6 +184,25 @@ python 3j_build_manager.py --cli --all --editions free premium master
 
 ## 최근 변경사항
 
+### Phase 51 (v26.0.10) - Visual Command Center 섹션 전환 핫픽스 (2026-01-07)
+
+**문제**: 네비게이션 메뉴(Colors, Typography, Buttons 등) 클릭 시 섹션이 전환되지 않음
+
+**근본 원인**:
+- CSS `!important` 규칙이 JavaScript 인라인 스타일(`style.display`)을 오버라이드
+- 탭 시스템은 v26.0.9에서 수정되었으나, 섹션 전환 로직은 누락됨
+
+**해결책**:
+- 섹션 전환 로직도 `setProperty('display', 'block', 'important')` 사용
+- 섹션 초기화 및 전환 핸들러 모두 수정
+- 탭 시스템과 일관된 방식으로 구현
+
+**수정된 파일**:
+- `includes/class-jj-simple-style-guide.php` (섹션 전환 로직 수정)
+- `acf-css-really-simple-style-guide.php` (버전 26.0.9 → 26.0.10)
+
+**상세 내용**: `RELEASE_NOTES.md` Phase 51 섹션, `memory & context/20260107-Phase-51-Section-Switch-Hotfix.md` 참조
+
 ### Hotfix (2026-01-06) - Fatal Error 수정
 
 **긴급 수정**:
