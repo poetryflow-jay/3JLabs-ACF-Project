@@ -388,6 +388,98 @@ class JJ_Simple_Style_Guide {
                                 echo '</div>';
                             }
                         }
+                        
+                        // [v25.5.1] 플로팅 섹션 네비게이션
+                        ?>
+                        <div id="jj-section-nav" style="position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; background: #fff; padding: 12px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid #e2e8f0;">
+                            <button type="button" class="jj-nav-btn" data-target="top" title="맨 위로" style="width: 40px; height: 40px; border: none; border-radius: 8px; background: #667eea; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                                <span class="dashicons dashicons-arrow-up-alt2" style="font-size: 20px;"></span>
+                            </button>
+                            <?php
+                            $nav_icons = array(
+                                'colors' => 'dashicons-art',
+                                'typography' => 'dashicons-editor-textcolor',
+                                'buttons' => 'dashicons-button',
+                                'forms' => 'dashicons-feedback',
+                                'fields' => 'dashicons-forms',
+                            );
+                            $nav_labels = array(
+                                'colors' => '팔레트',
+                                'typography' => '타이포',
+                                'buttons' => '버튼',
+                                'forms' => '폼',
+                                'fields' => '필드',
+                            );
+                            foreach ( $enabled_sections as $slug => $meta ) :
+                                $icon = isset( $nav_icons[ $slug ] ) ? $nav_icons[ $slug ] : 'dashicons-marker';
+                                $label = isset( $nav_labels[ $slug ] ) ? $nav_labels[ $slug ] : ucfirst( $slug );
+                            ?>
+                            <button type="button" class="jj-nav-btn" data-target="jj-content-<?php echo esc_attr( $slug ); ?>" title="<?php echo esc_attr( $label ); ?>" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; color: #64748b; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
+                                <span class="dashicons <?php echo esc_attr( $icon ); ?>" style="font-size: 18px;"></span>
+                            </button>
+                            <?php endforeach; ?>
+                            <button type="button" class="jj-nav-btn" id="jj-nav-back" title="이전 위치로" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fef3c7; color: #d97706; cursor: pointer; display: none; align-items: center; justify-content: center; transition: all 0.2s;">
+                                <span class="dashicons dashicons-undo" style="font-size: 18px;"></span>
+                            </button>
+                        </div>
+                        <script>
+                        (function() {
+                            var lastPosition = null;
+                            var navBtns = document.querySelectorAll('.jj-nav-btn[data-target]');
+                            var backBtn = document.getElementById('jj-nav-back');
+                            
+                            navBtns.forEach(function(btn) {
+                                btn.addEventListener('click', function() {
+                                    var targetId = this.getAttribute('data-target');
+                                    
+                                    lastPosition = window.scrollY;
+                                    backBtn.style.display = 'flex';
+                                    
+                                    if (targetId === 'top') {
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    } else {
+                                        var target = document.getElementById(targetId);
+                                        if (target) {
+                                            var offset = target.getBoundingClientRect().top + window.scrollY - 50;
+                                            window.scrollTo({ top: offset, behavior: 'smooth' });
+                                        }
+                                    }
+                                    
+                                    navBtns.forEach(function(b) { b.style.background = '#f8fafc'; b.style.color = '#64748b'; });
+                                    if (targetId !== 'top') {
+                                        this.style.background = '#667eea';
+                                        this.style.color = '#fff';
+                                    }
+                                });
+                                
+                                btn.addEventListener('mouseenter', function() {
+                                    if (this.style.background !== 'rgb(102, 126, 234)') {
+                                        this.style.background = '#e2e8f0';
+                                    }
+                                });
+                                btn.addEventListener('mouseleave', function() {
+                                    if (this.style.background === 'rgb(226, 232, 240)') {
+                                        this.style.background = '#f8fafc';
+                                    }
+                                });
+                            });
+                            
+                            backBtn.addEventListener('click', function() {
+                                if (lastPosition !== null) {
+                                    window.scrollTo({ top: lastPosition, behavior: 'smooth' });
+                                    lastPosition = null;
+                                    this.style.display = 'none';
+                                    navBtns.forEach(function(b) { 
+                                        if (b.getAttribute('data-target') !== 'top') {
+                                            b.style.background = '#f8fafc'; 
+                                            b.style.color = '#64748b'; 
+                                        }
+                                    });
+                                }
+                            });
+                        })();
+                        </script>
+                        <?php
 
                         // [v22.1.2] 유지보수 및 보안 섹션 (최하단 고정)
                         $maintenance_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-maintenance.php';
