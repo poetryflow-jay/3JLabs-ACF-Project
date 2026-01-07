@@ -360,157 +360,123 @@ class JJ_Simple_Style_Guide {
                             }
                         }
 
-                        // [v25.5.0] 탭 없이 모든 섹션을 한 페이지에 세로로 표시
-                        foreach ( $enabled_sections as $slug => $meta ) {
-                            $rel_path = $section_files[ $slug ];
-                            $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
-                            
-                            if ( file_exists( $file_path ) ) {
-                                echo '<div class="jj-section-wrapper jj-card" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
-                                try {
-                                    $options = $this->options;
-                                    if ( ! is_array( $options ) ) {
-                                        $options = array();
-                                    }
-                                    include $file_path;
-                                } catch ( Exception $e ) {
-                                    error_log( '[JJ Style Guide] Section include failed (' . $slug . '): ' . $e->getMessage() );
-                                    echo '<div class="jj-error-box"><p class="jj-error-title">' . esc_html__( '섹션을 로드하는 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p><p class="jj-error-detail">' . esc_html( $e->getMessage() ) . '</p></div>';
-                                } catch ( Error $e ) {
-                                    error_log( '[JJ Style Guide] Section include fatal (' . $slug . '): ' . $e->getMessage() );
-                                    echo '<div class="jj-error-box"><p class="jj-error-title">' . esc_html__( '섹션을 로드하는 중 치명적 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p><p class="jj-error-detail">' . esc_html( $e->getMessage() ) . '</p></div>';
-                                }
-                                echo '</div>';
-                            } else {
-                                error_log( '[JJ Style Guide] Section file not found: ' . $file_path );
-                                echo '<div class="jj-section-wrapper jj-card" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
-                                echo '<div class="jj-error-box"><p class="jj-error-title">섹션 파일을 찾을 수 없습니다: ' . esc_html( $rel_path ) . '</p><p class="jj-error-detail">파일 경로: ' . esc_html( $file_path ) . '</p></div>';
-                                echo '</div>';
-                            }
-                        }
-                        
-                        // [v25.5.1] 플로팅 섹션 네비게이션
+                        // [v26.0.0] Visual Command Center v2.0 - Modern SaaS Layout
+                        $nav_icons = array(
+                            'colors' => 'dashicons-art',
+                            'typography' => 'dashicons-editor-textcolor',
+                            'buttons' => 'dashicons-button',
+                            'forms' => 'dashicons-feedback',
+                            'fields' => 'dashicons-forms',
+                        );
+                        $nav_labels = array(
+                            'colors' => '팔레트 시스템',
+                            'typography' => '타이포그래피',
+                            'buttons' => '버튼 스타일',
+                            'forms' => '폼 스타일',
+                            'fields' => '필드 스타일',
+                        );
                         ?>
-                        <div id="jj-section-nav" style="position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; background: #fff; padding: 12px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid #e2e8f0;">
-                            <button type="button" class="jj-nav-btn" data-target="top" title="맨 위로" style="width: 40px; height: 40px; border: none; border-radius: 8px; background: #667eea; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
-                                <span class="dashicons dashicons-arrow-up-alt2" style="font-size: 20px;"></span>
-                            </button>
-                            <?php
-                            $nav_icons = array(
-                                'colors' => 'dashicons-art',
-                                'typography' => 'dashicons-editor-textcolor',
-                                'buttons' => 'dashicons-button',
-                                'forms' => 'dashicons-feedback',
-                                'fields' => 'dashicons-forms',
-                            );
-                            $nav_labels = array(
-                                'colors' => '팔레트',
-                                'typography' => '타이포',
-                                'buttons' => '버튼',
-                                'forms' => '폼',
-                                'fields' => '필드',
-                            );
-                            foreach ( $enabled_sections as $slug => $meta ) :
-                                $icon = isset( $nav_icons[ $slug ] ) ? $nav_icons[ $slug ] : 'dashicons-marker';
-                                $label = isset( $nav_labels[ $slug ] ) ? $nav_labels[ $slug ] : ucfirst( $slug );
-                            ?>
-                            <button type="button" class="jj-nav-btn" data-target="jj-content-<?php echo esc_attr( $slug ); ?>" title="<?php echo esc_attr( $label ); ?>" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; color: #64748b; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;">
-                                <span class="dashicons <?php echo esc_attr( $icon ); ?>" style="font-size: 18px;"></span>
-                            </button>
-                            <?php endforeach; ?>
-                            <button type="button" class="jj-nav-btn" id="jj-nav-back" title="이전 위치로" style="width: 40px; height: 40px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fef3c7; color: #d97706; cursor: pointer; display: none; align-items: center; justify-content: center; transition: all 0.2s;">
-                                <span class="dashicons dashicons-undo" style="font-size: 18px;"></span>
-                            </button>
-                        </div>
-                        <script>
-                        (function() {
-                            var lastPosition = null;
-                            var navBtns = document.querySelectorAll('.jj-nav-btn[data-target]');
-                            var backBtn = document.getElementById('jj-nav-back');
-                            
-                            navBtns.forEach(function(btn) {
-                                btn.addEventListener('click', function() {
-                                    var targetId = this.getAttribute('data-target');
-                                    
-                                    lastPosition = window.scrollY;
-                                    backBtn.style.display = 'flex';
-                                    
-                                    if (targetId === 'top') {
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                    } else {
-                                        var target = document.getElementById(targetId);
-                                        if (target) {
-                                            var offset = target.getBoundingClientRect().top + window.scrollY - 50;
-                                            window.scrollTo({ top: offset, behavior: 'smooth' });
-                                        }
-                                    }
-                                    
-                                    navBtns.forEach(function(b) { b.style.background = '#f8fafc'; b.style.color = '#64748b'; });
-                                    if (targetId !== 'top') {
-                                        this.style.background = '#667eea';
-                                        this.style.color = '#fff';
-                                    }
-                                });
-                                
-                                btn.addEventListener('mouseenter', function() {
-                                    if (this.style.background !== 'rgb(102, 126, 234)') {
-                                        this.style.background = '#e2e8f0';
-                                    }
-                                });
-                                btn.addEventListener('mouseleave', function() {
-                                    if (this.style.background === 'rgb(226, 232, 240)') {
-                                        this.style.background = '#f8fafc';
-                                    }
-                                });
-                            });
-                            
-                            backBtn.addEventListener('click', function() {
-                                if (lastPosition !== null) {
-                                    window.scrollTo({ top: lastPosition, behavior: 'smooth' });
-                                    lastPosition = null;
-                                    this.style.display = 'none';
-                                    navBtns.forEach(function(b) { 
-                                        if (b.getAttribute('data-target') !== 'top') {
-                                            b.style.background = '#f8fafc'; 
-                                            b.style.color = '#64748b'; 
-                                        }
-                                    });
-                                }
-                            });
-                        })();
-                        </script>
-                        <?php
-
-                        // [v22.1.2] 유지보수 및 보안 섹션 (최하단 고정)
-                        $maintenance_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-maintenance.php';
-                        if ( file_exists( $maintenance_path ) ) {
-                            try {
-                                include $maintenance_path;
-                            } catch ( Exception $e ) {
-                                error_log( '[JJ Style Guide] Maintenance section include failed: ' . $e->getMessage() );
-                            } catch ( Error $e ) {
-                                error_log( '[JJ Style Guide] Maintenance section include fatal: ' . $e->getMessage() );
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-
-                <!-- 실시간 프리뷰 사이드바 (기본 숨김) -->
-                <div id="jj-live-preview-pane" style="display: none; width: 450px; position: sticky; top: 50px; height: calc(100vh - 100px); background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
-                    <div class="jj-preview-header" style="padding: 15px; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-weight: 700; color: #1e293b;">Live Preview</span>
-                        <div class="jj-preview-viewport-controls">
-                            <button type="button" class="button button-small jj-viewport-btn" data-viewport="desktop"><span class="dashicons dashicons-desktop"></span></button>
-                            <button type="button" class="button button-small jj-viewport-btn" data-viewport="tablet"><span class="dashicons dashicons-tablet"></span></button>
-                            <button type="button" class="button button-small jj-viewport-btn" data-viewport="mobile"><span class="dashicons dashicons-smartphone"></span></button>
-                        </div>
-                    </div>
-                    <div class="jj-preview-iframe-wrapper" style="height: calc(100% - 50px); background: #cbd5e1; display: flex; align-items: center; justify-content: center;">
-                        <iframe id="jj-inline-preview-iframe" src="<?php echo esc_url( home_url('/') ); ?>" style="width: 100%; height: 100%; border: none; background: #fff; transition: all 0.3s ease;"></iframe>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <div class="jj-command-center">
+            <div class="jj-cc-sidebar">
+                <div class="jj-cc-logo">
+                    <span class="dashicons dashicons-admin-customizer"></span>
+                    <span>Style Center</span>
+                </div>
+                <nav class="jj-cc-nav">
+                    <?php
+                    $is_first = true;
+                    foreach ( $enabled_sections as $slug => $meta ) :
+                        $icon = isset( $nav_icons[ $slug ] ) ? $nav_icons[ $slug ] : 'dashicons-marker';
+                        $label = isset( $nav_labels[ $slug ] ) ? $nav_labels[ $slug ] : ucfirst( $slug );
+                        $active_class = $is_first ? ' active' : '';
+                    ?>
+                    <div class="jj-cc-nav-item<?php echo $active_class; ?>" data-target="jj-content-<?php echo esc_attr( $slug ); ?>">
+                        <span class="dashicons <?php echo esc_attr( $icon ); ?> jj-cc-nav-icon"></span>
+                        <span><?php echo esc_html( $label ); ?></span>
+                    </div>
+                    <?php
+                    $is_first = false;
+                    endforeach;
+                    ?>
+                </nav>
+                <div class="jj-cc-footer">
+                    v<?php echo esc_html( defined( 'JJ_STYLE_GUIDE_VERSION' ) ? JJ_STYLE_GUIDE_VERSION : '26.0.0' ); ?>
+                </div>
+            </div>
+            
+            <div class="jj-cc-main">
+                <header class="jj-cc-header">
+                    <div class="jj-cc-title">
+                        <h1><?php _e( 'Visual Command Center', 'acf-css-really-simple-style-management-center' ); ?></h1>
+                    </div>
+                    <div class="jj-cc-actions">
+                        <span class="spinner" style="float: none; margin: 0;"></span>
+                        <button type="button" class="button button-primary button-large" id="jj-save-style-guide">
+                            <span class="dashicons dashicons-saved" style="margin-top: 4px;"></span>
+                            <?php _e( '저장하기', 'acf-css-really-simple-style-management-center' ); ?>
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="jj-cc-content-area">
+                    <?php
+                    $is_first = true;
+                    foreach ( $enabled_sections as $slug => $meta ) :
+                        $rel_path = $section_files[ $slug ];
+                        $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
+                        $active_class = $is_first ? ' active' : '';
+                        
+                        if ( file_exists( $file_path ) ) :
+                    ?>
+                    <div class="jj-section-wrapper<?php echo $active_class; ?>" id="jj-content-<?php echo esc_attr( $slug ); ?>" data-section="<?php echo esc_attr( $slug ); ?>">
+                        <?php
+                        try {
+                            $options = $this->options;
+                            if ( ! is_array( $options ) ) $options = array();
+                            include $file_path;
+                        } catch ( Exception $e ) {
+                            echo '<div class="jj-error-box"><p class="jj-error-title">' . esc_html__( '섹션 로드 실패', 'acf-css-really-simple-style-management-center' ) . '</p><p class="jj-error-detail">' . esc_html( $e->getMessage() ) . '</p></div>';
+                        } catch ( Error $e ) {
+                            echo '<div class="jj-error-box"><p class="jj-error-title">' . esc_html__( '치명적 오류', 'acf-css-really-simple-style-management-center' ) . '</p><p class="jj-error-detail">' . esc_html( $e->getMessage() ) . '</p></div>';
+                        }
+                        ?>
+                    </div>
+                    <?php
+                        endif;
+                        $is_first = false;
+                    endforeach;
+                    ?>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+        (function() {
+            var navItems = document.querySelectorAll('.jj-cc-nav-item');
+            var sections = document.querySelectorAll('.jj-section-wrapper');
+            
+            navItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    var targetId = this.getAttribute('data-target');
+                    
+                    navItems.forEach(function(nav) { nav.classList.remove('active'); });
+                    this.classList.add('active');
+                    
+                    sections.forEach(function(sec) { sec.classList.remove('active'); });
+                    var targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                        document.querySelector('.jj-cc-content-area').scrollTop = 0;
+                    }
+                });
+            });
+        })();
+        </script>
             
             <!-- [v22.4.1] 푸터 섹션 - 고정 스타일 저장 버튼 -->
             <div class="jj-style-guide-footer jj-card" style="margin-top: 30px; padding: 20px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); position: sticky; bottom: 20px; z-index: 10;">

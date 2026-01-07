@@ -837,3 +837,175 @@
         padding: 16px;
     }
 }
+
+/* =========================================
+   [v26.0.0] JJ Visual Command Center v2.0
+   Modern SaaS Layout Architecture
+   ========================================= */
+.jj-command-center {
+    display: flex;
+    height: calc(100vh - 32px); /* WP Admin Bar 높이 제외 */
+    background: #f1f5f9;
+    margin-left: -20px; /* WP 기본 패딩 상쇄 */
+    margin-top: -10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- Left Sidebar (LNB) --- */
+.jj-cc-sidebar {
+    width: 240px;
+    background: #1e293b; /* Dark Navy */
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 100;
+}
+
+.jj-cc-logo {
+    padding: 24px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    border-bottom: 1px solid #334155;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.jj-cc-nav {
+    flex: 1;
+    padding: 16px 0;
+    overflow-y: auto;
+}
+
+.jj-cc-nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+}
+
+.jj-cc-nav-item:hover {
+    color: #fff;
+    background: #334155;
+}
+
+.jj-cc-nav-item.active {
+    color: #fff;
+    background: #334155;
+    border-left-color: #667eea;
+}
+
+.jj-cc-nav-icon {
+    margin-right: 12px;
+    font-size: 18px;
+}
+
+.jj-cc-footer {
+    padding: 20px;
+    border-top: 1px solid #334155;
+    font-size: 12px;
+    color: #64748b;
+    text-align: center;
+}
+
+/* --- Main Workspace --- */
+.jj-cc-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Top Header */
+.jj-cc-header {
+    height: 64px;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    flex-shrink: 0;
+}
+
+.jj-cc-title h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.jj-cc-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Content Area */
+.jj-cc-content-area {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+    scroll-behavior: smooth;
+    position: relative;
+}
+
+/* Section Cards override */
+.jj-section-wrapper {
+    margin-bottom: 40px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #e2e8f0;
+    padding: 32px;
+    display: none; /* JS로 active 클래스 붙여서 제어 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.jj-section-wrapper.active {
+    display: block !important;
+    opacity: 1;
+    animation: jj-fade-in-up 0.4s ease forwards;
+}
+
+@keyframes jj-fade-in-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive --- */
+@media (max-width: 960px) {
+    .jj-cc-sidebar {
+        width: 60px;
+    }
+    .jj-cc-logo span, .jj-cc-nav-item span:not(.jj-cc-nav-icon) {
+        display: none;
+    }
+    .jj-cc-nav-item {
+        padding: 16px;
+        justify-content: center;
+    }
+    .jj-cc-nav-icon {
+        margin-right: 0;
+    }
+    .jj-cc-footer {
+        display: none;
+    }
+    .jj-cc-header {
+        padding: 0 16px;
+    }
+    .jj-cc-content-area {
+        padding: 16px;
+    }
+}
