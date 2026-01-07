@@ -652,6 +652,28 @@
 }
 
 /* ============================================
+   [v26.0.8] Visual Command Center 호환성
+   ============================================ */
+.jj-command-center ~ .jj-nudge-container.bottom-right,
+.jj-command-center .jj-nudge-container.bottom-right {
+    right: 40px;
+    bottom: 40px;
+}
+
+.jj-command-center ~ .jj-nudge-container.top-right,
+.jj-command-center .jj-nudge-container.top-right {
+    right: 40px;
+    top: 100px;
+}
+
+/* Toast 알림이 Command Center에서 더 잘 보이도록 */
+.jj-command-center ~ .jj-toast-container,
+.jj-command-center .jj-toast-container {
+    right: 40px;
+    top: 100px;
+}
+
+/* ============================================
    다크 모드 지원
    ============================================ */
 @media (prefers-color-scheme: dark) {

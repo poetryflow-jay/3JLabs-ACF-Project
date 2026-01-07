@@ -1034,13 +1034,26 @@
     border-color: #135e96 !important;
 }
 
-/* 섹션 내부 서브 탭 스타일 보완 */
+/* 섹션 내부 서브 탭 스타일 보완 - v26.0.6 강화 */
 .jj-tabs-container .jj-tab-content {
-    display: none;
+    display: none !important;
 }
 
 .jj-tabs-container .jj-tab-content.is-active {
-    display: block;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* v26.0.6 - 탭 콘텐츠 강제 표시 */
+.jj-section-global .jj-tabs-container .jj-tab-content.is-active,
+.jj-section-wrapper .jj-tabs-container .jj-tab-content.is-active,
+.jj-cc-content-area .jj-tabs-container .jj-tab-content.is-active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    overflow: visible !important;
 }
 
 .jj-tabs-container .jj-tabs-nav .jj-tab-button {

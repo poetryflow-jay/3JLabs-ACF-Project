@@ -530,14 +530,7 @@
                 $nudge.remove();
             }, 300);
 
-            // 서버에 닫힘 상태 저장
-            if (this.config && this.config.ajax_url && this.config.nonce) {
-                $.post(this.config.ajax_url, {
-                    action: 'jj_nudge_dismiss',
-                    nonce: this.config.nonce,
-                    nudge_id: nudgeId
-                });
-            }
+
 
             // 사용자 메타에 저장 (로컬)
             if (nudgeId) {

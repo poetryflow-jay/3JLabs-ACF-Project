@@ -66,86 +66,203 @@ class JJ_Simple_Style_Guide {
 
     /**
      * 기본 옵션 반환
+     * [v26.0.2] 섹션 파일에서 기대하는 구조로 전면 재구성
      * @return array
      */
     public function get_default_options() {
         return array(
-            // 색상 팔레트
-            'colors' => array(
-                'primary'    => '#3b82f6',
-                'secondary'  => '#64748b',
-                'accent'     => '#f59e0b',
-                'success'    => '#22c55e',
-                'warning'    => '#eab308',
-                'error'      => '#ef4444',
-                'info'       => '#06b6d4',
-                'background' => '#ffffff',
-                'foreground' => '#1e293b',
-                'muted'      => '#f1f5f9',
+            // [v26.0.2] 팔레트 시스템 - 섹션 파일 구조에 맞춤
+            'palettes' => array(
+                'brand' => array(
+                    'primary_color'          => '#3b82f6',
+                    'primary_color_hover'    => '#2563eb',
+                    'secondary_color'        => '#64748b',
+                    'secondary_color_hover'  => '#475569',
+                ),
+                'system' => array(
+                    'site_bg'      => '#ffffff',
+                    'content_bg'   => '#ffffff',
+                    'text_color'   => '#1e293b',
+                    'link_color'   => '#3b82f6',
+                ),
+                'alternative' => array(
+                    'primary_color'          => '',
+                    'primary_color_hover'    => '',
+                    'secondary_color'        => '',
+                    'secondary_color_hover'  => '',
+                ),
+                'another' => array(
+                    'primary_color'          => '',
+                    'primary_color_hover'    => '',
+                    'secondary_color'        => '',
+                    'secondary_color_hover'  => '',
+                ),
             ),
-            // 타이포그래피
+            // [v26.0.2] 타이포그래피 - 태그별 구조
             'typography' => array(
-                'font_family_primary'   => 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-                'font_family_secondary' => 'Georgia, "Times New Roman", serif',
-                'font_family_mono'      => 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace',
-                'font_size_base'        => '16px',
-                'font_size_sm'          => '14px',
-                'font_size_lg'          => '18px',
-                'font_size_xl'          => '20px',
-                'font_size_2xl'         => '24px',
-                'font_size_3xl'         => '30px',
-                'line_height_base'      => '1.5',
-                'line_height_tight'     => '1.25',
-                'line_height_loose'     => '1.75',
+                'h1' => array(
+                    'font_family'   => '',
+                    'font_weight'   => '700',
+                    'font_style'    => 'normal',
+                    'line_height'   => '1.2',
+                    'letter_spacing'=> '',
+                    'text_transform'=> '',
+                    'font_size'     => array(
+                        'desktop' => '40',
+                        'tablet'  => '36',
+                        'mobile'  => '30',
+                    ),
+                ),
+                'h2' => array(
+                    'font_family'   => '',
+                    'font_weight'   => '700',
+                    'font_style'    => 'normal',
+                    'line_height'   => '1.25',
+                    'letter_spacing'=> '',
+                    'text_transform'=> '',
+                    'font_size'     => array(
+                        'desktop' => '32',
+                        'tablet'  => '28',
+                        'mobile'  => '24',
+                    ),
+                ),
+                'h3' => array(
+                    'font_family'   => '',
+                    'font_weight'   => '600',
+                    'font_style'    => 'normal',
+                    'line_height'   => '1.3',
+                    'letter_spacing'=> '',
+                    'text_transform'=> '',
+                    'font_size'     => array(
+                        'desktop' => '26',
+                        'tablet'  => '22',
+                        'mobile'  => '19',
+                    ),
+                ),
+                'h4' => array(
+                    'font_family'   => '',
+                    'font_weight'   => '600',
+                    'font_style'    => 'normal',
+                    'line_height'   => '1.35',
+                    'letter_spacing'=> '',
+                    'text_transform'=> '',
+                    'font_size'     => array(
+                        'desktop' => '22',
+                        'tablet'  => '20',
+                        'mobile'  => '18',
+                    ),
+                ),
+                'h5' => array(
+                    'font_family'   => '',
+                    'font_weight'   => '500',
+                    'font_style'    => 'normal',
+                    'line_height'   => '1.4',
+                    'letter_spacing'=> '',
+                    'text_transform'=> '',
+                    'font_size'     => array(
+                        'desktop' => '18',
+                        'tablet'  => '18',
+                        'mobile'  => '16',
+                    ),
+                ),
+                'h6' => array(
+                    'font_family'   => '',
+                    'font_weight'   => '500',
+                    'font_style'    => 'normal',
+                    'line_height'   => '1.4',
+                    'letter_spacing'=> '',
+                    'text_transform'=> '',
+                    'font_size'     => array(
+                        'desktop' => '16',
+                        'tablet'  => '16',
+                        'mobile'  => '15',
+                    ),
+                ),
+                'p' => array(
+                    'font_family'   => '',
+                    'font_weight'   => '400',
+                    'font_style'    => 'normal',
+                    'line_height'   => '1.6',
+                    'letter_spacing'=> '',
+                    'text_transform'=> '',
+                    'font_size'     => array(
+                        'desktop' => '16',
+                        'tablet'  => '16',
+                        'mobile'  => '15',
+                    ),
+                ),
             ),
-            // 간격
-            'spacing' => array(
-                'base'   => '16px',
-                'xs'     => '4px',
-                'sm'     => '8px',
-                'md'     => '16px',
-                'lg'     => '24px',
-                'xl'     => '32px',
-                '2xl'    => '48px',
+            'typography_settings' => array(
+                'unit'    => 'px',
+                'base_px' => '16',
             ),
-            // 테두리
-            'borders' => array(
-                'radius_none' => '0',
-                'radius_sm'   => '4px',
-                'radius_md'   => '8px',
-                'radius_lg'   => '12px',
-                'radius_full' => '9999px',
-                'width'       => '1px',
-                'color'       => '#e2e8f0',
+            'fonts' => array(
+                'korean'  => array( 'family' => '', 'attachment_id' => 0, 'format' => '' ),
+                'english' => array( 'family' => '', 'attachment_id' => 0, 'format' => '' ),
+                'buttons' => array( 'family' => '', 'attachment_id' => 0, 'format' => '' ),
+                'forms'   => array( 'family' => '', 'attachment_id' => 0, 'format' => '' ),
             ),
-            // 그림자
-            'shadows' => array(
-                'sm'  => '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-                'md'  => '0 4px 6px -1px rgb(0 0 0 / 0.1)',
-                'lg'  => '0 10px 15px -3px rgb(0 0 0 / 0.1)',
-                'xl'  => '0 20px 25px -5px rgb(0 0 0 / 0.1)',
-            ),
-            // 버튼 스타일
+            // [v26.0.2] 버튼 스타일 - 3종
             'buttons' => array(
-                'padding_x'      => '16px',
-                'padding_y'      => '8px',
-                'border_radius'  => '8px',
-                'font_weight'    => '500',
-                'transition'     => 'all 0.2s ease',
+                'primary' => array(
+                    'background_color'       => '#3b82f6',
+                    'background_color_hover' => '#2563eb',
+                    'text_color'             => '#ffffff',
+                    'text_color_hover'       => '#ffffff',
+                    'border_color'           => '#3b82f6',
+                    'border_color_hover'     => '#2563eb',
+                    'border_radius'          => '8',
+                    'padding'                => array( 'top' => '12', 'right' => '24', 'bottom' => '12', 'left' => '24' ),
+                    'shadow'                 => array( 'color' => '', 'x' => '0', 'y' => '4', 'blur' => '6', 'spread' => '0' ),
+                ),
+                'secondary' => array(
+                    'background_color'       => '#f1f5f9',
+                    'background_color_hover' => '#e2e8f0',
+                    'text_color'             => '#1e293b',
+                    'text_color_hover'       => '#1e293b',
+                    'border_color'           => '#e2e8f0',
+                    'border_color_hover'     => '#cbd5e1',
+                    'border_radius'          => '8',
+                    'padding'                => array( 'top' => '12', 'right' => '24', 'bottom' => '12', 'left' => '24' ),
+                    'shadow'                 => array( 'color' => '', 'x' => '0', 'y' => '2', 'blur' => '4', 'spread' => '0' ),
+                ),
+                'text' => array(
+                    'background_color'       => 'transparent',
+                    'background_color_hover' => '#f1f5f9',
+                    'text_color'             => '#3b82f6',
+                    'text_color_hover'       => '#2563eb',
+                    'border_color'           => 'transparent',
+                    'border_color_hover'     => 'transparent',
+                    'border_radius'          => '8',
+                    'padding'                => array( 'top' => '8', 'right' => '16', 'bottom' => '8', 'left' => '16' ),
+                    'shadow'                 => array( 'color' => '', 'x' => '0', 'y' => '0', 'blur' => '0', 'spread' => '0' ),
+                ),
             ),
-            // 폼 스타일
+            // [v26.0.2] 폼 스타일 - 라벨 + 필드
             'forms' => array(
-                'input_padding'       => '10px 12px',
-                'input_border_radius' => '6px',
-                'input_border_color'  => '#d1d5db',
-                'input_focus_color'   => '#3b82f6',
+                'label' => array(
+                    'font_weight'    => '500',
+                    'font_style'     => 'normal',
+                    'text_transform' => '',
+                    'font_size'      => '14',
+                    'text_color'     => '#374151',
+                ),
+                'field' => array(
+                    'background_color'   => '#ffffff',
+                    'text_color'         => '#1e293b',
+                    'border_color'       => '#d1d5db',
+                    'border_color_focus' => '#3b82f6',
+                    'border_radius'      => '6',
+                    'border_width'       => '1',
+                    'padding'            => array( 'top' => '10', 'right' => '12', 'bottom' => '10', 'left' => '12' ),
+                ),
             ),
-            // 설정
+            // 설정 (레거시 호환)
             'settings' => array(
                 'apply_to_frontend'   => true,
                 'apply_to_admin'      => false,
                 'apply_to_customizer' => true,
-                'css_output_method'   => 'inline', // inline, file, both
+                'css_output_method'   => 'inline',
                 'cache_enabled'       => true,
             ),
         );
@@ -224,9 +341,7 @@ class JJ_Simple_Style_Guide {
         }
 
         ?>
-        <!-- [v22.4.1] UI System 2026 적용 - 현대적이고 완성도 높은 GUI -->
         <div id="jj-style-guide-wrapper" class="wrap jj-style-guide-wrap">
-            <!-- 헤더 섹션 -->
             <div class="jj-card" style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 16px; box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
@@ -249,137 +364,94 @@ class JJ_Simple_Style_Guide {
                 </div>
             </div>
             <hr class="wp-header-end" style="margin: 0;">
-
-            <!-- [v22.4.1] 2컬럼 레이아웃 지원 (에디터 + 프리뷰) - UI System 2026 적용 -->
-            <div class="jj-style-guide-main-layout" style="display: flex; gap: 30px; margin-top: 20px;">
-                <div class="jj-style-guide-editor-pane" style="flex: 1; max-width: 100%; min-width: 0;">
-                    <!-- [v22.1.2] 시스템 인사이트 (Stats) -->
-                    <?php 
-                    $stats_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-stats.php';
-                    if ( file_exists( $stats_path ) ) {
-                        try {
-                            include $stats_path;
-                        } catch ( Exception $e ) {
-                            error_log( '[JJ Style Guide] Stats section include failed: ' . $e->getMessage() );
-                        } catch ( Error $e ) {
-                            error_log( '[JJ Style Guide] Stats section include fatal: ' . $e->getMessage() );
-                        }
-                    }
-                    ?>
-
-                    <!-- [v22.1.2] 마케팅 핵심: 프리셋 섹션 -->
-                    <div class="jj-section-wrapper" data-section="presets">
-                        <?php 
-                        $presets_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-presets.php';
-                        if ( file_exists( $presets_path ) ) {
-                            try {
-                                include $presets_path;
-                            } catch ( Exception $e ) {
-                                error_log( '[JJ Style Guide] Presets section include failed: ' . $e->getMessage() );
-                            } catch ( Error $e ) {
-                                error_log( '[JJ Style Guide] Presets section include fatal: ' . $e->getMessage() );
-                            }
-                        }
-                        ?>
-                    </div>
-
-                    <!-- [v22.4.1] 세부 커스텀 스타일링 섹션 - 탭 기반 레이아웃 -->
-                    <div class="jj-style-guide-sections" id="jj-sections-sortable" style="margin-top: 40px;">
-                        <div class="jj-card" style="margin-bottom: 30px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">
-                            <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 10px;">
-                                <span class="dashicons dashicons-admin-customizer" style="font-size: 24px; color: #667eea;"></span>
-                                <?php _e( '세부 커스텀 스타일링', 'acf-css-really-simple-style-management-center' ); ?>
-                            </h2>
-                            <p style="margin: 10px 0 0 0; color: #64748b; font-size: 14px;">
-                                <?php _e( '색상, 타이포그래피, 버튼, 폼 등 모든 스타일 요소를 세밀하게 조정할 수 있습니다.', 'acf-css-really-simple-style-management-center' ); ?>
-                            </p>
-                        </div>
-                        <?php
-                        // [v22.1.2] 저장된 섹션 레이아웃 순서대로 렌더링 (안전한 처리)
-                        // [v23.0.2] 기본 레이아웃 정의 (항상 폴백으로 사용)
-                        $default_layout = array(
-                            'colors' => array( 'label' => '1. 팔레트 시스템', 'enabled' => 1, 'order' => 10 ),
-                            'typography' => array( 'label' => '2. 타이포그래피', 'enabled' => 1, 'order' => 20 ),
-                            'buttons' => array( 'label' => '3. 버튼', 'enabled' => 1, 'order' => 30 ),
-                            'forms' => array( 'label' => '4. 폼', 'enabled' => 1, 'order' => 40 ),
-                            'fields' => array( 'label' => '5. 필드', 'enabled' => 1, 'order' => 50 ),
-                        );
-
-                        $layout = array();
-                        try {
-                            if ( class_exists( 'JJ_Admin_Center' ) && method_exists( 'JJ_Admin_Center', 'instance' ) ) {
-                                $admin_center = JJ_Admin_Center::instance();
-                                if ( method_exists( $admin_center, 'get_sections_layout' ) ) {
-                                    $layout = $admin_center->get_sections_layout();
-                                }
-                            }
-                        } catch ( Exception $e ) {
-                            error_log( '[JJ Style Guide] Layout loading failed: ' . $e->getMessage() );
-                        } catch ( Error $e ) {
-                            error_log( '[JJ Style Guide] Layout loading fatal: ' . $e->getMessage() );
-                        }
-
-                        // [v23.0.2] 레이아웃이 비어있거나 유효하지 않으면 기본값 사용
-                        if ( empty( $layout ) || ! is_array( $layout ) ) {
-                            $layout = $default_layout;
-                        }
-
-                        // 순서대로 정렬
-                        uasort( $layout, function( $a, $b ) {
-                            $order_a = isset( $a['order'] ) ? (int) $a['order'] : 999;
-                            $order_b = isset( $b['order'] ) ? (int) $b['order'] : 999;
-                            return $order_a <=> $order_b;
-                        } );
-
-                        // 섹션 매핑
-                        $section_files = array(
-                            'colors'        => 'includes/editor-views/view-section-colors.php',
-                            'typography'    => 'includes/editor-views/view-section-typography.php',
-                            'buttons'       => 'includes/editor-views/view-section-buttons.php',
-                            'forms'         => 'includes/editor-views/view-section-forms.php',
-                            'fields'        => 'includes/editor-views/view-section-fields.php',
-                            'temp-palette'  => 'includes/editor-views/view-section-temp-palette.php',
-                        );
-
-                        // [v23.0.2] 탭 네비게이션 생성 - enabled 체크 개선 (0, false, '' 모두 처리)
-                        $enabled_sections = array();
-                        foreach ( $layout as $slug => $meta ) {
-                            // enabled가 명시적으로 0이 아니면 활성화 (기본값 = 활성화)
-                            $is_enabled = ! isset( $meta['enabled'] ) || ( isset( $meta['enabled'] ) && $meta['enabled'] );
-                            if ( $is_enabled && isset( $section_files[ $slug ] ) ) {
-                                $enabled_sections[ $slug ] = $meta;
-                            }
-                        }
-
-                        // [v23.0.2] 활성화된 섹션이 없으면 기본 섹션 모두 활성화
-                        if ( empty( $enabled_sections ) ) {
-                            foreach ( $default_layout as $slug => $meta ) {
-                                if ( isset( $section_files[ $slug ] ) ) {
-                                    $enabled_sections[ $slug ] = $meta;
-                                }
-                            }
-                        }
-
-                        // [v26.0.0] Visual Command Center v2.0 - Modern SaaS Layout
-                        $nav_icons = array(
-                            'colors' => 'dashicons-art',
-                            'typography' => 'dashicons-editor-textcolor',
-                            'buttons' => 'dashicons-button',
-                            'forms' => 'dashicons-feedback',
-                            'fields' => 'dashicons-forms',
-                        );
-                        $nav_labels = array(
-                            'colors' => '팔레트 시스템',
-                            'typography' => '타이포그래피',
-                            'buttons' => '버튼 스타일',
-                            'forms' => '폼 스타일',
-                            'fields' => '필드 스타일',
-                        );
-                        ?>
-                    </div>
-                </div>
-            </div>
+            
+            <?php 
+            $presets_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-section-presets.php';
+            if ( file_exists( $presets_path ) ) {
+                try {
+                    include $presets_path;
+                } catch ( Exception $e ) {
+                    error_log( '[JJ Style Guide] Presets section include failed: ' . $e->getMessage() );
+                } catch ( Error $e ) {
+                    error_log( '[JJ Style Guide] Presets section include fatal: ' . $e->getMessage() );
+                }
+            }
+            ?>
         </div>
+        
+        <?php
+        $default_layout = array(
+            'colors' => array( 'label' => '1. 팔레트 시스템', 'enabled' => 1, 'order' => 10 ),
+            'typography' => array( 'label' => '2. 타이포그래피', 'enabled' => 1, 'order' => 20 ),
+            'buttons' => array( 'label' => '3. 버튼', 'enabled' => 1, 'order' => 30 ),
+            'forms' => array( 'label' => '4. 폼', 'enabled' => 1, 'order' => 40 ),
+            'fields' => array( 'label' => '5. 필드', 'enabled' => 1, 'order' => 50 ),
+        );
+
+        $layout = array();
+        try {
+            if ( class_exists( 'JJ_Admin_Center' ) && method_exists( 'JJ_Admin_Center', 'instance' ) ) {
+                $admin_center = JJ_Admin_Center::instance();
+                if ( method_exists( $admin_center, 'get_sections_layout' ) ) {
+                    $layout = $admin_center->get_sections_layout();
+                }
+            }
+        } catch ( Exception $e ) {
+            error_log( '[JJ Style Guide] Layout loading failed: ' . $e->getMessage() );
+        } catch ( Error $e ) {
+            error_log( '[JJ Style Guide] Layout loading fatal: ' . $e->getMessage() );
+        }
+
+        if ( empty( $layout ) || ! is_array( $layout ) ) {
+            $layout = $default_layout;
+        }
+
+        uasort( $layout, function( $a, $b ) {
+            $order_a = isset( $a['order'] ) ? (int) $a['order'] : 999;
+            $order_b = isset( $b['order'] ) ? (int) $b['order'] : 999;
+            return $order_a <=> $order_b;
+        } );
+
+        $section_files = array(
+            'colors'        => 'includes/editor-views/view-section-colors.php',
+            'typography'    => 'includes/editor-views/view-section-typography.php',
+            'buttons'       => 'includes/editor-views/view-section-buttons.php',
+            'forms'         => 'includes/editor-views/view-section-forms.php',
+            'fields'        => 'includes/editor-views/view-section-fields.php',
+            'temp-palette'  => 'includes/editor-views/view-section-temp-palette.php',
+        );
+
+        $enabled_sections = array();
+        foreach ( $layout as $slug => $meta ) {
+            $is_enabled = ! isset( $meta['enabled'] ) || ( isset( $meta['enabled'] ) && $meta['enabled'] );
+            if ( $is_enabled && isset( $section_files[ $slug ] ) ) {
+                $enabled_sections[ $slug ] = $meta;
+            }
+        }
+
+        if ( empty( $enabled_sections ) ) {
+            foreach ( $default_layout as $slug => $meta ) {
+                if ( isset( $section_files[ $slug ] ) ) {
+                    $enabled_sections[ $slug ] = $meta;
+                }
+            }
+        }
+
+        $nav_icons = array(
+            'colors' => 'dashicons-art',
+            'typography' => 'dashicons-editor-textcolor',
+            'buttons' => 'dashicons-button',
+            'forms' => 'dashicons-feedback',
+            'fields' => 'dashicons-forms',
+        );
+        $nav_labels = array(
+            'colors' => '팔레트 시스템',
+            'typography' => '타이포그래피',
+            'buttons' => '버튼 스타일',
+            'forms' => '폼 스타일',
+            'fields' => '필드 스타일',
+        );
+        ?>
         
         <div class="jj-command-center">
             <div class="jj-cc-sidebar">
@@ -456,54 +528,150 @@ class JJ_Simple_Style_Guide {
         </div>
         
         <script>
-        (function() {
-            // [v26.0.0] 메인 네비게이션 (사이드바)
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('[JJ Command Center v26.0.9] Initializing...');
+            
+            // [v26.0.1] 메인 네비게이션 (사이드바) - 향상된 버전
             var navItems = document.querySelectorAll('.jj-cc-nav-item');
             var sections = document.querySelectorAll('.jj-section-wrapper');
             
+            console.log('[JJ Command Center] Found', navItems.length, 'nav items,', sections.length, 'sections');
+            
+            // 초기화: 첫 번째 섹션만 표시
+            sections.forEach(function(sec, index) {
+                if (index === 0) {
+                    sec.classList.add('active');
+                    sec.style.display = 'block';
+                } else {
+                    sec.classList.remove('active');
+                    sec.style.display = 'none';
+                }
+            });
+            
+            // 네비게이션 클릭 이벤트
             navItems.forEach(function(item) {
                 item.addEventListener('click', function() {
                     var targetId = this.getAttribute('data-target');
+                    console.log('[JJ Command Center] Nav clicked, target:', targetId);
                     
+                    // 모든 네비게이션 비활성화
                     navItems.forEach(function(nav) { nav.classList.remove('active'); });
                     this.classList.add('active');
                     
-                    sections.forEach(function(sec) { sec.classList.remove('active'); });
+                    // 모든 섹션 숨기기
+                    sections.forEach(function(sec) { 
+                        sec.classList.remove('active');
+                        sec.style.display = 'none';
+                    });
+                    
+                    // 타겟 섹션 표시
                     var targetSection = document.getElementById(targetId);
                     if (targetSection) {
                         targetSection.classList.add('active');
-                        document.querySelector('.jj-cc-content-area').scrollTop = 0;
+                        targetSection.style.display = 'block';
+                        console.log('[JJ Command Center] Section activated:', targetId);
+                        
+                        // 스크롤 초기화
+                        var contentArea = document.querySelector('.jj-cc-content-area');
+                        if (contentArea) contentArea.scrollTop = 0;
+                        
+                        // 컬러 피커 재초기화 (jQuery 있으면)
+                        if (typeof jQuery !== 'undefined' && typeof jQuery.fn.spectrum !== 'undefined') {
+                            setTimeout(function() {
+                                jQuery(targetSection).find('.jj-color-field:not(.spectrum-initialized)').each(function() {
+                                    jQuery(this).spectrum({
+                                        preferredFormat: 'hex',
+                                        showInput: true,
+                                        showInitial: true,
+                                        allowEmpty: true
+                                    }).addClass('spectrum-initialized');
+                                });
+                            }, 100);
+                        }
+                    } else {
+                        console.error('[JJ Command Center] Section not found:', targetId);
                     }
                 });
             });
             
-            // [v26.0.1] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭)
-            document.querySelectorAll('.jj-tabs-container').forEach(function(container) {
+            // [v26.0.8] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭) - 강화된 버전
+            var tabContainers = document.querySelectorAll('.jj-tabs-container');
+            console.log('[JJ Command Center] Found', tabContainers.length, 'tab containers');
+            
+            tabContainers.forEach(function(container, containerIndex) {
                 var subTabs = container.querySelectorAll('.jj-tabs-nav .jj-tab-button');
                 var subContents = container.querySelectorAll('.jj-tab-content');
                 
+                console.log('[JJ Command Center] Container', containerIndex, ':', subTabs.length, 'tabs,', subContents.length, 'contents');
+                
+                // [v26.0.8] 초기화: 모든 탭 콘텐츠 숨기고, 활성 탭만 표시 (style.display로 강제)
+                if (subTabs.length > 0 && subContents.length > 0) {
+                    var activeTabName = null;
+                    
+                    // 이미 활성화된 탭 찾기
+                    subTabs.forEach(function(tab) {
+                        if (tab.classList.contains('is-active')) {
+                            activeTabName = tab.getAttribute('data-tab');
+                        }
+                    });
+                    
+                    // 활성 탭이 없으면 첫 번째 탭 활성화
+                    if (!activeTabName && subTabs.length > 0) {
+                        activeTabName = subTabs[0].getAttribute('data-tab');
+                        subTabs[0].classList.add('is-active');
+                    }
+                    
+                    // [v26.0.9] 모든 탭 콘텐츠 강제 숨기기 + 활성 탭만 표시 (setProperty로 !important 오버라이드)
+                    subContents.forEach(function(content) {
+                        var contentName = content.getAttribute('data-tab-content');
+                        if (contentName === activeTabName) {
+                            content.classList.add('is-active');
+                            content.style.setProperty('display', 'block', 'important');
+                            content.style.setProperty('opacity', '1', 'important');
+                            content.style.setProperty('visibility', 'visible', 'important');
+                            content.style.setProperty('height', 'auto', 'important');
+                            console.log('[JJ Command Center] Initial tab shown:', contentName);
+                        } else {
+                            content.classList.remove('is-active');
+                            content.style.setProperty('display', 'none', 'important');
+                        }
+                    });
+                }
+                
                 subTabs.forEach(function(tab) {
-                    tab.addEventListener('click', function() {
+                    tab.addEventListener('click', function(e) {
+                        e.preventDefault();
                         var tabName = this.getAttribute('data-tab');
+                        console.log('[JJ Command Center] Sub-tab clicked:', tabName);
                         
+                        // 모든 탭 버튼 비활성화
+                        subTabs.forEach(function(t) { t.classList.remove('is-active'); });
+                        this.classList.add('is-active');
+                        
+                        // [v26.0.9] 모든 탭 콘텐츠 숨기기 (setProperty로 !important 오버라이드)
                         subContents.forEach(function(content) {
                             content.classList.remove('is-active');
+                            content.style.setProperty('display', 'none', 'important');
                         });
                         
+                        // [v26.0.9] 타겟 탭 콘텐츠 표시 (setProperty로 !important 오버라이드)
                         var targetContent = container.querySelector('.jj-tab-content[data-tab-content="' + tabName + '"]');
                         if (targetContent) {
                             targetContent.classList.add('is-active');
+                            targetContent.style.setProperty('display', 'block', 'important');
+                            targetContent.style.setProperty('opacity', '1', 'important');
+                            targetContent.style.setProperty('visibility', 'visible', 'important');
+                            targetContent.style.setProperty('height', 'auto', 'important');
+                            console.log('[JJ Command Center] Sub-tab content activated:', tabName);
+                        } else {
+                            console.error('[JJ Command Center] Sub-tab content not found:', tabName);
                         }
-                        
-                        subTabs.forEach(function(t) {
-                            t.classList.remove('is-active');
-                        });
-                        
-                        this.classList.add('is-active');
                     });
                 });
             });
-        })();
+            
+            console.log('[JJ Command Center v26.0.9] Initialization complete!');
+        });
         </script>
         <?php
     }

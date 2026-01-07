@@ -2,9 +2,82 @@
 
 ## 릴리즈 개요
 
-**릴리즈 날짜**: 2026년 1월 6일
-**릴리즈 버전**: Phase 50B - 통합 대시보드 & 멀티사이트 허브
+**릴리즈 날짜**: 2026년 1월 7일
+**릴리즈 버전**: Phase 51 - Visual Command Center 탭 시스템 핫픽스
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
+
+---
+
+## 🔧 Phase 51 - Visual Command Center 탭 시스템 핫픽스 (2026-01-07)
+
+### 작업 요약
+
+Visual Command Center(스타일 센터)에서 탭 콘텐츠가 표시되지 않는 치명적 버그를 수정했습니다.
+
+### 문제 상황
+
+- **증상**: 탭 버튼(브랜드 팔레트, 시스템 팔레트 등)은 보이지만, 클릭해도 콘텐츠가 표시되지 않음
+- **영향 범위**: Colors 섹션 5개 탭, Buttons 섹션 3개 탭 모두 영향
+- **근본 원인**: CSS `!important` 규칙이 JavaScript 인라인 스타일을 오버라이드
+
+### 수정 과정
+
+| 버전 | 시도 | 결과 |
+|------|------|------|
+| v26.0.8 | `style.display = 'block'` 직접 설정 | 실패 - CSS !important가 우선 |
+| v26.0.9 | `style.setProperty('display', 'block', 'important')` | 성공 |
+
+### 기술적 해결책
+
+**문제 코드**:
+```javascript
+content.style.display = 'block';  // CSS !important에 의해 무시됨
+```
+
+**수정 코드**:
+```javascript
+content.style.setProperty('display', 'block', 'important');
+content.style.setProperty('opacity', '1', 'important');
+content.style.setProperty('visibility', 'visible', 'important');
+content.style.setProperty('height', 'auto', 'important');
+```
+
+### 추가 수정사항
+
+- **넛지/툴팁 위치 조정**: Visual Command Center에서 bottom-right, top-right 위치 여백 40px로 조정
+- **콘솔 로그 개선**: 탭 초기화 및 활성화 상태 추적 로그 추가
+
+### 버전 업데이트
+
+| 플러그인 | 이전 버전 | 새 버전 |
+|---------|---------|---------|
+| ACF CSS Manager | 26.0.7 | **26.0.9** |
+
+### 수정된 파일
+
+1. **includes/class-jj-simple-style-guide.php**
+   - 탭 초기화 로직: `setProperty`로 `!important` 인라인 스타일 적용
+   - 탭 클릭 핸들러: 동일하게 수정
+   - 버전 로그 업데이트: v26.0.9
+
+2. **assets/css/jj-nudge-system.css**
+   - Visual Command Center 호환성 CSS 추가
+   - 넛지 컨테이너 위치 조정
+
+3. **acf-css-really-simple-style-guide.php**
+   - 버전 번호 업데이트: 26.0.7 → 26.0.9
+
+### 교훈
+
+CSS `!important` 규칙은 일반 인라인 스타일(`element.style.property`)보다 우선순위가 높습니다. JavaScript에서 `!important`를 오버라이드하려면 반드시 `setProperty()` 메서드의 세 번째 인자에 `'important'`를 전달해야 합니다.
+
+```
+우선순위 (높음 → 낮음):
+1. !important 인라인 스타일 (setProperty)
+2. !important CSS 규칙
+3. 일반 인라인 스타일
+4. 일반 CSS 규칙
+```
 
 ---
 
