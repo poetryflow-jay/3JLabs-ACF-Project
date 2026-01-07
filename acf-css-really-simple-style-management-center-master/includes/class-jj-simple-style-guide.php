@@ -360,38 +360,13 @@ class JJ_Simple_Style_Guide {
                             }
                         }
 
-                        // [v25.4.5] 인라인 JavaScript 탭 시스템 - 완전 자체 완결형
-                        if ( count( $enabled_sections ) > 1 ) {
-                            echo '<div class="jj-css-tabs">';
-                            
-                            // 탭 네비게이션 (버튼 기반)
-                            echo '<div class="jj-tabs-nav">';
-                            $first_tab = true;
-                            foreach ( $enabled_sections as $slug => $meta ) {
-                                $label_map = array(
-                                    'colors' => '1. 팔레트 시스템',
-                                    'typography' => '2. 타이포그래피',
-                                    'buttons' => '3. 버튼',
-                                    'forms' => '4. 폼',
-                                    'fields' => '5. 필드',
-                                );
-                                $label = isset( $meta['label'] ) ? $meta['label'] : ( isset( $label_map[ $slug ] ) ? $label_map[ $slug ] : ucfirst( $slug ) );
-                                $active_class = $first_tab ? ' active' : '';
-                                echo '<button type="button" class="jj-tab-btn' . $active_class . '" data-target="jj-content-' . esc_attr( $slug ) . '">' . esc_html( $label ) . '</button>';
-                                $first_tab = false;
-                            }
-                            echo '</div>';
-                        }
-
-                        // 3. 섹션 콘텐츠 렌더링 (첫 번째만 표시, 나머지 숨김)
-                        $first_section = true;
+                        // [v25.5.0] 탭 없이 모든 섹션을 한 페이지에 세로로 표시
                         foreach ( $enabled_sections as $slug => $meta ) {
                             $rel_path = $section_files[ $slug ];
                             $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
-                            $display_style = $first_section ? 'display: block;' : 'display: none;';
                             
                             if ( file_exists( $file_path ) ) {
-                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '" style="' . $display_style . '">';
+                                echo '<div class="jj-section-wrapper jj-card" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
                                 try {
                                     $options = $this->options;
                                     if ( ! is_array( $options ) ) {
@@ -406,78 +381,12 @@ class JJ_Simple_Style_Guide {
                                     echo '<div class="jj-error-box"><p class="jj-error-title">' . esc_html__( '섹션을 로드하는 중 치명적 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p><p class="jj-error-detail">' . esc_html( $e->getMessage() ) . '</p></div>';
                                 }
                                 echo '</div>';
-                                $first_section = false;
                             } else {
                                 error_log( '[JJ Style Guide] Section file not found: ' . $file_path );
-                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '" style="' . $display_style . '">';
+                                echo '<div class="jj-section-wrapper jj-card" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
                                 echo '<div class="jj-error-box"><p class="jj-error-title">섹션 파일을 찾을 수 없습니다: ' . esc_html( $rel_path ) . '</p><p class="jj-error-detail">파일 경로: ' . esc_html( $file_path ) . '</p></div>';
                                 echo '</div>';
-                                $first_section = false;
                             }
-                        }
-                        
-                        // 탭 컨테이너 닫기 + 인라인 JavaScript
-                        if ( count( $enabled_sections ) > 1 ) {
-                            echo '</div><!-- .jj-css-tabs -->';
-                            ?>
-                            <script>
-                            (function() {
-                                // [v25.4.6] 메인 탭 시스템 (팔레트/타이포/버튼/폼/필드)
-                                var mainTabs = document.querySelectorAll('.jj-css-tabs > .jj-tabs-nav > .jj-tab-btn');
-                                var mainContents = document.querySelectorAll('.jj-css-tabs > .jj-tab-content');
-                                
-                                mainTabs.forEach(function(tab) {
-                                    tab.addEventListener('click', function() {
-                                        var targetId = this.getAttribute('data-target');
-                                        
-                                        mainContents.forEach(function(content) {
-                                            content.style.display = 'none';
-                                        });
-                                        
-                                        var target = document.getElementById(targetId);
-                                        if (target) {
-                                            target.style.display = 'block';
-                                        }
-                                        
-                                        mainTabs.forEach(function(t) {
-                                            t.classList.remove('active');
-                                        });
-                                        
-                                        this.classList.add('active');
-                                    });
-                                });
-                                
-                                // [v25.4.6] 서브 탭 시스템 (각 섹션 내부의 탭들)
-                                document.querySelectorAll('.jj-tabs-container').forEach(function(container) {
-                                    var subTabs = container.querySelectorAll('.jj-tabs-nav .jj-tab-button');
-                                    var subContents = container.querySelectorAll('.jj-tab-content');
-                                    
-                                    subTabs.forEach(function(tab) {
-                                        tab.addEventListener('click', function() {
-                                            var tabName = this.getAttribute('data-tab');
-                                            
-                                            subContents.forEach(function(content) {
-                                                content.classList.remove('is-active');
-                                                content.style.display = 'none';
-                                            });
-                                            
-                                            var targetContent = container.querySelector('.jj-tab-content[data-tab-content="' + tabName + '"]');
-                                            if (targetContent) {
-                                                targetContent.classList.add('is-active');
-                                                targetContent.style.display = 'block';
-                                            }
-                                            
-                                            subTabs.forEach(function(t) {
-                                                t.classList.remove('is-active');
-                                            });
-                                            
-                                            this.classList.add('is-active');
-                                        });
-                                    });
-                                });
-                            })();
-                            </script>
-                            <?php
                         }
 
                         // [v22.1.2] 유지보수 및 보안 섹션 (최하단 고정)
