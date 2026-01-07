@@ -45,7 +45,7 @@ $text_transforms = array('' => 'Default', 'none' => 'None', 'uppercase' => 'UPPE
     </p>
 
     <div class="jj-tabs-container">
-        <div class="jj-tab-content is-active">
+        <div class="jj-tab-content is-active" style="display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;">
             <!-- [v22.4.7] 퀵 네비게이션 -->
             <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
                 <ul class="jj-tab-quick-nav-list">
