@@ -6,7 +6,7 @@
  * 옵션 관리, 스타일 적용, 프론트엔드/백엔드 통합을 담당합니다.
  * 
  * @package ACF_CSS_Style_Guide
- * @version 26.0.13
+ * @version 26.0.14
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -301,6 +301,35 @@ class JJ_Simple_Style_Guide {
     public function render_page() {
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_die( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
+        }
+
+        // [v26.0.14] 웰컴 대시보드 체크: 첫 방문 시 웰컴 대시보드 표시
+        $is_first_time = ! get_user_meta( get_current_user_id(), 'jj_css_seen_welcome', true );
+        $welcome_dashboard_path = JJ_STYLE_GUIDE_PATH . 'includes/editor-views/view-welcome-dashboard.php';
+        
+        // 첫 방문이고 웰컴 대시보드 파일이 존재하면 웰컴 대시보드 표시
+        if ( $is_first_time && file_exists( $welcome_dashboard_path ) ) {
+            try {
+                // 옵션 로드 (웰컴 대시보드에서 사용)
+                $this->options = (array) get_option( $this->option_key );
+                $options = $this->options;
+                
+                // 웰컴 대시보드 include
+                include $welcome_dashboard_path;
+                
+                // 첫 방문 플래그 설정 (웰컴 대시보드에서 이미 처리하지만 안전을 위해)
+                if ( ! get_user_meta( get_current_user_id(), 'jj_css_seen_welcome', true ) ) {
+                    update_user_meta( get_current_user_id(), 'jj_css_seen_welcome', time() );
+                }
+                
+                return; // 웰컴 대시보드 표시 후 종료
+            } catch ( Exception $e ) {
+                error_log( '[JJ Style Guide v26.0.14] Welcome dashboard include failed: ' . $e->getMessage() );
+                // 오류 발생 시 기존 Visual Command Center로 폴백
+            } catch ( Error $e ) {
+                error_log( '[JJ Style Guide v26.0.14] Welcome dashboard include fatal: ' . $e->getMessage() );
+                // 오류 발생 시 기존 Visual Command Center로 폴백
+            }
         }
 
         // [v22.4.2] 안전한 엔진 초기화 (오류 방지)
