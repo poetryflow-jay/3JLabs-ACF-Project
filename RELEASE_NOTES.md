@@ -3,12 +3,66 @@
 ## 릴리즈 개요
 
 **릴리즈 날짜**: 2026년 1월 7일
-**릴리즈 버전**: Phase 51 - Visual Command Center 탭 시스템 핫픽스
+**릴리즈 버전**: Phase 51 - Visual Command Center 섹션 전환 핫픽스
 **개발팀**: 3J Labs (제이x제니x제이슨 연구소) - Mikael(Algorithm) + Jason(Implementation) + Jenny(UX)
 
 ---
 
-## 🔧 Phase 51 - Visual Command Center 탭 시스템 핫픽스 (2026-01-07)
+## 🔧 Phase 51 (v26.0.10) - Visual Command Center 섹션 전환 핫픽스 (2026-01-07)
+
+### 작업 요약
+
+Visual Command Center에서 섹션 전환(네비게이션 클릭)이 작동하지 않는 문제를 수정했습니다. 탭 시스템은 이미 수정되었지만, 섹션 전환 로직이 누락되어 있었습니다.
+
+### 문제 상황
+
+- **증상**: 네비게이션 메뉴(Colors, Typography, Buttons 등) 클릭 시 섹션이 전환되지 않음
+- **영향 범위**: 모든 메인 섹션 전환
+- **근본 원인**: CSS `!important` 규칙이 JavaScript 인라인 스타일(`style.display`)을 오버라이드
+- **이전 수정**: 탭 시스템은 v26.0.9에서 수정되었으나, 섹션 전환 로직은 누락됨
+
+### 수정 내용
+
+**문제 코드**:
+```javascript
+sec.style.display = 'block';  // CSS !important에 의해 무시됨
+targetSection.style.display = 'block';  // CSS !important에 의해 무시됨
+```
+
+**수정 코드**:
+```javascript
+// 섹션 표시
+sec.style.setProperty('display', 'block', 'important');
+sec.style.setProperty('opacity', '1', 'important');
+sec.style.setProperty('visibility', 'visible', 'important');
+
+// 섹션 숨기기
+sec.style.setProperty('display', 'none', 'important');
+```
+
+### 버전 업데이트
+
+| 플러그인 | 이전 버전 | 새 버전 |
+|---------|---------|---------|
+| ACF CSS Manager | 26.0.9 | **26.0.10** |
+
+### 수정된 파일
+
+1. **includes/class-jj-simple-style-guide.php**
+   - 섹션 초기화 로직: `setProperty`로 `!important` 인라인 스타일 적용
+   - 섹션 전환 핸들러: 동일하게 수정
+   - 버전 로그 업데이트: v26.0.10
+
+2. **acf-css-really-simple-style-guide.php**
+   - 버전 번호 업데이트: 26.0.9 → 26.0.10
+
+### 교훈
+
+탭 시스템뿐만 아니라 섹션 전환 로직도 동일한 문제가 있었습니다. CSS에 `!important`가 있는 경우, 모든 JavaScript 스타일 조작은 `setProperty()` 메서드를 사용해야 합니다.
+
+---
+
+## 🔧 Phase 51 (v26.0.9) - Visual Command Center 탭 시스템 핫픽스 (2026-01-07)
 
 ### 작업 요약
 

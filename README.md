@@ -14,9 +14,9 @@
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
 | **ACF CSS Manager (Master)** | **v25.3.0** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + 다크모드 프리셋 |
-| ACF MBA (Nudge Flow) | **v23.0.0** | 마케팅 자동화 및 넛지 시스템 + 드래그 앤 드롭 워크플로우 빌더 |
+| ACF MBA (Nudge Flow) | **v23.0.1** | 마케팅 자동화 및 넛지 시스템 + 드래그 앤 드롭 워크플로우 빌더 |
 | ACF Code Snippets Box | **v5.1.0** | CSS/JS/PHP 코드 스니펫 관리 + **고급 버전 관리** (태깅/브랜치/스냅샷) |
-| ACF CSS Neural Link | **v8.1.0** | 패턴 학습 및 업데이트 관리 + 스마트 캐싱 시스템 |
+| ACF CSS Neural Link | **v8.2.0** | 패턴 학습 및 업데이트 관리 + 스마트 캐싱 시스템 + 멀티사이트 허브 |
 | WP Bulk Manager | **v23.4.0** | 플러그인/테마 대량 설치 및 관리 + 드래그 정렬 + 재시도 버튼 |
 
 ### 확장 플러그인 (Extensions)
@@ -33,7 +33,7 @@
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
 | **ACF User Journey Analytics** | **v1.0.3** | **무료** 트래픽 분석 대시보드 + 캐싱 시스템 |
-| JJ Analytics Dashboard | **v1.1.0** | 전체 플러그인 통합 분석 대시보드 + **실시간 대시보드 위젯** |
+| JJ Analytics Dashboard | **v1.2.0** | 전체 플러그인 통합 분석 대시보드 + **Command Center** |
 | JJ Marketing Automation Dashboard | **v2.0.2** | 종합 마케팅 자동화 대시보드 |
 | ACF Mail SMTP | **v2.3.0** | 메일 SMTP + Gmail API + **비주얼 이메일 템플릿 빌더** |
 
@@ -183,6 +183,19 @@ python 3j_build_manager.py --cli --all --editions free premium master
 ---
 
 ## 최근 변경사항
+
+### Hotfix (2026-01-06) - Fatal Error 수정
+
+**긴급 수정**:
+- **ACF Nudge Flow v23.0.1**: Data Source Integration 누락 메서드 추가
+  - `get_user_purchase_data()` 메서드 추가 (구매 데이터 조회)
+  - `get_user_membership_data()` 메서드 추가 (멤버십 데이터 조회)
+  - `get_analytics_data()` 메서드 추가 (분석 데이터 조회)
+  - 이 수정으로 `class-visitor-tracker.php:90` Fatal Error 해결
+
+**버전 동기화**:
+- Neural Link: 헤더 8.1.0 → 8.2.0 동기화
+- JJ Analytics: 헤더 1.1.0 → 1.2.0 동기화
 
 ### Phase 49 (2026-01-06) - AI/자동화/분석 기능 대폭 강화
 

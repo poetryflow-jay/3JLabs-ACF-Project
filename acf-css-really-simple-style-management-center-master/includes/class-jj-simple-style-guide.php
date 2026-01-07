@@ -6,7 +6,7 @@
  * 옵션 관리, 스타일 적용, 프론트엔드/백엔드 통합을 담당합니다.
  * 
  * @package ACF_CSS_Style_Guide
- * @version 22.1.0
+ * @version 26.0.10
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -529,7 +529,7 @@ class JJ_Simple_Style_Guide {
         
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('[JJ Command Center v26.0.9] Initializing...');
+            console.log('[JJ Command Center v26.0.10] Initializing...');
             
             // [v26.0.1] 메인 네비게이션 (사이드바) - 향상된 버전
             var navItems = document.querySelectorAll('.jj-cc-nav-item');
@@ -537,14 +537,16 @@ class JJ_Simple_Style_Guide {
             
             console.log('[JJ Command Center] Found', navItems.length, 'nav items,', sections.length, 'sections');
             
-            // 초기화: 첫 번째 섹션만 표시
+            // [v26.0.9] 초기화: 첫 번째 섹션만 표시 (setProperty로 !important 오버라이드)
             sections.forEach(function(sec, index) {
                 if (index === 0) {
                     sec.classList.add('active');
-                    sec.style.display = 'block';
+                    sec.style.setProperty('display', 'block', 'important');
+                    sec.style.setProperty('opacity', '1', 'important');
+                    sec.style.setProperty('visibility', 'visible', 'important');
                 } else {
                     sec.classList.remove('active');
-                    sec.style.display = 'none';
+                    sec.style.setProperty('display', 'none', 'important');
                 }
             });
             
@@ -558,17 +560,19 @@ class JJ_Simple_Style_Guide {
                     navItems.forEach(function(nav) { nav.classList.remove('active'); });
                     this.classList.add('active');
                     
-                    // 모든 섹션 숨기기
+                    // [v26.0.9] 모든 섹션 숨기기 (setProperty로 !important 오버라이드)
                     sections.forEach(function(sec) { 
                         sec.classList.remove('active');
-                        sec.style.display = 'none';
+                        sec.style.setProperty('display', 'none', 'important');
                     });
                     
-                    // 타겟 섹션 표시
+                    // [v26.0.9] 타겟 섹션 표시 (setProperty로 !important 오버라이드)
                     var targetSection = document.getElementById(targetId);
                     if (targetSection) {
                         targetSection.classList.add('active');
-                        targetSection.style.display = 'block';
+                        targetSection.style.setProperty('display', 'block', 'important');
+                        targetSection.style.setProperty('opacity', '1', 'important');
+                        targetSection.style.setProperty('visibility', 'visible', 'important');
                         console.log('[JJ Command Center] Section activated:', targetId);
                         
                         // 스크롤 초기화
@@ -670,7 +674,7 @@ class JJ_Simple_Style_Guide {
                 });
             });
             
-            console.log('[JJ Command Center v26.0.9] Initialization complete!');
+            console.log('[JJ Command Center v26.0.10] Initialization complete!');
         });
         </script>
         <?php
