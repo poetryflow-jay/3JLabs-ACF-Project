@@ -1045,7 +1045,10 @@
     visibility: visible !important;
 }
 
-/* v26.0.6 - 탭 콘텐츠 강제 표시 */
+/* [v26.0.11] 탭 콘텐츠 강제 표시 - 모든 컨테이너 구조 지원 */
+/* HTML 구조: .jj-section-wrapper > .jj-section-global > .jj-tabs-container > .jj-tab-content */
+/* 최고 특수성으로 모든 경우를 커버 */
+.jj-section-wrapper .jj-section-global .jj-tabs-container .jj-tab-content.is-active,
 .jj-section-global .jj-tabs-container .jj-tab-content.is-active,
 .jj-section-wrapper .jj-tabs-container .jj-tab-content.is-active,
 .jj-cc-content-area .jj-tabs-container .jj-tab-content.is-active {
@@ -1054,6 +1057,9 @@
     visibility: visible !important;
     height: auto !important;
     overflow: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+    min-height: 1px !important; /* 빈 콘텐츠도 표시되도록 */
 }
 
 .jj-tabs-container .jj-tabs-nav .jj-tab-button {

@@ -6,7 +6,7 @@
  * 옵션 관리, 스타일 적용, 프론트엔드/백엔드 통합을 담당합니다.
  * 
  * @package ACF_CSS_Style_Guide
- * @version 26.0.10
+ * @version 26.0.12
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -529,7 +529,7 @@ class JJ_Simple_Style_Guide {
         
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('[JJ Command Center v26.0.10] Initializing...');
+            console.log('[JJ Command Center v26.0.12] Initializing...');
             
             // [v26.0.1] 메인 네비게이션 (사이드바) - 향상된 버전
             var navItems = document.querySelectorAll('.jj-cc-nav-item');
@@ -598,9 +598,9 @@ class JJ_Simple_Style_Guide {
                 });
             });
             
-            // [v26.0.8] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭) - 강화된 버전
+            // [v26.0.12] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭) - PHP 인라인 스타일 통일 및 부모 요소 확인
             var tabContainers = document.querySelectorAll('.jj-tabs-container');
-            console.log('[JJ Command Center] Found', tabContainers.length, 'tab containers');
+            console.log('[JJ Command Center v26.0.12] Found', tabContainers.length, 'tab containers');
             
             tabContainers.forEach(function(container, containerIndex) {
                 var subTabs = container.querySelectorAll('.jj-tabs-nav .jj-tab-button');
@@ -608,7 +608,7 @@ class JJ_Simple_Style_Guide {
                 
                 console.log('[JJ Command Center] Container', containerIndex, ':', subTabs.length, 'tabs,', subContents.length, 'contents');
                 
-                // [v26.0.8] 초기화: 모든 탭 콘텐츠 숨기고, 활성 탭만 표시 (style.display로 강제)
+                // [v26.0.11] 초기화: 모든 탭 콘텐츠 숨기고, 활성 탭만 표시
                 if (subTabs.length > 0 && subContents.length > 0) {
                     var activeTabName = null;
                     
@@ -625,17 +625,53 @@ class JJ_Simple_Style_Guide {
                         subTabs[0].classList.add('is-active');
                     }
                     
-                    // [v26.0.9] 모든 탭 콘텐츠 강제 숨기기 + 활성 탭만 표시 (setProperty로 !important 오버라이드)
+                    // [v26.0.11] 모든 탭 콘텐츠 강제 숨기기 + 활성 탭만 표시
+                    // CSS 충돌 해결: setProperty + 클래스 추가 + 강제 리플로우 + 부모 요소 확인
                     subContents.forEach(function(content) {
                         var contentName = content.getAttribute('data-tab-content');
+                        
+                        // 부모 요소 상태 확인
+                        var parentSection = content.closest('.jj-section-wrapper');
+                        var parentGlobal = content.closest('.jj-section-global');
+                        var parentContainer = content.closest('.jj-tabs-container');
+                        
                         if (contentName === activeTabName) {
+                            // 활성 탭: 클래스 추가 + 인라인 스타일 + 강제 리플로우
                             content.classList.add('is-active');
                             content.style.setProperty('display', 'block', 'important');
                             content.style.setProperty('opacity', '1', 'important');
                             content.style.setProperty('visibility', 'visible', 'important');
                             content.style.setProperty('height', 'auto', 'important');
-                            console.log('[JJ Command Center] Initial tab shown:', contentName);
+                            content.style.setProperty('position', 'relative', 'important');
+                            content.style.setProperty('z-index', '1', 'important');
+                            content.style.setProperty('overflow', 'visible', 'important');
+                            
+                            // 부모 요소도 확인 및 수정
+                            if (parentSection) {
+                                parentSection.style.setProperty('display', 'block', 'important');
+                            }
+                            if (parentGlobal) {
+                                parentGlobal.style.setProperty('display', 'block', 'important');
+                            }
+                            if (parentContainer) {
+                                parentContainer.style.setProperty('display', 'block', 'important');
+                            }
+                            
+                            // 강제 리플로우로 브라우저에 변경사항 적용
+                            void content.offsetHeight;
+                            var computedDisplay = window.getComputedStyle(content).display;
+                            var computedVisibility = window.getComputedStyle(content).visibility;
+                            console.log('[JJ Command Center] Initial tab shown:', contentName, '- display:', computedDisplay, '- visibility:', computedVisibility);
+                            
+                            if (computedDisplay === 'none' || computedVisibility === 'hidden') {
+                                console.warn('[JJ Command Center] Warning: Tab content still hidden after activation! Parent states:', {
+                                    section: parentSection ? window.getComputedStyle(parentSection).display : 'N/A',
+                                    global: parentGlobal ? window.getComputedStyle(parentGlobal).display : 'N/A',
+                                    container: parentContainer ? window.getComputedStyle(parentContainer).display : 'N/A'
+                                });
+                            }
                         } else {
+                            // 비활성 탭: 클래스 제거 + 인라인 스타일
                             content.classList.remove('is-active');
                             content.style.setProperty('display', 'none', 'important');
                         }
@@ -652,13 +688,13 @@ class JJ_Simple_Style_Guide {
                         subTabs.forEach(function(t) { t.classList.remove('is-active'); });
                         this.classList.add('is-active');
                         
-                        // [v26.0.9] 모든 탭 콘텐츠 숨기기 (setProperty로 !important 오버라이드)
+                        // [v26.0.11] 모든 탭 콘텐츠 숨기기 (CSS 충돌 해결)
                         subContents.forEach(function(content) {
                             content.classList.remove('is-active');
                             content.style.setProperty('display', 'none', 'important');
                         });
                         
-                        // [v26.0.9] 타겟 탭 콘텐츠 표시 (setProperty로 !important 오버라이드)
+                        // [v26.0.11] 타겟 탭 콘텐츠 표시 (CSS 충돌 해결 + 강제 리플로우 + 부모 요소 확인)
                         var targetContent = container.querySelector('.jj-tab-content[data-tab-content="' + tabName + '"]');
                         if (targetContent) {
                             targetContent.classList.add('is-active');
@@ -666,7 +702,38 @@ class JJ_Simple_Style_Guide {
                             targetContent.style.setProperty('opacity', '1', 'important');
                             targetContent.style.setProperty('visibility', 'visible', 'important');
                             targetContent.style.setProperty('height', 'auto', 'important');
-                            console.log('[JJ Command Center] Sub-tab content activated:', tabName);
+                            targetContent.style.setProperty('position', 'relative', 'important');
+                            targetContent.style.setProperty('z-index', '1', 'important');
+                            targetContent.style.setProperty('overflow', 'visible', 'important');
+                            
+                            // 부모 요소도 확인 및 수정
+                            var parentSection = targetContent.closest('.jj-section-wrapper');
+                            var parentGlobal = targetContent.closest('.jj-section-global');
+                            var parentContainer = targetContent.closest('.jj-tabs-container');
+                            
+                            if (parentSection) {
+                                parentSection.style.setProperty('display', 'block', 'important');
+                            }
+                            if (parentGlobal) {
+                                parentGlobal.style.setProperty('display', 'block', 'important');
+                            }
+                            if (parentContainer) {
+                                parentContainer.style.setProperty('display', 'block', 'important');
+                            }
+                            
+                            // 강제 리플로우로 브라우저에 변경사항 적용
+                            void targetContent.offsetHeight;
+                            var computedDisplay = window.getComputedStyle(targetContent).display;
+                            var computedVisibility = window.getComputedStyle(targetContent).visibility;
+                            console.log('[JJ Command Center] Sub-tab content activated:', tabName, '- display:', computedDisplay, '- visibility:', computedVisibility);
+                            
+                            if (computedDisplay === 'none' || computedVisibility === 'hidden') {
+                                console.warn('[JJ Command Center] Warning: Tab content still hidden after activation! Parent states:', {
+                                    section: parentSection ? window.getComputedStyle(parentSection).display : 'N/A',
+                                    global: parentGlobal ? window.getComputedStyle(parentGlobal).display : 'N/A',
+                                    container: parentContainer ? window.getComputedStyle(parentContainer).display : 'N/A'
+                                });
+                            }
                         } else {
                             console.error('[JJ Command Center] Sub-tab content not found:', tabName);
                         }

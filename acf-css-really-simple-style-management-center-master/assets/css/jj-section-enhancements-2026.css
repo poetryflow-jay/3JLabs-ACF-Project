@@ -334,15 +334,10 @@
    Compatibility Layer
    =========================== */
 
-/* Ensure existing classes don't break */
-.jj-section-global .jj-tab-content {
-    display: none;
-    animation: jj-fade-in 0.3s ease-in-out;
-}
-
-.jj-section-global .jj-tab-content.is-active {
-    display: block;
-}
+/* [v26.0.11] 탭 콘텐츠 표시 규칙 - jj-ui-system-2026.css와 통합하여 충돌 제거 */
+/* 이전 규칙은 HTML 구조와 맞지 않았고, jj-ui-system-2026.css의 !important 규칙과 충돌 */
+/* 실제 HTML 구조: .jj-section-wrapper > .jj-tabs-container > .jj-tab-content */
+/* 따라서 jj-ui-system-2026.css의 규칙이 우선 적용되도록 이 규칙 제거 */
 
 /* Legacy support */
 .jj-tabs-container .jj-tabs-nav button {
