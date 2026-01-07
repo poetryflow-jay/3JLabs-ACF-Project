@@ -422,31 +422,57 @@ class JJ_Simple_Style_Guide {
                             ?>
                             <script>
                             (function() {
-                                var tabs = document.querySelectorAll('.jj-tab-btn');
-                                var contents = document.querySelectorAll('.jj-tab-content');
+                                // [v25.4.6] 메인 탭 시스템 (팔레트/타이포/버튼/폼/필드)
+                                var mainTabs = document.querySelectorAll('.jj-css-tabs > .jj-tabs-nav > .jj-tab-btn');
+                                var mainContents = document.querySelectorAll('.jj-css-tabs > .jj-tab-content');
                                 
-                                tabs.forEach(function(tab) {
+                                mainTabs.forEach(function(tab) {
                                     tab.addEventListener('click', function() {
                                         var targetId = this.getAttribute('data-target');
                                         
-                                        // 모든 콘텐츠 숨기기
-                                        contents.forEach(function(content) {
+                                        mainContents.forEach(function(content) {
                                             content.style.display = 'none';
                                         });
                                         
-                                        // 선택된 콘텐츠 표시
                                         var target = document.getElementById(targetId);
                                         if (target) {
                                             target.style.display = 'block';
                                         }
                                         
-                                        // 모든 탭 비활성화
-                                        tabs.forEach(function(t) {
+                                        mainTabs.forEach(function(t) {
                                             t.classList.remove('active');
                                         });
                                         
-                                        // 현재 탭 활성화
                                         this.classList.add('active');
+                                    });
+                                });
+                                
+                                // [v25.4.6] 서브 탭 시스템 (각 섹션 내부의 탭들)
+                                document.querySelectorAll('.jj-tabs-container').forEach(function(container) {
+                                    var subTabs = container.querySelectorAll('.jj-tabs-nav .jj-tab-button');
+                                    var subContents = container.querySelectorAll('.jj-tab-content');
+                                    
+                                    subTabs.forEach(function(tab) {
+                                        tab.addEventListener('click', function() {
+                                            var tabName = this.getAttribute('data-tab');
+                                            
+                                            subContents.forEach(function(content) {
+                                                content.classList.remove('is-active');
+                                                content.style.display = 'none';
+                                            });
+                                            
+                                            var targetContent = container.querySelector('.jj-tab-content[data-tab-content="' + tabName + '"]');
+                                            if (targetContent) {
+                                                targetContent.classList.add('is-active');
+                                                targetContent.style.display = 'block';
+                                            }
+                                            
+                                            subTabs.forEach(function(t) {
+                                                t.classList.remove('is-active');
+                                            });
+                                            
+                                            this.classList.add('is-active');
+                                        });
                                     });
                                 });
                             })();

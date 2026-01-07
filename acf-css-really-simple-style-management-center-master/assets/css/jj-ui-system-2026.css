@@ -726,17 +726,11 @@
 }
 
 /* ===========================
-   [v25.4.3] Pure CSS Tabs
-   No JavaScript Required
+   [v25.4.5] JavaScript Tabs
+   Button-based Tab System
    =========================== */
 .jj-css-tabs {
     position: relative;
-}
-
-.jj-css-tabs > .jj-tab-radio {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
 }
 
 .jj-css-tabs > .jj-tabs-nav {
@@ -751,7 +745,8 @@
     flex-wrap: wrap;
 }
 
-.jj-css-tabs > .jj-tabs-nav > .jj-tab-label {
+/* [v25.4.5] Button-based tabs */
+.jj-css-tabs > .jj-tabs-nav > .jj-tab-btn {
     padding: 12px 24px;
     cursor: pointer;
     font-size: 15px;
@@ -766,13 +761,18 @@
     user-select: none;
 }
 
-.jj-css-tabs > .jj-tabs-nav > .jj-tab-label:hover {
+.jj-css-tabs > .jj-tabs-nav > .jj-tab-btn:hover {
     color: #667eea;
     background: rgba(102, 126, 234, 0.05);
 }
 
+.jj-css-tabs > .jj-tabs-nav > .jj-tab-btn.active {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.08);
+    border-bottom-color: #667eea;
+}
+
 .jj-css-tabs > .jj-tab-content {
-    display: none;
     margin-bottom: 25px;
     padding: 25px;
     background: #fff;
@@ -791,24 +791,6 @@
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-#jj-tab-colors:checked ~ .jj-tabs-nav > label[for="jj-tab-colors"],
-#jj-tab-typography:checked ~ .jj-tabs-nav > label[for="jj-tab-typography"],
-#jj-tab-buttons:checked ~ .jj-tabs-nav > label[for="jj-tab-buttons"],
-#jj-tab-forms:checked ~ .jj-tabs-nav > label[for="jj-tab-forms"],
-#jj-tab-fields:checked ~ .jj-tabs-nav > label[for="jj-tab-fields"] {
-    color: #667eea;
-    background: rgba(102, 126, 234, 0.08);
-    border-bottom-color: #667eea;
-}
-
-#jj-tab-colors:checked ~ #jj-content-colors,
-#jj-tab-typography:checked ~ #jj-content-typography,
-#jj-tab-buttons:checked ~ #jj-content-buttons,
-#jj-tab-forms:checked ~ #jj-content-forms,
-#jj-tab-fields:checked ~ #jj-content-fields {
-    display: block;
 }
 
 .jj-css-tabs > .jj-tab-content.jj-card {
@@ -844,7 +826,7 @@
         gap: 2px;
     }
     
-    .jj-css-tabs > .jj-tabs-nav > .jj-tab-label {
+    .jj-css-tabs > .jj-tabs-nav > .jj-tab-btn {
         padding: 10px 14px;
         font-size: 13px;
         flex: 1 1 auto;
