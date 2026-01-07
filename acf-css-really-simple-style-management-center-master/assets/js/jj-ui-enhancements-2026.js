@@ -508,21 +508,31 @@
          * 환영 넛지 표시
          */
         showWelcomeNudge: function() {
-            // 첫 방문 시에만 표시
-            if (localStorage.getItem('jj_style_guide_welcome_shown')) {
+            // [v26.0.12] 디버그 모드: 항상 표시하도록 수정 (개발 중)
+            // 프로덕션에서는 아래 주석을 해제하고 이 블록을 제거하세요
+            var forceShow = false; // true로 설정하면 항상 표시
+            
+            // 첫 방문 시에만 표시 (forceShow가 false일 때)
+            if (!forceShow && localStorage.getItem('jj_style_guide_welcome_shown')) {
+                console.log('[JJ Welcome] 이미 표시됨 - localStorage에 기록되어 있음');
                 return;
             }
 
             setTimeout(function() {
+                console.log('[JJ Welcome] 웰컴 메시지 표시 시도...');
+                
                 if (typeof window.jjNudgeSystem !== 'undefined' && window.jjNudgeSystem.active_nudges) {
                     // 활성 넛지가 있으면 표시
+                    console.log('[JJ Welcome] jjNudgeSystem 사용');
                     window.jjNudgeSystem.active_nudges.forEach(function(nudge) {
                         if (nudge.id === 'welcome' && typeof JJNudge !== 'undefined') {
+                            console.log('[JJ Welcome] 넛지 표시:', nudge);
                             JJNudge.showNudge(nudge);
                         }
                     });
                 } else if (typeof JJNudge !== 'undefined') {
                     // 폴백: 직접 표시
+                    console.log('[JJ Welcome] JJNudge 직접 표시');
                     JJNudge.showNudge({
                         id: 'welcome',
                         type: 'info',
@@ -535,8 +545,13 @@
                             { label: '시작하기', action: 'dismiss' }
                         ]
                     });
+                } else {
+                    console.error('[JJ Welcome] JJNudge가 정의되지 않음 - 웰컴 메시지를 표시할 수 없습니다');
                 }
-                localStorage.setItem('jj_style_guide_welcome_shown', 'true');
+                
+                if (!forceShow) {
+                    localStorage.setItem('jj_style_guide_welcome_shown', 'true');
+                }
             }, 1500);
         }
     };

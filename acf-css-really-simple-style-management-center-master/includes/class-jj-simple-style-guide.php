@@ -6,7 +6,7 @@
  * 옵션 관리, 스타일 적용, 프론트엔드/백엔드 통합을 담당합니다.
  * 
  * @package ACF_CSS_Style_Guide
- * @version 26.0.12
+ * @version 26.0.13
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -529,7 +529,7 @@ class JJ_Simple_Style_Guide {
         
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('[JJ Command Center v26.0.12] Initializing...');
+            console.log('[JJ Command Center v26.0.13] Initializing...');
             
             // [v26.0.1] 메인 네비게이션 (사이드바) - 향상된 버전
             var navItems = document.querySelectorAll('.jj-cc-nav-item');
@@ -537,13 +537,27 @@ class JJ_Simple_Style_Guide {
             
             console.log('[JJ Command Center] Found', navItems.length, 'nav items,', sections.length, 'sections');
             
-            // [v26.0.9] 초기화: 첫 번째 섹션만 표시 (setProperty로 !important 오버라이드)
+            // [v26.0.13] 초기화: 첫 번째 섹션만 표시 (setProperty로 !important 오버라이드) + 강화된 디버깅
             sections.forEach(function(sec, index) {
                 if (index === 0) {
                     sec.classList.add('active');
                     sec.style.setProperty('display', 'block', 'important');
                     sec.style.setProperty('opacity', '1', 'important');
                     sec.style.setProperty('visibility', 'visible', 'important');
+                    
+                    // [v26.0.12] 디버깅: 실제 적용된 스타일 확인
+                    var computedDisplay = window.getComputedStyle(sec).display;
+                    console.log('[JJ Command Center v26.0.13] 첫 번째 섹션 초기화:', {
+                        id: sec.id,
+                        hasActiveClass: sec.classList.contains('active'),
+                        inlineDisplay: sec.style.display,
+                        computedDisplay: computedDisplay,
+                        isVisible: computedDisplay !== 'none'
+                    });
+                    
+                    if (computedDisplay === 'none') {
+                        console.error('[JJ Command Center] ⚠️ 경고: 첫 번째 섹션이 여전히 숨겨져 있습니다!', sec);
+                    }
                 } else {
                     sec.classList.remove('active');
                     sec.style.setProperty('display', 'none', 'important');
@@ -598,9 +612,9 @@ class JJ_Simple_Style_Guide {
                 });
             });
             
-            // [v26.0.12] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭) - PHP 인라인 스타일 통일 및 부모 요소 확인
+            // [v26.0.13] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭) - PHP 인라인 스타일 통일 및 부모 요소 확인
             var tabContainers = document.querySelectorAll('.jj-tabs-container');
-            console.log('[JJ Command Center v26.0.12] Found', tabContainers.length, 'tab containers');
+            console.log('[JJ Command Center v26.0.13] Found', tabContainers.length, 'tab containers');
             
             tabContainers.forEach(function(container, containerIndex) {
                 var subTabs = container.querySelectorAll('.jj-tabs-nav .jj-tab-button');
