@@ -8,7 +8,7 @@
     "edition": "master",
     "version": "22.5.1"
   },
-  "_updated_at": "2026-01-06T16:20:47.918181",
+  "_updated_at": "2026-01-07T09:02:21.918283",
   "_version": "1.0.0",
   "wp-bulk-manager-master-v22.5.2.zip": {
     "signature": "69fb2d0d6f051bd708632466fbc08622024ca2ef17d5d7c590dcb5fc346a28dc",
@@ -550,7 +550,7 @@
     "signature": "232798b49f2e02f50a2231eeb616a12eb0fe3cb19d7f0697c4ac50398f4cd07b",
     "md5": "5942f4d33ecdaf511a745b9ead329ed4",
     "size": 157330,
-    "generated_at": "2026-01-06T16:20:47.816590",
+    "generated_at": "2026-01-07T05:26:26.519849",
     "plugin_id": "wp-1-click-seo-pro",
     "edition": "master",
     "version": "2.1.0"
@@ -653,5 +653,131 @@
     "plugin_id": "jj-analytics-dashboard",
     "edition": "master",
     "version": "1.1.0"
+  },
+  "acf-nudge-flow-master-v23.0.1.zip": {
+    "signature": "ff0d49a77fe3026591a6e2993ed0ec4acb132fe382018900661fcf0200ac9f49",
+    "md5": "8ec7c911a7ff68c8b8aa5ee1a6328259",
+    "size": 711184,
+    "generated_at": "2026-01-06T17:46:41.059405",
+    "plugin_id": "acf-nudge-flow",
+    "edition": "master",
+    "version": "23.0.1"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.3.1.zip": {
+    "signature": "7b238f00b45a73e6b0432f5baacf71c44d47c97d21d70608a4a76464b1ff1280",
+    "md5": "0f0a3e60a8cb2f569ab06ad2b6852fdf",
+    "size": 998924,
+    "generated_at": "2026-01-06T23:43:27.106425",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.3.1"
+  },
+  "wp-bulk-manager-master-v23.4.1.zip": {
+    "signature": "25fb39e44f2bbb5aa84ac27da7f968873270a57e889c7e53ab11120ff1a1b5b2",
+    "md5": "f5d5021ac58454293ed424db50df9f2e",
+    "size": 54110,
+    "generated_at": "2026-01-06T22:40:55.808393",
+    "plugin_id": "wp-bulk-manager",
+    "edition": "master",
+    "version": "23.4.1"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.3.2.zip": {
+    "signature": "670012d1eefd2183839e8833af47c63adfa251d2bca478094bcb5289d8fd5c15",
+    "md5": "78bd3286c7296a1650bb80b0a8edf9eb",
+    "size": 998925,
+    "generated_at": "2026-01-06T23:44:11.427449",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.3.2"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.3.3.zip": {
+    "signature": "709265311b9e171f6fbf2b34abd6768f540e337d1256b9252f9f7ea74daceb8e",
+    "md5": "38304023678f0b5a334d52c50a3f5714",
+    "size": 1000816,
+    "generated_at": "2026-01-07T00:22:35.604235",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.3.3"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.3.4.zip": {
+    "signature": "23fa21a0dd5962395852f93322b185cc05fa94fc114042a5d5bb27fd2f99bbb3",
+    "md5": "d055a581c3a0953699439eac16c9e894",
+    "size": 1001075,
+    "generated_at": "2026-01-07T05:21:05.285713",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.3.4"
+  },
+  "oneclick-seo-pro-master-v2.1.0.zip": {
+    "signature": "a35ba84cb6a4d92c25357f5fed590c102eba00b1bfcf8cb6607b717b79477d9b",
+    "md5": "0b7422046f33ac7ea5de171de2a564c2",
+    "size": 157235,
+    "generated_at": "2026-01-07T05:30:29.513255",
+    "plugin_id": "wp-1-click-seo-pro",
+    "edition": "master",
+    "version": "2.1.0"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.4.0.zip": {
+    "signature": "b82025ee15d105f5a9de01696c9106c9138f50a4849c87a2a9ed575a53a7c6d7",
+    "md5": "42b64d3587132379a30e2330c4bfba1c",
+    "size": 998289,
+    "generated_at": "2026-01-07T05:53:53.366519",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.4.0"
+  },
+  "oneclick-seo-pro-v2.1.0.zip": {
+    "signature": "f61685673ab0aef45eb1e187579c11266b1794fdbf0df52d391ea0a58b31da7e",
+    "md5": "dd687816474aa106dafc3650fba7ba74",
+    "size": 157083,
+    "generated_at": "2026-01-07T06:29:47.254586",
+    "plugin_id": "wp-1-click-seo-pro",
+    "edition": "master",
+    "version": "2.1.0"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.4.1.zip": {
+    "signature": "b8d43017e2de8879562b3bc5980336a732e2415033b9f7b6d913cae828283205",
+    "md5": "a6483ec3da67cd631e50dc1243ebdb53",
+    "size": 998897,
+    "generated_at": "2026-01-07T06:46:36.132130",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.4.1"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.4.2.zip": {
+    "signature": "7a612fbd20e244a74f67017f24e87a130667d0dadf68eecfcb28c42cab9c5a3e",
+    "md5": "fd5a9235fab4595f5ec1bc548cd3e958",
+    "size": 998898,
+    "generated_at": "2026-01-07T06:57:12.896172",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.4.2"
+  },
+  "acf-mail-smtp-master-v2.3.1.zip": {
+    "signature": "b2dc67edeb9b355627f3c1c44a478f1f9157e96753c49c33de651ac6546acb74",
+    "md5": "6579cf805cacdfd5009da530ca3d1af0",
+    "size": 87976,
+    "generated_at": "2026-01-07T06:57:12.958012",
+    "plugin_id": "acf-mail-smtp",
+    "edition": "master",
+    "version": "2.3.1"
+  },
+  "acf-user-journey-analytics-master-v1.0.4.zip": {
+    "signature": "803634056f919d9a727251194a3920a97dbf5b02ab60fcc5f95f1ca057a3a2b6",
+    "md5": "318a2e6ae7060c5310044ce0df6c4a4d",
+    "size": 38407,
+    "generated_at": "2026-01-07T07:54:13.559833",
+    "plugin_id": "acf-user-journey-analytics",
+    "edition": "master",
+    "version": "1.0.4"
+  },
+  "acf-css-really-simple-style-management-center-master-master-v25.4.3.zip": {
+    "signature": "23531325ac27794a8d1ee87ba726b438eb2f7665611b03a88377e4491275a784",
+    "md5": "329085f5c8f508d76f947daae5bdce76",
+    "size": 1000497,
+    "generated_at": "2026-01-07T09:02:21.917956",
+    "plugin_id": "acf-css-manager",
+    "edition": "master",
+    "version": "25.4.3"
   }
 }

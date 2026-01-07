@@ -296,7 +296,7 @@ class JJ_Simple_Style_Guide {
                         </div>
                         <?php
                         // [v22.1.2] 저장된 섹션 레이아웃 순서대로 렌더링 (안전한 처리)
-                        // [v23.0.6] 기본 레이아웃 정의 + 조건부 탭 추가
+                        // [v23.0.2] 기본 레이아웃 정의 (항상 폴백으로 사용)
                         $default_layout = array(
                             'colors' => array( 'label' => '1. 팔레트 시스템', 'enabled' => 1, 'order' => 10 ),
                             'typography' => array( 'label' => '2. 타이포그래피', 'enabled' => 1, 'order' => 20 ),
@@ -304,28 +304,6 @@ class JJ_Simple_Style_Guide {
                             'forms' => array( 'label' => '4. 폼', 'enabled' => 1, 'order' => 40 ),
                             'fields' => array( 'label' => '5. 필드', 'enabled' => 1, 'order' => 50 ),
                         );
-
-                        // [v23.0.6] 조건부 탭 - 해당 플러그인이 활성화된 경우에만 추가
-                        // WooCommerce
-                        if ( class_exists( 'WooCommerce' ) ) {
-                            $default_layout['woocommerce'] = array( 'label' => '6. 우커머스', 'enabled' => 1, 'order' => 60 );
-                        }
-                        // LearnDash
-                        if ( defined( 'LEARNDASH_VERSION' ) || class_exists( 'SFWD_LMS' ) ) {
-                            $default_layout['learndash'] = array( 'label' => '7. 런대시', 'enabled' => 1, 'order' => 70 );
-                        }
-                        // Ultimate Member
-                        if ( class_exists( 'UM' ) || defined( 'um_path' ) ) {
-                            $default_layout['ultimate-member'] = array( 'label' => '8. 얼티밋 멤버', 'enabled' => 1, 'order' => 80 );
-                        }
-                        // Fluent Community
-                        if ( defined( 'JESGPT_VERSION' ) || class_exists( 'FluentCommunity\App\App' ) || defined( 'JESGPT_DIR' ) ) {
-                            $default_layout['fluent-community'] = array( 'label' => '9. 플루언트 커뮤니티', 'enabled' => 1, 'order' => 90 );
-                        }
-                        // BuddyPress
-                        if ( class_exists( 'BuddyPress' ) || function_exists( 'buddypress' ) ) {
-                            $default_layout['buddypress'] = array( 'label' => '10. 버디프레스', 'enabled' => 1, 'order' => 100 );
-                        }
 
                         $layout = array();
                         try {
@@ -361,12 +339,6 @@ class JJ_Simple_Style_Guide {
                             'forms'         => 'includes/editor-views/view-section-forms.php',
                             'fields'        => 'includes/editor-views/view-section-fields.php',
                             'temp-palette'  => 'includes/editor-views/view-section-temp-palette.php',
-                            // [v23.0.6] 조건부 플러그인 섹션
-                            'woocommerce'       => 'includes/editor-views/view-section-woocommerce.php',
-                            'learndash'         => 'includes/editor-views/view-section-learndash.php',
-                            'ultimate-member'   => 'includes/editor-views/view-section-ultimate-member.php',
-                            'fluent-community'  => 'includes/editor-views/view-section-fluent-community.php',
-                            'buddypress'        => 'includes/editor-views/view-section-buddypress.php',
                         );
 
                         // [v23.0.2] 탭 네비게이션 생성 - enabled 체크 개선 (0, false, '' 모두 처리)
@@ -402,12 +374,6 @@ class JJ_Simple_Style_Guide {
                                     'buttons' => '3. 버튼',
                                     'forms' => '4. 폼',
                                     'fields' => '5. 필드',
-                                    // [v23.0.6] 조건부 플러그인 탭
-                                    'woocommerce' => '6. 우커머스',
-                                    'learndash' => '7. 런대시',
-                                    'ultimate-member' => '8. 얼티밋 멤버',
-                                    'fluent-community' => '9. 플루언트 커뮤니티',
-                                    'buddypress' => '10. 버디프레스',
                                 );
                                 $label = isset( $meta['label'] ) ? $meta['label'] : ( isset( $label_map[ $slug ] ) ? $label_map[ $slug ] : ucfirst( $slug ) );
                                 $active_class = $first_tab ? ' jj-tab-active' : '';
@@ -516,7 +482,7 @@ class JJ_Simple_Style_Guide {
                     </div>
                     <div style="display: flex; align-items: center; gap: 15px;">
                         <span class="spinner" style="float: none; margin: 0; display: none;"></span>
-                        <button type="button" class="jj-btn-primary button-large" id="jj-save-style-guide" style="padding: 12px 30px; font-size: 15px; font-weight: 600; border-radius: 8px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); cursor: pointer;">
+                        <button type="button" class="jj-btn-primary button-large" id="jj-save-style-guide" style="padding: 12px 30px; font-size: 15px; font-weight: 600; border-radius: 8px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
                             <span class="dashicons dashicons-yes-alt" style="margin-top: 4px;"></span> <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
                         </button>
                     </div>

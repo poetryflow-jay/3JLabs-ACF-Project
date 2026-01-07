@@ -390,36 +390,49 @@
             return;
         }
 
-        // [v6.3.0] 탭 전환 공통 함수
+        // [v25.4.0] 탭 전환 공통 함수 - 개선된 버전
         function switchTab(tabId) {
+            if (!tabId) {
+                console.warn('[JJ Admin Center] switchTab: tabId is empty');
+                return;
+            }
+            
+            // 모든 탭 네비게이션 버튼에서 active 클래스 제거
             $wrap.find('.jj-admin-center-tabs li').removeClass('active');
             $wrap.find('.jj-admin-center-tabs li[data-tab="' + tabId + '"]').addClass('active');
             
+            // 사이드바 네비게이션에서 active 클래스 제거/추가
             $wrap.find('.jj-admin-center-sidebar-nav a').removeClass('active');
             $wrap.find('.jj-admin-center-sidebar-nav a[data-tab="' + tabId + '"]').addClass('active');
 
+            // 탭 콘텐츠 전환
             $wrap.find('.jj-admin-center-tab-content').removeClass('active');
-            $wrap.find('.jj-admin-center-tab-content[data-tab="' + tabId + '"]').addClass('active');
+            var $targetTab = $wrap.find('.jj-admin-center-tab-content[data-tab="' + tabId + '"]');
+            if ($targetTab.length) {
+                $targetTab.addClass('active');
+            } else {
+                console.warn('[JJ Admin Center] Tab content not found for:', tabId);
+            }
             
+            // URL 해시 업데이트
             if (history.pushState) {
                 history.pushState(null, null, '#' + tabId);
             } else {
                 window.location.hash = tabId;
             }
-        }
-
-        $wrap.on('click', '.jj-admin-center-tabs a', function(e) {
-            e.preventDefault();
-            const $tab = $(this).closest('li');
-            const tabId = $tab.data('tab');
-            switchTab(tabId);
             
+            // 탭별 초기화 작업
+            handleTabSpecificInit(tabId);
+        }
+        
+        // [v25.4.0] 탭별 초기화 작업 분리
+        function handleTabSpecificInit(tabId) {
             if (tabId === 'admin-menu') {
-                let tabInitRetryCount = 0;
-                const tabInitMaxRetries = 10;
-                const initSortableOnTabSwitch = function() {
-                    const $menuList = $wrap.find('.jj-admin-center-menu-list');
-                    const hasMenuItems = $menuList.length && $menuList.find('.jj-admin-center-menu-item').length > 0;
+                var tabInitRetryCount = 0;
+                var tabInitMaxRetries = 10;
+                var initSortableOnTabSwitch = function() {
+                    var $menuList = $wrap.find('.jj-admin-center-menu-list');
+                    var hasMenuItems = $menuList.length && $menuList.find('.jj-admin-center-menu-item').length > 0;
                     
                     if ($.fn.sortable && hasMenuItems) {
                         requestAnimationFrame(function() {
@@ -441,6 +454,27 @@
                     loadPaletteChips(); 
                     initColorHistory(); 
                 }, 200);
+            }
+        }
+
+        // [v25.4.0] 탭 클릭 이벤트 - 상단 탭 네비게이션
+        $wrap.on('click', '.jj-admin-center-tabs li', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var tabId = $(this).data('tab') || $(this).attr('data-tab');
+            if (tabId) {
+                switchTab(tabId);
+            }
+        });
+        
+        // 탭 내 앵커 클릭도 처리
+        $wrap.on('click', '.jj-admin-center-tabs a', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $tab = $(this).closest('li');
+            var tabId = $tab.data('tab') || $tab.attr('data-tab');
+            if (tabId) {
+                switchTab(tabId);
             }
         });
 
@@ -1757,26 +1791,28 @@
         });
 
         initializeSortable();
+        
         $wrap.on('click', '.jj-admin-center-sidebar-nav a', function(e) {
             e.preventDefault();
-            switchTab($(this).data('tab'));
+            e.stopPropagation();
+            var tabId = $(this).data('tab') || $(this).attr('data-tab');
+            if (tabId) {
+                switchTab(tabId);
+            }
         });
 
         $wrap.on('click', '.jj-sidebar-toggle', function() {
             $('.jj-admin-center-sidebar').toggleClass('jj-sidebar-open');
         });
 
-        // [v13.4.3] 초기 탭 활성화 - URL 해시 또는 기본 탭
         (function initActiveTab() {
             var hash = window.location.hash ? window.location.hash.substring(1) : '';
             var validTabs = ['general', 'admin-menu', 'section-layout', 'texts', 'colors', 'visual', 'cloud', 'backup', 'tools', 'figma', 'updates', 'license', 'system-status'];
             
-            // 현재 활성화된 탭이 없는 경우에만 초기화
             if (!$wrap.find('.jj-admin-center-tab-content.active').length) {
                 var targetTab = (hash && validTabs.indexOf(hash) !== -1) ? hash : 'general';
                 switchTab(targetTab);
             } else if (hash && validTabs.indexOf(hash) !== -1) {
-                // URL 해시가 있으면 해당 탭으로 전환
                 switchTab(hash);
             }
         })();

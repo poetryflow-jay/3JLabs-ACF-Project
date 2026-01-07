@@ -1889,7 +1889,7 @@ jQuery(document).ready(function($) {
         // 탭이 있는지 확인
         var $tabsWrapper = $('.jj-sections-tabs-wrapper');
         var $tabButtons = $('.jj-section-tab-button');
-        var $tabContents = $('.jj-section-wrapper[data-section]');
+        var $tabContents = $('.jj-section-wrapper.jj-section-tab-content');
         
         // 탭이 없으면 초기화하지 않음
         if ($tabButtons.length === 0 || $tabContents.length === 0) {
@@ -1898,9 +1898,7 @@ jQuery(document).ready(function($) {
         }
         
         // 모든 탭 콘텐츠 숨기기 (클래스와 인라인 스타일 모두 처리)
-        $tabContents.each(function() {
-            $(this).addClass('jj-section-tab-content jj-section-hidden').removeClass('jj-section-visible').css('display', 'none');
-        });
+        $tabContents.hide().removeClass('jj-section-visible').addClass('jj-section-hidden').css('display', 'none');
         
         // 첫 번째 탭 버튼 자동 활성화
         var $firstTab = $tabButtons.first();
@@ -1971,18 +1969,13 @@ jQuery(document).ready(function($) {
     }
     
     // [v23.0.3] 페이지 로드 시 탭 초기화 개선
-    // DOM이 완전히 로드된 후 탭 초기화 (즉시 실행)
-    setTimeout(function() {
-        initSectionTabs();
-    }, 100);
-
-    // window.onload에서도 초기화 (이미지 등 모든 리소스 로드 후)
-    $(window).on('load', function() {
+    $(document).ready(function() {
+        // DOM이 완전히 로드된 후 탭 초기화
         setTimeout(function() {
             initSectionTabs();
-        }, 200);
+        }, 100);
     });
-
+    
     // AJAX 콘텐츠 로드 후에도 탭 초기화
     $(document).on('jj-style-guide-content-loaded', function() {
         setTimeout(function() {
@@ -2018,7 +2011,7 @@ jQuery(document).ready(function($) {
         });
         
         // 모든 섹션 콘텐츠 숨기기 (인라인 스타일과 클래스 모두 처리)
-        $('.jj-section-wrapper[data-section]')
+        $('.jj-section-wrapper.jj-section-tab-content')
             .hide()
             .removeClass('jj-section-visible')
             .addClass('jj-section-hidden')
