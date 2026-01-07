@@ -6,7 +6,7 @@
  * 옵션 관리, 스타일 적용, 프론트엔드/백엔드 통합을 담당합니다.
  * 
  * @package ACF_CSS_Style_Guide
- * @version 26.0.14
+ * @version 26.0.15
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -565,13 +565,20 @@ class JJ_Simple_Style_Guide {
         
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('[JJ Command Center v26.0.15] Initializing...');
+            // [v26.0.15] 디버그 모드 설정: URL 파라미터 또는 localStorage로 제어
+            window.jjDebugMode = window.jjDebugMode || (new URLSearchParams(window.location.search).get('jj_debug') === '1') || localStorage.getItem('jj_debug_mode') === 'true';
+            
+            if (window.jjDebugMode) {
+                console.log('[JJ Command Center v26.0.15] Initializing... (Debug Mode ON)');
+            }
             
             // [v26.0.1] 메인 네비게이션 (사이드바) - 향상된 버전
             var navItems = document.querySelectorAll('.jj-cc-nav-item');
             var sections = document.querySelectorAll('.jj-section-wrapper');
             
-            console.log('[JJ Command Center] Found', navItems.length, 'nav items,', sections.length, 'sections');
+            if (window.jjDebugMode) {
+                console.log('[JJ Command Center] Found', navItems.length, 'nav items,', sections.length, 'sections');
+            }
             
             // [v26.0.13] 초기화: 첫 번째 섹션만 표시 (setProperty로 !important 오버라이드) + 강화된 디버깅
             sections.forEach(function(sec, index) {
@@ -581,18 +588,20 @@ class JJ_Simple_Style_Guide {
                     sec.style.setProperty('opacity', '1', 'important');
                     sec.style.setProperty('visibility', 'visible', 'important');
                     
-                    // [v26.0.12] 디버깅: 실제 적용된 스타일 확인
-                    var computedDisplay = window.getComputedStyle(sec).display;
-                    console.log('[JJ Command Center v26.0.14] 첫 번째 섹션 초기화:', {
-                        id: sec.id,
-                        hasActiveClass: sec.classList.contains('active'),
-                        inlineDisplay: sec.style.display,
-                        computedDisplay: computedDisplay,
-                        isVisible: computedDisplay !== 'none'
-                    });
-                    
-                    if (computedDisplay === 'none') {
-                        console.error('[JJ Command Center] ⚠️ 경고: 첫 번째 섹션이 여전히 숨겨져 있습니다!', sec);
+                    // [v26.0.15] 디버깅: 실제 적용된 스타일 확인 (개발 모드에서만)
+                    if (window.jjDebugMode) {
+                        var computedDisplay = window.getComputedStyle(sec).display;
+                        console.log('[JJ Command Center v26.0.15] 첫 번째 섹션 초기화:', {
+                            id: sec.id,
+                            hasActiveClass: sec.classList.contains('active'),
+                            inlineDisplay: sec.style.display,
+                            computedDisplay: computedDisplay,
+                            isVisible: computedDisplay !== 'none'
+                        });
+                        
+                        if (computedDisplay === 'none') {
+                            console.error('[JJ Command Center] ⚠️ 경고: 첫 번째 섹션이 여전히 숨겨져 있습니다!', sec);
+                        }
                     }
                 } else {
                     sec.classList.remove('active');
@@ -604,7 +613,9 @@ class JJ_Simple_Style_Guide {
             navItems.forEach(function(item) {
                 item.addEventListener('click', function() {
                     var targetId = this.getAttribute('data-target');
-                    console.log('[JJ Command Center] Nav clicked, target:', targetId);
+                    if (window.jjDebugMode) {
+                        console.log('[JJ Command Center] Nav clicked, target:', targetId);
+                    }
                     
                     // 모든 네비게이션 비활성화
                     navItems.forEach(function(nav) { nav.classList.remove('active'); });
@@ -623,7 +634,9 @@ class JJ_Simple_Style_Guide {
                         targetSection.style.setProperty('display', 'block', 'important');
                         targetSection.style.setProperty('opacity', '1', 'important');
                         targetSection.style.setProperty('visibility', 'visible', 'important');
-                        console.log('[JJ Command Center] Section activated:', targetId);
+                        if (window.jjDebugMode) {
+                            console.log('[JJ Command Center] Section activated:', targetId);
+                        }
                         
                         // 스크롤 초기화
                         var contentArea = document.querySelector('.jj-cc-content-area');
@@ -648,15 +661,19 @@ class JJ_Simple_Style_Guide {
                 });
             });
             
-            // [v26.0.13] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭) - PHP 인라인 스타일 통일 및 부모 요소 확인
+            // [v26.0.15] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭) - PHP 인라인 스타일 통일 및 부모 요소 확인
             var tabContainers = document.querySelectorAll('.jj-tabs-container');
-            console.log('[JJ Command Center v26.0.13] Found', tabContainers.length, 'tab containers');
+            if (window.jjDebugMode) {
+                console.log('[JJ Command Center v26.0.15] Found', tabContainers.length, 'tab containers');
+            }
             
             tabContainers.forEach(function(container, containerIndex) {
                 var subTabs = container.querySelectorAll('.jj-tabs-nav .jj-tab-button');
                 var subContents = container.querySelectorAll('.jj-tab-content');
                 
-                console.log('[JJ Command Center] Container', containerIndex, ':', subTabs.length, 'tabs,', subContents.length, 'contents');
+                if (window.jjDebugMode) {
+                    console.log('[JJ Command Center] Container', containerIndex, ':', subTabs.length, 'tabs,', subContents.length, 'contents');
+                }
                 
                 // [v26.0.11] 초기화: 모든 탭 콘텐츠 숨기고, 활성 탭만 표시
                 if (subTabs.length > 0 && subContents.length > 0) {
@@ -709,16 +726,20 @@ class JJ_Simple_Style_Guide {
                             
                             // 강제 리플로우로 브라우저에 변경사항 적용
                             void content.offsetHeight;
-                            var computedDisplay = window.getComputedStyle(content).display;
-                            var computedVisibility = window.getComputedStyle(content).visibility;
-                            console.log('[JJ Command Center] Initial tab shown:', contentName, '- display:', computedDisplay, '- visibility:', computedVisibility);
                             
-                            if (computedDisplay === 'none' || computedVisibility === 'hidden') {
-                                console.warn('[JJ Command Center] Warning: Tab content still hidden after activation! Parent states:', {
-                                    section: parentSection ? window.getComputedStyle(parentSection).display : 'N/A',
-                                    global: parentGlobal ? window.getComputedStyle(parentGlobal).display : 'N/A',
-                                    container: parentContainer ? window.getComputedStyle(parentContainer).display : 'N/A'
-                                });
+                            // [v26.0.15] 디버그 모드에서만 상세 로그 출력
+                            if (window.jjDebugMode) {
+                                var computedDisplay = window.getComputedStyle(content).display;
+                                var computedVisibility = window.getComputedStyle(content).visibility;
+                                console.log('[JJ Command Center] Initial tab shown:', contentName, '- display:', computedDisplay, '- visibility:', computedVisibility);
+                                
+                                if (computedDisplay === 'none' || computedVisibility === 'hidden') {
+                                    console.warn('[JJ Command Center] Warning: Tab content still hidden after activation! Parent states:', {
+                                        section: parentSection ? window.getComputedStyle(parentSection).display : 'N/A',
+                                        global: parentGlobal ? window.getComputedStyle(parentGlobal).display : 'N/A',
+                                        container: parentContainer ? window.getComputedStyle(parentContainer).display : 'N/A'
+                                    });
+                                }
                             }
                         } else {
                             // 비활성 탭: 클래스 제거 + 인라인 스타일
@@ -732,7 +753,9 @@ class JJ_Simple_Style_Guide {
                     tab.addEventListener('click', function(e) {
                         e.preventDefault();
                         var tabName = this.getAttribute('data-tab');
-                        console.log('[JJ Command Center] Sub-tab clicked:', tabName);
+                        if (window.jjDebugMode) {
+                            console.log('[JJ Command Center] Sub-tab clicked:', tabName);
+                        }
                         
                         // 모든 탭 버튼 비활성화
                         subTabs.forEach(function(t) { t.classList.remove('is-active'); });
@@ -773,16 +796,20 @@ class JJ_Simple_Style_Guide {
                             
                             // 강제 리플로우로 브라우저에 변경사항 적용
                             void targetContent.offsetHeight;
-                            var computedDisplay = window.getComputedStyle(targetContent).display;
-                            var computedVisibility = window.getComputedStyle(targetContent).visibility;
-                            console.log('[JJ Command Center] Sub-tab content activated:', tabName, '- display:', computedDisplay, '- visibility:', computedVisibility);
                             
-                            if (computedDisplay === 'none' || computedVisibility === 'hidden') {
-                                console.warn('[JJ Command Center] Warning: Tab content still hidden after activation! Parent states:', {
-                                    section: parentSection ? window.getComputedStyle(parentSection).display : 'N/A',
-                                    global: parentGlobal ? window.getComputedStyle(parentGlobal).display : 'N/A',
-                                    container: parentContainer ? window.getComputedStyle(parentContainer).display : 'N/A'
-                                });
+                            // [v26.0.15] 디버그 모드에서만 상세 로그 출력
+                            if (window.jjDebugMode) {
+                                var computedDisplay = window.getComputedStyle(targetContent).display;
+                                var computedVisibility = window.getComputedStyle(targetContent).visibility;
+                                console.log('[JJ Command Center] Sub-tab content activated:', tabName, '- display:', computedDisplay, '- visibility:', computedVisibility);
+                                
+                                if (computedDisplay === 'none' || computedVisibility === 'hidden') {
+                                    console.warn('[JJ Command Center] Warning: Tab content still hidden after activation! Parent states:', {
+                                        section: parentSection ? window.getComputedStyle(parentSection).display : 'N/A',
+                                        global: parentGlobal ? window.getComputedStyle(parentGlobal).display : 'N/A',
+                                        container: parentContainer ? window.getComputedStyle(parentContainer).display : 'N/A'
+                                    });
+                                }
                             }
                         } else {
                             console.error('[JJ Command Center] Sub-tab content not found:', tabName);
@@ -791,7 +818,9 @@ class JJ_Simple_Style_Guide {
                 });
             });
             
-            console.log('[JJ Command Center v26.0.10] Initialization complete!');
+            if (window.jjDebugMode) {
+                console.log('[JJ Command Center v26.0.15] Initialization complete!');
+            }
         });
         </script>
         <?php
