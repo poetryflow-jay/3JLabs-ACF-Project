@@ -39,7 +39,7 @@ class OneClick_SEO_Pro_Admin {
     /**
      * Get singleton instance
      */
-    public static function instance() {
+    public static function get_instance() {
         if (null === self::$instance) {
             self::$instance = new self();
         }
@@ -50,7 +50,9 @@ class OneClick_SEO_Pro_Admin {
      * Constructor
      */
     private function __construct() {
-        $this->version = WP_BULK_SEO_VERSION ?? '2.0.0';
+        // [v2.1.1] defined() 체크로 상수 미정의 에러 방지
+        $this->version = defined('ONECLICK_SEO_PRO_VERSION') ? ONECLICK_SEO_PRO_VERSION : 
+                        (defined('WP_BULK_SEO_VERSION') ? WP_BULK_SEO_VERSION : '2.0.0');
         $this->plugin_path = plugin_dir_path(dirname(__FILE__));
         $this->plugin_url = plugin_dir_url(dirname(__FILE__));
 
@@ -59,9 +61,12 @@ class OneClick_SEO_Pro_Admin {
 
     /**
      * Initialize hooks
+     * [v2.1.3] 메뉴 등록은 메인 플러그인 파일(oneclick-seo-pro.php)에서 처리
+     * add_admin_menu 제거하여 중복 메뉴 방지
      */
     private function init_hooks() {
-        add_action('admin_menu', [$this, 'add_admin_menu']);
+        // [v2.1.3] 메뉴는 메인 플러그인에서 등록하므로 여기서 제거
+        // add_action('admin_menu', [$this, 'add_admin_menu']);
         add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
         add_action('admin_init', [$this, 'register_settings']);
 

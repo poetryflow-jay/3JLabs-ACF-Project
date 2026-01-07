@@ -3,7 +3,7 @@
  * Plugin Name: WordPress One Click SEO Manager Pro
  * Plugin URI: https://3j-labs.com/wp-1-click-seo-pro
  * Description: All-in-one SEO & AEO optimization with AI-powered content suggestions, 200+ ranking factors analysis, Answer Engine Optimization, Image SEO, Internal Link Assistant, and 404 Monitor for WordPress. 원클릭으로 SEO 최적화를 완료하세요.
- * Version: 2.1.0
+ * Version: 2.1.5
  * Author: 3J Labs (제이x제니x제이슨 연구소)
  * Author URI: https://3j-labs.com
  * License: GPL v2 or later
@@ -26,11 +26,16 @@ if (defined('ONECLICK_SEO_PRO_VERSION')) {
 }
 
 // Plugin constants
-define('ONECLICK_SEO_PRO_VERSION', '2.1.0');
+define('ONECLICK_SEO_PRO_VERSION', '2.1.5'); // [v2.1.5] 빌드 구조 개선 - 폴더명에서 버전 제거, 라이센스 MASTER 표시
 define('ONECLICK_SEO_PRO_FILE', __FILE__);
 define('ONECLICK_SEO_PRO_DIR', plugin_dir_path(__FILE__));
 define('ONECLICK_SEO_PRO_URL', plugin_dir_url(__FILE__));
 define('ONECLICK_SEO_PRO_BASENAME', plugin_basename(__FILE__));
+
+// [v2.1.4] License type - MASTER 에디션
+if (!defined('ONECLICK_SEO_PRO_LICENSE_TYPE')) {
+    define('ONECLICK_SEO_PRO_LICENSE_TYPE', 'MASTER');
+}
 
 /**
  * Main Plugin Class
@@ -436,9 +441,9 @@ final class OneClick_SEO_Pro {
                 OneClick_SEO_Pro_Database::get_instance()->create_tables();
             }
 
-            // Initialize ranking factors
+            // Initialize ranking factors (static class)
             if (class_exists('OneClick_SEO_Pro_Ranking_Factors_DB')) {
-                OneClick_SEO_Pro_Ranking_Factors_DB::get_instance()->initialize_factors();
+                OneClick_SEO_Pro_Ranking_Factors_DB::init();
             }
 
             // Set default options

@@ -62,18 +62,26 @@ if ($table_exists) {
     }
 }
 
-// Get license type
+// [v2.1.3] Get license type - 마스터 버전 감지 개선
 $license_type = 'FREE';
-if (function_exists('oneclick_seo_security')) {
-    $license_type = oneclick_seo_security()->get_license_type();
+if (defined('ONECLICK_SEO_PRO_LICENSE_TYPE')) {
+    $license_type = ONECLICK_SEO_PRO_LICENSE_TYPE;
+} elseif (defined('JJ_STYLE_GUIDE_LICENSE_TYPE')) {
+    // ACF CSS Manager와 함께 설치된 경우 (Master 에디션)
+    $license_type = JJ_STYLE_GUIDE_LICENSE_TYPE;
+} elseif (defined('JJ_STYLE_GUIDE_EDITION') && strtolower(JJ_STYLE_GUIDE_EDITION) === 'master') {
+    $license_type = 'MASTER';
 }
+// 마스터 버전이면 PRO로 표시
+$is_master = in_array(strtoupper($license_type), ['MASTER', 'UNLIMITED', 'PREMIUM', 'PRO'], true);
+$display_license = $is_master ? 'PRO' : $license_type;
 ?>
 <div class="wrap oneclick-seo-dashboard-v25">
     <!-- Header -->
     <div class="oneclick-seo-header-v25">
         <h1>
             1-Click SEO Pro
-            <span class="header-badge"><?php echo esc_html($license_type); ?></span>
+            <span class="header-badge <?php echo $is_master ? 'badge-pro' : 'badge-free'; ?>"><?php echo esc_html($display_license); ?></span>
         </h1>
         <div class="header-actions">
             <a href="<?php echo esc_url(admin_url('admin.php?page=oneclick-seo-pro-settings')); ?>" class="oneclick-seo-btn-v25 oneclick-seo-btn-v25-secondary">

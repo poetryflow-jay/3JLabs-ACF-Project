@@ -409,7 +409,9 @@ class JJ_Simple_Style_Guide {
         </div>
         
         <?php
+        // [v26.0.14] 웰컴 대시보드를 첫 번째 섹션으로 추가
         $default_layout = array(
+            'welcome' => array( 'label' => '0. 시작하기', 'enabled' => 1, 'order' => 1 ),
             'colors' => array( 'label' => '1. 팔레트 시스템', 'enabled' => 1, 'order' => 10 ),
             'typography' => array( 'label' => '2. 타이포그래피', 'enabled' => 1, 'order' => 20 ),
             'buttons' => array( 'label' => '3. 버튼', 'enabled' => 1, 'order' => 30 ),
@@ -441,7 +443,9 @@ class JJ_Simple_Style_Guide {
             return $order_a <=> $order_b;
         } );
 
+        // [v26.0.14] 웰컴 대시보드 파일 추가
         $section_files = array(
+            'welcome'       => 'includes/editor-views/view-welcome-dashboard.php',
             'colors'        => 'includes/editor-views/view-section-colors.php',
             'typography'    => 'includes/editor-views/view-section-typography.php',
             'buttons'       => 'includes/editor-views/view-section-buttons.php',
@@ -466,7 +470,9 @@ class JJ_Simple_Style_Guide {
             }
         }
 
+        // [v26.0.14] 웰컴 아이콘/라벨 추가
         $nav_icons = array(
+            'welcome' => 'dashicons-admin-home',
             'colors' => 'dashicons-art',
             'typography' => 'dashicons-editor-textcolor',
             'buttons' => 'dashicons-button',
@@ -474,6 +480,7 @@ class JJ_Simple_Style_Guide {
             'fields' => 'dashicons-forms',
         );
         $nav_labels = array(
+            'welcome' => '시작하기',
             'colors' => '팔레트 시스템',
             'typography' => '타이포그래피',
             'buttons' => '버튼 스타일',
@@ -558,7 +565,7 @@ class JJ_Simple_Style_Guide {
         
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('[JJ Command Center v26.0.13] Initializing...');
+            console.log('[JJ Command Center v26.0.15] Initializing...');
             
             // [v26.0.1] 메인 네비게이션 (사이드바) - 향상된 버전
             var navItems = document.querySelectorAll('.jj-cc-nav-item');
@@ -576,7 +583,7 @@ class JJ_Simple_Style_Guide {
                     
                     // [v26.0.12] 디버깅: 실제 적용된 스타일 확인
                     var computedDisplay = window.getComputedStyle(sec).display;
-                    console.log('[JJ Command Center v26.0.13] 첫 번째 섹션 초기화:', {
+                    console.log('[JJ Command Center v26.0.14] 첫 번째 섹션 초기화:', {
                         id: sec.id,
                         hasActiveClass: sec.classList.contains('active'),
                         inlineDisplay: sec.style.display,

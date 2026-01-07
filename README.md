@@ -1,9 +1,9 @@
 # 3J Labs ACF CSS Plugin Family
 
 프로젝트 경로: `C:\Users\computer\Desktop\3J-Labs-Projects\3J-ACF-CSS`
-메인 플러그인 버전: **v26.0.10** (ACF CSS Manager Master)
+메인 플러그인 버전: **v26.0.15** (ACF CSS Manager Master)
 빌드 매니저 버전: **v23.0.1**
-최신 업데이트: 2026년 1월 7일 (Phase 51 완료 - Visual Command Center 섹션 전환 핫픽스)
+최신 업데이트: 2026년 1월 7일 (Phase 52 완료 - 빌드 시스템 개선 및 플러그인 설치 오류 수정)
 
 ---
 
@@ -13,7 +13,7 @@
 
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
-| **ACF CSS Manager (Master)** | **v25.3.0** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + 다크모드 프리셋 |
+| **ACF CSS Manager (Master)** | **v26.0.15** | 메인 플러그인 - WordPress 스타일 통합 관리 시스템 + 다크모드 프리셋 |
 | ACF MBA (Nudge Flow) | **v23.0.1** | 마케팅 자동화 및 넛지 시스템 + 드래그 앤 드롭 워크플로우 빌더 |
 | ACF Code Snippets Box | **v5.1.0** | CSS/JS/PHP 코드 스니펫 관리 + **고급 버전 관리** (태깅/브랜치/스냅샷) |
 | ACF CSS Neural Link | **v8.2.0** | 패턴 학습 및 업데이트 관리 + 스마트 캐싱 시스템 + 멀티사이트 허브 |
@@ -41,8 +41,7 @@
 
 | 플러그인 | 버전 | 설명 |
 |----------|------|------|
-| WP 1-Click SEO Pro | **v2.1.0** | 원클릭 SEO 최적화 |
-| WP Bulk SEO AEO | **v2.1.0** | 대량 SEO/AEO 관리 |
+| WP 1-Click SEO Pro | **v2.1.5** | 원클릭 SEO 최적화 + MASTER 라이센스 지원 |
 
 ---
 
@@ -183,6 +182,42 @@ python 3j_build_manager.py --cli --all --editions free premium master
 ---
 
 ## 최근 변경사항
+
+### Phase 52 (v26.0.15 / v2.1.5) - 빌드 시스템 개선 및 버그 수정 (2026-01-07)
+
+**주요 수정 사항:**
+
+1. **플러그인 설치 오류 수정** (ACF CSS Manager)
+   - 문제: "플러그인 파일이 존재하지 않습니다" 오류
+   - 원인: ZIP 폴더명과 메인 PHP 파일명 불일치
+   - 해결: ZIP 내부 폴더명을 `acf-css-really-simple-style-guide`로 통일
+
+2. **중복 메뉴 제거** (1-Click SEO Pro)
+   - 문제: "Bulk SEO"와 "1-Click SEO" 메뉴가 둘 다 표시
+   - 원인: 두 클래스에서 각각 메뉴 등록
+   - 해결: `admin/class-admin.php`에서 중복 메뉴 등록 제거
+
+3. **라이센스 타입 표시 개선** (1-Click SEO Pro)
+   - 문제: 대시보드에 "FREE" 배지가 항상 표시
+   - 해결: `ONECLICK_SEO_PRO_LICENSE_TYPE` 상수 추가, MASTER 감지 로직 구현
+
+4. **Admin Bar URL 수정** (ACF CSS Manager)
+   - 문제: Admin Bar 링크가 잘못된 URL 사용
+   - 해결: `options-general.php` → `admin.php` 변경
+
+**빌드 시스템 개선:**
+- ZIP 파일명: `{plugin-slug}-v{version}.zip` (버전 포함)
+- ZIP 내부 폴더: `{plugin-slug}/` (버전 미포함)
+- 구 버전 자동 아카이브: `dist/old/{timestamp}/`
+
+**수정된 파일:**
+- `acf-css-really-simple-style-guide.php` (버전 26.0.15)
+- `includes/class-jj-admin-center.php` (Admin Bar URL)
+- `SEO/oneclick-seo-pro/oneclick-seo-pro.php` (버전 2.1.5, 라이센스 상수)
+- `SEO/oneclick-seo-pro/admin/class-admin.php` (중복 메뉴 제거)
+- `SEO/oneclick-seo-pro/admin/views/dashboard.php` (라이센스 표시)
+
+---
 
 ### Phase 51 (v26.0.10) - Visual Command Center 섹션 전환 핫픽스 (2026-01-07)
 

@@ -713,11 +713,11 @@ final class JJ_Admin_Center {
 
         $menu_title = ( class_exists( 'JJ_Edition_Controller' ) ? JJ_Edition_Controller::instance()->get_branding( 'menu_title' ) : 'ACF CSS' );
 
-        // 최상위 노드
+        // [v26.0.14] 최상위 노드 - admin.php 사용 (top-level menu이므로)
         $wp_admin_bar->add_node( array(
             'id'    => 'jj-style-guide',
             'title' => '<span class="ab-icon dashicons dashicons-art"></span> ' . $menu_title,
-            'href'  => admin_url( 'options-general.php?page=' . JJ_STYLE_GUIDE_PAGE_SLUG ),
+            'href'  => admin_url( 'admin.php?page=jj-style-guide-cockpit' ),
             'meta'  => array( 'title' => $menu_title ),
         ) );
 
@@ -726,7 +726,7 @@ final class JJ_Admin_Center {
             'id'     => 'jj-style-guide-cockpit',
             'parent' => 'jj-style-guide',
             'title'  => __( '스타일 센터 (Cockpit)', 'acf-css-really-simple-style-management-center' ),
-            'href'   => admin_url( 'options-general.php?page=' . JJ_STYLE_GUIDE_PAGE_SLUG ),
+            'href'   => admin_url( 'admin.php?page=jj-style-guide-cockpit' ),
         ) );
 
         // 서브: 설정 관리자 (Admin Center)
@@ -734,7 +734,7 @@ final class JJ_Admin_Center {
             'id'     => 'jj-style-guide-admin',
             'parent' => 'jj-style-guide',
             'title'  => __( '설정 관리자 (Admin Center)', 'acf-css-really-simple-style-management-center' ),
-            'href'   => admin_url( 'options-general.php?page=jj-admin-center' ),
+            'href'   => admin_url( 'admin.php?page=jj-admin-center' ),
         ) );
 
         // [v5.5.0] 서브: 실험실 센터 (Premium 이상)
