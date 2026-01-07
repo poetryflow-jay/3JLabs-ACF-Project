@@ -143,9 +143,18 @@ class JJ_Style_Guide_Frontend {
             foreach ( $options['typography'] as $name => $value ) {
                 $var_name = str_replace( '_', '-', $name );
                 // [v22.4.8] 배열을 문자열로 변환하는 오류 수정 - 배열인 경우 처리
+                // [v25.3.1] 연관 배열 지원 추가 - array_key_exists 체크
                 if ( is_array( $value ) ) {
-                    // 배열인 경우 JSON으로 변환하거나 첫 번째 값 사용
-                    $value = ! empty( $value ) ? ( is_string( $value[0] ) ? $value[0] : json_encode( $value ) ) : '';
+                    // 배열인 경우: 첫 번째 값 사용 또는 JSON 변환
+                    if ( empty( $value ) ) {
+                        $value = '';
+                    } elseif ( isset( $value[0] ) && is_string( $value[0] ) ) {
+                        // 인덱스 배열이고 첫 번째 값이 문자열인 경우
+                        $value = $value[0];
+                    } else {
+                        // 연관 배열이거나 복잡한 구조인 경우 JSON 변환
+                        $value = json_encode( $value );
+                    }
                 }
                 $css .= "  --jj-{$var_name}: {$value};\n";
             }

@@ -177,24 +177,54 @@
 
         /**
          * 실시간 업데이트 시작
+         * [v25.4.1] 차트가 있을 때만 업데이트 활성화
          */
         startRealTimeUpdates: function() {
+            // 차트가 없으면 실시간 업데이트 비활성화
+            if (Object.keys(this.charts).length === 0) {
+                return;
+            }
+            
+            // jj_admin_params가 없으면 비활성화
+            if (typeof jj_admin_params === 'undefined' || !jj_admin_params.nonce) {
+                return;
+            }
+            
             setInterval(function() {
                 Visualizations.updateCharts();
-            }, 5000); // 5초마다 업데이트
+            }, 30000); // 30초마다 업데이트 (5초 → 30초로 변경)
         },
 
         /**
          * 차트 업데이트
+         * [v25.4.1] 안전한 AJAX 호출
          */
         updateCharts: function() {
+            // 차트가 없으면 스킵
+            if (Object.keys(this.charts).length === 0) {
+                return;
+            }
+            
+            // ajaxurl 또는 jj_admin_params 체크
+            var url = (typeof ajaxurl !== 'undefined') ? ajaxurl : 
+                      (typeof jj_admin_params !== 'undefined' && jj_admin_params.ajax_url) ? jj_admin_params.ajax_url : null;
+            
+            if (!url) {
+                return;
+            }
+            
+            var nonce = (typeof jj_admin_params !== 'undefined' && jj_admin_params.nonce) ? jj_admin_params.nonce : '';
+            if (!nonce) {
+                return;
+            }
+            
             // AJAX로 최신 데이터 가져와서 차트 업데이트
             $.ajax({
-                url: ajaxurl,
+                url: url,
                 type: 'POST',
                 data: {
                     action: 'jj_get_chart_data',
-                    nonce: jj_admin_params.nonce
+                    nonce: nonce
                 },
                 success: function(response) {
                     if (response.success) {
@@ -207,6 +237,9 @@
                             }
                         });
                     }
+                },
+                error: function() {
+                    // 에러 무시 (조용히 실패)
                 }
             });
         },

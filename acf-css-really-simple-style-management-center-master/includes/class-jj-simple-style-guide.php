@@ -457,6 +457,7 @@ class JJ_Simple_Style_Guide {
         
         <script>
         (function() {
+            // [v26.0.0] 메인 네비게이션 (사이드바)
             var navItems = document.querySelectorAll('.jj-cc-nav-item');
             var sections = document.querySelectorAll('.jj-section-wrapper');
             
@@ -475,25 +476,35 @@ class JJ_Simple_Style_Guide {
                     }
                 });
             });
+            
+            // [v26.0.1] 섹션 내부 서브 탭 시스템 (팔레트, 버튼 등 내부 탭)
+            document.querySelectorAll('.jj-tabs-container').forEach(function(container) {
+                var subTabs = container.querySelectorAll('.jj-tabs-nav .jj-tab-button');
+                var subContents = container.querySelectorAll('.jj-tab-content');
+                
+                subTabs.forEach(function(tab) {
+                    tab.addEventListener('click', function() {
+                        var tabName = this.getAttribute('data-tab');
+                        
+                        subContents.forEach(function(content) {
+                            content.classList.remove('is-active');
+                        });
+                        
+                        var targetContent = container.querySelector('.jj-tab-content[data-tab-content="' + tabName + '"]');
+                        if (targetContent) {
+                            targetContent.classList.add('is-active');
+                        }
+                        
+                        subTabs.forEach(function(t) {
+                            t.classList.remove('is-active');
+                        });
+                        
+                        this.classList.add('is-active');
+                    });
+                });
+            });
         })();
         </script>
-            
-            <!-- [v22.4.1] 푸터 섹션 - 고정 스타일 저장 버튼 -->
-            <div class="jj-style-guide-footer jj-card" style="margin-top: 30px; padding: 20px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); position: sticky; bottom: 20px; z-index: 10;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <strong style="color: #1e293b; font-size: 14px;"><?php _e( '변경사항을 저장하시겠습니까?', 'acf-css-really-simple-style-management-center' ); ?></strong>
-                        <p style="margin: 5px 0 0 0; color: #64748b; font-size: 12px;"><?php _e( '저장하지 않으면 변경사항이 사라집니다.', 'acf-css-really-simple-style-management-center' ); ?></p>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 15px;">
-                        <span class="spinner" style="float: none; margin: 0; display: none;"></span>
-                        <button type="button" class="jj-btn-primary button-large" id="jj-save-style-guide" style="padding: 12px 30px; font-size: 15px; font-weight: 600; border-radius: 8px; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);">
-                            <span class="dashicons dashicons-yes-alt" style="margin-top: 4px;"></span> <?php _e( '스타일 저장', 'acf-css-really-simple-style-management-center' ); ?>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <?php
     }
 

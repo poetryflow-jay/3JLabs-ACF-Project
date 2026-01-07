@@ -58,13 +58,15 @@ jQuery(document).ready(function($) {
         var $btn = $(this);
         $btn.prop('disabled', true).text('추천 디자인 시스템 구축 중...');
 
-        // ajaxurl 또는 jj_admin_params.ajax_url 사용
+        // [v25.3.2] ajaxurl 또는 jj_onboarding_params/jj_admin_params 사용
         var ajaxUrl = (typeof ajaxurl !== 'undefined') ? ajaxurl : 
+                      (typeof jj_onboarding_params !== 'undefined' && jj_onboarding_params.ajax_url) ? jj_onboarding_params.ajax_url :
                       (typeof jj_admin_params !== 'undefined' && jj_admin_params.ajax_url) ? jj_admin_params.ajax_url : 
                       '/wp-admin/admin-ajax.php';
         
-        // nonce 가져오기
-        var nonce = (typeof jj_admin_params !== 'undefined' && jj_admin_params.nonce) ? jj_admin_params.nonce : '';
+        // nonce 가져오기 (jj_onboarding_params 우선, 없으면 jj_admin_params)
+        var nonce = (typeof jj_onboarding_params !== 'undefined' && jj_onboarding_params.nonce) ? jj_onboarding_params.nonce :
+                    (typeof jj_admin_params !== 'undefined' && jj_admin_params.nonce) ? jj_admin_params.nonce : '';
 
         $.ajax({
             url: ajaxUrl,

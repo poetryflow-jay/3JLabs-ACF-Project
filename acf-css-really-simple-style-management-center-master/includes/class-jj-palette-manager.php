@@ -59,13 +59,12 @@ class JJ_Palette_Manager {
      * 훅 초기화
      */
     private function init_hooks() {
-        // AJAX 핸들러
         add_action( 'wp_ajax_jj_save_palette', array( $this, 'ajax_save_palette' ) );
         add_action( 'wp_ajax_jj_get_palettes', array( $this, 'ajax_get_palettes' ) );
         add_action( 'wp_ajax_jj_delete_palette', array( $this, 'ajax_delete_palette' ) );
         add_action( 'wp_ajax_jj_generate_palette', array( $this, 'ajax_generate_palette' ) );
+        add_action( 'wp_ajax_jj_get_customizer_colors', array( $this, 'ajax_get_customizer_colors' ) );
         
-        // REST API
         add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
     }
 
@@ -533,6 +532,66 @@ class JJ_Palette_Manager {
             'harmony' => $harmony_colors,
             'scale'   => $scale,
         ) );
+    }
+
+    /**
+     * [v25.3.3] AJAX: 커스터마이저 색상 가져오기
+     */
+    public function ajax_get_customizer_colors() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
+        }
+        
+        $palette_type = isset( $_POST['palette_type'] ) ? sanitize_key( $_POST['palette_type'] ) : 'brand';
+        $colors = array();
+        
+        if ( $palette_type === 'brand' ) {
+            $colors['primary'] = get_theme_mod( 'primary_color', get_theme_mod( 'accent_color', '' ) );
+            $colors['secondary'] = get_theme_mod( 'secondary_color', '' );
+            $colors['accent'] = get_theme_mod( 'accent_color', '' );
+            
+            if ( empty( $colors['primary'] ) ) {
+                $colors['primary'] = get_theme_mod( 'link_color', '' );
+            }
+            if ( empty( $colors['primary'] ) ) {
+                $colors['primary'] = get_theme_mod( 'color_primary', '' );
+            }
+            
+            $theme_mods = get_theme_mods();
+            if ( is_array( $theme_mods ) ) {
+                foreach ( $theme_mods as $key => $value ) {
+                    if ( empty( $colors['primary'] ) && ( strpos( $key, 'primary' ) !== false || strpos( $key, 'accent' ) !== false ) && $this->is_valid_color( $value ) ) {
+                        $colors['primary'] = $value;
+                    }
+                    if ( empty( $colors['secondary'] ) && strpos( $key, 'secondary' ) !== false && $this->is_valid_color( $value ) ) {
+                        $colors['secondary'] = $value;
+                    }
+                }
+            }
+        } elseif ( $palette_type === 'system' ) {
+            $colors['site_bg'] = get_theme_mod( 'background_color', '' );
+            if ( $colors['site_bg'] && strpos( $colors['site_bg'], '#' ) !== 0 ) {
+                $colors['site_bg'] = '#' . $colors['site_bg'];
+            }
+            $colors['content_bg'] = get_theme_mod( 'content_background_color', '' );
+            $colors['text_color'] = get_theme_mod( 'text_color', get_theme_mod( 'body_text_color', '' ) );
+            $colors['link_color'] = get_theme_mod( 'link_color', '' );
+        }
+        
+        $colors = array_filter( $colors );
+        
+        if ( ! empty( $colors ) ) {
+            wp_send_json_success( $colors );
+        } else {
+            wp_send_json_error( __( '커스터마이저에서 색상을 찾을 수 없습니다.', 'acf-css-really-simple-style-management-center' ) );
+        }
+    }
+    
+    private function is_valid_color( $value ) {
+        if ( ! is_string( $value ) ) {
+            return false;
+        }
+        return preg_match( '/^#?[a-fA-F0-9]{3,6}$/', $value ) || preg_match( '/^rgba?\(/', $value );
     }
 }
 

@@ -4,13 +4,38 @@ jQuery(document).ready(function($) {
     var currentSettings = jj_admin_params.settings || {};
 
     // [v22.1.2 '업그레이드'] 1a. 컬러 피커 초기화 로직 (Spectrum.js 적용)
+    // [v25.4.1] 안전한 초기화 및 중복 방지
     function initColorPickers($container) {
+        // Spectrum.js가 로드되었는지 확인
+        if (typeof $.fn.spectrum === 'undefined') {
+            console.warn('[JJ Style Guide] Spectrum.js not loaded, skipping color picker initialization');
+            return;
+        }
+        
         $container.find('.jj-color-field, .jj-color-picker').each(function() {
             var $input = $(this);
             
+            // 이미 spectrum으로 초기화되었으면 스킵
+            if ($input.data('spectrum-initialized')) {
+                return;
+            }
+            
             // 기존 wpColorPicker 제거 (있을 경우)
             if ($input.closest('.wp-picker-container').length > 0) {
-                $input.wpColorPicker('destroy');
+                try {
+                    $input.wpColorPicker('destroy');
+                } catch(e) {
+                    // 무시
+                }
+            }
+            
+            // 기존 spectrum 제거 (있을 경우)
+            if ($input.hasClass('spectrum-input')) {
+                try {
+                    $input.spectrum('destroy');
+                } catch(e) {
+                    // 무시
+                }
             }
 
             var settingKey = $input.data('setting-key');
@@ -66,13 +91,17 @@ jQuery(document).ready(function($) {
                 $input.spectrum("set", value);
                 $input.closest('.jj-control-group').find('.jj-color-preview').css('background-color', value);
             }
+            
+            // 초기화 완료 플래그
+            $input.data('spectrum-initialized', true);
         });
     }
 
     // [v1.9.0-beta4 '제련'] 1b. '설정 갱신'을 위해 '초기화' 로직을 'initializeAllFields' 함수로 '재탄생'
     // [v3.5.0-dev10 '최적화'] 선택적인 루트 컨테이너를 받아 부분 초기화 가능
+    // [v25.4.1] #jj-style-guide-form → #jj-style-guide-wrapper로 변경 (폼 요소가 없으므로)
     function initializeAllFields($root) {
-        $root = $root || $('#jj-style-guide-form');
+        $root = $root || $('#jj-style-guide-wrapper');
 
         // 1b-1. '전역' 및 '컨텍스트' 컬러 피커 '갱신'
         initColorPickers( $root );
@@ -141,7 +170,7 @@ jQuery(document).ready(function($) {
 
     // [v3.6.0 '신규'] 1c. 컬러 도구(스포이드 / 현재 색상 불러오기) 구성
     function enhanceColorTools($root) {
-        $root = $root || $('#jj-style-guide-form');
+        $root = $root || $('#jj-style-guide-wrapper');
 
         $root.find('.jj-color-field').each(function() {
             var $input = $(this);
@@ -436,7 +465,7 @@ jQuery(document).ready(function($) {
     }
 
     // 3b. 컬러 스포이드 버튼 클릭 (EyeDropper API 사용)
-    $('#jj-style-guide-form').on('click', '.jj-color-eyedropper', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-color-eyedropper', function(e) {
         e.preventDefault();
         var $btn = $(this);
         var targetSelector = $btn.attr('data-target');
@@ -463,7 +492,7 @@ jQuery(document).ready(function($) {
     });
 
     // 3c. 현재 색상 불러오기 버튼 클릭 (프리뷰 박스 또는 입력 값 기준)
-    $('#jj-style-guide-form').on('click', '.jj-color-use-current', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-color-use-current', function(e) {
         e.preventDefault();
         var $btn = $(this);
         var targetSelector = $btn.attr('data-target');
@@ -499,7 +528,7 @@ jQuery(document).ready(function($) {
     });
 
     // 3d. 임시 팔레트 "중간 저장" 버튼 클릭 (현재 브랜드 팔레트를 임시 팔레트로 복사)
-    $('#jj-style-guide-form').on('click', '.jj-save-to-temp-button', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-save-to-temp-button', function(e) {
         e.preventDefault();
 
         var $button = $(this);
@@ -554,7 +583,7 @@ jQuery(document).ready(function($) {
     });
 
     // 3e. Labs 탭 - 공식 지원 목록에서 "더 보기 / 전체 보기" 버튼
-    $('#jj-style-guide-form').on('click', '.jj-labs-show-more', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-labs-show-more', function(e) {
         e.preventDefault();
         var $btn = $(this);
         var target = $btn.data('target'); // 'themes' 또는 'spokes'
@@ -592,7 +621,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-    $('#jj-style-guide-form').on('click', '.jj-labs-show-all', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-labs-show-all', function(e) {
         e.preventDefault();
         var $btn = $(this);
         var $wrapper = $btn.closest('.jj-labs-supported-item');
@@ -606,7 +635,7 @@ jQuery(document).ready(function($) {
     });
 
     // 3f. 커스텀 웹 폰트 업로드 (미디어 라이브러리)
-    $('#jj-style-guide-form').on('click', '.jj-font-upload-button', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-font-upload-button', function(e) {
         e.preventDefault();
 
         var $button   = $(this);
@@ -636,7 +665,7 @@ jQuery(document).ready(function($) {
 
     // 3g. 브랜드 팔레트 → 버튼/폼/링크 일괄 적용 버튼
     // [v3.8.0 신규] 새로고침 버튼: Customizer에서 현재 색상 불러오기
-    $('#jj-style-guide-form').on('click', '.jj-refresh-colors', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-refresh-colors', function(e) {
         e.preventDefault();
         var $button = $(this);
         var $control = $button.closest('.jj-section-refresh-control');
@@ -669,7 +698,7 @@ jQuery(document).ready(function($) {
                     if (!value) return;
                     
                     var settingKey = 'palettes[' + paletteType + '][' + key + ']';
-                    var $field = $('#jj-style-guide-form').find('[data-setting-key="' + settingKey + '"]');
+                    var $field = $('#jj-style-guide-wrapper').find('[data-setting-key="' + settingKey + '"]');
                     
                     if ($field.length) {
                         $field.val(value).trigger('change');
@@ -703,7 +732,7 @@ jQuery(document).ready(function($) {
                     }, 3000);
                     
                     // 페이지 새로고침 없이 옵션 저장 (선택 사항)
-                    // $('#jj-style-guide-form').submit();
+                    // $('#jj-style-guide-wrapper').submit();
                 } else {
                     // 색상은 성공적으로 불러왔지만 필드에 적용할 수 없는 경우
                     var infoMsg = '현재 테마의 Customizer에서 불러올 색상이 없습니다.\n\n';
@@ -724,7 +753,7 @@ jQuery(document).ready(function($) {
     });
     
     // [v3.8.0 신규] 섹션별 내보내기 버튼
-    $('#jj-style-guide-form').on('click', '.jj-export-section', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-export-section', function(e) {
         e.preventDefault();
         var $button = $(this);
         var sectionType = $button.data('section-type');
@@ -783,7 +812,7 @@ jQuery(document).ready(function($) {
     });
 
     // [v3.8.0 신규] 섹션별 불러오기 파일 선택 이벤트
-    $('#jj-style-guide-form').on('change', '.jj-section-import-file', function(e) {
+    $('#jj-style-guide-wrapper').on('change', '.jj-section-import-file', function(e) {
         var $fileInput = $(this);
         var file = $fileInput[0].files[0];
 
@@ -859,7 +888,7 @@ jQuery(document).ready(function($) {
         });
     });
 
-    $('#jj-style-guide-form').on('click', '.jj-apply-brand-palette-to-components', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-apply-brand-palette-to-components', function(e) {
         e.preventDefault();
 
         var $button = $(this);
@@ -890,7 +919,7 @@ jQuery(document).ready(function($) {
         setNestedObject(currentSettings, ['forms', 'field', 'border_color_focus'], primary);
 
         // UI 필드 값도 즉시 동기화
-        $('#jj-style-guide-form')
+        $('#jj-style-guide-wrapper')
             .find('[data-setting-key="buttons[primary][background_color]"]').val(primary).trigger('change').end()
             .find('[data-setting-key="buttons[primary][background_color_hover]"]').val(primaryH).trigger('change').end()
             .find('[data-setting-key="buttons[primary][border_color]"]').val(primary).trigger('change').end()
@@ -911,7 +940,7 @@ jQuery(document).ready(function($) {
     // 3h. 일반 필드(input, select) 변경
     // [v5.0.4] 성능 최적화: 디바운싱 적용
     var dataFieldInputTimer = null;
-    $('#jj-style-guide-form').on('input', '.jj-data-field', function() {
+    $('#jj-style-guide-wrapper').on('input', '.jj-data-field', function() {
         var $input = $(this);
         if ($input.hasClass('jj-color-field') || $input.hasClass('jj-color-picker') || $input.hasClass('jj-toggle-switch')) return; 
 
@@ -945,7 +974,7 @@ jQuery(document).ready(function($) {
     });
     
     // change 이벤트는 즉시 처리 (선택 완료 시)
-    $('#jj-style-guide-form').on('change', '.jj-data-field', function() {
+    $('#jj-style-guide-wrapper').on('change', '.jj-data-field', function() {
         var $input = $(this);
         if ($input.hasClass('jj-color-field') || $input.hasClass('jj-color-picker') || $input.hasClass('jj-toggle-switch')) return; 
 
@@ -1073,13 +1102,13 @@ jQuery(document).ready(function($) {
     }
     
     // 클릭 이벤트 핸들러
-    $('#jj-style-guide-form').on('click', '.jj-toggle-switch', function() {
+    $('#jj-style-guide-wrapper').on('click', '.jj-toggle-switch', function() {
         toggleContextControls($(this));
     });
 
     // [v1.9.0-beta5 '수리']
     // 3i. '임시 팔레트 적용' AJAX
-    $('#jj-style-guide-form').on('click', '.jj-apply-palette-button', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-apply-palette-button', function(e) {
         e.preventDefault();
 
         if ( !confirm( jj_admin_params.i18n.confirm_apply ) ) {
@@ -1121,7 +1150,7 @@ jQuery(document).ready(function($) {
     
     // --- [ 4. [v3.5.0-dev6 '신규'] 'Labs' '스캐너' 'AJAX' ] ---
     
-    $('#jj-style-guide-form').on('click', '#jj-labs-start-scan', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '#jj-labs-start-scan', function(e) {
         e.preventDefault();
         
         var $button = $(this);
@@ -1343,7 +1372,7 @@ jQuery(document).ready(function($) {
     // [v3.7.0] 색상 피커 개선: 모든 색상 필드에 wpColorPicker가 제대로 적용되도록 보장
     // initColorPickers 함수가 이미 존재하지만, 추가 개선사항 적용
     function enhanceColorPicker() {
-        $('#jj-style-guide-form').find('.jj-color-field, .jj-color-picker').each(function() {
+        $('#jj-style-guide-wrapper').find('.jj-color-field, .jj-color-picker').each(function() {
             var $input = $(this);
             
             // wpColorPicker가 없으면 초기화
@@ -1787,7 +1816,7 @@ jQuery(document).ready(function($) {
     }
 
     // 다크 모드 색상 적용
-    $('#jj-style-guide-form').on('click', '.jj-apply-dark-mode', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-apply-dark-mode', function(e) {
         e.preventDefault();
         var $button = $(this);
         var sourceColor = $button.data('source');
@@ -1812,7 +1841,7 @@ jQuery(document).ready(function($) {
     });
 
     // 라이트 모드 색상 적용
-    $('#jj-style-guide-form').on('click', '.jj-apply-light-mode', function(e) {
+    $('#jj-style-guide-wrapper').on('click', '.jj-apply-light-mode', function(e) {
         e.preventDefault();
         var $button = $(this);
         var sourceColor = $button.data('source');

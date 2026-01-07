@@ -1009,3 +1009,56 @@
         padding: 16px;
     }
 }
+
+/* [v26.0.1] 저장 버튼 스타일 수정 */
+.jj-cc-header .button-primary,
+.jj-cc-header #jj-save-style-guide {
+    background: #2271b1 !important;
+    border-color: #2271b1 !important;
+    color: #fff !important;
+    padding: 0 20px;
+    height: 40px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 1px 0 #1a5a8e;
+    transition: all 0.2s ease;
+}
+
+.jj-cc-header .button-primary:hover,
+.jj-cc-header #jj-save-style-guide:hover {
+    background: #135e96 !important;
+    border-color: #135e96 !important;
+}
+
+/* 섹션 내부 서브 탭 스타일 보완 */
+.jj-tabs-container .jj-tab-content {
+    display: none;
+}
+
+.jj-tabs-container .jj-tab-content.is-active {
+    display: block;
+}
+
+.jj-tabs-container .jj-tabs-nav .jj-tab-button {
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #64748b;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.jj-tabs-container .jj-tabs-nav .jj-tab-button:hover {
+    color: #1e293b;
+}
+
+.jj-tabs-container .jj-tabs-nav .jj-tab-button.is-active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}

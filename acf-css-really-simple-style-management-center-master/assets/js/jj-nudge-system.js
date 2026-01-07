@@ -19,6 +19,7 @@
          * 초기화
          */
         init: function() {
+            var self = this;
             this.config = window.jjNudgeSystem || {};
             
             if (!this.config.ajax_url) {
@@ -32,12 +33,11 @@
             this.createContainers();
             this.bindEvents();
             
-            // [v23.0.4] 약간의 지연 후 넛지 표시 (페이지 로드 완료 후)
             setTimeout(function() {
                 self.showActiveNudges();
             }, 500);
             
-            this.checkUrlSpotlight(); // URL 파라미터로 스포트라이트 실행
+            this.checkUrlSpotlight();
         },
 
         /**
