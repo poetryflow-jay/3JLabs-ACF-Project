@@ -225,7 +225,7 @@ class JJ_Simple_Style_Guide {
 
         ?>
         <!-- [v22.4.1] UI System 2026 적용 - 현대적이고 완성도 높은 GUI -->
-        <div class="wrap jj-style-guide-wrap">
+        <div id="jj-style-guide-wrapper" class="wrap jj-style-guide-wrap">
             <!-- 헤더 섹션 -->
             <div class="jj-card" style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 16px; box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -360,14 +360,21 @@ class JJ_Simple_Style_Guide {
                             }
                         }
 
-                        // 탭이 2개 이상일 때만 탭 UI 표시
+                        // [v25.4.3] 순수 CSS 탭 시스템 - JavaScript 없이 작동
                         if ( count( $enabled_sections ) > 1 ) {
-                            echo '<div class="jj-sections-tabs-wrapper" style="margin-bottom: 30px;">';
-                            echo '<div class="jj-sections-tabs-nav" style="display: flex; gap: 8px; border-bottom: 2px solid #e2e8f0; margin-bottom: 0; padding: 0 20px; background: #fff; border-radius: 12px 12px 0 0;">';
+                            echo '<div class="jj-css-tabs">';
                             
+                            // 1. 숨겨진 라디오 버튼들 (탭 상태 제어)
                             $first_tab = true;
                             foreach ( $enabled_sections as $slug => $meta ) {
-                                // 한국어 라벨 매핑
+                                $checked = $first_tab ? ' checked' : '';
+                                echo '<input type="radio" id="jj-tab-' . esc_attr( $slug ) . '" name="jj-section-tabs" class="jj-tab-radio"' . $checked . '>';
+                                $first_tab = false;
+                            }
+                            
+                            // 2. 탭 네비게이션 (label 태그)
+                            echo '<div class="jj-tabs-nav">';
+                            foreach ( $enabled_sections as $slug => $meta ) {
                                 $label_map = array(
                                     'colors' => '1. 팔레트 시스템',
                                     'typography' => '2. 타이포그래피',
@@ -376,70 +383,46 @@ class JJ_Simple_Style_Guide {
                                     'fields' => '5. 필드',
                                 );
                                 $label = isset( $meta['label'] ) ? $meta['label'] : ( isset( $label_map[ $slug ] ) ? $label_map[ $slug ] : ucfirst( $slug ) );
-                                $active_class = $first_tab ? ' jj-tab-active' : '';
-                                $active_style = $first_tab ? 'color: #667eea; border-bottom-color: #667eea; background: rgba(102, 126, 234, 0.05);' : 'color: #64748b; border-bottom-color: transparent; background: transparent;';
-                                echo '<button type="button" class="jj-section-tab-button' . esc_attr( $active_class ) . '" data-tab-section="' . esc_attr( $slug ) . '" style="padding: 12px 24px; border: none; border-bottom: 3px solid transparent; cursor: pointer; font-size: 15px; font-weight: 600; transition: all 0.2s ease; margin-bottom: -2px; ' . esc_attr( $active_style ) . '">';
-                                echo esc_html( $label );
-                                echo '</button>';
-                                $first_tab = false;
+                                echo '<label for="jj-tab-' . esc_attr( $slug ) . '" class="jj-tab-label">' . esc_html( $label ) . '</label>';
                             }
-                            
-                            echo '</div>';
                             echo '</div>';
                         }
 
-                        // 섹션 콘텐츠 렌더링
+                        // 3. 섹션 콘텐츠 렌더링
                         $first_section = true;
                         foreach ( $enabled_sections as $slug => $meta ) {
                             $rel_path = $section_files[ $slug ];
                             $file_path = JJ_STYLE_GUIDE_PATH . $rel_path;
                             
                             if ( file_exists( $file_path ) ) {
-                                // [v23.0.3] 탭이 여러 개일 때만 첫 번째 외에는 숨김 (클래스로 제어)
-                                $tab_class = ( count( $enabled_sections ) > 1 ) ? ' jj-section-tab-content' : '';
-                                $hidden_class = ( count( $enabled_sections ) > 1 && ! $first_section ) ? ' jj-section-hidden' : '';
-                                $visible_class = ( count( $enabled_sections ) > 1 && $first_section ) ? ' jj-section-visible' : '';
-                                
-                                // 인라인 스타일은 최소화하고 클래스로 제어 (JavaScript에서 제어 가능하도록)
-                                $inline_style = ( count( $enabled_sections ) > 1 && ! $first_section ) ? 'display: none;' : '';
-                                echo '<div class="jj-section-wrapper jj-card' . esc_attr( $tab_class ) . esc_attr( $hidden_class ) . esc_attr( $visible_class ) . '" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '" style="' . esc_attr( $inline_style ) . ' margin-bottom: 25px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); transition: all 0.3s ease;">';
+                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
                                 try {
-                                    // 옵션 변수 전달 (확실하게 전달)
-                                    $options = $this->options; // 로컬 변수로 명시적 할당
+                                    $options = $this->options;
                                     if ( ! is_array( $options ) ) {
                                         $options = array();
                                     }
                                     include $file_path;
                                 } catch ( Exception $e ) {
                                     error_log( '[JJ Style Guide] Section include failed (' . $slug . '): ' . $e->getMessage() );
-                                    echo '<div style="padding: 20px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;">';
-                                    echo '<p style="color: #ef4444; margin: 0; font-weight: 600;">' . esc_html__( '섹션을 로드하는 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
-                                    echo '<p style="color: #991b1b; margin: 10px 0 0 0; font-size: 13px;">' . esc_html( $e->getMessage() ) . '</p>';
-                                    echo '</div>';
+                                    echo '<div class="jj-error-box"><p class="jj-error-title">' . esc_html__( '섹션을 로드하는 중 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p><p class="jj-error-detail">' . esc_html( $e->getMessage() ) . '</p></div>';
                                 } catch ( Error $e ) {
                                     error_log( '[JJ Style Guide] Section include fatal (' . $slug . '): ' . $e->getMessage() );
-                                    echo '<div style="padding: 20px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;">';
-                                    echo '<p style="color: #ef4444; margin: 0; font-weight: 600;">' . esc_html__( '섹션을 로드하는 중 치명적 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p>';
-                                    echo '<p style="color: #991b1b; margin: 10px 0 0 0; font-size: 13px;">' . esc_html( $e->getMessage() ) . '</p>';
-                                    echo '</div>';
+                                    echo '<div class="jj-error-box"><p class="jj-error-title">' . esc_html__( '섹션을 로드하는 중 치명적 오류가 발생했습니다.', 'acf-css-really-simple-style-management-center' ) . '</p><p class="jj-error-detail">' . esc_html( $e->getMessage() ) . '</p></div>';
                                 }
                                 echo '</div>';
                                 $first_section = false;
                             } else {
-                                // [v23.0.3] 파일이 없을 때도 에러 메시지 표시 (탭 클래스 추가)
                                 error_log( '[JJ Style Guide] Section file not found: ' . $file_path );
-                                $tab_class = ( count( $enabled_sections ) > 1 ) ? ' jj-section-tab-content' : '';
-                                $hidden_class = ( count( $enabled_sections ) > 1 && ! $first_section ) ? ' jj-section-hidden' : '';
-                                $visible_class = ( count( $enabled_sections ) > 1 && $first_section ) ? ' jj-section-visible' : '';
-                                $display_style = ( count( $enabled_sections ) > 1 && ! $first_section ) ? 'display: none;' : '';
-                                echo '<div class="jj-section-wrapper jj-card' . esc_attr( $tab_class ) . esc_attr( $hidden_class ) . esc_attr( $visible_class ) . '" data-section="' . esc_attr( $slug ) . '" data-section-slug="' . esc_attr( $slug ) . '" style="' . esc_attr( $display_style ) . ' margin-bottom: 25px; padding: 25px; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);">';
-                                echo '<div style="padding: 20px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px;">';
-                                echo '<p style="color: #ef4444; margin: 0; font-weight: 600;">섹션 파일을 찾을 수 없습니다: ' . esc_html( $rel_path ) . '</p>';
-                                echo '<p style="color: #991b1b; margin: 10px 0 0 0; font-size: 13px;">파일 경로: ' . esc_html( $file_path ) . '</p>';
-                                echo '</div>';
+                                echo '<div class="jj-section-wrapper jj-card jj-tab-content" id="jj-content-' . esc_attr( $slug ) . '" data-section="' . esc_attr( $slug ) . '">';
+                                echo '<div class="jj-error-box"><p class="jj-error-title">섹션 파일을 찾을 수 없습니다: ' . esc_html( $rel_path ) . '</p><p class="jj-error-detail">파일 경로: ' . esc_html( $file_path ) . '</p></div>';
                                 echo '</div>';
                                 $first_section = false;
                             }
+                        }
+                        
+                        // CSS 탭 컨테이너 닫기
+                        if ( count( $enabled_sections ) > 1 ) {
+                            echo '</div><!-- .jj-css-tabs -->';
                         }
 
                         // [v22.1.2] 유지보수 및 보안 섹션 (최하단 고정)

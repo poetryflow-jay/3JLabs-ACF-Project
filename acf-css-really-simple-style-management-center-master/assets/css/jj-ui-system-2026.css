@@ -465,6 +465,7 @@
     display: none;
 }
 
+.jj-tab-content.is-active,
 .jj-tab-content.active {
     display: block;
     animation: jj-fade-in 0.3s ease-in-out;
@@ -721,5 +722,136 @@
     
     .jj-tabs-nav {
         flex-wrap: wrap;
+    }
+}
+
+/* ===========================
+   [v25.4.3] Pure CSS Tabs
+   No JavaScript Required
+   =========================== */
+.jj-css-tabs {
+    position: relative;
+}
+
+.jj-css-tabs > .jj-tab-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.jj-css-tabs > .jj-tabs-nav {
+    display: flex;
+    gap: 4px;
+    background: #fff;
+    padding: 8px 16px;
+    border-radius: 12px 12px 0 0;
+    border: 1px solid #e2e8f0;
+    border-bottom: none;
+    margin-bottom: 0;
+    flex-wrap: wrap;
+}
+
+.jj-css-tabs > .jj-tabs-nav > .jj-tab-label {
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748b;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 8px 8px 0 0;
+    transition: all 0.25s ease;
+    margin-bottom: -1px;
+    user-select: none;
+}
+
+.jj-css-tabs > .jj-tabs-nav > .jj-tab-label:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.jj-css-tabs > .jj-tab-content {
+    display: none;
+    margin-bottom: 25px;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    animation: jj-tab-fade-in 0.3s ease;
+}
+
+@keyframes jj-tab-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#jj-tab-colors:checked ~ .jj-tabs-nav > label[for="jj-tab-colors"],
+#jj-tab-typography:checked ~ .jj-tabs-nav > label[for="jj-tab-typography"],
+#jj-tab-buttons:checked ~ .jj-tabs-nav > label[for="jj-tab-buttons"],
+#jj-tab-forms:checked ~ .jj-tabs-nav > label[for="jj-tab-forms"],
+#jj-tab-fields:checked ~ .jj-tabs-nav > label[for="jj-tab-fields"] {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.08);
+    border-bottom-color: #667eea;
+}
+
+#jj-tab-colors:checked ~ #jj-content-colors,
+#jj-tab-typography:checked ~ #jj-content-typography,
+#jj-tab-buttons:checked ~ #jj-content-buttons,
+#jj-tab-forms:checked ~ #jj-content-forms,
+#jj-tab-fields:checked ~ #jj-content-fields {
+    display: block;
+}
+
+.jj-css-tabs > .jj-tab-content.jj-card {
+    border-radius: 0 12px 12px 12px;
+}
+
+.jj-css-tabs > .jj-tab-content:first-of-type {
+    border-radius: 0 12px 12px 12px;
+}
+
+.jj-error-box {
+    padding: 20px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+}
+
+.jj-error-box .jj-error-title {
+    color: #ef4444;
+    margin: 0;
+    font-weight: 600;
+}
+
+.jj-error-box .jj-error-detail {
+    color: #991b1b;
+    margin: 10px 0 0 0;
+    font-size: 13px;
+}
+
+@media (max-width: 782px) {
+    .jj-css-tabs > .jj-tabs-nav {
+        padding: 6px 10px;
+        gap: 2px;
+    }
+    
+    .jj-css-tabs > .jj-tabs-nav > .jj-tab-label {
+        padding: 10px 14px;
+        font-size: 13px;
+        flex: 1 1 auto;
+        text-align: center;
+    }
+    
+    .jj-css-tabs > .jj-tab-content {
+        padding: 16px;
     }
 }
