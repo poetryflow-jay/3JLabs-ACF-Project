@@ -14,7 +14,16 @@ $temp_palettes = isset( $temp_options ) && is_array( $temp_options ) ? ( $temp_o
 $temp_brand = is_array( $temp_palettes ) ? ( $temp_palettes['brand'] ?? array() ) : array();
 ?>
 
-<div class="jj-tab-content" data-tab-content="temp-palette">
+<?php
+// [v26.0.11] 임시 팔레트 탭 초기 상태 설정
+// $first_enabled_tab 변수는 view-section-colors.php에서 전달됨
+$is_temp_palette_active = isset( $first_enabled_tab ) && $first_enabled_tab === 'temp-palette';
+$temp_palette_style = $is_temp_palette_active 
+    ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;'
+    : 'display: none !important;';
+$temp_palette_class = $is_temp_palette_active ? 'is-active' : '';
+?>
+<div class="jj-tab-content <?php echo esc_attr( $temp_palette_class ); ?>" data-tab-content="temp-palette" style="<?php echo esc_attr( $temp_palette_style ); ?>">
     <div class="jj-temp-palette-header">
         <h3><?php _e( '임시 팔레트', 'acf-css-really-simple-style-management-center' ); ?></h3>
         <p class="description">
