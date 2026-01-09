@@ -47,7 +47,8 @@
          * 모든 설정 가져오기
          */
         getAllSettings: function() {
-            const $form = $('#jj-admin-center-form, #jj-style-guide-form');
+            // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+            const $form = $('#jj-admin-center-form, #jj-style-guide-wrapper');
             if (!$form.length) return {};
 
             const settings = {};
@@ -101,7 +102,8 @@
         restoreSnapshot: function(snapshot) {
             if (!snapshot || !snapshot.data) return false;
 
-            const $form = $('#jj-admin-center-form, #jj-style-guide-form');
+            // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+            const $form = $('#jj-admin-center-form, #jj-style-guide-wrapper');
             if (!$form.length) return false;
 
             let restoredCount = 0;

@@ -206,7 +206,8 @@
 
   $(document).ready(function(){
     $mount = $('#jj-typography-presets');
-    $form = $('#jj-style-guide-form');
+    // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+    $form = $('#jj-style-guide-wrapper');
     if (!$mount.length || !$form.length) return;
 
     var s = baseSizes();

@@ -26,31 +26,94 @@ class JJ_Security_Enhancer {
     }
 
     /**
-     * 암호화 키 초기화
+     * [v26.1.0] 암호화 키 초기화 (보안 강화)
+     *
+     * 우선순위:
+     * 1. wp-config.php의 JJ_ENCRYPTION_KEY 상수 (권장)
+     * 2. WordPress AUTH_KEY + SECURE_AUTH_KEY 조합 (폴백)
+     * 3. DB 저장 키는 더 이상 사용하지 않음 (마이그레이션 필요)
      */
     private function init_encryption_key() {
-        // 사이트별 고유 키 생성 (DB 옵션에 저장)
-        $stored_key = get_option( 'jj_security_encryption_key', '' );
-        
-        if ( empty( $stored_key ) ) {
-            // 새로운 키 생성
-            $stored_key = $this->generate_encryption_key();
-            update_option( 'jj_security_encryption_key', $stored_key );
+        // 우선순위 1: wp-config.php에 정의된 전용 상수
+        if ( defined( 'JJ_ENCRYPTION_KEY' ) && strlen( JJ_ENCRYPTION_KEY ) >= 32 ) {
+            $this->encryption_key = JJ_ENCRYPTION_KEY;
+            return;
         }
-        
-        $this->encryption_key = $stored_key;
+
+        // 우선순위 2: WordPress 인증 키 조합 (항상 존재함)
+        $wp_keys = '';
+        if ( defined( 'AUTH_KEY' ) ) {
+            $wp_keys .= AUTH_KEY;
+        }
+        if ( defined( 'SECURE_AUTH_KEY' ) ) {
+            $wp_keys .= SECURE_AUTH_KEY;
+        }
+
+        if ( ! empty( $wp_keys ) ) {
+            // WordPress 키를 SHA-256으로 해시하여 사용
+            $this->encryption_key = hash( 'sha256', $wp_keys . 'jj_security_v26' );
+            return;
+        }
+
+        // 최후의 폴백: 사이트 정보 기반 키 생성 (경고 로그)
+        $this->encryption_key = $this->generate_fallback_key();
+
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( 'JJ Security Enhancer: wp-config.php에 JJ_ENCRYPTION_KEY를 정의해주세요. 현재 폴백 키를 사용 중입니다.' );
+        }
     }
 
     /**
-     * 암호화 키 생성
+     * [v26.1.0] 폴백 암호화 키 생성 (권장하지 않음)
+     *
+     * @return string
      */
-    private function generate_encryption_key() {
+    private function generate_fallback_key() {
+        // DB에 저장된 기존 키가 있으면 마이그레이션을 위해 사용
+        $legacy_key = get_option( 'jj_security_encryption_key', '' );
+        if ( ! empty( $legacy_key ) ) {
+            return $legacy_key;
+        }
+
         // 사이트 URL과 DB 이름을 조합하여 고유 키 생성
-        $site_url = home_url();
-        $db_name = DB_NAME;
-        $salt = wp_salt( 'auth' );
-        
-        return hash( 'sha256', $site_url . $db_name . $salt . time() );
+        $site_url = function_exists( 'home_url' ) ? home_url() : '';
+        $db_name = defined( 'DB_NAME' ) ? DB_NAME : '';
+        $salt = function_exists( 'wp_salt' ) ? wp_salt( 'auth' ) : '';
+
+        return hash( 'sha256', $site_url . $db_name . $salt );
+    }
+
+    /**
+     * [v26.1.0] 암호화 키 마이그레이션 (DB에서 wp-config로)
+     *
+     * @return array 마이그레이션 결과
+     */
+    public function migrate_encryption_key() {
+        $result = array(
+            'success' => false,
+            'message' => '',
+            'new_key' => '',
+        );
+
+        // 이미 wp-config에 키가 정의되어 있으면 마이그레이션 완료
+        if ( defined( 'JJ_ENCRYPTION_KEY' ) && strlen( JJ_ENCRYPTION_KEY ) >= 32 ) {
+            // DB에 저장된 레거시 키 삭제
+            delete_option( 'jj_security_encryption_key' );
+            $result['success'] = true;
+            $result['message'] = __( '이미 wp-config.php에 JJ_ENCRYPTION_KEY가 정의되어 있습니다. DB 키를 삭제했습니다.', 'acf-css-really-simple-style-management-center' );
+            return $result;
+        }
+
+        // 새로운 키 생성
+        $new_key = bin2hex( random_bytes( 32 ) );
+        $result['new_key'] = $new_key;
+        $result['success'] = true;
+        $result['message'] = sprintf(
+            __( 'wp-config.php에 다음 코드를 추가하세요: %s', 'acf-css-really-simple-style-management-center' ),
+            "define( 'JJ_ENCRYPTION_KEY', '{$new_key}' );"
+        );
+
+        return $result;
     }
 
     /**
@@ -66,70 +129,201 @@ class JJ_Security_Enhancer {
     }
 
     /**
-     * 라이센스 키 암호화 (AES-256)
+     * [v26.1.0] 라이센스 키 암호화 (AES-256-CBC)
+     *
+     * 보안 강화: OpenSSL 필수, base64 폴백 제거
+     *
+     * @param string $license_key 암호화할 라이센스 키
+     * @return string 암호화된 키 (빈 문자열 = 실패)
      */
     public function encrypt_license_key( $license_key ) {
         if ( empty( $license_key ) ) {
             return '';
         }
 
-        // OpenSSL 사용 가능 여부 확인
-        if ( ! function_exists( 'openssl_encrypt' ) ) {
-            // OpenSSL이 없으면 간단한 base64 인코딩 (보안 수준 낮음)
-            return base64_encode( $license_key );
+        // [v26.1.0] OpenSSL 필수 - 없으면 암호화 거부
+        if ( ! $this->is_openssl_available() ) {
+            $this->log_encryption_failure( 'encrypt', 'openssl_not_available' );
+            return '';
         }
 
         $method = 'AES-256-CBC';
         $iv_length = openssl_cipher_iv_length( $method );
-        $iv = openssl_random_pseudo_bytes( $iv_length );
-        
-        $encrypted = openssl_encrypt( $license_key, $method, $this->encryption_key, 0, $iv );
-        
-        if ( $encrypted === false ) {
-            return base64_encode( $license_key ); // 암호화 실패 시 폴백
+
+        if ( $iv_length === false ) {
+            $this->log_encryption_failure( 'encrypt', 'invalid_cipher_method' );
+            return '';
         }
-        
-        // IV와 암호화된 데이터를 함께 저장
-        return base64_encode( $iv . $encrypted );
+
+        $iv = openssl_random_pseudo_bytes( $iv_length, $strong );
+
+        // 암호학적으로 강력한 랜덤이 아니면 거부
+        if ( ! $strong ) {
+            $this->log_encryption_failure( 'encrypt', 'weak_random_bytes' );
+            return '';
+        }
+
+        $encrypted = openssl_encrypt( $license_key, $method, $this->encryption_key, OPENSSL_RAW_DATA, $iv );
+
+        if ( $encrypted === false ) {
+            $this->log_encryption_failure( 'encrypt', 'openssl_encrypt_failed', openssl_error_string() );
+            return '';
+        }
+
+        // 버전 프리픽스 + IV + 암호화된 데이터
+        // v2: OPENSSL_RAW_DATA 사용, HMAC 추가
+        $hmac = hash_hmac( 'sha256', $iv . $encrypted, $this->encryption_key, true );
+        $payload = 'v2:' . base64_encode( $hmac . $iv . $encrypted );
+
+        return $payload;
     }
 
     /**
-     * 라이센스 키 복호화
+     * [v26.1.0] 라이센스 키 복호화 (버전 호환성 지원)
+     *
+     * @param string $encrypted_key 암호화된 키
+     * @return string 복호화된 키 (빈 문자열 = 실패)
      */
     public function decrypt_license_key( $encrypted_key ) {
         if ( empty( $encrypted_key ) ) {
             return '';
         }
 
-        $decoded = base64_decode( $encrypted_key, true );
-        
-        if ( $decoded === false ) {
-            return ''; // 잘못된 형식
+        // [v26.1.0] OpenSSL 필수
+        if ( ! $this->is_openssl_available() ) {
+            $this->log_encryption_failure( 'decrypt', 'openssl_not_available' );
+            return '';
         }
 
-        // OpenSSL 사용 가능 여부 확인
-        if ( ! function_exists( 'openssl_decrypt' ) ) {
-            // OpenSSL이 없으면 base64 디코딩만
-            return base64_decode( $encrypted_key );
+        // 버전 확인 (v2: 신규 형식, 없음: 레거시)
+        if ( strpos( $encrypted_key, 'v2:' ) === 0 ) {
+            return $this->decrypt_v2( substr( $encrypted_key, 3 ) );
+        }
+
+        // 레거시 형식 복호화 시도 (마이그레이션 기간 동안만 지원)
+        return $this->decrypt_legacy( $encrypted_key );
+    }
+
+    /**
+     * [v26.1.0] v2 형식 복호화 (HMAC 검증 포함)
+     *
+     * @param string $payload base64 인코딩된 페이로드
+     * @return string 복호화된 키
+     */
+    private function decrypt_v2( $payload ) {
+        $decoded = base64_decode( $payload, true );
+        if ( $decoded === false ) {
+            $this->log_encryption_failure( 'decrypt_v2', 'invalid_base64' );
+            return '';
         }
 
         $method = 'AES-256-CBC';
         $iv_length = openssl_cipher_iv_length( $method );
-        
-        if ( strlen( $decoded ) < $iv_length ) {
-            return ''; // IV가 없음
+        $hmac_length = 32; // SHA-256 = 32 bytes
+
+        $min_length = $hmac_length + $iv_length + 1;
+        if ( strlen( $decoded ) < $min_length ) {
+            $this->log_encryption_failure( 'decrypt_v2', 'payload_too_short' );
+            return '';
         }
-        
+
+        // HMAC, IV, 암호화된 데이터 분리
+        $hmac = substr( $decoded, 0, $hmac_length );
+        $iv = substr( $decoded, $hmac_length, $iv_length );
+        $encrypted = substr( $decoded, $hmac_length + $iv_length );
+
+        // HMAC 검증 (타이밍 공격 방지)
+        $expected_hmac = hash_hmac( 'sha256', $iv . $encrypted, $this->encryption_key, true );
+        if ( ! hash_equals( $expected_hmac, $hmac ) ) {
+            $this->log_encryption_failure( 'decrypt_v2', 'hmac_mismatch' );
+            return '';
+        }
+
+        $decrypted = openssl_decrypt( $encrypted, $method, $this->encryption_key, OPENSSL_RAW_DATA, $iv );
+
+        if ( $decrypted === false ) {
+            $this->log_encryption_failure( 'decrypt_v2', 'openssl_decrypt_failed', openssl_error_string() );
+            return '';
+        }
+
+        return $decrypted;
+    }
+
+    /**
+     * [v26.1.0] 레거시 형식 복호화 (하위 호환성)
+     *
+     * @param string $encrypted_key 레거시 형식 암호화 키
+     * @return string 복호화된 키
+     */
+    private function decrypt_legacy( $encrypted_key ) {
+        $decoded = base64_decode( $encrypted_key, true );
+
+        if ( $decoded === false ) {
+            return '';
+        }
+
+        $method = 'AES-256-CBC';
+        $iv_length = openssl_cipher_iv_length( $method );
+
+        if ( strlen( $decoded ) < $iv_length ) {
+            return '';
+        }
+
         $iv = substr( $decoded, 0, $iv_length );
         $encrypted = substr( $decoded, $iv_length );
-        
+
+        // 레거시는 base64 인코딩된 상태로 저장되었음
         $decrypted = openssl_decrypt( $encrypted, $method, $this->encryption_key, 0, $iv );
-        
+
         if ( $decrypted === false ) {
-            return ''; // 복호화 실패
+            // 아주 오래된 레거시: 순수 base64 (암호화 없음)
+            // 이 경우는 더 이상 지원하지 않음 - 보안 취약
+            $this->log_encryption_failure( 'decrypt_legacy', 'unsupported_format' );
+            return '';
         }
-        
+
         return $decrypted;
+    }
+
+    /**
+     * [v26.1.0] OpenSSL 사용 가능 여부 확인
+     *
+     * @return bool
+     */
+    private function is_openssl_available() {
+        return function_exists( 'openssl_encrypt' )
+            && function_exists( 'openssl_decrypt' )
+            && function_exists( 'openssl_cipher_iv_length' )
+            && function_exists( 'openssl_random_pseudo_bytes' );
+    }
+
+    /**
+     * [v26.1.0] 암호화/복호화 실패 로깅
+     *
+     * @param string $operation 작업 유형
+     * @param string $reason    실패 사유
+     * @param string $details   상세 정보
+     */
+    private function log_encryption_failure( $operation, $reason, $details = '' ) {
+        $log_entry = array(
+            'timestamp' => current_time( 'mysql' ),
+            'operation' => sanitize_key( $operation ),
+            'reason'    => sanitize_key( $reason ),
+            'details'   => sanitize_text_field( $details ),
+        );
+
+        if ( class_exists( 'JJ_Security_Hardener' ) && method_exists( 'JJ_Security_Hardener', 'log_security_event' ) ) {
+            JJ_Security_Hardener::log_security_event( 'encryption_failure', $log_entry );
+        }
+
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            error_log( sprintf(
+                'JJ Security Enhancer: %s failed - %s: %s',
+                $operation,
+                $reason,
+                $details
+            ) );
+        }
     }
 
     /**

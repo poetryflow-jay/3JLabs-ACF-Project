@@ -488,6 +488,189 @@ class JJ_Security_Hardener {
         
         return true;
     }
+
+    /**
+     * [v26.1.0] 라이센스 검증 실패 시 IP 기반 브루트포스 방지
+     *
+     * @param string $ip 클라이언트 IP
+     * @return bool 차단 여부 (true = 차단됨)
+     */
+    public static function check_license_brute_force( $ip = null ) {
+        $ip = $ip ?: self::get_client_ip();
+        $key = 'jj_license_fail_' . md5( $ip );
+
+        $failures = get_transient( $key );
+
+        // 5회 이상 실패 시 15분간 차단
+        if ( $failures && intval( $failures ) >= 5 ) {
+            self::log_security_event( 'license_brute_force_blocked', array(
+                'ip' => $ip,
+                'failures' => $failures,
+            ) );
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * [v26.1.0] 라이센스 검증 실패 기록
+     *
+     * @param string $ip 클라이언트 IP
+     */
+    public static function record_license_failure( $ip = null ) {
+        $ip = $ip ?: self::get_client_ip();
+        $key = 'jj_license_fail_' . md5( $ip );
+
+        $failures = get_transient( $key );
+        $failures = $failures ? intval( $failures ) + 1 : 1;
+
+        // 15분 동안 실패 횟수 유지
+        set_transient( $key, $failures, 15 * 60 );
+
+        self::log_security_event( 'license_verification_failed', array(
+            'ip' => $ip,
+            'failure_count' => $failures,
+        ) );
+    }
+
+    /**
+     * [v26.1.0] 라이센스 검증 성공 시 실패 카운터 리셋
+     *
+     * @param string $ip 클라이언트 IP
+     */
+    public static function reset_license_failures( $ip = null ) {
+        $ip = $ip ?: self::get_client_ip();
+        $key = 'jj_license_fail_' . md5( $ip );
+        delete_transient( $key );
+    }
+
+    /**
+     * [v26.1.0] 민감 데이터 마스킹
+     *
+     * @param string $data 원본 데이터
+     * @param int $visible_chars 양쪽 끝에 표시할 문자 수
+     * @return string 마스킹된 데이터
+     */
+    public static function mask_sensitive_data( $data, $visible_chars = 4 ) {
+        if ( empty( $data ) || strlen( $data ) <= ( $visible_chars * 2 ) ) {
+            return str_repeat( '*', strlen( $data ) );
+        }
+
+        $start = substr( $data, 0, $visible_chars );
+        $end = substr( $data, -$visible_chars );
+        $middle_length = strlen( $data ) - ( $visible_chars * 2 );
+
+        return $start . str_repeat( '*', min( $middle_length, 8 ) ) . $end;
+    }
+
+    /**
+     * [v26.1.0] HMAC 요청 서명 생성
+     *
+     * @param array $data 서명할 데이터
+     * @param string $key 서명 키
+     * @return string HMAC 서명
+     */
+    public static function generate_request_signature( $data, $key = null ) {
+        if ( ! $key ) {
+            $key = defined( 'JJ_ENCRYPTION_KEY' ) ? JJ_ENCRYPTION_KEY : AUTH_KEY;
+        }
+
+        // 데이터 정규화 (키 정렬)
+        ksort( $data );
+        $payload = wp_json_encode( $data );
+
+        return hash_hmac( 'sha256', $payload, $key );
+    }
+
+    /**
+     * [v26.1.0] HMAC 요청 서명 검증
+     *
+     * @param array $data 검증할 데이터
+     * @param string $signature 제공된 서명
+     * @param string $key 서명 키
+     * @return bool 서명 일치 여부
+     */
+    public static function verify_request_signature( $data, $signature, $key = null ) {
+        $expected = self::generate_request_signature( $data, $key );
+        return hash_equals( $expected, $signature );
+    }
+
+    /**
+     * [v26.1.0] 보안 감사 로그 내보내기
+     *
+     * @param string $format 내보내기 형식 (json, csv)
+     * @return string 내보내기 데이터
+     */
+    public static function export_security_logs( $format = 'json' ) {
+        $logs = self::get_security_logs( 500 );
+
+        if ( 'csv' === $format ) {
+            $csv = "timestamp,event_type,ip,user_id,details\n";
+            foreach ( $logs as $log ) {
+                $details = isset( $log['data'] ) ? wp_json_encode( $log['data'] ) : '';
+                $csv .= sprintf(
+                    "%s,%s,%s,%s,%s\n",
+                    isset( $log['timestamp'] ) ? $log['timestamp'] : '',
+                    isset( $log['event_type'] ) ? $log['event_type'] : '',
+                    isset( $log['ip'] ) ? $log['ip'] : '',
+                    isset( $log['user_id'] ) ? $log['user_id'] : '',
+                    '"' . str_replace( '"', '""', $details ) . '"'
+                );
+            }
+            return $csv;
+        }
+
+        return wp_json_encode( $logs, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE );
+    }
+
+    /**
+     * [v26.1.0] 의심스러운 활동 탐지
+     *
+     * @param string $action 액션 이름
+     * @param array $context 컨텍스트 데이터
+     * @return bool 의심스러운 활동 여부
+     */
+    public static function detect_suspicious_activity( $action, $context = array() ) {
+        $suspicious = false;
+        $reasons = array();
+
+        // 1. 비정상적인 User-Agent
+        $user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        if ( empty( $user_agent ) || strlen( $user_agent ) < 10 ) {
+            $suspicious = true;
+            $reasons[] = 'missing_or_short_user_agent';
+        }
+
+        // 2. 빠른 연속 요청 (1초 내 동일 액션)
+        $ip = self::get_client_ip();
+        $rapid_key = 'jj_rapid_' . md5( $action . '|' . $ip );
+        $last_request = get_transient( $rapid_key );
+
+        if ( $last_request && ( time() - intval( $last_request ) ) < 1 ) {
+            $suspicious = true;
+            $reasons[] = 'rapid_fire_requests';
+        }
+        set_transient( $rapid_key, time(), 60 );
+
+        // 3. 알려진 악성 IP 패턴 (선택적)
+        if ( apply_filters( 'jj_check_ip_blacklist', false, $ip ) ) {
+            $suspicious = true;
+            $reasons[] = 'blacklisted_ip';
+        }
+
+        if ( $suspicious ) {
+            self::log_security_event( 'suspicious_activity', array(
+                'action' => $action,
+                'reasons' => $reasons,
+                'context' => $context,
+                'ip' => $ip,
+                'user_agent' => self::mask_sensitive_data( $user_agent, 10 ),
+            ) );
+        }
+
+        return $suspicious;
+    }
 }
 
 // 초기화

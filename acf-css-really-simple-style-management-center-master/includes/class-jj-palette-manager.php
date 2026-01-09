@@ -536,8 +536,11 @@ class JJ_Palette_Manager {
 
     /**
      * [v25.3.3] AJAX: 커스터마이저 색상 가져오기
+     * [v26.0.16] Security fix: Added nonce verification (CTO Jason audit)
      */
     public function ajax_get_customizer_colors() {
+        check_ajax_referer( 'jj_style_guide_nonce', 'nonce' );
+        
         if ( ! current_user_can( 'manage_options' ) ) {
             wp_send_json_error( __( '권한이 없습니다.', 'acf-css-really-simple-style-management-center' ) );
         }

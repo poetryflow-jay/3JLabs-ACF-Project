@@ -406,6 +406,7 @@ jQuery(document).ready(function($) {
     // --- [ 3. UI 이벤트 핸들러 (v3.3 '제련') ] ---
     
     // 3a. 'v1.8.0 탭' 클릭 (모바일 터치 이벤트 지원 + 레이지 로딩)
+    // [v26.1.0] 인라인 스타일 처리 추가 - 탭 전환 시 display 스타일도 함께 변경
     $('#jj-style-guide-wrapper').on('click touchend', '.jj-tab-button', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -421,7 +422,9 @@ jQuery(document).ready(function($) {
         $nav.find('.jj-tab-button').removeClass('is-active');
         $button.addClass('is-active');
 
-        $container.find('.jj-tab-content').removeClass('is-active');
+        // [v26.1.0] 모든 탭 콘텐츠 숨기기 (클래스만 제거)
+        $container.find('.jj-tab-content').removeClass('is-active').removeAttr('style');
+
         var $targetContent = $container.find('.jj-tab-content[data-tab-content="' + tabId + '"]');
         if ($targetContent.length) {
             $targetContent.addClass('is-active');
@@ -793,7 +796,8 @@ jQuery(document).ready(function($) {
 
     // [v3.8.0 신규] 섹션별 불러오기 버튼
     // 섹션 불러오기 (동적 요소 지원)
-    $(document).on('click', '#jj-style-guide-form .jj-import-section, .jj-import-settings', function(e) {
+    // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+    $(document).on('click', '#jj-style-guide-wrapper .jj-import-section, .jj-import-settings', function(e) {
         e.preventDefault();
         var $button = $(this);
         var sectionType = $button.data('section-type');

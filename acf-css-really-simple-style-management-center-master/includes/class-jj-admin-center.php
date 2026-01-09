@@ -1728,11 +1728,26 @@ final class JJ_Admin_Center {
             }
         }
 
+        // [v26.1.0] 보안 강화: parse_str 대신 안전한 JSON 파싱 우선
         $data = isset( $_POST['data'] ) ? wp_unslash( $_POST['data'] ) : array();
-        // data는 jQuery serialize()로 전송된 문자열일 수 있음
+
         if ( is_string( $data ) ) {
-            parse_str( $data, $parsed_data );
-            $data = $parsed_data;
+            // JSON 형식 우선 시도
+            $json_data = json_decode( $data, true );
+            if ( json_last_error() === JSON_ERROR_NONE && is_array( $json_data ) ) {
+                $data = $json_data;
+            } else {
+                // 레거시 호환: serialize() 형식 (제한적 파싱)
+                $data = $this->safe_parse_form_data( $data );
+            }
+        }
+
+        // 배열이 아니면 거부
+        if ( ! is_array( $data ) ) {
+            wp_send_json_error( array(
+                'message' => __( '잘못된 데이터 형식입니다.', 'acf-css-really-simple-style-management-center' ),
+            ) );
+            return;
         }
 
         // 1. 텍스트 설정 저장
@@ -2018,5 +2033,104 @@ final class JJ_Admin_Center {
         }
 
         wp_send_json_success( array( 'results' => $results ) );
+    }
+
+    /**
+     * [v26.1.0] 안전한 폼 데이터 파싱
+     *
+     * parse_str() 대신 사용하는 안전한 대안
+     * - 허용된 키만 파싱
+     * - 깊이 제한 (3단계)
+     * - 값 sanitization 자동 적용
+     *
+     * @param string $data URL 인코딩된 폼 데이터
+     * @return array 파싱된 데이터
+     */
+    private function safe_parse_form_data( $data ) {
+        $result = array();
+
+        if ( empty( $data ) || ! is_string( $data ) ) {
+            return $result;
+        }
+
+        // 허용된 최상위 키 목록 (화이트리스트)
+        $allowed_keys = array(
+            'jj_admin_texts',
+            'jj_section_layout',
+            'jj_admin_menu_layout',
+            'jj_admin_menu_order',
+            'jj_admin_colors',
+            'jj_license_key',
+            'jj_update_settings',
+        );
+
+        // URL 디코딩 후 파싱
+        $pairs = explode( '&', $data );
+
+        foreach ( $pairs as $pair ) {
+            if ( empty( $pair ) ) {
+                continue;
+            }
+
+            $parts = explode( '=', $pair, 2 );
+            if ( count( $parts ) !== 2 ) {
+                continue;
+            }
+
+            $key = urldecode( $parts[0] );
+            $value = urldecode( $parts[1] );
+
+            // 키 검증 (최상위 키가 화이트리스트에 있는지)
+            $top_key = preg_replace( '/\[.*$/', '', $key );
+            if ( ! in_array( $top_key, $allowed_keys, true ) ) {
+                continue;
+            }
+
+            // 중첩 배열 파싱 (최대 3단계)
+            $this->set_nested_value( $result, $key, $value, 3 );
+        }
+
+        return $result;
+    }
+
+    /**
+     * [v26.1.0] 중첩 배열에 값 설정 (깊이 제한 포함)
+     *
+     * @param array  $array     대상 배열 (참조)
+     * @param string $key       키 문자열 (예: "foo[bar][baz]")
+     * @param mixed  $value     설정할 값
+     * @param int    $max_depth 최대 깊이
+     */
+    private function set_nested_value( &$array, $key, $value, $max_depth = 3 ) {
+        // 키에서 배열 경로 추출
+        preg_match_all( '/([^\[\]]+)/', $key, $matches );
+
+        if ( empty( $matches[1] ) ) {
+            return;
+        }
+
+        $keys = $matches[1];
+
+        // 깊이 제한
+        if ( count( $keys ) > $max_depth ) {
+            $keys = array_slice( $keys, 0, $max_depth );
+        }
+
+        $current = &$array;
+
+        foreach ( $keys as $i => $k ) {
+            $k = sanitize_key( $k );
+
+            if ( $i === count( $keys ) - 1 ) {
+                // 마지막 키: 값 설정
+                $current[ $k ] = sanitize_text_field( $value );
+            } else {
+                // 중간 키: 배열 생성
+                if ( ! isset( $current[ $k ] ) || ! is_array( $current[ $k ] ) ) {
+                    $current[ $k ] = array();
+                }
+                $current = &$current[ $k ];
+            }
+        }
     }
 }

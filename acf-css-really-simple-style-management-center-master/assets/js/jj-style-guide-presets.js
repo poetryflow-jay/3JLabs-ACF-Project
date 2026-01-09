@@ -60,7 +60,8 @@
   function setField(settingKey, value) {
     if (!settingKey) return;
     var v = normalizeHex(value);
-    var $field = $('#jj-style-guide-form').find('[data-setting-key="' + settingKey + '"]');
+    // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경 (폼 요소가 없으므로)
+    var $field = $('#jj-style-guide-wrapper').find('[data-setting-key="' + settingKey + '"]');
     if (!$field.length) return;
 
     $field.val(v).trigger('change');
@@ -68,13 +69,18 @@
     if ($field.closest('.wp-picker-container').length) {
       try { $field.wpColorPicker('color', v); } catch (e) {}
     }
+    // Spectrum.js 색상 피커도 동기화
+    if ($field.data('spectrum-initialized')) {
+      try { $field.spectrum('set', v); } catch (e) {}
+    }
     // 카드 미리보기(기존 DOM)
     var $preview = $field.closest('.jj-control-group').find('.jj-color-preview').first();
     if ($preview.length) $preview.css('background-color', v);
   }
 
   function readField(settingKey, fallback) {
-    var $field = $('#jj-style-guide-form').find('[data-setting-key="' + settingKey + '"]');
+    // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+    var $field = $('#jj-style-guide-wrapper').find('[data-setting-key="' + settingKey + '"]');
     var v = $field.length ? normalizeHex($field.val()) : '';
     return v || normalizeHex(fallback) || '';
   }
@@ -931,7 +937,8 @@
 
       function captureColorSnapshot() {
         var snap = {};
-        $('#jj-style-guide-form').find('.jj-color-field[data-setting-key]').each(function(){
+        // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+        $('#jj-style-guide-wrapper').find('.jj-color-field[data-setting-key]').each(function(){
           var k = $(this).attr('data-setting-key');
           if (!k) return;
           snap[k] = $(this).val();
@@ -978,8 +985,9 @@
         updateInlinePreview();
 
         // 버튼/폼/링크 자동 매핑 (기존 "일괄 적용" 로직 재사용)
+        // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
         if (includeComponents) {
-          var $btn = $('#jj-style-guide-form').find('.jj-apply-brand-palette-to-components').first();
+          var $btn = $('#jj-style-guide-wrapper').find('.jj-apply-brand-palette-to-components').first();
           if ($btn.length) {
             $btn.trigger('click');
           }
@@ -1020,7 +1028,8 @@
     updateInlinePreview();
 
     // 색상 변경 시 미리보기 자동 갱신
-    $('#jj-style-guide-form').on('change input', '.jj-color-field', function(){
+    // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+    $('#jj-style-guide-wrapper').on('change input', '.jj-color-field', function(){
       updateInlinePreview();
     });
   });

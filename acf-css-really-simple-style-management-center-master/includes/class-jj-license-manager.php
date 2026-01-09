@@ -239,6 +239,17 @@ final class JJ_License_Manager {
      * @return array
      */
     public function verify_license( $force_online = false ) {
+        // [v26.1.0] 브루트포스 공격 차단
+        if ( class_exists( 'JJ_Security_Hardener' ) && JJ_Security_Hardener::check_license_brute_force() ) {
+            return array(
+                'valid' => false,
+                'type' => self::TYPE_FREE,
+                'message' => __( '너무 많은 인증 시도가 있었습니다. 잠시 후 다시 시도하세요.', 'acf-css-really-simple-style-management-center' ),
+                'activation_required' => true,
+                'blocked' => true,
+            );
+        }
+
         // 코드 무결성 모니터 확인
         if ( class_exists( 'JJ_Code_Integrity_Monitor' ) ) {
             $monitor = JJ_Code_Integrity_Monitor::instance();
@@ -252,7 +263,7 @@ final class JJ_License_Manager {
                 );
             }
         }
-        
+
         $license_key = $this->get_license_key(); // [Phase 20] 암호화된 키 복호화
         
         if ( empty( $license_key ) ) {
@@ -291,20 +302,34 @@ final class JJ_License_Manager {
         $license_type = $this->parse_license_type( $license_key );
         
         // [v3.8.0] 마스터 버전: 라이센스 발행 관리자에서 상태 확인 (우선순위)
+        // [v26.1.0] 보안 강화: MASTER 모드는 개발 환경에서만 허용, 모든 접근 로깅
         $is_master = false;
-        if ( class_exists( 'JJ_Edition_Controller' ) ) {
-            try {
-                $is_master = JJ_Edition_Controller::instance()->is_at_least( 'master' );
-            } catch ( Exception $e ) {
-                // ignore
-            } catch ( Error $e ) {
-                // ignore
+        $master_access_allowed = $this->is_master_access_allowed();
+
+        if ( $master_access_allowed ) {
+            if ( class_exists( 'JJ_Edition_Controller' ) ) {
+                try {
+                    $is_master = JJ_Edition_Controller::instance()->is_at_least( 'master' );
+                } catch ( Exception $e ) {
+                    $this->log_master_access_attempt( false, 'edition_controller_error', $e->getMessage() );
+                } catch ( Error $e ) {
+                    $this->log_master_access_attempt( false, 'edition_controller_fatal', $e->getMessage() );
+                }
+            } elseif ( defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
+                $is_master = ( 'MASTER' === JJ_STYLE_GUIDE_LICENSE_TYPE );
             }
-        } elseif ( defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) ) {
-            $is_master = ( 'MASTER' === JJ_STYLE_GUIDE_LICENSE_TYPE );
+
+            if ( $is_master ) {
+                $this->log_master_access_attempt( true, 'master_mode_activated' );
+            }
+        } else {
+            // MASTER 모드 접근 시도가 있었지만 환경 조건 미충족
+            if ( defined( 'JJ_STYLE_GUIDE_LICENSE_TYPE' ) && 'MASTER' === JJ_STYLE_GUIDE_LICENSE_TYPE ) {
+                $this->log_master_access_attempt( false, 'environment_not_allowed' );
+            }
         }
 
-        if ( $is_master && class_exists( 'JJ_License_Issuer' ) ) {
+        if ( $is_master && $master_access_allowed && class_exists( 'JJ_License_Issuer' ) ) {
             $issuer = JJ_License_Issuer::instance();
             if ( method_exists( $issuer, 'get_license' ) ) {
                 $issued_license = $issuer->get_license( $license_key );
@@ -578,9 +603,18 @@ final class JJ_License_Manager {
             $result['valid_until'] = $result['expires_timestamp'];
         }
         
-        // valid_until이 여전히 없으면 제한된 기간만 유효
+        // [v26.1.0] valid_until이 여전히 없으면 제한된 기간만 유효 (24시간)
         if ( ! isset( $result['valid_until'] ) ) {
-            $result['valid_until'] = time() + ( 7 * 24 * 60 * 60 ); // 7일만 유효
+            $result['valid_until'] = time() + ( 24 * 60 * 60 ); // 24시간만 유효 (보안 강화)
+        }
+
+        // [v26.1.0] 브루트포스 방지: 성공/실패에 따라 카운터 업데이트
+        if ( class_exists( 'JJ_Security_Hardener' ) ) {
+            if ( isset( $result['valid'] ) && $result['valid'] ) {
+                JJ_Security_Hardener::reset_license_failures();
+            } else {
+                JJ_Security_Hardener::record_license_failure();
+            }
         }
 
         return $result;
@@ -603,12 +637,12 @@ final class JJ_License_Manager {
             }
         }
         
-        // 캐시가 없거나 만료되었으면 라이센스 키 형식만 검증
+        // [v26.1.0] 캐시가 없거나 만료되었으면 라이센스 키 형식만 검증 (24시간 제한)
         return array(
             'valid' => true,
             'type' => $license_type,
-            'message' => __( '오프라인 모드로 실행 중입니다. 온라인 검증이 필요할 수 있습니다.', 'acf-css-really-simple-style-management-center' ),
-            'valid_until' => time() + ( 7 * 24 * 60 * 60 ), // 7일만 유효
+            'message' => __( '오프라인 모드로 실행 중입니다. 24시간 내 온라인 검증이 필요합니다.', 'acf-css-really-simple-style-management-center' ),
+            'valid_until' => time() + ( 24 * 60 * 60 ), // 24시간만 유효 (보안 강화)
             'offline' => true,
         );
     }
@@ -998,5 +1032,209 @@ final class JJ_License_Manager {
             esc_url( $purchase_url ),
             $action_text
         );
+    }
+
+    /**
+     * [v26.1.0] MASTER 모드 접근 허용 여부 확인
+     *
+     * 보안 강화: MASTER 모드는 다음 조건을 모두 충족해야 활성화됨
+     * 1. 개발 환경 (WP_DEBUG 또는 WP_ENVIRONMENT_TYPE === 'development')
+     * 2. 로컬호스트 또는 허용된 IP 대역
+     * 3. wp-config.php에 JJ_MASTER_ACCESS_KEY 상수 정의됨
+     *
+     * @return bool MASTER 모드 접근 허용 여부
+     */
+    private function is_master_access_allowed() {
+        // 조건 1: 개발 환경인지 확인
+        $is_dev_environment = $this->is_development_environment();
+        if ( ! $is_dev_environment ) {
+            return false;
+        }
+
+        // 조건 2: 로컬호스트 또는 허용된 IP 대역인지 확인
+        $is_allowed_ip = $this->is_allowed_ip_address();
+        if ( ! $is_allowed_ip ) {
+            return false;
+        }
+
+        // 조건 3: MASTER 접근 키가 정의되어 있는지 확인
+        if ( ! defined( 'JJ_MASTER_ACCESS_KEY' ) || empty( JJ_MASTER_ACCESS_KEY ) ) {
+            return false;
+        }
+
+        // 조건 4: 접근 키가 유효한 형식인지 확인 (최소 32자 이상)
+        if ( strlen( JJ_MASTER_ACCESS_KEY ) < 32 ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * [v26.1.0] 개발 환경 여부 확인
+     *
+     * @return bool
+     */
+    private function is_development_environment() {
+        // WP_ENVIRONMENT_TYPE 상수 확인 (WordPress 5.5+)
+        if ( function_exists( 'wp_get_environment_type' ) ) {
+            $env_type = wp_get_environment_type();
+            if ( in_array( $env_type, array( 'local', 'development' ), true ) ) {
+                return true;
+            }
+        }
+
+        // WP_DEBUG 확인
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            return true;
+        }
+
+        // JJ_DEV_MODE 확인 (자체 상수)
+        if ( defined( 'JJ_DEV_MODE' ) && JJ_DEV_MODE ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * [v26.1.0] 허용된 IP 주소인지 확인
+     *
+     * @return bool
+     */
+    private function is_allowed_ip_address() {
+        $client_ip = $this->get_client_ip();
+
+        // 로컬호스트 IP 허용
+        $localhost_ips = array( '127.0.0.1', '::1', 'localhost' );
+        if ( in_array( $client_ip, $localhost_ips, true ) ) {
+            return true;
+        }
+
+        // 사설 네트워크 대역 허용 (개발 환경)
+        // 10.x.x.x, 172.16-31.x.x, 192.168.x.x
+        if ( $this->is_private_ip( $client_ip ) ) {
+            return true;
+        }
+
+        // 사용자 정의 허용 IP 목록 확인
+        if ( defined( 'JJ_MASTER_ALLOWED_IPS' ) ) {
+            $allowed_ips = array_map( 'trim', explode( ',', JJ_MASTER_ALLOWED_IPS ) );
+            if ( in_array( $client_ip, $allowed_ips, true ) ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * [v26.1.0] 사설 IP 주소인지 확인
+     *
+     * @param string $ip
+     * @return bool
+     */
+    private function is_private_ip( $ip ) {
+        return filter_var(
+            $ip,
+            FILTER_VALIDATE_IP,
+            FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+        ) === false && filter_var( $ip, FILTER_VALIDATE_IP ) !== false;
+    }
+
+    /**
+     * [v26.1.0] 클라이언트 IP 주소 가져오기
+     *
+     * @return string
+     */
+    private function get_client_ip() {
+        $ip_keys = array(
+            'HTTP_CF_CONNECTING_IP', // Cloudflare
+            'HTTP_X_REAL_IP',
+            'HTTP_X_FORWARDED_FOR',
+            'REMOTE_ADDR',
+        );
+
+        foreach ( $ip_keys as $key ) {
+            if ( isset( $_SERVER[ $key ] ) && ! empty( $_SERVER[ $key ] ) ) {
+                $ip = sanitize_text_field( wp_unslash( $_SERVER[ $key ] ) );
+                // X-Forwarded-For는 첫 번째 IP만 사용
+                if ( strpos( $ip, ',' ) !== false ) {
+                    $ip = trim( explode( ',', $ip )[0] );
+                }
+                if ( filter_var( $ip, FILTER_VALIDATE_IP ) ) {
+                    return $ip;
+                }
+            }
+        }
+
+        return '0.0.0.0';
+    }
+
+    /**
+     * [v26.1.0] MASTER 모드 접근 시도 로깅
+     *
+     * @param bool   $success 성공 여부
+     * @param string $reason  사유
+     * @param string $details 상세 정보 (선택)
+     */
+    private function log_master_access_attempt( $success, $reason, $details = '' ) {
+        $log_entry = array(
+            'timestamp'  => current_time( 'mysql' ),
+            'success'    => $success,
+            'reason'     => sanitize_key( $reason ),
+            'ip'         => $this->get_client_ip(),
+            'user_id'    => get_current_user_id(),
+            'user_agent' => isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '',
+            'details'    => sanitize_text_field( $details ),
+        );
+
+        // Transient로 최근 로그 저장 (최대 100개)
+        $logs = get_transient( 'jj_master_access_logs' );
+        if ( ! is_array( $logs ) ) {
+            $logs = array();
+        }
+
+        array_unshift( $logs, $log_entry );
+        $logs = array_slice( $logs, 0, 100 );
+
+        set_transient( 'jj_master_access_logs', $logs, WEEK_IN_SECONDS );
+
+        // JJ_Security_Hardener가 있으면 그쪽에도 로깅
+        if ( class_exists( 'JJ_Security_Hardener' ) && method_exists( 'JJ_Security_Hardener', 'log_security_event' ) ) {
+            JJ_Security_Hardener::log_security_event(
+                $success ? 'master_access_granted' : 'master_access_denied',
+                $log_entry
+            );
+        }
+
+        // 실패한 시도는 error_log에도 기록
+        if ( ! $success && ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ) {
+            error_log( sprintf(
+                'JJ License Manager: MASTER access denied - Reason: %s, IP: %s, User: %d',
+                $reason,
+                $log_entry['ip'],
+                $log_entry['user_id']
+            ) );
+        }
+    }
+
+    /**
+     * [v26.1.0] MASTER 접근 로그 조회 (관리자용)
+     *
+     * @param int $limit 조회할 로그 수
+     * @return array
+     */
+    public function get_master_access_logs( $limit = 50 ) {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return array();
+        }
+
+        $logs = get_transient( 'jj_master_access_logs' );
+        if ( ! is_array( $logs ) ) {
+            return array();
+        }
+
+        return array_slice( $logs, 0, $limit );
     }
 }

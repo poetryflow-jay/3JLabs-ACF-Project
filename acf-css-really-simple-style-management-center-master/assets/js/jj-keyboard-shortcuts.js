@@ -61,9 +61,10 @@
                                 $saveBtn.trigger('click');
                             }
                         }
-                    } else if ($('#jj-style-guide-form').length) {
+                    } else if ($('#jj-style-guide-wrapper').length) {
+                        // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
                         // 스타일 가이드 에디터 저장 버튼 클릭
-                        const $saveBtn = $('#jj-style-guide-form').find('.jj-save-button, button[type="submit"]');
+                        const $saveBtn = $('#jj-style-guide-wrapper').find('.jj-save-button, #jj-save-style-guide');
                         if ($saveBtn.length && !$saveBtn.prop('disabled')) {
                             $saveBtn.trigger('click');
                         }
@@ -778,7 +779,8 @@
             }
             
             // 관련 페이지에서만 표시
-            const isRelevantPage = $('.jj-admin-center-wrap, #jj-style-guide-form, .jj-labs-center-wrap').length > 0;
+            // [v26.1.0] #jj-style-guide-form → #jj-style-guide-wrapper 변경
+            const isRelevantPage = $('.jj-admin-center-wrap, #jj-style-guide-wrapper, .jj-labs-center-wrap').length > 0;
             if (!isRelevantPage) {
                 return;
             }

@@ -3,7 +3,7 @@ Contributors: 3jlabs, jay, jason, jenny
 Tags: css, styles, typography, colors, fonts, design system, gutenberg, elementor, figma
 Requires at least: 5.8
 Tested up to: 6.4
-Stable tag: 23.0.2
+Stable tag: 26.2.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -61,6 +61,10 @@ WordPress 웹사이트의 모든 스타일 요소를 중앙에서 일관되게 �
 5. Figma 연동
 
 == Changelog ==
+
+= 26.2.1 (2026-01-09) =
+* 🛠️ UI 버그 수정: 스타일 센터 탭 전환, 프리셋 적용, 저장 버튼 문제 완벽 해결
+* ⚡ 성능 개선: 불필요한 인라인 스크립트 제거 및 CSS 최적화
 
 = 23.0.2 (2026-01-04) =
 * 🔧 스타일 센터 섹션 표시 문제 수정

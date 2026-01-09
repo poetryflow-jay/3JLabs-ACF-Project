@@ -113,7 +113,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         </div>
 
         <?php if ( $tab_enabled_brand ) : ?>
-        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'brand' ) ? 'is-active' : ''; ?>" data-tab-content="brand" style="<?php echo ( $first_enabled_tab === 'brand' ) ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;' : 'display: none !important;'; ?>">
+        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'brand' ) ? 'is-active' : ''; ?>" data-tab-content="brand">
             <!-- [v22.4.7] 퀵 네비게이션 (탭 내부 섹션 바로가기) -->
             <div class="jj-tab-quick-nav" style="margin-bottom: 20px;">
                 <ul class="jj-tab-quick-nav-list">
@@ -260,7 +260,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         <?php endif; ?>
 
         <?php if ( $tab_enabled_system ) : ?>
-        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'system' ) ? 'is-active' : ''; ?>" data-tab-content="system" style="<?php echo ( $first_enabled_tab === 'system' ) ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;' : 'display: none !important;'; ?>">
+        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'system' ) ? 'is-active' : ''; ?>" data-tab-content="system">
             <?php if ( ! $version_features || $version_features->can_use_section_refresh() ) : ?>
             <div class="jj-section-refresh-control" style="margin-bottom: 20px; padding: 15px; background: #f0f6fc; border: 1px solid #c3c4c7; border-radius: 4px;">
                 <button type="button" class="button button-secondary jj-refresh-colors" data-palette-type="system" style="margin-bottom: 8px;">
@@ -382,7 +382,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         <?php endif; ?>
 
         <?php if ( $tab_enabled_alternative ) : ?>
-        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'alternative' ) ? 'is-active' : ''; ?>" data-tab-content="alternative" style="<?php echo ( $first_enabled_tab === 'alternative' ) ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;' : 'display: none !important;'; ?>">
+        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'alternative' ) ? 'is-active' : ''; ?>" data-tab-content="alternative">
             <?php
             // 브랜드/시스템 팔레트 값 가져오기
             $brand_palettes = $options['palettes']['brand'] ?? array();
@@ -566,7 +566,7 @@ if ( function_exists( 'jj_style_guide_sections_layout' ) ) {
         <?php endif; ?>
         
         <?php if ( $tab_enabled_another ) : ?>
-        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'another' ) ? 'is-active' : ''; ?>" data-tab-content="another" style="<?php echo ( $first_enabled_tab === 'another' ) ? 'display: block !important; opacity: 1 !important; visibility: visible !important; height: auto !important; position: relative !important; z-index: 1 !important;' : 'display: none !important;'; ?>">
+        <div class="jj-tab-content <?php echo ( $first_enabled_tab === 'another' ) ? 'is-active' : ''; ?>" data-tab-content="another">
             <?php
             $another_palettes = $options['palettes']['another'] ?? array();
             ?>
